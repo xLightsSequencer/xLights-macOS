@@ -462,7 +462,6 @@
 		671656CC25D834130041BB9A /* xcapture.mac.properties in Resources */ = {isa = PBXBuildFile; fileRef = 671656C925D834130041BB9A /* xcapture.mac.properties */; };
 		671656DD25D835790041BB9A /* xfade.mac.properties in Resources */ = {isa = PBXBuildFile; fileRef = 671656DA25D835780041BB9A /* xfade.mac.properties */; };
 		671656DE25D835790041BB9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 671656DB25D835780041BB9A /* Assets.xcassets */; };
-		671656DF25D835790041BB9A /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 671656DC25D835780041BB9A /* Info.plist */; };
 		671C0BCD1C245E230098A48D /* libwx_osx_cocoau_qa-3.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 671C0BCC1C245E230098A48D /* libwx_osx_cocoau_qa-3.1.dylib */; };
 		67290004255303D500C83C71 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67290003255303D500C83C71 /* VideoToolbox.framework */; };
 		672900082553040000C83C71 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B4C91F17B53D960006B951 /* CoreMedia.framework */; };
@@ -1352,10 +1351,10 @@
 		6716554925D8245E0041BB9A /* Binasc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Binasc.cpp; sourceTree = "<group>"; };
 		6716554A25D8245E0041BB9A /* MidiEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MidiEvent.cpp; sourceTree = "<group>"; };
 		6716554C25D8245E0041BB9A /* MidiFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MidiFile.cpp; sourceTree = "<group>"; };
-		6716555B25D8249D0041BB9A /* wxLED.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wxLED.h; path = xLights/xFade/wxLED.h; sourceTree = "<group>"; };
-		6716555C25D8249D0041BB9A /* wxLED.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wxLED.cpp; path = xLights/xFade/wxLED.cpp; sourceTree = "<group>"; };
-		6716556225D824F80041BB9A /* md5.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md5.cpp; path = xLights/xSchedule/md5.cpp; sourceTree = "<group>"; };
-		6716556325D824F80041BB9A /* md5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md5.h; path = xLights/xSchedule/md5.h; sourceTree = "<group>"; };
+		6716555B25D8249D0041BB9A /* wxLED.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wxLED.h; path = ../xFade/wxLED.h; sourceTree = "<group>"; };
+		6716555C25D8249D0041BB9A /* wxLED.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wxLED.cpp; path = ../xFade/wxLED.cpp; sourceTree = "<group>"; };
+		6716556225D824F80041BB9A /* md5.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md5.cpp; path = ../xSchedule/md5.cpp; sourceTree = "<group>"; };
+		6716556325D824F80041BB9A /* md5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md5.h; path = ../xSchedule/md5.h; sourceTree = "<group>"; };
 		6716556A25D825410041BB9A /* vamp-hostsdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "vamp-hostsdk.h"; sourceTree = "<group>"; };
 		6716556C25D825410041BB9A /* PluginWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PluginWrapper.cpp; sourceTree = "<group>"; };
 		6716556D25D825410041BB9A /* PluginInputDomainAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluginInputDomainAdapter.h; sourceTree = "<group>"; };
@@ -1402,17 +1401,17 @@
 		671655CB25D827650041BB9A /* _kiss_fft_guts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _kiss_fft_guts.h; sourceTree = "<group>"; };
 		671655CC25D827650041BB9A /* kiss_fft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kiss_fft.h; sourceTree = "<group>"; };
 		671655CD25D827650041BB9A /* kissfft.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = kissfft.hh; sourceTree = "<group>"; };
-		6716566F25D829140041BB9A /* palettes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = palettes; path = xLights/palettes; sourceTree = "<group>"; };
-		6716567425D829270041BB9A /* valuecurves */ = {isa = PBXFileReference; lastKnownFileType = folder; name = valuecurves; path = xLights/valuecurves; sourceTree = "<group>"; };
-		6716567525D829270041BB9A /* controllers */ = {isa = PBXFileReference; lastKnownFileType = folder; name = controllers; path = xLights/controllers; sourceTree = "<group>"; };
-		6716567625D829270041BB9A /* meshobjects */ = {isa = PBXFileReference; lastKnownFileType = folder; name = meshobjects; path = xLights/meshobjects; sourceTree = "<group>"; };
-		6716567725D829270041BB9A /* colorcurves */ = {isa = PBXFileReference; lastKnownFileType = folder; name = colorcurves; path = xLights/colorcurves; sourceTree = "<group>"; };
+		6716566F25D829140041BB9A /* palettes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = palettes; path = ../palettes; sourceTree = "<group>"; };
+		6716567425D829270041BB9A /* valuecurves */ = {isa = PBXFileReference; lastKnownFileType = folder; name = valuecurves; path = ../valuecurves; sourceTree = "<group>"; };
+		6716567525D829270041BB9A /* controllers */ = {isa = PBXFileReference; lastKnownFileType = folder; name = controllers; path = ../controllers; sourceTree = "<group>"; };
+		6716567625D829270041BB9A /* meshobjects */ = {isa = PBXFileReference; lastKnownFileType = folder; name = meshobjects; path = ../meshobjects; sourceTree = "<group>"; };
+		6716567725D829270041BB9A /* colorcurves */ = {isa = PBXFileReference; lastKnownFileType = folder; name = colorcurves; path = ../colorcurves; sourceTree = "<group>"; };
 		6716567F25D829790041BB9A /* xlights.mac.properties */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = xlights.mac.properties; path = Assets/xLights/xlights.mac.properties; sourceTree = "<group>"; };
 		6716568025D829790041BB9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Assets/xLights/Images.xcassets; sourceTree = "<group>"; };
-		6716568625D829B90041BB9A /* extended_dictionary */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = extended_dictionary; path = xLights/bin/extended_dictionary; sourceTree = "<group>"; };
-		6716568725D829B90041BB9A /* standard_dictionary */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = standard_dictionary; path = xLights/bin/standard_dictionary; sourceTree = "<group>"; };
-		6716568825D829B90041BB9A /* phoneme_mapping */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = phoneme_mapping; path = xLights/bin/phoneme_mapping; sourceTree = "<group>"; };
-		6716568925D829B90041BB9A /* user_dictionary */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = user_dictionary; path = xLights/bin/user_dictionary; sourceTree = "<group>"; };
+		6716568625D829B90041BB9A /* extended_dictionary */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = extended_dictionary; path = ../bin/extended_dictionary; sourceTree = "<group>"; };
+		6716568725D829B90041BB9A /* standard_dictionary */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = standard_dictionary; path = ../bin/standard_dictionary; sourceTree = "<group>"; };
+		6716568825D829B90041BB9A /* phoneme_mapping */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = phoneme_mapping; path = ../bin/phoneme_mapping; sourceTree = "<group>"; };
+		6716568925D829B90041BB9A /* user_dictionary */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = user_dictionary; path = ../bin/user_dictionary; sourceTree = "<group>"; };
 		671656A225D82D1D0041BB9A /* osxInAppPurchases.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = osxInAppPurchases.mm; sourceTree = "<group>"; };
 		671656A325D82D1D0041BB9A /* TouchBars.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TouchBars.mm; sourceTree = "<group>"; };
 		671656A425D82D1D0041BB9A /* xlVideoToolboxUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = xlVideoToolboxUtils.mm; sourceTree = "<group>"; };
@@ -1960,7 +1959,7 @@
 				67164D0E25D7CE6D0041BB9A /* xlSlider.h */,
 			);
 			name = xLights;
-			path = xLights/xLights;
+			path = ../xLights;
 			sourceTree = "<group>";
 		};
 		67164BEF25D7CE6D0041BB9A /* preferences */ = {
@@ -2532,7 +2531,7 @@
 				6716552E25D823C60041BB9A /* json_defs.h */,
 			);
 			name = wxJSON;
-			path = xLights/xSchedule/wxJSON;
+			path = ../xSchedule/wxJSON;
 			sourceTree = "<group>";
 		};
 		6716553F25D8245E0041BB9A /* MIDI */ = {
@@ -2619,7 +2618,7 @@
 				6716557C25D825410041BB9A /* Window.h */,
 			);
 			name = "vamp-hostsdk";
-			path = "xLights/xLights/vamp-hostsdk";
+			path = "../xLights/vamp-hostsdk";
 			sourceTree = "<group>";
 		};
 		671655BD25D827650041BB9A /* kiss_fft */ = {
@@ -2632,7 +2631,7 @@
 				671655CD25D827650041BB9A /* kissfft.hh */,
 			);
 			name = kiss_fft;
-			path = xLights/xLights/kiss_fft;
+			path = ../xLights/kiss_fft;
 			sourceTree = "<group>";
 		};
 		671655BF25D827650041BB9A /* tools */ = {
@@ -2922,7 +2921,6 @@
 			files = (
 				671656DE25D835790041BB9A /* Assets.xcassets in Resources */,
 				671656DD25D835790041BB9A /* xfade.mac.properties in Resources */,
-				671656DF25D835790041BB9A /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3476,7 +3474,7 @@
 				CURRENT_PROJECT_VERSION = 200260;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = NO;
-				INFOPLIST_FILE = xFade/Info.plist;
+				INFOPLIST_FILE = Assets/xFade/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3502,7 +3500,7 @@
 				CURRENT_PROJECT_VERSION = 200260;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
-				INFOPLIST_FILE = xFade/Info.plist;
+				INFOPLIST_FILE = Assets/xFade/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3524,14 +3522,14 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "-";
-				CURRENT_PROJECT_VERSION = 200260;
+				CURRENT_PROJECT_VERSION = 210090;
 				ENABLE_HARDENED_RUNTIME = NO;
-				INFOPLIST_FILE = xCapture/Info.plist;
+				INFOPLIST_FILE = Assets/xCapture/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/opt/local/libdbg,
 				);
-				MARKETING_VERSION = 2020.26;
+				MARKETING_VERSION = 2021.09;
 				PRODUCT_BUNDLE_IDENTIFIER = org.xlights.xCapture;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -3543,14 +3541,14 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = Assets/xCapture/xCapture.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CURRENT_PROJECT_VERSION = 200260;
+				CURRENT_PROJECT_VERSION = 210090;
 				ENABLE_HARDENED_RUNTIME = YES;
-				INFOPLIST_FILE = xCapture/Info.plist;
+				INFOPLIST_FILE = Assets/xCapture/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/opt/local/lib,
 				);
-				MARKETING_VERSION = 2020.26;
+				MARKETING_VERSION = 2021.09;
 				OTHER_CODE_SIGN_FLAGS = "--timestamp";
 				PRODUCT_BUNDLE_IDENTIFIER = org.xlights.xCapture;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3613,10 +3611,9 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = (
-					xLights/,
-					xLights/xLights,
-					xLights/include,
-					"xLights/xLights/ffmpeg-dev/include/",
+					../xLights,
+					../include,
+					"../xLights/ffmpeg-dev/include/",
 					/opt/local/include,
 				);
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
@@ -3708,10 +3705,9 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = (
-					xLights/,
-					xLights/xLights,
-					xLights/include,
-					"xLights/xLights/ffmpeg-dev/include/",
+					../xLights,
+					../include,
+					"../xLights/ffmpeg-dev/include/",
 					/opt/local/include,
 				);
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
@@ -3873,10 +3869,9 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = (
-					xLights/,
-					xLights/xLights,
-					xLights/include,
-					"xLights/xLights/ffmpeg-dev/include/",
+					../xLights,
+					../include,
+					"../xLights/ffmpeg-dev/include/",
 					/opt/local/include,
 				);
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
@@ -3961,14 +3956,14 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = Assets/xCapture/xCapture.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CURRENT_PROJECT_VERSION = 200260;
+				CURRENT_PROJECT_VERSION = 210090;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = xCapture/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/opt/local/lib,
 				);
-				MARKETING_VERSION = 2020.26;
+				MARKETING_VERSION = 2021.09;
 				OTHER_CODE_SIGN_FLAGS = "--timestamp";
 				PRODUCT_BUNDLE_IDENTIFIER = org.xlights.xCapture;
 				PRODUCT_NAME = "$(TARGET_NAME)";

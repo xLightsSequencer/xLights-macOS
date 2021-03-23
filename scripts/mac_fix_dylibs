@@ -6,10 +6,10 @@
 
 
 SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-if [ -f "${SCRIPTDIR}/../xLights/xLights/xlights_build_version.h" ]; then
-    XLVERSION=$(grep xlights_version_string ${SCRIPTDIR}/../xLights/xLights/xlights_build_version.h | tr "\"" "\n" | grep 20)
+if [ -f "${SCRIPTDIR}/../../xLights/xlights_build_version.h" ]; then
+    XLVERSION=$(grep xlights_version_string ${SCRIPTDIR}/../../xLights/xlights_build_version.h | tr "\"" "\n" | grep 20)
 else
-    XLVERSION=$(grep xlights_version_string ${SCRIPTDIR}/../xLights/xLights/xLightsVersion.h | tr "\"" "\n" | grep 20)
+    XLVERSION=$(grep xlights_version_string ${SCRIPTDIR}/../../xLights/xLightsVersion.h | tr "\"" "\n" | grep 20)
 fi
 
 # iff need to manually force a version number
