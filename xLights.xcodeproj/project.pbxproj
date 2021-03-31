@@ -508,6 +508,12 @@
 		67A14C8F20DD49C1006EFCFA /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7720DD313D006EFCFA /* Carbon.framework */; };
 		67A14C9020DD49C7006EFCFA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C8320DD336E006EFCFA /* libz.tbd */; };
 		67A14C9120DD49CE006EFCFA /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7D20DD324D006EFCFA /* libiconv.tbd */; };
+		67A889C62614FB2300BFCEC0 /* STLWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67A889BD2614FB2200BFCEC0 /* STLWriter.cpp */; };
+		67A889C72614FB2300BFCEC0 /* DXFWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67A889BE2614FB2200BFCEC0 /* DXFWriter.cpp */; };
+		67A889C82614FB2300BFCEC0 /* VRMLWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67A889C02614FB2300BFCEC0 /* VRMLWriter.cpp */; };
+		67A889C92614FB2300BFCEC0 /* CADWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67A889C12614FB2300BFCEC0 /* CADWriter.cpp */; };
+		67A889CA2614FB2300BFCEC0 /* ModelToCAD.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67A889C32614FB2300BFCEC0 /* ModelToCAD.cpp */; };
+		67A889CB2614FB2300BFCEC0 /* CADModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67A889C52614FB2300BFCEC0 /* CADModel.cpp */; };
 		67C7E283215E596000AE0775 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B6F3422040FBB600B847E0 /* CoreAudio.framework */; };
 		67D9B0A81D42A9BA005367DB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67E7087017B51AB400A22034 /* Cocoa.framework */; };
 /* End PBXBuildFile section */
@@ -1462,6 +1468,19 @@
 		67A14C8120DD3345006EFCFA /* libSystem.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libSystem.tbd; path = usr/lib/libSystem.tbd; sourceTree = SDKROOT; };
 		67A14C8320DD336E006EFCFA /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		67A14C8520DD337E006EFCFA /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		67A889B92614FB2200BFCEC0 /* STLWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STLWriter.h; sourceTree = "<group>"; };
+		67A889BA2614FB2200BFCEC0 /* DXFWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DXFWriter.h; sourceTree = "<group>"; };
+		67A889BB2614FB2200BFCEC0 /* ModelToCAD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelToCAD.h; sourceTree = "<group>"; };
+		67A889BC2614FB2200BFCEC0 /* CADWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADWriter.h; sourceTree = "<group>"; };
+		67A889BD2614FB2200BFCEC0 /* STLWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = STLWriter.cpp; sourceTree = "<group>"; };
+		67A889BE2614FB2200BFCEC0 /* DXFWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DXFWriter.cpp; sourceTree = "<group>"; };
+		67A889BF2614FB2300BFCEC0 /* CADPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADPoint.h; sourceTree = "<group>"; };
+		67A889C02614FB2300BFCEC0 /* VRMLWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VRMLWriter.cpp; sourceTree = "<group>"; };
+		67A889C12614FB2300BFCEC0 /* CADWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CADWriter.cpp; sourceTree = "<group>"; };
+		67A889C22614FB2300BFCEC0 /* CADModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADModel.h; sourceTree = "<group>"; };
+		67A889C32614FB2300BFCEC0 /* ModelToCAD.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModelToCAD.cpp; sourceTree = "<group>"; };
+		67A889C42614FB2300BFCEC0 /* VRMLWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VRMLWriter.h; sourceTree = "<group>"; };
+		67A889C52614FB2300BFCEC0 /* CADModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CADModel.cpp; sourceTree = "<group>"; };
 		67B4C91F17B53D960006B951 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		67B4C92017B53D960006B951 /* CoreMediaIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMediaIO.framework; path = System/Library/Frameworks/CoreMediaIO.framework; sourceTree = SDKROOT; };
 		67B4C92117B53D960006B951 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -1610,6 +1629,7 @@
 		67164BC525D7CE6D0041BB9A /* xLights */ = {
 			isa = PBXGroup;
 			children = (
+				67F14B062612B89C004CD9C8 /* cad */,
 				67164C4D25D7CE6D0041BB9A /* AboutDialog.cpp */,
 				67164D1125D7CE6D0041BB9A /* AboutDialog.h */,
 				67164D1925D7CE6D0041BB9A /* AlignmentDialog.cpp */,
@@ -2784,6 +2804,26 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
+		67F14B062612B89C004CD9C8 /* cad */ = {
+			isa = PBXGroup;
+			children = (
+				67A889C52614FB2300BFCEC0 /* CADModel.cpp */,
+				67A889C22614FB2300BFCEC0 /* CADModel.h */,
+				67A889BF2614FB2300BFCEC0 /* CADPoint.h */,
+				67A889C12614FB2300BFCEC0 /* CADWriter.cpp */,
+				67A889BC2614FB2200BFCEC0 /* CADWriter.h */,
+				67A889BE2614FB2200BFCEC0 /* DXFWriter.cpp */,
+				67A889BA2614FB2200BFCEC0 /* DXFWriter.h */,
+				67A889C32614FB2300BFCEC0 /* ModelToCAD.cpp */,
+				67A889BB2614FB2200BFCEC0 /* ModelToCAD.h */,
+				67A889BD2614FB2200BFCEC0 /* STLWriter.cpp */,
+				67A889B92614FB2200BFCEC0 /* STLWriter.h */,
+				67A889C02614FB2300BFCEC0 /* VRMLWriter.cpp */,
+				67A889C42614FB2300BFCEC0 /* VRMLWriter.h */,
+			);
+			path = cad;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -3107,6 +3147,7 @@
 				6716516725D7CE700041BB9A /* VAMPPluginDialog.cpp in Sources */,
 				6716539525D7CE720041BB9A /* SerialOutput.cpp in Sources */,
 				671653AA25D7CE720041BB9A /* DimmingCurvePanel.cpp in Sources */,
+				67A889C62614FB2300BFCEC0 /* STLWriter.cpp in Sources */,
 				6716538C25D7CE720041BB9A /* KinetOutput.cpp in Sources */,
 				671651B325D7CE700041BB9A /* SpinnerModel.cpp in Sources */,
 				6716559C25D825410041BB9A /* PluginInputDomainAdapter.cpp in Sources */,
@@ -3218,6 +3259,7 @@
 				6716513825D7CE700041BB9A /* ColorManagerSettingsPanel.cpp in Sources */,
 				6716539C25D7CE720041BB9A /* OPCOutput.cpp in Sources */,
 				6716512B25D7CE700041BB9A /* ColorCurve.cpp in Sources */,
+				67A889C82614FB2300BFCEC0 /* VRMLWriter.cpp in Sources */,
 				671653A325D7CE720041BB9A /* LOROptimisedOutput.cpp in Sources */,
 				6716534125D7CE710041BB9A /* SpiralsEffect.cpp in Sources */,
 				6716514C25D7CE700041BB9A /* Parallel.cpp in Sources */,
@@ -3267,6 +3309,7 @@
 				6716535C25D7CE720041BB9A /* FireworksEffect.cpp in Sources */,
 				6716532625D7CE710041BB9A /* TwinklePanel.cpp in Sources */,
 				671651FA25D7CE700041BB9A /* EffectLayer.cpp in Sources */,
+				67A889CA2614FB2300BFCEC0 /* ModelToCAD.cpp in Sources */,
 				6716519C25D7CE700041BB9A /* DmxFloodlight.cpp in Sources */,
 				671651C525D7CE700041BB9A /* xlLockButton.cpp in Sources */,
 				671651ED25D7CE700041BB9A /* SequenceVideoPreview.cpp in Sources */,
@@ -3407,6 +3450,7 @@
 				6716555025D8245E0041BB9A /* Binasc.cpp in Sources */,
 				671653AC25D7CE720041BB9A /* DragColoursBitmapButton.cpp in Sources */,
 				671651E825D7CE700041BB9A /* ValueCurvesPanel.cpp in Sources */,
+				67A889C92614FB2300BFCEC0 /* CADWriter.cpp in Sources */,
 				6716514E25D7CE700041BB9A /* EffectTimingDialog.cpp in Sources */,
 				6716532A25D7CE710041BB9A /* ServoPanel.cpp in Sources */,
 				671653AF25D7CE720041BB9A /* LyricUserDictDialog.cpp in Sources */,
@@ -3446,6 +3490,7 @@
 				6716555D25D8249D0041BB9A /* wxLED.cpp in Sources */,
 				6716518325D7CE700041BB9A /* SequencePackage.cpp in Sources */,
 				6716537D25D7CE720041BB9A /* WebSocketClient.cpp in Sources */,
+				67A889CB2614FB2300BFCEC0 /* CADModel.cpp in Sources */,
 				6716531025D7CE710041BB9A /* OnPanel.cpp in Sources */,
 				6716539425D7CE720041BB9A /* DMXOutput.cpp in Sources */,
 				671652B825D7CE710041BB9A /* TraceLog.cpp in Sources */,
@@ -3456,6 +3501,7 @@
 				671651FE25D7CE700041BB9A /* Waveform.cpp in Sources */,
 				6716512D25D7CE700041BB9A /* LayoutGroup.cpp in Sources */,
 				6716532325D7CE710041BB9A /* ServoEffect.cpp in Sources */,
+				67A889C72614FB2300BFCEC0 /* DXFWriter.cpp in Sources */,
 				6716533925D7CE710041BB9A /* SpirographEffect.cpp in Sources */,
 				6716518F25D7CE700041BB9A /* WreathModel.cpp in Sources */,
 			);

@@ -203,17 +203,17 @@ git clone https://git.ffmpeg.org/ffmpeg.git
 cd ffmpeg
 git checkout n4.3.2
 ./configure --disable-asm --disable-x86asm --enable-static --disable-shared --disable-securetransport --extra-cflags="${OSX_VERSION_MIN}" --disable-indev=lavfi --disable-libx264 --disable-lzma --enable-gpl --enable-opengl --disable-programs
-sed -i -e "s/^CFLAGS=/CFLAGS=-g -O3 ${XL_TARGETS} /" ffbuild/config.mak
-sed -i -e "s/^CXXFLAGS=/CXXFLAGS=-g -O3 ${XL_TARGETS} /" ffbuild/config.mak
-sed -i -e "s/^LDFLAGS=/LDFLAGS=-g -O3 ${XL_TARGETS} /" ffbuild/config.mak
+sed -i -e "s/^CFLAGS=/CFLAGS=-g -O3 ${XL_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak
+sed -i -e "s/^CXXFLAGS=/CXXFLAGS=-g -O3 ${XL_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak
+sed -i -e "s/^LDFLAGS=/LDFLAGS=-g -O3 ${XL_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak
 make clean
 make -j 16
 find . -name "*.a" -exec cp {} /opt/local/lib/ \;
 make clean
-./configure --disable-asm --disable-x86asm --enable-static --disable-shared --disable-securetransport --extra-cflags="${OSX_VERSION_MIN}" --disable-indev=lavfi --disable-libx264 --disable-lzma --enable-gpl --enable-opengl --disable-programs
-sed -i -e "s/^CFLAGS=/CFLAGS=-g ${XL_TARGETS} /" ffbuild/config.mak
-sed -i -e "s/^CXXFLAGS=/CXXFLAGS=-g ${XL_TARGETS} /" ffbuild/config.mak
-sed -i -e "s/^LDFLAGS=/LDFLAGS=-g ${XL_TARGETS} /" ffbuild/config.mak
+./configure --disable-asm --disable-x86asm --enable-static --disable-shared --disable-securetransport --extra-cflags="${OSX_VERSION_MIN}" --disable-indev=lavfi --disable-libx264 --disable-lzma --enable-gpl --enable-opengl --disable-programs --disable-optimizations
+sed -i -e "s/^CFLAGS=/CFLAGS=-g ${XL_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak
+sed -i -e "s/^CXXFLAGS=/CXXFLAGS=-g ${XL_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak
+sed -i -e "s/^LDFLAGS=/LDFLAGS=-g ${XL_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak
 make -j 8
 find . -name "*.a" -exec cp {} /opt/local/libdbg/ \;
 
@@ -286,3 +286,5 @@ July 16, 2020 - tag: xlights_2020.29 - Update to prepare for moving to wxWidgets
 Oct  6, 2020 - tag: xlights_2020.41 - Fixes some Big Sur issues with fonts, colors
 Dec 18, 2020 - tag: xlights_2020.56 - Fixes some make install things in wxwidgets, some osx graphics memory leaks, font handle leaks, various colors
 Dec 21, 2020 - tag: xlights_2020.56b - Fixes potential crash when calling append/insert on wxCheckListBox
+Mar 18, 2020 - tag: xlights_2020.09 - close to wxWidgets 3.1.5
+Mar 18, 2020 - Move to macOS 10.12 as minimum
