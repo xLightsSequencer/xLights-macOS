@@ -54,12 +54,7 @@
 - (IBAction)buttonClicked:(id)sender
 {
     NSColor *c = [_item color];
-    xlColor xlc;
-    xlc.red = c.redComponent * 255.0;
-    xlc.green = c.greenComponent * 255.0;
-    xlc.blue = c.blueComponent * 255.0;
-    xlc.alpha = c.alphaComponent * 255.0;
-    
+    wxColor xlc(c);
     _button->GetCallback()(xlc);
 }
 @end
@@ -164,9 +159,8 @@
         ret.view = theButton;
         ret.customizationLabel = nm;
         
-        if (item->GetBackgroundColor().alpha > 0) {
-            xlColor c = item->GetBackgroundColor();
-            theButton.bezelColor = c.asWxColor().OSXGetNSColor();
+        if (item->GetBackgroundColor().Alpha() > 0) {
+            theButton.bezelColor = item->GetBackgroundColor().OSXGetNSColor();
         }
         
         return ret;

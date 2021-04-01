@@ -13,9 +13,7 @@
 #include <wx/menu.h>
 #include <wx/colour.h>
 #include <wx/app.h>
-
-#include "xlGLCanvas.h"
-#include "osxMacUtils.h"
+#include <wx/glcanvas.h>
 
 #include <list>
 #include <set>
@@ -24,7 +22,7 @@
 #include <CoreAudio/CoreAudio.h>
 #include <CoreServices/CoreServices.h>
 
-#include "AudioManager.h"
+#include "ExternalHooksMacOS.h"
 
 static std::set<std::string> ACCESSIBLE_URLS;
 static std::mutex URL_LOCK;
@@ -173,7 +171,6 @@ bool ObtainAccessToURL(const std::string &path) {
 
 double xlOSGetMainScreenContentScaleFactor()
 {
-    
     double displayScale = 1.0;
     NSArray *screens = [NSScreen screens];
     for (int i = 0; i < [screens count]; i++) {
@@ -182,9 +179,6 @@ double xlOSGetMainScreenContentScaleFactor()
             displayScale = s;
     }
     return displayScale;
-}
-double xlOSXGetMainScreenContentScaleFactor() {
-    return xlOSGetMainScreenContentScaleFactor();
 }
 
 #define WX_IS_MACOS_AVAILABLE(major, minor) \
@@ -207,7 +201,7 @@ private:
     void * formerAppearance;
 };
 
-void AdjustColorToDeviceColorspace(const wxColor &c, xlColor &xlc) {
+void AdjustColorToDeviceColorspace(const wxColor &c, uint8_t &r1, uint8_t &g1, uint8_t &b1, uint8_t &a1) {
     xlOSXEffectiveAppearanceSetter helper;
     NSColor *nc = c.OSXGetNSColor();
     NSColor *ncrgbd = [nc colorUsingColorSpaceName:NSDeviceRGBColorSpace];
@@ -217,15 +211,13 @@ void AdjustColorToDeviceColorspace(const wxColor &c, xlColor &xlc) {
     float b = [ncrgbd blueComponent] * 255;
     float a = [ncrgbd alphaComponent] * 255;
 
-    xlc.Set(r, g, b, a);
+    r1 = r;
+    g1 = g;
+    b1 = b;
+    a1 = a;
 }
 
-void xlSetOpenGLRetina(xlGLCanvas &win) {
-    NSOpenGLView *glView = (NSOpenGLView*)win.GetHandle();
-    [glView setWantsBestResolutionOpenGLSurface:YES];
-}
-
-void xlSetRetinaCanvasViewport(xlGLCanvas &win, int &x, int &y, int &x2, int&y2) {
+void xlSetRetinaCanvasViewport(wxGLCanvas &win, int &x, int &y, int &x2, int&y2) {
     NSOpenGLView *glView = (NSOpenGLView*)win.GetHandle();
     
     NSPoint pt;
@@ -242,7 +234,7 @@ void xlSetRetinaCanvasViewport(xlGLCanvas &win, int &x, int &y, int &x2, int&y2)
     y2 = pt2.y;
 }
 
-double xlTranslateToRetina(xlGLCanvas &win, double x) {
+double xlTranslateToRetina(wxGLCanvas &win, double x) {
     NSOpenGLView *glView = (NSOpenGLView*)win.GetHandle();
     NSSize pt;
     pt.width = x;
@@ -253,7 +245,6 @@ double xlTranslateToRetina(xlGLCanvas &win, double x) {
 
 bool IsMouseEventFromTouchpad() {
     NSEvent *theEvent = (NSEvent*)wxTheApp->MacGetCurrentEvent();
-    
     return (([theEvent momentumPhase] != NSEventPhaseNone) || ([theEvent phase] != NSEventPhaseNone));
 }
 
@@ -317,9 +308,6 @@ wxString GetOSFormattedClipboardData() {
     }
     return "";
 }
-wxString GetOSXFormattedClipboardData() {
-    return GetOSFormattedClipboardData();
-}
 
 void WXGLUnsetCurrentContext() {
     [NSOpenGLContext clearCurrentContext];
@@ -337,18 +325,20 @@ static const AudioObjectPropertyAddress defaultdev_address = {
 };
 
 /* this is called when the system's list of available audio devices changes. */
+static std::function<void()> AUDIO_CALLBACK;
+
 static OSStatus device_list_changed(AudioObjectID systemObj, UInt32 num_addr, const AudioObjectPropertyAddress *addrs, void *data) {
-    AudioManager *am = (AudioManager*)data;
-    wxTheApp->CallAfter([am]() {am->AudioDeviceChanged();});
+    wxTheApp->CallAfter([]() {AUDIO_CALLBACK();});
     return 0;
 }
-void AddAudioDeviceChangeListener(AudioManager *am) {
-    AudioObjectAddPropertyListener(kAudioObjectSystemObject, &devlist_address, device_list_changed, am);
-    AudioObjectAddPropertyListener(kAudioObjectSystemObject, &defaultdev_address, device_list_changed, am);
+void AddAudioDeviceChangeListener(std::function<void()> &&cb) {
+    AUDIO_CALLBACK = cb;
+    AudioObjectAddPropertyListener(kAudioObjectSystemObject, &devlist_address, device_list_changed, &AUDIO_CALLBACK);
+    AudioObjectAddPropertyListener(kAudioObjectSystemObject, &defaultdev_address, device_list_changed, &AUDIO_CALLBACK);
 }
-void RemoveAudioDeviceChangeListener(AudioManager *am) {
-    AudioObjectRemovePropertyListener(kAudioObjectSystemObject, &devlist_address, device_list_changed, am);
-    AudioObjectRemovePropertyListener(kAudioObjectSystemObject, &defaultdev_address, device_list_changed, am);
+void RemoveAudioDeviceChangeListener() {
+    AudioObjectRemovePropertyListener(kAudioObjectSystemObject, &devlist_address, device_list_changed, &AUDIO_CALLBACK);
+    AudioObjectRemovePropertyListener(kAudioObjectSystemObject, &defaultdev_address, device_list_changed, &AUDIO_CALLBACK);
 }
 
 bool IsFromAppStore() {
