@@ -12,12 +12,12 @@ Xcode can be downloaded from the Apple developer web site or the App Store. Make
 sure you install the version of Xcode that matches your version of
 macOS. For example, I use macOS 11, so I installed Xcode 12.
 
-The latest wxWidgets release (3.1.4) will not work anymore as we need some API's that have
+The latest wxWidgets release (3.1.5) will not work anymore as we need some API's that have
 been added since then.  We also have several other fixes in place that fix various
 bugs we have encountered, configurations we need, etc...
 
 To get the latest code that we've tested, do:
-git clone  --recurse-submodules -b xlights_2021.11 https://github.com/xLightsSequencer/wxWidgets
+git clone  --recurse-submodules -b xlights_2021.13 https://github.com/xLightsSequencer/wxWidgets
 
 
 First, setup the target directories:
@@ -289,3 +289,4 @@ Dec 21, 2020 - tag: xlights_2020.56b - Fixes potential crash when calling append
 Mar 18, 2021 - tag: xlights_2020.09 - close to wxWidgets 3.1.5
 Mar 18, 2021 - Move to macOS 10.12 as minimum
 Apr 2, 2021 - Move wxWidgets fork to xLightsSequencer organization
+Apr 20, 2021 - Move to xlights_2020.13 - wxWidgets 3.1.5 + patches
