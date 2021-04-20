@@ -264,6 +264,7 @@ public:
     void resume();
 private:
     AppNapSuspenderPrivate *p;
+    bool isSuspended;
 };
 
 static AppNapSuspender sleepData;
@@ -277,7 +278,8 @@ void DisableSleepModes()
 }
 
 AppNapSuspender::AppNapSuspender() :
-    p(new AppNapSuspenderPrivate)
+    p(new AppNapSuspenderPrivate),
+    isSuspended(false)
 {}
 AppNapSuspender::~AppNapSuspender() {
     delete p;
@@ -287,11 +289,14 @@ void AppNapSuspender::suspend() {
     p->activityId = [[NSProcessInfo processInfo ] beginActivityWithOptions: OPTIONFLAGS
                                                                     reason:@"Outputting to lights"];
     [p->activityId retain];
+    isSuspended = true;
 }
 
 void AppNapSuspender::resume() {
-    [[NSProcessInfo processInfo ] endActivity:p->activityId];
-    [p->activityId release];
+    if (isSuspended) {
+        [[NSProcessInfo processInfo ] endActivity:p->activityId];
+        [p->activityId release];
+    }
 }
 
 wxString GetOSFormattedClipboardData() {
