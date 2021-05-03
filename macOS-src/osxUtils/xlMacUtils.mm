@@ -248,22 +248,29 @@ bool IsMouseEventFromTouchpad() {
     return (([theEvent momentumPhase] != NSEventPhaseNone) || ([theEvent phase] != NSEventPhaseNone));
 }
 
-
-class AppNapSuspenderPrivate
-{
-public:
-    id<NSObject> activityId;
-};
-
 class AppNapSuspender {
 public:
-    AppNapSuspender();
-    ~AppNapSuspender();
+    AppNapSuspender() : isSuspended(false), activityId(nullptr) {}
+    ~AppNapSuspender() {}
     
-    void suspend();
-    void resume();
+    void suspend() {
+        if (!isSuspended) {
+            activityId = [[NSProcessInfo processInfo ] beginActivityWithOptions: OPTIONFLAGS
+                                                                            reason:@"Outputting to lights"];
+            [activityId retain];
+            isSuspended = true;
+        }
+    }
+    void resume() {
+        if (isSuspended) {
+            [[NSProcessInfo processInfo ] endActivity:activityId];
+            [activityId release];
+            activityId = nullptr;
+            isSuspended = false;
+        }
+    }
 private:
-    AppNapSuspenderPrivate *p;
+    id<NSObject> activityId;
     bool isSuspended;
 };
 
@@ -275,28 +282,6 @@ void EnableSleepModes()
 void DisableSleepModes()
 {
     sleepData.suspend();
-}
-
-AppNapSuspender::AppNapSuspender() :
-    p(new AppNapSuspenderPrivate),
-    isSuspended(false)
-{}
-AppNapSuspender::~AppNapSuspender() {
-    delete p;
-}
-
-void AppNapSuspender::suspend() {
-    p->activityId = [[NSProcessInfo processInfo ] beginActivityWithOptions: OPTIONFLAGS
-                                                                    reason:@"Outputting to lights"];
-    [p->activityId retain];
-    isSuspended = true;
-}
-
-void AppNapSuspender::resume() {
-    if (isSuspended) {
-        [[NSProcessInfo processInfo ] endActivity:p->activityId];
-        [p->activityId release];
-    }
 }
 
 wxString GetOSFormattedClipboardData() {
