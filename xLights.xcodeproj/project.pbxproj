@@ -493,6 +493,7 @@
 		67A88A4726164CD600BFCEC0 /* libxLights-macOSLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A88A2726164C9B00BFCEC0 /* libxLights-macOSLib.a */; };
 		67C7E283215E596000AE0775 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B6F3422040FBB600B847E0 /* CoreAudio.framework */; };
 		67D9B0A81D42A9BA005367DB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67E7087017B51AB400A22034 /* Cocoa.framework */; };
+		67EC04DF26456A7500A3AFA2 /* WLED.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67EC04DD26456A7500A3AFA2 /* WLED.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1479,6 +1480,8 @@
 		67E7087317B51AB400A22034 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		67E7087417B51AB400A22034 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		67E7087517B51AB400A22034 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		67EC04DD26456A7500A3AFA2 /* WLED.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WLED.cpp; sourceTree = "<group>"; };
+		67EC04DE26456A7500A3AFA2 /* WLED.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLED.h; sourceTree = "<group>"; };
 		67F23F6A1E329DDC00F8B985 /* libwx_baseu_net-3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_baseu_net-3.1.dylib"; path = "../../../../opt/local/libdbg/libwx_baseu_net-3.1.dylib"; sourceTree = "<group>"; };
 		67F23F6B1E329DDC00F8B985 /* libwx_baseu_xml-3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_baseu_xml-3.1.dylib"; path = "../../../../opt/local/libdbg/libwx_baseu_xml-3.1.dylib"; sourceTree = "<group>"; };
 		67F23F6C1E329DDC00F8B985 /* libwx_baseu-3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_baseu-3.1.dylib"; path = "../../../../opt/local/libdbg/libwx_baseu-3.1.dylib"; sourceTree = "<group>"; };
@@ -2371,6 +2374,8 @@
 		6716508425D7CE6F0041BB9A /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				67EC04DD26456A7500A3AFA2 /* WLED.cpp */,
+				67EC04DE26456A7500A3AFA2 /* WLED.h */,
 				6716508C25D7CE6F0041BB9A /* AlphaPix.cpp */,
 				6716509A25D7CE6F0041BB9A /* AlphaPix.h */,
 				6716509225D7CE6F0041BB9A /* BaseController.cpp */,
@@ -3058,6 +3063,7 @@
 				6716535F25D7CE720041BB9A /* TwinkleEffect.cpp in Sources */,
 				6716537125D7CE720041BB9A /* SpiralsPanel.cpp in Sources */,
 				6716512525D7CE700041BB9A /* xlGridCanvas.cpp in Sources */,
+				67EC04DF26456A7500A3AFA2 /* WLED.cpp in Sources */,
 				671651AB25D7CE700041BB9A /* CircleModel.cpp in Sources */,
 				6716531D25D7CE710041BB9A /* SnowstormEffect.cpp in Sources */,
 				6716533025D7CE710041BB9A /* CirclesPanel.cpp in Sources */,
