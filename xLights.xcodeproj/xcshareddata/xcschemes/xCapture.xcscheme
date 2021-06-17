@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "67E7086C17B51AB400A22034"
-               BuildableName = "xLights.app"
-               BlueprintName = "xLights"
+               BlueprintIdentifier = "67FFE22C267BAF6700A9FE92"
+               BuildableName = "xCapture.app"
+               BlueprintName = "xCapture"
                ReferencedContainer = "container:xLights.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -44,9 +44,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "67E7086C17B51AB400A22034"
-            BuildableName = "xLights.app"
-            BlueprintName = "xLights"
+            BlueprintIdentifier = "67FFE22C267BAF6700A9FE92"
+            BuildableName = "xCapture.app"
+            BlueprintName = "xCapture"
             ReferencedContainer = "container:xLights.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -61,9 +61,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "67E7086C17B51AB400A22034"
-            BuildableName = "xLights.app"
-            BlueprintName = "xLights"
+            BlueprintIdentifier = "67FFE22C267BAF6700A9FE92"
+            BuildableName = "xCapture.app"
+            BlueprintName = "xCapture"
             ReferencedContainer = "container:xLights.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

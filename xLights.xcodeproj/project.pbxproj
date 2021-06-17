@@ -466,6 +466,19 @@
 		674D3D241C207BD7000D632B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D231C207BD7000D632B /* AudioToolbox.framework */; };
 		674D3D261C207C25000D632B /* libpthread.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D251C207C25000D632B /* libpthread.tbd */; };
 		675FD840204C3C0B003D280F /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B227204BA69B00E90AC7 /* CoreImage.framework */; };
+		67710572267BB91C001DA926 /* UniverseEntryDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6771056A267BB91C001DA926 /* UniverseEntryDialog.cpp */; };
+		67710573267BB91C001DA926 /* ResultDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6771056D267BB91C001DA926 /* ResultDialog.cpp */; };
+		67710574267BB91C001DA926 /* xCaptureMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6771056E267BB91C001DA926 /* xCaptureMain.cpp */; };
+		67710575267BB91C001DA926 /* xCaptureApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67710571267BB91C001DA926 /* xCaptureApp.cpp */; };
+		67710577267BB9DE001DA926 /* liblog4cpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67710576267BB9B7001DA926 /* liblog4cpp.a */; };
+		67710578267BBA1F001DA926 /* xLightsVersion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650F625D7CE6F0041BB9A /* xLightsVersion.cpp */; };
+		6771057A267BBA39001DA926 /* IPEntryDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C0825D7CE6D0041BB9A /* IPEntryDialog.cpp */; };
+		6771057B267BBA52001DA926 /* UtilFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C7C25D7CE6D0041BB9A /* UtilFunctions.cpp */; };
+		6771057E267BBA7B001DA926 /* libxLights-macOSLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A88A2726164C9B00BFCEC0 /* libxLights-macOSLib.a */; };
+		6771057F267BBAB5001DA926 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67E7087017B51AB400A22034 /* Cocoa.framework */; };
+		67710580267BBAC5001DA926 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B6F3422040FBB600B847E0 /* CoreAudio.framework */; };
+		67710584267BBAC5001DA926 /* CoreAudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67710582267BBAC5001DA926 /* CoreAudioKit.framework */; };
+		67710585267BBB11001DA926 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C8520DD337E006EFCFA /* Security.framework */; };
 		6781D632234C24BD00408604 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B4C92117B53D960006B951 /* CoreVideo.framework */; };
 		6789EF4F26635DFD00889606 /* Pixels.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6789EF4E26635DFD00889606 /* Pixels.cpp */; };
 		67A14C7820DD313D006EFCFA /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7720DD313D006EFCFA /* Carbon.framework */; };
@@ -492,12 +505,21 @@
 		67A88A4326164CAE00BFCEC0 /* xlVideoToolboxUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67A88A3A26164CAE00BFCEC0 /* xlVideoToolboxUtils.mm */; };
 		67A88A4426164CAE00BFCEC0 /* osxInAppPurchases.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67A88A3B26164CAE00BFCEC0 /* osxInAppPurchases.mm */; };
 		67A88A4726164CD600BFCEC0 /* libxLights-macOSLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A88A2726164C9B00BFCEC0 /* libxLights-macOSLib.a */; };
+		67ABA746267BCD85005F0A69 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67164BB825D7CD190041BB9A /* Images.xcassets */; };
+		67ABA747267BCDAF005F0A69 /* xcapture.mac.properties in Resources */ = {isa = PBXBuildFile; fileRef = 671656C925D834130041BB9A /* xcapture.mac.properties */; };
 		67C7E283215E596000AE0775 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B6F3422040FBB600B847E0 /* CoreAudio.framework */; };
 		67D9B0A81D42A9BA005367DB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67E7087017B51AB400A22034 /* Cocoa.framework */; };
 		67EC04DF26456A7500A3AFA2 /* WLED.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67EC04DD26456A7500A3AFA2 /* WLED.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		6771057C267BBA6D001DA926 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 67A88A2626164C9B00BFCEC0;
+			remoteInfo = "xLights-macOSLib";
+		};
 		67A88A4826164CD700BFCEC0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
@@ -1437,6 +1459,17 @@
 		674D3D251C207C25000D632B /* libpthread.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libpthread.tbd; path = usr/lib/libpthread.tbd; sourceTree = SDKROOT; };
 		674E27A41B5B37B000274B20 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		674E9C631C9106D600D12F0D /* libwx_osx_cocoau_propgrid-3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_propgrid-3.1.dylib"; path = "../../../../opt/local/libdbg/libwx_osx_cocoau_propgrid-3.1.dylib"; sourceTree = "<group>"; };
+		6771056A267BB91C001DA926 /* UniverseEntryDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UniverseEntryDialog.cpp; path = ../xCapture/UniverseEntryDialog.cpp; sourceTree = "<group>"; };
+		6771056B267BB91C001DA926 /* UniverseEntryDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UniverseEntryDialog.h; path = ../xCapture/UniverseEntryDialog.h; sourceTree = "<group>"; };
+		6771056C267BB91C001DA926 /* ResultDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResultDialog.h; path = ../xCapture/ResultDialog.h; sourceTree = "<group>"; };
+		6771056D267BB91C001DA926 /* ResultDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ResultDialog.cpp; path = ../xCapture/ResultDialog.cpp; sourceTree = "<group>"; };
+		6771056E267BB91C001DA926 /* xCaptureMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = xCaptureMain.cpp; path = ../xCapture/xCaptureMain.cpp; sourceTree = "<group>"; };
+		6771056F267BB91C001DA926 /* xCaptureApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = xCaptureApp.h; path = ../xCapture/xCaptureApp.h; sourceTree = "<group>"; };
+		67710570267BB91C001DA926 /* xCaptureMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = xCaptureMain.h; path = ../xCapture/xCaptureMain.h; sourceTree = "<group>"; };
+		67710571267BB91C001DA926 /* xCaptureApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = xCaptureApp.cpp; path = ../xCapture/xCaptureApp.cpp; sourceTree = "<group>"; };
+		67710576267BB9B7001DA926 /* liblog4cpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblog4cpp.a; path = ../../../../../opt/local/lib/liblog4cpp.a; sourceTree = "<group>"; };
+		67710581267BBAC5001DA926 /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
+		67710582267BBAC5001DA926 /* CoreAudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioKit.framework; path = System/Library/Frameworks/CoreAudioKit.framework; sourceTree = SDKROOT; };
 		6771B227204BA69B00E90AC7 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		6771B229204BA6AF00E90AC7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6789EF4C26635BEA00889606 /* Pixels.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pixels.h; sourceTree = "<group>"; };
@@ -1496,6 +1529,7 @@
 		67F23F721E329DDC00F8B985 /* libwx_osx_cocoau_media-3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_media-3.1.dylib"; path = "../../../../opt/local/libdbg/libwx_osx_cocoau_media-3.1.dylib"; sourceTree = "<group>"; };
 		67F23F731E329DDC00F8B985 /* libwx_osx_cocoau_propgrid-3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_propgrid-3.1.dylib"; path = "../../../../opt/local/libdbg/libwx_osx_cocoau_propgrid-3.1.dylib"; sourceTree = "<group>"; };
 		67F23F741E329DDC00F8B985 /* libwx_osx_cocoau_qa-3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_qa-3.1.dylib"; path = "../../../../opt/local/libdbg/libwx_osx_cocoau_qa-3.1.dylib"; sourceTree = "<group>"; };
+		67FFE22D267BAF6700A9FE92 /* xCapture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = xCapture.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1540,6 +1574,19 @@
 				67A14C8020DD328A006EFCFA /* ImageIO.framework in Frameworks */,
 				67A14C8420DD336E006EFCFA /* libz.tbd in Frameworks */,
 				67A14C8620DD337E006EFCFA /* Security.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		67FFE22A267BAF6700A9FE92 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				67710585267BBB11001DA926 /* Security.framework in Frameworks */,
+				67710584267BBAC5001DA926 /* CoreAudioKit.framework in Frameworks */,
+				67710580267BBAC5001DA926 /* CoreAudio.framework in Frameworks */,
+				6771057F267BBAB5001DA926 /* Cocoa.framework in Frameworks */,
+				6771057E267BBA7B001DA926 /* libxLights-macOSLib.a in Frameworks */,
+				67710577267BB9DE001DA926 /* liblog4cpp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2649,6 +2696,21 @@
 			path = osxUtils;
 			sourceTree = "<group>";
 		};
+		67710569267BB903001DA926 /* xCapture */ = {
+			isa = PBXGroup;
+			children = (
+				6771056D267BB91C001DA926 /* ResultDialog.cpp */,
+				6771056C267BB91C001DA926 /* ResultDialog.h */,
+				6771056A267BB91C001DA926 /* UniverseEntryDialog.cpp */,
+				6771056B267BB91C001DA926 /* UniverseEntryDialog.h */,
+				67710571267BB91C001DA926 /* xCaptureApp.cpp */,
+				6771056F267BB91C001DA926 /* xCaptureApp.h */,
+				6771056E267BB91C001DA926 /* xCaptureMain.cpp */,
+				67710570267BB91C001DA926 /* xCaptureMain.h */,
+			);
+			name = xCapture;
+			sourceTree = "<group>";
+		};
 		67AAF8F31B63782F00585431 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -2670,6 +2732,7 @@
 		67E7086417B51AB400A22034 = {
 			isa = PBXGroup;
 			children = (
+				67710569267BB903001DA926 /* xCapture */,
 				67164BB125D7CD190041BB9A /* Assets */,
 				67E7086F17B51AB400A22034 /* Frameworks */,
 				671653D125D7CF4E0041BB9A /* Libraries */,
@@ -2685,6 +2748,7 @@
 			children = (
 				67E7086D17B51AB400A22034 /* xLights.app */,
 				67A88A2726164C9B00BFCEC0 /* libxLights-macOSLib.a */,
+				67FFE22D267BAF6700A9FE92 /* xCapture.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2692,6 +2756,9 @@
 		67E7086F17B51AB400A22034 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				67710582267BBAC5001DA926 /* CoreAudioKit.framework */,
+				67710581267BBAC5001DA926 /* CoreAudioTypes.framework */,
+				67710576267BB9B7001DA926 /* liblog4cpp.a */,
 				67E00443256D6FA900E12C81 /* StoreKit.framework */,
 				6729000C2553046400C83C71 /* libbz2.tbd */,
 				67290003255303D500C83C71 /* VideoToolbox.framework */,
@@ -2836,6 +2903,25 @@
 			productReference = 67E7086D17B51AB400A22034 /* xLights.app */;
 			productType = "com.apple.product-type.application";
 		};
+		67FFE22C267BAF6700A9FE92 /* xCapture */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 67FFE23B267BAF6800A9FE92 /* Build configuration list for PBXNativeTarget "xCapture" */;
+			buildPhases = (
+				67FFE229267BAF6700A9FE92 /* Sources */,
+				67FFE22A267BAF6700A9FE92 /* Frameworks */,
+				67FFE22B267BAF6700A9FE92 /* Resources */,
+				67ABA743267BCC0B005F0A69 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6771057D267BBA6D001DA926 /* PBXTargetDependency */,
+			);
+			name = xCapture;
+			productName = xCapture;
+			productReference = 67FFE22D267BAF6700A9FE92 /* xCapture.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -2843,7 +2929,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = xl;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1300;
 				ORGANIZATIONNAME = "Daniel Kulp";
 				TargetAttributes = {
 					67A88A2626164C9B00BFCEC0 = {
@@ -2866,6 +2952,9 @@
 							};
 						};
 					};
+					67FFE22C267BAF6700A9FE92 = {
+						CreatedOnToolsVersion = 12.5;
+					};
 				};
 			};
 			buildConfigurationList = 67E7086817B51AB400A22034 /* Build configuration list for PBXProject "xLights" */;
@@ -2883,6 +2972,7 @@
 			targets = (
 				67E7086C17B51AB400A22034 /* xLights */,
 				67A88A2626164C9B00BFCEC0 /* xLights-macOSLib */,
+				67FFE22C267BAF6700A9FE92 /* xCapture */,
 			);
 		};
 /* End PBXProject section */
@@ -2906,6 +2996,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		67FFE22B267BAF6700A9FE92 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				67ABA747267BCDAF005F0A69 /* xcapture.mac.properties in Resources */,
+				67ABA746267BCD85005F0A69 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -2915,6 +3014,24 @@
 			files = (
 			);
 			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "scripts/mac_fix_dylibs\n";
+			showEnvVarsInLog = 0;
+		};
+		67ABA743267BCC0B005F0A69 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
@@ -3384,9 +3501,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		67FFE229267BAF6700A9FE92 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6771057B267BBA52001DA926 /* UtilFunctions.cpp in Sources */,
+				6771057A267BBA39001DA926 /* IPEntryDialog.cpp in Sources */,
+				67710578267BBA1F001DA926 /* xLightsVersion.cpp in Sources */,
+				67710573267BB91C001DA926 /* ResultDialog.cpp in Sources */,
+				67710575267BB91C001DA926 /* xCaptureApp.cpp in Sources */,
+				67710572267BB91C001DA926 /* UniverseEntryDialog.cpp in Sources */,
+				67710574267BB91C001DA926 /* xCaptureMain.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		6771057D267BBA6D001DA926 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 67A88A2626164C9B00BFCEC0 /* xLights-macOSLib */;
+			targetProxy = 6771057C267BBA6D001DA926 /* PBXContainerItemProxy */;
+		};
 		67A88A4926164CD700BFCEC0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 67A88A2626164C9B00BFCEC0 /* xLights-macOSLib */;
@@ -3473,10 +3609,12 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES_AGGRESSIVE;
 				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = NO;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
@@ -3532,10 +3670,6 @@
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"-headerpad_max_install_names",
-					"-framework",
-					OpenGL,
-					"-framework",
-					StoreKit,
 					"-lwx_baseu-3.1",
 					"-lwx_baseu_xml-3.1",
 					"-lwx_baseu_net-3.1",
@@ -3585,10 +3719,13 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES_AGGRESSIVE;
 				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = NO;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = U8ZT9RPC6S;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = c11;
@@ -3599,6 +3736,7 @@
 				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_UNROLL_LOOPS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -3635,13 +3773,10 @@
 					"-DwxDEBUG_LEVEL=0",
 					"-Iinclude",
 				);
+				"OTHER_CODE_SIGN_FLAGS[sdk=*]" = "--timestamp";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"-headerpad_max_install_names",
-					"-framework",
-					OpenGL,
-					"-framework",
-					StoreKit,
 					"-lwx_baseu-3.1",
 					"-lwx_baseu_xml-3.1",
 					"-lwx_baseu_net-3.1",
@@ -3667,20 +3802,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = Assets/xLights/xLightsDebug.entitlements;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 210130;
-				DEVELOPMENT_TEAM = "";
-				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Assets/xLights/Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MARKETING_VERSION = 2021.13;
 				OTHER_CFLAGS = (
 					"$(inherited)",
@@ -3691,11 +3818,13 @@
 					"$(inherited)",
 					"-Wl,-keep_dwarf_unwind",
 					"-Wl,-no_compact_unwind",
+					"-framework",
+					OpenGL,
+					"-framework",
+					StoreKit,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.xlights;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
 		};
@@ -3703,29 +3832,26 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = Assets/xLights/xLights.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 210130;
-				DEVELOPMENT_TEAM = U8ZT9RPC6S;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Assets/xLights/Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MARKETING_VERSION = 2021.13;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
 					"-IxLights/ffmpeg-dev/include/",
 				);
-				"OTHER_CODE_SIGN_FLAGS[sdk=*]" = "--timestamp";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
+					"-framework",
+					OpenGL,
+					"-framework",
+					StoreKit,
 					"-lwxexpat-3.1",
 					"-lwxjpeg-3.1",
 					"-lwxpng-3.1",
@@ -3734,8 +3860,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.xlights;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
 		};
@@ -3767,10 +3891,13 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES_AGGRESSIVE;
 				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = NO;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = U8ZT9RPC6S;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = c11;
@@ -3781,6 +3908,7 @@
 				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_UNROLL_LOOPS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -3817,13 +3945,10 @@
 					"-DwxDEBUG_LEVEL=0",
 					"-Iinclude",
 				);
+				"OTHER_CODE_SIGN_FLAGS[sdk=*]" = "--timestamp";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"-headerpad_max_install_names",
-					"-framework",
-					OpenGL,
-					"-framework",
-					StoreKit,
 					"-lwx_baseu-3.1",
 					"-lwx_baseu_xml-3.1",
 					"-lwx_baseu_net-3.1",
@@ -3848,29 +3973,26 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = Assets/xLights/xLightsArchive.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 210130;
-				DEVELOPMENT_TEAM = U8ZT9RPC6S;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Assets/xLights/Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MARKETING_VERSION = 2021.13;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
 					"-IxLights/ffmpeg-dev/include/",
 				);
-				"OTHER_CODE_SIGN_FLAGS[sdk=*]" = "--timestamp";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
+					"-framework",
+					OpenGL,
+					"-framework",
+					StoreKit,
 					"-lwxexpat-3.1",
 					"-lwxjpeg-3.1",
 					"-lwxpng-3.1",
@@ -3879,8 +4001,64 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.xlights;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				WRAPPER_EXTENSION = app;
+			};
+			name = Archive;
+		};
+		67FFE23C267BAF6800A9FE92 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Assets/xCapture/xCaptureDebug.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CURRENT_PROJECT_VERSION = 210200;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Assets/xCapture/Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
+				);
+				MARKETING_VERSION = 2021.20;
+				PRODUCT_BUNDLE_IDENTIFIER = org.xlights.xCapture;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		67FFE23D267BAF6800A9FE92 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Assets/xCapture/xCapture.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CURRENT_PROJECT_VERSION = 210200;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Assets/xCapture/Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
+				);
+				MARKETING_VERSION = 2021.20;
+				PRODUCT_BUNDLE_IDENTIFIER = org.xlights.xCapture;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		67FFE23E267BAF6800A9FE92 /* Archive */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Assets/xCapture/xCapture.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CURRENT_PROJECT_VERSION = 210200;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Assets/xCapture/Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
+				);
+				MARKETING_VERSION = 2021.20;
+				PRODUCT_BUNDLE_IDENTIFIER = org.xlights.xCapture;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Archive;
 		};
@@ -3913,6 +4091,16 @@
 				67E7088B17B51AB400A22034 /* Debug */,
 				67E7088C17B51AB400A22034 /* Release */,
 				67F5E4BB24A0E6DC00DE0FF0 /* Archive */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		67FFE23B267BAF6800A9FE92 /* Build configuration list for PBXNativeTarget "xCapture" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				67FFE23C267BAF6800A9FE92 /* Debug */,
+				67FFE23D267BAF6800A9FE92 /* Release */,
+				67FFE23E267BAF6800A9FE92 /* Archive */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

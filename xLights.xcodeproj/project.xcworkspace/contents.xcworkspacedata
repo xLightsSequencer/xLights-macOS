@@ -1,7 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
+   <Group
+      location = "group:../../xCapture"
+      name = "xCapture">
+      <FileRef
+         location = "group:ResultDialog.cpp">
+      </FileRef>
+      <FileRef
+         location = "group:ResultDialog.h">
+      </FileRef>
+      <FileRef
+         location = "group:UniverseEntryDialog.cpp">
+      </FileRef>
+      <FileRef
+         location = "group:UniverseEntryDialog.h">
+      </FileRef>
+      <FileRef
+         location = "group:xCaptureApp.cpp">
+      </FileRef>
+      <FileRef
+         location = "group:xCaptureApp.h">
+      </FileRef>
+      <FileRef
+         location = "group:xCaptureMain.cpp">
+      </FileRef>
+      <FileRef
+         location = "group:xCaptureMain.h">
+      </FileRef>
+   </Group>
    <FileRef
-      location = "self:xLights.xcodeproj">
+      location = "self:">
    </FileRef>
 </Workspace>
