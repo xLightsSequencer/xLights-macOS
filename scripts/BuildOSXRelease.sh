@@ -52,7 +52,7 @@ fi
 if [ "${NOTARIZE_PWD}x" != "x" ]; then
     # if we have a notarize password, we need to package the apps into a dmg
     # and upload to apple for verification and notarizing
-    ./BuildDMG.sh $VER xLights.app xSchedule.app xCapture.app xFade.app
+    ./BuildDMG.sh $VER xLights.app xCapture.app xFade.app
 
     # It's now uploaded, we need to wait until we get the email saying it's been notarized
     # before we continue
