@@ -479,7 +479,11 @@
 		67710580267BBAC5001DA926 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B6F3422040FBB600B847E0 /* CoreAudio.framework */; };
 		67710584267BBAC5001DA926 /* CoreAudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67710582267BBAC5001DA926 /* CoreAudioKit.framework */; };
 		67710585267BBB11001DA926 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C8520DD337E006EFCFA /* Security.framework */; };
+		677EB095269F44780088BB52 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7D20DD324D006EFCFA /* libiconv.tbd */; };
+		677EB096269F44BF0088BB52 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7720DD313D006EFCFA /* Carbon.framework */; };
+		677EB098269F44F70088BB52 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B229204BA6AF00E90AC7 /* QuartzCore.framework */; };
 		6781D632234C24BD00408604 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B4C92117B53D960006B951 /* CoreVideo.framework */; };
+		6782EDA126A0B90D00C38A67 /* xCapture.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 67FFE22D267BAF6700A9FE92 /* xCapture.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6789EF4F26635DFD00889606 /* Pixels.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6789EF4E26635DFD00889606 /* Pixels.cpp */; };
 		67A14C7820DD313D006EFCFA /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7720DD313D006EFCFA /* Carbon.framework */; };
 		67A14C7A20DD31D6006EFCFA /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7920DD31D6006EFCFA /* WebKit.framework */; };
@@ -520,6 +524,13 @@
 			remoteGlobalIDString = 67A88A2626164C9B00BFCEC0;
 			remoteInfo = "xLights-macOSLib";
 		};
+		6782ED9D26A0B7E200C38A67 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 67FFE22C267BAF6700A9FE92;
+			remoteInfo = xCapture;
+		};
 		67A88A4826164CD700BFCEC0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
@@ -528,6 +539,19 @@
 			remoteInfo = "xLights-macOSLib";
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6782EDA026A0B90300C38A67 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				6782EDA126A0B90D00C38A67 /* xCapture.app in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		67164BB325D7CD190041BB9A /* xFade.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = xFade.entitlements; sourceTree = "<group>"; };
@@ -1582,11 +1606,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				67710585267BBB11001DA926 /* Security.framework in Frameworks */,
+				677EB096269F44BF0088BB52 /* Carbon.framework in Frameworks */,
 				67710584267BBAC5001DA926 /* CoreAudioKit.framework in Frameworks */,
 				67710580267BBAC5001DA926 /* CoreAudio.framework in Frameworks */,
 				6771057F267BBAB5001DA926 /* Cocoa.framework in Frameworks */,
+				677EB095269F44780088BB52 /* libiconv.tbd in Frameworks */,
 				6771057E267BBA7B001DA926 /* libxLights-macOSLib.a in Frameworks */,
 				67710577267BB9DE001DA926 /* liblog4cpp.a in Frameworks */,
+				677EB098269F44F70088BB52 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2891,11 +2918,13 @@
 				67E7086917B51AB400A22034 /* Sources */,
 				67E7086A17B51AB400A22034 /* Frameworks */,
 				67E7086B17B51AB400A22034 /* Resources */,
+				6782EDA026A0B90300C38A67 /* CopyFiles */,
 				674298661C1FC3CC00B11478 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				6782ED9E26A0B7E200C38A67 /* PBXTargetDependency */,
 				67A88A4926164CD700BFCEC0 /* PBXTargetDependency */,
 			);
 			name = xLights;
@@ -3523,6 +3552,11 @@
 			target = 67A88A2626164C9B00BFCEC0 /* xLights-macOSLib */;
 			targetProxy = 6771057C267BBA6D001DA926 /* PBXContainerItemProxy */;
 		};
+		6782ED9E26A0B7E200C38A67 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 67FFE22C267BAF6700A9FE92 /* xCapture */;
+			targetProxy = 6782ED9D26A0B7E200C38A67 /* PBXContainerItemProxy */;
+		};
 		67A88A4926164CD700BFCEC0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 67A88A2626164C9B00BFCEC0 /* xLights-macOSLib */;
@@ -3669,6 +3703,8 @@
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
+					"-Wl,-keep_dwarf_unwind",
+					"-Wl,-no_compact_unwind",
 					"-headerpad_max_install_names",
 					"-lwx_baseu-3.1",
 					"-lwx_baseu_xml-3.1",
@@ -3787,6 +3823,11 @@
 					"-lwx_osx_cocoau_gl-3.1",
 					"-lwx_osx_cocoau_html-3.1",
 					"-lwx_osx_cocoau_qa-3.1",
+					"-lwxexpat-3.1",
+					"-lwxpng-3.1",
+					"-lwxzlib-3.1",
+					"-lwxjpeg-3.1",
+					"-lwxregexu-3.1",
 				);
 				OTHER_TAPI_FLAGS = "";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
@@ -3816,8 +3857,6 @@
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-Wl,-keep_dwarf_unwind",
-					"-Wl,-no_compact_unwind",
 					"-framework",
 					OpenGL,
 					"-framework",
@@ -3852,11 +3891,6 @@
 					OpenGL,
 					"-framework",
 					StoreKit,
-					"-lwxexpat-3.1",
-					"-lwxjpeg-3.1",
-					"-lwxpng-3.1",
-					"-lwxregexu-3.1",
-					"-lwxzlib-3.1",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.xlights;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3959,6 +3993,11 @@
 					"-lwx_osx_cocoau_gl-3.1",
 					"-lwx_osx_cocoau_html-3.1",
 					"-lwx_osx_cocoau_qa-3.1",
+					"-lwxexpat-3.1",
+					"-lwxjpeg-3.1",
+					"-lwxpng-3.1",
+					"-lwxzlib-3.1",
+					"-lwxregexu-3.1",
 				);
 				OTHER_TAPI_FLAGS = "";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
@@ -3993,11 +4032,6 @@
 					OpenGL,
 					"-framework",
 					StoreKit,
-					"-lwxexpat-3.1",
-					"-lwxjpeg-3.1",
-					"-lwxpng-3.1",
-					"-lwxzlib-3.1",
-					"-lwxregexu-3.1",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.xlights;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4029,7 +4063,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Assets/xCapture/xCapture.entitlements;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CURRENT_PROJECT_VERSION = 210200;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Assets/xCapture/Info.plist";
