@@ -115,16 +115,16 @@ export BUILD_HOST=x86_64
 libzstd:
 git clone https://github.com/facebook/zstd
 cd zstd
-git checkout v1.4.9
+git checkout v1.5.0
 export CFLAGS="-g -flto=thin  ${OSX_VERSION_MIN} ${XL_TARGETS}"
 export LDFLAGS="-flto=thin  ${OSX_VERSION_MIN} ${XL_TARGETS} "
 make clean
-make -j 8 HAVE_LZMA=0 HAVE_LZ4=0
+make -j 8 HAVE_LZMA=0 HAVE_LZ4=0 lib-mt
 cp lib/libzstd.a /opt/local/lib
 export CFLAGS="-g  ${OSX_VERSION_MIN} ${XL_TARGETS}"
 export LDFLAGS=" ${OSX_VERSION_MIN} ${XL_TARGETS}"
 make clean
-make -j 8 HAVE_LZMA=0 HAVE_LZ4=0
+make -j 8 HAVE_LZMA=0 HAVE_LZ4=0 lib-mt
 cp lib/libzstd.a /opt/local/libdbg
 unset CFLAGS
 unset LDFLAGS
@@ -198,10 +198,10 @@ unset CFLAGS
 unset LDFLAGS
 
 
-ffmpeg:   currently using 4.3.2
+ffmpeg:   currently using 4.4
 git clone https://git.ffmpeg.org/ffmpeg.git
 cd ffmpeg
-git checkout n4.3.2
+git checkout n4.4
 ./configure --disable-asm --disable-x86asm --enable-static --disable-shared --disable-securetransport --extra-cflags="${OSX_VERSION_MIN}" --disable-indev=lavfi --disable-libx264 --disable-lzma --enable-gpl --enable-opengl --disable-programs
 sed -i -e "s/^CFLAGS=/CFLAGS=-g -O3 ${XL_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak
 sed -i -e "s/^CXXFLAGS=/CXXFLAGS=-g -O3 ${XL_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak
@@ -290,3 +290,4 @@ Mar 18, 2021 - tag: xlights_2020.09 - close to wxWidgets 3.1.5
 Mar 18, 2021 - Move to macOS 10.12 as minimum
 Apr 2, 2021 - Move wxWidgets fork to xLightsSequencer organization
 Apr 20, 2021 - Move to xlights_2020.13 - wxWidgets 3.1.5 + patches
+July 29, 2021 - Move to ffmpeg 4.4, zstd 1.5.0
