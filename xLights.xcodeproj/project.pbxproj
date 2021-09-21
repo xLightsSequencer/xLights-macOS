@@ -3594,7 +3594,6 @@
 					"-lwx_osx_cocoau_qa-3.1",
 				);
 				OTHER_TAPI_FLAGS = "";
-				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = macosx;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -3706,7 +3705,6 @@
 					"-lwxregexu-3.1",
 				);
 				OTHER_TAPI_FLAGS = "";
-				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = macosx;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -3876,7 +3874,6 @@
 					"-lwxregexu-3.1",
 				);
 				OTHER_TAPI_FLAGS = "";
-				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = macosx;
 				STRIP_STYLE = debugging;
