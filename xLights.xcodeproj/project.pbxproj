@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		538F8DFE26B42E5D0080A1BB /* LORPreview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 538F8DFC26B42E5D0080A1BB /* LORPreview.cpp */; };
+		53EB767E2719BAFE00ED8702 /* ExportSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 53EB767D2719BAFE00ED8702 /* ExportSettings.cpp */; };
 		6716512025D7CE700041BB9A /* SuperStarImportDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164BCA25D7CE6D0041BB9A /* SuperStarImportDialog.cpp */; };
 		6716512125D7CE700041BB9A /* ConvertDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164BCB25D7CE6D0041BB9A /* ConvertDialog.cpp */; };
 		6716512225D7CE700041BB9A /* NodesGridCellEditor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164BCC25D7CE6D0041BB9A /* NodesGridCellEditor.cpp */; };
@@ -515,6 +516,8 @@
 /* Begin PBXFileReference section */
 		538F8DFC26B42E5D0080A1BB /* LORPreview.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LORPreview.cpp; sourceTree = "<group>"; };
 		538F8DFD26B42E5D0080A1BB /* LORPreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LORPreview.h; sourceTree = "<group>"; };
+		53EB767C2719BAFE00ED8702 /* ExportSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExportSettings.h; sourceTree = "<group>"; };
+		53EB767D2719BAFE00ED8702 /* ExportSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExportSettings.cpp; sourceTree = "<group>"; };
 		67164BB325D7CD190041BB9A /* xFade.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = xFade.entitlements; sourceTree = "<group>"; };
 		67164BB525D7CD190041BB9A /* xLightsArchive.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = xLightsArchive.entitlements; sourceTree = "<group>"; };
 		67164BB625D7CD190041BB9A /* xLights.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = xLights.entitlements; sourceTree = "<group>"; };
@@ -1704,6 +1707,8 @@
 				67164FA225D7CE6E0041BB9A /* EmailDialog.h */,
 				67164C1325D7CE6D0041BB9A /* ExportModelSelect.cpp */,
 				67164C7925D7CE6D0041BB9A /* ExportModelSelect.h */,
+				53EB767D2719BAFE00ED8702 /* ExportSettings.cpp */,
+				53EB767C2719BAFE00ED8702 /* ExportSettings.h */,
 				67164C3E25D7CE6D0041BB9A /* ExternalHooks.h */,
 				67164BCF25D7CE6D0041BB9A /* FileConverter.cpp */,
 				67164D0425D7CE6D0041BB9A /* FileConverter.h */,
@@ -3280,6 +3285,7 @@
 				6716538E25D7CE720041BB9A /* ArtNetOutput.cpp in Sources */,
 				6716554D25D8245E0041BB9A /* MidiEventList.cpp in Sources */,
 				6716532725D7CE710041BB9A /* PlasmaEffect.cpp in Sources */,
+				53EB767E2719BAFE00ED8702 /* ExportSettings.cpp in Sources */,
 				671652B525D7CE710041BB9A /* RenderProgressDialog.cpp in Sources */,
 				671651FD25D7CE700041BB9A /* Effect.cpp in Sources */,
 				6716537F25D7CE720041BB9A /* Minleon.cpp in Sources */,
