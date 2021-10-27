@@ -24,6 +24,9 @@ if [ "x${SHORTVERPO}" == "x" ]; then
 fi
 SHORTVER="${SHORTVERPFX}${SHORTVERPO}"
 
+
+cp $TARGET_BUILD_DIR/default.metallib $TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources
+
 /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $XLVERSION" "${TARGET_BUILD_DIR}/${INFOPLIST_PATH}"
 /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $SHORTVER" "${TARGET_BUILD_DIR}/${INFOPLIST_PATH}"
 
