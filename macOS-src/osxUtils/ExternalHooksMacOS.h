@@ -9,7 +9,7 @@ class wxString;
  */
 
 void xlSetRetinaCanvasViewport(wxGLCanvas &win, int &x, int &y, int &x2, int&y2);
-double xlTranslateToRetina(wxGLCanvas &win, double x);
+double xlTranslateToRetina(wxWindow &win, double x);
 bool ObtainAccessToURL(const std::string &path);
 void EnableSleepModes();
 void DisableSleepModes();

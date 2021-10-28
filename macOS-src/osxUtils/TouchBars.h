@@ -12,6 +12,8 @@ class xlTouchBar;
 
 class EffectManager;
 class MainSequencer;
+class TouchBarContollerData;
+class TouchBarItemData;
 
 #define __XLIGHTS_HAS_TOUCHBARS__
 
@@ -23,7 +25,7 @@ public:
 
     void Init(wxWindow *w);
 
-    bool HasTouchBar() { return controller != nullptr; }
+    bool HasTouchBar() { return controllerData != nullptr; }
 
     wxWindow *GetWindow() { return window; }
     wxWindow *GetControlParent() { return parent; }
@@ -37,19 +39,22 @@ public:
 private:
     wxWindow *window;
     wxWindow *parent;
-    void *controller;
+    TouchBarContollerData *controllerData;
     xlTouchBar *currentBar;
 };
 
 
 class TouchBarItem {
 public:
-    TouchBarItem(const std::string &n) : name(n) {}
-    virtual ~TouchBarItem() {}
+    TouchBarItem(const std::string &n) : name(n),  data(nullptr) {}
+    virtual ~TouchBarItem();
 
     const std::string &GetName() const {return name;}
+
+    TouchBarItemData *GetData();
 protected:
     std::string name;
+    mutable TouchBarItemData *data;
 };
 
 class wxControlTouchBarItem : public TouchBarItem {

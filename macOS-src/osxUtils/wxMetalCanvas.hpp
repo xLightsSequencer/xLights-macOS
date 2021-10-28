@@ -21,7 +21,7 @@ public:
     MTL::CommandQueue *getMTLCommandQueue() const { return commandQueue; };
 
 
-    MTL::RenderPipelineState getPipelineState(const std::string &name, const char *vShader, const char *fShader);
+    MTL::RenderPipelineState getPipelineState(const std::string &name, const char *vShader, const char *fShader, bool blending = false);
 
 protected:
     DECLARE_EVENT_TABLE()

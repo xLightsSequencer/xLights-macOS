@@ -202,72 +202,71 @@ class wxWindow;
 
 
 bool DoInAppPurchases(wxWindow *w) {
-    __block bool done = false;
-    __block InAppPurchaseDialog *dlg = new InAppPurchaseDialog(w);
-    __block NSArray *returnedProducts = nil;
-    [[xLightsIAPHelper sharedInstance] requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {
-            if (success) {
-                returnedProducts = [NSMutableArray arrayWithArray:products];
-                [returnedProducts retain];
-                for (SKProduct* product in products) {
-                    // do something with object
-                    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-                    [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
-                    [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-                    [numberFormatter setLocale:product.priceLocale];
-                    NSString *price = [numberFormatter stringFromNumber:product.price];
-                    if ([product.productIdentifier isEqualToString:kIdentifierOneTimeSmall]) {
-                        dlg->prices[0] = std::string([price UTF8String]);
+    @autoreleasepool {
+        __block bool done = false;
+        __block InAppPurchaseDialog *dlg = new InAppPurchaseDialog(w);
+        __block NSArray *returnedProducts = nil;
+        [[xLightsIAPHelper sharedInstance] requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {
+                if (success) {
+                    returnedProducts = [NSMutableArray arrayWithArray:products];
+                    for (SKProduct* product in products) {
+                        // do something with object
+                        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+                        [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+                        [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+                        [numberFormatter setLocale:product.priceLocale];
+                        NSString *price = [numberFormatter stringFromNumber:product.price];
+                        if ([product.productIdentifier isEqualToString:kIdentifierOneTimeSmall]) {
+                            dlg->prices[0] = std::string([price UTF8String]);
+                        }
+                        if ([product.productIdentifier isEqualToString:kIdentifierOneTimeMedium]) {
+                            dlg->prices[1] = std::string([price UTF8String]);
+                        }
+                        if ([product.productIdentifier isEqualToString:kIdentifierOneTimeLarge]) {
+                            dlg->prices[2] = std::string([price UTF8String]);
+                        }
+                        if ([product.productIdentifier isEqualToString:kIdentifierMonthlySmall]) {
+                            dlg->prices[3] = std::string([price UTF8String]);
+                        }
+                        if ([product.productIdentifier isEqualToString:kIdentifierMonthlyMedium]) {
+                            dlg->prices[4] = std::string([price UTF8String]);
+                        }
+                        if ([product.productIdentifier isEqualToString:kIdentifierMonthlyLarge]) {
+                            dlg->prices[5] = std::string([price UTF8String]);
+                        }
                     }
-                    if ([product.productIdentifier isEqualToString:kIdentifierOneTimeMedium]) {
-                        dlg->prices[1] = std::string([price UTF8String]);
-                    }
-                    if ([product.productIdentifier isEqualToString:kIdentifierOneTimeLarge]) {
-                        dlg->prices[2] = std::string([price UTF8String]);
-                    }
-                    if ([product.productIdentifier isEqualToString:kIdentifierMonthlySmall]) {
-                        dlg->prices[3] = std::string([price UTF8String]);
-                    }
-                    if ([product.productIdentifier isEqualToString:kIdentifierMonthlyMedium]) {
-                        dlg->prices[4] = std::string([price UTF8String]);
-                    }
-                    if ([product.productIdentifier isEqualToString:kIdentifierMonthlyLarge]) {
-                        dlg->prices[5] = std::string([price UTF8String]);
+                }
+                done = true;
+            }];
+        
+        while (!done) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        }
+        if (returnedProducts == nil) {
+            return false;
+        }
+        dlg->setPrices();
+        if (dlg->ShowModal() == wxID_OK) {
+            int i = dlg->getSelection();
+            if (i) {
+                for (SKProduct* product in returnedProducts) {
+                    if (i == 1 && [product.productIdentifier isEqualToString:kIdentifierOneTimeSmall]) {
+                        [[xLightsIAPHelper sharedInstance] buyProduct:product];
+                    } else if (i == 2 && [product.productIdentifier isEqualToString:kIdentifierOneTimeMedium]) {
+                        [[xLightsIAPHelper sharedInstance] buyProduct:product];
+                    } else if (i == 3 && [product.productIdentifier isEqualToString:kIdentifierOneTimeLarge]) {
+                        [[xLightsIAPHelper sharedInstance] buyProduct:product];
+                    } else if (i == 4 && [product.productIdentifier isEqualToString:kIdentifierMonthlySmall]) {
+                        [[xLightsIAPHelper sharedInstance] buyProduct:product];
+                    } else if (i == 5 && [product.productIdentifier isEqualToString:kIdentifierMonthlyMedium]) {
+                        [[xLightsIAPHelper sharedInstance] buyProduct:product];
+                    } else if (i == 6 && [product.productIdentifier isEqualToString:kIdentifierMonthlyLarge]) {
+                        [[xLightsIAPHelper sharedInstance] buyProduct:product];
                     }
                 }
             }
-            done = true;
-        }];
-    
-    while (!done) {
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
-    }
-    if (returnedProducts == nil) {
+            return true;
+        }
         return false;
     }
-    dlg->setPrices();
-    if (dlg->ShowModal() == wxID_OK) {
-        int i = dlg->getSelection();
-        if (i) {
-            for (SKProduct* product in returnedProducts) {
-                if (i == 1 && [product.productIdentifier isEqualToString:kIdentifierOneTimeSmall]) {
-                    [[xLightsIAPHelper sharedInstance] buyProduct:product];
-                } else if (i == 2 && [product.productIdentifier isEqualToString:kIdentifierOneTimeMedium]) {
-                    [[xLightsIAPHelper sharedInstance] buyProduct:product];
-                } else if (i == 3 && [product.productIdentifier isEqualToString:kIdentifierOneTimeLarge]) {
-                    [[xLightsIAPHelper sharedInstance] buyProduct:product];
-                } else if (i == 4 && [product.productIdentifier isEqualToString:kIdentifierMonthlySmall]) {
-                    [[xLightsIAPHelper sharedInstance] buyProduct:product];
-                } else if (i == 5 && [product.productIdentifier isEqualToString:kIdentifierMonthlyMedium]) {
-                    [[xLightsIAPHelper sharedInstance] buyProduct:product];
-                } else if (i == 6 && [product.productIdentifier isEqualToString:kIdentifierMonthlyLarge]) {
-                    [[xLightsIAPHelper sharedInstance] buyProduct:product];
-                }
-            }
-        }
-        [returnedProducts release];
-        return true;
-    }
-    [returnedProducts release];
-    return false;
 }

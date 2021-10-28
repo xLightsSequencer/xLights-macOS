@@ -135,12 +135,11 @@ bool wxMetalCanvas::Create(wxWindow *parent,
     MacPostControlCreate(pos, size) ;
 
     view = new MTK::View(v, *device);
-
     return true;
 }
 
 
-MTL::RenderPipelineState wxMetalCanvas::getPipelineState(const std::string &name, const char *vShader, const char *fShader) {
+MTL::RenderPipelineState wxMetalCanvas::getPipelineState(const std::string &name, const char *vShader, const char *fShader, bool blending) {
     auto &a = PIPELINE_STATES[name];
     if (a.pipeline == nullptr) {
         if (library == nullptr) {
@@ -149,6 +148,14 @@ MTL::RenderPipelineState wxMetalCanvas::getPipelineState(const std::string &name
 
         a.pipeline = new MTL::RenderPipelineDescriptor();
         a.pipeline->colorAttachments[0].pixelFormat(view->colorPixelFormat());
+
+        if (blending) {
+            a.pipeline->colorAttachments[0].blendingEnabled(true);
+            a.pipeline->colorAttachments[0].sourceRGBBlendFactor(MTL::BlendFactorSourceAlpha);
+            a.pipeline->colorAttachments[0].destinationRGBBlendFactor(MTL::BlendFactorOneMinusSourceAlpha);
+            a.pipeline->colorAttachments[0].sourceAlphaBlendFactor(MTL::BlendFactorOne);
+            a.pipeline->colorAttachments[0].destinationAlphaBlendFactor(MTL::BlendFactorOneMinusSourceAlpha);
+        }
 
         a.pipeline->vertexFunction(library->newFunctionWithName(vShader));
         a.pipeline->fragmentFunction(library->newFunctionWithName(fShader));

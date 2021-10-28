@@ -8,9 +8,11 @@
 #import <Foundation/Foundation.h>
 #include <Cocoa/Cocoa.h>
 #include <wx/window.h>
+#include <wx/panel.h>
 
 
 #if __has_include(<AppKit/NSTouchBar.h>)
+
 
 @interface XLTouchBarViewController : NSViewController
 @end
@@ -73,6 +75,20 @@
 @end
 
 
+
+class TouchBarItemData {
+public:
+    SliderPasser* sliderPasser = nullptr;
+    ColorPickerPasser* colorPasser = nullptr;
+    SegmentPasser* segmentPasser = nullptr;
+
+
+    ButtonPasser* buttonPasser = nullptr;
+    NSButton* button = nullptr;
+};
+
+
+
 @implementation XLTouchBarViewController
 
 - (void)viewDidLoad
@@ -133,7 +149,7 @@
         if (label == "") {
             label = item->GetName();
         }
-        NSCustomTouchBarItem *ret = [[[NSCustomTouchBarItem alloc] initWithIdentifier:identifier] autorelease];
+        NSCustomTouchBarItem *ret = [[NSCustomTouchBarItem alloc] initWithIdentifier:identifier];
         NSString *nm = [NSString stringWithCString:label.c_str()
                                           encoding:[NSString defaultCStringEncoding]];
         
@@ -162,7 +178,8 @@
         if (item->GetBackgroundColor().Alpha() > 0) {
             theButton.bezelColor = item->GetBackgroundColor().OSXGetNSColor();
         }
-        
+        it->GetData()->buttonPasser = bp;
+        it->GetData()->button = theButton;
         return ret;
     }
     
@@ -201,6 +218,9 @@
         ret.customizationLabel = nm;
         ret.color = cpi->GetColor().OSXGetNSColor();
         [ret setColor:cpi->GetColor().OSXGetNSColor()];
+
+        it->GetData()->colorPasser = bp;
+
         return ret;
     }
     
@@ -219,7 +239,9 @@
         bp.item = ret;
         [ret setTarget:bp];
         [ret setAction:@selector(sliderChanged:)];
-        
+
+        it->GetData()->sliderPasser = bp;
+
         return ret;
     }
     
@@ -247,7 +269,8 @@
                                           encoding:[NSString defaultCStringEncoding]];
         
         
-        
+        it->GetData()->segmentPasser = bp;
+
         ret.view = segmentedControl;
         ret.customizationLabel = nm;
         return ret;
@@ -273,7 +296,16 @@
 }
 @end
 
-void *initializeTouchBarSupport(wxWindow *w) {
+
+class TouchBarContollerData {
+public:
+    TouchBarContollerData(XLTouchBarViewController *c) : controller(c) {}
+
+    XLTouchBarViewController *controller;
+};
+
+
+TouchBarContollerData *initializeTouchBarSupport(wxWindow *w) {
     Class cls = NSClassFromString(@"NSTouchBar");
     if (cls == nil) {
         return nullptr;
@@ -289,11 +321,11 @@ void *initializeTouchBarSupport(wxWindow *w) {
     cont.view = view;
     
     [cont viewDidLoad];
-    return cont;
+    return new TouchBarContollerData(cont);
 }
-void setActiveTouchbar(void *controller, xlTouchBar *tb) {
-    if (controller != nil) {
-        XLTouchBarViewController *cont = (XLTouchBarViewController*)controller;
+void setActiveTouchbar(TouchBarContollerData *cdata, xlTouchBar *tb) {
+    if (cdata != nil) {
+        XLTouchBarViewController *cont = cdata->controller;
         cont.xltouchBar = tb;
         cont.view = (NSView*)cont.window->GetHandle();
         [cont invalidateTouchBar];
@@ -301,8 +333,137 @@ void setActiveTouchbar(void *controller, xlTouchBar *tb) {
 }
 
 #else
-void *initializeTouchBarSuppor(wxWindow *w) { return nullptr; }
-void setActiveTouchbar(void *controller, xlTouchBar *tb) {}
+class TouchBarContollerData {
+public:
+};
+TouchBarContollerData *initializeTouchBarSuppor(wxWindow *w) { return nullptr; }
+void setActiveTouchbar(TouchBarContollerData *controller, xlTouchBar *tb) {}
 
 #endif
 
+xlTouchBarSupport::xlTouchBarSupport() : window(nullptr), parent(nullptr), controllerData(nullptr) {
+}
+xlTouchBarSupport::~xlTouchBarSupport() {
+    if (controllerData) {
+        delete controllerData;
+    }
+}
+void xlTouchBarSupport::Init(wxWindow *w) {
+    controllerData = initializeTouchBarSupport(w);
+    if (controllerData) {
+        parent = new wxPanel(w->GetParent());
+        parent->Hide();
+    }
+}
+void xlTouchBarSupport::SetActive(xlTouchBar *tb) {
+    setActiveTouchbar(controllerData, tb);
+    currentBar = tb;
+}
+
+
+TouchBarItem::~TouchBarItem() {
+    if (data) {
+        delete data;
+    }
+}
+TouchBarItemData *TouchBarItem::GetData() {
+    if (!data) {
+        data = new TouchBarItemData();
+    }
+    return data;
+}
+
+
+wxControlTouchBarItem::wxControlTouchBarItem(wxWindow *c) : TouchBarItem(c->GetName().ToStdString()), control(c) {
+
+}
+GroupTouchBarItem::~GroupTouchBarItem() {
+    for (int x = 0; x < items.size(); x++) {
+        delete items[x];
+    }
+    items.clear();
+}
+
+xlTouchBar::xlTouchBar(xlTouchBarSupport &s) : support(s) {
+}
+xlTouchBar::xlTouchBar(xlTouchBarSupport &s, std::vector<TouchBarItem*> &i) : support(s), items(std::move(i)) {
+}
+xlTouchBar::~xlTouchBar() {
+    for (int x = 0; x < items.size(); x++) {
+        delete items[x];
+    }
+    items.clear();
+}
+
+
+EffectGridTouchBar::EffectGridTouchBar(xlTouchBarSupport &support, std::vector<TouchBarItem*> &i) : xlTouchBar(support, i) {
+}
+EffectGridTouchBar::~EffectGridTouchBar() {
+}
+
+
+void ColorPickerItem::SetColor(const wxBitmap &b, wxColor &c) {
+    bmp = b;
+    color = c;
+}
+
+void SliderItem::SetValue(int i) {
+    value = i;
+}
+
+
+ColorPanelTouchBar::ColorPanelTouchBar(ColorChangedFunction f,
+                                       SliderItemChangedFunction spark,
+                                       xlTouchBarSupport &support)
+    : xlTouchBar(support), colorCallback(f), sparkCallback(spark), inCallback(false)
+{
+    xlTouchBarSupport *sp = &support;
+    ButtonTouchBarItem *doneButton = new ButtonTouchBarItem([sp, this]() {
+        sp->SetActive(lastBar);
+    }, "Done", "Done");
+    doneButton->SetBackgroundColor(*wxBLUE);
+    items.push_back(doneButton);
+
+    for (char x = '1'; x <= '8'; x++) {
+        std::string name = "Color ";
+        name += x;
+        items.push_back(new ColorPickerItem([this, x](wxColor c) {
+            this->inCallback = true;
+            this->colorCallback(x - '1', c);
+            this->inCallback = false;
+        }, name));
+    }
+
+    items.push_back(new SliderItem([this](int i) {
+        this->inCallback = true;
+        this->sparkCallback(i);
+        this->inCallback = false;
+    }, "Sparkles", 0, 200));
+}
+ColorPanelTouchBar::~ColorPanelTouchBar() {
+}
+void ColorPanelTouchBar::SetActive() {
+    lastBar = support.GetCurrentBar();
+    support.SetActive(this);
+}
+void ColorPanelTouchBar::SetSparkles(int v) {
+    if (inCallback) {
+        return;
+    }
+    SliderItem *item = (SliderItem*)items[9];
+    item->SetValue(v);
+    if (support.IsActive(this)) {
+        support.SetActive(this);
+    }
+}
+
+void ColorPanelTouchBar::SetColor(int idx, const wxBitmap &bmp, wxColor &c) {
+    if (inCallback) {
+        return;
+    }
+    ColorPickerItem *item = (ColorPickerItem*)items[idx + 1];  //count for the Done button
+    item->SetColor(bmp, c);
+    if (support.IsActive(this)) {
+        support.SetActive(this);
+    }
+}

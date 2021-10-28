@@ -45,6 +45,7 @@ public:
     void draw();
 
     MTL::Drawable *currentDrawable();
+    MTL::Drawable *nextDrawable();
 
     MTL::RenderPassDescriptor *currentRenderPassDescriptor();
 
@@ -73,6 +74,7 @@ private:
     MTL::Device *m_device;
 
     MTL::Drawable *m_currentDrawable;
+    MTL::Drawable *m_nextDrawable;
 
     MTL::RenderPassDescriptor *m_currentRenderPassDescriptor;
 

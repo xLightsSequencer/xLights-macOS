@@ -52,7 +52,6 @@ static void LoadGroupEntries(wxConfig *config, const wxString &grp, std::list<st
                                                      bookmarkDataIsStale:&isStale
                                                      error:&error];
             bool ok = [fileURL startAccessingSecurityScopedResource];
-            [nsdata release];
             if (ok) {
                 ACCESSIBLE_URLS.insert(f);
             } else {
@@ -79,94 +78,93 @@ static void LoadGroupEntries(wxConfig *config, const wxString &grp, std::list<st
     }
 }
 
-
 bool ObtainAccessToURL(const std::string &path) {
     if ("" == path) {
         return true;
     }
-    
     std::unique_lock<std::mutex> lock(URL_LOCK);
-    if (ACCESSIBLE_URLS.empty()) {
-        std::list<std::string> removes;
-        std::list<std::string> grpRemoves;
-        wxConfig *config = new wxConfig("xLights-Bookmarks");
-        LoadGroupEntries(config, "/", removes, grpRemoves);
-        if (!removes.empty() || !grpRemoves.empty()) {
-            for (auto &a : removes) {
-                if (a.rfind("/Volumes/", 0) != 0) {
-                    // don't remove entries that start with /Volumes as its likely just an SD card
-                    // that isn't mounted right now.   It might be there later
-                    config->DeleteEntry(a, true);
+    @autoreleasepool {
+        if (ACCESSIBLE_URLS.empty()) {
+            std::list<std::string> removes;
+            std::list<std::string> grpRemoves;
+            wxConfig *config = new wxConfig("xLights-Bookmarks");
+            LoadGroupEntries(config, "/", removes, grpRemoves);
+            if (!removes.empty() || !grpRemoves.empty()) {
+                for (auto &a : removes) {
+                    if (a.rfind("/Volumes/", 0) != 0) {
+                        // don't remove entries that start with /Volumes as its likely just an SD card
+                        // that isn't mounted right now.   It might be there later
+                        config->DeleteEntry(a, true);
+                    }
                 }
+                for (auto &a : grpRemoves) {
+                    config->DeleteGroup(a);
+                }
+                config->Flush();
             }
-            for (auto &a : grpRemoves) {
-                config->DeleteGroup(a);
-            }
-            config->Flush();
+            delete config;
         }
-        delete config;
-    }
-    if (ACCESSIBLE_URLS.find(path) != ACCESSIBLE_URLS.end()) {
-        return true;
-    }
-    if (!wxFileName::Exists(path)) {
-        return false;
-    }
-    wxFileName fn(path);
-    if (!fn.IsDir()) {
-        wxFileName parent(fn.GetPath());
-        wxString ps = parent.GetPath();
-        while (ps != "" && ps != "/" && ACCESSIBLE_URLS.find(ps) == ACCESSIBLE_URLS.end()) {
-            parent.RemoveLastDir();
-            ps = parent.GetPath();
-        }
-        
-        if (ACCESSIBLE_URLS.find(ps) != ACCESSIBLE_URLS.end()) {
-            // file is in a directory we already have access to, don't need to record it
-            ACCESSIBLE_URLS.insert(path);
+        if (ACCESSIBLE_URLS.find(path) != ACCESSIBLE_URLS.end()) {
             return true;
         }
-    }
-    
-    std::string pathurl = path;
-    wxConfig *config = new wxConfig("xLights-Bookmarks");
-    wxString data = config->Read(pathurl);
-    NSError *error = nil;
-    if ("" == data) {
-        NSString *filePath = [NSString stringWithCString:pathurl.c_str()
-                                                encoding:[NSString defaultCStringEncoding]];
-        NSURL *fileURL = [NSURL fileURLWithPath:filePath];
-        
-        NSData * newData = [fileURL bookmarkDataWithOptions: NSURLBookmarkCreationWithSecurityScope
-                             includingResourceValuesForKeys: nil
-                                              relativeToURL: nil
-                                                      error: &error];
-        NSString *base64 = [newData base64EncodedStringWithOptions:0];
-        const char *cstr = [base64 UTF8String];
-        if (cstr != nullptr && *cstr) {
-            data = cstr;
-            config->Write(pathurl, data);
-            ACCESSIBLE_URLS.insert(pathurl);
+        if (!wxFileName::Exists(path)) {
+            return false;
         }
+        wxFileName fn(path);
+        if (!fn.IsDir()) {
+            wxFileName parent(fn.GetPath());
+            wxString ps = parent.GetPath();
+            while (ps != "" && ps != "/" && ACCESSIBLE_URLS.find(ps) == ACCESSIBLE_URLS.end()) {
+                parent.RemoveLastDir();
+                ps = parent.GetPath();
+            }
+
+            if (ACCESSIBLE_URLS.find(ps) != ACCESSIBLE_URLS.end()) {
+                // file is in a directory we already have access to, don't need to record it
+                ACCESSIBLE_URLS.insert(path);
+                return true;
+            }
+        }
+
+        std::string pathurl = path;
+        wxConfig *config = new wxConfig("xLights-Bookmarks");
+        wxString data = config->Read(pathurl);
+        NSError *error = nil;
+        if ("" == data) {
+            NSString *filePath = [NSString stringWithCString:pathurl.c_str()
+                                                    encoding:[NSString defaultCStringEncoding]];
+            NSURL *fileURL = [NSURL fileURLWithPath:filePath];
+
+            NSData * newData = [fileURL bookmarkDataWithOptions: NSURLBookmarkCreationWithSecurityScope
+                                 includingResourceValuesForKeys: nil
+                                                  relativeToURL: nil
+                                                          error: &error];
+            NSString *base64 = [newData base64EncodedStringWithOptions:0];
+            const char *cstr = [base64 UTF8String];
+            if (cstr != nullptr && *cstr) {
+                data = cstr;
+                config->Write(pathurl, data);
+                ACCESSIBLE_URLS.insert(pathurl);
+            }
+        }
+
+        if (data.length() > 0) {
+            NSString* dstr = [NSString stringWithCString:data.c_str()
+                                                encoding:[NSString defaultCStringEncoding]];
+            NSData *nsdata = [[NSData alloc] initWithBase64EncodedString:dstr options:0];
+            BOOL isStale = false;
+        //options:(NSURLBookmarkResolutionOptions)options
+        //relativeToURL:(NSURL *)relativeURL
+            NSURL *fileURL = [NSURL URLByResolvingBookmarkData:nsdata
+                                                 options:NSURLBookmarkResolutionWithoutUI | NSURLBookmarkResolutionWithSecurityScope
+                                                 relativeToURL:nil
+                                                 bookmarkDataIsStale:&isStale
+                                                 error:&error];
+            [fileURL startAccessingSecurityScopedResource];
+        }
+        delete config;
+        return data.length() > 0;
     }
-    
-    if (data.length() > 0) {
-        NSString* dstr = [NSString stringWithCString:data.c_str()
-                                            encoding:[NSString defaultCStringEncoding]];
-        NSData *nsdata = [[NSData alloc] initWithBase64EncodedString:dstr options:0];
-        BOOL isStale = false;
-    //options:(NSURLBookmarkResolutionOptions)options
-    //relativeToURL:(NSURL *)relativeURL
-        NSURL *fileURL = [NSURL URLByResolvingBookmarkData:nsdata
-                                             options:NSURLBookmarkResolutionWithoutUI | NSURLBookmarkResolutionWithSecurityScope
-                                             relativeToURL:nil
-                                             bookmarkDataIsStale:&isStale
-                                             error:&error];
-        [fileURL startAccessingSecurityScopedResource];
-        [nsdata release];
-    }
-    delete config;
-    return data.length() > 0;
 }
 
 double xlOSGetMainScreenContentScaleFactor()
@@ -194,11 +192,11 @@ public:
     }
     ~xlOSXEffectiveAppearanceSetter() {
         if (WX_IS_MACOS_AVAILABLE(10, 14)) {
-            NSAppearance.currentAppearance = (NSAppearance*) formerAppearance;
+            NSAppearance.currentAppearance = formerAppearance;
         }
     }
 private:
-    void * formerAppearance;
+    NSAppearance *formerAppearance;
 };
 
 void AdjustColorToDeviceColorspace(const wxColor &c, uint8_t &r1, uint8_t &g1, uint8_t &b1, uint8_t &a1) {
@@ -234,8 +232,8 @@ void xlSetRetinaCanvasViewport(wxGLCanvas &win, int &x, int &y, int &x2, int&y2)
     y2 = pt2.y;
 }
 
-double xlTranslateToRetina(wxGLCanvas &win, double x) {
-    NSOpenGLView *glView = (NSOpenGLView*)win.GetHandle();
+double xlTranslateToRetina(wxWindow &win, double x) {
+    NSView *glView = (NSView*)win.GetHandle();
     NSSize pt;
     pt.width = x;
     pt.height = 0;
@@ -244,7 +242,7 @@ double xlTranslateToRetina(wxGLCanvas &win, double x) {
 }
 
 bool IsMouseEventFromTouchpad() {
-    NSEvent *theEvent = (NSEvent*)wxTheApp->MacGetCurrentEvent();
+    NSEvent *theEvent = (__bridge NSEvent*)wxTheApp->MacGetCurrentEvent();
     return (([theEvent momentumPhase] != NSEventPhaseNone) || ([theEvent phase] != NSEventPhaseNone));
 }
 
@@ -257,14 +255,12 @@ public:
         if (!isSuspended) {
             activityId = [[NSProcessInfo processInfo ] beginActivityWithOptions: OPTIONFLAGS
                                                                             reason:@"Outputting to lights"];
-            [activityId retain];
             isSuspended = true;
         }
     }
     void resume() {
         if (isSuspended) {
             [[NSProcessInfo processInfo ] endActivity:activityId];
-            [activityId release];
             activityId = nullptr;
             isSuspended = false;
         }

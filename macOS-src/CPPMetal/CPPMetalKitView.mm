@@ -22,6 +22,7 @@ View::View(CPPMetalInternal::View objCObj, MTL::Device & device) :
 m_objCObj(objCObj),
 m_device(&device),
 m_currentDrawable(nullptr),
+m_nextDrawable(nullptr),
 m_currentRenderPassDescriptor(nullptr),
 m_depthStencilTexture(nullptr)
 {
@@ -32,6 +33,7 @@ View::View(const View & rhs) :
 m_objCObj(rhs.m_objCObj),
 m_device(rhs.m_device),
 m_currentDrawable(nullptr),
+m_nextDrawable(nullptr),
 m_currentRenderPassDescriptor(nullptr),
 m_depthStencilTexture(nullptr)
 {
@@ -45,6 +47,7 @@ View::~View()
 {
     m_objCObj = nil;
     destroy(m_device->allocator(), m_currentDrawable);
+    destroy(m_device->allocator(), m_nextDrawable);
     destroy(m_device->allocator(), m_currentRenderPassDescriptor);
     destroy(m_device->allocator(), m_depthStencilTexture);
 }
@@ -93,7 +96,7 @@ MTL::Size View::drawableSize() const
     return size;
 }
 
-inline  Drawable *View::currentDrawable()
+Drawable *View::currentDrawable()
 {
     assert(m_objCObj.device);
 
@@ -115,6 +118,30 @@ inline  Drawable *View::currentDrawable()
     return m_currentDrawable;
 }
 
+Drawable *View::nextDrawable()
+{
+    assert(m_objCObj.device);
+
+    id<CAMetalDrawable> objCNextDrawable = m_objCObj.currentDrawable;
+    CAMetalLayer *layer = [objCNextDrawable layer];
+    objCNextDrawable = [layer nextDrawable];
+
+    if(m_nextDrawable == nullptr ||
+       ![m_nextDrawable->objCObj() isEqual:objCNextDrawable])
+    {
+        destroy(m_device->allocator(), m_nextDrawable);
+        m_nextDrawable = nullptr;
+
+
+        if(objCNextDrawable)
+        {
+            m_nextDrawable = construct<Drawable>(m_device->allocator(),
+                                                 objCNextDrawable, *m_device);
+        }
+    }
+
+    return m_nextDrawable;
+}
 
 MTL::RenderPassDescriptor *View::currentRenderPassDescriptor()
 {

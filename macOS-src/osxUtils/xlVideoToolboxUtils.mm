@@ -103,12 +103,9 @@ void InitVideoToolboxAcceleration() {
     if (ciContext == nullptr) {
         logger_base.info("Could not create context for scaling.");
     } else {
-        [ciContext retain];
 
         rbFlipKernel = [CIColorKernel kernelWithString: @"kernel vec4 swapRedAndGreenAmount(__sample s) { return s.bgra; }" ];
-        [rbFlipKernel retain];
     }
-    [dict release];
 
     logger_base.info("Hardware decoder initialized.");
 }
