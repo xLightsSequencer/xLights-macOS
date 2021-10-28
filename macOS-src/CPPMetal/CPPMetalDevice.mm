@@ -148,20 +148,22 @@ Library *Device::newLibraryWithURL(const CFURLRef URL, CFErrorRef *error)
     CPP_METAL_VALIDATE_WRAPPED_NIL();
 
     NSError *nserror;
-    id<MTLLibrary> objCObj = [m_objCObj newLibraryWithURL:(__bridge NSURL*)URL
-                                                    error:&nserror];
-    if(!objCObj)
-    {
-        if(error)
+    if (@available(macOS 10.13, *)) {
+        id<MTLLibrary> objCObj = [m_objCObj newLibraryWithURL:(__bridge NSURL*)URL
+                                                        error:&nserror];
+        if(!objCObj)
         {
-            *error = (__bridge CFErrorRef)nserror;
+            if(error)
+            {
+                *error = (__bridge CFErrorRef)nserror;
+            }
+            return nullptr;
         }
-        return nullptr;
+
+        Library *library = construct<Library>(allocator(), objCObj, *this);
+        return library;
     }
-
-    Library *library = construct<Library>(allocator(), objCObj, *this);
-
-    return library;
+    return nullptr;
 }
 
 
@@ -189,20 +191,22 @@ Library Device::makeLibrary(const char* filepath, CFErrorRef *error)
 Library Device::makeLibrary(const CFURLRef URL, CFErrorRef *error)
 {
     CPP_METAL_VALIDATE_WRAPPED_NIL();
+    if (@available(macOS 10.13, *)) {
 
-    NSError *nserror;
-    id<MTLLibrary> objCObj = [m_objCObj newLibraryWithURL:(__bridge NSURL*)URL
-                                                     error:&nserror];
+        NSError *nserror;
+        id<MTLLibrary> objCObj = [m_objCObj newLibraryWithURL:(__bridge NSURL*)URL
+                                                        error:&nserror];
 
-    if(!objCObj)
-    {
-        if(error)
+        if(!objCObj)
         {
-            *error = (__bridge CFErrorRef)nserror;
+            if(error)
+            {
+                *error = (__bridge CFErrorRef)nserror;
+            }
         }
+        return Library(objCObj, *this);
     }
-
-    return Library(objCObj, *this);
+    return Library(nullptr, *this);
 }
 
 RenderPipelineState *Device::newRenderPipelineStateWithDescriptor(const RenderPipelineDescriptor & descriptor,
@@ -388,9 +392,12 @@ const char* Device::name() const
 
 bool Device::supportsFamily(GPUFamily family) const
 {
-    return [m_objCObj supportsFamily:(MTLGPUFamily)family];
+    if (@available(macOS 10.15, *)) {
+        return [m_objCObj supportsFamily:(MTLGPUFamily)family];
+    }
+    return false;
 }
-
+/*
 CPP_METAL_VALIDATE_ENUM_ALIAS( GPUFamilyApple1 );
 CPP_METAL_VALIDATE_ENUM_ALIAS( GPUFamilyApple2 );
 CPP_METAL_VALIDATE_ENUM_ALIAS( GPUFamilyApple3 );
@@ -409,3 +416,4 @@ CPP_METAL_VALIDATE_ENUM_ALIAS( GPUFamilyCommon2 );
 CPP_METAL_VALIDATE_ENUM_ALIAS( GPUFamilyCommon3 );
 CPP_METAL_VALIDATE_ENUM_ALIAS( GPUFamilyMacCatalyst1 );
 CPP_METAL_VALIDATE_ENUM_ALIAS( GPUFamilyMacCatalyst2 );
+*/
