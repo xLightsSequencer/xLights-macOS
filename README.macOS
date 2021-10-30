@@ -198,10 +198,14 @@ unset CFLAGS
 unset LDFLAGS
 
 
-ffmpeg:   currently using 4.4
+ffmpeg:   currently using 4.4.1  plus patches
 git clone https://git.ffmpeg.org/ffmpeg.git
 cd ffmpeg
-git checkout n4.4
+git checkout n4.4.1
+git cherry-pick 55d9d6767967794edcdd6e1bbd8840fc6f4e9315
+git cherry-pick b786bc7433dfe082441a57c1ba9ae9ea47904b78
+git cherry-pick 7539a01bb0ea24998e1aa87706edf9785ddd3ac6
+git cherry-pick 71ad83667d32f64c658034baa3cc56246ae67363
 ./configure --disable-asm --disable-x86asm --enable-static --disable-shared --disable-securetransport --extra-cflags="${OSX_VERSION_MIN}" --disable-indev=lavfi --disable-libx264 --disable-lzma --enable-gpl --enable-opengl --disable-programs
 sed -i -e "s/^CFLAGS=/CFLAGS=-g -O3 ${XL_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak
 sed -i -e "s/^CXXFLAGS=/CXXFLAGS=-g -O3 ${XL_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak

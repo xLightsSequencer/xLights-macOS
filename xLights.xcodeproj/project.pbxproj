@@ -468,10 +468,15 @@
 		674D3D241C207BD7000D632B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D231C207BD7000D632B /* AudioToolbox.framework */; };
 		674D3D261C207C25000D632B /* libpthread.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D251C207C25000D632B /* libpthread.tbd */; };
 		675FD840204C3C0B003D280F /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B227204BA69B00E90AC7 /* CoreImage.framework */; };
+		6778610B272CD73200020F31 /* GPURenderUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67786109272CD73200020F31 /* GPURenderUtils.cpp */; };
 		677A15C226A22AA8000AFE4D /* ResultDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6771056D267BB91C001DA926 /* ResultDialog.cpp */; };
 		677A15C326A22AA8000AFE4D /* UniverseEntryDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6771056A267BB91C001DA926 /* UniverseEntryDialog.cpp */; };
 		677A15C426A22AA8000AFE4D /* xCaptureMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6771056E267BB91C001DA926 /* xCaptureMain.cpp */; };
 		6781D632234C24BD00408604 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B4C92117B53D960006B951 /* CoreVideo.framework */; };
+		678577A2272C662700E6E249 /* MetalEffectManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 678577A1272C662700E6E249 /* MetalEffectManager.mm */; };
+		678577A5272C67D400E6E249 /* MetalButterflyEffect.mm in Sources */ = {isa = PBXBuildFile; fileRef = 678577A3272C67D400E6E249 /* MetalButterflyEffect.mm */; };
+		678577AB272C721500E6E249 /* MetalComputeUtilities.mm in Sources */ = {isa = PBXBuildFile; fileRef = 678577A9272C721500E6E249 /* MetalComputeUtilities.mm */; };
+		678577B6272C73A000E6E249 /* ButterflyFunctions.metal in Sources */ = {isa = PBXBuildFile; fileRef = 678577B5272C73A000E6E249 /* ButterflyFunctions.metal */; };
 		6786706A2729104A00A5375D /* MetalShaderTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 678670692729104A00A5375D /* MetalShaderTypes.h */; };
 		6786706D27296B4000A5375D /* SIMDMathUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6786706B27296B4000A5375D /* SIMDMathUtilities.cpp */; };
 		6786706E27296B4000A5375D /* SIMDMathUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 6786706C27296B4000A5375D /* SIMDMathUtilities.h */; };
@@ -559,6 +564,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		678577B7272C756100E6E249 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 678577AD272C735000E6E249;
+			remoteInfo = EffectComputeFunctions;
+		};
 		67A88A4826164CD700BFCEC0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
@@ -1515,6 +1527,15 @@
 		67710582267BBAC5001DA926 /* CoreAudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioKit.framework; path = System/Library/Frameworks/CoreAudioKit.framework; sourceTree = SDKROOT; };
 		6771B227204BA69B00E90AC7 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		6771B229204BA6AF00E90AC7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		67786109272CD73200020F31 /* GPURenderUtils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPURenderUtils.cpp; sourceTree = "<group>"; };
+		6778610A272CD73200020F31 /* GPURenderUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPURenderUtils.h; sourceTree = "<group>"; };
+		678577A1272C662700E6E249 /* MetalEffectManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalEffectManager.mm; sourceTree = "<group>"; };
+		678577A3272C67D400E6E249 /* MetalButterflyEffect.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalButterflyEffect.mm; sourceTree = "<group>"; };
+		678577A4272C67D400E6E249 /* MetalButterflyEffect.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MetalButterflyEffect.hpp; sourceTree = "<group>"; };
+		678577A8272C6B6000E6E249 /* ButterflyTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ButterflyTypes.h; sourceTree = "<group>"; };
+		678577A9272C721500E6E249 /* MetalComputeUtilities.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalComputeUtilities.mm; sourceTree = "<group>"; };
+		678577AA272C721500E6E249 /* MetalComputeUtilities.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MetalComputeUtilities.hpp; sourceTree = "<group>"; };
+		678577B5272C73A000E6E249 /* ButterflyFunctions.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = ButterflyFunctions.metal; sourceTree = "<group>"; };
 		678670692729104A00A5375D /* MetalShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MetalShaderTypes.h; sourceTree = "<group>"; };
 		6786706B27296B4000A5375D /* SIMDMathUtilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SIMDMathUtilities.cpp; sourceTree = "<group>"; };
 		6786706C27296B4000A5375D /* SIMDMathUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIMDMathUtilities.h; sourceTree = "<group>"; };
@@ -1939,6 +1960,8 @@
 				67164C4825D7CE6D0041BB9A /* RenameTextDialog.cpp */,
 				67164C5625D7CE6D0041BB9A /* RenameTextDialog.h */,
 				67164BDD25D7CE6D0041BB9A /* Render.cpp */,
+				67786109272CD73200020F31 /* GPURenderUtils.cpp */,
+				6778610A272CD73200020F31 /* GPURenderUtils.h */,
 				67164DFC25D7CE6D0041BB9A /* RenderBuffer.cpp */,
 				67164EFA25D7CE6E0041BB9A /* RenderBuffer.h */,
 				67164F6F25D7CE6E0041BB9A /* RenderCache.cpp */,
@@ -2086,23 +2109,23 @@
 		67164BEF25D7CE6D0041BB9A /* preferences */ = {
 			isa = PBXGroup;
 			children = (
-				67164BF025D7CE6D0041BB9A /* EffectsGridSettingsPanel.cpp */,
-				67164BF125D7CE6D0041BB9A /* RandomEffectsSettingsPanel.cpp */,
-				67164BF225D7CE6D0041BB9A /* ColorManagerSettingsPanel.h */,
-				67164BF325D7CE6D0041BB9A /* xLightsPreferences.cpp */,
-				67164BF425D7CE6D0041BB9A /* ViewSettingsPanel.cpp */,
-				67164BF525D7CE6D0041BB9A /* RandomEffectsSettingsPanel.h */,
-				67164BF625D7CE6D0041BB9A /* OutputSettingsPanel.h */,
-				67164BF725D7CE6D0041BB9A /* SequenceFileSettingsPanel.h */,
-				67164BF825D7CE6D0041BB9A /* OtherSettingsPanel.cpp */,
 				67164BF925D7CE6D0041BB9A /* BackupSettingsPanel.cpp */,
-				67164BFA25D7CE6D0041BB9A /* EffectsGridSettingsPanel.h */,
-				67164BFB25D7CE6D0041BB9A /* SequenceFileSettingsPanel.cpp */,
-				67164BFC25D7CE6D0041BB9A /* OutputSettingsPanel.cpp */,
 				67164BFD25D7CE6D0041BB9A /* BackupSettingsPanel.h */,
-				67164BFE25D7CE6D0041BB9A /* OtherSettingsPanel.h */,
 				67164BFF25D7CE6D0041BB9A /* ColorManagerSettingsPanel.cpp */,
+				67164BF225D7CE6D0041BB9A /* ColorManagerSettingsPanel.h */,
+				67164BF025D7CE6D0041BB9A /* EffectsGridSettingsPanel.cpp */,
+				67164BFA25D7CE6D0041BB9A /* EffectsGridSettingsPanel.h */,
+				67164BF825D7CE6D0041BB9A /* OtherSettingsPanel.cpp */,
+				67164BFE25D7CE6D0041BB9A /* OtherSettingsPanel.h */,
+				67164BFC25D7CE6D0041BB9A /* OutputSettingsPanel.cpp */,
+				67164BF625D7CE6D0041BB9A /* OutputSettingsPanel.h */,
+				67164BF125D7CE6D0041BB9A /* RandomEffectsSettingsPanel.cpp */,
+				67164BF525D7CE6D0041BB9A /* RandomEffectsSettingsPanel.h */,
+				67164BFB25D7CE6D0041BB9A /* SequenceFileSettingsPanel.cpp */,
+				67164BF725D7CE6D0041BB9A /* SequenceFileSettingsPanel.h */,
+				67164BF425D7CE6D0041BB9A /* ViewSettingsPanel.cpp */,
 				67164C0025D7CE6D0041BB9A /* ViewSettingsPanel.h */,
+				67164BF325D7CE6D0041BB9A /* xLightsPreferences.cpp */,
 			);
 			path = preferences;
 			sourceTree = "<group>";
@@ -2280,6 +2303,7 @@
 		67164FA325D7CE6E0041BB9A /* effects */ = {
 			isa = PBXGroup;
 			children = (
+				6785779F272C60F700E6E249 /* metal */,
 				67164FB325D7CE6E0041BB9A /* assist */,
 				67164FBF25D7CE6E0041BB9A /* BarsEffect.cpp */,
 				67164FA825D7CE6E0041BB9A /* BarsEffect.h */,
@@ -2805,6 +2829,20 @@
 			name = xCapture;
 			sourceTree = "<group>";
 		};
+		6785779F272C60F700E6E249 /* metal */ = {
+			isa = PBXGroup;
+			children = (
+				678577A1272C662700E6E249 /* MetalEffectManager.mm */,
+				678577A3272C67D400E6E249 /* MetalButterflyEffect.mm */,
+				678577A4272C67D400E6E249 /* MetalButterflyEffect.hpp */,
+				678577A8272C6B6000E6E249 /* ButterflyTypes.h */,
+				678577A9272C721500E6E249 /* MetalComputeUtilities.mm */,
+				678577AA272C721500E6E249 /* MetalComputeUtilities.hpp */,
+				678577B5272C73A000E6E249 /* ButterflyFunctions.metal */,
+			);
+			path = metal;
+			sourceTree = "<group>";
+		};
 		678670682729102100A5375D /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
@@ -3099,6 +3137,20 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		678577AD272C735000E6E249 /* EffectComputeFunctions */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 678577B1272C735000E6E249 /* Build configuration list for PBXNativeTarget "EffectComputeFunctions" */;
+			buildPhases = (
+				678577AC272C735000E6E249 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EffectComputeFunctions;
+			productName = EffectComputeFunctions;
+			productType = "com.apple.product-type.metal-library";
+		};
 		67A88A2626164C9B00BFCEC0 /* xLights-macOSLib */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 67A88A2D26164C9C00BFCEC0 /* Build configuration list for PBXNativeTarget "xLights-macOSLib" */;
@@ -3128,6 +3180,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				678577B8272C756100E6E249 /* PBXTargetDependency */,
 				67A88A4926164CD700BFCEC0 /* PBXTargetDependency */,
 			);
 			name = xLights;
@@ -3145,6 +3198,9 @@
 				LastUpgradeCheck = 1310;
 				ORGANIZATIONNAME = "Daniel Kulp";
 				TargetAttributes = {
+					678577AD272C735000E6E249 = {
+						CreatedOnToolsVersion = 13.1;
+					};
 					67A88A2626164C9B00BFCEC0 = {
 						CreatedOnToolsVersion = 12.4;
 					};
@@ -3182,6 +3238,7 @@
 			targets = (
 				67E7086C17B51AB400A22034 /* xLights */,
 				67A88A2626164C9B00BFCEC0 /* xLights-macOSLib */,
+				678577AD272C735000E6E249 /* EffectComputeFunctions */,
 			);
 		};
 /* End PBXProject section */
@@ -3226,6 +3283,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		678577AC272C735000E6E249 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				678577B6272C73A000E6E249 /* ButterflyFunctions.metal in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		67A88A2426164C9B00BFCEC0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3338,6 +3403,7 @@
 				671651EE25D7CE700041BB9A /* KeyBindingEditDialog.cpp in Sources */,
 				6716534325D7CE710041BB9A /* OffPanel.cpp in Sources */,
 				6716513525D7CE700041BB9A /* BackupSettingsPanel.cpp in Sources */,
+				678577A5272C67D400E6E249 /* MetalButterflyEffect.mm in Sources */,
 				6716531C25D7CE710041BB9A /* FanEffect.cpp in Sources */,
 				6716518525D7CE700041BB9A /* ConvertLogDialog.cpp in Sources */,
 				6716533C25D7CE710041BB9A /* PianoPanel.cpp in Sources */,
@@ -3368,6 +3434,7 @@
 				6716518025D7CE700041BB9A /* StrandNodeNamesDialog.cpp in Sources */,
 				6716519E25D7CE700041BB9A /* DmxModel.cpp in Sources */,
 				671652D225D7CE710041BB9A /* EffectTreeDialog.cpp in Sources */,
+				678577AB272C721500E6E249 /* MetalComputeUtilities.mm in Sources */,
 				6716518225D7CE700041BB9A /* EmailDialog.cpp in Sources */,
 				6716516125D7CE700041BB9A /* EffectsPanel.cpp in Sources */,
 				671653B025D7CE720041BB9A /* ImportPreviewsModelsDialog.cpp in Sources */,
@@ -3459,6 +3526,7 @@
 				671651E625D7CE700041BB9A /* ModelFaceDialog.cpp in Sources */,
 				6716533E25D7CE710041BB9A /* StrobeEffect.cpp in Sources */,
 				6716513825D7CE700041BB9A /* ColorManagerSettingsPanel.cpp in Sources */,
+				678577A2272C662700E6E249 /* MetalEffectManager.mm in Sources */,
 				6716539C25D7CE720041BB9A /* OPCOutput.cpp in Sources */,
 				6716512B25D7CE700041BB9A /* ColorCurve.cpp in Sources */,
 				6789EF4F26635DFD00889606 /* Pixels.cpp in Sources */,
@@ -3490,6 +3558,7 @@
 				6716520325D7CE700041BB9A /* tabSequencer.cpp in Sources */,
 				6716519925D7CE700041BB9A /* DmxFloodArea.cpp in Sources */,
 				6716536F25D7CE720041BB9A /* LiquidEffect.cpp in Sources */,
+				6778610B272CD73200020F31 /* GPURenderUtils.cpp in Sources */,
 				6716553525D823C60041BB9A /* jsonval.cpp in Sources */,
 				671651BC25D7CE700041BB9A /* ModelManager.cpp in Sources */,
 				6716514F25D7CE700041BB9A /* SeqSettingsDialog.cpp in Sources */,
@@ -3715,6 +3784,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		678577B8272C756100E6E249 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 678577AD272C735000E6E249 /* EffectComputeFunctions */;
+			targetProxy = 678577B7272C756100E6E249 /* PBXContainerItemProxy */;
+		};
 		67A88A4926164CD700BFCEC0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 67A88A2626164C9B00BFCEC0 /* xLights-macOSLib */;
@@ -3723,6 +3797,39 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		678577B2272C735000E6E249 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		678577B3272C735000E6E249 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		678577B4272C735000E6E249 /* Archive */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Archive;
+		};
 		67A88A2E26164C9C00BFCEC0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4004,6 +4111,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Assets/xLights/xLightsDebug.entitlements;
 				CURRENT_PROJECT_VERSION = 210130;
+				DEVELOPMENT_ASSET_PATHS = "";
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Assets/xLights/Info.plist";
@@ -4034,6 +4142,7 @@
 				CODE_SIGN_ENTITLEMENTS = Assets/xLights/xLights.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CURRENT_PROJECT_VERSION = 210130;
+				DEVELOPMENT_ASSET_PATHS = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
@@ -4175,6 +4284,7 @@
 				CODE_SIGN_ENTITLEMENTS = Assets/xLights/xLightsArchive.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CURRENT_PROJECT_VERSION = 210130;
+				DEVELOPMENT_ASSET_PATHS = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
@@ -4202,6 +4312,16 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		678577B1272C735000E6E249 /* Build configuration list for PBXNativeTarget "EffectComputeFunctions" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				678577B2272C735000E6E249 /* Debug */,
+				678577B3272C735000E6E249 /* Release */,
+				678577B4272C735000E6E249 /* Archive */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		67A88A2D26164C9C00BFCEC0 /* Build configuration list for PBXNativeTarget "xLights-macOSLib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
