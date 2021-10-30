@@ -1,5 +1,7 @@
 #pragma once
 
+#include <functional>
+
 class wxGLCanvas;
 class wxWindow;
 class wxString;
@@ -25,6 +27,8 @@ bool DoInAppPurchases(wxWindow *w);
 void WXGLUnsetCurrentContext();
 wxString GetOSFormattedClipboardData();
 double xlOSGetMainScreenContentScaleFactor();
+
+void RunInAutoReleasePool(std::function<void()> &&f);
 #define AdjustModalDialogParent(par) par = nullptr
 
 #define __XL_EXTERNAL_HOOKS__

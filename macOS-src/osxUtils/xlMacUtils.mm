@@ -18,6 +18,7 @@
 #include <list>
 #include <set>
 #include <mutex>
+#include <functional>
 
 #include <CoreAudio/CoreAudio.h>
 #include <CoreServices/CoreServices.h>
@@ -363,4 +364,11 @@ bool IsFromAppStore() {
         OSX_STATUS = 1;
     }
     return OSX_STATUS == 1;
+}
+
+
+void RunInAutoReleasePool(std::function<void()> &&f) {
+    @autoreleasepool {
+        f();
+    }
 }
