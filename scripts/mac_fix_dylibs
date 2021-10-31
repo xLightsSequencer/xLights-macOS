@@ -13,7 +13,7 @@ else
 fi
 
 # iff need to manually force a version number
-#XLVERSION=2020.46.1
+#XLVERSION=2021.34.3
 
 SHORTVER="${XLVERSION//./0}"
 SHORTVERPFX=${SHORTVER:2:5}
@@ -24,8 +24,8 @@ if [ "x${SHORTVERPO}" == "x" ]; then
 fi
 SHORTVER="${SHORTVERPFX}${SHORTVERPO}"
 
-
 cp $TARGET_BUILD_DIR/*.metallib $TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources
+cp $PROJECT_TEMP_ROOT/UninstalledProducts/macosx/*.metallib $TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources
 
 /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $XLVERSION" "${TARGET_BUILD_DIR}/${INFOPLIST_PATH}"
 /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $SHORTVER" "${TARGET_BUILD_DIR}/${INFOPLIST_PATH}"
