@@ -58,6 +58,7 @@ static void LoadGroupEntries(wxConfig *config, const wxString &grp, std::list<st
             } else {
                 removes.push_back(f);
             }
+            [nsdata release];
         } else {
             removes.push_back(f);
         }
@@ -197,7 +198,7 @@ public:
         }
     }
 private:
-    NSAppearance *formerAppearance;
+    NSAppearance *formerAppearance = nil;
 };
 
 void AdjustColorToDeviceColorspace(const wxColor &c, uint8_t &r1, uint8_t &g1, uint8_t &b1, uint8_t &a1) {
@@ -233,12 +234,12 @@ void xlSetRetinaCanvasViewport(wxGLCanvas &win, int &x, int &y, int &x2, int&y2)
     y2 = pt2.y;
 }
 
-double xlTranslateToRetina(wxWindow &win, double x) {
-    NSView *glView = (NSView*)win.GetHandle();
+double xlTranslateToRetina(const wxWindow &win, double x) {
+    NSView *view = (NSView*)win.GetHandle();
     NSSize pt;
     pt.width = x;
     pt.height = 0;
-    NSSize pt2 = [glView convertSizeToBacking: pt];
+    NSSize pt2 = [view convertSizeToBacking: pt];
     return pt2.width;
 }
 
@@ -254,14 +255,15 @@ public:
     
     void suspend() {
         if (!isSuspended) {
-            activityId = [[NSProcessInfo processInfo ] beginActivityWithOptions: OPTIONFLAGS
-                                                                            reason:@"Outputting to lights"];
+            activityId = [[[NSProcessInfo processInfo ] beginActivityWithOptions: OPTIONFLAGS
+                                                                            reason:@"Outputting to lights"] retain];
             isSuspended = true;
         }
     }
     void resume() {
         if (isSuspended) {
             [[NSProcessInfo processInfo ] endActivity:activityId];
+            [activityId release];
             activityId = nullptr;
             isSuspended = false;
         }

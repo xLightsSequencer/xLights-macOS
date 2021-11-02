@@ -115,6 +115,7 @@ typedef void (^RequestProductsCompletionHandler)(BOOL success, NSArray * product
         [alert setInformativeText:@"Thank you for your support!"];
         [alert addButtonWithTitle:@"Ok"];
         [alert runModal];
+        [alert release];
     });
 
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:transaction.payment.productIdentifier];
@@ -139,6 +140,7 @@ typedef void (^RequestProductsCompletionHandler)(BOOL success, NSArray * product
             [alert setInformativeText:transaction.error.localizedDescription];
             [alert addButtonWithTitle:@"Ok"];
             [alert runModal];
+            [alert release];
         });
     }
     [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
@@ -209,9 +211,10 @@ bool DoInAppPurchases(wxWindow *w) {
         [[xLightsIAPHelper sharedInstance] requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {
                 if (success) {
                     returnedProducts = [NSMutableArray arrayWithArray:products];
+                    [returnedProducts retain];
                     for (SKProduct* product in products) {
                         // do something with object
-                        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+                        NSNumberFormatter *numberFormatter = [[[NSNumberFormatter alloc] init] autorelease];
                         [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
                         [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
                         [numberFormatter setLocale:product.priceLocale];
@@ -265,8 +268,10 @@ bool DoInAppPurchases(wxWindow *w) {
                     }
                 }
             }
+            [returnedProducts release];
             return true;
         }
+        [returnedProducts release];
         return false;
     }
 }

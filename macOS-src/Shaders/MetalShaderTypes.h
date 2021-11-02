@@ -17,7 +17,12 @@ typedef enum BufferIndex
     BufferIndexMeshPositions     = 0,
     BufferIndexMeshColors        = 1,
     BufferIndexFrameData         = 2,
+    BufferIndexTexturePositions  = 3,
 } BufferIndex;
+
+typedef enum TextureIndex {
+    TextureIndexBase            = 0,
+} TextureIndex;
 
 // Structures shared between shader and C code to ensure the layout of per frame data
 //    accessed in Metal shaders matches the layout of fra data set in C code
@@ -26,8 +31,6 @@ struct FrameData
 {
     // Per Frame Uniforms
     simd::float4x4 MVP;
-    uint RenderType;
-
     simd::float4 fragmentColor;
 
     float PointSmoothMin;

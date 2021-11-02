@@ -69,13 +69,19 @@ wxMetalCanvas::wxMetalCanvas(wxWindow *parent,
 
 class PipelineInfo {
 public:
-    MTL::RenderPipelineDescriptor *pipeline = nullptr;
-    MTL::RenderPipelineState state;
+    PipelineInfo() {
+        state = nil;
+    }
+    ~PipelineInfo() {
+        state = nil;
+    }
+    id <MTLRenderPipelineState> state;
 };
 
-MTL::Device *wxMetalCanvas::device = nullptr;
-MTL::CommandQueue *wxMetalCanvas::commandQueue = nullptr;
-MTL::Library *wxMetalCanvas::library = nullptr;
+
+static id<MTLDevice> MTL_DEVICE = nil;
+static id<MTLCommandQueue> MTL_COMMAND_QUEUE = nil;
+static id<MTLLibrary> MTL_DEFAULT_LIBRARY = nil;
 static std::map<std::string, PipelineInfo> PIPELINE_STATES;
 static std::atomic_int METAL_USE_COUNT(0);
 
@@ -86,21 +92,34 @@ wxMetalCanvas::~wxMetalCanvas() {
 
     if (METAL_USE_COUNT == 0) {
         for (auto &a : PIPELINE_STATES) {
-            delete a.second.pipeline;
+            [a.second.state release];
+            a.second.state = nil;
         }
         PIPELINE_STATES.clear();
-        if (commandQueue) {
-            delete commandQueue;
+        if (MTL_COMMAND_QUEUE) {
+            MTL_COMMAND_QUEUE = nil;
         }
-        if (library) {
-            delete library;
+        if (MTL_DEFAULT_LIBRARY) {
+            MTL_DEFAULT_LIBRARY = nil;
         }
-        if (device) {
-            delete device;
+        if (MTL_DEVICE) {
+            MTL_DEVICE = nil;
         }
     }
 }
+MTKView* wxMetalCanvas::getMTKView() const {
+    return (MTKView*)this->GetHandle();
+}
 
+id<MTLDevice> wxMetalCanvas::getMTLDevice() {
+    return MTL_DEVICE;
+}
+id<MTLLibrary> wxMetalCanvas::getMTLLibrary() {
+    return MTL_DEFAULT_LIBRARY;
+}
+id<MTLCommandQueue> wxMetalCanvas::getMTLCommandQueue() {
+    return MTL_COMMAND_QUEUE;
+}
 
 bool wxMetalCanvas::Create(wxWindow *parent,
                            wxWindowID id,
@@ -115,16 +134,16 @@ bool wxMetalCanvas::Create(wxWindow *parent,
     }
 
     if (METAL_USE_COUNT == 0) {
-        device = MTL::CreateSystemDefaultDevice();
-        commandQueue = device->newCommandQueue();
+        MTL_DEVICE = MTLCreateSystemDefaultDevice();
+        MTL_COMMAND_QUEUE = [MTL_DEVICE newCommandQueue];
     }
     METAL_USE_COUNT++;
 
 
 
     NSRect r = wxOSXGetFrameForControl(this, pos , size);
-    wxCustomMTKView* v = [[wxCustomMTKView alloc] initWithFrame:r];
-
+    wxCustomMTKView* v = [[wxCustomMTKView alloc] initWithFrame:r device:MTL_DEVICE];
+    [v retain];
     [v setPaused:true];
     [v setEnableSetNeedsDisplay:true];
     [v setColorPixelFormat:MTLPixelFormatBGRA8Unorm ];
@@ -133,34 +152,40 @@ bool wxMetalCanvas::Create(wxWindow *parent,
     wxWidgetCocoaImpl* c = new wxWidgetCocoaImpl( this, v, wxWidgetImpl::Widget_UserKeyEvents | wxWidgetImpl::Widget_UserMouseEvents );
     SetPeer(c);
     MacPostControlCreate(pos, size) ;
-
-    view = new MTK::View(v, *device);
     return true;
 }
 
 
-MTL::RenderPipelineState wxMetalCanvas::getPipelineState(const std::string &name, const char *vShader, const char *fShader, bool blending) {
+id<MTLRenderPipelineState> wxMetalCanvas::getPipelineState(const std::string &name, const char *vShader, const char *fShader, bool blending) {
     auto &a = PIPELINE_STATES[name];
-    if (a.pipeline == nullptr) {
-        if (library == nullptr) {
-            library = device->newDefaultLibrary();
+    if (a.state == nil) {
+        if (MTL_DEFAULT_LIBRARY == nil) {
+            MTL_DEFAULT_LIBRARY = [MTL_DEVICE newDefaultLibrary];
         }
+        @autoreleasepool {
+            MTLRenderPipelineDescriptor *desc = [MTLRenderPipelineDescriptor new];
+            [desc colorAttachments][0].pixelFormat = [getMTKView() colorPixelFormat];
+            if (blending) {
+                [desc colorAttachments][0].blendingEnabled = true;
+                [desc colorAttachments][0].sourceRGBBlendFactor = MTLBlendFactorSourceAlpha;
+                [desc colorAttachments][0].destinationRGBBlendFactor = MTLBlendFactorOneMinusSourceAlpha;
+                [desc colorAttachments][0].sourceAlphaBlendFactor = MTLBlendFactorOne;
+                [desc colorAttachments][0].destinationAlphaBlendFactor = MTLBlendFactorOneMinusSourceAlpha;
+            }
 
-        a.pipeline = new MTL::RenderPipelineDescriptor();
-        a.pipeline->colorAttachments[0].pixelFormat(view->colorPixelFormat());
+            NSString *nsVName= [[[NSString alloc] initWithUTF8String:vShader] autorelease];
+            NSString *nsFName= [[[NSString alloc] initWithUTF8String:fShader] autorelease];
 
-        if (blending) {
-            a.pipeline->colorAttachments[0].blendingEnabled(true);
-            a.pipeline->colorAttachments[0].sourceRGBBlendFactor(MTL::BlendFactorSourceAlpha);
-            a.pipeline->colorAttachments[0].destinationRGBBlendFactor(MTL::BlendFactorOneMinusSourceAlpha);
-            a.pipeline->colorAttachments[0].sourceAlphaBlendFactor(MTL::BlendFactorOne);
-            a.pipeline->colorAttachments[0].destinationAlphaBlendFactor(MTL::BlendFactorOneMinusSourceAlpha);
+            desc.vertexFunction = [[MTL_DEFAULT_LIBRARY newFunctionWithName:nsVName] autorelease];
+            desc.fragmentFunction = [[MTL_DEFAULT_LIBRARY newFunctionWithName:nsFName] autorelease];
+
+            NSError *nserror;
+            a.state = [[MTL_DEVICE newRenderPipelineStateWithDescriptor:desc error:&nserror] retain];
+            [desc release];
+            if (nserror) {
+                [nserror release];
+            }
         }
-
-        a.pipeline->vertexFunction(library->newFunctionWithName(vShader));
-        a.pipeline->fragmentFunction(library->newFunctionWithName(fShader));
-
-        a.state = device->makeRenderPipelineState(*a.pipeline);
     }
     return a.state;
 }

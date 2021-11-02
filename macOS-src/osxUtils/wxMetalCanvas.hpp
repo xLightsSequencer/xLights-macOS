@@ -1,6 +1,14 @@
 #include <wx/window.h>
 
-#include "CPPMetal/CPPMetal.hpp"
+
+#ifdef __OBJC__
+#import <foundation/foundation.h>
+#include <Metal/Metal.h>
+#include <MetalKit/MetalKit.h>
+#else
+class MTKView;
+#endif
+
 
 class wxMetalCanvas : public wxWindow {
 public:
@@ -15,13 +23,17 @@ public:
     virtual ~wxMetalCanvas();
 
 
-    MTK::View *getMTKView() const { return view; };
-    MTL::Device *getMTLDevice() const { return device; };
-    MTL::Library *getMTLLibrary() const { return library; };
-    MTL::CommandQueue *getMTLCommandQueue() const { return commandQueue; };
 
+#ifdef __OBJC__
+    //methods only available from objective-c.  Cannot be virtual as they cannot be in the virtual function table
+    static id<MTLDevice> getMTLDevice();
+    static id<MTLLibrary> getMTLLibrary();
+    static id<MTLCommandQueue> getMTLCommandQueue();
 
-    MTL::RenderPipelineState getPipelineState(const std::string &name, const char *vShader, const char *fShader, bool blending = false);
+    MTKView* getMTKView() const;
+    id<MTLRenderPipelineState> getPipelineState(const std::string &name, const char *vShader, const char *fShader, bool blending = false);
+#endif
+
 
 protected:
     DECLARE_EVENT_TABLE()
@@ -33,13 +45,5 @@ protected:
                 const wxSize& size = wxDefaultSize,
                 long style = 0,
                 const wxString& name = "");
-
-
-
-    MTK::View *view;
-
-    static MTL::Device *device;
-    static MTL::CommandQueue *commandQueue;
-    static MTL::Library *library;
 
 };

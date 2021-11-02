@@ -12,54 +12,66 @@
 using namespace metal;
 
 
-//Vertex Function (Shader)
-vertex float4 singleColorVertexShader(const device float4 *vertices  [[buffer(BufferIndexMeshPositions)]],
+vertex float4 singleColorVertexShader(const device float3 *vertices  [[buffer(BufferIndexMeshPositions)]],
                                       constant FrameData  &frameData [[ buffer(BufferIndexFrameData) ]],
                                       uint vid [[vertex_id]]){
-    return frameData.MVP * vertices[vid];
+    return frameData.MVP * float4(vertices[vid], 1.0);
 }
-
-//Fragment Function (Shader)
 fragment float4 singleColorFragmentShader(float4 in [[stage_in]],
                                           float2 pointCoord  [[point_coord]],
                                           constant FrameData  &frameData [[ buffer(BufferIndexFrameData) ]]){
 
-    if (frameData.RenderType == 0) {
-        return frameData.fragmentColor;
-    } else {
-        float dist = distance(pointCoord, float2(0.5));
-        float alpha = 1.0 - smoothstep(frameData.PointSmoothMin, frameData.PointSmoothMax, dist);
-        //if (alpha == 0.0) discard_fragment();
-        alpha = alpha * frameData.fragmentColor.a;
-        return float4(frameData.fragmentColor.rgb, alpha);
-    }
+    return frameData.fragmentColor;
 }
 
 struct MultiVertexData {
     float4 vert [[position]];;
     uchar4 color;
 };
-vertex MultiVertexData multiColorVertexShader(const device float4 *vertices  [[buffer(BufferIndexMeshPositions)]],
+vertex MultiVertexData multiColorVertexShader(const device float3 *vertices  [[buffer(BufferIndexMeshPositions)]],
                                      const device uchar4 *colors  [[buffer(BufferIndexMeshColors)]],
                                       constant FrameData  &frameData [[ buffer(BufferIndexFrameData) ]],
                                       uint vid [[vertex_id]]){
-    MultiVertexData d = { frameData.MVP * vertices[vid], colors[vid] };
+    MultiVertexData d = { frameData.MVP * float4(vertices[vid], 1.0), colors[vid] };
     return d;
 }
-
-//Fragment Function (Shader)
 fragment float4 multiColorFragmentShader(MultiVertexData in [[stage_in]],
                                           float2 pointCoord  [[point_coord]],
                                           constant FrameData  &frameData [[ buffer(BufferIndexFrameData) ]]){
     float4 color = float4(in.color.r, in.color.g, in.color.b, in.color.a);
     color /= 255.0f;
-    if (frameData.RenderType == 0) {
-        return color;
-    } else {
-        float dist = distance(pointCoord, float2(0.5));
-        float alpha = 1.0 - smoothstep(frameData.PointSmoothMin, frameData.PointSmoothMax, dist);
-        //if (alpha == 0.0) discard_fragment();
-        alpha = alpha * color.a;
-        return float4(color.rgb, alpha);
-    }
+    return color;
+}
+
+
+struct TextureVertexData {
+    float4 vert [[position]];;
+    float2 texPosition;
+};
+vertex TextureVertexData textureVertexShader(const device float3 *vertices  [[buffer(BufferIndexMeshPositions)]],
+                                             const device float2 *tvertices  [[buffer(BufferIndexTexturePositions)]],
+                                             constant FrameData  &frameData [[ buffer(BufferIndexFrameData) ]],
+                                             uint vid [[vertex_id]]){
+    TextureVertexData d = { frameData.MVP * float4(vertices[vid], 1.0), tvertices[vid] };
+    return d;
+}
+fragment float4 textureFragmentShader(TextureVertexData in [[stage_in]],
+                                      texture2d<float>  texture [[ texture(TextureIndexBase) ]],
+                                      constant FrameData  &frameData [[ buffer(BufferIndexFrameData) ]]) {
+    constexpr sampler linearSampler(mip_filter::none,
+                                    mag_filter::linear,
+                                    min_filter::linear);
+
+    float4 sample = texture.sample(linearSampler, in.texPosition);
+    return sample;
+}
+fragment float4 textureNearestFragmentShader(TextureVertexData in [[stage_in]],
+                                             texture2d<float, access::sample>  texture [[ texture(TextureIndexBase) ]],
+                                             constant FrameData  &frameData [[ buffer(BufferIndexFrameData) ]]) {
+    constexpr sampler linearSampler(mip_filter::none,
+                                    mag_filter::nearest,
+                                    min_filter::linear);
+
+    float4 sample = texture.sample(linearSampler, in.texPosition);
+    return sample;
 }
