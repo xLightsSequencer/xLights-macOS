@@ -103,8 +103,9 @@ void InitVideoToolboxAcceleration() {
     if (ciContext == nullptr) {
         logger_base.info("Could not create context for scaling.");
     } else {
-        rbFlipKernel = [CIColorKernel kernelWithString: @"kernel vec4 swapRedAndGreenAmount(__sample s) { return s.bgra; }" ];
         [ciContext retain];
+
+        rbFlipKernel = [CIColorKernel kernelWithString: @"kernel vec4 swapRedAndGreenAmount(__sample s) { return s.bgra; }" ];
         [rbFlipKernel retain];
     }
     [dict release];
@@ -175,7 +176,7 @@ bool VideoToolboxScaleImage(AVCodecContext *codecContext, AVFrame *frame, AVFram
     }
     
     @autoreleasepool {
-        CIImage *image = [[CIImage imageWithCVImageBuffer:pixbuf] autorelease];
+        CIImage *image = [CIImage imageWithCVImageBuffer:pixbuf];
         if (image == nullptr) {
             return false;
         }
@@ -187,25 +188,25 @@ bool VideoToolboxScaleImage(AVCodecContext *codecContext, AVFrame *frame, AVFram
             float h = dstFrame->height;
             h /= (float)frame->height;
 
-            scaledimage = [[image imageByApplyingTransform:CGAffineTransformMakeScale(w, h) highQualityDownsample:TRUE] autorelease];
+            scaledimage = [image imageByApplyingTransform:CGAffineTransformMakeScale(w, h) highQualityDownsample:TRUE];
             if (scaledimage == nullptr) {
                 return false;
             }
         }
 
+        CIImage *swappedImage = scaledimage;
         if (dstFrame->format != AV_PIX_FMT_BGRA && dstFrame->format != AV_PIX_FMT_BGR24) {
             CIRBFlipFilter *filter = [[CIRBFlipFilter alloc] init];
             filter->inputImage = scaledimage;
-            CIImage *swappedImage =  [[filter outputImage] autorelease];
+            swappedImage =  [filter outputImage];
+            filter->inputImage = nil;
+            [filter release];
             if (swappedImage == nullptr) {
                 return false;
             }
-            [filter release];
-            [ciContext render:swappedImage toCVPixelBuffer:scaledBuf];
-        } else {
-            [ciContext render:scaledimage toCVPixelBuffer:scaledBuf];
         }
 
+        [ciContext render:swappedImage toCVPixelBuffer:scaledBuf];
         pixbuf = nil;
 
         CVPixelBufferLockBaseAddress(scaledBuf, kCVPixelBufferLock_ReadOnly);
