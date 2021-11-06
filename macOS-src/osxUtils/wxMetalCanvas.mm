@@ -4,6 +4,8 @@
 #include <Metal/Metal.h>
 #include <MetalKit/MetalKit.h>
 
+#include <log4cpp/Category.hh>
+
 #include "wxMetalCanvas.hpp"
 
 
@@ -11,7 +13,6 @@
 #include "wx/log.h"
 #include "wx/settings.h"
 #include "wx/osx/private.h"
-
 
 BEGIN_EVENT_TABLE(wxMetalCanvas, wxWindow)
 END_EVENT_TABLE()
@@ -159,6 +160,7 @@ bool wxMetalCanvas::Create(wxWindow *parent,
 id<MTLRenderPipelineState> wxMetalCanvas::getPipelineState(const std::string &name, const char *vShader, const char *fShader, bool blending) {
     auto &a = PIPELINE_STATES[name];
     if (a.state == nil) {
+        static log4cpp::Category& logger_base = log4cpp::Category::getInstance(std::string("log_base"));
         if (MTL_DEFAULT_LIBRARY == nil) {
             MTL_DEFAULT_LIBRARY = [MTL_DEVICE newDefaultLibrary];
         }
@@ -183,6 +185,8 @@ id<MTLRenderPipelineState> wxMetalCanvas::getPipelineState(const std::string &na
             a.state = [[MTL_DEVICE newRenderPipelineStateWithDescriptor:desc error:&nserror] retain];
             [desc release];
             if (nserror) {
+                NSString *err = [NSString stringWithFormat:@"%@", nserror];
+                logger_base.info("Could not create render pipeline for %s:  %s", name.c_str(), [err UTF8String]);
                 [nserror release];
             }
         }
