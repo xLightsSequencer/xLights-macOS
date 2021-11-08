@@ -204,17 +204,24 @@ private:
 void AdjustColorToDeviceColorspace(const wxColor &c, uint8_t &r1, uint8_t &g1, uint8_t &b1, uint8_t &a1) {
     xlOSXEffectiveAppearanceSetter helper;
     NSColor *nc = c.OSXGetNSColor();
-    NSColor *ncrgbd = [nc colorUsingColorSpaceName:NSDeviceRGBColorSpace];
+    NSColor *ncrgbd = [nc colorUsingColorSpace:[NSColorSpace deviceRGBColorSpace]];
+    if (ncrgbd != nil) {
 
-    float r = [ncrgbd redComponent] * 255;
-    float g = [ncrgbd greenComponent] * 255;
-    float b = [ncrgbd blueComponent] * 255;
-    float a = [ncrgbd alphaComponent] * 255;
+        float r = [ncrgbd redComponent] * 255;
+        float g = [ncrgbd greenComponent] * 255;
+        float b = [ncrgbd blueComponent] * 255;
+        float a = [ncrgbd alphaComponent] * 255;
 
-    r1 = r;
-    g1 = g;
-    b1 = b;
-    a1 = a;
+        r1 = r;
+        g1 = g;
+        b1 = b;
+        a1 = a;
+    } else {
+        r1 = c.Red();
+        g1 = c.Green();
+        b1 = c.Blue();
+        a1 = c.Alpha();
+    }
 }
 
 void xlSetRetinaCanvasViewport(wxGLCanvas &win, int &x, int &y, int &x2, int&y2) {
