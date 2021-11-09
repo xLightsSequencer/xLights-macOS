@@ -483,6 +483,7 @@
 		6786706E27296B4000A5375D /* SIMDMathUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 6786706C27296B4000A5375D /* SIMDMathUtilities.h */; };
 		6789EF4F26635DFD00889606 /* Pixels.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6789EF4E26635DFD00889606 /* Pixels.cpp */; };
 		678AAF4026C40B6300467B3C /* model_vendor_mapping.json in Resources */ = {isa = PBXBuildFile; fileRef = 678AAF3F26C40B6300467B3C /* model_vendor_mapping.json */; };
+		679B58232735D63900368F0A /* xlFontInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 679B58212735D63900368F0A /* xlFontInfo.cpp */; };
 		67A14C7820DD313D006EFCFA /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7720DD313D006EFCFA /* Carbon.framework */; };
 		67A14C7A20DD31D6006EFCFA /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7920DD31D6006EFCFA /* WebKit.framework */; };
 		67A14C7C20DD31E4006EFCFA /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7B20DD31E3006EFCFA /* AGL.framework */; };
@@ -1499,6 +1500,8 @@
 		6789EF4C26635BEA00889606 /* Pixels.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pixels.h; sourceTree = "<group>"; };
 		6789EF4E26635DFD00889606 /* Pixels.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Pixels.cpp; sourceTree = "<group>"; };
 		678AAF3F26C40B6300467B3C /* model_vendor_mapping.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = model_vendor_mapping.json; path = ../download/model_vendor_mapping.json; sourceTree = "<group>"; };
+		679B58212735D63900368F0A /* xlFontInfo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xlFontInfo.cpp; sourceTree = "<group>"; };
+		679B58222735D63900368F0A /* xlFontInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xlFontInfo.h; sourceTree = "<group>"; };
 		67A14C7720DD313D006EFCFA /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		67A14C7920DD31D6006EFCFA /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		67A14C7B20DD31E3006EFCFA /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = System/Library/Frameworks/AGL.framework; sourceTree = SDKROOT; };
@@ -2786,6 +2789,8 @@
 				67BE0E032728294E00558A3A /* xlGraphicsBase.h */,
 				676FB41A273400FC0081F91A /* xlGraphicsAccumulators.cpp */,
 				676FB41B273400FC0081F91A /* xlGraphicsAccumulators.h */,
+				679B58212735D63900368F0A /* xlFontInfo.cpp */,
+				679B58222735D63900368F0A /* xlFontInfo.h */,
 			);
 			path = graphics;
 			sourceTree = "<group>";
@@ -3206,6 +3211,7 @@
 				6716533825D7CE710041BB9A /* GlediatorPanel.cpp in Sources */,
 				671651EC25D7CE700041BB9A /* DissolveTransitionPattern.cpp in Sources */,
 				671652CA25D7CE710041BB9A /* VideoReader.cpp in Sources */,
+				679B58232735D63900368F0A /* xlFontInfo.cpp in Sources */,
 				671655A025D825410041BB9A /* PluginChannelAdapter.cpp in Sources */,
 				671651EE25D7CE700041BB9A /* KeyBindingEditDialog.cpp in Sources */,
 				6716534325D7CE710041BB9A /* OffPanel.cpp in Sources */,
@@ -3610,7 +3616,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				MTL_LANGUAGE_REVISION = Metal20;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -3621,7 +3626,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				MTL_LANGUAGE_REVISION = Metal20;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -3632,7 +3636,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				MTL_LANGUAGE_REVISION = Metal20;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Archive;
@@ -3758,7 +3761,7 @@
 				);
 				LLVM_LTO = NO;
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MTL_LANGUAGE_REVISION = Metal12;
+				MTL_LANGUAGE_REVISION = Metal21;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
 					"-D_FILE_OFFSET_BITS=64",
@@ -3864,7 +3867,7 @@
 				);
 				LLVM_LTO = YES_THIN;
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MTL_LANGUAGE_REVISION = Metal12;
+				MTL_LANGUAGE_REVISION = Metal21;
 				OTHER_CFLAGS = (
 					"-D_FILE_OFFSET_BITS=64",
 					"-D__WXOSX__",
@@ -4036,7 +4039,7 @@
 				);
 				LLVM_LTO = YES_THIN;
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MTL_LANGUAGE_REVISION = Metal12;
+				MTL_LANGUAGE_REVISION = Metal21;
 				OTHER_CFLAGS = (
 					"-D_FILE_OFFSET_BITS=64",
 					"-D__WXOSX__",

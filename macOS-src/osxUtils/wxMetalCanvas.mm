@@ -84,6 +84,7 @@ static id<MTLDevice> MTL_DEVICE = nil;
 static id<MTLCommandQueue> MTL_COMMAND_QUEUE = nil;
 static id<MTLLibrary> MTL_DEFAULT_LIBRARY = nil;
 static std::map<std::string, PipelineInfo> PIPELINE_STATES;
+static std::map<std::string, PipelineInfo> BLENDED_PIPELINE_STATES;
 static std::atomic_int METAL_USE_COUNT(0);
 
 
@@ -97,6 +98,11 @@ wxMetalCanvas::~wxMetalCanvas() {
             a.second.state = nil;
         }
         PIPELINE_STATES.clear();
+        for (auto &a : BLENDED_PIPELINE_STATES) {
+            [a.second.state release];
+            a.second.state = nil;
+        }
+        BLENDED_PIPELINE_STATES.clear();
         if (MTL_COMMAND_QUEUE) {
             MTL_COMMAND_QUEUE = nil;
         }
@@ -158,7 +164,7 @@ bool wxMetalCanvas::Create(wxWindow *parent,
 
 
 id<MTLRenderPipelineState> wxMetalCanvas::getPipelineState(const std::string &name, const char *vShader, const char *fShader, bool blending) {
-    auto &a = PIPELINE_STATES[name];
+    auto &a = blending ? BLENDED_PIPELINE_STATES[name] : PIPELINE_STATES[name];
     if (a.state == nil) {
         static log4cpp::Category& logger_base = log4cpp::Category::getInstance(std::string("log_base"));
         if (MTL_DEFAULT_LIBRARY == nil) {

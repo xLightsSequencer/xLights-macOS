@@ -68,10 +68,20 @@ fragment float4 textureFragmentShader(TextureVertexData in [[stage_in]],
 fragment float4 textureNearestFragmentShader(TextureVertexData in [[stage_in]],
                                              texture2d<float, access::sample>  texture [[ texture(TextureIndexBase) ]],
                                              constant FrameData  &frameData [[ buffer(BufferIndexFrameData) ]]) {
-    constexpr sampler linearSampler(mip_filter::none,
+    constexpr sampler nearestSampler(mip_filter::none,
                                     mag_filter::nearest,
                                     min_filter::linear);
 
-    float4 sample = texture.sample(linearSampler, in.texPosition);
+    float4 sample = texture.sample(nearestSampler, in.texPosition);
     return sample;
+}
+fragment float4 textureColorFragmentShader(TextureVertexData in [[stage_in]],
+                                      texture2d<float>  texture [[ texture(TextureIndexBase) ]],
+                                      constant FrameData  &frameData [[ buffer(BufferIndexFrameData) ]]) {
+    constexpr sampler linearSampler(mip_filter::none,
+                                    mag_filter::linear,
+                                    min_filter::linear);
+
+    float4 sample = texture.sample(linearSampler, in.texPosition);
+    return float4(frameData.fragmentColor.rgb, sample.a * frameData.fragmentColor.a);;
 }
