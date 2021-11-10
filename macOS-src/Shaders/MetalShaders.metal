@@ -18,29 +18,27 @@ vertex float4 singleColorVertexShader(const device float3 *vertices  [[buffer(Bu
     return frameData.MVP * float4(vertices[vid], 1.0);
 }
 fragment float4 singleColorFragmentShader(float4 in [[stage_in]],
-                                          float2 pointCoord  [[point_coord]],
                                           constant FrameData  &frameData [[ buffer(BufferIndexFrameData) ]]){
 
     return frameData.fragmentColor;
 }
 
 struct MultiVertexData {
-    float4 vert [[position]];;
-    uchar4 color;
+    float4 vert [[position]];
+    float4 color;
 };
 vertex MultiVertexData multiColorVertexShader(const device float3 *vertices  [[buffer(BufferIndexMeshPositions)]],
-                                     const device uchar4 *colors  [[buffer(BufferIndexMeshColors)]],
-                                      constant FrameData  &frameData [[ buffer(BufferIndexFrameData) ]],
-                                      uint vid [[vertex_id]]){
-    MultiVertexData d = { frameData.MVP * float4(vertices[vid], 1.0), colors[vid] };
+                                              const device uchar4 *colors  [[buffer(BufferIndexMeshColors)]],
+                                              constant FrameData  &frameData [[ buffer(BufferIndexFrameData) ]],
+                                              uint vid [[vertex_id]]){
+    float4 color = float4(colors[vid].r, colors[vid].g, colors[vid].b, colors[vid].a);
+    color /= 255.0f;
+    MultiVertexData d = { frameData.MVP * float4(vertices[vid], 1.0), color };
     return d;
 }
 fragment float4 multiColorFragmentShader(MultiVertexData in [[stage_in]],
-                                          float2 pointCoord  [[point_coord]],
-                                          constant FrameData  &frameData [[ buffer(BufferIndexFrameData) ]]){
-    float4 color = float4(in.color.r, in.color.g, in.color.b, in.color.a);
-    color /= 255.0f;
-    return color;
+                                         constant FrameData  &frameData [[ buffer(BufferIndexFrameData) ]]){
+    return in.color;
 }
 
 
