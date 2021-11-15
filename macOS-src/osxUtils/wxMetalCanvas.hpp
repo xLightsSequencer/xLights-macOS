@@ -17,7 +17,8 @@ public:
                   const wxPoint& pos = wxDefaultPosition,
                   const wxSize& size = wxDefaultSize,
                   long style = 0,
-                  const wxString& name = "");
+                  const wxString& name = "",
+                  bool only2d = true);
     wxMetalCanvas(wxWindow *parent, const wxString& name) : wxMetalCanvas(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, name) {}
 
     virtual ~wxMetalCanvas();
@@ -28,22 +29,26 @@ public:
     //methods only available from objective-c.  Cannot be virtual as they cannot be in the virtual function table
     static id<MTLDevice> getMTLDevice();
     static id<MTLLibrary> getMTLLibrary();
+    static id<MTLDepthStencilState> getDepthStencilState();
     static id<MTLCommandQueue> getMTLCommandQueue();
 
     MTKView* getMTKView() const;
-    id<MTLRenderPipelineState> getPipelineState(const std::string &name, const char *vShader, const char *fShader, bool blending = false);
+    id<MTLRenderPipelineState> getPipelineState(const std::string &name, const char *vShader, const char *fShader,
+                                                bool blending);
+
 #endif
 
 
 protected:
     DECLARE_EVENT_TABLE()
 
-
     bool Create(wxWindow *parent,
                 wxWindowID id = wxID_ANY,
                 const wxPoint& pos = wxDefaultPosition,
                 const wxSize& size = wxDefaultSize,
                 long style = 0,
-                const wxString& name = "");
+                const wxString& name = "",
+                bool only2d = true);
 
+    bool is3d = false;
 };
