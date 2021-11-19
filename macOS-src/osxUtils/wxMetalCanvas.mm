@@ -175,6 +175,7 @@ bool wxMetalCanvas::Create(wxWindow *parent,
         depthDescriptor.depthCompareFunction = MTLCompareFunctionLessEqual;
         depthDescriptor.depthWriteEnabled = YES;
         MTL_DEPTH_STENCIL_STATE = [MTL_DEVICE newDepthStencilStateWithDescriptor:depthDescriptor];
+        [depthDescriptor release];
     }
     METAL_USE_COUNT++;
 

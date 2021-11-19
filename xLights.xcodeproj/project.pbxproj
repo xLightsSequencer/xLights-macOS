@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		538F8DFE26B42E5D0080A1BB /* LORPreview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 538F8DFC26B42E5D0080A1BB /* LORPreview.cpp */; };
 		53EB767E2719BAFE00ED8702 /* ExportSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 53EB767D2719BAFE00ED8702 /* ExportSettings.cpp */; };
+		67061FD32746D5330020519D /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67061FD22746D5330020519D /* MetalPerformanceShaders.framework */; };
 		6716512025D7CE700041BB9A /* SuperStarImportDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164BCA25D7CE6D0041BB9A /* SuperStarImportDialog.cpp */; };
 		6716512125D7CE700041BB9A /* ConvertDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164BCB25D7CE6D0041BB9A /* ConvertDialog.cpp */; };
 		6716512225D7CE700041BB9A /* NodesGridCellEditor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164BCC25D7CE6D0041BB9A /* NodesGridCellEditor.cpp */; };
@@ -541,6 +542,7 @@
 		538F8DFD26B42E5D0080A1BB /* LORPreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LORPreview.h; sourceTree = "<group>"; };
 		53EB767C2719BAFE00ED8702 /* ExportSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExportSettings.h; sourceTree = "<group>"; };
 		53EB767D2719BAFE00ED8702 /* ExportSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExportSettings.cpp; sourceTree = "<group>"; };
+		67061FD22746D5330020519D /* MetalPerformanceShaders.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalPerformanceShaders.framework; path = System/Library/Frameworks/MetalPerformanceShaders.framework; sourceTree = SDKROOT; };
 		67164BB325D7CD190041BB9A /* xFade.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = xFade.entitlements; sourceTree = "<group>"; };
 		67164BB525D7CD190041BB9A /* xLightsArchive.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = xLightsArchive.entitlements; sourceTree = "<group>"; };
 		67164BB625D7CD190041BB9A /* xLights.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = xLights.entitlements; sourceTree = "<group>"; };
@@ -1612,6 +1614,7 @@
 				67A14C8020DD328A006EFCFA /* ImageIO.framework in Frameworks */,
 				67A14C8420DD336E006EFCFA /* libz.tbd in Frameworks */,
 				67BE0DFB2727C0AB00558A3A /* Metal.framework in Frameworks */,
+				67061FD32746D5330020519D /* MetalPerformanceShaders.framework in Frameworks */,
 				67A14C8620DD337E006EFCFA /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2850,6 +2853,7 @@
 		67E7086F17B51AB400A22034 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				67061FD22746D5330020519D /* MetalPerformanceShaders.framework */,
 				67BE0DF92727C0AB00558A3A /* Metal.framework */,
 				67BE0DF82727C0AB00558A3A /* MetalKit.framework */,
 				67710582267BBAC5001DA926 /* CoreAudioKit.framework */,
