@@ -485,6 +485,8 @@
 		6789EF4F26635DFD00889606 /* Pixels.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6789EF4E26635DFD00889606 /* Pixels.cpp */; };
 		678AAF4026C40B6300467B3C /* model_vendor_mapping.json in Resources */ = {isa = PBXBuildFile; fileRef = 678AAF3F26C40B6300467B3C /* model_vendor_mapping.json */; };
 		679B58232735D63900368F0A /* xlFontInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 679B58212735D63900368F0A /* xlFontInfo.cpp */; };
+		679D19A2274BC2D100AD9F7F /* xLightsAutomations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 679D19A0274BC2D100AD9F7F /* xLightsAutomations.cpp */; };
+		679D19A5274BC45800AD9F7F /* automation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 679D19A3274BC45800AD9F7F /* automation.cpp */; };
 		67A14C7820DD313D006EFCFA /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7720DD313D006EFCFA /* Carbon.framework */; };
 		67A14C7A20DD31D6006EFCFA /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7920DD31D6006EFCFA /* WebKit.framework */; };
 		67A14C7C20DD31E4006EFCFA /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7B20DD31E3006EFCFA /* AGL.framework */; };
@@ -1504,6 +1506,9 @@
 		678AAF3F26C40B6300467B3C /* model_vendor_mapping.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = model_vendor_mapping.json; path = ../download/model_vendor_mapping.json; sourceTree = "<group>"; };
 		679B58212735D63900368F0A /* xlFontInfo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xlFontInfo.cpp; sourceTree = "<group>"; };
 		679B58222735D63900368F0A /* xlFontInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xlFontInfo.h; sourceTree = "<group>"; };
+		679D19A0274BC2D100AD9F7F /* xLightsAutomations.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xLightsAutomations.cpp; sourceTree = "<group>"; };
+		679D19A3274BC45800AD9F7F /* automation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = automation.cpp; sourceTree = "<group>"; };
+		679D19A4274BC45800AD9F7F /* automation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = automation.h; sourceTree = "<group>"; };
 		67A14C7720DD313D006EFCFA /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		67A14C7920DD31D6006EFCFA /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		67A14C7B20DD31E3006EFCFA /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = System/Library/Frameworks/AGL.framework; sourceTree = SDKROOT; };
@@ -1669,6 +1674,7 @@
 		67164BC525D7CE6D0041BB9A /* xLights */ = {
 			isa = PBXGroup;
 			children = (
+				679D199F274BC29100AD9F7F /* automation */,
 				67164C4D25D7CE6D0041BB9A /* AboutDialog.cpp */,
 				67164D1125D7CE6D0041BB9A /* AboutDialog.h */,
 				67164D1925D7CE6D0041BB9A /* AlignmentDialog.cpp */,
@@ -2764,6 +2770,16 @@
 			path = Shaders;
 			sourceTree = "<group>";
 		};
+		679D199F274BC29100AD9F7F /* automation */ = {
+			isa = PBXGroup;
+			children = (
+				679D19A3274BC45800AD9F7F /* automation.cpp */,
+				679D19A4274BC45800AD9F7F /* automation.h */,
+				679D19A0274BC2D100AD9F7F /* xLightsAutomations.cpp */,
+			);
+			path = automation;
+			sourceTree = "<group>";
+		};
 		67AAF8F31B63782F00585431 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -3422,6 +3438,7 @@
 				6716539D25D7CE720041BB9A /* ControllerNull.cpp in Sources */,
 				671651A925D7CE700041BB9A /* SphereModel.cpp in Sources */,
 				6716530C25D7CE710041BB9A /* xlGridCanvasPictures.cpp in Sources */,
+				679D19A2274BC2D100AD9F7F /* xLightsAutomations.cpp in Sources */,
 				6716520625D7CE700041BB9A /* OptionChooser.cpp in Sources */,
 				671655CE25D827650041BB9A /* kiss_fft.c in Sources */,
 				6716537025D7CE720041BB9A /* ButterflyEffect.cpp in Sources */,
@@ -3585,6 +3602,7 @@
 				6716531025D7CE710041BB9A /* OnPanel.cpp in Sources */,
 				6716539425D7CE720041BB9A /* DMXOutput.cpp in Sources */,
 				671652B825D7CE710041BB9A /* TraceLog.cpp in Sources */,
+				679D19A5274BC45800AD9F7F /* automation.cpp in Sources */,
 				6716534A25D7CE710041BB9A /* KaleidoscopeEffect.cpp in Sources */,
 				6716535725D7CE720041BB9A /* GarlandsPanel.cpp in Sources */,
 				6716533A25D7CE710041BB9A /* DMXEffect.cpp in Sources */,
