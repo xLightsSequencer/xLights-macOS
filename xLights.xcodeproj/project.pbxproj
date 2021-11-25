@@ -482,6 +482,7 @@
 		6786706A2729104A00A5375D /* MetalShaderTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 678670692729104A00A5375D /* MetalShaderTypes.h */; };
 		6786706D27296B4000A5375D /* SIMDMathUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6786706B27296B4000A5375D /* SIMDMathUtilities.cpp */; };
 		6786706E27296B4000A5375D /* SIMDMathUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 6786706C27296B4000A5375D /* SIMDMathUtilities.h */; };
+		6787EAA1274FF60E00DAEE47 /* ScriptsDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6787EAA0274FF60E00DAEE47 /* ScriptsDialog.cpp */; };
 		6789EF4F26635DFD00889606 /* Pixels.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6789EF4E26635DFD00889606 /* Pixels.cpp */; };
 		678AAF4026C40B6300467B3C /* model_vendor_mapping.json in Resources */ = {isa = PBXBuildFile; fileRef = 678AAF3F26C40B6300467B3C /* model_vendor_mapping.json */; };
 		679B58232735D63900368F0A /* xlFontInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 679B58212735D63900368F0A /* xlFontInfo.cpp */; };
@@ -514,7 +515,68 @@
 		67BE0DFB2727C0AB00558A3A /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BE0DF92727C0AB00558A3A /* Metal.framework */; };
 		67BE0E012728230C00558A3A /* wxMetalCanvas.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67BE0DFF2728230C00558A3A /* wxMetalCanvas.mm */; };
 		67BE0E022728230C00558A3A /* wxMetalCanvas.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67BE0E002728230C00558A3A /* wxMetalCanvas.hpp */; };
+		67BE673D2758115C00A71410 /* jsonreader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716552825D823C60041BB9A /* jsonreader.cpp */; };
+		67BE673E2758115C00A71410 /* jsonval.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716552A25D823C60041BB9A /* jsonval.cpp */; };
+		67BE673F2758115C00A71410 /* jsonwriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716552B25D823C60041BB9A /* jsonwriter.cpp */; };
+		67BE67402758118700A71410 /* xLightsTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C4425D7CE6D0041BB9A /* xLightsTimer.cpp */; };
+		67BE6741275811A000A71410 /* UtilFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C7C25D7CE6D0041BB9A /* UtilFunctions.cpp */; };
+		67BE6742275811A000A71410 /* xLightsVersion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650F625D7CE6F0041BB9A /* xLightsVersion.cpp */; };
+		67BE6743275811C200A71410 /* wxLED.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716555C25D8249D0041BB9A /* wxLED.cpp */; };
+		67BE6764275813C400A71410 /* UniverseData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BE674E275813C300A71410 /* UniverseData.cpp */; };
+		67BE6765275813C400A71410 /* ArtNETReceiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BE6751275813C300A71410 /* ArtNETReceiver.cpp */; };
+		67BE6766275813C400A71410 /* Emitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BE6752275813C300A71410 /* Emitter.cpp */; };
+		67BE6767275813C400A71410 /* xFadeMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BE6754275813C400A71410 /* xFadeMain.cpp */; };
+		67BE6768275813C400A71410 /* Settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BE6757275813C400A71410 /* Settings.cpp */; };
+		67BE6769275813C400A71410 /* SettingsDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BE6759275813C400A71410 /* SettingsDialog.cpp */; };
+		67BE676A275813C400A71410 /* FadeExcludeDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BE675B275813C400A71410 /* FadeExcludeDialog.cpp */; };
+		67BE676B275813C400A71410 /* xFadeApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BE675D275813C400A71410 /* xFadeApp.cpp */; };
+		67BE676C275813C400A71410 /* UniverseEntryDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BE675F275813C400A71410 /* UniverseEntryDialog.cpp */; };
+		67BE676D275813C400A71410 /* E131Receiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BE6760275813C400A71410 /* E131Receiver.cpp */; };
+		67BE676E275813C400A71410 /* PacketData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BE6762275813C400A71410 /* PacketData.cpp */; };
 		67C7E283215E596000AE0775 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B6F3422040FBB600B847E0 /* CoreAudio.framework */; };
+		67D142B8275803100018A831 /* pages.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D142AD275803100018A831 /* pages.cpp */; };
+		67D142B9275803100018A831 /* connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D142AE275803100018A831 /* connection.cpp */; };
+		67D142BA275803100018A831 /* sha1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D142AF275803100018A831 /* sha1.cpp */; };
+		67D142BB275803100018A831 /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D142B1275803100018A831 /* server.cpp */; };
+		67D142BC275803100018A831 /* context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D142B3275803100018A831 /* context.cpp */; };
+		67D142BD275803100018A831 /* status.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D142B4275803100018A831 /* status.cpp */; };
+		67D142BE275803100018A831 /* request.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D142B5275803100018A831 /* request.cpp */; };
+		67D142BF275803100018A831 /* message.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D142B6275803100018A831 /* message.cpp */; };
+		67D142C0275803100018A831 /* response.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D142B7275803100018A831 /* response.cpp */; };
+		67D144D427580F930018A831 /* libcurl.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 671E47FC2231CEC900049DC9 /* libcurl.tbd */; };
+		67D144D527580F930018A831 /* libxLights-macOSLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A88A2726164C9B00BFCEC0 /* libxLights-macOSLib.a */; };
+		67D144D627580F930018A831 /* libavformat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFF92553033E00C83C71 /* libavformat.a */; };
+		67D144D727580F930018A831 /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFFE255303A300C83C71 /* libswscale.a */; };
+		67D144D827580F930018A831 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B4C91F17B53D960006B951 /* CoreMedia.framework */; };
+		67D144D927580F930018A831 /* libzstd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFDA2552EE9000C83C71 /* libzstd.a */; };
+		67D144DA27580F930018A831 /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFF42553031900C83C71 /* libavcodec.a */; };
+		67D144DB27580F930018A831 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B4C92117B53D960006B951 /* CoreVideo.framework */; };
+		67D144DC27580F930018A831 /* libliquidfun.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFD92552EE9000C83C71 /* libliquidfun.a */; };
+		67D144DD27580F930018A831 /* libavutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFF32553031800C83C71 /* libavutil.a */; };
+		67D144DE27580F930018A831 /* libpthread.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D251C207C25000D632B /* libpthread.tbd */; };
+		67D144DF27580F930018A831 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67290003255303D500C83C71 /* VideoToolbox.framework */; };
+		67D144E027580F930018A831 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFDB2552EE9000C83C71 /* libSDL2.a */; };
+		67D144E127580F930018A831 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BE0DF82727C0AB00558A3A /* MetalKit.framework */; };
+		67D144E227580F930018A831 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D211C207BCC000D632B /* IOKit.framework */; };
+		67D144E327580F930018A831 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7720DD313D006EFCFA /* Carbon.framework */; };
+		67D144E427580F930018A831 /* liblog4cpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFDC2552EE9000C83C71 /* liblog4cpp.a */; };
+		67D144E527580F930018A831 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67E7087017B51AB400A22034 /* Cocoa.framework */; };
+		67D144E627580F930018A831 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B6F3422040FBB600B847E0 /* CoreAudio.framework */; };
+		67D144E727580F930018A831 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D231C207BD7000D632B /* AudioToolbox.framework */; };
+		67D144E827580F930018A831 /* libSystem.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C8120DD3345006EFCFA /* libSystem.tbd */; };
+		67D144E927580F930018A831 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B229204BA6AF00E90AC7 /* QuartzCore.framework */; };
+		67D144EA27580F930018A831 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729000C2553046400C83C71 /* libbz2.tbd */; };
+		67D144EB27580F930018A831 /* libswresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFFC2553037E00C83C71 /* libswresample.a */; };
+		67D144EC27580F930018A831 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7D20DD324D006EFCFA /* libiconv.tbd */; };
+		67D144ED27580F930018A831 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B227204BA69B00E90AC7 /* CoreImage.framework */; };
+		67D144EE27580F930018A831 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7B20DD31E3006EFCFA /* AGL.framework */; };
+		67D144EF27580F930018A831 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7920DD31D6006EFCFA /* WebKit.framework */; };
+		67D144F027580F930018A831 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7F20DD3289006EFCFA /* ImageIO.framework */; };
+		67D144F127580F930018A831 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C8320DD336E006EFCFA /* libz.tbd */; };
+		67D144F227580F930018A831 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BE0DF92727C0AB00558A3A /* Metal.framework */; };
+		67D144F327580F930018A831 /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67061FD22746D5330020519D /* MetalPerformanceShaders.framework */; };
+		67D144F427580F930018A831 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C8520DD337E006EFCFA /* Security.framework */; };
+		67D144FB27580F930018A831 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6716568025D829790041BB9A /* Images.xcassets */; };
 		67D7159727287CE800E5EDB5 /* xlMetalGraphicsContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67D7159327287CE700E5EDB5 /* xlMetalGraphicsContext.mm */; };
 		67D7159827287CE800E5EDB5 /* xlMetalCanvas.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67D7159427287CE700E5EDB5 /* xlMetalCanvas.mm */; };
 		67D9B0A81D42A9BA005367DB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67E7087017B51AB400A22034 /* Cocoa.framework */; };
@@ -1501,9 +1563,12 @@
 		678670692729104A00A5375D /* MetalShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MetalShaderTypes.h; sourceTree = "<group>"; };
 		6786706B27296B4000A5375D /* SIMDMathUtilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SIMDMathUtilities.cpp; sourceTree = "<group>"; };
 		6786706C27296B4000A5375D /* SIMDMathUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIMDMathUtilities.h; sourceTree = "<group>"; };
+		6787EA9F274FF60E00DAEE47 /* ScriptsDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScriptsDialog.h; sourceTree = "<group>"; };
+		6787EAA0274FF60E00DAEE47 /* ScriptsDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptsDialog.cpp; sourceTree = "<group>"; };
 		6789EF4C26635BEA00889606 /* Pixels.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pixels.h; sourceTree = "<group>"; };
 		6789EF4E26635DFD00889606 /* Pixels.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Pixels.cpp; sourceTree = "<group>"; };
 		678AAF3F26C40B6300467B3C /* model_vendor_mapping.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = model_vendor_mapping.json; path = ../download/model_vendor_mapping.json; sourceTree = "<group>"; };
+		678BCB1A27581E6F0057E4FA /* xFadeDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = xFadeDebug.entitlements; sourceTree = "<group>"; };
 		679B58212735D63900368F0A /* xlFontInfo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xlFontInfo.cpp; sourceTree = "<group>"; };
 		679B58222735D63900368F0A /* xlFontInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xlFontInfo.h; sourceTree = "<group>"; };
 		679D19A0274BC2D100AD9F7F /* xLightsAutomations.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xLightsAutomations.cpp; sourceTree = "<group>"; };
@@ -1550,6 +1615,43 @@
 		67BE0DFF2728230C00558A3A /* wxMetalCanvas.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = wxMetalCanvas.mm; sourceTree = "<group>"; };
 		67BE0E002728230C00558A3A /* wxMetalCanvas.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = wxMetalCanvas.hpp; sourceTree = "<group>"; };
 		67BE0E032728294E00558A3A /* xlGraphicsBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xlGraphicsBase.h; sourceTree = "<group>"; };
+		67BE6749275812B200A71410 /* wxMidiDatabase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wxMidiDatabase.cpp; path = ../xSchedule/wxMIDI/src/wxMidiDatabase.cpp; sourceTree = "<group>"; };
+		67BE674A275812B200A71410 /* wxMidi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wxMidi.cpp; path = ../xSchedule/wxMIDI/src/wxMidi.cpp; sourceTree = "<group>"; };
+		67BE674B275812B200A71410 /* wxMidi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wxMidi.h; path = ../xSchedule/wxMIDI/src/wxMidi.h; sourceTree = "<group>"; };
+		67BE674E275813C300A71410 /* UniverseData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UniverseData.cpp; sourceTree = "<group>"; };
+		67BE674F275813C300A71410 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
+		67BE6750275813C300A71410 /* FadeExcludeDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FadeExcludeDialog.h; sourceTree = "<group>"; };
+		67BE6751275813C300A71410 /* ArtNETReceiver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ArtNETReceiver.cpp; sourceTree = "<group>"; };
+		67BE6752275813C300A71410 /* Emitter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Emitter.cpp; sourceTree = "<group>"; };
+		67BE6753275813C400A71410 /* ArtNETReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtNETReceiver.h; sourceTree = "<group>"; };
+		67BE6754275813C400A71410 /* xFadeMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xFadeMain.cpp; sourceTree = "<group>"; };
+		67BE6755275813C400A71410 /* Emitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Emitter.h; sourceTree = "<group>"; };
+		67BE6756275813C400A71410 /* xFadeApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xFadeApp.h; sourceTree = "<group>"; };
+		67BE6757275813C400A71410 /* Settings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Settings.cpp; sourceTree = "<group>"; };
+		67BE6758275813C400A71410 /* xFadeMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xFadeMain.h; sourceTree = "<group>"; };
+		67BE6759275813C400A71410 /* SettingsDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SettingsDialog.cpp; sourceTree = "<group>"; };
+		67BE675A275813C400A71410 /* UniverseEntryDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UniverseEntryDialog.h; sourceTree = "<group>"; };
+		67BE675B275813C400A71410 /* FadeExcludeDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FadeExcludeDialog.cpp; sourceTree = "<group>"; };
+		67BE675C275813C400A71410 /* SettingsDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsDialog.h; sourceTree = "<group>"; };
+		67BE675D275813C400A71410 /* xFadeApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xFadeApp.cpp; sourceTree = "<group>"; };
+		67BE675E275813C400A71410 /* UniverseData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UniverseData.h; sourceTree = "<group>"; };
+		67BE675F275813C400A71410 /* UniverseEntryDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UniverseEntryDialog.cpp; sourceTree = "<group>"; };
+		67BE6760275813C400A71410 /* E131Receiver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = E131Receiver.cpp; sourceTree = "<group>"; };
+		67BE6761275813C400A71410 /* PacketData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PacketData.h; sourceTree = "<group>"; };
+		67BE6762275813C400A71410 /* PacketData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PacketData.cpp; sourceTree = "<group>"; };
+		67BE6763275813C400A71410 /* E131Receiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = E131Receiver.h; sourceTree = "<group>"; };
+		67D142AD275803100018A831 /* pages.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pages.cpp; path = ../xSchedule/wxHTTPServer/pages.cpp; sourceTree = "<group>"; };
+		67D142AE275803100018A831 /* connection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = connection.cpp; path = ../xSchedule/wxHTTPServer/connection.cpp; sourceTree = "<group>"; };
+		67D142AF275803100018A831 /* sha1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sha1.cpp; path = ../xSchedule/wxHTTPServer/sha1.cpp; sourceTree = "<group>"; };
+		67D142B0275803100018A831 /* wxhttpserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wxhttpserver.h; path = ../xSchedule/wxHTTPServer/wxhttpserver.h; sourceTree = "<group>"; };
+		67D142B1275803100018A831 /* server.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = server.cpp; path = ../xSchedule/wxHTTPServer/server.cpp; sourceTree = "<group>"; };
+		67D142B2275803100018A831 /* sha1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sha1.h; path = ../xSchedule/wxHTTPServer/sha1.h; sourceTree = "<group>"; };
+		67D142B3275803100018A831 /* context.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = context.cpp; path = ../xSchedule/wxHTTPServer/context.cpp; sourceTree = "<group>"; };
+		67D142B4275803100018A831 /* status.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = status.cpp; path = ../xSchedule/wxHTTPServer/status.cpp; sourceTree = "<group>"; };
+		67D142B5275803100018A831 /* request.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = request.cpp; path = ../xSchedule/wxHTTPServer/request.cpp; sourceTree = "<group>"; };
+		67D142B6275803100018A831 /* message.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = message.cpp; path = ../xSchedule/wxHTTPServer/message.cpp; sourceTree = "<group>"; };
+		67D142B7275803100018A831 /* response.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = response.cpp; path = ../xSchedule/wxHTTPServer/response.cpp; sourceTree = "<group>"; };
+		67D1450727580F930018A831 /* xFade.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = xFade.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67D7159327287CE700E5EDB5 /* xlMetalGraphicsContext.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = xlMetalGraphicsContext.mm; sourceTree = "<group>"; };
 		67D7159427287CE700E5EDB5 /* xlMetalCanvas.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = xlMetalCanvas.mm; sourceTree = "<group>"; };
 		67D7159527287CE700E5EDB5 /* xlMetalGraphicsContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xlMetalGraphicsContext.h; sourceTree = "<group>"; };
@@ -1581,6 +1683,46 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		67D144D327580F930018A831 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				67D144D427580F930018A831 /* libcurl.tbd in Frameworks */,
+				67D144D527580F930018A831 /* libxLights-macOSLib.a in Frameworks */,
+				67D144D627580F930018A831 /* libavformat.a in Frameworks */,
+				67D144D727580F930018A831 /* libswscale.a in Frameworks */,
+				67D144D827580F930018A831 /* CoreMedia.framework in Frameworks */,
+				67D144D927580F930018A831 /* libzstd.a in Frameworks */,
+				67D144DA27580F930018A831 /* libavcodec.a in Frameworks */,
+				67D144DB27580F930018A831 /* CoreVideo.framework in Frameworks */,
+				67D144DC27580F930018A831 /* libliquidfun.a in Frameworks */,
+				67D144DD27580F930018A831 /* libavutil.a in Frameworks */,
+				67D144DE27580F930018A831 /* libpthread.tbd in Frameworks */,
+				67D144DF27580F930018A831 /* VideoToolbox.framework in Frameworks */,
+				67D144E027580F930018A831 /* libSDL2.a in Frameworks */,
+				67D144E127580F930018A831 /* MetalKit.framework in Frameworks */,
+				67D144E227580F930018A831 /* IOKit.framework in Frameworks */,
+				67D144E327580F930018A831 /* Carbon.framework in Frameworks */,
+				67D144E427580F930018A831 /* liblog4cpp.a in Frameworks */,
+				67D144E527580F930018A831 /* Cocoa.framework in Frameworks */,
+				67D144E627580F930018A831 /* CoreAudio.framework in Frameworks */,
+				67D144E727580F930018A831 /* AudioToolbox.framework in Frameworks */,
+				67D144E827580F930018A831 /* libSystem.tbd in Frameworks */,
+				67D144E927580F930018A831 /* QuartzCore.framework in Frameworks */,
+				67D144EA27580F930018A831 /* libbz2.tbd in Frameworks */,
+				67D144EB27580F930018A831 /* libswresample.a in Frameworks */,
+				67D144EC27580F930018A831 /* libiconv.tbd in Frameworks */,
+				67D144ED27580F930018A831 /* CoreImage.framework in Frameworks */,
+				67D144EE27580F930018A831 /* AGL.framework in Frameworks */,
+				67D144EF27580F930018A831 /* WebKit.framework in Frameworks */,
+				67D144F027580F930018A831 /* ImageIO.framework in Frameworks */,
+				67D144F127580F930018A831 /* libz.tbd in Frameworks */,
+				67D144F227580F930018A831 /* Metal.framework in Frameworks */,
+				67D144F327580F930018A831 /* MetalPerformanceShaders.framework in Frameworks */,
+				67D144F427580F930018A831 /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1643,6 +1785,7 @@
 				671656DB25D835780041BB9A /* Assets.xcassets */,
 				671656DC25D835780041BB9A /* Info.plist */,
 				671656DA25D835780041BB9A /* xfade.mac.properties */,
+				678BCB1A27581E6F0057E4FA /* xFadeDebug.entitlements */,
 				67164BB325D7CD190041BB9A /* xFade.entitlements */,
 			);
 			path = xFade;
@@ -1674,13 +1817,13 @@
 		67164BC525D7CE6D0041BB9A /* xLights */ = {
 			isa = PBXGroup;
 			children = (
-				679D199F274BC29100AD9F7F /* automation */,
 				67164C4D25D7CE6D0041BB9A /* AboutDialog.cpp */,
 				67164D1125D7CE6D0041BB9A /* AboutDialog.h */,
 				67164D1925D7CE6D0041BB9A /* AlignmentDialog.cpp */,
 				67164BDE25D7CE6D0041BB9A /* AlignmentDialog.h */,
 				6716510025D7CE6F0041BB9A /* AudioManager.cpp */,
 				67164C2125D7CE6D0041BB9A /* AudioManager.h */,
+				679D199F274BC29100AD9F7F /* automation */,
 				67164C4025D7CE6D0041BB9A /* BatchRenderDialog.cpp */,
 				67164D0625D7CE6D0041BB9A /* BatchRenderDialog.h */,
 				67164F6B25D7CE6E0041BB9A /* BitmapCache.cpp */,
@@ -1779,6 +1922,8 @@
 				67164D1D25D7CE6D0041BB9A /* GenerateCustomModelDialog.h */,
 				67164C1625D7CE6D0041BB9A /* GenerateLyricsDialog.cpp */,
 				67164F6D25D7CE6E0041BB9A /* GenerateLyricsDialog.h */,
+				67786109272CD73200020F31 /* GPURenderUtils.cpp */,
+				6778610A272CD73200020F31 /* GPURenderUtils.h */,
 				67BE0DEE2727872C00558A3A /* graphics */,
 				671650AA25D7CE6F0041BB9A /* HousePreviewPanel.cpp */,
 				67164EF525D7CE6E0041BB9A /* HousePreviewPanel.h */,
@@ -1879,8 +2024,6 @@
 				67164C4825D7CE6D0041BB9A /* RenameTextDialog.cpp */,
 				67164C5625D7CE6D0041BB9A /* RenameTextDialog.h */,
 				67164BDD25D7CE6D0041BB9A /* Render.cpp */,
-				67786109272CD73200020F31 /* GPURenderUtils.cpp */,
-				6778610A272CD73200020F31 /* GPURenderUtils.h */,
 				67164DFC25D7CE6D0041BB9A /* RenderBuffer.cpp */,
 				67164EFA25D7CE6E0041BB9A /* RenderBuffer.h */,
 				67164F6F25D7CE6E0041BB9A /* RenderCache.cpp */,
@@ -1893,6 +2036,8 @@
 				6716511125D7CE6F0041BB9A /* ResizeImageDialog.h */,
 				67164EF025D7CE6E0041BB9A /* SaveChangesDialog.cpp */,
 				67164BD125D7CE6D0041BB9A /* SaveChangesDialog.h */,
+				6787EAA0274FF60E00DAEE47 /* ScriptsDialog.cpp */,
+				6787EA9F274FF60E00DAEE47 /* ScriptsDialog.h */,
 				6716511B25D7CE6F0041BB9A /* SelectPanel.cpp */,
 				67164FA025D7CE6E0041BB9A /* SelectPanel.h */,
 				67164DF825D7CE6D0041BB9A /* SelectTimingsDialog.cpp */,
@@ -2565,6 +2710,8 @@
 		671653D125D7CF4E0041BB9A /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				67BE67442758122900A71410 /* wxMIDI */,
+				67D142AC275802F50018A831 /* wxHTTPServer */,
 				671655BD25D827650041BB9A /* kiss_fft */,
 				6716556825D8251D0041BB9A /* vamp */,
 				6716556125D824E50041BB9A /* MD5 */,
@@ -2843,9 +2990,68 @@
 			path = metal;
 			sourceTree = "<group>";
 		};
+		67BE67442758122900A71410 /* wxMIDI */ = {
+			isa = PBXGroup;
+			children = (
+				67BE674A275812B200A71410 /* wxMidi.cpp */,
+				67BE674B275812B200A71410 /* wxMidi.h */,
+				67BE6749275812B200A71410 /* wxMidiDatabase.cpp */,
+			);
+			name = wxMIDI;
+			sourceTree = "<group>";
+		};
+		67D142AC275802F50018A831 /* wxHTTPServer */ = {
+			isa = PBXGroup;
+			children = (
+				67D142AE275803100018A831 /* connection.cpp */,
+				67D142B3275803100018A831 /* context.cpp */,
+				67D142B6275803100018A831 /* message.cpp */,
+				67D142AD275803100018A831 /* pages.cpp */,
+				67D142B5275803100018A831 /* request.cpp */,
+				67D142B7275803100018A831 /* response.cpp */,
+				67D142B1275803100018A831 /* server.cpp */,
+				67D142AF275803100018A831 /* sha1.cpp */,
+				67D142B2275803100018A831 /* sha1.h */,
+				67D142B4275803100018A831 /* status.cpp */,
+				67D142B0275803100018A831 /* wxhttpserver.h */,
+			);
+			name = wxHTTPServer;
+			sourceTree = "<group>";
+		};
+		67D142D627580EEE0018A831 /* xFade */ = {
+			isa = PBXGroup;
+			children = (
+				67BE6751275813C300A71410 /* ArtNETReceiver.cpp */,
+				67BE6753275813C400A71410 /* ArtNETReceiver.h */,
+				67BE6760275813C400A71410 /* E131Receiver.cpp */,
+				67BE6763275813C400A71410 /* E131Receiver.h */,
+				67BE6752275813C300A71410 /* Emitter.cpp */,
+				67BE6755275813C400A71410 /* Emitter.h */,
+				67BE675B275813C400A71410 /* FadeExcludeDialog.cpp */,
+				67BE6750275813C300A71410 /* FadeExcludeDialog.h */,
+				67BE6762275813C400A71410 /* PacketData.cpp */,
+				67BE6761275813C400A71410 /* PacketData.h */,
+				67BE6757275813C400A71410 /* Settings.cpp */,
+				67BE674F275813C300A71410 /* Settings.h */,
+				67BE6759275813C400A71410 /* SettingsDialog.cpp */,
+				67BE675C275813C400A71410 /* SettingsDialog.h */,
+				67BE674E275813C300A71410 /* UniverseData.cpp */,
+				67BE675E275813C400A71410 /* UniverseData.h */,
+				67BE675F275813C400A71410 /* UniverseEntryDialog.cpp */,
+				67BE675A275813C400A71410 /* UniverseEntryDialog.h */,
+				67BE675D275813C400A71410 /* xFadeApp.cpp */,
+				67BE6756275813C400A71410 /* xFadeApp.h */,
+				67BE6754275813C400A71410 /* xFadeMain.cpp */,
+				67BE6758275813C400A71410 /* xFadeMain.h */,
+			);
+			name = xFade;
+			path = ../xFade;
+			sourceTree = "<group>";
+		};
 		67E7086417B51AB400A22034 = {
 			isa = PBXGroup;
 			children = (
+				67D142D627580EEE0018A831 /* xFade */,
 				67710569267BB903001DA926 /* xCapture */,
 				67164BB125D7CD190041BB9A /* Assets */,
 				67E7086F17B51AB400A22034 /* Frameworks */,
@@ -2862,6 +3068,7 @@
 			children = (
 				67E7086D17B51AB400A22034 /* xLights.app */,
 				67A88A2726164C9B00BFCEC0 /* libxLights-macOSLib.a */,
+				67D1450727580F930018A831 /* xFade.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3017,6 +3224,24 @@
 			productReference = 67A88A2726164C9B00BFCEC0 /* libxLights-macOSLib.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		67D142FE27580F930018A831 /* xFade */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 67D1450327580F930018A831 /* Build configuration list for PBXNativeTarget "xFade" */;
+			buildPhases = (
+				67D1430327580F930018A831 /* Sources */,
+				67D144D327580F930018A831 /* Frameworks */,
+				67D144F527580F930018A831 /* Resources */,
+				67D1450227580F930018A831 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = xFade;
+			productName = xLights;
+			productReference = 67D1450727580F930018A831 /* xFade.app */;
+			productType = "com.apple.product-type.application";
+		};
 		67E7086C17B51AB400A22034 /* xLights */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 67E7088A17B51AB400A22034 /* Build configuration list for PBXNativeTarget "xLights" */;
@@ -3088,11 +3313,20 @@
 				67E7086C17B51AB400A22034 /* xLights */,
 				67A88A2626164C9B00BFCEC0 /* xLights-macOSLib */,
 				678577AD272C735000E6E249 /* EffectComputeFunctions */,
+				67D142FE27580F930018A831 /* xFade */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		67D144F527580F930018A831 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				67D144FB27580F930018A831 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		67E7086B17B51AB400A22034 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3116,6 +3350,21 @@
 
 /* Begin PBXShellScriptBuildPhase section */
 		674298661C1FC3CC00B11478 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 12;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "scripts/mac_fix_dylibs\n";
+			showEnvVarsInLog = 0;
+		};
+		67D1450227580F930018A831 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 12;
@@ -3156,6 +3405,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		67D1430327580F930018A831 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				67BE6743275811C200A71410 /* wxLED.cpp in Sources */,
+				67BE6741275811A000A71410 /* UtilFunctions.cpp in Sources */,
+				67BE6768275813C400A71410 /* Settings.cpp in Sources */,
+				67BE6742275811A000A71410 /* xLightsVersion.cpp in Sources */,
+				67BE676A275813C400A71410 /* FadeExcludeDialog.cpp in Sources */,
+				67BE67402758118700A71410 /* xLightsTimer.cpp in Sources */,
+				67BE6766275813C400A71410 /* Emitter.cpp in Sources */,
+				67BE6764275813C400A71410 /* UniverseData.cpp in Sources */,
+				67BE673D2758115C00A71410 /* jsonreader.cpp in Sources */,
+				67BE673E2758115C00A71410 /* jsonval.cpp in Sources */,
+				67BE6765275813C400A71410 /* ArtNETReceiver.cpp in Sources */,
+				67BE676E275813C400A71410 /* PacketData.cpp in Sources */,
+				67BE676C275813C400A71410 /* UniverseEntryDialog.cpp in Sources */,
+				67BE6769275813C400A71410 /* SettingsDialog.cpp in Sources */,
+				67BE676B275813C400A71410 /* xFadeApp.cpp in Sources */,
+				67BE673F2758115C00A71410 /* jsonwriter.cpp in Sources */,
+				67BE676D275813C400A71410 /* E131Receiver.cpp in Sources */,
+				67BE6767275813C400A71410 /* xFadeMain.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		67E7086917B51AB400A22034 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3169,6 +3443,7 @@
 				671651DC25D7CE700041BB9A /* GridCellChoiceRenderer.cpp in Sources */,
 				6716516025D7CE700041BB9A /* RenameTextDialog.cpp in Sources */,
 				6716515A25D7CE700041BB9A /* BatchRenderDialog.cpp in Sources */,
+				67D142BE275803100018A831 /* request.cpp in Sources */,
 				6716530225D7CE710041BB9A /* ShaderDownloadDialog.cpp in Sources */,
 				6716517725D7CE700041BB9A /* FSEQFile.cpp in Sources */,
 				6716530625D7CE710041BB9A /* GarlandsEffect.cpp in Sources */,
@@ -3190,6 +3465,7 @@
 				671651BB25D7CE700041BB9A /* StarModel.cpp in Sources */,
 				6716535E25D7CE720041BB9A /* FacesEffect.cpp in Sources */,
 				6716536625D7CE720041BB9A /* PinwheelEffect.cpp in Sources */,
+				67D142BC275803100018A831 /* context.cpp in Sources */,
 				6716536E25D7CE720041BB9A /* GalaxyPanel.cpp in Sources */,
 				671653A725D7CE720041BB9A /* LOROutput.cpp in Sources */,
 				671651EB25D7CE700041BB9A /* UpdaterDialog.cpp in Sources */,
@@ -3267,6 +3543,7 @@
 				6716518025D7CE700041BB9A /* StrandNodeNamesDialog.cpp in Sources */,
 				6716519E25D7CE700041BB9A /* DmxModel.cpp in Sources */,
 				671652D225D7CE710041BB9A /* EffectTreeDialog.cpp in Sources */,
+				67D142C0275803100018A831 /* response.cpp in Sources */,
 				678577AB272C721500E6E249 /* MetalComputeUtilities.mm in Sources */,
 				6716518225D7CE700041BB9A /* EmailDialog.cpp in Sources */,
 				6716516125D7CE700041BB9A /* EffectsPanel.cpp in Sources */,
@@ -3379,6 +3656,7 @@
 				6716516A25D7CE700041BB9A /* ModelChainDialog.cpp in Sources */,
 				6716519825D7CE700041BB9A /* DmxGeneral.cpp in Sources */,
 				6716533F25D7CE710041BB9A /* RipplePanel.cpp in Sources */,
+				67D142BF275803100018A831 /* message.cpp in Sources */,
 				6716537E25D7CE720041BB9A /* ESPixelStick.cpp in Sources */,
 				6716516C25D7CE700041BB9A /* Discovery.cpp in Sources */,
 				671652C925D7CE710041BB9A /* CustomTimingDialog.cpp in Sources */,
@@ -3412,6 +3690,7 @@
 				6716516E25D7CE700041BB9A /* BulkEditSliderDialog.cpp in Sources */,
 				6716536325D7CE720041BB9A /* SingleStrandPanel.cpp in Sources */,
 				6716515B25D7CE700041BB9A /* TabSequence.cpp in Sources */,
+				6787EAA1274FF60E00DAEE47 /* ScriptsDialog.cpp in Sources */,
 				671653AB25D7CE720041BB9A /* xLightsVersion.cpp in Sources */,
 				6716535C25D7CE720041BB9A /* FireworksEffect.cpp in Sources */,
 				6716532625D7CE710041BB9A /* TwinklePanel.cpp in Sources */,
@@ -3477,12 +3756,15 @@
 				6716537625D7CE720041BB9A /* AlphaPix.cpp in Sources */,
 				6716535425D7CE720041BB9A /* LinesEffect.cpp in Sources */,
 				6716533125D7CE710041BB9A /* ShockwaveEffect.cpp in Sources */,
+				67D142BD275803100018A831 /* status.cpp in Sources */,
+				67D142BB275803100018A831 /* server.cpp in Sources */,
 				6716519325D7CE700041BB9A /* DmxPanTiltAbility.cpp in Sources */,
 				671651AC25D7CE700041BB9A /* WholeHouseModel.cpp in Sources */,
 				6716554F25D8245E0041BB9A /* MidiMessage.cpp in Sources */,
 				6716520525D7CE700041BB9A /* MediaImportOptionsDialog.cpp in Sources */,
 				6716517625D7CE700041BB9A /* SeqFileUtilities.cpp in Sources */,
 				6716534025D7CE710041BB9A /* TendrilEffect.cpp in Sources */,
+				67D142BA275803100018A831 /* sha1.cpp in Sources */,
 				671651B625D7CE700041BB9A /* Shapes.cpp in Sources */,
 				6716516625D7CE700041BB9A /* SeqElementMismatchDialog.cpp in Sources */,
 				671653B525D7CE720041BB9A /* DrawGLUtils31.cpp in Sources */,
@@ -3516,6 +3798,7 @@
 				671653A825D7CE720041BB9A /* OpenDMXOutput.cpp in Sources */,
 				6716512E25D7CE700041BB9A /* RemapDMXChannelsDialog.cpp in Sources */,
 				6716531725D7CE710041BB9A /* TendrilPanel.cpp in Sources */,
+				67D142B8275803100018A831 /* pages.cpp in Sources */,
 				6716538025D7CE720041BB9A /* ControllerCaps.cpp in Sources */,
 				6716516D25D7CE700041BB9A /* xLightsXmlFile.cpp in Sources */,
 				6716513A25D7CE700041BB9A /* NoteImportDialog.cpp in Sources */,
@@ -3589,6 +3872,7 @@
 				6716517825D7CE700041BB9A /* ColorPanel.cpp in Sources */,
 				6716513325D7CE700041BB9A /* ViewSettingsPanel.cpp in Sources */,
 				6716517B25D7CE700041BB9A /* SevenSegmentDialog.cpp in Sources */,
+				67D142B9275803100018A831 /* connection.cpp in Sources */,
 				671653B925D7CE720041BB9A /* DimmingCurve.cpp in Sources */,
 				671651B225D7CE700041BB9A /* MeshObject.cpp in Sources */,
 				671651CE25D7CE700041BB9A /* VsaImportDialog.cpp in Sources */,
@@ -3709,6 +3993,100 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+			};
+			name = Archive;
+		};
+		67D1450427580F930018A831 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Assets/xFade/xFadeDebug.entitlements;
+				CURRENT_PROJECT_VERSION = 210139;
+				DEVELOPMENT_ASSET_PATHS = "";
+				GCC_PREFIX_HEADER = "";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INFOPLIST_FILE = "$(SRCROOT)/Assets/xFade/Info.plist";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MARKETING_VERSION = 2021.39;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-IxLights",
+					"-IxLights/ffmpeg-dev/include/",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					OpenGL,
+					"-framework",
+					StoreKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.xlights;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		67D1450527580F930018A831 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Assets/xFade/xFade.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CURRENT_PROJECT_VERSION = 210139;
+				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_PREFIX_HEADER = "";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INFOPLIST_FILE = "$(SRCROOT)/Assets/xFade/Info.plist";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MARKETING_VERSION = 2021.39;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-IxLights",
+					"-IxLights/ffmpeg-dev/include/",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					OpenGL,
+					"-framework",
+					StoreKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.xlights;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		67D1450627580F930018A831 /* Archive */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Assets/xFade/xFade.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CURRENT_PROJECT_VERSION = 210139;
+				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_PREFIX_HEADER = "";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INFOPLIST_FILE = "$(SRCROOT)/Assets/xFade/Info.plist";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MARKETING_VERSION = 2021.39;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-IxLights",
+					"-IxLights/ffmpeg-dev/include/",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					OpenGL,
+					"-framework",
+					StoreKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.xlights;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Archive;
 		};
@@ -3937,14 +4315,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Assets/xLights/xLightsDebug.entitlements;
-				CURRENT_PROJECT_VERSION = 210130;
+				CURRENT_PROJECT_VERSION = 210139;
 				DEVELOPMENT_ASSET_PATHS = "";
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Assets/xLights/Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 2021.13;
+				MARKETING_VERSION = 2021.39;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
@@ -3968,7 +4346,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Assets/xLights/xLights.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CURRENT_PROJECT_VERSION = 210130;
+				CURRENT_PROJECT_VERSION = 210139;
 				DEVELOPMENT_ASSET_PATHS = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREFIX_HEADER = "";
@@ -3976,7 +4354,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Assets/xLights/Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 2021.13;
+				MARKETING_VERSION = 2021.39;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
@@ -4109,7 +4487,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Assets/xLights/xLightsArchive.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CURRENT_PROJECT_VERSION = 210130;
+				CURRENT_PROJECT_VERSION = 210139;
 				DEVELOPMENT_ASSET_PATHS = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREFIX_HEADER = "";
@@ -4117,7 +4495,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Assets/xLights/Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 2021.13;
+				MARKETING_VERSION = 2021.39;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
@@ -4154,6 +4532,16 @@
 				67A88A2E26164C9C00BFCEC0 /* Debug */,
 				67A88A2F26164C9C00BFCEC0 /* Release */,
 				67A88A3026164C9C00BFCEC0 /* Archive */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		67D1450327580F930018A831 /* Build configuration list for PBXNativeTarget "xFade" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				67D1450427580F930018A831 /* Debug */,
+				67D1450527580F930018A831 /* Release */,
+				67D1450627580F930018A831 /* Archive */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -2,7 +2,7 @@
 
 
 #ifdef __OBJC__
-#import <foundation/foundation.h>
+#import <Foundation/Foundation.h>
 #include <Metal/Metal.h>
 #include <MetalKit/MetalKit.h>
 #else
