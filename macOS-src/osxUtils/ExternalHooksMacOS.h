@@ -31,4 +31,12 @@ double xlOSGetMainScreenContentScaleFactor();
 void RunInAutoReleasePool(std::function<void()> &&f);
 #define AdjustModalDialogParent(par) par = nullptr
 
+void StartMetalGraphicsSyncPoint();
+void EndMetalGraphicsSyncPoint();
+
+#define StartGraphicsSyncPoint() StartMetalGraphicsSyncPoint()
+#define EndGraphicsSyncPoint() EndMetalGraphicsSyncPoint()
+
+
+
 #define __XL_EXTERNAL_HOOKS__

@@ -86,6 +86,7 @@ static id<MTLDevice> MTL_DEVICE = nil;
 static id<MTLCommandQueue> MTL_COMMAND_QUEUE = nil;
 static id<MTLLibrary> MTL_DEFAULT_LIBRARY = nil;
 static id<MTLDepthStencilState> MTL_DEPTH_STENCIL_STATE = nil;
+static int MTL_SAMPLE_COUNT = 1;
 
 static std::map<std::string, PipelineInfo> PIPELINE_STATES_2D;
 static std::map<std::string, PipelineInfo> BLENDED_PIPELINE_STATES_2D;
@@ -153,6 +154,12 @@ id<MTLDepthStencilState> wxMetalCanvas::getDepthStencilState() {
 id<MTLCommandQueue> wxMetalCanvas::getMTLCommandQueue() {
     return MTL_COMMAND_QUEUE;
 }
+
+int wxMetalCanvas::getMSAASampleCount() {
+    return MTL_SAMPLE_COUNT;
+}
+
+
 bool wxMetalCanvas::Create(wxWindow *parent,
                            wxWindowID id,
                            const wxPoint& pos,
@@ -162,6 +169,7 @@ bool wxMetalCanvas::Create(wxWindow *parent,
                            bool only2d) {
 
     is3d = !only2d;
+    usesMsaa = is3d;
     DontCreatePeer();
 
     if (!wxWindow::Create(parent, id, pos, size, style, name)) {
@@ -176,6 +184,15 @@ bool wxMetalCanvas::Create(wxWindow *parent,
         depthDescriptor.depthWriteEnabled = YES;
         MTL_DEPTH_STENCIL_STATE = [MTL_DEVICE newDepthStencilStateWithDescriptor:depthDescriptor];
         [depthDescriptor release];
+        
+        if ([MTL_DEVICE supportsTextureSampleCount:2]) {
+            //don't need super nice so attempt msaa 2 first
+            MTL_SAMPLE_COUNT = 2;
+        } else if ([MTL_DEVICE supportsTextureSampleCount:4]) {
+            MTL_SAMPLE_COUNT = 4;
+        } else if ([MTL_DEVICE supportsTextureSampleCount:8]) {
+            MTL_SAMPLE_COUNT = 8;
+        }
     }
     METAL_USE_COUNT++;
 
@@ -189,6 +206,7 @@ bool wxMetalCanvas::Create(wxWindow *parent,
     //[v setPresentsWithTransaction:true];
 
     if (!only2d) {
+        [v setSampleCount:MTL_SAMPLE_COUNT];
         [v setDepthStencilPixelFormat:MTLPixelFormatDepth32Float];
     }
 
@@ -198,8 +216,13 @@ bool wxMetalCanvas::Create(wxWindow *parent,
     return true;
 }
 
-id<MTLRenderPipelineState> wxMetalCanvas::getPipelineState(const std::string &name, const char *vShader, const char *fShader,
+id<MTLRenderPipelineState> wxMetalCanvas::getPipelineState(const std::string &n, const char *vShader, const char *fShader,
                                                            bool blending) {
+    std::string name = n;
+    bool msaa = usesMsaa || is3d;
+    if (!is3d && msaa) {
+        name += "MSAA";
+    }
     auto &a = is3d ? (blending ? BLENDED_PIPELINE_STATES_3D[name] : PIPELINE_STATES_3D[name])
                 : (blending ? BLENDED_PIPELINE_STATES_2D[name] : PIPELINE_STATES_2D[name]);
     if (a.state == nil) {
@@ -220,15 +243,71 @@ id<MTLRenderPipelineState> wxMetalCanvas::getPipelineState(const std::string &na
             if (is3d) {
                 [desc setDepthAttachmentPixelFormat:MTLPixelFormatDepth32Float];
             }
+            if (msaa) {
+                [desc setSampleCount:MTL_SAMPLE_COUNT];
+            }
             NSString *nsVName= [[[NSString alloc] initWithUTF8String:vShader] autorelease];
             NSString *nsFName= [[[NSString alloc] initWithUTF8String:fShader] autorelease];
 
             desc.vertexFunction = [[MTL_DEFAULT_LIBRARY newFunctionWithName:nsVName] autorelease];
             desc.fragmentFunction = [[MTL_DEFAULT_LIBRARY newFunctionWithName:nsFName] autorelease];
+            
+            MTLVertexDescriptor *mtlVertexDescriptor = nil;
+            if (n == "meshSolidProgram" || n == "meshTextureProgram") {
+                //need a complex vertex descriptor
+                mtlVertexDescriptor = [[MTLVertexDescriptor alloc] init];
+
+                // Positions.
+                mtlVertexDescriptor.attributes[0].format = MTLVertexFormatFloat3;
+                mtlVertexDescriptor.attributes[0].offset = 0;
+                mtlVertexDescriptor.attributes[0].bufferIndex = 0;
+                // Normals.
+                mtlVertexDescriptor.attributes[1].format = MTLVertexFormatFloat3;
+                mtlVertexDescriptor.attributes[1].offset = 12;
+                mtlVertexDescriptor.attributes[1].bufferIndex = 0;
+                // Texture coordinates.
+                mtlVertexDescriptor.attributes[2].format = MTLVertexFormatFloat2;
+                mtlVertexDescriptor.attributes[2].offset = 24;
+                mtlVertexDescriptor.attributes[2].bufferIndex = 0;
+
+                // Single interleaved buffer.
+                mtlVertexDescriptor.layouts[0].stride = 32;
+                mtlVertexDescriptor.layouts[0].stepRate = 1;
+                mtlVertexDescriptor.layouts[0].stepFunction = MTLVertexStepFunctionPerVertex;
+                desc.vertexDescriptor = mtlVertexDescriptor;
+            } else if (n == "indexedColorProgram" || n == "indexedColorPointsProgram") {
+                mtlVertexDescriptor = [[MTLVertexDescriptor alloc] init];
+
+                // Positions X
+                mtlVertexDescriptor.attributes[0].format = MTLVertexFormatFloat;
+                mtlVertexDescriptor.attributes[0].offset = 0;
+                mtlVertexDescriptor.attributes[0].bufferIndex = 0;
+                // Positions Y
+                mtlVertexDescriptor.attributes[1].format = MTLVertexFormatFloat;
+                mtlVertexDescriptor.attributes[1].offset = 4;
+                mtlVertexDescriptor.attributes[1].bufferIndex = 0;
+                // Positions Z
+                mtlVertexDescriptor.attributes[2].format = MTLVertexFormatFloat;
+                mtlVertexDescriptor.attributes[2].offset = 8;
+                mtlVertexDescriptor.attributes[2].bufferIndex = 0;
+                // Color index
+                mtlVertexDescriptor.attributes[3].format = MTLVertexFormatUInt;
+                mtlVertexDescriptor.attributes[3].offset = 12;
+                mtlVertexDescriptor.attributes[3].bufferIndex = 0;
+
+                // Single interleaved buffer.
+                mtlVertexDescriptor.layouts[0].stride = 16;
+                mtlVertexDescriptor.layouts[0].stepRate = 1;
+                mtlVertexDescriptor.layouts[0].stepFunction = MTLVertexStepFunctionPerVertex;
+                desc.vertexDescriptor = mtlVertexDescriptor;
+            }
 
             NSError *nserror;
             a.state = [[MTL_DEVICE newRenderPipelineStateWithDescriptor:desc error:&nserror] retain];
             [desc release];
+            if (mtlVertexDescriptor != nil) {
+                [mtlVertexDescriptor release];
+            }
             if (nserror) {
                 NSString *err = [NSString stringWithFormat:@"%@", nserror];
                 logger_base.info("Could not create render pipeline for %s:  %s", name.c_str(), [err UTF8String]);

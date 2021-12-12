@@ -14,15 +14,20 @@ using namespace metal;
 struct ColorVertexData {
     float4 vert [[position]];
     float4 color;
+
+    int renderType;
+    float  pointSize [[point_size]];
+    float  pointSmoothMin;
+    float  pointSmoothMax;
 };
 
 vertex ColorVertexData singleColorVertexShader(const device float3 *vertices  [[buffer(BufferIndexMeshPositions)]],
                                       constant FrameData  &frameData [[ buffer(BufferIndexFrameData) ]],
                                       uint vid [[vertex_id]]){
-    return {frameData.MVP * float4(vertices[vid], 1.0), frameData.fragmentColor };
-}
-fragment float4 singleColorFragmentShader(ColorVertexData in [[stage_in]]){
-    return in.color;
+    return {
+            frameData.MVP * float4(vertices[vid], 1.0), frameData.fragmentColor,
+            frameData.renderType, frameData.pointSize, frameData.pointSmoothMin, frameData.pointSmoothMax
+    };
 }
 
 vertex ColorVertexData multiColorVertexShader(const device float3 *vertices  [[buffer(BufferIndexMeshPositions)]],
@@ -31,10 +36,41 @@ vertex ColorVertexData multiColorVertexShader(const device float3 *vertices  [[b
                                               uint vid [[vertex_id]]){
     float4 color = float4(colors[vid].r, colors[vid].g, colors[vid].b, colors[vid].a);
     color /= 255.0f;
-    return { frameData.MVP * float4(vertices[vid], 1.0), color };
+    return {
+        frameData.MVP * float4(vertices[vid], 1.0), color,
+        frameData.renderType, frameData.pointSize, frameData.pointSmoothMin, frameData.pointSmoothMax
+    };
 }
-fragment float4 multiColorFragmentShader(ColorVertexData in [[stage_in]]){
+
+struct IndexedColorData {
+    float positionx [[attribute(0)]];
+    float positiony [[attribute(1)]];
+    float positionz [[attribute(2)]];
+    uint32_t colorIndex [[attribute(3)]];
+};
+vertex ColorVertexData indexedColorVertexShader(IndexedColorData vertices [[stage_in]],
+                                                const device uchar4 *colors  [[buffer(BufferIndexMeshColors)]],
+                                                constant FrameData  &frameData [[ buffer(BufferIndexFrameData) ]]){
+    uint32_t cidx = vertices.colorIndex;
+    float4 color = float4(colors[cidx].r, colors[cidx].g, colors[cidx].b, colors[cidx].a);
+    color /= 255.0f;
+    return {
+        frameData.MVP * float4(vertices.positionx, vertices.positiony, vertices.positionz, 1.0), color,
+        frameData.renderType, frameData.pointSize, frameData.pointSmoothMin, frameData.pointSmoothMax
+    };
+}
+
+fragment float4 colorFragmentShader(ColorVertexData in [[stage_in]],
+                                    float2 pointCoord [[point_coord]]){
     return in.color;
+}
+fragment float4 pointSmoothFragmentShader(ColorVertexData in [[stage_in]],
+                                          float2 pointCoord [[point_coord]]){
+    float dist = length(pointCoord - float2(0.5));
+    float4 out_color = in.color;
+    out_color.a *= 1.0 - smoothstep(in.pointSmoothMin, in.pointSmoothMax, dist);
+    if (out_color.a == 0) discard_fragment();
+    return out_color;
 }
 
 
@@ -57,7 +93,7 @@ fragment float4 textureFragmentShader(TextureVertexData in [[stage_in]],
                                     min_filter::linear);
 
     float4 sample = texture.sample(linearSampler, in.texPosition);
-    return sample;
+    return sample * in.forceColor;
 }
 fragment float4 textureNearestFragmentShader(TextureVertexData in [[stage_in]],
                                              texture2d<float, access::sample>  texture [[ texture(TextureIndexBase) ]]) {
@@ -66,7 +102,7 @@ fragment float4 textureNearestFragmentShader(TextureVertexData in [[stage_in]],
                                     min_filter::linear);
 
     float4 sample = texture.sample(nearestSampler, in.texPosition);
-    return sample;
+    return sample * in.forceColor;
 }
 fragment float4 textureColorFragmentShader(TextureVertexData in [[stage_in]],
                                       texture2d<float>  texture [[ texture(TextureIndexBase) ]]) {
@@ -76,4 +112,74 @@ fragment float4 textureColorFragmentShader(TextureVertexData in [[stage_in]],
 
     float4 sample = texture.sample(linearSampler, in.texPosition);
     return float4(in.forceColor.rgb, sample.a * in.forceColor.a);;
+}
+
+
+
+
+
+// Variables in constant address space.
+//constant float3 lightPosition = float3(0.0, 0.0, 1.0);
+
+// Per-vertex input structure
+struct MeshVertexInput {
+    float3 position [[attribute(0)]];
+    float3 normal   [[attribute(1)]];
+    float2 texcoord [[attribute(2)]];
+};
+
+// Per-vertex output and per-fragment input
+typedef struct {
+    float4 position [[position]];
+    float4 color;
+    float2 texcoord;
+    int    renderType;
+    float  brightness;
+} MeshShaderInOut;
+
+// Vertex shader function
+vertex MeshShaderInOut meshVertexShader(MeshVertexInput in [[stage_in]],
+                                        constant FrameData  &frameData [[ buffer(BufferIndexFrameData) ]]) {
+    MeshShaderInOut out;
+    
+    // Vertex projection and translation
+    float4 in_position = float4(in.position, 1.0);
+    out.position = frameData.MVP * in_position;
+
+    // Per vertex lighting calculations
+    //float4 eye_normal = normalize(frameUniforms.normal * float4(in.normal, 0.0));
+    //float4 eye_normal = normalize(float4(in.normal, 0.0));
+    //float n_dot_l = dot(eye_normal.rgb, normalize(lightPosition));
+    //n_dot_l = fmax(0.0, n_dot_l);
+    //out.color = float4(frameData.fragmentColor + n_dot_l);
+    
+    out.color = frameData.fragmentColor;
+    
+    // Pass through texture coordinate
+    out.texcoord = in.texcoord;
+    out.renderType = frameData.renderType;
+    out.brightness = frameData.brightness;
+    return out;
+}
+
+// Fragment shader function
+fragment float4 meshTextureFragmentShader(MeshShaderInOut in [[stage_in]],
+                                   texture2d<float>  diffuseTexture [[ texture(BufferIndexTexturePositions) ]]) {
+    constexpr sampler defaultSampler(coord::normalized,
+                                     address::repeat,
+                                     filter::linear);
+    
+    // Blend texture color with input color and output to framebuffer
+    //float4 color =  diffuseTexture.sample(defaultSampler, float2(in.texcoord)) * in.color;
+    float4 color =  diffuseTexture.sample(defaultSampler, float2(in.texcoord));
+    //float4 color =  float4(1, 0, 0, 1);
+    //float4 color =  in.color;
+    return { color.r * in.brightness, color.g * in.brightness, color.b * in.brightness, color.a };
+}
+// Fragment shader function for the mesh solids
+fragment float4 meshSolidFragmentShader(MeshShaderInOut in [[stage_in]]) {
+    float4 color = in.color;
+    //float4 color =  float4(1, 0, 0, 1);
+    //float4 color =  in.color;
+    return { color.r * in.brightness, color.g * in.brightness, color.b * in.brightness, color.a };
 }

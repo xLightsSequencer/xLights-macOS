@@ -31,6 +31,7 @@ public:
     static id<MTLLibrary> getMTLLibrary();
     static id<MTLDepthStencilState> getDepthStencilState();
     static id<MTLCommandQueue> getMTLCommandQueue();
+    static int getMSAASampleCount();
 
     MTKView* getMTKView() const;
     id<MTLRenderPipelineState> getPipelineState(const std::string &name, const char *vShader, const char *fShader,
@@ -38,7 +39,7 @@ public:
 
 #endif
 
-
+    bool usesMSAA() { return usesMsaa; }
 protected:
     DECLARE_EVENT_TABLE()
 
@@ -51,4 +52,5 @@ protected:
                 bool only2d = true);
 
     bool is3d = false;
+    bool usesMsaa = false;
 };

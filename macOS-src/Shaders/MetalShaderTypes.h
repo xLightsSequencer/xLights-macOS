@@ -17,8 +17,15 @@ typedef enum BufferIndex
     BufferIndexMeshPositions     = 0,
     BufferIndexMeshColors        = 1,
     BufferIndexFrameData         = 2,
-    BufferIndexTexturePositions  = 3,
+    BufferIndexTexturePositions  = 3
 } BufferIndex;
+
+typedef enum RenderType {
+    RenderTypeNormal        = 0,
+    RenderTypePoints        = 1,
+    RenderTypePointsSmooth  = 2,
+    RenderTypeTexture       = 3
+} RenderType;
 
 typedef enum TextureIndex {
     TextureIndexBase            = 0,
@@ -29,11 +36,19 @@ typedef enum TextureIndex {
 //    Data constant across all threads, vertices, and fragments
 struct FrameData
 {
-    // Per Frame Uniforms
     simd::float4x4 MVP;
+    simd::float4x4 modelMatrix;
+    simd::float4x4 viewMatrix;
+    simd::float4x4 perspectiveMatrix;
+
+    int renderType;
+
     simd::float4 fragmentColor;
+    float brightness;
 
-    float PointSmoothMin;
-    float PointSmoothMax;
-
+    // for points, we need the size and the smoothness
+    float pointSize;
+    float pointSmoothMin;
+    float pointSmoothMax;
+    
 };

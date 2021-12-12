@@ -10,6 +10,7 @@
 		538F8DFE26B42E5D0080A1BB /* LORPreview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 538F8DFC26B42E5D0080A1BB /* LORPreview.cpp */; };
 		53EB767E2719BAFE00ED8702 /* ExportSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 53EB767D2719BAFE00ED8702 /* ExportSettings.cpp */; };
 		67061FD32746D5330020519D /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67061FD22746D5330020519D /* MetalPerformanceShaders.framework */; };
+		670F8DCA27652F5E002F0CD6 /* ModelIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 670F8DC927652F5E002F0CD6 /* ModelIO.framework */; };
 		6716512025D7CE700041BB9A /* SuperStarImportDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164BCA25D7CE6D0041BB9A /* SuperStarImportDialog.cpp */; };
 		6716512125D7CE700041BB9A /* ConvertDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164BCB25D7CE6D0041BB9A /* ConvertDialog.cpp */; };
 		6716512225D7CE700041BB9A /* NodesGridCellEditor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164BCC25D7CE6D0041BB9A /* NodesGridCellEditor.cpp */; };
@@ -511,6 +512,7 @@
 		67A88A4326164CAE00BFCEC0 /* xlVideoToolboxUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67A88A3A26164CAE00BFCEC0 /* xlVideoToolboxUtils.mm */; };
 		67A88A4426164CAE00BFCEC0 /* osxInAppPurchases.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67A88A3B26164CAE00BFCEC0 /* osxInAppPurchases.mm */; };
 		67A88A4726164CD600BFCEC0 /* libxLights-macOSLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A88A2726164C9B00BFCEC0 /* libxLights-macOSLib.a */; };
+		67B7400627664AC80051F15A /* xlMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67B740042766491D0051F15A /* xlMesh.cpp */; };
 		67BE0DFA2727C0AB00558A3A /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BE0DF82727C0AB00558A3A /* MetalKit.framework */; };
 		67BE0DFB2727C0AB00558A3A /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BE0DF92727C0AB00558A3A /* Metal.framework */; };
 		67BE0E012728230C00558A3A /* wxMetalCanvas.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67BE0DFF2728230C00558A3A /* wxMetalCanvas.mm */; };
@@ -607,6 +609,8 @@
 		53EB767C2719BAFE00ED8702 /* ExportSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExportSettings.h; sourceTree = "<group>"; };
 		53EB767D2719BAFE00ED8702 /* ExportSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExportSettings.cpp; sourceTree = "<group>"; };
 		67061FD22746D5330020519D /* MetalPerformanceShaders.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalPerformanceShaders.framework; path = System/Library/Frameworks/MetalPerformanceShaders.framework; sourceTree = SDKROOT; };
+		670F8DC927652F5E002F0CD6 /* ModelIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ModelIO.framework; path = System/Library/Frameworks/ModelIO.framework; sourceTree = SDKROOT; };
+		670F8DCB27652F8F002F0CD6 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 		67164BB325D7CD190041BB9A /* xFade.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = xFade.entitlements; sourceTree = "<group>"; };
 		67164BB525D7CD190041BB9A /* xLightsArchive.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = xLightsArchive.entitlements; sourceTree = "<group>"; };
 		67164BB625D7CD190041BB9A /* xLights.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = xLights.entitlements; sourceTree = "<group>"; };
@@ -892,7 +896,6 @@
 		67164CF925D7CE6D0041BB9A /* SingleLineModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleLineModel.h; sourceTree = "<group>"; };
 		67164CFA25D7CE6D0041BB9A /* TreeModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TreeModel.cpp; sourceTree = "<group>"; };
 		67164CFB25D7CE6D0041BB9A /* SubModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SubModel.cpp; sourceTree = "<group>"; };
-		67164CFC25D7CE6D0041BB9A /* tiny_obj_loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tiny_obj_loader.h; sourceTree = "<group>"; };
 		67164CFD25D7CE6D0041BB9A /* Shapes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shapes.h; sourceTree = "<group>"; };
 		67164CFE25D7CE6D0041BB9A /* StarModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StarModel.cpp; sourceTree = "<group>"; };
 		67164CFF25D7CE6D0041BB9A /* ModelManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModelManager.cpp; sourceTree = "<group>"; };
@@ -1609,6 +1612,9 @@
 		67B4C92117B53D960006B951 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		67B6F3402040FB7800B847E0 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		67B6F3422040FBB600B847E0 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		67B740042766491D0051F15A /* xlMesh.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xlMesh.cpp; sourceTree = "<group>"; };
+		67B740052766491D0051F15A /* xlMesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xlMesh.h; sourceTree = "<group>"; };
+		67B74008276680DD0051F15A /* tiny_obj_loader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tiny_obj_loader.h; sourceTree = "<group>"; };
 		67BE0DF02727B94A00558A3A /* xlGraphicsContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xlGraphicsContext.h; sourceTree = "<group>"; };
 		67BE0DF82727C0AB00558A3A /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		67BE0DF92727C0AB00558A3A /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
@@ -1750,6 +1756,7 @@
 				67D9B0A81D42A9BA005367DB /* Cocoa.framework in Frameworks */,
 				67C7E283215E596000AE0775 /* CoreAudio.framework in Frameworks */,
 				674D3D241C207BD7000D632B /* AudioToolbox.framework in Frameworks */,
+				670F8DCA27652F5E002F0CD6 /* ModelIO.framework in Frameworks */,
 				67A14C8220DD3345006EFCFA /* libSystem.tbd in Frameworks */,
 				672F447626387B59005B795A /* QuartzCore.framework in Frameworks */,
 				6729000D2553047600C83C71 /* libbz2.tbd in Frameworks */,
@@ -2254,7 +2261,6 @@
 				67164CE025D7CE6D0041BB9A /* TerrianObject.cpp */,
 				67164CA125D7CE6D0041BB9A /* TerrianObject.h */,
 				67164CD925D7CE6D0041BB9A /* TerrianScreenLocation.h */,
-				67164CFC25D7CE6D0041BB9A /* tiny_obj_loader.h */,
 				67164CFA25D7CE6D0041BB9A /* TreeModel.cpp */,
 				67164C9725D7CE6D0041BB9A /* TreeModel.h */,
 				67164C9825D7CE6D0041BB9A /* ViewObject.cpp */,
@@ -2274,42 +2280,42 @@
 		67164CA825D7CE6D0041BB9A /* DMX */ = {
 			isa = PBXGroup;
 			children = (
-				67164CA925D7CE6D0041BB9A /* DmxServo3D.h */,
-				67164CAA25D7CE6D0041BB9A /* ServoConfigDialog.cpp */,
-				67164CAB25D7CE6D0041BB9A /* DmxImage.cpp */,
-				67164CAC25D7CE6D0041BB9A /* DmxPanTiltAbility.cpp */,
-				67164CAD25D7CE6D0041BB9A /* Mesh.cpp */,
-				67164CAE25D7CE6D0041BB9A /* DmxPanTiltAbility.h */,
-				67164CAF25D7CE6D0041BB9A /* DmxMovingHead3D.cpp */,
-				67164CB025D7CE6D0041BB9A /* DmxFloodArea.h */,
-				67164CB125D7CE6D0041BB9A /* DmxShutterAbility.cpp */,
-				67164CB225D7CE6D0041BB9A /* ServoConfigDialog.h */,
-				67164CB325D7CE6D0041BB9A /* DmxServo.cpp */,
-				67164CB425D7CE6D0041BB9A /* DmxGeneral.cpp */,
+				67164CB925D7CE6D0041BB9A /* DmxColorAbility.cpp */,
+				67164CC825D7CE6D0041BB9A /* DmxColorAbility.h */,
 				67164CB525D7CE6D0041BB9A /* DmxFloodArea.cpp */,
+				67164CB025D7CE6D0041BB9A /* DmxFloodArea.h */,
+				67164CBA25D7CE6D0041BB9A /* DmxFloodlight.cpp */,
+				67164CCC25D7CE6D0041BB9A /* DmxFloodlight.h */,
+				67164CB425D7CE6D0041BB9A /* DmxGeneral.cpp */,
 				67164CB625D7CE6D0041BB9A /* DmxGeneral.h */,
+				67164CAB25D7CE6D0041BB9A /* DmxImage.cpp */,
+				67164CC925D7CE6D0041BB9A /* DmxImage.h */,
+				67164CBD25D7CE6D0041BB9A /* DmxModel.cpp */,
+				67164CC225D7CE6D0041BB9A /* DmxModel.h */,
+				67164CBB25D7CE6D0041BB9A /* DmxMovingHead.cpp */,
+				67164CCB25D7CE6D0041BB9A /* DmxMovingHead.h */,
+				67164CAF25D7CE6D0041BB9A /* DmxMovingHead3D.cpp */,
+				67164CC425D7CE6D0041BB9A /* DmxMovingHead3D.h */,
+				67164CAC25D7CE6D0041BB9A /* DmxPanTiltAbility.cpp */,
+				67164CAE25D7CE6D0041BB9A /* DmxPanTiltAbility.h */,
+				67164CB325D7CE6D0041BB9A /* DmxServo.cpp */,
+				67164CC125D7CE6D0041BB9A /* DmxServo.h */,
+				67164CC025D7CE6D0041BB9A /* DmxServo3D.cpp */,
+				67164CA925D7CE6D0041BB9A /* DmxServo3D.h */,
+				67164CB125D7CE6D0041BB9A /* DmxShutterAbility.cpp */,
+				67164CCA25D7CE6D0041BB9A /* DmxShutterAbility.h */,
+				67164CC625D7CE6D0041BB9A /* DmxSkull.cpp */,
+				67164CC325D7CE6D0041BB9A /* DmxSkull.h */,
+				67164CC525D7CE6D0041BB9A /* DmxSkulltronix.cpp */,
+				67164CBC25D7CE6D0041BB9A /* DmxSkulltronix.h */,
+				67164CAD25D7CE6D0041BB9A /* Mesh.cpp */,
 				67164CB725D7CE6D0041BB9A /* Mesh.h */,
 				67164CB825D7CE6D0041BB9A /* Servo.cpp */,
-				67164CB925D7CE6D0041BB9A /* DmxColorAbility.cpp */,
-				67164CBA25D7CE6D0041BB9A /* DmxFloodlight.cpp */,
-				67164CBB25D7CE6D0041BB9A /* DmxMovingHead.cpp */,
-				67164CBC25D7CE6D0041BB9A /* DmxSkulltronix.h */,
-				67164CBD25D7CE6D0041BB9A /* DmxModel.cpp */,
-				67164CBE25D7CE6D0041BB9A /* SkullConfigDialog.cpp */,
 				67164CBF25D7CE6D0041BB9A /* Servo.h */,
-				67164CC025D7CE6D0041BB9A /* DmxServo3D.cpp */,
-				67164CC125D7CE6D0041BB9A /* DmxServo.h */,
-				67164CC225D7CE6D0041BB9A /* DmxModel.h */,
-				67164CC325D7CE6D0041BB9A /* DmxSkull.h */,
-				67164CC425D7CE6D0041BB9A /* DmxMovingHead3D.h */,
-				67164CC525D7CE6D0041BB9A /* DmxSkulltronix.cpp */,
-				67164CC625D7CE6D0041BB9A /* DmxSkull.cpp */,
+				67164CAA25D7CE6D0041BB9A /* ServoConfigDialog.cpp */,
+				67164CB225D7CE6D0041BB9A /* ServoConfigDialog.h */,
+				67164CBE25D7CE6D0041BB9A /* SkullConfigDialog.cpp */,
 				67164CC725D7CE6D0041BB9A /* SkullConfigDialog.h */,
-				67164CC825D7CE6D0041BB9A /* DmxColorAbility.h */,
-				67164CC925D7CE6D0041BB9A /* DmxImage.h */,
-				67164CCA25D7CE6D0041BB9A /* DmxShutterAbility.h */,
-				67164CCB25D7CE6D0041BB9A /* DmxMovingHead.h */,
-				67164CCC25D7CE6D0041BB9A /* DmxFloodlight.h */,
 			);
 			path = DMX;
 			sourceTree = "<group>";
@@ -2949,6 +2955,7 @@
 		67BE0DEE2727872C00558A3A /* graphics */ = {
 			isa = PBXGroup;
 			children = (
+				67B74008276680DD0051F15A /* tiny_obj_loader.h */,
 				67BE0DF12727BA7400558A3A /* metal */,
 				67BE0DEF2727873400558A3A /* opengl */,
 				67BE0DF02727B94A00558A3A /* xlGraphicsContext.h */,
@@ -2957,6 +2964,8 @@
 				676FB41B273400FC0081F91A /* xlGraphicsAccumulators.h */,
 				679B58212735D63900368F0A /* xlFontInfo.cpp */,
 				679B58222735D63900368F0A /* xlFontInfo.h */,
+				67B740042766491D0051F15A /* xlMesh.cpp */,
+				67B740052766491D0051F15A /* xlMesh.h */,
 			);
 			path = graphics;
 			sourceTree = "<group>";
@@ -3076,6 +3085,8 @@
 		67E7086F17B51AB400A22034 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				670F8DCB27652F8F002F0CD6 /* SceneKit.framework */,
+				670F8DC927652F5E002F0CD6 /* ModelIO.framework */,
 				67061FD22746D5330020519D /* MetalPerformanceShaders.framework */,
 				67BE0DF92727C0AB00558A3A /* Metal.framework */,
 				67BE0DF82727C0AB00558A3A /* MetalKit.framework */,
@@ -3269,7 +3280,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = xl;
-				LastUpgradeCheck = 1310;
+				LastUpgradeCheck = 1320;
 				ORGANIZATIONNAME = "Daniel Kulp";
 				TargetAttributes = {
 					678577AD272C735000E6E249 = {
@@ -3766,6 +3777,7 @@
 				6716534025D7CE710041BB9A /* TendrilEffect.cpp in Sources */,
 				67D142BA275803100018A831 /* sha1.cpp in Sources */,
 				671651B625D7CE700041BB9A /* Shapes.cpp in Sources */,
+				67B7400627664AC80051F15A /* xlMesh.cpp in Sources */,
 				6716516625D7CE700041BB9A /* SeqElementMismatchDialog.cpp in Sources */,
 				671653B525D7CE720041BB9A /* DrawGLUtils31.cpp in Sources */,
 				6716517D25D7CE700041BB9A /* BulkEditColourPickerDialog.cpp in Sources */,
@@ -3919,6 +3931,7 @@
 		678577B2272C735000E6E249 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -3929,6 +3942,7 @@
 		678577B3272C735000E6E249 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -3939,6 +3953,7 @@
 		678577B4272C735000E6E249 /* Archive */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -3951,6 +3966,7 @@
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CODE_SIGN_STYLE = Automatic;
@@ -3967,6 +3983,7 @@
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CODE_SIGN_STYLE = Automatic;
@@ -3984,6 +4001,7 @@
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CODE_SIGN_STYLE = Automatic;
@@ -4000,7 +4018,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = Assets/xFade/xFadeDebug.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CURRENT_PROJECT_VERSION = 210139;
 				DEVELOPMENT_ASSET_PATHS = "";
 				GCC_PREFIX_HEADER = "";
@@ -4030,6 +4050,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = Assets/xFade/xFade.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CURRENT_PROJECT_VERSION = 210139;
@@ -4062,6 +4083,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = Assets/xFade/xFade.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CURRENT_PROJECT_VERSION = 210139;
@@ -4140,6 +4162,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_UNROLL_LOOPS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -4160,7 +4183,7 @@
 					/opt/local/libdbg,
 				);
 				LLVM_LTO = NO;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_LANGUAGE_REVISION = Metal21;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
@@ -4246,6 +4269,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_UNROLL_LOOPS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -4266,7 +4290,7 @@
 					/opt/local/lib,
 				);
 				LLVM_LTO = YES_THIN;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_LANGUAGE_REVISION = Metal21;
 				OTHER_CFLAGS = (
 					"-D_FILE_OFFSET_BITS=64",
@@ -4314,14 +4338,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = Assets/xLights/xLightsDebug.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CURRENT_PROJECT_VERSION = 210139;
 				DEVELOPMENT_ASSET_PATHS = "";
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Assets/xLights/Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 2021.39;
 				OTHER_CFLAGS = (
 					"$(inherited)",
@@ -4344,6 +4370,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = Assets/xLights/xLights.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CURRENT_PROJECT_VERSION = 210139;
@@ -4353,7 +4380,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Assets/xLights/Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 2021.39;
 				OTHER_CFLAGS = (
 					"$(inherited)",
@@ -4418,6 +4445,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_UNROLL_LOOPS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -4438,7 +4466,7 @@
 					/opt/local/lib,
 				);
 				LLVM_LTO = YES_THIN;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_LANGUAGE_REVISION = Metal21;
 				OTHER_CFLAGS = (
 					"-D_FILE_OFFSET_BITS=64",
@@ -4485,6 +4513,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = Assets/xLights/xLightsArchive.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CURRENT_PROJECT_VERSION = 210139;
@@ -4494,7 +4523,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Assets/xLights/Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 2021.39;
 				OTHER_CFLAGS = (
 					"$(inherited)",

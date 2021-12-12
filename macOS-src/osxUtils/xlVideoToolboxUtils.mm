@@ -251,3 +251,17 @@ bool VideoToolboxScaleImage(AVCodecContext *codecContext, AVFrame *frame, AVFram
     av_frame_copy_props(dstFrame, frame);
     return true;
 }
+
+void VideoToolboxCreateFrame(CIImage *image, AVFrame *f) {
+    CVPixelBufferRef scaledBuf = (CVPixelBufferRef)f->data[3];
+    if (scaledBuf == nullptr) {
+        CVPixelBufferCreate(kCFAllocatorDefault,
+                            f->width,
+                            f->height,
+                            kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange,
+                            (__bridge CFDictionaryRef) @{(__bridge NSString *) kCVPixelBufferIOSurfacePropertiesKey: @{}},
+                            &scaledBuf);
+        f->data[3] = (uint8_t*)scaledBuf;
+    }
+    [ciContext render:image toCVPixelBuffer:scaledBuf];
+}
