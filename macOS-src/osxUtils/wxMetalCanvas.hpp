@@ -40,6 +40,7 @@ public:
 #endif
 
     bool usesMSAA() { return usesMsaa; }
+    virtual bool RequiresDepthBuffer() const { return false; }
 protected:
     DECLARE_EVENT_TABLE()
 

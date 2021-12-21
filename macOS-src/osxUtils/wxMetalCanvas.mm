@@ -219,6 +219,7 @@ bool wxMetalCanvas::Create(wxWindow *parent,
 id<MTLRenderPipelineState> wxMetalCanvas::getPipelineState(const std::string &n, const char *vShader, const char *fShader,
                                                            bool blending) {
     std::string name = n;
+    bool is3d = RequiresDepthBuffer();
     bool msaa = usesMsaa || is3d;
     if (!is3d && msaa) {
         name += "MSAA";
