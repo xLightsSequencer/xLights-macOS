@@ -9,6 +9,8 @@
 #include "CoreImage/CIFilter.h"
 #include "CoreImage/CISampler.h"
 
+#include <Metal/Metal.h>
+
 extern "C" {
 #include "libavcodec/videotoolbox.h"
 #include "libavutil/pixdesc.h"
@@ -264,4 +266,20 @@ void VideoToolboxCreateFrame(CIImage *image, AVFrame *f) {
         f->data[3] = (uint8_t*)scaledBuf;
     }
     [ciContext render:image toCVPixelBuffer:scaledBuf];
+}
+void VideoToolboxCopyToTexture(CIImage *image, id<MTLTexture> texture) {
+    CGRect rect;
+    rect.origin.x = 0;
+    rect.origin.y = 0;
+    rect.size.width = [texture width];
+    rect.size.height = [texture height];
+
+    
+    CGColorSpaceRef cs = CGColorSpaceCreateDeviceRGB();
+    [ciContext render:image
+         toMTLTexture:texture
+        commandBuffer:nil
+               bounds:rect
+           colorSpace:cs
+    ];
 }
