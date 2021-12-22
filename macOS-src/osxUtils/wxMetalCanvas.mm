@@ -23,8 +23,8 @@ wxMetalCanvas::wxMetalCanvas(wxWindow *parent,
                              const wxPoint& pos,
                              const wxSize& size,
                              long style,
-                             const wxString& name,
-                             bool only2d)
+                             const wxString& n,
+                             bool only2d) : name(n.ToStdString())
 {
     if (Create(parent, id, pos, size, wxFULL_REPAINT_ON_RESIZE | wxCLIP_CHILDREN | wxCLIP_SIBLINGS | style, name, only2d)) {
 

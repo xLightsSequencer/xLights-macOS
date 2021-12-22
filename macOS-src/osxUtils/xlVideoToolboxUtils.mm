@@ -85,13 +85,9 @@ void InitVideoToolboxAcceleration() {
     NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
     [dict setObject:@NO forKey:kCIContextUseSoftwareRenderer];
     [dict setObject:@NO forKey:kCIContextOutputPremultiplied];
-    if (__builtin_available(macOS 10.11, *)) {
-        [dict setObject:@YES forKey:kCIContextHighQualityDownsample];
-    }
-    if (__builtin_available(macOS 10.12, *)) {
-        [dict setObject:@NO forKey:kCIContextCacheIntermediates];
-        [dict setObject:@YES forKey:kCIContextAllowLowPower];
-    }
+    [dict setObject:@YES forKey:kCIContextHighQualityDownsample];
+    [dict setObject:@NO forKey:kCIContextCacheIntermediates];
+    [dict setObject:@YES forKey:kCIContextAllowLowPower];
 
     ciContext = [[CIContext alloc] initWithOptions:dict];
 

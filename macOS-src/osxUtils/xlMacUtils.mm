@@ -181,21 +181,15 @@ double xlOSGetMainScreenContentScaleFactor()
     return displayScale;
 }
 
-#define WX_IS_MACOS_AVAILABLE(major, minor) \
-       __builtin_available(macOS major ## . ## minor, *)
 class xlOSXEffectiveAppearanceSetter
 {
 public:
     xlOSXEffectiveAppearanceSetter() {
-        if (WX_IS_MACOS_AVAILABLE(10, 14)) {
-            formerAppearance = NSAppearance.currentAppearance;
-            NSAppearance.currentAppearance = NSApp.effectiveAppearance;
-        }
+        formerAppearance = NSAppearance.currentAppearance;
+        NSAppearance.currentAppearance = NSApp.effectiveAppearance;
     }
     ~xlOSXEffectiveAppearanceSetter() {
-        if (WX_IS_MACOS_AVAILABLE(10, 14)) {
-            NSAppearance.currentAppearance = formerAppearance;
-        }
+        NSAppearance.currentAppearance = formerAppearance;
     }
 private:
     NSAppearance *formerAppearance = nil;

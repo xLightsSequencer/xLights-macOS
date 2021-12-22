@@ -23,7 +23,7 @@ public:
 
     virtual ~wxMetalCanvas();
 
-
+    const std::string &getName() const { return name; }
 
 #ifdef __OBJC__
     //methods only available from objective-c.  Cannot be virtual as they cannot be in the virtual function table
@@ -54,4 +54,5 @@ protected:
 
     bool is3d = false;
     bool usesMsaa = false;
+    std::string name;
 };
