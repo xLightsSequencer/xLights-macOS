@@ -267,7 +267,7 @@ void VideoToolboxCreateFrame(CIImage *image, AVFrame *f) {
     }
     [ciContext render:image toCVPixelBuffer:scaledBuf];
 }
-void VideoToolboxCopyToTexture(CIImage *image, id<MTLTexture> texture) {
+void VideoToolboxCopyToTexture(CIImage *image, id<MTLTexture> texture, id<MTLCommandBuffer> cmdBuf) {
     CGRect rect;
     rect.origin.x = 0;
     rect.origin.y = 0;
@@ -275,10 +275,10 @@ void VideoToolboxCopyToTexture(CIImage *image, id<MTLTexture> texture) {
     rect.size.height = [texture height];
 
     
-    CGColorSpaceRef cs = CGColorSpaceCreateDeviceRGB();
+    static CGColorSpaceRef cs = CGColorSpaceCreateDeviceRGB();
     [ciContext render:image
          toMTLTexture:texture
-        commandBuffer:nil
+        commandBuffer:cmdBuf
                bounds:rect
            colorSpace:cs
     ];
