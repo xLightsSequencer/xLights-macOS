@@ -108,8 +108,8 @@ export XL_TARGETS="${X86_64_TARGETS} ${ARM64_TARGETS}"
 # export XL_TARGETS="${ARM64_TARGETS}"
 
 # need ONE of these
-export BUILD_HOST=x86_64
-# export BUILD_HOST=arm
+# export BUILD_HOST=x86_64
+export BUILD_HOST=arm
 
 
 libzstd:
@@ -222,8 +222,25 @@ make -j 8
 find . -name "*.a" -exec cp {} /opt/local/libdbg/ \;
 
 
-
-
+libxslwriter:
+git clone https://github.com/jmcnamara/libxlsxwriter.git
+cd libxlsxwriter/cmake
+export CXXFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN}"
+export CFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN}"
+export LDFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN}"
+cmake -DCMAKE_OSX_ARCHITECTURES="x86_64;arm64" ..
+make
+cp libxlsxwriter.a /opt/local/lib/
+git status --ignored -s | colrm 1 3 | xargs rm -rf
+export CXXFLAGS="-g ${XL_TARGETS} ${OSX_VERSION_MIN}"
+export CFLAGS="-g ${XL_TARGETS} ${OSX_VERSION_MIN}"
+export LDFLAGS="-g ${XL_TARGETS} ${OSX_VERSION_MIN}"
+cmake -DCMAKE_OSX_ARCHITECTURES="x86_64;arm64" ..
+make
+cp libxlsxwriter.a /opt/local/libdbg/
+cp -a ../include/* /opt/local/include
+make  clean
+git status --ignored -s | colrm 1 3 | xargs rm -rf
 
 
 //TODO - stuff below is still todo
