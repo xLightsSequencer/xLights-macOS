@@ -4213,6 +4213,7 @@
 					"-lwx_osx_cocoau_gl-3.1",
 					"-lwx_osx_cocoau_html-3.1",
 					"-lwx_osx_cocoau_qa-3.1",
+					"-lxlsxwriter",
 				);
 				OTHER_TAPI_FLAGS = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
@@ -4324,6 +4325,7 @@
 					"-lwxzlib-3.1",
 					"-lwxjpeg-3.1",
 					"-lwxregexu-3.1",
+					"-lxlsxwriter",
 				);
 				OTHER_TAPI_FLAGS = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
@@ -4500,6 +4502,7 @@
 					"-lwxpng-3.1",
 					"-lwxzlib-3.1",
 					"-lwxregexu-3.1",
+					"-lxlsxwriter",
 				);
 				OTHER_TAPI_FLAGS = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;

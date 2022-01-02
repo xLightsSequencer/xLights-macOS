@@ -50,7 +50,7 @@
 	<key>NSDownloadsFolderUsageDescription</key>
 	<string>When using select features in xLights such as "Download Sequences/Lyrics", files may be downloaded to the Download folder and accessed from there.</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2020 Daniel Kulp and others. All rights reserved.</string>
+	<string>Copyright © 2022 Daniel Kulp and others. All rights reserved.</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSNetworkVolumesUsageDescription</key>
