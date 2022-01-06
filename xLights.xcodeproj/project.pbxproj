@@ -3309,7 +3309,7 @@
 				};
 			};
 			buildConfigurationList = 67E7086817B51AB400A22034 /* Build configuration list for PBXProject "xLights" */;
-			compatibilityVersion = "Xcode 10.0";
+			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -4021,14 +4021,14 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = Assets/xFade/xFadeDebug.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CURRENT_PROJECT_VERSION = 210139;
+				CURRENT_PROJECT_VERSION = 220020;
 				DEVELOPMENT_ASSET_PATHS = "";
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Assets/xFade/Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 2021.39;
+				MARKETING_VERSION = 2022.02;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
@@ -4053,7 +4053,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = Assets/xFade/xFade.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CURRENT_PROJECT_VERSION = 210139;
+				CURRENT_PROJECT_VERSION = 220020;
 				DEVELOPMENT_ASSET_PATHS = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREFIX_HEADER = "";
@@ -4061,7 +4061,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Assets/xFade/Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 2021.39;
+				MARKETING_VERSION = 2022.02;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
@@ -4086,7 +4086,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = Assets/xFade/xFade.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CURRENT_PROJECT_VERSION = 210139;
+				CURRENT_PROJECT_VERSION = 220020;
 				DEVELOPMENT_ASSET_PATHS = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREFIX_HEADER = "";
@@ -4094,7 +4094,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Assets/xFade/Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 2021.39;
+				MARKETING_VERSION = 2022.02;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
@@ -4343,14 +4343,14 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = Assets/xLights/xLightsDebug.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CURRENT_PROJECT_VERSION = 210139;
+				CURRENT_PROJECT_VERSION = 220020;
 				DEVELOPMENT_ASSET_PATHS = "";
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Assets/xLights/Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 2021.39;
+				MARKETING_VERSION = 2022.02;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
@@ -4375,7 +4375,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = Assets/xLights/xLights.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CURRENT_PROJECT_VERSION = 210139;
+				CURRENT_PROJECT_VERSION = 220020;
 				DEVELOPMENT_ASSET_PATHS = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREFIX_HEADER = "";
@@ -4383,7 +4383,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Assets/xLights/Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 2021.39;
+				MARKETING_VERSION = 2022.02;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
@@ -4519,7 +4519,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = Assets/xLights/xLightsArchive.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CURRENT_PROJECT_VERSION = 210139;
+				CURRENT_PROJECT_VERSION = 220020;
 				DEVELOPMENT_ASSET_PATHS = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREFIX_HEADER = "";
@@ -4527,7 +4527,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Assets/xLights/Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 2021.39;
+				MARKETING_VERSION = 2022.02;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
