@@ -452,6 +452,7 @@
 		6716568B25D829B90041BB9A /* standard_dictionary in Resources */ = {isa = PBXBuildFile; fileRef = 6716568725D829B90041BB9A /* standard_dictionary */; };
 		6716568C25D829B90041BB9A /* phoneme_mapping in Resources */ = {isa = PBXBuildFile; fileRef = 6716568825D829B90041BB9A /* phoneme_mapping */; };
 		6716568D25D829BA0041BB9A /* user_dictionary in Resources */ = {isa = PBXBuildFile; fileRef = 6716568925D829B90041BB9A /* user_dictionary */; };
+		671929CC2789DFA200C60464 /* LuaRunner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671929CA2789DFA200C60464 /* LuaRunner.cpp */; };
 		67290004255303D500C83C71 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67290003255303D500C83C71 /* VideoToolbox.framework */; };
 		672900082553040000C83C71 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B4C91F17B53D960006B951 /* CoreMedia.framework */; };
 		6729000D2553047600C83C71 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729000C2553046400C83C71 /* libbz2.tbd */; };
@@ -469,6 +470,7 @@
 		674D3D221C207BCC000D632B /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D211C207BCC000D632B /* IOKit.framework */; };
 		674D3D241C207BD7000D632B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D231C207BD7000D632B /* AudioToolbox.framework */; };
 		674D3D261C207C25000D632B /* libpthread.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D251C207C25000D632B /* libpthread.tbd */; };
+		675EDD3D2789D87C00D40FEA /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675EDD3C2789D87C00D40FEA /* liblua.a */; };
 		675FD840204C3C0B003D280F /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B227204BA69B00E90AC7 /* CoreImage.framework */; };
 		676FB41C273400FC0081F91A /* xlGraphicsAccumulators.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 676FB41A273400FC0081F91A /* xlGraphicsAccumulators.cpp */; };
 		6778610B272CD73200020F31 /* GPURenderUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67786109272CD73200020F31 /* GPURenderUtils.cpp */; };
@@ -1510,6 +1512,8 @@
 		671656DA25D835780041BB9A /* xfade.mac.properties */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = xfade.mac.properties; sourceTree = "<group>"; };
 		671656DB25D835780041BB9A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		671656DC25D835780041BB9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		671929CA2789DFA200C60464 /* LuaRunner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaRunner.cpp; sourceTree = "<group>"; };
+		671929CB2789DFA200C60464 /* LuaRunner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaRunner.h; sourceTree = "<group>"; };
 		671C0BCC1C245E230098A48D /* libwx_osx_cocoau_qa-3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_qa-3.1.dylib"; path = "/opt/local/libdbg/libwx_osx_cocoau_qa-3.1.dylib"; sourceTree = "<group>"; };
 		671E47FC2231CEC900049DC9 /* libcurl.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcurl.tbd; path = usr/lib/libcurl.tbd; sourceTree = SDKROOT; };
 		67290003255303D500C83C71 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
@@ -1539,6 +1543,7 @@
 		674D3D251C207C25000D632B /* libpthread.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libpthread.tbd; path = usr/lib/libpthread.tbd; sourceTree = SDKROOT; };
 		674E27A41B5B37B000274B20 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		674E9C631C9106D600D12F0D /* libwx_osx_cocoau_propgrid-3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_propgrid-3.1.dylib"; path = "../../../../opt/local/libdbg/libwx_osx_cocoau_propgrid-3.1.dylib"; sourceTree = "<group>"; };
+		675EDD3C2789D87C00D40FEA /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblua.a; path = /opt/local/lib/liblua.a; sourceTree = "<group>"; };
 		676FB41A273400FC0081F91A /* xlGraphicsAccumulators.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xlGraphicsAccumulators.cpp; sourceTree = "<group>"; };
 		676FB41B273400FC0081F91A /* xlGraphicsAccumulators.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xlGraphicsAccumulators.h; sourceTree = "<group>"; };
 		6771056A267BB91C001DA926 /* UniverseEntryDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UniverseEntryDialog.cpp; path = ../xCapture/UniverseEntryDialog.cpp; sourceTree = "<group>"; };
@@ -1736,6 +1741,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				675EDD3D2789D87C00D40FEA /* liblua.a in Frameworks */,
 				673B3D4E223BF203000F1D7E /* libcurl.tbd in Frameworks */,
 				67A88A4726164CD600BFCEC0 /* libxLights-macOSLib.a in Frameworks */,
 				6729FFFA2553035100C83C71 /* libavformat.a in Frameworks */,
@@ -2926,6 +2932,8 @@
 		679D199F274BC29100AD9F7F /* automation */ = {
 			isa = PBXGroup;
 			children = (
+				671929CA2789DFA200C60464 /* LuaRunner.cpp */,
+				671929CB2789DFA200C60464 /* LuaRunner.h */,
 				679D19A3274BC45800AD9F7F /* automation.cpp */,
 				679D19A4274BC45800AD9F7F /* automation.h */,
 				679D19A0274BC2D100AD9F7F /* xLightsAutomations.cpp */,
@@ -3085,6 +3093,7 @@
 		67E7086F17B51AB400A22034 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				675EDD3C2789D87C00D40FEA /* liblua.a */,
 				670F8DCB27652F8F002F0CD6 /* SceneKit.framework */,
 				670F8DC927652F5E002F0CD6 /* ModelIO.framework */,
 				67061FD22746D5330020519D /* MetalPerformanceShaders.framework */,
@@ -3827,6 +3836,7 @@
 				6716536925D7CE720041BB9A /* WarpPanel.cpp in Sources */,
 				6716533325D7CE710041BB9A /* GIFImage.cpp in Sources */,
 				6716519025D7CE700041BB9A /* CandyCaneModel.cpp in Sources */,
+				671929CC2789DFA200C60464 /* LuaRunner.cpp in Sources */,
 				671651C625D7CE700041BB9A /* xlColorPickerFields.cpp in Sources */,
 				671651B125D7CE700041BB9A /* BaseObject.cpp in Sources */,
 				671651A725D7CE700041BB9A /* ChannelBlockModel.cpp in Sources */,
@@ -4347,6 +4357,14 @@
 				DEVELOPMENT_ASSET_PATHS = "";
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					../xLights,
+					../include,
+					"../xLights/ffmpeg-dev/include/",
+					"../include/sol2-3.2.2",
+					/opt/local/include,
+					"macOS-src",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Assets/xLights/Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
@@ -4380,8 +4398,19 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					../xLights,
+					../include,
+					"../xLights/ffmpeg-dev/include/",
+					"../include/sol2-3.2.2",
+					/opt/local/include,
+					"macOS-src",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Assets/xLights/Info.plist";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MARKETING_VERSION = 2022.02;
 				OTHER_CFLAGS = (
@@ -4524,8 +4553,19 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREFIX_HEADER = "";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					../xLights,
+					../include,
+					"../xLights/ffmpeg-dev/include/",
+					"../include/sol2-3.2.2",
+					/opt/local/include,
+					"macOS-src",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Assets/xLights/Info.plist";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MARKETING_VERSION = 2022.02;
 				OTHER_CFLAGS = (

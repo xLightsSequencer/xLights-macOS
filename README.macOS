@@ -243,6 +243,26 @@ make  clean
 git status --ignored -s | colrm 1 3 | xargs rm -rf
 
 
+
+liblua: (currently using v5.4.3)
+git clone https://github.com/lua/lua
+cd lua
+git checkout v5.4.3
+export CFLAGS="-g -O3 -flto=thin -Wall -fno-stack-protector -fno-common ${XL_TARGETS} ${OSX_VERSION_MIN}"
+make -j4 all CFLAGS="$CFLAGS" MYLDFLAGS="$CFLAGS"
+cp liblua.a /opt/local/lib
+cp lua.h luaconf.h lualib.h lauxlib.h /opt/local/include
+make clean
+export CFLAGS="-g ${XL_TARGETS} ${OSX_VERSION_MIN}"
+make -j4 all CFLAGS="$CFLAGS" MYLDFLAGS="$CFLAGS"
+cp liblua.a /opt/local/libdbg
+unset CFLAGS
+
+
+
+
+
+
 //TODO - stuff below is still todo
 
 portmidi:
