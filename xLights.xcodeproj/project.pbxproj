@@ -465,6 +465,7 @@
 		6729FFFB2553036F00C83C71 /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFF42553031900C83C71 /* libavcodec.a */; };
 		6729FFFD2553039000C83C71 /* libswresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFFC2553037E00C83C71 /* libswresample.a */; };
 		6729FFFF255303AF00C83C71 /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFFE255303A300C83C71 /* libswscale.a */; };
+		672B5690278A72DF0011F216 /* scripts in Resources */ = {isa = PBXBuildFile; fileRef = 672B568F278A72DF0011F216 /* scripts */; };
 		672F447626387B59005B795A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B229204BA6AF00E90AC7 /* QuartzCore.framework */; };
 		673B3D4E223BF203000F1D7E /* libcurl.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 671E47FC2231CEC900049DC9 /* libcurl.tbd */; };
 		674D3D221C207BCC000D632B /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D211C207BCC000D632B /* IOKit.framework */; };
@@ -1527,6 +1528,7 @@
 		6729FFF92553033E00C83C71 /* libavformat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavformat.a; path = ../../../../opt/local/lib/libavformat.a; sourceTree = "<group>"; };
 		6729FFFC2553037E00C83C71 /* libswresample.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libswresample.a; path = ../../../../opt/local/lib/libswresample.a; sourceTree = "<group>"; };
 		6729FFFE255303A300C83C71 /* libswscale.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libswscale.a; path = ../../../../opt/local/lib/libswscale.a; sourceTree = "<group>"; };
+		672B568F278A72DF0011F216 /* scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = scripts; path = ../scripts; sourceTree = "<group>"; };
 		672BD4E41C207D2E008F8B36 /* libwx_baseu_xml-3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_baseu_xml-3.1.dylib"; path = "/opt/local/libdbg/libwx_baseu_xml-3.1.dylib"; sourceTree = "<group>"; };
 		672BD4E51C207D2E008F8B36 /* libwx_osx_cocoau_aui-3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_aui-3.1.dylib"; path = "/opt/local/libdbg/libwx_osx_cocoau_aui-3.1.dylib"; sourceTree = "<group>"; };
 		672BD4E61C207D2E008F8B36 /* libwx_osx_cocoau_gl-3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_gl-3.1.dylib"; path = "/opt/local/libdbg/libwx_osx_cocoau_gl-3.1.dylib"; sourceTree = "<group>"; };
@@ -2944,18 +2946,19 @@
 		67AAF8F31B63782F00585431 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				678AAF3F26C40B6300467B3C /* model_vendor_mapping.json */,
-				6716568625D829B90041BB9A /* extended_dictionary */,
-				6716568825D829B90041BB9A /* phoneme_mapping */,
-				6716568725D829B90041BB9A /* standard_dictionary */,
-				6716568925D829B90041BB9A /* user_dictionary */,
-				6716568025D829790041BB9A /* Images.xcassets */,
-				6716567F25D829790041BB9A /* xlights.mac.properties */,
 				6716567725D829270041BB9A /* colorcurves */,
 				6716567525D829270041BB9A /* controllers */,
+				6716568625D829B90041BB9A /* extended_dictionary */,
+				6716568025D829790041BB9A /* Images.xcassets */,
 				6716567625D829270041BB9A /* meshobjects */,
-				6716567425D829270041BB9A /* valuecurves */,
+				678AAF3F26C40B6300467B3C /* model_vendor_mapping.json */,
 				6716566F25D829140041BB9A /* palettes */,
+				6716568825D829B90041BB9A /* phoneme_mapping */,
+				672B568F278A72DF0011F216 /* scripts */,
+				6716568725D829B90041BB9A /* standard_dictionary */,
+				6716568925D829B90041BB9A /* user_dictionary */,
+				6716567425D829270041BB9A /* valuecurves */,
+				6716567F25D829790041BB9A /* xlights.mac.properties */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -3359,6 +3362,7 @@
 				6716568225D829790041BB9A /* Images.xcassets in Resources */,
 				6716567B25D829270041BB9A /* colorcurves in Resources */,
 				6716567825D829270041BB9A /* valuecurves in Resources */,
+				672B5690278A72DF0011F216 /* scripts in Resources */,
 				6716567A25D829270041BB9A /* meshobjects in Resources */,
 				6716567025D829140041BB9A /* palettes in Resources */,
 				678AAF4026C40B6300467B3C /* model_vendor_mapping.json in Resources */,
