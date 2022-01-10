@@ -13,7 +13,7 @@ using namespace metal;
 
 struct ColorVertexData {
     float4 vert [[position]];
-    float4 color;
+    half4 color;
 
     int renderType;
     float  pointSize [[point_size]];
@@ -25,7 +25,7 @@ vertex ColorVertexData singleColorVertexShader(const device float3 *vertices  [[
                                       constant FrameData  &frameData [[ buffer(BufferIndexFrameData) ]],
                                       uint vid [[vertex_id]]){
     return {
-            frameData.MVP * float4(vertices[vid], 1.0), frameData.fragmentColor,
+            frameData.MVP * float4(vertices[vid], 1.0), half4(frameData.fragmentColor),
             frameData.renderType, frameData.pointSize, frameData.pointSmoothMin, frameData.pointSmoothMax
     };
 }
@@ -34,7 +34,7 @@ vertex ColorVertexData multiColorVertexShader(const device float3 *vertices  [[b
                                               const device uchar4 *colors  [[buffer(BufferIndexMeshColors)]],
                                               constant FrameData  &frameData [[ buffer(BufferIndexFrameData) ]],
                                               uint vid [[vertex_id]]){
-    float4 color = float4(colors[vid].r, colors[vid].g, colors[vid].b, colors[vid].a);
+    half4 color = half4(colors[vid].r, colors[vid].g, colors[vid].b, colors[vid].a);
     color /= 255.0f;
     return {
         frameData.MVP * float4(vertices[vid], 1.0), color,
@@ -52,7 +52,7 @@ vertex ColorVertexData indexedColorVertexShader(IndexedColorData vertices [[stag
                                                 const device uchar4 *colors  [[buffer(BufferIndexMeshColors)]],
                                                 constant FrameData  &frameData [[ buffer(BufferIndexFrameData) ]]){
     uint32_t cidx = vertices.colorIndex;
-    float4 color = float4(colors[cidx].r, colors[cidx].g, colors[cidx].b, colors[cidx].a);
+    half4 color = half4(colors[cidx].r, colors[cidx].g, colors[cidx].b, colors[cidx].a);
     color /= 255.0f;
     return {
         frameData.MVP * float4(vertices.positionx, vertices.positiony, vertices.positionz, 1.0), color,
@@ -60,14 +60,14 @@ vertex ColorVertexData indexedColorVertexShader(IndexedColorData vertices [[stag
     };
 }
 
-fragment float4 colorFragmentShader(ColorVertexData in [[stage_in]],
+fragment half4 colorFragmentShader(ColorVertexData in [[stage_in]],
                                     float2 pointCoord [[point_coord]]){
     return in.color;
 }
-fragment float4 pointSmoothFragmentShader(ColorVertexData in [[stage_in]],
+fragment half4 pointSmoothFragmentShader(ColorVertexData in [[stage_in]],
                                           float2 pointCoord [[point_coord]]){
     float dist = length(pointCoord - float2(0.5));
-    float4 out_color = in.color;
+    half4 out_color = in.color;
     out_color.a *= 1.0 - smoothstep(in.pointSmoothMin, in.pointSmoothMax, dist);
     if (out_color.a == 0) discard_fragment();
     return out_color;
@@ -77,41 +77,41 @@ fragment float4 pointSmoothFragmentShader(ColorVertexData in [[stage_in]],
 struct TextureVertexData {
     float4 vert [[position]];;
     float2 texPosition;
-    float4 forceColor;
+    half4 forceColor;
 };
 vertex TextureVertexData textureVertexShader(const device float3 *vertices  [[buffer(BufferIndexMeshPositions)]],
                                              const device float2 *tvertices  [[buffer(BufferIndexTexturePositions)]],
                                              constant FrameData  &frameData [[ buffer(BufferIndexFrameData) ]],
                                              uint vid [[vertex_id]]){
-    TextureVertexData d = { frameData.MVP * float4(vertices[vid], 1.0), tvertices[vid] , frameData.fragmentColor};
+    TextureVertexData d = { frameData.MVP * float4(vertices[vid], 1.0), tvertices[vid] , half4(frameData.fragmentColor)};
     return d;
 }
-fragment float4 textureFragmentShader(TextureVertexData in [[stage_in]],
-                                      texture2d<float>  texture [[ texture(TextureIndexBase) ]]) {
+fragment half4 textureFragmentShader(TextureVertexData in [[stage_in]],
+                                      texture2d<half>  texture [[ texture(TextureIndexBase) ]]) {
     constexpr sampler linearSampler(mip_filter::none,
                                     mag_filter::linear,
                                     min_filter::linear);
 
-    float4 sample = texture.sample(linearSampler, in.texPosition);
+    half4 sample = texture.sample(linearSampler, in.texPosition);
     return sample * in.forceColor;
 }
-fragment float4 textureNearestFragmentShader(TextureVertexData in [[stage_in]],
-                                             texture2d<float, access::sample>  texture [[ texture(TextureIndexBase) ]]) {
+fragment half4 textureNearestFragmentShader(TextureVertexData in [[stage_in]],
+                                             texture2d<half, access::sample>  texture [[ texture(TextureIndexBase) ]]) {
     constexpr sampler nearestSampler(mip_filter::none,
                                     mag_filter::nearest,
                                     min_filter::linear);
 
-    float4 sample = texture.sample(nearestSampler, in.texPosition);
+    half4 sample = texture.sample(nearestSampler, in.texPosition);
     return sample * in.forceColor;
 }
-fragment float4 textureColorFragmentShader(TextureVertexData in [[stage_in]],
+fragment half4 textureColorFragmentShader(TextureVertexData in [[stage_in]],
                                       texture2d<float>  texture [[ texture(TextureIndexBase) ]]) {
     constexpr sampler linearSampler(mip_filter::none,
                                     mag_filter::linear,
                                     min_filter::linear);
 
     float4 sample = texture.sample(linearSampler, in.texPosition);
-    return float4(in.forceColor.rgb, sample.a * in.forceColor.a);;
+    return half4(in.forceColor.rgb, sample.a * in.forceColor.a);;
 }
 
 
@@ -131,7 +131,7 @@ struct MeshVertexInput {
 // Per-vertex output and per-fragment input
 typedef struct {
     float4 position [[position]];
-    float4 color;
+    half4 color;
     float2 texcoord;
     int    renderType;
     float  brightness;
@@ -153,7 +153,7 @@ vertex MeshShaderInOut meshVertexShader(MeshVertexInput in [[stage_in]],
     //n_dot_l = fmax(0.0, n_dot_l);
     //out.color = float4(frameData.fragmentColor + n_dot_l);
     
-    out.color = frameData.fragmentColor;
+    out.color = half4(frameData.fragmentColor);
     
     // Pass through texture coordinate
     out.texcoord = in.texcoord;
@@ -163,23 +163,23 @@ vertex MeshShaderInOut meshVertexShader(MeshVertexInput in [[stage_in]],
 }
 
 // Fragment shader function
-fragment float4 meshTextureFragmentShader(MeshShaderInOut in [[stage_in]],
-                                   texture2d<float>  diffuseTexture [[ texture(BufferIndexTexturePositions) ]]) {
+fragment half4 meshTextureFragmentShader(MeshShaderInOut in [[stage_in]],
+                                   texture2d<half>  diffuseTexture [[ texture(BufferIndexTexturePositions) ]]) {
     constexpr sampler defaultSampler(coord::normalized,
                                      address::repeat,
                                      filter::linear);
     
     // Blend texture color with input color and output to framebuffer
     //float4 color =  diffuseTexture.sample(defaultSampler, float2(in.texcoord)) * in.color;
-    float4 color =  diffuseTexture.sample(defaultSampler, float2(in.texcoord));
+    half4 color =  diffuseTexture.sample(defaultSampler, float2(in.texcoord));
     //float4 color =  float4(1, 0, 0, 1);
     //float4 color =  in.color;
-    return { color.r * in.brightness, color.g * in.brightness, color.b * in.brightness, color.a };
+    return half4( color.r * in.brightness, color.g * in.brightness, color.b * in.brightness, color.a );
 }
 // Fragment shader function for the mesh solids
-fragment float4 meshSolidFragmentShader(MeshShaderInOut in [[stage_in]]) {
-    float4 color = in.color;
+fragment half4 meshSolidFragmentShader(MeshShaderInOut in [[stage_in]]) {
+    half4 color = in.color;
     //float4 color =  float4(1, 0, 0, 1);
     //float4 color =  in.color;
-    return { color.r * in.brightness, color.g * in.brightness, color.b * in.brightness, color.a };
+    return half4( color.r * in.brightness, color.g * in.brightness, color.b * in.brightness, color.a );
 }
