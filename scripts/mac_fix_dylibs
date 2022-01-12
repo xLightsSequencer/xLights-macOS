@@ -23,7 +23,7 @@ if [ "x${SHORTVERPO}" == "x" ]; then
     SHORTVERPO="0"
 fi
 
-if [ ${#SHORTVERPO} > 1 ]; then
+if [ ${#SHORTVERPO} -gt 1 ]; then
     SHORTVERPO="${SHORTVERPO:0:1}.${SHORTVERPO:2}"
 fi
 

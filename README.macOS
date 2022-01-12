@@ -80,6 +80,7 @@ For debug builds:
                 --without-liblzma  --with-expat=builtin --with-zlib=builtin --with-libjpeg=builtin  --without-libtiff \
                 --enable-backtrace --enable-exceptions
   make -j 8
+  rm -rf /opt/local/libdbg/libwx*.dylib
   make install
 
 
