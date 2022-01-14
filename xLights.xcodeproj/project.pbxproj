@@ -471,6 +471,7 @@
 		674D3D221C207BCC000D632B /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D211C207BCC000D632B /* IOKit.framework */; };
 		674D3D241C207BD7000D632B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D231C207BD7000D632B /* AudioToolbox.framework */; };
 		674D3D261C207C25000D632B /* libpthread.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D251C207C25000D632B /* libpthread.tbd */; };
+		674DEE332791DE8E00DEA844 /* WarpFunctions.metal in Sources */ = {isa = PBXBuildFile; fileRef = 674DEE322791DE8E00DEA844 /* WarpFunctions.metal */; };
 		675EDD3D2789D87C00D40FEA /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675EDD3C2789D87C00D40FEA /* liblua.a */; };
 		675FD840204C3C0B003D280F /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B227204BA69B00E90AC7 /* CoreImage.framework */; };
 		676FB41C273400FC0081F91A /* xlGraphicsAccumulators.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 676FB41A273400FC0081F91A /* xlGraphicsAccumulators.cpp */; };
@@ -489,6 +490,7 @@
 		6787EAA1274FF60E00DAEE47 /* ScriptsDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6787EAA0274FF60E00DAEE47 /* ScriptsDialog.cpp */; };
 		6789EF4F26635DFD00889606 /* Pixels.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6789EF4E26635DFD00889606 /* Pixels.cpp */; };
 		678AAF4026C40B6300467B3C /* model_vendor_mapping.json in Resources */ = {isa = PBXBuildFile; fileRef = 678AAF3F26C40B6300467B3C /* model_vendor_mapping.json */; };
+		67995D582791B74200BCCCFB /* MetalWarpEffect.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67995D572791B74200BCCCFB /* MetalWarpEffect.mm */; };
 		679B58232735D63900368F0A /* xlFontInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 679B58212735D63900368F0A /* xlFontInfo.cpp */; };
 		679D19A2274BC2D100AD9F7F /* xLightsAutomations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 679D19A0274BC2D100AD9F7F /* xLightsAutomations.cpp */; };
 		679D19A5274BC45800AD9F7F /* automation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 679D19A3274BC45800AD9F7F /* automation.cpp */; };
@@ -1543,6 +1545,7 @@
 		674D3D211C207BCC000D632B /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		674D3D231C207BD7000D632B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		674D3D251C207C25000D632B /* libpthread.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libpthread.tbd; path = usr/lib/libpthread.tbd; sourceTree = SDKROOT; };
+		674DEE322791DE8E00DEA844 /* WarpFunctions.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = WarpFunctions.metal; sourceTree = "<group>"; };
 		674E27A41B5B37B000274B20 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		674E9C631C9106D600D12F0D /* libwx_osx_cocoau_propgrid-3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_propgrid-3.1.dylib"; path = "../../../../opt/local/libdbg/libwx_osx_cocoau_propgrid-3.1.dylib"; sourceTree = "<group>"; };
 		675EDD3C2789D87C00D40FEA /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblua.a; path = /opt/local/lib/liblua.a; sourceTree = "<group>"; };
@@ -1565,8 +1568,8 @@
 		6778610A272CD73200020F31 /* GPURenderUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPURenderUtils.h; sourceTree = "<group>"; };
 		678577A1272C662700E6E249 /* MetalEffectManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalEffectManager.mm; sourceTree = "<group>"; };
 		678577A3272C67D400E6E249 /* MetalButterflyEffect.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalButterflyEffect.mm; sourceTree = "<group>"; };
-		678577A4272C67D400E6E249 /* MetalButterflyEffect.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MetalButterflyEffect.hpp; sourceTree = "<group>"; };
-		678577A8272C6B6000E6E249 /* ButterflyTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ButterflyTypes.h; sourceTree = "<group>"; };
+		678577A4272C67D400E6E249 /* MetalEffects.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MetalEffects.hpp; sourceTree = "<group>"; };
+		678577A8272C6B6000E6E249 /* MetalEffectDataTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MetalEffectDataTypes.h; sourceTree = "<group>"; };
 		678577A9272C721500E6E249 /* MetalComputeUtilities.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalComputeUtilities.mm; sourceTree = "<group>"; };
 		678577AA272C721500E6E249 /* MetalComputeUtilities.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MetalComputeUtilities.hpp; sourceTree = "<group>"; };
 		678577B5272C73A000E6E249 /* ButterflyFunctions.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = ButterflyFunctions.metal; sourceTree = "<group>"; };
@@ -1579,6 +1582,7 @@
 		6789EF4E26635DFD00889606 /* Pixels.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Pixels.cpp; sourceTree = "<group>"; };
 		678AAF3F26C40B6300467B3C /* model_vendor_mapping.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = model_vendor_mapping.json; path = ../download/model_vendor_mapping.json; sourceTree = "<group>"; };
 		678BCB1A27581E6F0057E4FA /* xFadeDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = xFadeDebug.entitlements; sourceTree = "<group>"; };
+		67995D572791B74200BCCCFB /* MetalWarpEffect.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalWarpEffect.mm; sourceTree = "<group>"; };
 		679B58212735D63900368F0A /* xlFontInfo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xlFontInfo.cpp; sourceTree = "<group>"; };
 		679B58222735D63900368F0A /* xlFontInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xlFontInfo.h; sourceTree = "<group>"; };
 		679D19A0274BC2D100AD9F7F /* xLightsAutomations.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xLightsAutomations.cpp; sourceTree = "<group>"; };
@@ -2909,13 +2913,15 @@
 		6785779F272C60F700E6E249 /* metal */ = {
 			isa = PBXGroup;
 			children = (
-				678577A1272C662700E6E249 /* MetalEffectManager.mm */,
-				678577A3272C67D400E6E249 /* MetalButterflyEffect.mm */,
-				678577A4272C67D400E6E249 /* MetalButterflyEffect.hpp */,
-				678577A8272C6B6000E6E249 /* ButterflyTypes.h */,
-				678577A9272C721500E6E249 /* MetalComputeUtilities.mm */,
-				678577AA272C721500E6E249 /* MetalComputeUtilities.hpp */,
 				678577B5272C73A000E6E249 /* ButterflyFunctions.metal */,
+				678577A8272C6B6000E6E249 /* MetalEffectDataTypes.h */,
+				678577A3272C67D400E6E249 /* MetalButterflyEffect.mm */,
+				678577AA272C721500E6E249 /* MetalComputeUtilities.hpp */,
+				678577A9272C721500E6E249 /* MetalComputeUtilities.mm */,
+				678577A1272C662700E6E249 /* MetalEffectManager.mm */,
+				678577A4272C67D400E6E249 /* MetalEffects.hpp */,
+				67995D572791B74200BCCCFB /* MetalWarpEffect.mm */,
+				674DEE322791DE8E00DEA844 /* WarpFunctions.metal */,
 			);
 			path = metal;
 			sourceTree = "<group>";
@@ -3411,6 +3417,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				678577B6272C73A000E6E249 /* ButterflyFunctions.metal in Sources */,
+				674DEE332791DE8E00DEA844 /* WarpFunctions.metal in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3594,6 +3601,7 @@
 				6716537125D7CE720041BB9A /* SpiralsPanel.cpp in Sources */,
 				6716512525D7CE700041BB9A /* xlGridCanvas.cpp in Sources */,
 				67EC04DF26456A7500A3AFA2 /* WLED.cpp in Sources */,
+				67995D582791B74200BCCCFB /* MetalWarpEffect.mm in Sources */,
 				671651AB25D7CE700041BB9A /* CircleModel.cpp in Sources */,
 				6716531D25D7CE710041BB9A /* SnowstormEffect.cpp in Sources */,
 				6716533025D7CE710041BB9A /* CirclesPanel.cpp in Sources */,
