@@ -29,7 +29,8 @@ public:
     //methods only available from objective-c.  Cannot be virtual as they cannot be in the virtual function table
     static id<MTLDevice> getMTLDevice();
     static id<MTLLibrary> getMTLLibrary();
-    static id<MTLDepthStencilState> getDepthStencilState();
+    static id<MTLDepthStencilState> getDepthStencilStateLE();
+    static id<MTLDepthStencilState> getDepthStencilStateL();
     static id<MTLCommandQueue> getMTLCommandQueue();
     static int getMSAASampleCount();
 

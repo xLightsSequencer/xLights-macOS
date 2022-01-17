@@ -85,7 +85,8 @@ public:
 static id<MTLDevice> MTL_DEVICE = nil;
 static id<MTLCommandQueue> MTL_COMMAND_QUEUE = nil;
 static id<MTLLibrary> MTL_DEFAULT_LIBRARY = nil;
-static id<MTLDepthStencilState> MTL_DEPTH_STENCIL_STATE = nil;
+static id<MTLDepthStencilState> MTL_DEPTH_STENCIL_STATE_LE = nil;
+static id<MTLDepthStencilState> MTL_DEPTH_STENCIL_STATE_L = nil;
 static int MTL_SAMPLE_COUNT = 1;
 
 static std::map<std::string, PipelineInfo> PIPELINE_STATES_2D;
@@ -120,9 +121,13 @@ wxMetalCanvas::~wxMetalCanvas() {
             a.second.state = nil;
         }
         BLENDED_PIPELINE_STATES_3D.clear();
-        if (MTL_DEPTH_STENCIL_STATE) {
-            [MTL_DEPTH_STENCIL_STATE release];
-            MTL_DEPTH_STENCIL_STATE = nil;
+        if (MTL_DEPTH_STENCIL_STATE_LE) {
+            [MTL_DEPTH_STENCIL_STATE_LE release];
+            MTL_DEPTH_STENCIL_STATE_LE = nil;
+        }
+        if (MTL_DEPTH_STENCIL_STATE_L) {
+            [MTL_DEPTH_STENCIL_STATE_L release];
+            MTL_DEPTH_STENCIL_STATE_L = nil;
         }
         if (MTL_COMMAND_QUEUE) {
             [MTL_COMMAND_QUEUE release];
@@ -148,8 +153,11 @@ id<MTLDevice> wxMetalCanvas::getMTLDevice() {
 id<MTLLibrary> wxMetalCanvas::getMTLLibrary() {
     return MTL_DEFAULT_LIBRARY;
 }
-id<MTLDepthStencilState> wxMetalCanvas::getDepthStencilState() {
-    return MTL_DEPTH_STENCIL_STATE;
+id<MTLDepthStencilState> wxMetalCanvas::getDepthStencilStateLE() {
+    return MTL_DEPTH_STENCIL_STATE_LE;
+}
+id<MTLDepthStencilState> wxMetalCanvas::getDepthStencilStateL() {
+    return MTL_DEPTH_STENCIL_STATE_L;
 }
 id<MTLCommandQueue> wxMetalCanvas::getMTLCommandQueue() {
     return MTL_COMMAND_QUEUE;
@@ -182,7 +190,13 @@ bool wxMetalCanvas::Create(wxWindow *parent,
         MTLDepthStencilDescriptor *depthDescriptor = [MTLDepthStencilDescriptor new];
         depthDescriptor.depthCompareFunction = MTLCompareFunctionLessEqual;
         depthDescriptor.depthWriteEnabled = YES;
-        MTL_DEPTH_STENCIL_STATE = [MTL_DEVICE newDepthStencilStateWithDescriptor:depthDescriptor];
+        MTL_DEPTH_STENCIL_STATE_LE = [MTL_DEVICE newDepthStencilStateWithDescriptor:depthDescriptor];
+        [depthDescriptor release];
+        
+        depthDescriptor = [MTLDepthStencilDescriptor new];
+        depthDescriptor.depthCompareFunction = MTLCompareFunctionLess;
+        depthDescriptor.depthWriteEnabled = YES;
+        MTL_DEPTH_STENCIL_STATE_L = [MTL_DEVICE newDepthStencilStateWithDescriptor:depthDescriptor];
         [depthDescriptor release];
         
         if ([MTL_DEVICE supportsTextureSampleCount:2]) {
@@ -254,7 +268,7 @@ id<MTLRenderPipelineState> wxMetalCanvas::getPipelineState(const std::string &n,
             desc.fragmentFunction = [[MTL_DEFAULT_LIBRARY newFunctionWithName:nsFName] autorelease];
             
             MTLVertexDescriptor *mtlVertexDescriptor = nil;
-            if (n == "meshSolidProgram" || n == "meshTextureProgram") {
+            if (n == "meshSolidProgram" || n == "meshTextureProgram" || n == "meshWireframeProgram") {
                 //need a complex vertex descriptor
                 mtlVertexDescriptor = [[MTLVertexDescriptor alloc] init];
 
