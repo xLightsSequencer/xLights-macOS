@@ -147,7 +147,7 @@ vertex MeshShaderInOut meshVertexShader(MeshVertexInput     in [[stage_in]],
     float4 in_position = float4(in.position, 1.0);
     out.position = frameData.MVP * in_position;
     
-    if (frameData.fragmentColor.a == 1.0) {
+    if (frameData.fragmentColor.a == 1.0 && frameData.applyShading) {
         // Normal of the the vertex, in world space
         float3 normal_cameraspace = ( frameData.viewMatrix * frameData.modelMatrix * float4(in.normal,0)).xyz;
 
