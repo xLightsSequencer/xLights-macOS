@@ -45,7 +45,7 @@ struct FrameData
 
     simd::float4 fragmentColor;
     float brightness;
-    bool  applyShading;
+    bool  useViewMatrix;
 
     // for points, we need the size and the smoothness
     float pointSize;

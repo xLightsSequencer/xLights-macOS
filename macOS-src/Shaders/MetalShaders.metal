@@ -120,6 +120,7 @@ fragment half4 textureColorFragmentShader(TextureVertexData in [[stage_in]],
 
 // Variables in constant address space.
 constant float3 lightDirection = float3(0.1, 0.1, 1);
+constant float  ambiantLightFraction = 0.25;
 
 // Per-vertex input structure
 struct MeshVertexInput {
@@ -147,9 +148,10 @@ vertex MeshShaderInOut meshVertexShader(MeshVertexInput     in [[stage_in]],
     float4 in_position = float4(in.position, 1.0);
     out.position = frameData.MVP * in_position;
     
-    if (frameData.fragmentColor.a == 1.0 && frameData.applyShading) {
+    if (frameData.fragmentColor.a == 1.0) {
         // Normal of the the vertex, in world space
-        float3 normal_cameraspace = ( frameData.viewMatrix * frameData.modelMatrix * float4(in.normal,0)).xyz;
+        float4x4 normalMatrix = frameData.useViewMatrix ? (frameData.viewMatrix * frameData.modelMatrix) : frameData.modelMatrix;
+        float3 normal_cameraspace = ( normalMatrix * float4(in.normal,0)).xyz;
 
         // Normal of the computed fragment, in camera space
         float3 n = normalize( normal_cameraspace );
@@ -158,8 +160,8 @@ vertex MeshShaderInOut meshVertexShader(MeshVertexInput     in [[stage_in]],
         float cosTheta = abs(clamp(dot( n, l ), -1.0, 1.0));
 
         float4 color = float4(cosTheta, cosTheta, cosTheta, 1.0);
-        out.color = half4(frameData.fragmentColor * color)*0.75 + half4(frameData.fragmentColor*0.25);
         out.cosTheta = cosTheta;
+        out.color = half4(frameData.fragmentColor * color)*(1.0-ambiantLightFraction)+ half4(frameData.fragmentColor*ambiantLightFraction);
     } else {
         out.color = half4(frameData.fragmentColor);
         out.cosTheta = 1.0f;
@@ -197,13 +199,10 @@ fragment half4 meshTextureFragmentShader(MeshShaderInOut in [[stage_in]],
                                      filter::linear);
     
     // Blend texture color with input color and output to framebuffer
-    //float4 color =  diffuseTexture.sample(defaultSampler, float2(in.texcoord)) * in.color;
     half4 color =  diffuseTexture.sample(defaultSampler, float2(in.texcoord));
-    //float4 color =  float4(1, 0, 0, 1);
-    //float4 color =  in.color;
     color = half4( color.r * in.brightness, color.g * in.brightness, color.b * in.brightness, color.a );
     if (in.cosTheta != 1.0) {
-        half3 c3 = half3(in.cosTheta * color.rgb)*0.75 + half3(color.rgb*0.25);
+        half3 c3 = half3(in.cosTheta * color.rgb)*(1.0 - ambiantLightFraction) + half3(color.rgb*ambiantLightFraction);
         color = half4(c3, color.a);
     }
     return color;
@@ -211,7 +210,5 @@ fragment half4 meshTextureFragmentShader(MeshShaderInOut in [[stage_in]],
 // Fragment shader function for the mesh solids
 fragment half4 meshSolidFragmentShader(MeshShaderInOut in [[stage_in]]) {
     half4 color = in.color;
-    //float4 color =  float4(1, 0, 0, 1);
-    //float4 color =  in.color;
     return half4( color.r * in.brightness, color.g * in.brightness, color.b * in.brightness, color.a );
 }
