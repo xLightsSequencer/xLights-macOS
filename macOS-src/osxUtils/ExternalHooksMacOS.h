@@ -1,10 +1,11 @@
 #pragma once
 
 #include <functional>
-
 class wxGLCanvas;
 class wxWindow;
 class wxString;
+class wxFileName;
+class wxColor;
 
 /* Various touch points that the OSX builds can use to
  * setup some various advanced functionality
@@ -13,6 +14,10 @@ class wxString;
 void xlSetRetinaCanvasViewport(wxGLCanvas &win, int &x, int &y, int &x2, int&y2);
 double xlTranslateToRetina(const wxWindow &win, double x);
 bool ObtainAccessToURL(const std::string &path);
+bool FileExists(const std::string &s);
+bool FileExists(const wxFileName &fn);
+bool FileExists(const wxString &s);
+
 void EnableSleepModes();
 void DisableSleepModes();
 bool IsMouseEventFromTouchpad();

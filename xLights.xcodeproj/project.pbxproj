@@ -518,6 +518,7 @@
 		67A88A4326164CAE00BFCEC0 /* xlVideoToolboxUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67A88A3A26164CAE00BFCEC0 /* xlVideoToolboxUtils.mm */; };
 		67A88A4426164CAE00BFCEC0 /* osxInAppPurchases.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67A88A3B26164CAE00BFCEC0 /* osxInAppPurchases.mm */; };
 		67A88A4726164CD600BFCEC0 /* libxLights-macOSLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A88A2726164C9B00BFCEC0 /* libxLights-macOSLib.a */; };
+		67B73C1C279FBB0B00A8B06B /* FX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67B73C1B279FBB0B00A8B06B /* FX.cpp */; };
 		67B7400627664AC80051F15A /* xlMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67B740042766491D0051F15A /* xlMesh.cpp */; };
 		67BE0DFA2727C0AB00558A3A /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BE0DF82727C0AB00558A3A /* MetalKit.framework */; };
 		67BE0DFB2727C0AB00558A3A /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BE0DF92727C0AB00558A3A /* Metal.framework */; };
@@ -1626,6 +1627,8 @@
 		67B4C92117B53D960006B951 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		67B6F3402040FB7800B847E0 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		67B6F3422040FBB600B847E0 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		67B73C1A279FBB0B00A8B06B /* FX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FX.h; sourceTree = "<group>"; };
+		67B73C1B279FBB0B00A8B06B /* FX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FX.cpp; sourceTree = "<group>"; };
 		67B740042766491D0051F15A /* xlMesh.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xlMesh.cpp; sourceTree = "<group>"; };
 		67B740052766491D0051F15A /* xlMesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xlMesh.h; sourceTree = "<group>"; };
 		67B74008276680DD0051F15A /* tiny_obj_loader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tiny_obj_loader.h; sourceTree = "<group>"; };
@@ -2388,6 +2391,8 @@
 		67164FA325D7CE6E0041BB9A /* effects */ = {
 			isa = PBXGroup;
 			children = (
+				67B73C1B279FBB0B00A8B06B /* FX.cpp */,
+				67B73C1A279FBB0B00A8B06B /* FX.h */,
 				6785779F272C60F700E6E249 /* metal */,
 				67164FB325D7CE6E0041BB9A /* assist */,
 				67164FBF25D7CE6E0041BB9A /* BarsEffect.cpp */,
@@ -3483,6 +3488,7 @@
 				6716530225D7CE710041BB9A /* ShaderDownloadDialog.cpp in Sources */,
 				6716517725D7CE700041BB9A /* FSEQFile.cpp in Sources */,
 				6716530625D7CE710041BB9A /* GarlandsEffect.cpp in Sources */,
+				67B73C1C279FBB0B00A8B06B /* FX.cpp in Sources */,
 				6716518E25D7CE700041BB9A /* SingleLineModel.cpp in Sources */,
 				6716533725D7CE710041BB9A /* OnEffect.cpp in Sources */,
 				6716518825D7CE700041BB9A /* ModelGroup.cpp in Sources */,

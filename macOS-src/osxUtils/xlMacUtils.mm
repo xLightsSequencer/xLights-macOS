@@ -19,6 +19,8 @@
 #include <set>
 #include <mutex>
 #include <functional>
+#include <thread>
+#include <chrono>
 
 #include <CoreAudio/CoreAudio.h>
 #include <CoreServices/CoreServices.h>
@@ -109,7 +111,10 @@ bool ObtainAccessToURL(const std::string &path) {
         if (ACCESSIBLE_URLS.find(path) != ACCESSIBLE_URLS.end()) {
             return true;
         }
-        if (!wxFileName::Exists(path)) {
+        NSString *nsfilePath = [NSString stringWithCString:path.c_str()
+                                                encoding:[NSString defaultCStringEncoding]];
+        bool exists = [[NSFileManager defaultManager] fileExistsAtPath:nsfilePath];
+        if (!exists) {
             return false;
         }
         wxFileName fn(path);
@@ -133,9 +138,7 @@ bool ObtainAccessToURL(const std::string &path) {
         wxString data = config->Read(pathurl);
         NSError *error = nil;
         if ("" == data) {
-            NSString *filePath = [NSString stringWithCString:pathurl.c_str()
-                                                    encoding:[NSString defaultCStringEncoding]];
-            NSURL *fileURL = [NSURL fileURLWithPath:filePath];
+            NSURL *fileURL = [NSURL fileURLWithPath:nsfilePath];
 
             NSData * newData = [fileURL bookmarkDataWithOptions: NSURLBookmarkCreationWithSecurityScope
                                  includingResourceValuesForKeys: nil
@@ -168,6 +171,47 @@ bool ObtainAccessToURL(const std::string &path) {
         return data.length() > 0;
     }
 }
+
+bool FileExists(const std::string &path) {
+    @autoreleasepool {
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        NSString *nsfilePath = [NSString stringWithCString:path.c_str()
+                                                encoding:[NSString defaultCStringEncoding]];
+        bool exists = [fileManager fileExistsAtPath:nsfilePath];
+        if (!exists) {
+            NSURL *fileURL = [NSURL fileURLWithPath:nsfilePath];
+            exists = [fileManager isUbiquitousItemAtURL:fileURL];
+            if (exists) {
+                //doesn't actually exist locally, but does exist in the cloud, trigger a download and wait
+                exists = [fileManager startDownloadingUbiquitousItemAtURL:fileURL error:nil];
+                if (exists) {
+                    //download started OK
+                    //NSMetadataUbiquitousItemDownloadingStatusKey
+                    NSString *value = nil;
+                    NSError *error = nil;
+                    [fileURL getResourceValue:&value forKey:NSURLUbiquitousItemDownloadingStatusKey error:&error];
+                    int count = 0;
+                    while (![value isEqualToString:NSURLUbiquitousItemDownloadingStatusCurrent] && (count < 6000)) {
+                        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+                        count++;
+                        fileURL = [NSURL fileURLWithPath:nsfilePath];
+                        [fileURL getResourceValue:&value forKey:NSURLUbiquitousItemDownloadingStatusKey error:&error];
+                    }
+                    exists = [fileManager fileExistsAtPath:nsfilePath];
+                }
+            }
+        }
+
+        return exists;
+    }
+}
+bool FileExists(const wxFileName &fn) {
+   return FileExists(fn.GetFullPath().ToStdString());
+}
+bool FileExists(const wxString &s) {
+    return FileExists(s.ToStdString());
+}
+
 
 double xlOSGetMainScreenContentScaleFactor()
 {
