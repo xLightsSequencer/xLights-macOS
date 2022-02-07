@@ -216,13 +216,17 @@ bool FileExists(const wxString &s, bool waitForDownload) {
 static bool endsWith(const wxString &str, const wxString &suffix) {
     return str.size() >= suffix.size() && 0 == str.compare(str.size()-suffix.size(), suffix.size(), suffix);
 }
-void GetAllFilesInDir(const wxString &dir, wxArrayString &files, const wxString &filespec) {
+void GetAllFilesInDir(const wxString &dir, wxArrayString &files, const wxString &filespec, int flags) {
+    if (flags == -1) {
+        flags = wxDIR_FILES;
+    }
+    flags |= wxDIR_HIDDEN;
     static std::string iCloudExt = ".icloud";
     wxArrayString f2;
     std::set<wxString> allFiles;
-    wxDir::GetAllFiles(dir, &f2, filespec, wxDIR_FILES | wxDIR_HIDDEN);
+    wxDir::GetAllFiles(dir, &f2, filespec, flags);
     if (filespec != "") {
-        wxDir::GetAllFiles(dir, &f2, filespec + iCloudExt, wxDIR_FILES | wxDIR_HIDDEN);
+        wxDir::GetAllFiles(dir, &f2, filespec + iCloudExt, flags);
     }
     for (auto &a : f2) {
         // this will remove duplicates that match both ext

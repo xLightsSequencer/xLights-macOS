@@ -18,7 +18,7 @@ bool ObtainAccessToURL(const std::string &path);
 bool FileExists(const std::string &s, bool waitForDownload = true);
 bool FileExists(const wxFileName &fn, bool waitForDownload = true);
 bool FileExists(const wxString &s, bool waitForDownload = true);
-void GetAllFilesInDir(const wxString &dir, wxArrayString &files, const wxString &filespec);
+void GetAllFilesInDir(const wxString &dir, wxArrayString &files, const wxString &filespec, int flags = -1);
 
 void EnableSleepModes();
 void DisableSleepModes();
