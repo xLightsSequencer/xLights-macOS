@@ -33,8 +33,7 @@ If you are planning on being able to build Release builds, you will need to a re
 wxWidgets first.  If not doing release builds, this can be skipped.
   cd <wxMac base dir>
   cd build
-  export BINARY_PLATFORMS="x86_64"
-  # export BINARY_PLATFORMS="x86_64,arm64"
+  export BINARY_PLATFORMS="x86_64,arm64"
   export CXXFLAGS=""
   export OBJCXXFLAGS=""
   export CPPFLAGS="-g -flto=thin"
@@ -60,8 +59,7 @@ wxWidgets first.  If not doing release builds, this can be skipped.
 For debug builds:
   cd <wxMac base dir>
   cd build
-  export BINARY_PLATFORMS=x86_64
-  # export BINARY_PLATFORMS="x86_64,arm64"
+  export BINARY_PLATFORMS="x86_64,arm64"
   export CXXFLAGS=""
   export OBJCXXFLAGS=""
   export CPPFLAGS="-g"
@@ -275,48 +273,9 @@ cp liblua.a /opt/local/libdbg
 unset CFLAGS
 
 
-
-
-
-
-//TODO - stuff below is still todo
-
-portmidi:
-git clone https://github.com/AndrewBelt/portmidi
-Remove i386 from CMakeLists.txt
-
-
-Codeblocks:
-Codeblocks needs to have wxWidgets compiled differently, specifically c++14, no lto-thin, and without the containers, shared libs
-
-Set install dir:  needs to be separate from wxWidgets used for xLights:
-export CB_INSTALL=${CB_INSTALL:=~/working/codeblocks/install_dir}
-
-export CXXFLAGS="-stdlib=libc++ -std=c++14"
-export OBJCXXFLAGS="-stdlib=libc++ -std=c++14"
-export CPPFLAGS="-stdlib=libc++"
-export LDFLAGS="-stdlib=libc++"
-export CXX=clang++
-export CXXCPP="clang++ -E"
-export CC=clang
-export CPP="clang -E"
-export CFLAGS=""
-mkdir -p $CB_INSTALL
-../configure  --disable-debug --enable-optimise --prefix=$CB_INSTALL --enable-macosx_arch=x86_64 \
-             --enable-mediactrl --with-osx_cocoa --with-opengl --disable-dependency-tracking \
-             --disable-compat30 --with-macosx-version-min=10.14 --with-libjpeg=builtin  --without-libtiff --enable-mimetype \
-             --with-cxx=14 --enable-cxx11  \
-             --enable-backtrace --enable-exceptions --enable-aui --without-liblzma  --with-expat=builtin
-make -j 8
-make install
-
-Then in codeblocks, after bootstrap:
-PATH=$CB_INSTALL/bin:$PATH
-./configure --with-contrib-plugins=all,-spellchecker,-FileManager,-NassiShneiderman,-profiler --prefix=$CB_INSTALL
-make -j 8
-make install
-./bundle.sh
-
+CodeBlocks:
+Suggest download a nightly from
+https://drive.google.com/drive/folders/1-r9cbW1I8ZkaCt6iYDhcXH981n5FJTpV
 
 
 wxWidgets git hash history:
@@ -349,3 +308,5 @@ Apr 2, 2021 - Move wxWidgets fork to xLightsSequencer organization
 Apr 20, 2021 - Move to xlights_2020.13 - wxWidgets 3.1.5 + patches
 July 29, 2021 - Move to ffmpeg 4.4, zstd 1.5.0
 Jan 6, 2022 - macOS 10.14 required, zstd 1.5.1
+Jan 8, 2022 - added lua libs
+Feb 3, 2022 - Update ffmpeg to 5.0
