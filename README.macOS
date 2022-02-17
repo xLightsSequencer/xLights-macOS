@@ -272,6 +272,23 @@ make -j4 all CFLAGS="$CFLAGS" MYLDFLAGS="$CFLAGS"
 cp liblua.a /opt/local/libdbg
 unset CFLAGS
 
+libhidapi: (currently using 0.11.2)
+git clone https://github.com/libusb/hidapi
+cd hidapi
+git checkout hidapi-0.11.2
+export CFLAGS="-g -O3 -flto=thin -Wall -fno-stack-protector -fno-common ${XL_TARGETS} ${OSX_VERSION_MIN}"
+./bootstrap
+./configure --prefix=/opt/local
+make
+cp ./mac/.libs/libhidapi.a /opt/local/lib
+make clean
+export CFLAGS="-g -Wall -fno-stack-protector -fno-common ${XL_TARGETS} ${OSX_VERSION_MIN}"
+./configure --prefix=/opt/local
+make
+rm -f /opt/local/libdbg/libhidapi*
+cp ./mac/.libs/libhidapi.a /opt/local/libdbg
+make clean
+
 
 CodeBlocks:
 Suggest download a nightly from

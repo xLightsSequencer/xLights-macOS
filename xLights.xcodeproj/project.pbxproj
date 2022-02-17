@@ -518,6 +518,8 @@
 		67A88A4326164CAE00BFCEC0 /* xlVideoToolboxUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67A88A3A26164CAE00BFCEC0 /* xlVideoToolboxUtils.mm */; };
 		67A88A4426164CAE00BFCEC0 /* osxInAppPurchases.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67A88A3B26164CAE00BFCEC0 /* osxInAppPurchases.mm */; };
 		67A88A4726164CD600BFCEC0 /* libxLights-macOSLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A88A2726164C9B00BFCEC0 /* libxLights-macOSLib.a */; };
+		67B6C81B27BE893E00BA7003 /* libhidapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B6C81A27BE893D00BA7003 /* libhidapi.a */; };
+		67B6C81C27BE893E00BA7003 /* libhidapi.a in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 67B6C81A27BE893D00BA7003 /* libhidapi.a */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		67B73C1C279FBB0B00A8B06B /* FX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67B73C1B279FBB0B00A8B06B /* FX.cpp */; };
 		67B7400627664AC80051F15A /* xlMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67B740042766491D0051F15A /* xlMesh.cpp */; };
 		67BE0DFA2727C0AB00558A3A /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BE0DF82727C0AB00558A3A /* MetalKit.framework */; };
@@ -609,6 +611,20 @@
 			remoteInfo = "xLights-macOSLib";
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		67B6C81D27BE893E00BA7003 /* Embed Libraries */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				67B6C81C27BE893E00BA7003 /* libhidapi.a in Embed Libraries */,
+			);
+			name = "Embed Libraries";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		538F8DFC26B42E5D0080A1BB /* LORPreview.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LORPreview.cpp; sourceTree = "<group>"; };
@@ -1625,6 +1641,7 @@
 		67B4C91F17B53D960006B951 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		67B4C92017B53D960006B951 /* CoreMediaIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMediaIO.framework; path = System/Library/Frameworks/CoreMediaIO.framework; sourceTree = SDKROOT; };
 		67B4C92117B53D960006B951 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		67B6C81A27BE893D00BA7003 /* libhidapi.a */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libhidapi.a; path = /opt/local/libdbg/libhidapi.a; sourceTree = "<group>"; };
 		67B6F3402040FB7800B847E0 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		67B6F3422040FBB600B847E0 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		67B73C1A279FBB0B00A8B06B /* FX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FX.h; sourceTree = "<group>"; };
@@ -1769,6 +1786,7 @@
 				6729FFE32552EEC300C83C71 /* libSDL2.a in Frameworks */,
 				67BE0DFA2727C0AB00558A3A /* MetalKit.framework in Frameworks */,
 				674D3D221C207BCC000D632B /* IOKit.framework in Frameworks */,
+				67B6C81B27BE893E00BA7003 /* libhidapi.a in Frameworks */,
 				67A14C7820DD313D006EFCFA /* Carbon.framework in Frameworks */,
 				6729FFDF2552EEAD00C83C71 /* liblog4cpp.a in Frameworks */,
 				67D9B0A81D42A9BA005367DB /* Cocoa.framework in Frameworks */,
@@ -3112,6 +3130,7 @@
 		67E7086F17B51AB400A22034 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				67B6C81A27BE893D00BA7003 /* libhidapi.a */,
 				675EDD3C2789D87C00D40FEA /* liblua.a */,
 				670F8DCB27652F8F002F0CD6 /* SceneKit.framework */,
 				670F8DC927652F5E002F0CD6 /* ModelIO.framework */,
@@ -3289,6 +3308,7 @@
 				67E7086A17B51AB400A22034 /* Frameworks */,
 				67E7086B17B51AB400A22034 /* Resources */,
 				674298661C1FC3CC00B11478 /* ShellScript */,
+				67B6C81D27BE893E00BA7003 /* Embed Libraries */,
 			);
 			buildRules = (
 			);
