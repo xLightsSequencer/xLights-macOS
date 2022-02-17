@@ -187,6 +187,7 @@ bool wxMetalCanvas::Create(wxWindow *parent,
     if (METAL_USE_COUNT == 0) {
         MTL_DEVICE = MTLCreateSystemDefaultDevice();
         MTL_COMMAND_QUEUE = [MTL_DEVICE newCommandQueue];
+        [MTL_COMMAND_QUEUE setLabel:@"xLightsMetalCommandQueue"];
         MTLDepthStencilDescriptor *depthDescriptor = [MTLDepthStencilDescriptor new];
         depthDescriptor.depthCompareFunction = MTLCompareFunctionLessEqual;
         depthDescriptor.depthWriteEnabled = YES;
@@ -217,8 +218,10 @@ bool wxMetalCanvas::Create(wxWindow *parent,
     [v setEnableSetNeedsDisplay:true];
     [v setColorPixelFormat:MTLPixelFormatBGRA8Unorm ];
     [v setClearColor:MTLClearColorMake(0, 0, 0, 1)];
-    //[v setPresentsWithTransaction:true];
-
+    
+    NSString *vname = [NSString stringWithCString:name.c_str() encoding:[NSString defaultCStringEncoding]];
+    [[v layer] setName:vname];
+    
     if (!only2d) {
         [v setSampleCount:MTL_SAMPLE_COUNT];
         [v setDepthStencilPixelFormat:MTLPixelFormatDepth32Float];
