@@ -112,6 +112,11 @@ export XL_TARGETS="${X86_64_TARGETS} ${ARM64_TARGETS}"
 # export BUILD_HOST=x86_64
 export BUILD_HOST=arm
 
+Note: Some libraries require Homebrew Tools, to install Homebrew:
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+Autotools and LibTool are required from Homebrew:
+brew install automake libtool
 
 libzstd:
 git clone https://github.com/facebook/zstd
