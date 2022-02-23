@@ -473,6 +473,7 @@
 		674D3D241C207BD7000D632B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D231C207BD7000D632B /* AudioToolbox.framework */; };
 		674D3D261C207C25000D632B /* libpthread.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D251C207C25000D632B /* libpthread.tbd */; };
 		674DEE332791DE8E00DEA844 /* WarpFunctions.metal in Sources */ = {isa = PBXBuildFile; fileRef = 674DEE322791DE8E00DEA844 /* WarpFunctions.metal */; };
+		675AE0FB27C6A975007D2342 /* ColourReplaceDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675AE0FA27C6A975007D2342 /* ColourReplaceDialog.cpp */; };
 		675EDD3D2789D87C00D40FEA /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675EDD3C2789D87C00D40FEA /* liblua.a */; };
 		675FD840204C3C0B003D280F /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B227204BA69B00E90AC7 /* CoreImage.framework */; };
 		676FB41C273400FC0081F91A /* xlGraphicsAccumulators.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 676FB41A273400FC0081F91A /* xlGraphicsAccumulators.cpp */; };
@@ -1568,6 +1569,8 @@
 		674DEE322791DE8E00DEA844 /* WarpFunctions.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = WarpFunctions.metal; sourceTree = "<group>"; };
 		674E27A41B5B37B000274B20 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		674E9C631C9106D600D12F0D /* libwx_osx_cocoau_propgrid-3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_propgrid-3.1.dylib"; path = "../../../../opt/local/libdbg/libwx_osx_cocoau_propgrid-3.1.dylib"; sourceTree = "<group>"; };
+		675AE0F927C6A975007D2342 /* ColourReplaceDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColourReplaceDialog.h; sourceTree = "<group>"; };
+		675AE0FA27C6A975007D2342 /* ColourReplaceDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ColourReplaceDialog.cpp; sourceTree = "<group>"; };
 		675EDD3C2789D87C00D40FEA /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblua.a; path = /opt/local/lib/liblua.a; sourceTree = "<group>"; };
 		676FB41A273400FC0081F91A /* xlGraphicsAccumulators.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xlGraphicsAccumulators.cpp; sourceTree = "<group>"; };
 		676FB41B273400FC0081F91A /* xlGraphicsAccumulators.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xlGraphicsAccumulators.h; sourceTree = "<group>"; };
@@ -1902,6 +1905,8 @@
 				67164C8B25D7CE6D0041BB9A /* ColorManager.h */,
 				67164C7B25D7CE6D0041BB9A /* ColorPanel.cpp */,
 				67164BD025D7CE6D0041BB9A /* ColorPanel.h */,
+				675AE0FA27C6A975007D2342 /* ColourReplaceDialog.cpp */,
+				675AE0F927C6A975007D2342 /* ColourReplaceDialog.h */,
 				67164C6025D7CE6D0041BB9A /* ColoursPanel.cpp */,
 				67164BDB25D7CE6D0041BB9A /* ColoursPanel.h */,
 				67164C1C25D7CE6D0041BB9A /* ControllerConnectionDialog.cpp */,
@@ -2021,6 +2026,8 @@
 				67164C9325D7CE6D0041BB9A /* models */,
 				67164E0525D7CE6D0041BB9A /* ModelStateDialog.cpp */,
 				671650A925D7CE6F0041BB9A /* ModelStateDialog.h */,
+				670059B3279A4403006AD9EA /* Mouse3DManager.cpp */,
+				670059B4279A4403006AD9EA /* Mouse3DManager.h */,
 				67164C9125D7CE6D0041BB9A /* MSWStackWalk.h */,
 				67164C5D25D7CE6D0041BB9A /* MultiControllerUploadDialog.cpp */,
 				67164C8425D7CE6D0041BB9A /* MultiControllerUploadDialog.h */,
@@ -2206,8 +2213,6 @@
 				67164D0725D7CE6D0041BB9A /* xlLockButton.h */,
 				67164C1E25D7CE6D0041BB9A /* xlSlider.cpp */,
 				67164D0E25D7CE6D0041BB9A /* xlSlider.h */,
-				670059B3279A4403006AD9EA /* Mouse3DManager.cpp */,
-				670059B4279A4403006AD9EA /* Mouse3DManager.h */,
 			);
 			name = xLights;
 			path = ../xLights;
@@ -3891,6 +3896,7 @@
 				671651DF25D7CE700041BB9A /* ViewpointMgr.cpp in Sources */,
 				671651BD25D7CE700041BB9A /* xLightsMain.cpp in Sources */,
 				6716519F25D7CE700041BB9A /* SkullConfigDialog.cpp in Sources */,
+				675AE0FB27C6A975007D2342 /* ColourReplaceDialog.cpp in Sources */,
 				6716515025D7CE700041BB9A /* ValueCurveButton.cpp in Sources */,
 				6716555125D8245E0041BB9A /* MidiEvent.cpp in Sources */,
 				671655A325D825410041BB9A /* PluginSummarisingAdapter.cpp in Sources */,
