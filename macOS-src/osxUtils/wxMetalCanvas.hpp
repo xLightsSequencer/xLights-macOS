@@ -38,10 +38,16 @@ public:
     id<MTLRenderPipelineState> getPipelineState(const std::string &name, const char *vShader, const char *fShader,
                                                 bool blending);
 
+    static void addToSyncPoint(id<MTLCommandBuffer> &buffer, id<CAMetalDrawable> &drawable);
 #endif
 
     bool usesMSAA() { return usesMsaa; }
     virtual bool RequiresDepthBuffer() const { return false; }
+    
+    
+    static bool isInSyncPoint();
+    static void StartGraphicsSyncPoint();
+    static void EndGraphicsSyncPoint();
 protected:
     DECLARE_EVENT_TABLE()
 
@@ -56,4 +62,7 @@ protected:
     bool is3d = false;
     bool usesMsaa = false;
     std::string name;
+
+private:
+    static bool inSyncPoint;
 };

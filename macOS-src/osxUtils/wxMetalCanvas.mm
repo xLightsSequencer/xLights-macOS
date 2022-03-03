@@ -335,3 +335,45 @@ id<MTLRenderPipelineState> wxMetalCanvas::getPipelineState(const std::string &n,
     }
     return a.state;
 }
+
+
+
+bool wxMetalCanvas::inSyncPoint = false;
+
+static std::list<id<CAMetalDrawable>> drawablesToPresent;
+static std::list<id<MTLCommandBuffer>> buffersToComplete;
+void wxMetalCanvas::StartGraphicsSyncPoint() {
+    inSyncPoint = true;
+}
+void wxMetalCanvas::EndGraphicsSyncPoint() {
+    inSyncPoint = false;
+    while (!buffersToComplete.empty()) {
+        id<MTLCommandBuffer> buffer = buffersToComplete.front();
+        buffersToComplete.pop_front();
+        [buffer waitUntilCompleted];
+        [buffer release];
+
+    }
+    while (!drawablesToPresent.empty()) {
+        id<CAMetalDrawable> drawable = drawablesToPresent.front();
+        drawablesToPresent.pop_front();
+        [drawable present];
+        [drawable release];
+    }
+}
+
+bool wxMetalCanvas::isInSyncPoint() {
+    return inSyncPoint;
+}
+ 
+void wxMetalCanvas::addToSyncPoint(id<MTLCommandBuffer> &buffer, id<CAMetalDrawable> &drawable) {
+    buffersToComplete.push_back(buffer);
+    drawablesToPresent.push_back(drawable);
+}
+
+void StartMetalGraphicsSyncPoint() {
+    wxMetalCanvas::StartGraphicsSyncPoint();
+}
+void EndMetalGraphicsSyncPoint() {
+    wxMetalCanvas::EndGraphicsSyncPoint();
+}
