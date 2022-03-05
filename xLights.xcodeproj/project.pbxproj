@@ -473,10 +473,15 @@
 		674D3D241C207BD7000D632B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D231C207BD7000D632B /* AudioToolbox.framework */; };
 		674D3D261C207C25000D632B /* libpthread.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D251C207C25000D632B /* libpthread.tbd */; };
 		674DEE332791DE8E00DEA844 /* WarpFunctions.metal in Sources */ = {isa = PBXBuildFile; fileRef = 674DEE322791DE8E00DEA844 /* WarpFunctions.metal */; };
+		6751104627D3F5630001BD98 /* FindDataPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6751104527D3F5630001BD98 /* FindDataPanel.cpp */; };
 		675EDD3D2789D87C00D40FEA /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675EDD3C2789D87C00D40FEA /* liblua.a */; };
 		675FD840204C3C0B003D280F /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B227204BA69B00E90AC7 /* CoreImage.framework */; };
 		676FB41C273400FC0081F91A /* xlGraphicsAccumulators.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 676FB41A273400FC0081F91A /* xlGraphicsAccumulators.cpp */; };
 		6778610B272CD73200020F31 /* GPURenderUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67786109272CD73200020F31 /* GPURenderUtils.cpp */; };
+		677932E927D30D8F008FEEBE /* ThreePointScreenLocation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 677932E227D30D8F008FEEBE /* ThreePointScreenLocation.cpp */; };
+		677932EA27D30D8F008FEEBE /* TwoPointScreenLocation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 677932E427D30D8F008FEEBE /* TwoPointScreenLocation.cpp */; };
+		677932EB27D30D8F008FEEBE /* PolyPointScreenLocation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 677932E527D30D8F008FEEBE /* PolyPointScreenLocation.cpp */; };
+		677932EC27D30D8F008FEEBE /* BoxedScreenLocation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 677932E727D30D8F008FEEBE /* BoxedScreenLocation.cpp */; };
 		677A15C226A22AA8000AFE4D /* ResultDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6771056D267BB91C001DA926 /* ResultDialog.cpp */; };
 		677A15C326A22AA8000AFE4D /* UniverseEntryDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6771056A267BB91C001DA926 /* UniverseEntryDialog.cpp */; };
 		677A15C426A22AA8000AFE4D /* xCaptureMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6771056E267BB91C001DA926 /* xCaptureMain.cpp */; };
@@ -1554,6 +1559,8 @@
 		674DEE322791DE8E00DEA844 /* WarpFunctions.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = WarpFunctions.metal; sourceTree = "<group>"; };
 		674E27A41B5B37B000274B20 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		674E9C631C9106D600D12F0D /* libwx_osx_cocoau_propgrid-3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_propgrid-3.1.dylib"; path = "../../../../opt/local/libdbg/libwx_osx_cocoau_propgrid-3.1.dylib"; sourceTree = "<group>"; };
+		6751104427D3F5630001BD98 /* FindDataPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindDataPanel.h; sourceTree = "<group>"; };
+		6751104527D3F5630001BD98 /* FindDataPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FindDataPanel.cpp; sourceTree = "<group>"; };
 		675EDD3C2789D87C00D40FEA /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblua.a; path = /opt/local/lib/liblua.a; sourceTree = "<group>"; };
 		676FB41A273400FC0081F91A /* xlGraphicsAccumulators.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xlGraphicsAccumulators.cpp; sourceTree = "<group>"; };
 		676FB41B273400FC0081F91A /* xlGraphicsAccumulators.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xlGraphicsAccumulators.h; sourceTree = "<group>"; };
@@ -1572,6 +1579,14 @@
 		6771B229204BA6AF00E90AC7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		67786109272CD73200020F31 /* GPURenderUtils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPURenderUtils.cpp; sourceTree = "<group>"; };
 		6778610A272CD73200020F31 /* GPURenderUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPURenderUtils.h; sourceTree = "<group>"; };
+		677932E127D30D8E008FEEBE /* PolyPointScreenLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PolyPointScreenLocation.h; sourceTree = "<group>"; };
+		677932E227D30D8F008FEEBE /* ThreePointScreenLocation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThreePointScreenLocation.cpp; sourceTree = "<group>"; };
+		677932E327D30D8F008FEEBE /* ThreePointScreenLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreePointScreenLocation.h; sourceTree = "<group>"; };
+		677932E427D30D8F008FEEBE /* TwoPointScreenLocation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TwoPointScreenLocation.cpp; sourceTree = "<group>"; };
+		677932E527D30D8F008FEEBE /* PolyPointScreenLocation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PolyPointScreenLocation.cpp; sourceTree = "<group>"; };
+		677932E627D30D8F008FEEBE /* BoxedScreenLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoxedScreenLocation.h; sourceTree = "<group>"; };
+		677932E727D30D8F008FEEBE /* BoxedScreenLocation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BoxedScreenLocation.cpp; sourceTree = "<group>"; };
+		677932E827D30D8F008FEEBE /* TwoPointScreenLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoPointScreenLocation.h; sourceTree = "<group>"; };
 		678577A1272C662700E6E249 /* MetalEffectManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalEffectManager.mm; sourceTree = "<group>"; };
 		678577A3272C67D400E6E249 /* MetalButterflyEffect.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalButterflyEffect.mm; sourceTree = "<group>"; };
 		678577A4272C67D400E6E249 /* MetalEffects.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MetalEffects.hpp; sourceTree = "<group>"; };
@@ -1945,6 +1960,8 @@
 				67164C3E25D7CE6D0041BB9A /* ExternalHooks.h */,
 				67164BCF25D7CE6D0041BB9A /* FileConverter.cpp */,
 				67164D0425D7CE6D0041BB9A /* FileConverter.h */,
+				6751104527D3F5630001BD98 /* FindDataPanel.cpp */,
+				6751104427D3F5630001BD98 /* FindDataPanel.h */,
 				67164F6A25D7CE6E0041BB9A /* FlickerFreeBitmapButton.cpp */,
 				67164C5F25D7CE6D0041BB9A /* FlickerFreeBitmapButton.h */,
 				6716508325D7CE6F0041BB9A /* FontManager.cpp */,
@@ -2234,6 +2251,8 @@
 				67164CD625D7CE6D0041BB9A /* ArchesModel.h */,
 				67164CE625D7CE6D0041BB9A /* BaseObject.cpp */,
 				67164CA025D7CE6D0041BB9A /* BaseObject.h */,
+				677932E727D30D8F008FEEBE /* BoxedScreenLocation.cpp */,
+				677932E627D30D8F008FEEBE /* BoxedScreenLocation.h */,
 				67164CA625D7CE6D0041BB9A /* CandyCaneModel.cpp */,
 				67164CD425D7CE6D0041BB9A /* CandyCaneModel.h */,
 				67164CD525D7CE6D0041BB9A /* ChannelBlockModel.cpp */,
@@ -2271,6 +2290,8 @@
 				67164CF625D7CE6D0041BB9A /* ObjectManager.h */,
 				67164C9625D7CE6D0041BB9A /* PolyLineModel.cpp */,
 				67164CF725D7CE6D0041BB9A /* PolyLineModel.h */,
+				677932E527D30D8F008FEEBE /* PolyPointScreenLocation.cpp */,
+				677932E127D30D8E008FEEBE /* PolyPointScreenLocation.h */,
 				67164CF025D7CE6D0041BB9A /* RulerObject.cpp */,
 				67164C9F25D7CE6D0041BB9A /* RulerObject.h */,
 				67164CF225D7CE6D0041BB9A /* Shapes.cpp */,
@@ -2289,8 +2310,12 @@
 				67164CE025D7CE6D0041BB9A /* TerrianObject.cpp */,
 				67164CA125D7CE6D0041BB9A /* TerrianObject.h */,
 				67164CD925D7CE6D0041BB9A /* TerrianScreenLocation.h */,
+				677932E227D30D8F008FEEBE /* ThreePointScreenLocation.cpp */,
+				677932E327D30D8F008FEEBE /* ThreePointScreenLocation.h */,
 				67164CFA25D7CE6D0041BB9A /* TreeModel.cpp */,
 				67164C9725D7CE6D0041BB9A /* TreeModel.h */,
+				677932E427D30D8F008FEEBE /* TwoPointScreenLocation.cpp */,
+				677932E827D30D8F008FEEBE /* TwoPointScreenLocation.h */,
 				67164C9825D7CE6D0041BB9A /* ViewObject.cpp */,
 				67164CEF25D7CE6D0041BB9A /* ViewObject.h */,
 				67164CF525D7CE6D0041BB9A /* ViewObjectManager.cpp */,
@@ -3587,6 +3612,7 @@
 				6716532F25D7CE710041BB9A /* SnowstormPanel.cpp in Sources */,
 				6716539E25D7CE720041BB9A /* serial.cpp in Sources */,
 				6716520225D7CE700041BB9A /* EffectDropTarget.cpp in Sources */,
+				6751104627D3F5630001BD98 /* FindDataPanel.cpp in Sources */,
 				6716531325D7CE710041BB9A /* PinwheelPanel.cpp in Sources */,
 				6716534D25D7CE710041BB9A /* ShimmerPanel.cpp in Sources */,
 				6716537A25D7CE720041BB9A /* ControllerUploadData.cpp in Sources */,
@@ -3607,6 +3633,7 @@
 				671653AE25D7CE720041BB9A /* AudioManager.cpp in Sources */,
 				671651E125D7CE700041BB9A /* PreviewPane.cpp in Sources */,
 				6716519225D7CE700041BB9A /* DmxImage.cpp in Sources */,
+				677932EB27D30D8F008FEEBE /* PolyPointScreenLocation.cpp in Sources */,
 				6716531525D7CE710041BB9A /* CirclesEffect.cpp in Sources */,
 				671652B425D7CE710041BB9A /* TimingPanel.cpp in Sources */,
 				671651D325D7CE700041BB9A /* GenerateCustomModelDialog.cpp in Sources */,
@@ -3939,13 +3966,16 @@
 				6716518325D7CE700041BB9A /* SequencePackage.cpp in Sources */,
 				6716537D25D7CE720041BB9A /* WebSocketClient.cpp in Sources */,
 				67A889CB2614FB2300BFCEC0 /* CADModel.cpp in Sources */,
+				677932EC27D30D8F008FEEBE /* BoxedScreenLocation.cpp in Sources */,
 				6716531025D7CE710041BB9A /* OnPanel.cpp in Sources */,
 				6716539425D7CE720041BB9A /* DMXOutput.cpp in Sources */,
 				671652B825D7CE710041BB9A /* TraceLog.cpp in Sources */,
 				679D19A5274BC45800AD9F7F /* automation.cpp in Sources */,
+				677932EA27D30D8F008FEEBE /* TwoPointScreenLocation.cpp in Sources */,
 				6716534A25D7CE710041BB9A /* KaleidoscopeEffect.cpp in Sources */,
 				6716535725D7CE720041BB9A /* GarlandsPanel.cpp in Sources */,
 				6716533A25D7CE710041BB9A /* DMXEffect.cpp in Sources */,
+				677932E927D30D8F008FEEBE /* ThreePointScreenLocation.cpp in Sources */,
 				6716513F25D7CE700041BB9A /* OutputModelManager.cpp in Sources */,
 				671651FE25D7CE700041BB9A /* Waveform.cpp in Sources */,
 				6716512D25D7CE700041BB9A /* LayoutGroup.cpp in Sources */,
