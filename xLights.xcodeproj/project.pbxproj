@@ -477,6 +477,8 @@
 		675EDD3D2789D87C00D40FEA /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675EDD3C2789D87C00D40FEA /* liblua.a */; };
 		675FD840204C3C0B003D280F /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B227204BA69B00E90AC7 /* CoreImage.framework */; };
 		676FB41C273400FC0081F91A /* xlGraphicsAccumulators.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 676FB41A273400FC0081F91A /* xlGraphicsAccumulators.cpp */; };
+		67718A0527D4F59600F1A95E /* MultiPointModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67718A0327D4F59600F1A95E /* MultiPointModel.cpp */; };
+		67718A0627D4F59600F1A95E /* MultiPointScreenLocation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67718A0427D4F59600F1A95E /* MultiPointScreenLocation.cpp */; };
 		6778610B272CD73200020F31 /* GPURenderUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67786109272CD73200020F31 /* GPURenderUtils.cpp */; };
 		677932E927D30D8F008FEEBE /* ThreePointScreenLocation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 677932E227D30D8F008FEEBE /* ThreePointScreenLocation.cpp */; };
 		677932EA27D30D8F008FEEBE /* TwoPointScreenLocation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 677932E427D30D8F008FEEBE /* TwoPointScreenLocation.cpp */; };
@@ -1575,6 +1577,10 @@
 		67710576267BB9B7001DA926 /* liblog4cpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblog4cpp.a; path = ../../../../../opt/local/lib/liblog4cpp.a; sourceTree = "<group>"; };
 		67710581267BBAC5001DA926 /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
 		67710582267BBAC5001DA926 /* CoreAudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioKit.framework; path = System/Library/Frameworks/CoreAudioKit.framework; sourceTree = SDKROOT; };
+		67718A0127D4F59600F1A95E /* MultiPointScreenLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiPointScreenLocation.h; sourceTree = "<group>"; };
+		67718A0227D4F59600F1A95E /* MultiPointModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiPointModel.h; sourceTree = "<group>"; };
+		67718A0327D4F59600F1A95E /* MultiPointModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MultiPointModel.cpp; sourceTree = "<group>"; };
+		67718A0427D4F59600F1A95E /* MultiPointScreenLocation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MultiPointScreenLocation.cpp; sourceTree = "<group>"; };
 		6771B227204BA69B00E90AC7 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		6771B229204BA6AF00E90AC7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		67786109272CD73200020F31 /* GPURenderUtils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPURenderUtils.cpp; sourceTree = "<group>"; };
@@ -2284,6 +2290,10 @@
 				67164CEE25D7CE6D0041BB9A /* ModelManager.h */,
 				67164CE525D7CE6D0041BB9A /* ModelScreenLocation.cpp */,
 				67164CA725D7CE6D0041BB9A /* ModelScreenLocation.h */,
+				67718A0327D4F59600F1A95E /* MultiPointModel.cpp */,
+				67718A0227D4F59600F1A95E /* MultiPointModel.h */,
+				67718A0427D4F59600F1A95E /* MultiPointScreenLocation.cpp */,
+				67718A0127D4F59600F1A95E /* MultiPointScreenLocation.h */,
 				67164CCF25D7CE6D0041BB9A /* Node.cpp */,
 				67164CD125D7CE6D0041BB9A /* Node.h */,
 				67164CF325D7CE6D0041BB9A /* ObjectManager.cpp */,
@@ -3592,6 +3602,7 @@
 				6716531C25D7CE710041BB9A /* FanEffect.cpp in Sources */,
 				6716518525D7CE700041BB9A /* ConvertLogDialog.cpp in Sources */,
 				6716533C25D7CE710041BB9A /* PianoPanel.cpp in Sources */,
+				67718A0627D4F59600F1A95E /* MultiPointScreenLocation.cpp in Sources */,
 				671651B425D7CE700041BB9A /* Model.cpp in Sources */,
 				6716538F25D7CE720041BB9A /* xxxEthernetOutput.cpp in Sources */,
 				6716532125D7CE710041BB9A /* SnowflakesEffect.cpp in Sources */,
@@ -3795,6 +3806,7 @@
 				6716531425D7CE710041BB9A /* LifePanel.cpp in Sources */,
 				6716539D25D7CE720041BB9A /* ControllerNull.cpp in Sources */,
 				671651A925D7CE700041BB9A /* SphereModel.cpp in Sources */,
+				67718A0527D4F59600F1A95E /* MultiPointModel.cpp in Sources */,
 				6716530C25D7CE710041BB9A /* xlGridCanvasPictures.cpp in Sources */,
 				679D19A2274BC2D100AD9F7F /* xLightsAutomations.cpp in Sources */,
 				6716520625D7CE700041BB9A /* OptionChooser.cpp in Sources */,

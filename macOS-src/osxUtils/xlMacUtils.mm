@@ -452,3 +452,10 @@ void RunInAutoReleasePool(std::function<void()> &&f) {
         f();
     }
 }
+void SetThreadQOS(int i) {
+    if (i) {
+        pthread_set_qos_class_self_np(QOS_CLASS_USER_INITIATED, 0);
+    } else {
+        pthread_set_qos_class_self_np(QOS_CLASS_BACKGROUND, 0);
+    }
+}

@@ -44,6 +44,6 @@ void EndMetalGraphicsSyncPoint();
 #define StartGraphicsSyncPoint() StartMetalGraphicsSyncPoint()
 #define EndGraphicsSyncPoint() EndMetalGraphicsSyncPoint()
 
-
+void SetThreadQOS(int i);
 
 #define __XL_EXTERNAL_HOOKS__
