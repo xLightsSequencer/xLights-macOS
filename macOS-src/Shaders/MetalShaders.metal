@@ -22,7 +22,7 @@ struct ColorVertexData {
 };
 
 vertex ColorVertexData singleColorVertexShader(const device float3 *vertices  [[buffer(BufferIndexMeshPositions)]],
-                                      constant FrameData  &frameData [[ buffer(BufferIndexFrameData) ]],
+                                      constant MTLFrameData  &frameData [[ buffer(BufferIndexFrameData) ]],
                                       uint vid [[vertex_id]]){
     return {
             frameData.MVP * float4(vertices[vid], 1.0), half4(frameData.fragmentColor),
@@ -32,7 +32,7 @@ vertex ColorVertexData singleColorVertexShader(const device float3 *vertices  [[
 
 vertex ColorVertexData multiColorVertexShader(const device float3 *vertices  [[buffer(BufferIndexMeshPositions)]],
                                               const device uchar4 *colors  [[buffer(BufferIndexMeshColors)]],
-                                              constant FrameData  &frameData [[ buffer(BufferIndexFrameData) ]],
+                                              constant MTLFrameData  &frameData [[ buffer(BufferIndexFrameData) ]],
                                               uint vid [[vertex_id]]){
     half4 color = half4(colors[vid].r, colors[vid].g, colors[vid].b, colors[vid].a);
     color /= 255.0f;
@@ -50,7 +50,7 @@ struct IndexedColorData {
 };
 vertex ColorVertexData indexedColorVertexShader(IndexedColorData vertices [[stage_in]],
                                                 const device uchar4 *colors  [[buffer(BufferIndexMeshColors)]],
-                                                constant FrameData  &frameData [[ buffer(BufferIndexFrameData) ]]){
+                                                constant MTLFrameData  &frameData [[ buffer(BufferIndexFrameData) ]]){
     uint32_t cidx = vertices.colorIndex;
     half4 color = half4(colors[cidx].r, colors[cidx].g, colors[cidx].b, colors[cidx].a);
     color /= 255.0f;
@@ -81,7 +81,7 @@ struct TextureVertexData {
 };
 vertex TextureVertexData textureVertexShader(const device float3 *vertices  [[buffer(BufferIndexMeshPositions)]],
                                              const device float2 *tvertices  [[buffer(BufferIndexTexturePositions)]],
-                                             constant FrameData  &frameData [[ buffer(BufferIndexFrameData) ]],
+                                             constant MTLFrameData  &frameData [[ buffer(BufferIndexFrameData) ]],
                                              uint vid [[vertex_id]]){
     TextureVertexData d = { frameData.MVP * float4(vertices[vid], 1.0), tvertices[vid] , half4(frameData.fragmentColor)};
     return d;
@@ -141,7 +141,7 @@ typedef struct {
 
 // Vertex shader function
 vertex MeshShaderInOut meshVertexShader(MeshVertexInput     in [[stage_in]],
-                                        constant FrameData  &frameData [[ buffer(BufferIndexFrameData) ]]) {
+                                        constant MTLFrameData  &frameData [[ buffer(BufferIndexFrameData) ]]) {
     MeshShaderInOut out;
     
     //1. Vertex projection and translation
@@ -175,7 +175,7 @@ vertex MeshShaderInOut meshVertexShader(MeshVertexInput     in [[stage_in]],
 }
 
 vertex MeshShaderInOut meshWireframeVertexShader(MeshVertexInput     in [[stage_in]],
-                                                 constant FrameData  &frameData [[ buffer(BufferIndexFrameData) ]]) {
+                                                 constant MTLFrameData  &frameData [[ buffer(BufferIndexFrameData) ]]) {
     MeshShaderInOut out;
     
     //1. Vertex projection and translation

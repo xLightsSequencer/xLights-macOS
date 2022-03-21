@@ -121,7 +121,7 @@ brew install automake libtool
 libzstd:
 git clone https://github.com/facebook/zstd
 cd zstd
-git checkout v1.5.1
+git checkout v1.5.2
 export CFLAGS="-g -flto=thin  ${OSX_VERSION_MIN} ${XL_TARGETS}"
 export LDFLAGS="-flto=thin  ${OSX_VERSION_MIN} ${XL_TARGETS} "
 make clean
@@ -181,10 +181,11 @@ unset CXXFLAGS
 unset CXX
 
 
-SDL2:  currently using 2.0.18
+SDL2:  currently using 2.0.20
 git clone https://github.com/libsdl-org/SDL
 cd SDL
-git checkout release-2.0.18
+git reset --hard
+git checkout release-2.0.20
 export CXXFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN}"
 export CFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN}"
 export LDFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN}"
@@ -263,10 +264,11 @@ git status --ignored -s | colrm 1 3 | xargs rm -rf
 
 
 
-liblua: (currently using v5.4.3)
+liblua: (currently using v5.4.4)
 git clone https://github.com/lua/lua
 cd lua
-git checkout v5.4.3
+git checkout v5.4.4
+make clean
 export CFLAGS="-g -O3 -flto=thin -Wall -fno-stack-protector -fno-common ${XL_TARGETS} ${OSX_VERSION_MIN}"
 make -j4 all CFLAGS="$CFLAGS" MYLDFLAGS="$CFLAGS"
 cp liblua.a /opt/local/lib
@@ -284,6 +286,7 @@ git checkout hidapi-0.11.2
 export CFLAGS="-g -O3 -flto=thin -Wall -fno-stack-protector -fno-common ${XL_TARGETS} ${OSX_VERSION_MIN}"
 ./bootstrap
 ./configure --prefix=/opt/local
+make clean
 make
 cp ./mac/.libs/libhidapi.a /opt/local/lib
 make clean

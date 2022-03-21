@@ -34,7 +34,7 @@ typedef enum TextureIndex {
 // Structures shared between shader and C code to ensure the layout of per frame data
 //    accessed in Metal shaders matches the layout of fra data set in C code
 //    Data constant across all threads, vertices, and fragments
-struct FrameData
+struct MTLFrameData
 {
     simd::float4x4 MVP;
     simd::float4x4 modelMatrix;
