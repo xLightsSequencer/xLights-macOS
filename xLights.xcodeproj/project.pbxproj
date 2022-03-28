@@ -499,6 +499,7 @@
 		6789EF4F26635DFD00889606 /* Pixels.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6789EF4E26635DFD00889606 /* Pixels.cpp */; };
 		678AAF4026C40B6300467B3C /* model_vendor_mapping.json in Resources */ = {isa = PBXBuildFile; fileRef = 678AAF3F26C40B6300467B3C /* model_vendor_mapping.json */; };
 		67995D582791B74200BCCCFB /* MetalWarpEffect.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67995D572791B74200BCCCFB /* MetalWarpEffect.mm */; };
+		6799D45927F1DDAB005A3B3B /* SearchPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6799D45827F1DDAB005A3B3B /* SearchPanel.cpp */; };
 		679B58232735D63900368F0A /* xlFontInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 679B58212735D63900368F0A /* xlFontInfo.cpp */; };
 		679D19A2274BC2D100AD9F7F /* xLightsAutomations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 679D19A0274BC2D100AD9F7F /* xLightsAutomations.cpp */; };
 		679D19A5274BC45800AD9F7F /* automation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 679D19A3274BC45800AD9F7F /* automation.cpp */; };
@@ -1610,6 +1611,8 @@
 		678AAF3F26C40B6300467B3C /* model_vendor_mapping.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = model_vendor_mapping.json; path = ../download/model_vendor_mapping.json; sourceTree = "<group>"; };
 		678BCB1A27581E6F0057E4FA /* xFadeDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = xFadeDebug.entitlements; sourceTree = "<group>"; };
 		67995D572791B74200BCCCFB /* MetalWarpEffect.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalWarpEffect.mm; sourceTree = "<group>"; };
+		6799D45727F1DDAB005A3B3B /* SearchPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchPanel.h; sourceTree = "<group>"; };
+		6799D45827F1DDAB005A3B3B /* SearchPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SearchPanel.cpp; sourceTree = "<group>"; };
 		679B58212735D63900368F0A /* xlFontInfo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xlFontInfo.cpp; sourceTree = "<group>"; };
 		679B58222735D63900368F0A /* xlFontInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xlFontInfo.h; sourceTree = "<group>"; };
 		679D19A0274BC2D100AD9F7F /* xLightsAutomations.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xLightsAutomations.cpp; sourceTree = "<group>"; };
@@ -2096,6 +2099,8 @@
 				67164BD125D7CE6D0041BB9A /* SaveChangesDialog.h */,
 				6787EAA0274FF60E00DAEE47 /* ScriptsDialog.cpp */,
 				6787EA9F274FF60E00DAEE47 /* ScriptsDialog.h */,
+				6799D45827F1DDAB005A3B3B /* SearchPanel.cpp */,
+				6799D45727F1DDAB005A3B3B /* SearchPanel.h */,
 				6716511B25D7CE6F0041BB9A /* SelectPanel.cpp */,
 				67164FA025D7CE6E0041BB9A /* SelectPanel.h */,
 				67164DF825D7CE6D0041BB9A /* SelectTimingsDialog.cpp */,
@@ -3678,6 +3683,7 @@
 				6716531125D7CE710041BB9A /* ColorWashPanel.cpp in Sources */,
 				671652B025D7CE710041BB9A /* SaveChangesDialog.cpp in Sources */,
 				6716538A25D7CE720041BB9A /* ControllerSerial.cpp in Sources */,
+				6799D45927F1DDAB005A3B3B /* SearchPanel.cpp in Sources */,
 				6716532D25D7CE710041BB9A /* WavePanel.cpp in Sources */,
 				6716516825D7CE700041BB9A /* MultiControllerUploadDialog.cpp in Sources */,
 				6716531925D7CE710041BB9A /* TreePanel.cpp in Sources */,
