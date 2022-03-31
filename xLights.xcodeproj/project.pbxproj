@@ -597,6 +597,10 @@
 		67D7159727287CE800E5EDB5 /* xlMetalGraphicsContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67D7159327287CE700E5EDB5 /* xlMetalGraphicsContext.mm */; };
 		67D7159827287CE800E5EDB5 /* xlMetalCanvas.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67D7159427287CE700E5EDB5 /* xlMetalCanvas.mm */; };
 		67D9B0A81D42A9BA005367DB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67E7087017B51AB400A22034 /* Cocoa.framework */; };
+		67E54A4527F61401008F834F /* SketchEffectDrawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E54A3F27F61401008F834F /* SketchEffectDrawing.cpp */; };
+		67E54A4627F61401008F834F /* SketchPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E54A4227F61401008F834F /* SketchPanel.cpp */; };
+		67E54A4727F61401008F834F /* SketchEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E54A4327F61401008F834F /* SketchEffect.cpp */; };
+		67E54A4A27F614BB008F834F /* SketchPathDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E54A4827F614BB008F834F /* SketchPathDialog.cpp */; };
 		67EC04DF26456A7500A3AFA2 /* WLED.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67EC04DD26456A7500A3AFA2 /* WLED.cpp */; };
 		67F9B092272899080005A74B /* MetalShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 67F9B091272899080005A74B /* MetalShaders.metal */; };
 		67FDC38A27CA76F40009A3C7 /* ColourReplaceDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67FDC38927CA76F40009A3C7 /* ColourReplaceDialog.cpp */; };
@@ -1706,6 +1710,14 @@
 		67D7159527287CE700E5EDB5 /* xlMetalGraphicsContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xlMetalGraphicsContext.h; sourceTree = "<group>"; };
 		67D7159627287CE700E5EDB5 /* xlMetalCanvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xlMetalCanvas.h; sourceTree = "<group>"; };
 		67E00443256D6FA900E12C81 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		67E54A3F27F61401008F834F /* SketchEffectDrawing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SketchEffectDrawing.cpp; sourceTree = "<group>"; };
+		67E54A4027F61401008F834F /* SketchEffectDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SketchEffectDrawing.h; sourceTree = "<group>"; };
+		67E54A4127F61401008F834F /* SketchPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SketchPanel.h; sourceTree = "<group>"; };
+		67E54A4227F61401008F834F /* SketchPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SketchPanel.cpp; sourceTree = "<group>"; };
+		67E54A4327F61401008F834F /* SketchEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SketchEffect.cpp; sourceTree = "<group>"; };
+		67E54A4427F61401008F834F /* SketchEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SketchEffect.h; sourceTree = "<group>"; };
+		67E54A4827F614BB008F834F /* SketchPathDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SketchPathDialog.cpp; sourceTree = "<group>"; };
+		67E54A4927F614BB008F834F /* SketchPathDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SketchPathDialog.h; sourceTree = "<group>"; };
 		67E7086D17B51AB400A22034 /* xLights.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = xLights.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67E7087017B51AB400A22034 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		67E7087317B51AB400A22034 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -2127,6 +2139,8 @@
 				67164BEC25D7CE6D0041BB9A /* SevenSegmentDialog.h */,
 				67164FA125D7CE6E0041BB9A /* ShaderDownloadDialog.cpp */,
 				67164DFD25D7CE6D0041BB9A /* ShaderDownloadDialog.h */,
+				67E54A4827F614BB008F834F /* SketchPathDialog.cpp */,
+				67E54A4927F614BB008F834F /* SketchPathDialog.h */,
 				67164C5725D7CE6D0041BB9A /* SpecialOptions.h */,
 				671650A825D7CE6F0041BB9A /* SplashDialog.cpp */,
 				67164E0725D7CE6D0041BB9A /* SplashDialog.h */,
@@ -2439,9 +2453,6 @@
 		67164FA325D7CE6E0041BB9A /* effects */ = {
 			isa = PBXGroup;
 			children = (
-				67B73C1B279FBB0B00A8B06B /* FX.cpp */,
-				67B73C1A279FBB0B00A8B06B /* FX.h */,
-				6785779F272C60F700E6E249 /* metal */,
 				67164FB325D7CE6E0041BB9A /* assist */,
 				67164FBF25D7CE6E0041BB9A /* BarsEffect.cpp */,
 				67164FA825D7CE6E0041BB9A /* BarsEffect.h */,
@@ -2495,6 +2506,8 @@
 				6716507C25D7CE6F0041BB9A /* FireworksEffect.h */,
 				67164FD725D7CE6E0041BB9A /* FireworksPanel.cpp */,
 				6716505425D7CE6F0041BB9A /* FireworksPanel.h */,
+				67B73C1B279FBB0B00A8B06B /* FX.cpp */,
+				67B73C1A279FBB0B00A8B06B /* FX.h */,
 				6716503425D7CE6F0041BB9A /* GalaxyEffect.cpp */,
 				67164FD525D7CE6E0041BB9A /* GalaxyEffect.h */,
 				6716507A25D7CE6F0041BB9A /* GalaxyPanel.cpp */,
@@ -2533,6 +2546,7 @@
 				6716505925D7CE6F0041BB9A /* MarqueeEffect.h */,
 				6716502425D7CE6F0041BB9A /* MarqueePanel.cpp */,
 				67164FE225D7CE6E0041BB9A /* MarqueePanel.h */,
+				6785779F272C60F700E6E249 /* metal */,
 				67164FA625D7CE6E0041BB9A /* MeteorsEffect.cpp */,
 				6716500C25D7CE6F0041BB9A /* MeteorsEffect.h */,
 				6716507725D7CE6F0041BB9A /* MeteorsPanel.cpp */,
@@ -2599,6 +2613,12 @@
 				67164FAB25D7CE6E0041BB9A /* SingleStrandEffect.h */,
 				6716506725D7CE6F0041BB9A /* SingleStrandPanel.cpp */,
 				6716507525D7CE6F0041BB9A /* SingleStrandPanel.h */,
+				67E54A4327F61401008F834F /* SketchEffect.cpp */,
+				67E54A4427F61401008F834F /* SketchEffect.h */,
+				67E54A3F27F61401008F834F /* SketchEffectDrawing.cpp */,
+				67E54A4027F61401008F834F /* SketchEffectDrawing.h */,
+				67E54A4227F61401008F834F /* SketchPanel.cpp */,
+				67E54A4127F61401008F834F /* SketchPanel.h */,
 				67164FE725D7CE6E0041BB9A /* SnowflakesEffect.cpp */,
 				67164FD825D7CE6E0041BB9A /* SnowflakesEffect.h */,
 				6716500625D7CE6F0041BB9A /* SnowflakesPanel.cpp */,
@@ -3589,6 +3609,7 @@
 				671651D025D7CE700041BB9A /* LyricsDialog.cpp in Sources */,
 				6716516425D7CE700041BB9A /* AboutDialog.cpp in Sources */,
 				6716559525D825410041BB9A /* PluginWrapper.cpp in Sources */,
+				67E54A4527F61401008F834F /* SketchEffectDrawing.cpp in Sources */,
 				6716535525D7CE720041BB9A /* MarqueeEffect.cpp in Sources */,
 				671651A825D7CE700041BB9A /* WindowFrameModel.cpp in Sources */,
 				671653AD25D7CE720041BB9A /* xlColorCanvas.cpp in Sources */,
@@ -3681,6 +3702,7 @@
 				6716519425D7CE700041BB9A /* Mesh.cpp in Sources */,
 				671652CE25D7CE710041BB9A /* SequenceData.cpp in Sources */,
 				6716531125D7CE710041BB9A /* ColorWashPanel.cpp in Sources */,
+				67E54A4A27F614BB008F834F /* SketchPathDialog.cpp in Sources */,
 				671652B025D7CE710041BB9A /* SaveChangesDialog.cpp in Sources */,
 				6716538A25D7CE720041BB9A /* ControllerSerial.cpp in Sources */,
 				6799D45927F1DDAB005A3B3B /* SearchPanel.cpp in Sources */,
@@ -3851,6 +3873,7 @@
 				6716516325D7CE700041BB9A /* ModelPreview.cpp in Sources */,
 				6716539925D7CE720041BB9A /* PixelNetOutput.cpp in Sources */,
 				6716537625D7CE720041BB9A /* AlphaPix.cpp in Sources */,
+				67E54A4627F61401008F834F /* SketchPanel.cpp in Sources */,
 				6716535425D7CE720041BB9A /* LinesEffect.cpp in Sources */,
 				6716533125D7CE710041BB9A /* ShockwaveEffect.cpp in Sources */,
 				67D142BD275803100018A831 /* status.cpp in Sources */,
@@ -3986,6 +4009,7 @@
 				67A889CB2614FB2300BFCEC0 /* CADModel.cpp in Sources */,
 				677932EC27D30D8F008FEEBE /* BoxedScreenLocation.cpp in Sources */,
 				6716531025D7CE710041BB9A /* OnPanel.cpp in Sources */,
+				67E54A4727F61401008F834F /* SketchEffect.cpp in Sources */,
 				6716539425D7CE720041BB9A /* DMXOutput.cpp in Sources */,
 				671652B825D7CE710041BB9A /* TraceLog.cpp in Sources */,
 				679D19A5274BC45800AD9F7F /* automation.cpp in Sources */,
