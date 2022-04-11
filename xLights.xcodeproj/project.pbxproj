@@ -602,7 +602,6 @@
 		67E54A4527F61401008F834F /* SketchEffectDrawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E54A3F27F61401008F834F /* SketchEffectDrawing.cpp */; };
 		67E54A4627F61401008F834F /* SketchPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E54A4227F61401008F834F /* SketchPanel.cpp */; };
 		67E54A4727F61401008F834F /* SketchEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E54A4327F61401008F834F /* SketchEffect.cpp */; };
-		67E54A4A27F614BB008F834F /* SketchPathDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E54A4827F614BB008F834F /* SketchPathDialog.cpp */; };
 		67EC04DF26456A7500A3AFA2 /* WLED.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67EC04DD26456A7500A3AFA2 /* WLED.cpp */; };
 		67F9B092272899080005A74B /* MetalShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 67F9B091272899080005A74B /* MetalShaders.metal */; };
 		67FDC38A27CA76F40009A3C7 /* ColourReplaceDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67FDC38927CA76F40009A3C7 /* ColourReplaceDialog.cpp */; };
@@ -1722,8 +1721,6 @@
 		67E54A4227F61401008F834F /* SketchPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SketchPanel.cpp; sourceTree = "<group>"; };
 		67E54A4327F61401008F834F /* SketchEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SketchEffect.cpp; sourceTree = "<group>"; };
 		67E54A4427F61401008F834F /* SketchEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SketchEffect.h; sourceTree = "<group>"; };
-		67E54A4827F614BB008F834F /* SketchPathDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SketchPathDialog.cpp; sourceTree = "<group>"; };
-		67E54A4927F614BB008F834F /* SketchPathDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SketchPathDialog.h; sourceTree = "<group>"; };
 		67E7086D17B51AB400A22034 /* xLights.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = xLights.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67E7087017B51AB400A22034 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		67E7087317B51AB400A22034 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -2145,8 +2142,6 @@
 				67164BEC25D7CE6D0041BB9A /* SevenSegmentDialog.h */,
 				67164FA125D7CE6E0041BB9A /* ShaderDownloadDialog.cpp */,
 				67164DFD25D7CE6D0041BB9A /* ShaderDownloadDialog.h */,
-				67E54A4827F614BB008F834F /* SketchPathDialog.cpp */,
-				67E54A4927F614BB008F834F /* SketchPathDialog.h */,
 				67164C5725D7CE6D0041BB9A /* SpecialOptions.h */,
 				671650A825D7CE6F0041BB9A /* SplashDialog.cpp */,
 				67164E0725D7CE6D0041BB9A /* SplashDialog.h */,
@@ -3713,7 +3708,6 @@
 				6716519425D7CE700041BB9A /* Mesh.cpp in Sources */,
 				671652CE25D7CE710041BB9A /* SequenceData.cpp in Sources */,
 				6716531125D7CE710041BB9A /* ColorWashPanel.cpp in Sources */,
-				67E54A4A27F614BB008F834F /* SketchPathDialog.cpp in Sources */,
 				671652B025D7CE710041BB9A /* SaveChangesDialog.cpp in Sources */,
 				6716538A25D7CE720041BB9A /* ControllerSerial.cpp in Sources */,
 				6799D45927F1DDAB005A3B3B /* SearchPanel.cpp in Sources */,
