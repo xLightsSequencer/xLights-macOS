@@ -587,6 +587,7 @@
 		67D9B0A81D42A9BA005367DB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67E7087017B51AB400A22034 /* Cocoa.framework */; };
 		67EC04DF26456A7500A3AFA2 /* WLED.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67EC04DD26456A7500A3AFA2 /* WLED.cpp */; };
 		67F9B092272899080005A74B /* MetalShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 67F9B091272899080005A74B /* MetalShaders.metal */; };
+		7FDE55FF280A94E900C4EB70 /* xlBaseApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FB5CEDC27A27A2A007612B2 /* xlBaseApp.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -794,7 +795,6 @@
 		67164C8E25D7CE6D0041BB9A /* CheckboxSelectDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CheckboxSelectDialog.cpp; sourceTree = "<group>"; };
 		67164C8F25D7CE6D0041BB9A /* ConvertLogDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConvertLogDialog.cpp; sourceTree = "<group>"; };
 		67164C9025D7CE6D0041BB9A /* LorConvertDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LorConvertDialog.cpp; sourceTree = "<group>"; };
-		67164C9125D7CE6D0041BB9A /* MSWStackWalk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSWStackWalk.h; sourceTree = "<group>"; };
 		67164C9225D7CE6D0041BB9A /* TabConvert.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TabConvert.cpp; sourceTree = "<group>"; };
 		67164C9425D7CE6D0041BB9A /* ModelGroup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModelGroup.cpp; sourceTree = "<group>"; };
 		67164C9525D7CE6D0041BB9A /* CircleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleModel.h; sourceTree = "<group>"; };
@@ -1689,6 +1689,9 @@
 		67F23F731E329DDC00F8B985 /* libwx_osx_cocoau_propgrid-3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_propgrid-3.1.dylib"; path = "../../../../opt/local/libdbg/libwx_osx_cocoau_propgrid-3.1.dylib"; sourceTree = "<group>"; };
 		67F23F741E329DDC00F8B985 /* libwx_osx_cocoau_qa-3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_qa-3.1.dylib"; path = "../../../../opt/local/libdbg/libwx_osx_cocoau_qa-3.1.dylib"; sourceTree = "<group>"; };
 		67F9B091272899080005A74B /* MetalShaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = MetalShaders.metal; sourceTree = "<group>"; };
+		7FB5CEDB27A27A2A007612B2 /* xlBaseApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = xlBaseApp.h; path = ../common/xlBaseApp.h; sourceTree = "<group>"; };
+		7FB5CEDC27A27A2A007612B2 /* xlBaseApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = xlBaseApp.cpp; path = ../common/xlBaseApp.cpp; sourceTree = "<group>"; };
+		7FB5CEDD27A27A2A007612B2 /* xlStackWalker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = xlStackWalker.h; path = ../common/xlStackWalker.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1832,6 +1835,9 @@
 		67164BC525D7CE6D0041BB9A /* xLights */ = {
 			isa = PBXGroup;
 			children = (
+				7FB5CEDC27A27A2A007612B2 /* xlBaseApp.cpp */,
+				7FB5CEDB27A27A2A007612B2 /* xlBaseApp.h */,
+				7FB5CEDD27A27A2A007612B2 /* xlStackWalker.h */,
 				67164C4D25D7CE6D0041BB9A /* AboutDialog.cpp */,
 				67164D1125D7CE6D0041BB9A /* AboutDialog.h */,
 				67164D1925D7CE6D0041BB9A /* AlignmentDialog.cpp */,
@@ -1993,7 +1999,6 @@
 				67164C9325D7CE6D0041BB9A /* models */,
 				67164E0525D7CE6D0041BB9A /* ModelStateDialog.cpp */,
 				671650A925D7CE6F0041BB9A /* ModelStateDialog.h */,
-				67164C9125D7CE6D0041BB9A /* MSWStackWalk.h */,
 				67164C5D25D7CE6D0041BB9A /* MultiControllerUploadDialog.cpp */,
 				67164C8425D7CE6D0041BB9A /* MultiControllerUploadDialog.h */,
 				67164C1425D7CE6D0041BB9A /* MusicXML.cpp */,
@@ -3588,6 +3593,7 @@
 				6716531825D7CE710041BB9A /* WaveEffect.cpp in Sources */,
 				671652D625D7CE710041BB9A /* WiringDialog.cpp in Sources */,
 				671651CC25D7CE700041BB9A /* ColorCurveDialog.cpp in Sources */,
+				7FDE55FF280A94E900C4EB70 /* xlBaseApp.cpp in Sources */,
 				6716538B25D7CE720041BB9A /* DDPOutput.cpp in Sources */,
 				6716530525D7CE710041BB9A /* FillEffect.cpp in Sources */,
 				6716535F25D7CE720041BB9A /* TwinkleEffect.cpp in Sources */,
