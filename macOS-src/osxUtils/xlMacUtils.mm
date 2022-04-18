@@ -14,11 +14,14 @@
 #include <wx/colour.h>
 #include <wx/app.h>
 #include <wx/glcanvas.h>
+#include <wx/dir.h>
 
 #include <list>
 #include <set>
 #include <mutex>
 #include <functional>
+#include <thread>
+#include <chrono>
 
 #include <CoreAudio/CoreAudio.h>
 #include <CoreServices/CoreServices.h>
@@ -109,7 +112,10 @@ bool ObtainAccessToURL(const std::string &path) {
         if (ACCESSIBLE_URLS.find(path) != ACCESSIBLE_URLS.end()) {
             return true;
         }
-        if (!wxFileName::Exists(path)) {
+        NSString *nsfilePath = [NSString stringWithCString:path.c_str()
+                                                encoding:[NSString defaultCStringEncoding]];
+        bool exists = [[NSFileManager defaultManager] fileExistsAtPath:nsfilePath];
+        if (!exists) {
             return false;
         }
         wxFileName fn(path);
@@ -133,9 +139,7 @@ bool ObtainAccessToURL(const std::string &path) {
         wxString data = config->Read(pathurl);
         NSError *error = nil;
         if ("" == data) {
-            NSString *filePath = [NSString stringWithCString:pathurl.c_str()
-                                                    encoding:[NSString defaultCStringEncoding]];
-            NSURL *fileURL = [NSURL fileURLWithPath:filePath];
+            NSURL *fileURL = [NSURL fileURLWithPath:nsfilePath];
 
             NSData * newData = [fileURL bookmarkDataWithOptions: NSURLBookmarkCreationWithSecurityScope
                                  includingResourceValuesForKeys: nil
@@ -168,6 +172,79 @@ bool ObtainAccessToURL(const std::string &path) {
         return data.length() > 0;
     }
 }
+
+bool FileExists(const std::string &path, bool waitForDownload) {
+    @autoreleasepool {
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        NSString *nsfilePath = [NSString stringWithCString:path.c_str()
+                                                encoding:[NSString defaultCStringEncoding]];
+        bool exists = [fileManager fileExistsAtPath:nsfilePath];
+        if (!exists) {
+            NSURL *fileURL = [NSURL fileURLWithPath:nsfilePath];
+            exists = [fileManager isUbiquitousItemAtURL:fileURL];
+            if (exists) {
+                //doesn't actually exist locally, but does exist in the cloud, trigger a download and wait
+                exists = [fileManager startDownloadingUbiquitousItemAtURL:fileURL error:nil];
+                if (exists && waitForDownload) {
+                    //download started OK
+                    //NSMetadataUbiquitousItemDownloadingStatusKey
+                    NSString *value = nil;
+                    NSError *error = nil;
+                    [fileURL getResourceValue:&value forKey:NSURLUbiquitousItemDownloadingStatusKey error:&error];
+                    int count = 0;
+                    while (![value isEqualToString:NSURLUbiquitousItemDownloadingStatusCurrent] && (count < 6000)) {
+                        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+                        count++;
+                        fileURL = [NSURL fileURLWithPath:nsfilePath];
+                        [fileURL getResourceValue:&value forKey:NSURLUbiquitousItemDownloadingStatusKey error:&error];
+                    }
+                    exists = [fileManager fileExistsAtPath:nsfilePath];
+                }
+            }
+        }
+
+        return exists;
+    }
+}
+bool FileExists(const wxFileName &fn, bool waitForDownload) {
+   return FileExists(fn.GetFullPath().ToStdString(), waitForDownload);
+}
+bool FileExists(const wxString &s, bool waitForDownload) {
+    return FileExists(s.ToStdString(), waitForDownload);
+}
+
+static bool endsWith(const wxString &str, const wxString &suffix) {
+    return str.size() >= suffix.size() && 0 == str.compare(str.size()-suffix.size(), suffix.size(), suffix);
+}
+void GetAllFilesInDir(const wxString &dir, wxArrayString &files, const wxString &filespec, int flags) {
+    if (flags == -1) {
+        flags = wxDIR_FILES;
+    }
+    flags |= wxDIR_HIDDEN;
+    static std::string iCloudExt = ".icloud";
+    wxArrayString f2;
+    std::set<wxString> allFiles;
+    wxDir::GetAllFiles(dir, &f2, filespec, flags);
+    if (filespec != "") {
+        wxDir::GetAllFiles(dir, &f2, filespec + iCloudExt, flags);
+    }
+    for (auto &a : f2) {
+        // this will remove duplicates that match both ext
+        allFiles.insert(a);
+    }
+    for (auto &f : allFiles) {
+        if (endsWith(f, iCloudExt)) {
+            int pos = f.find_last_of('/');
+            wxString n = f.substr(0, pos + 1);
+            n += f.substr(pos + 2, f.size() - 9 - pos);
+            files.push_back(n);
+        } else {
+            files.push_back(f);
+        }
+    }
+}
+
+
 
 double xlOSGetMainScreenContentScaleFactor()
 {
@@ -373,5 +450,12 @@ bool IsFromAppStore() {
 void RunInAutoReleasePool(std::function<void()> &&f) {
     @autoreleasepool {
         f();
+    }
+}
+void SetThreadQOS(int i) {
+    if (i) {
+        pthread_set_qos_class_self_np(QOS_CLASS_USER_INITIATED, 0);
+    } else {
+        pthread_set_qos_class_self_np(QOS_CLASS_BACKGROUND, 0);
     }
 }

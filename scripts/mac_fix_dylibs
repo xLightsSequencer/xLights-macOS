@@ -22,6 +22,11 @@ SHORTVERPO=${SHORTVER:8}
 if [ "x${SHORTVERPO}" == "x" ]; then
     SHORTVERPO="0"
 fi
+
+if [ ${#SHORTVERPO} -gt 1 ]; then
+    SHORTVERPO="${SHORTVERPO:0:1}.${SHORTVERPO:2}"
+fi
+
 SHORTVER="${SHORTVERPFX}${SHORTVERPO}"
 
 cp $TARGET_BUILD_DIR/*.metallib $TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources

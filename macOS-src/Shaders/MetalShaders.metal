@@ -22,7 +22,7 @@ struct ColorVertexData {
 };
 
 vertex ColorVertexData singleColorVertexShader(const device float3 *vertices  [[buffer(BufferIndexMeshPositions)]],
-                                      constant FrameData  &frameData [[ buffer(BufferIndexFrameData) ]],
+                                      constant MTLFrameData  &frameData [[ buffer(BufferIndexFrameData) ]],
                                       uint vid [[vertex_id]]){
     return {
             frameData.MVP * float4(vertices[vid], 1.0), half4(frameData.fragmentColor),
@@ -32,7 +32,7 @@ vertex ColorVertexData singleColorVertexShader(const device float3 *vertices  [[
 
 vertex ColorVertexData multiColorVertexShader(const device float3 *vertices  [[buffer(BufferIndexMeshPositions)]],
                                               const device uchar4 *colors  [[buffer(BufferIndexMeshColors)]],
-                                              constant FrameData  &frameData [[ buffer(BufferIndexFrameData) ]],
+                                              constant MTLFrameData  &frameData [[ buffer(BufferIndexFrameData) ]],
                                               uint vid [[vertex_id]]){
     half4 color = half4(colors[vid].r, colors[vid].g, colors[vid].b, colors[vid].a);
     color /= 255.0f;
@@ -50,7 +50,7 @@ struct IndexedColorData {
 };
 vertex ColorVertexData indexedColorVertexShader(IndexedColorData vertices [[stage_in]],
                                                 const device uchar4 *colors  [[buffer(BufferIndexMeshColors)]],
-                                                constant FrameData  &frameData [[ buffer(BufferIndexFrameData) ]]){
+                                                constant MTLFrameData  &frameData [[ buffer(BufferIndexFrameData) ]]){
     uint32_t cidx = vertices.colorIndex;
     half4 color = half4(colors[cidx].r, colors[cidx].g, colors[cidx].b, colors[cidx].a);
     color /= 255.0f;
@@ -81,7 +81,7 @@ struct TextureVertexData {
 };
 vertex TextureVertexData textureVertexShader(const device float3 *vertices  [[buffer(BufferIndexMeshPositions)]],
                                              const device float2 *tvertices  [[buffer(BufferIndexTexturePositions)]],
-                                             constant FrameData  &frameData [[ buffer(BufferIndexFrameData) ]],
+                                             constant MTLFrameData  &frameData [[ buffer(BufferIndexFrameData) ]],
                                              uint vid [[vertex_id]]){
     TextureVertexData d = { frameData.MVP * float4(vertices[vid], 1.0), tvertices[vid] , half4(frameData.fragmentColor)};
     return d;
@@ -119,7 +119,8 @@ fragment half4 textureColorFragmentShader(TextureVertexData in [[stage_in]],
 
 
 // Variables in constant address space.
-//constant float3 lightPosition = float3(0.0, 0.0, 1.0);
+constant float3 lightDirection = float3(0.1, 0.1, 1);
+constant float  ambiantLightFraction = 0.25;
 
 // Per-vertex input structure
 struct MeshVertexInput {
@@ -135,23 +136,51 @@ typedef struct {
     float2 texcoord;
     int    renderType;
     float  brightness;
+    float  cosTheta;
 } MeshShaderInOut;
 
 // Vertex shader function
-vertex MeshShaderInOut meshVertexShader(MeshVertexInput in [[stage_in]],
-                                        constant FrameData  &frameData [[ buffer(BufferIndexFrameData) ]]) {
+vertex MeshShaderInOut meshVertexShader(MeshVertexInput     in [[stage_in]],
+                                        constant MTLFrameData  &frameData [[ buffer(BufferIndexFrameData) ]]) {
     MeshShaderInOut out;
     
-    // Vertex projection and translation
+    //1. Vertex projection and translation
     float4 in_position = float4(in.position, 1.0);
     out.position = frameData.MVP * in_position;
+    
+    if (frameData.fragmentColor.a == 1.0) {
+        // Normal of the the vertex, in world space
+        float4x4 normalMatrix = frameData.useViewMatrix ? (frameData.viewMatrix * frameData.modelMatrix) : frameData.modelMatrix;
+        float3 normal_cameraspace = ( normalMatrix * float4(in.normal,0)).xyz;
 
-    // Per vertex lighting calculations
-    //float4 eye_normal = normalize(frameUniforms.normal * float4(in.normal, 0.0));
-    //float4 eye_normal = normalize(float4(in.normal, 0.0));
-    //float n_dot_l = dot(eye_normal.rgb, normalize(lightPosition));
-    //n_dot_l = fmax(0.0, n_dot_l);
-    //out.color = float4(frameData.fragmentColor + n_dot_l);
+        // Normal of the computed fragment, in camera space
+        float3 n = normalize( normal_cameraspace );
+        // Direction of the light (from the fragment to the light)
+        float3 l = normalize( lightDirection );
+        float cosTheta = abs(clamp(dot( n, l ), -1.0, 1.0));
+
+        float4 color = float4(cosTheta, cosTheta, cosTheta, 1.0);
+        out.cosTheta = cosTheta;
+        out.color = half4(frameData.fragmentColor * color)*(1.0-ambiantLightFraction)+ half4(frameData.fragmentColor*ambiantLightFraction);
+    } else {
+        out.color = half4(frameData.fragmentColor);
+        out.cosTheta = 1.0f;
+    }
+    
+    // Pass through texture coordinate
+    out.texcoord = in.texcoord;
+    out.renderType = frameData.renderType;
+    out.brightness = frameData.brightness;
+    return out;
+}
+
+vertex MeshShaderInOut meshWireframeVertexShader(MeshVertexInput     in [[stage_in]],
+                                                 constant MTLFrameData  &frameData [[ buffer(BufferIndexFrameData) ]]) {
+    MeshShaderInOut out;
+    
+    //1. Vertex projection and translation
+    float4 in_position = float4(in.position, 1.0);
+    out.position = frameData.MVP * in_position;
     
     out.color = half4(frameData.fragmentColor);
     
@@ -170,16 +199,16 @@ fragment half4 meshTextureFragmentShader(MeshShaderInOut in [[stage_in]],
                                      filter::linear);
     
     // Blend texture color with input color and output to framebuffer
-    //float4 color =  diffuseTexture.sample(defaultSampler, float2(in.texcoord)) * in.color;
     half4 color =  diffuseTexture.sample(defaultSampler, float2(in.texcoord));
-    //float4 color =  float4(1, 0, 0, 1);
-    //float4 color =  in.color;
-    return half4( color.r * in.brightness, color.g * in.brightness, color.b * in.brightness, color.a );
+    color = half4( color.r * in.brightness, color.g * in.brightness, color.b * in.brightness, color.a );
+    if (in.cosTheta != 1.0) {
+        half3 c3 = half3(in.cosTheta * color.rgb)*(1.0 - ambiantLightFraction) + half3(color.rgb*ambiantLightFraction);
+        color = half4(c3, color.a);
+    }
+    return color;
 }
 // Fragment shader function for the mesh solids
 fragment half4 meshSolidFragmentShader(MeshShaderInOut in [[stage_in]]) {
     half4 color = in.color;
-    //float4 color =  float4(1, 0, 0, 1);
-    //float4 color =  in.color;
     return half4( color.r * in.brightness, color.g * in.brightness, color.b * in.brightness, color.a );
 }

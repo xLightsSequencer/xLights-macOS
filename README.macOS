@@ -33,8 +33,7 @@ If you are planning on being able to build Release builds, you will need to a re
 wxWidgets first.  If not doing release builds, this can be skipped.
   cd <wxMac base dir>
   cd build
-  export BINARY_PLATFORMS="x86_64"
-  # export BINARY_PLATFORMS="x86_64,arm64"
+  export BINARY_PLATFORMS="x86_64,arm64"
   export CXXFLAGS=""
   export OBJCXXFLAGS=""
   export CPPFLAGS="-g -flto=thin"
@@ -47,10 +46,11 @@ wxWidgets first.  If not doing release builds, this can be skipped.
   ../configure  --disable-debug_flag --enable-debug_info --enable-optimise --prefix=/opt/local --enable-universal_binary=${BINARY_PLATFORMS} \
                 --with-osx_cocoa --with-macosx-version-min=10.14 --disable-dependency-tracking \
                 --disable-compat30  --enable-mimetype --enable-aui --with-opengl \
-                --disable-webview --disable-webviewwebkit --disable-richtext --disable-mdi --disable-mdidoc --disable-loggui \
+                --disable-webview --disable-webviewwebkit --disable-mdi --disable-mdidoc --disable-loggui \
                 --disable-xrc --disable-stc --disable-ribbon --disable-htmlhelp \
                 --with-cxx=17 --enable-cxx11 --enable-std_containers --enable-std_string --enable-std_string_conv_in_wxstring \
                 --without-liblzma  --with-expat=builtin --with-zlib=builtin --with-libjpeg=builtin  --without-libtiff \
+                --disable-sys-libs \
                 --enable-backtrace --enable-exceptions --disable-shared
   make -j 8
   make install
@@ -59,8 +59,7 @@ wxWidgets first.  If not doing release builds, this can be skipped.
 For debug builds:
   cd <wxMac base dir>
   cd build
-  export BINARY_PLATFORMS=x86_64
-  # export BINARY_PLATFORMS="x86_64,arm64"
+  export BINARY_PLATFORMS="x86_64,arm64"
   export CXXFLAGS=""
   export OBJCXXFLAGS=""
   export CPPFLAGS="-g"
@@ -74,12 +73,14 @@ For debug builds:
                 --enable-debug --enable-debug_info --disable-optimise --enable-universal_binary=${BINARY_PLATFORMS} \
                 --with-osx_cocoa --with-macosx-version-min=10.14 --disable-dependency-tracking \
                 --disable-compat30  --enable-mimetype --enable-aui --with-opengl \
-                --disable-webview --disable-webviewwebkit --disable-richtext --disable-mdi --disable-mdidoc --disable-loggui \
+                --disable-webview --disable-webviewwebkit --disable-mdi --disable-mdidoc --disable-loggui \
                 --disable-xrc --disable-stc --disable-ribbon --disable-htmlhelp \
                 --with-cxx=17 --enable-cxx11 --enable-std_containers --enable-std_string --enable-std_string_conv_in_wxstring \
                 --without-liblzma  --with-expat=builtin --with-zlib=builtin --with-libjpeg=builtin  --without-libtiff \
+                --disable-sys-libs \
                 --enable-backtrace --enable-exceptions
   make -j 8
+  rm -rf /opt/local/libdbg/libwx*.dylib
   make install
 
 
@@ -111,11 +112,16 @@ export XL_TARGETS="${X86_64_TARGETS} ${ARM64_TARGETS}"
 # export BUILD_HOST=x86_64
 export BUILD_HOST=arm
 
+Note: Some libraries require Homebrew Tools, to install Homebrew:
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+Autotools and LibTool are required from Homebrew:
+brew install automake libtool
 
 libzstd:
 git clone https://github.com/facebook/zstd
 cd zstd
-git checkout v1.5.1
+git checkout v1.5.2
 export CFLAGS="-g -flto=thin  ${OSX_VERSION_MIN} ${XL_TARGETS}"
 export LDFLAGS="-flto=thin  ${OSX_VERSION_MIN} ${XL_TARGETS} "
 make clean
@@ -175,10 +181,11 @@ unset CXXFLAGS
 unset CXX
 
 
-SDL2:  currently using 2.0.18
+SDL2:  currently using 2.0.20
 git clone https://github.com/libsdl-org/SDL
 cd SDL
-git checkout release-2.0.18
+git reset --hard
+git checkout release-2.0.20
 export CXXFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN}"
 export CFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN}"
 export LDFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN}"
@@ -198,27 +205,40 @@ unset CFLAGS
 unset LDFLAGS
 
 
-ffmpeg:   currently using 4.4.1  plus patches
+ffmpeg:   currently using 5.0
+# Note: requires nasm to be install.   Easiest option is via "brew install nasm"
 git clone https://git.ffmpeg.org/ffmpeg.git
 cd ffmpeg
-git checkout n4.4.1
-git cherry-pick 55d9d6767967794edcdd6e1bbd8840fc6f4e9315
-git cherry-pick b786bc7433dfe082441a57c1ba9ae9ea47904b78
-git cherry-pick 7539a01bb0ea24998e1aa87706edf9785ddd3ac6
-git cherry-pick 71ad83667d32f64c658034baa3cc56246ae67363
-./configure --disable-asm --disable-x86asm --enable-static --disable-shared --disable-securetransport --extra-cflags="${OSX_VERSION_MIN}" --disable-indev=lavfi --disable-libx264 --disable-lzma --enable-gpl --enable-opengl --disable-programs
-sed -i -e "s/^CFLAGS=/CFLAGS=-g -O3 ${XL_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak
-sed -i -e "s/^CXXFLAGS=/CXXFLAGS=-g -O3 ${XL_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak
-sed -i -e "s/^LDFLAGS=/LDFLAGS=-g -O3 ${XL_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak
+git checkout n5.0
 make clean
+./configure --disable-inline-asm --enable-static --disable-shared --disable-securetransport --extra-cflags="${OSX_VERSION_MIN}" --disable-indev=lavfi --disable-libx264 --disable-lzma --enable-gpl --enable-opengl --disable-programs --arch=x86_64
+sed -i -e "s/^CFLAGS=/CFLAGS=-g ${X86_64_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak
+sed -i -e "s/^CXXFLAGS=/CXXFLAGS=-g ${X86_64_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak
+sed -i -e "s/^LDFLAGS=/LDFLAGS=-g ${X86_64_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak
 make -j 16
-find . -name "*.a" -exec cp {} /opt/local/lib/ \;
+mkdir ./x86_64
+find . -name "*.a" -exec cp {} ./x86_64 \;
 make clean
+./configure --disable-inline-asm --enable-static --disable-shared --disable-securetransport --extra-cflags="${OSX_VERSION_MIN}" --disable-indev=lavfi --disable-libx264 --disable-lzma --enable-gpl --enable-opengl --disable-programs --arch=arm64
+sed -i -e "s/^CFLAGS=/CFLAGS=-g ${ARM64_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak
+sed -i -e "s/^CXXFLAGS=/CXXFLAGS=-g ${ARM64_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak
+sed -i -e "s/^LDFLAGS=/LDFLAGS=-g ${ARM64_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak
+make -j 16
+lipo -create -output /opt/local/lib/libavutil.a ./libavutil/libavutil.a ./x86_64/libavutil.a
+lipo -create -output /opt/local/lib/libavfilter.a ./libavfilter/libavfilter.a ./x86_64/libavfilter.a
+lipo -create -output /opt/local/lib/libavcodec.a ./libavcodec/libavcodec.a ./x86_64/libavcodec.a
+lipo -create -output /opt/local/lib/libpostproc.a ./libpostproc/libpostproc.a ./x86_64/libpostproc.a
+lipo -create -output /opt/local/lib/libavformat.a ./libavformat/libavformat.a ./x86_64/libavformat.a
+lipo -create -output /opt/local/lib/libavdevice.a ./libavdevice/libavdevice.a ./x86_64/libavdevice.a
+lipo -create -output /opt/local/lib/libswresample.a ./libswresample/libswresample.a ./x86_64/libswresample.a
+lipo -create -output /opt/local/lib/libswscale.a ./libswscale/libswscale.a ./x86_64/libswscale.a
+make clean
+git status --ignored -s  | colrm 1 2 | xargs rm  -rf
 ./configure --disable-asm --disable-x86asm --enable-static --disable-shared --disable-securetransport --extra-cflags="${OSX_VERSION_MIN}" --disable-indev=lavfi --disable-libx264 --disable-lzma --enable-gpl --enable-opengl --disable-programs --disable-optimizations
 sed -i -e "s/^CFLAGS=/CFLAGS=-g ${XL_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak
 sed -i -e "s/^CXXFLAGS=/CXXFLAGS=-g ${XL_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak
 sed -i -e "s/^LDFLAGS=/LDFLAGS=-g ${XL_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak
-make -j 8
+make -j 16
 find . -name "*.a" -exec cp {} /opt/local/libdbg/ \;
 
 
@@ -244,10 +264,11 @@ git status --ignored -s | colrm 1 3 | xargs rm -rf
 
 
 
-liblua: (currently using v5.4.3)
+liblua: (currently using v5.4.4)
 git clone https://github.com/lua/lua
 cd lua
-git checkout v5.4.3
+git checkout v5.4.4
+make clean
 export CFLAGS="-g -O3 -flto=thin -Wall -fno-stack-protector -fno-common ${XL_TARGETS} ${OSX_VERSION_MIN}"
 make -j4 all CFLAGS="$CFLAGS" MYLDFLAGS="$CFLAGS"
 cp liblua.a /opt/local/lib
@@ -258,49 +279,28 @@ make -j4 all CFLAGS="$CFLAGS" MYLDFLAGS="$CFLAGS"
 cp liblua.a /opt/local/libdbg
 unset CFLAGS
 
+libhidapi: (currently using 0.11.2)
+git clone https://github.com/libusb/hidapi
+cd hidapi
+git checkout hidapi-0.11.2
+export CFLAGS="-g -O3 -flto=thin -Wall -fno-stack-protector -fno-common ${XL_TARGETS} ${OSX_VERSION_MIN}"
+./bootstrap
+./configure --prefix=/opt/local
+make clean
+make
+cp ./mac/.libs/libhidapi.a /opt/local/lib
+make clean
+export CFLAGS="-g -Wall -fno-stack-protector -fno-common ${XL_TARGETS} ${OSX_VERSION_MIN}"
+./configure --prefix=/opt/local
+make
+rm -f /opt/local/libdbg/libhidapi*
+cp ./mac/.libs/libhidapi.a /opt/local/libdbg
+make clean
 
 
-
-
-
-//TODO - stuff below is still todo
-
-portmidi:
-git clone https://github.com/AndrewBelt/portmidi
-Remove i386 from CMakeLists.txt
-
-
-Codeblocks:
-Codeblocks needs to have wxWidgets compiled differently, specifically c++14, no lto-thin, and without the containers, shared libs
-
-Set install dir:  needs to be separate from wxWidgets used for xLights:
-export CB_INSTALL=${CB_INSTALL:=~/working/codeblocks/install_dir}
-
-export CXXFLAGS="-stdlib=libc++ -std=c++14"
-export OBJCXXFLAGS="-stdlib=libc++ -std=c++14"
-export CPPFLAGS="-stdlib=libc++"
-export LDFLAGS="-stdlib=libc++"
-export CXX=clang++
-export CXXCPP="clang++ -E"
-export CC=clang
-export CPP="clang -E"
-export CFLAGS=""
-mkdir -p $CB_INSTALL
-../configure  --disable-debug --enable-optimise --prefix=$CB_INSTALL --enable-macosx_arch=x86_64 \
-             --enable-mediactrl --with-osx_cocoa --with-opengl --disable-dependency-tracking \
-             --disable-compat30 --with-macosx-version-min=10.14 --with-libjpeg=builtin  --without-libtiff --enable-mimetype \
-             --with-cxx=14 --enable-cxx11  \
-             --enable-backtrace --enable-exceptions --enable-aui --without-liblzma  --with-expat=builtin
-make -j 8
-make install
-
-Then in codeblocks, after bootstrap:
-PATH=$CB_INSTALL/bin:$PATH
-./configure --with-contrib-plugins=all,-spellchecker,-FileManager,-NassiShneiderman,-profiler --prefix=$CB_INSTALL
-make -j 8
-make install
-./bundle.sh
-
+CodeBlocks:
+Suggest download a nightly from
+https://drive.google.com/drive/folders/1-r9cbW1I8ZkaCt6iYDhcXH981n5FJTpV
 
 
 wxWidgets git hash history:
@@ -333,3 +333,5 @@ Apr 2, 2021 - Move wxWidgets fork to xLightsSequencer organization
 Apr 20, 2021 - Move to xlights_2020.13 - wxWidgets 3.1.5 + patches
 July 29, 2021 - Move to ffmpeg 4.4, zstd 1.5.0
 Jan 6, 2022 - macOS 10.14 required, zstd 1.5.1
+Jan 8, 2022 - added lua libs
+Feb 3, 2022 - Update ffmpeg to 5.0

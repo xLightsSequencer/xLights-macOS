@@ -1,10 +1,12 @@
 #pragma once
 
 #include <functional>
-
 class wxGLCanvas;
 class wxWindow;
 class wxString;
+class wxFileName;
+class wxColor;
+class wxArrayString;
 
 /* Various touch points that the OSX builds can use to
  * setup some various advanced functionality
@@ -13,6 +15,11 @@ class wxString;
 void xlSetRetinaCanvasViewport(wxGLCanvas &win, int &x, int &y, int &x2, int&y2);
 double xlTranslateToRetina(const wxWindow &win, double x);
 bool ObtainAccessToURL(const std::string &path);
+bool FileExists(const std::string &s, bool waitForDownload = true);
+bool FileExists(const wxFileName &fn, bool waitForDownload = true);
+bool FileExists(const wxString &s, bool waitForDownload = true);
+void GetAllFilesInDir(const wxString &dir, wxArrayString &files, const wxString &filespec, int flags = -1);
+
 void EnableSleepModes();
 void DisableSleepModes();
 bool IsMouseEventFromTouchpad();
@@ -37,6 +44,6 @@ void EndMetalGraphicsSyncPoint();
 #define StartGraphicsSyncPoint() StartMetalGraphicsSyncPoint()
 #define EndGraphicsSyncPoint() EndMetalGraphicsSyncPoint()
 
-
+void SetThreadQOS(int i);
 
 #define __XL_EXTERNAL_HOOKS__
