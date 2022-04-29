@@ -10,14 +10,14 @@ compatibility layer across operating systems.
 On macOS, compilation is done using Xcode. Code::Blocks is not used.
 Xcode can be downloaded from the Apple developer web site or the App Store. Make
 sure you install the version of Xcode that matches your version of
-macOS. For example, I use macOS 11, so I installed Xcode 12.
+macOS. For example, I use macOS 12, so I installed Xcode 13.
 
-The latest wxWidgets release (3.1.5) will not work anymore as we need some API's that have
+The latest wxWidgets release (3.1.6) will not work as we need some API's that have
 been added since then.  We also have several other fixes in place that fix various
 bugs we have encountered, configurations we need, etc...
 
 To get the latest code that we've tested, do:
-git clone  --recurse-submodules -b xlights_2021.31b https://github.com/xLightsSequencer/wxWidgets
+git clone  --recurse-submodules -b xlights_2022.09 https://github.com/xLightsSequencer/wxWidgets
 
 
 First, setup the target directories:
@@ -181,11 +181,11 @@ unset CXXFLAGS
 unset CXX
 
 
-SDL2:  currently using 2.0.20
+SDL2:  currently using 2.0.22
 git clone https://github.com/libsdl-org/SDL
 cd SDL
 git reset --hard
-git checkout release-2.0.20
+git checkout release-2.0.22
 export CXXFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN}"
 export CFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN}"
 export LDFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN}"
@@ -205,11 +205,11 @@ unset CFLAGS
 unset LDFLAGS
 
 
-ffmpeg:   currently using 5.0
+ffmpeg:   currently using 5.0.1
 # Note: requires nasm to be install.   Easiest option is via "brew install nasm"
 git clone https://git.ffmpeg.org/ffmpeg.git
 cd ffmpeg
-git checkout n5.0
+git checkout n5.0.1
 make clean
 ./configure --disable-inline-asm --enable-static --disable-shared --disable-securetransport --extra-cflags="${OSX_VERSION_MIN}" --disable-indev=lavfi --disable-libx264 --disable-lzma --enable-gpl --enable-opengl --disable-programs --arch=x86_64
 sed -i -e "s/^CFLAGS=/CFLAGS=-g ${X86_64_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak
@@ -335,3 +335,5 @@ July 29, 2021 - Move to ffmpeg 4.4, zstd 1.5.0
 Jan 6, 2022 - macOS 10.14 required, zstd 1.5.1
 Jan 8, 2022 - added lua libs
 Feb 3, 2022 - Update ffmpeg to 5.0
+Mar 21, 2022 - zstd to 1.5.2
+April 28, 2022 - Update to wxWidgets 3.1.6+, ffmpeg to 5.0.1, SDL to 2.0.22
