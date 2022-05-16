@@ -7,6 +7,8 @@ class wxString;
 class wxFileName;
 class wxColor;
 class wxArrayString;
+class wxButton;
+class wxColour;
 
 /* Various touch points that the OSX builds can use to
  * setup some various advanced functionality
@@ -45,5 +47,8 @@ void EndMetalGraphicsSyncPoint();
 #define EndGraphicsSyncPoint() EndMetalGraphicsSyncPoint()
 
 void SetThreadQOS(int i);
+void SetButtonBackground(wxButton *b, const wxColour &c, int bgType = 0);
+
+
 
 #define __XL_EXTERNAL_HOOKS__
