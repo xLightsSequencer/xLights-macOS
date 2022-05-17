@@ -21,6 +21,7 @@ extern "C" {
 
 static CIContext *ciContext = nullptr;
 static CIColorKernel *rbFlipKernel = nullptr;
+static CIContext *ciEncContext = nullptr;
 
 
 static AVPixelFormat negotiate_pixel_format(AVCodecContext *s, const AVPixelFormat *fmt) {
@@ -250,18 +251,28 @@ bool VideoToolboxScaleImage(AVCodecContext *codecContext, AVFrame *frame, AVFram
     return true;
 }
 
-void VideoToolboxCreateFrame(CIImage *image, AVFrame *f) {
+void VideoToolboxCreateFrame(CIImage *image, AVFrame *f, id<MTLDevice> device) {
     CVPixelBufferRef scaledBuf = (CVPixelBufferRef)f->data[3];
     if (scaledBuf == nullptr) {
+        NSDictionary* cvBufferProperties = @{
+            (__bridge NSString*)kCVPixelBufferOpenGLCompatibilityKey : @YES,
+            (__bridge NSString*)kCVPixelBufferMetalCompatibilityKey : @YES,
+            (__bridge NSString*)kCVPixelBufferCGImageCompatibilityKey : @YES,
+            (__bridge NSString*)kCVPixelBufferIOSurfacePropertiesKey: @{},
+        };
         CVPixelBufferCreate(kCFAllocatorDefault,
                             f->width,
                             f->height,
                             kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange,
-                            (__bridge CFDictionaryRef) @{(__bridge NSString *) kCVPixelBufferIOSurfacePropertiesKey: @{}},
+                            (__bridge CFDictionaryRef)cvBufferProperties,
                             &scaledBuf);
         f->data[3] = (uint8_t*)scaledBuf;
     }
-    [ciContext render:image toCVPixelBuffer:scaledBuf];
+    if (ciEncContext == nullptr) {
+        ciEncContext = [CIContext contextWithMTLDevice:device];
+        [ciEncContext retain];
+    }
+    [ciEncContext render:image toCVPixelBuffer:scaledBuf];
 }
 void VideoToolboxCopyToTexture(CIImage *image, id<MTLTexture> texture, id<MTLCommandBuffer> cmdBuf) {
     CGRect rect;

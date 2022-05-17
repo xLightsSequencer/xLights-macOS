@@ -116,7 +116,7 @@ Note: Some libraries require Homebrew Tools, to install Homebrew:
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 Autotools and LibTool are required from Homebrew:
-brew install automake libtool
+brew install automake libtool cmake nasm
 
 libzstd:
 git clone https://github.com/facebook/zstd
@@ -139,6 +139,9 @@ unset LDFLAGS
 
 log4cpp:
 Download latest src release (current 1.1.3)
+wget https://nchc.dl.sourceforge.net/project/log4cpp/log4cpp-1.1.x%20%28new%29/log4cpp-1.1/log4cpp-1.1.3.tar.gz
+tar -xzf log4cpp-1.1.3.tar.gz
+cd log4cpp
 patch -p1 < ~/working/xLights/macOS/patches/log4cpp.patch
 export CXXFLAGS="-g -O2 -flto=thin ${OSX_VERSION_MIN} ${XL_TARGETS} -std=c++11 -stdlib=libc++ -fvisibility-inlines-hidden"
 export LDFLAGS="-flto=thin ${XL_TARGETS} "
