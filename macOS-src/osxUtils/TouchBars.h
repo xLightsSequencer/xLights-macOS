@@ -72,7 +72,7 @@ class ButtonTouchBarItem : public TouchBarItem {
 public:
     ButtonTouchBarItem(ButtonTouchBarItemClicked cb, const std::string &n, const std::string &l)
         : TouchBarItem(n), callback(cb), label(l), backgroundColor(0, 0, 0, 0) {};
-    ButtonTouchBarItem(ButtonTouchBarItemClicked cb, const std::string &n, const wxBitmap &l)
+    ButtonTouchBarItem(ButtonTouchBarItemClicked cb, const std::string &n, const wxBitmapBundle &l)
         : TouchBarItem(n), callback(cb), bmp(l), backgroundColor(0, 0, 0, 0)  {};
     virtual ~ButtonTouchBarItem() {}
 
@@ -84,12 +84,12 @@ public:
 
 
     const std::string &GetLabel() const { return label; };
-    const wxBitmap &GetBitmap() const { return bmp; };
+    const wxBitmapBundle &GetBitmap() const { return bmp; };
     const wxColor GetBackgroundColor() const {return backgroundColor;};
 protected:
     ButtonTouchBarItemClicked callback;
     std::string label;
-    wxBitmap bmp;
+    wxBitmapBundle bmp;
     wxColor backgroundColor;
 };
 

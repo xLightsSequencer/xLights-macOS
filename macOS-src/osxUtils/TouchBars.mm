@@ -14,6 +14,9 @@
 #if __has_include(<AppKit/NSTouchBar.h>)
 
 
+extern WXImage wxOSXGetImageFromBundle(const wxBitmapBundle& bundle);
+
+
 @interface XLTouchBarViewController : NSViewController
 @end
 
@@ -158,7 +161,7 @@ public:
         
         NSButton* theButton;
         if (item->GetBitmap().IsOk()) {
-            theButton = [NSButton buttonWithImage:item->GetBitmap().GetNSImage() target:bp action:@selector(buttonClicked:)];
+            theButton = [NSButton buttonWithImage:wxOSXGetImageFromBundle(item->GetBitmap()) target:bp action:@selector(buttonClicked:)];
             [theButton setImagePosition:NSImageOnly];
             [theButton setBordered:NO];
         } else if (item->GetName().substr(0, 10) == "NSTouchBar") {
@@ -250,7 +253,7 @@ public:
         NSMutableArray<NSImage *> *bi = [NSMutableArray arrayWithCapacity:group->GetItems().size()];
         //fill
         for (auto it2 : group->GetItems()) {
-            [bi addObject:(it2->GetBitmap().GetNSImage())];
+            [bi addObject:(wxOSXGetImageFromBundle(it2->GetBitmap()))];
         }
         
         SegmentPasser *bp = [SegmentPasser alloc];
