@@ -475,6 +475,8 @@
 		674D3D241C207BD7000D632B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D231C207BD7000D632B /* AudioToolbox.framework */; };
 		674D3D261C207C25000D632B /* libpthread.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D251C207C25000D632B /* libpthread.tbd */; };
 		674DEE332791DE8E00DEA844 /* WarpFunctions.metal in Sources */ = {isa = PBXBuildFile; fileRef = 674DEE322791DE8E00DEA844 /* WarpFunctions.metal */; };
+		6750B03F28450E6800EFB924 /* DmxColorAbilityRGB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6750B03C28450E6800EFB924 /* DmxColorAbilityRGB.cpp */; };
+		6750B04028450E6800EFB924 /* DmxColorAbilityWheel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6750B03D28450E6800EFB924 /* DmxColorAbilityWheel.cpp */; };
 		6751104627D3F5630001BD98 /* FindDataPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6751104527D3F5630001BD98 /* FindDataPanel.cpp */; };
 		675EDD3D2789D87C00D40FEA /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675EDD3C2789D87C00D40FEA /* liblua.a */; };
 		675FD840204C3C0B003D280F /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B227204BA69B00E90AC7 /* CoreImage.framework */; };
@@ -1572,6 +1574,10 @@
 		674DEE322791DE8E00DEA844 /* WarpFunctions.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = WarpFunctions.metal; sourceTree = "<group>"; };
 		674E27A41B5B37B000274B20 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		674E9C631C9106D600D12F0D /* libwx_osx_cocoau_propgrid-3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_propgrid-3.1.dylib"; path = "../../../../opt/local/libdbg/libwx_osx_cocoau_propgrid-3.1.dylib"; sourceTree = "<group>"; };
+		6750B03B28450E6800EFB924 /* DmxColorAbilityWheel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DmxColorAbilityWheel.h; sourceTree = "<group>"; };
+		6750B03C28450E6800EFB924 /* DmxColorAbilityRGB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DmxColorAbilityRGB.cpp; sourceTree = "<group>"; };
+		6750B03D28450E6800EFB924 /* DmxColorAbilityWheel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DmxColorAbilityWheel.cpp; sourceTree = "<group>"; };
+		6750B03E28450E6800EFB924 /* DmxColorAbilityRGB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DmxColorAbilityRGB.h; sourceTree = "<group>"; };
 		6751104427D3F5630001BD98 /* FindDataPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindDataPanel.h; sourceTree = "<group>"; };
 		6751104527D3F5630001BD98 /* FindDataPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FindDataPanel.cpp; sourceTree = "<group>"; };
 		675EDD3C2789D87C00D40FEA /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblua.a; path = /opt/local/lib/liblua.a; sourceTree = "<group>"; };
@@ -2373,6 +2379,10 @@
 			children = (
 				67164CB925D7CE6D0041BB9A /* DmxColorAbility.cpp */,
 				67164CC825D7CE6D0041BB9A /* DmxColorAbility.h */,
+				6750B03C28450E6800EFB924 /* DmxColorAbilityRGB.cpp */,
+				6750B03E28450E6800EFB924 /* DmxColorAbilityRGB.h */,
+				6750B03D28450E6800EFB924 /* DmxColorAbilityWheel.cpp */,
+				6750B03B28450E6800EFB924 /* DmxColorAbilityWheel.h */,
 				67164CB525D7CE6D0041BB9A /* DmxFloodArea.cpp */,
 				67164CB025D7CE6D0041BB9A /* DmxFloodArea.h */,
 				67164CBA25D7CE6D0041BB9A /* DmxFloodlight.cpp */,
@@ -3824,6 +3834,7 @@
 				6716517C25D7CE700041BB9A /* ViewpointDialog.cpp in Sources */,
 				6716516E25D7CE700041BB9A /* BulkEditSliderDialog.cpp in Sources */,
 				6716536325D7CE720041BB9A /* SingleStrandPanel.cpp in Sources */,
+				6750B03F28450E6800EFB924 /* DmxColorAbilityRGB.cpp in Sources */,
 				6716515B25D7CE700041BB9A /* TabSequence.cpp in Sources */,
 				6787EAA1274FF60E00DAEE47 /* ScriptsDialog.cpp in Sources */,
 				671653AB25D7CE720041BB9A /* xLightsVersion.cpp in Sources */,
@@ -3940,6 +3951,7 @@
 				6716531725D7CE710041BB9A /* TendrilPanel.cpp in Sources */,
 				67D142B8275803100018A831 /* pages.cpp in Sources */,
 				6716538025D7CE720041BB9A /* ControllerCaps.cpp in Sources */,
+				6750B04028450E6800EFB924 /* DmxColorAbilityWheel.cpp in Sources */,
 				6716516D25D7CE700041BB9A /* xLightsXmlFile.cpp in Sources */,
 				6716513A25D7CE700041BB9A /* NoteImportDialog.cpp in Sources */,
 				6716515125D7CE700041BB9A /* DragValueCurveBitmapButton.cpp in Sources */,
