@@ -10,6 +10,7 @@
 		538F8DFE26B42E5D0080A1BB /* LORPreview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 538F8DFC26B42E5D0080A1BB /* LORPreview.cpp */; };
 		53EB767E2719BAFE00ED8702 /* ExportSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 53EB767D2719BAFE00ED8702 /* ExportSettings.cpp */; };
 		670059B5279A4403006AD9EA /* Mouse3DManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670059B3279A4403006AD9EA /* Mouse3DManager.cpp */; };
+		67032DB6284F77CB0074638D /* DmxPresetAbility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67032DB5284F77CA0074638D /* DmxPresetAbility.cpp */; };
 		6703FE7627FDBE4400AFE78F /* SketchAssistPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6703FE7327FDBE4400AFE78F /* SketchAssistPanel.cpp */; };
 		6703FE7727FDBE4400AFE78F /* SketchCanvasPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6703FE7427FDBE4400AFE78F /* SketchCanvasPanel.cpp */; };
 		67061FD32746D5330020519D /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67061FD22746D5330020519D /* MetalPerformanceShaders.framework */; };
@@ -636,6 +637,8 @@
 		53EB767D2719BAFE00ED8702 /* ExportSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExportSettings.cpp; sourceTree = "<group>"; };
 		670059B3279A4403006AD9EA /* Mouse3DManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Mouse3DManager.cpp; sourceTree = "<group>"; };
 		670059B4279A4403006AD9EA /* Mouse3DManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mouse3DManager.h; sourceTree = "<group>"; };
+		67032DB4284F77CA0074638D /* DmxPresetAbility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DmxPresetAbility.h; sourceTree = "<group>"; };
+		67032DB5284F77CA0074638D /* DmxPresetAbility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DmxPresetAbility.cpp; sourceTree = "<group>"; };
 		6703FE7227FDBE4400AFE78F /* SketchAssistPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SketchAssistPanel.h; sourceTree = "<group>"; };
 		6703FE7327FDBE4400AFE78F /* SketchAssistPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SketchAssistPanel.cpp; sourceTree = "<group>"; };
 		6703FE7427FDBE4400AFE78F /* SketchCanvasPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SketchCanvasPanel.cpp; sourceTree = "<group>"; };
@@ -2399,6 +2402,8 @@
 				67164CC425D7CE6D0041BB9A /* DmxMovingHead3D.h */,
 				67164CAC25D7CE6D0041BB9A /* DmxPanTiltAbility.cpp */,
 				67164CAE25D7CE6D0041BB9A /* DmxPanTiltAbility.h */,
+				67032DB5284F77CA0074638D /* DmxPresetAbility.cpp */,
+				67032DB4284F77CA0074638D /* DmxPresetAbility.h */,
 				67164CB325D7CE6D0041BB9A /* DmxServo.cpp */,
 				67164CC125D7CE6D0041BB9A /* DmxServo.h */,
 				67164CC025D7CE6D0041BB9A /* DmxServo3D.cpp */,
@@ -3846,6 +3851,7 @@
 				671651C525D7CE700041BB9A /* xlLockButton.cpp in Sources */,
 				671651ED25D7CE700041BB9A /* SequenceVideoPreview.cpp in Sources */,
 				6716512125D7CE700041BB9A /* ConvertDialog.cpp in Sources */,
+				67032DB6284F77CB0074638D /* DmxPresetAbility.cpp in Sources */,
 				671651A025D7CE700041BB9A /* DmxServo3D.cpp in Sources */,
 				6716531225D7CE710041BB9A /* RippleEffect.cpp in Sources */,
 				6716534925D7CE710041BB9A /* TextPanel.cpp in Sources */,
