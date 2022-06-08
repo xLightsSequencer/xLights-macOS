@@ -17,7 +17,7 @@ been added since then.  We also have several other fixes in place that fix vario
 bugs we have encountered, configurations we need, etc...
 
 To get the latest code that we've tested, do:
-git clone  --recurse-submodules -b xlights_2022.11 https://github.com/xLightsSequencer/wxWidgets
+git clone  --recurse-submodules -b xlights_2022.13 https://github.com/xLightsSequencer/wxWidgets
 
 
 First, setup the target directories:
@@ -340,3 +340,4 @@ Jan 8, 2022 - added lua libs
 Feb 3, 2022 - Update ffmpeg to 5.0
 Mar 21, 2022 - zstd to 1.5.2
 April 28, 2022 - Update to wxWidgets 3.1.6+, ffmpeg to 5.0.1, SDL to 2.0.22
+June 8, 2022 - Update wxWidgets to 3.1.7+
