@@ -484,6 +484,7 @@
 		676FB41C273400FC0081F91A /* xlGraphicsAccumulators.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 676FB41A273400FC0081F91A /* xlGraphicsAccumulators.cpp */; };
 		67718A0527D4F59600F1A95E /* MultiPointModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67718A0327D4F59600F1A95E /* MultiPointModel.cpp */; };
 		67718A0627D4F59600F1A95E /* MultiPointScreenLocation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67718A0427D4F59600F1A95E /* MultiPointScreenLocation.cpp */; };
+		6776DF8A28609D29007573A6 /* TipOfTheDayDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6776DF8828609D29007573A6 /* TipOfTheDayDialog.cpp */; };
 		6778610B272CD73200020F31 /* GPURenderUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67786109272CD73200020F31 /* GPURenderUtils.cpp */; };
 		677932E927D30D8F008FEEBE /* ThreePointScreenLocation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 677932E227D30D8F008FEEBE /* ThreePointScreenLocation.cpp */; };
 		677932EA27D30D8F008FEEBE /* TwoPointScreenLocation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 677932E427D30D8F008FEEBE /* TwoPointScreenLocation.cpp */; };
@@ -1603,6 +1604,8 @@
 		67718A0427D4F59600F1A95E /* MultiPointScreenLocation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MultiPointScreenLocation.cpp; sourceTree = "<group>"; };
 		6771B227204BA69B00E90AC7 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		6771B229204BA6AF00E90AC7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		6776DF8828609D29007573A6 /* TipOfTheDayDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TipOfTheDayDialog.cpp; sourceTree = "<group>"; };
+		6776DF8928609D29007573A6 /* TipOfTheDayDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TipOfTheDayDialog.h; sourceTree = "<group>"; };
 		67786109272CD73200020F31 /* GPURenderUtils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPURenderUtils.cpp; sourceTree = "<group>"; };
 		6778610A272CD73200020F31 /* GPURenderUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPURenderUtils.h; sourceTree = "<group>"; };
 		677932E127D30D8E008FEEBE /* PolyPointScreenLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PolyPointScreenLocation.h; sourceTree = "<group>"; };
@@ -1902,9 +1905,6 @@
 		67164BC525D7CE6D0041BB9A /* xLights */ = {
 			isa = PBXGroup;
 			children = (
-				7FB5CEDC27A27A2A007612B2 /* xlBaseApp.cpp */,
-				7FB5CEDB27A27A2A007612B2 /* xlBaseApp.h */,
-				7FB5CEDD27A27A2A007612B2 /* xlStackWalker.h */,
 				67164C4D25D7CE6D0041BB9A /* AboutDialog.cpp */,
 				67164D1125D7CE6D0041BB9A /* AboutDialog.h */,
 				67164D1925D7CE6D0041BB9A /* AlignmentDialog.cpp */,
@@ -2181,6 +2181,8 @@
 				67164BDC25D7CE6D0041BB9A /* TabSetup.cpp */,
 				67164EFB25D7CE6E0041BB9A /* TimingPanel.cpp */,
 				67164EF425D7CE6E0041BB9A /* TimingPanel.h */,
+				6776DF8828609D29007573A6 /* TipOfTheDayDialog.cpp */,
+				6776DF8928609D29007573A6 /* TipOfTheDayDialog.h */,
 				6716511025D7CE6F0041BB9A /* tmGridCell.cpp */,
 				67164DAD25D7CE6D0041BB9A /* tmGridCell.h */,
 				67164C2625D7CE6D0041BB9A /* TopEffectsPanel.cpp */,
@@ -2233,6 +2235,8 @@
 				67164C7825D7CE6D0041BB9A /* wxCheckedListCtrl.h */,
 				67164F7325D7CE6E0041BB9A /* wxModelGridCellRenderer.cpp */,
 				67164BDF25D7CE6D0041BB9A /* wxModelGridCellRenderer.h */,
+				7FB5CEDC27A27A2A007612B2 /* xlBaseApp.cpp */,
+				7FB5CEDB27A27A2A007612B2 /* xlBaseApp.h */,
 				671650FD25D7CE6F0041BB9A /* xlColorCanvas.cpp */,
 				67164D0825D7CE6D0041BB9A /* xlColorCanvas.h */,
 				67164E0225D7CE6D0041BB9A /* xlColorPicker.cpp */,
@@ -2258,6 +2262,7 @@
 				67164D0725D7CE6D0041BB9A /* xlLockButton.h */,
 				67164C1E25D7CE6D0041BB9A /* xlSlider.cpp */,
 				67164D0E25D7CE6D0041BB9A /* xlSlider.h */,
+				7FB5CEDD27A27A2A007612B2 /* xlStackWalker.h */,
 			);
 			name = xLights;
 			path = ../xLights;
@@ -3861,6 +3866,7 @@
 				671651E325D7CE700041BB9A /* RenderBuffer.cpp in Sources */,
 				671653A625D7CE720041BB9A /* RenardOutput.cpp in Sources */,
 				6716534825D7CE710041BB9A /* PicturesEffect.cpp in Sources */,
+				6776DF8A28609D29007573A6 /* TipOfTheDayDialog.cpp in Sources */,
 				671655A125D825410041BB9A /* PluginHostAdapter.cpp in Sources */,
 				671651A525D7CE700041BB9A /* Node.cpp in Sources */,
 				671651C125D7CE700041BB9A /* PixelBuffer.cpp in Sources */,
