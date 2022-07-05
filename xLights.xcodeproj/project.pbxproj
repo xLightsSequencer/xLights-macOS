@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		538F8DFE26B42E5D0080A1BB /* LORPreview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 538F8DFC26B42E5D0080A1BB /* LORPreview.cpp */; };
+		53EAB8DD2874DBE300FD1449 /* RestoreBackupDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 53EAB8DB2874DBE300FD1449 /* RestoreBackupDialog.cpp */; };
 		53EB767E2719BAFE00ED8702 /* ExportSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 53EB767D2719BAFE00ED8702 /* ExportSettings.cpp */; };
 		670059B5279A4403006AD9EA /* Mouse3DManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670059B3279A4403006AD9EA /* Mouse3DManager.cpp */; };
 		67032DB6284F77CB0074638D /* DmxPresetAbility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67032DB5284F77CA0074638D /* DmxPresetAbility.cpp */; };
@@ -635,8 +636,8 @@
 /* Begin PBXFileReference section */
 		538F8DFC26B42E5D0080A1BB /* LORPreview.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LORPreview.cpp; sourceTree = "<group>"; };
 		538F8DFD26B42E5D0080A1BB /* LORPreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LORPreview.h; sourceTree = "<group>"; };
-		53EAB8D92874CE3D00FD1449 /* RestoreBackupDialog.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RestoreBackupDialog.cpp; sourceTree = "<group>"; };
-		53EAB8DA2874CE3D00FD1449 /* RestoreBackupDialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RestoreBackupDialog.h; sourceTree = "<group>"; };
+		53EAB8DB2874DBE300FD1449 /* RestoreBackupDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RestoreBackupDialog.cpp; sourceTree = "<group>"; };
+		53EAB8DC2874DBE300FD1449 /* RestoreBackupDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoreBackupDialog.h; sourceTree = "<group>"; };
 		53EB767C2719BAFE00ED8702 /* ExportSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExportSettings.h; sourceTree = "<group>"; };
 		53EB767D2719BAFE00ED8702 /* ExportSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExportSettings.cpp; sourceTree = "<group>"; };
 		670059B3279A4403006AD9EA /* Mouse3DManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Mouse3DManager.cpp; sourceTree = "<group>"; };
@@ -2134,8 +2135,8 @@
 				67164D9025D7CE6D0041BB9A /* RenderUtils.h */,
 				67164D1625D7CE6D0041BB9A /* ResizeImageDialog.cpp */,
 				6716511125D7CE6F0041BB9A /* ResizeImageDialog.h */,
-				53EAB8D92874CE3D00FD1449 /* RestoreBackupDialog.cpp */,
-				53EAB8DA2874CE3D00FD1449 /* RestoreBackupDialog.h */,
+				53EAB8DB2874DBE300FD1449 /* RestoreBackupDialog.cpp */,
+				53EAB8DC2874DBE300FD1449 /* RestoreBackupDialog.h */,
 				67164EF025D7CE6E0041BB9A /* SaveChangesDialog.cpp */,
 				67164BD125D7CE6D0041BB9A /* SaveChangesDialog.h */,
 				6787EAA0274FF60E00DAEE47 /* ScriptsDialog.cpp */,
@@ -3902,6 +3903,7 @@
 				671652CC25D7CE710041BB9A /* PhonemeDictionary.cpp in Sources */,
 				6716538525D7CE720041BB9A /* HousePreviewPanel.cpp in Sources */,
 				671651BE25D7CE700041BB9A /* KeyBindings.cpp in Sources */,
+				53EAB8DD2874DBE300FD1449 /* RestoreBackupDialog.cpp in Sources */,
 				671651A425D7CE700041BB9A /* ImageModel.cpp in Sources */,
 				671651FB25D7CE700041BB9A /* UndoManager.cpp in Sources */,
 				6716513B25D7CE700041BB9A /* IPEntryDialog.cpp in Sources */,
