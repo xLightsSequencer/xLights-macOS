@@ -1,3 +1,10 @@
+sudo mkdir -p /opt/local/lib
+sudo mkdir -p /opt/local/bin
+
+#setup permissions on /opt/local
+sudo chgrp -R staff /opt/local*
+sudo chmod -R g+w /opt/local*
+
 export MACOSX_DEPLOYMENT_TARGET=10.14
 export OSX_VERSION_MIN="-mmacosx-version-min=${MACOSX_DEPLOYMENT_TARGET}"
 export ARM64_TARGETS="-target arm64-apple-macos10.14 -arch arm64"
