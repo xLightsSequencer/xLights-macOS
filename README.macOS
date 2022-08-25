@@ -17,7 +17,7 @@ been added since then.  We also have several other fixes in place that fix vario
 bugs we have encountered, configurations we need, etc...
 
 To get the latest code that we've tested, do:
-git clone  --recurse-submodules -b xlights_2022.13 https://github.com/xLightsSequencer/wxWidgets
+git clone  --recurse-submodules -b xlights_2022.17 https://github.com/xLightsSequencer/wxWidgets
 
 
 First, setup the target directories:
@@ -37,7 +37,7 @@ wxWidgets first.  If not doing release builds, this can be skipped.
   export CXXFLAGS=""
   export OBJCXXFLAGS=""
   export CPPFLAGS="-g -flto=thin"
-  export LDFLAGS="-flto=thin"
+  export LDFLAGS="-g -flto=thin"
   export CXX=clang++
   export CXXCPP="clang++ -E"
   export CC=clang
@@ -55,6 +55,7 @@ wxWidgets first.  If not doing release builds, this can be skipped.
   make -j 8
   make install
   make clean
+
 
 For debug builds:
   cd <wxMac base dir>
@@ -184,22 +185,22 @@ unset CXXFLAGS
 unset CXX
 
 
-SDL2:  currently using 2.0.22
+SDL2:  currently using 2.0.24
 git clone https://github.com/libsdl-org/SDL
 cd SDL
 git reset --hard
-git checkout release-2.0.22
+git checkout release-2.0.24
 export CXXFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN}"
 export CFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN}"
 export LDFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN}"
-./configure --disable-shared --enable-static --disable-render-metal --disable-video-metal --disable-video-dummy --disable-video-opengl --disable-video-opengles --disable-video-opengles2 --disable-video-vulkan --disable-haptic --disable-joystick
+./configure --disable-shared --enable-static --disable-render-metal --disable-video-metal --disable-video-dummy --disable-video-opengles --disable-video-opengles2 --disable-video-vulkan --disable-haptic --disable-joystick
 make clean
 make -j 8
 cp ./build/.libs/libSDL2.a /opt/local/lib
 export CXXFLAGS="-g ${XL_TARGETS} ${OSX_VERSION_MIN}"
 export CFLAGS="-g ${XL_TARGETS} ${OSX_VERSION_MIN}"
 export LDFLAGS="-g ${XL_TARGETS} ${OSX_VERSION_MIN}"
-./configure --disable-shared --enable-static --disable-render-metal --disable-video-metal --disable-video-dummy --disable-video-opengl --disable-video-opengles --disable-video-opengles2 --disable-video-vulkan --disable-haptic --disable-joystick
+./configure --disable-shared --enable-static --disable-render-metal --disable-video-metal --disable-video-dummy --disable-video-opengles --disable-video-opengles2 --disable-video-vulkan --disable-haptic --disable-joystick
 make clean
 make -j 8
 cp ./build/.libs/libSDL2.a /opt/local/libdbg
@@ -208,25 +209,27 @@ unset CFLAGS
 unset LDFLAGS
 
 
-ffmpeg:   currently using 5.0.1
+ffmpeg:   currently using 5.1
 # Note: requires nasm to be install.   Easiest option is via "brew install nasm"
 git clone https://git.ffmpeg.org/ffmpeg.git
 cd ffmpeg
-git checkout n5.0.1
+git checkout n5.1
 make clean
+git status --ignored -s | colrm 1 2 | xargs rm -rf
 ./configure --disable-inline-asm --enable-static --disable-shared --disable-securetransport --extra-cflags="${OSX_VERSION_MIN}" --disable-indev=lavfi --disable-libx264 --disable-lzma --enable-gpl --enable-opengl --disable-programs --arch=x86_64
 sed -i -e "s/^CFLAGS=/CFLAGS=-g ${X86_64_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak
 sed -i -e "s/^CXXFLAGS=/CXXFLAGS=-g ${X86_64_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak
 sed -i -e "s/^LDFLAGS=/LDFLAGS=-g ${X86_64_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak
-make -j 16
+make -j 12 ; make
 mkdir ./x86_64
-find . -name "*.a" -exec cp {} ./x86_64 \;
+find . -name "*.a" -exec cp -f {} ./x86_64 \;
 make clean
-./configure --disable-inline-asm --enable-static --disable-shared --disable-securetransport --extra-cflags="${OSX_VERSION_MIN}" --disable-indev=lavfi --disable-libx264 --disable-lzma --enable-gpl --enable-opengl --disable-programs --arch=arm64
+git status --ignored -s | colrm 1 2  | grep -v x86_64 | xargs rm -rf
+./configure --enable-static --disable-shared --disable-securetransport --extra-cflags="${OSX_VERSION_MIN}" --disable-indev=lavfi --disable-libx264 --disable-lzma --enable-gpl --enable-opengl --disable-programs --arch=arm64
 sed -i -e "s/^CFLAGS=/CFLAGS=-g ${ARM64_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak
 sed -i -e "s/^CXXFLAGS=/CXXFLAGS=-g ${ARM64_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak
 sed -i -e "s/^LDFLAGS=/LDFLAGS=-g ${ARM64_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak
-make -j 16
+make -j 12 ; make
 lipo -create -output /opt/local/lib/libavutil.a ./libavutil/libavutil.a ./x86_64/libavutil.a
 lipo -create -output /opt/local/lib/libavfilter.a ./libavfilter/libavfilter.a ./x86_64/libavfilter.a
 lipo -create -output /opt/local/lib/libavcodec.a ./libavcodec/libavcodec.a ./x86_64/libavcodec.a
@@ -241,7 +244,7 @@ git status --ignored -s  | colrm 1 2 | xargs rm  -rf
 sed -i -e "s/^CFLAGS=/CFLAGS=-g ${XL_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak
 sed -i -e "s/^CXXFLAGS=/CXXFLAGS=-g ${XL_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak
 sed -i -e "s/^LDFLAGS=/LDFLAGS=-g ${XL_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak
-make -j 16
+make -j 12 ; make
 find . -name "*.a" -exec cp {} /opt/local/libdbg/ \;
 
 
@@ -341,3 +344,4 @@ Feb 3, 2022 - Update ffmpeg to 5.0
 Mar 21, 2022 - zstd to 1.5.2
 April 28, 2022 - Update to wxWidgets 3.1.6+, ffmpeg to 5.0.1, SDL to 2.0.22
 June 8, 2022 - Update wxWidgets to 3.1.7+
+Aug 25, 2022 - Update to wxWidgets 3.3, SDL to 2.0.24, ffmpeg to 5.1
