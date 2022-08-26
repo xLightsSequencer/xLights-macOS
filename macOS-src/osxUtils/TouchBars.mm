@@ -122,20 +122,17 @@ public:
         bar.delegate = self;
         
         std::string s = "org.xlights.TouchBar." + _window->GetName().ToStdString() + "." + _xltouchBar->GetName();
-        NSString *n = [NSString stringWithCString:s.c_str()
-                                         encoding:[NSString defaultCStringEncoding]];
+        NSString *n = [NSString stringWithUTF8String:s.c_str()];
         bar.customizationIdentifier = n;
         
         for (auto it = _xltouchBar->GetItems().begin(); it != _xltouchBar->GetItems().end(); it++) {
             std::string itemName = s + "." + (*it)->GetName();
-            n = [NSString stringWithCString:itemName.c_str()
-                                   encoding:[NSString defaultCStringEncoding]];
+            n = [NSString stringWithUTF8String:itemName.c_str()];
             bar.defaultItemIdentifiers = [bar.defaultItemIdentifiers arrayByAddingObject:n];
         }
         for (auto it = _xltouchBar->GetDefaultItems().begin(); it != _xltouchBar->GetDefaultItems().end(); it++) {
             std::string itemName = s + "." + (*it)->GetName();
-            n = [NSString stringWithCString:itemName.c_str()
-                                   encoding:[NSString defaultCStringEncoding]];
+            n = [NSString stringWithUTF8String:itemName.c_str()];
             bar.customizationAllowedItemIdentifiers = [bar.customizationAllowedItemIdentifiers arrayByAddingObject:n];
         }
         return bar;
@@ -153,8 +150,7 @@ public:
             label = item->GetName();
         }
         NSCustomTouchBarItem *ret = [[NSCustomTouchBarItem alloc] initWithIdentifier:identifier];
-        NSString *nm = [NSString stringWithCString:label.c_str()
-                                          encoding:[NSString defaultCStringEncoding]];
+        NSString *nm = [NSString stringWithUTF8String:label.c_str()];
         
         ButtonPasser *bp = [ButtonPasser alloc];
         bp.button = item;
@@ -166,8 +162,7 @@ public:
             [theButton setBordered:NO];
         } else if (item->GetName().substr(0, 10) == "NSTouchBar") {
             //NSString *in2 = NSImageNameTouchBarColorPickerFill;
-            NSString *in = [NSString stringWithCString:item->GetName().c_str()
-                                              encoding:[NSString defaultCStringEncoding]];
+            NSString *in = [NSString stringWithUTF8String:item->GetName().c_str()];
             NSImage *image = [NSImage imageNamed:in];
             theButton = [NSButton buttonWithImage:image target:bp action:@selector(buttonClicked:)];
             [theButton setImagePosition:NSImageOnly];
@@ -190,11 +185,7 @@ public:
     if (ctbi != nullptr) {
         NSCustomTouchBarItem *ret = [[NSCustomTouchBarItem alloc] initWithIdentifier:identifier];
         
-        NSString *nm = [NSString stringWithCString:ctbi->GetName().c_str()
-                                          encoding:[NSString defaultCStringEncoding]];
-        
-        
-        
+        NSString *nm = [NSString stringWithUTF8String:ctbi->GetName().c_str()];
         ret.view = (NSView*)ctbi->GetControl()->GetHandle();;
         ret.customizationLabel = nm;
         return ret;
@@ -210,8 +201,7 @@ public:
         }
         ret.showsAlpha = false;
         
-        NSString *nm = [NSString stringWithCString:cpi->GetName().c_str()
-                                          encoding:[NSString defaultCStringEncoding]];
+        NSString *nm = [NSString stringWithUTF8String:cpi->GetName().c_str()];
         ColorPickerPasser *bp = [ColorPickerPasser alloc];
         bp.button = cpi;
         bp.item = ret;
@@ -230,8 +220,7 @@ public:
     SliderItem *slider = dynamic_cast<SliderItem*>(it);
     if (slider != nullptr) {
         NSSliderTouchBarItem *ret = [[NSSliderTouchBarItem alloc] initWithIdentifier:identifier];
-        NSString *nm = [NSString stringWithCString:slider->GetName().c_str()
-                                          encoding:[NSString defaultCStringEncoding]];
+        NSString *nm = [NSString stringWithUTF8String:slider->GetName().c_str()];
         ret.customizationLabel = nm;
         ret.slider.minValue = slider->GetMin();
         ret.slider.maxValue = slider->GetMax();
@@ -268,8 +257,7 @@ public:
             [segmentedControl setWidth:24 forSegment: x];
         }
         NSCustomTouchBarItem *ret = [[NSCustomTouchBarItem alloc] initWithIdentifier:identifier];
-        NSString *nm = [NSString stringWithCString:group->GetName().c_str()
-                                          encoding:[NSString defaultCStringEncoding]];
+        NSString *nm = [NSString stringWithUTF8String:group->GetName().c_str()];
         
         
         it->GetData()->segmentPasser = bp;
@@ -288,8 +276,7 @@ public:
 
     for (auto it = _xltouchBar->GetItems().begin(); it != _xltouchBar->GetItems().end(); it++) {
         std::string itemName = s + "." + (*it)->GetName();
-        NSString *n = [NSString stringWithCString:itemName.c_str()
-                               encoding:[NSString defaultCStringEncoding]];
+        NSString *n = [NSString stringWithUTF8String:itemName.c_str()];
         
         if ([identifier isEqualToString:n]) {
             return [self createChildItem:identifier item:(*it)];

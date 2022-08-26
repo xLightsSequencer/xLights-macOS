@@ -44,8 +44,7 @@ static void LoadGroupEntries(wxConfig *config, const wxString &grp, std::list<st
         wxString f = grp + ent;
         if (wxFileExists(f) || wxDirExists(f)) {
             wxString data = config->Read(ent);
-            NSString* dstr = [NSString stringWithCString:data.c_str()
-                                                    encoding:[NSString defaultCStringEncoding]];
+            NSString* dstr = [NSString stringWithUTF8String:data.c_str()];
             NSData *nsdata = [[NSData alloc] initWithBase64EncodedString:dstr options:0];
             BOOL isStale = false;
             //options:(NSURLBookmarkResolutionOptions)options
@@ -113,8 +112,7 @@ bool ObtainAccessToURL(const std::string &path) {
         if (ACCESSIBLE_URLS.find(path) != ACCESSIBLE_URLS.end()) {
             return true;
         }
-        NSString *nsfilePath = [NSString stringWithCString:path.c_str()
-                                                encoding:[NSString defaultCStringEncoding]];
+        NSString *nsfilePath = [NSString stringWithUTF8String:path.c_str()];
         bool exists = [[NSFileManager defaultManager] fileExistsAtPath:nsfilePath];
         if (!exists) {
             return false;
@@ -156,8 +154,7 @@ bool ObtainAccessToURL(const std::string &path) {
         }
 
         if (data.length() > 0) {
-            NSString* dstr = [NSString stringWithCString:data.c_str()
-                                                encoding:[NSString defaultCStringEncoding]];
+            NSString* dstr = [NSString stringWithUTF8String:data.c_str()];
             NSData *nsdata = [[NSData alloc] initWithBase64EncodedString:dstr options:0];
             BOOL isStale = false;
         //options:(NSURLBookmarkResolutionOptions)options
@@ -175,10 +172,12 @@ bool ObtainAccessToURL(const std::string &path) {
 }
 
 bool FileExists(const std::string &path, bool waitForDownload) {
+    if (path.empty()) {
+        return false;
+    }
     @autoreleasepool {
         NSFileManager *fileManager = [NSFileManager defaultManager];
-        NSString *nsfilePath = [NSString stringWithCString:path.c_str()
-                                                encoding:[NSString defaultCStringEncoding]];
+        NSString *nsfilePath = [NSString stringWithUTF8String:path.c_str()];
         bool exists = [fileManager fileExistsAtPath:nsfilePath];
         if (!exists) {
             NSURL *fileURL = [NSURL fileURLWithPath:nsfilePath];

@@ -219,7 +219,7 @@ bool wxMetalCanvas::Create(wxWindow *parent,
     [v setColorPixelFormat:MTLPixelFormatBGRA8Unorm ];
     [v setClearColor:MTLClearColorMake(0, 0, 0, 1)];
     
-    NSString *vname = [NSString stringWithCString:name.c_str() encoding:[NSString defaultCStringEncoding]];
+    NSString *vname = [NSString stringWithUTF8String:name.c_str()];
     [[v layer] setName:vname];
     
     if (!only2d) {
