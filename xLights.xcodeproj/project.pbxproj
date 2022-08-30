@@ -511,6 +511,7 @@
 		67995D582791B74200BCCCFB /* MetalWarpEffect.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67995D572791B74200BCCCFB /* MetalWarpEffect.mm */; };
 		6799D45927F1DDAB005A3B3B /* SearchPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6799D45827F1DDAB005A3B3B /* SearchPanel.cpp */; };
 		679B58232735D63900368F0A /* xlFontInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 679B58212735D63900368F0A /* xlFontInfo.cpp */; };
+		679C17B028BE64C900EFC875 /* CheckSequenceSettingsPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 679C17AF28BE64C900EFC875 /* CheckSequenceSettingsPanel.cpp */; };
 		679D19A2274BC2D100AD9F7F /* xLightsAutomations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 679D19A0274BC2D100AD9F7F /* xLightsAutomations.cpp */; };
 		679D19A5274BC45800AD9F7F /* automation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 679D19A3274BC45800AD9F7F /* automation.cpp */; };
 		67A14C7820DD313D006EFCFA /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7720DD313D006EFCFA /* Carbon.framework */; };
@@ -1648,6 +1649,8 @@
 		6799D45827F1DDAB005A3B3B /* SearchPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SearchPanel.cpp; sourceTree = "<group>"; };
 		679B58212735D63900368F0A /* xlFontInfo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xlFontInfo.cpp; sourceTree = "<group>"; };
 		679B58222735D63900368F0A /* xlFontInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xlFontInfo.h; sourceTree = "<group>"; };
+		679C17AE28BE64C900EFC875 /* CheckSequenceSettingsPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckSequenceSettingsPanel.h; sourceTree = "<group>"; };
+		679C17AF28BE64C900EFC875 /* CheckSequenceSettingsPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CheckSequenceSettingsPanel.cpp; sourceTree = "<group>"; };
 		679D19A0274BC2D100AD9F7F /* xLightsAutomations.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xLightsAutomations.cpp; sourceTree = "<group>"; };
 		679D19A3274BC45800AD9F7F /* automation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = automation.cpp; sourceTree = "<group>"; };
 		679D19A4274BC45800AD9F7F /* automation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = automation.h; sourceTree = "<group>"; };
@@ -2288,6 +2291,8 @@
 			children = (
 				67164BF925D7CE6D0041BB9A /* BackupSettingsPanel.cpp */,
 				67164BFD25D7CE6D0041BB9A /* BackupSettingsPanel.h */,
+				679C17AF28BE64C900EFC875 /* CheckSequenceSettingsPanel.cpp */,
+				679C17AE28BE64C900EFC875 /* CheckSequenceSettingsPanel.h */,
 				67164BFF25D7CE6D0041BB9A /* ColorManagerSettingsPanel.cpp */,
 				67164BF225D7CE6D0041BB9A /* ColorManagerSettingsPanel.h */,
 				67164BF025D7CE6D0041BB9A /* EffectsGridSettingsPanel.cpp */,
@@ -4001,6 +4006,7 @@
 				671651B125D7CE700041BB9A /* BaseObject.cpp in Sources */,
 				671651A725D7CE700041BB9A /* ChannelBlockModel.cpp in Sources */,
 				671651CF25D7CE700041BB9A /* ViewsModelsPanel.cpp in Sources */,
+				679C17B028BE64C900EFC875 /* CheckSequenceSettingsPanel.cpp in Sources */,
 				671653BB25D7CE720041BB9A /* SelectPanel.cpp in Sources */,
 				671652D125D7CE710041BB9A /* BitmapCache.cpp in Sources */,
 				671651DF25D7CE700041BB9A /* ViewpointMgr.cpp in Sources */,
