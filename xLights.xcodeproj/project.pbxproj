@@ -508,6 +508,7 @@
 		6789EF4F26635DFD00889606 /* Pixels.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6789EF4E26635DFD00889606 /* Pixels.cpp */; };
 		678AAF4026C40B6300467B3C /* model_vendor_mapping.json in Resources */ = {isa = PBXBuildFile; fileRef = 678AAF3F26C40B6300467B3C /* model_vendor_mapping.json */; };
 		6793F91D282B312B00B8F34C /* TwinklyOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6793F91B282B312B00B8F34C /* TwinklyOutput.cpp */; };
+		6794AB3928C7DDAE00B12D0F /* UtilClasses.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6794AB3828C7DDAE00B12D0F /* UtilClasses.cpp */; };
 		67995D582791B74200BCCCFB /* MetalWarpEffect.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67995D572791B74200BCCCFB /* MetalWarpEffect.mm */; };
 		6799D45927F1DDAB005A3B3B /* SearchPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6799D45827F1DDAB005A3B3B /* SearchPanel.cpp */; };
 		679B58232735D63900368F0A /* xlFontInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 679B58212735D63900368F0A /* xlFontInfo.cpp */; };
@@ -1644,6 +1645,7 @@
 		678BCB1A27581E6F0057E4FA /* xFadeDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = xFadeDebug.entitlements; sourceTree = "<group>"; };
 		6793F91B282B312B00B8F34C /* TwinklyOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TwinklyOutput.cpp; sourceTree = "<group>"; };
 		6793F91C282B312B00B8F34C /* TwinklyOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwinklyOutput.h; sourceTree = "<group>"; };
+		6794AB3828C7DDAE00B12D0F /* UtilClasses.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UtilClasses.cpp; sourceTree = "<group>"; };
 		67995D572791B74200BCCCFB /* MetalWarpEffect.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalWarpEffect.mm; sourceTree = "<group>"; };
 		6799D45727F1DDAB005A3B3B /* SearchPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchPanel.h; sourceTree = "<group>"; };
 		6799D45827F1DDAB005A3B3B /* SearchPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SearchPanel.cpp; sourceTree = "<group>"; };
@@ -1917,8 +1919,6 @@
 		67164BC525D7CE6D0041BB9A /* xLights */ = {
 			isa = PBXGroup;
 			children = (
-				53DAD7B1288ED35D000E06E1 /* LayoutUtils.cpp */,
-				53DAD7B2288ED35D000E06E1 /* LayoutUtils.h */,
 				67164C4D25D7CE6D0041BB9A /* AboutDialog.cpp */,
 				67164D1125D7CE6D0041BB9A /* AboutDialog.h */,
 				67164D1925D7CE6D0041BB9A /* AlignmentDialog.cpp */,
@@ -2052,6 +2052,8 @@
 				67164BD225D7CE6D0041BB9A /* LayoutGroup.h */,
 				67164DA025D7CE6D0041BB9A /* LayoutPanel.cpp */,
 				67164BD725D7CE6D0041BB9A /* LayoutPanel.h */,
+				53DAD7B1288ED35D000E06E1 /* LayoutUtils.cpp */,
+				53DAD7B2288ED35D000E06E1 /* LayoutUtils.h */,
 				67164BD325D7CE6D0041BB9A /* LinkJukeboxButtonDialog.cpp */,
 				6716510125D7CE6F0041BB9A /* LinkJukeboxButtonDialog.h */,
 				671650B125D7CE6F0041BB9A /* LMSImportChannelMapDialog.cpp */,
@@ -2209,6 +2211,7 @@
 				67164D0D25D7CE6D0041BB9A /* TraceLog.h */,
 				67164E0825D7CE6D0041BB9A /* UpdaterDialog.cpp */,
 				67164BE525D7CE6D0041BB9A /* UpdaterDialog.h */,
+				6794AB3828C7DDAE00B12D0F /* UtilClasses.cpp */,
 				67164DA325D7CE6D0041BB9A /* UtilClasses.h */,
 				67164C7C25D7CE6D0041BB9A /* UtilFunctions.cpp */,
 				67164C1925D7CE6D0041BB9A /* UtilFunctions.h */,
@@ -4032,6 +4035,7 @@
 				671653AC25D7CE720041BB9A /* DragColoursBitmapButton.cpp in Sources */,
 				671651E825D7CE700041BB9A /* ValueCurvesPanel.cpp in Sources */,
 				67A889C92614FB2300BFCEC0 /* CADWriter.cpp in Sources */,
+				6794AB3928C7DDAE00B12D0F /* UtilClasses.cpp in Sources */,
 				6716514E25D7CE700041BB9A /* EffectTimingDialog.cpp in Sources */,
 				6716532A25D7CE710041BB9A /* ServoPanel.cpp in Sources */,
 				671653AF25D7CE720041BB9A /* LyricUserDictDialog.cpp in Sources */,
