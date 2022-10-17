@@ -487,6 +487,7 @@
 		676FB41C273400FC0081F91A /* xlGraphicsAccumulators.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 676FB41A273400FC0081F91A /* xlGraphicsAccumulators.cpp */; };
 		67718A0527D4F59600F1A95E /* MultiPointModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67718A0327D4F59600F1A95E /* MultiPointModel.cpp */; };
 		67718A0627D4F59600F1A95E /* MultiPointScreenLocation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67718A0427D4F59600F1A95E /* MultiPointScreenLocation.cpp */; };
+		6772736928FA095C00193C23 /* Experience.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6772736728FA095C00193C23 /* Experience.cpp */; };
 		6776DF8A28609D29007573A6 /* TipOfTheDayDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6776DF8828609D29007573A6 /* TipOfTheDayDialog.cpp */; };
 		6778610B272CD73200020F31 /* GPURenderUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67786109272CD73200020F31 /* GPURenderUtils.cpp */; };
 		677932E927D30D8F008FEEBE /* ThreePointScreenLocation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 677932E227D30D8F008FEEBE /* ThreePointScreenLocation.cpp */; };
@@ -1615,6 +1616,8 @@
 		67718A0427D4F59600F1A95E /* MultiPointScreenLocation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MultiPointScreenLocation.cpp; sourceTree = "<group>"; };
 		6771B227204BA69B00E90AC7 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		6771B229204BA6AF00E90AC7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		6772736728FA095C00193C23 /* Experience.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Experience.cpp; sourceTree = "<group>"; };
+		6772736828FA095C00193C23 /* Experience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Experience.h; sourceTree = "<group>"; };
 		6776DF8828609D29007573A6 /* TipOfTheDayDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TipOfTheDayDialog.cpp; sourceTree = "<group>"; };
 		6776DF8928609D29007573A6 /* TipOfTheDayDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TipOfTheDayDialog.h; sourceTree = "<group>"; };
 		67786109272CD73200020F31 /* GPURenderUtils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPURenderUtils.cpp; sourceTree = "<group>"; };
@@ -2755,6 +2758,8 @@
 		6716508425D7CE6F0041BB9A /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				6772736728FA095C00193C23 /* Experience.cpp */,
+				6772736828FA095C00193C23 /* Experience.h */,
 				67EC04DD26456A7500A3AFA2 /* WLED.cpp */,
 				67EC04DE26456A7500A3AFA2 /* WLED.h */,
 				6716508C25D7CE6F0041BB9A /* AlphaPix.cpp */,
@@ -4027,6 +4032,7 @@
 				671653A525D7CE720041BB9A /* E131Output.cpp in Sources */,
 				6716559D25D825410041BB9A /* PluginLoader.cpp in Sources */,
 				671651B725D7CE700041BB9A /* ObjectManager.cpp in Sources */,
+				6772736928FA095C00193C23 /* Experience.cpp in Sources */,
 				671651C825D7CE700041BB9A /* JobPool.cpp in Sources */,
 				6716534525D7CE710041BB9A /* GalaxyEffect.cpp in Sources */,
 				6716512425D7CE700041BB9A /* LinkJukeboxButtonDialog.cpp in Sources */,
