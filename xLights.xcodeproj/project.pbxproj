@@ -12,6 +12,8 @@
 		53EAB8DD2874DBE300FD1449 /* RestoreBackupDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 53EAB8DB2874DBE300FD1449 /* RestoreBackupDialog.cpp */; };
 		53EB767E2719BAFE00ED8702 /* ExportSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 53EB767D2719BAFE00ED8702 /* ExportSettings.cpp */; };
 		670059B5279A4403006AD9EA /* Mouse3DManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670059B3279A4403006AD9EA /* Mouse3DManager.cpp */; };
+		670260AA2902304900B9BD35 /* MetalPlasmaEffect.mm in Sources */ = {isa = PBXBuildFile; fileRef = 670260A92902304900B9BD35 /* MetalPlasmaEffect.mm */; };
+		670260AC2902673700B9BD35 /* PlasmaFunctions.metal in Sources */ = {isa = PBXBuildFile; fileRef = 670260AB2902673700B9BD35 /* PlasmaFunctions.metal */; };
 		67032DB6284F77CB0074638D /* DmxPresetAbility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67032DB5284F77CA0074638D /* DmxPresetAbility.cpp */; };
 		6703FE7627FDBE4400AFE78F /* SketchAssistPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6703FE7327FDBE4400AFE78F /* SketchAssistPanel.cpp */; };
 		6703FE7727FDBE4400AFE78F /* SketchCanvasPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6703FE7427FDBE4400AFE78F /* SketchCanvasPanel.cpp */; };
@@ -648,6 +650,8 @@
 		53EB767D2719BAFE00ED8702 /* ExportSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExportSettings.cpp; sourceTree = "<group>"; };
 		670059B3279A4403006AD9EA /* Mouse3DManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Mouse3DManager.cpp; sourceTree = "<group>"; };
 		670059B4279A4403006AD9EA /* Mouse3DManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mouse3DManager.h; sourceTree = "<group>"; };
+		670260A92902304900B9BD35 /* MetalPlasmaEffect.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalPlasmaEffect.mm; sourceTree = "<group>"; };
+		670260AB2902673700B9BD35 /* PlasmaFunctions.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = PlasmaFunctions.metal; sourceTree = "<group>"; };
 		67032DB4284F77CA0074638D /* DmxPresetAbility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DmxPresetAbility.h; sourceTree = "<group>"; };
 		67032DB5284F77CA0074638D /* DmxPresetAbility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DmxPresetAbility.cpp; sourceTree = "<group>"; };
 		6703FE7227FDBE4400AFE78F /* SketchAssistPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SketchAssistPanel.h; sourceTree = "<group>"; };
@@ -3055,8 +3059,10 @@
 			isa = PBXGroup;
 			children = (
 				678577B5272C73A000E6E249 /* ButterflyFunctions.metal */,
+				670260AB2902673700B9BD35 /* PlasmaFunctions.metal */,
 				678577A8272C6B6000E6E249 /* MetalEffectDataTypes.h */,
 				678577A3272C67D400E6E249 /* MetalButterflyEffect.mm */,
+				670260A92902304900B9BD35 /* MetalPlasmaEffect.mm */,
 				678577AA272C721500E6E249 /* MetalComputeUtilities.hpp */,
 				678577A9272C721500E6E249 /* MetalComputeUtilities.mm */,
 				678577A1272C662700E6E249 /* MetalEffectManager.mm */,
@@ -3559,6 +3565,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				678577B6272C73A000E6E249 /* ButterflyFunctions.metal in Sources */,
+				670260AC2902673700B9BD35 /* PlasmaFunctions.metal in Sources */,
 				674DEE332791DE8E00DEA844 /* WarpFunctions.metal in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3957,6 +3964,7 @@
 				67D142BA275803100018A831 /* sha1.cpp in Sources */,
 				671651B625D7CE700041BB9A /* Shapes.cpp in Sources */,
 				67B7400627664AC80051F15A /* xlMesh.cpp in Sources */,
+				670260AA2902304900B9BD35 /* MetalPlasmaEffect.mm in Sources */,
 				6716516625D7CE700041BB9A /* SeqElementMismatchDialog.cpp in Sources */,
 				671653B525D7CE720041BB9A /* DrawGLUtils31.cpp in Sources */,
 				6716517D25D7CE700041BB9A /* BulkEditColourPickerDialog.cpp in Sources */,
