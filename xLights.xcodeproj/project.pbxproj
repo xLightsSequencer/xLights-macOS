@@ -616,6 +616,7 @@
 		67E54A4527F61401008F834F /* SketchEffectDrawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E54A3F27F61401008F834F /* SketchEffectDrawing.cpp */; };
 		67E54A4627F61401008F834F /* SketchPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E54A4227F61401008F834F /* SketchPanel.cpp */; };
 		67E54A4727F61401008F834F /* SketchEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E54A4327F61401008F834F /* SketchEffect.cpp */; };
+		67E832C6292D242400F80E3B /* BulkEditComboDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E832C4292D242400F80E3B /* BulkEditComboDialog.cpp */; };
 		67EC04DF26456A7500A3AFA2 /* WLED.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67EC04DD26456A7500A3AFA2 /* WLED.cpp */; };
 		67F9B092272899080005A74B /* MetalShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 67F9B091272899080005A74B /* MetalShaders.metal */; };
 		67FDC38A27CA76F40009A3C7 /* ColourReplaceDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67FDC38927CA76F40009A3C7 /* ColourReplaceDialog.cpp */; };
@@ -1764,6 +1765,8 @@
 		67E7087317B51AB400A22034 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		67E7087417B51AB400A22034 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		67E7087517B51AB400A22034 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		67E832C4292D242400F80E3B /* BulkEditComboDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BulkEditComboDialog.cpp; sourceTree = "<group>"; };
+		67E832C5292D242400F80E3B /* BulkEditComboDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulkEditComboDialog.h; sourceTree = "<group>"; };
 		67EC04DD26456A7500A3AFA2 /* WLED.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WLED.cpp; sourceTree = "<group>"; };
 		67EC04DE26456A7500A3AFA2 /* WLED.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLED.h; sourceTree = "<group>"; };
 		67F23F6A1E329DDC00F8B985 /* libwx_baseu_net-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_baseu_net-3.3.dylib"; path = "../../../../opt/local/libdbg/libwx_baseu_net-3.3.dylib"; sourceTree = "<group>"; };
@@ -1945,6 +1948,8 @@
 				671650A425D7CE6F0041BB9A /* BufferSizeDialog.h */,
 				67164C8125D7CE6D0041BB9A /* BulkEditColourPickerDialog.cpp */,
 				67164C1F25D7CE6D0041BB9A /* BulkEditColourPickerDialog.h */,
+				67E832C4292D242400F80E3B /* BulkEditComboDialog.cpp */,
+				67E832C5292D242400F80E3B /* BulkEditComboDialog.h */,
 				67164C4625D7CE6D0041BB9A /* BulkEditControls.cpp */,
 				6716510225D7CE6F0041BB9A /* BulkEditControls.h */,
 				6716511A25D7CE6F0041BB9A /* BulkEditFontPickerDialog.cpp */,
@@ -3662,6 +3667,7 @@
 				671653A125D7CE720041BB9A /* TestPreset.cpp in Sources */,
 				6716533225D7CE710041BB9A /* LiquidPanel.cpp in Sources */,
 				6716516F25D7CE700041BB9A /* SubModelsDialog.cpp in Sources */,
+				67E832C6292D242400F80E3B /* BulkEditComboDialog.cpp in Sources */,
 				6716514025D7CE700041BB9A /* Vixen3.cpp in Sources */,
 				6716537325D7CE720041BB9A /* FPPConnectDialog.cpp in Sources */,
 				6716518125D7CE700041BB9A /* EffectIconPanel.cpp in Sources */,
