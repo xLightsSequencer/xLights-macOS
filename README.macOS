@@ -170,7 +170,7 @@ git clone https://github.com/google/liquidfun
 cd liquidfun/liquidfun/Box2D
 git status --ignored -s | colrm 1 2 | xargs rm -rf
 export CXX=clang++
-export CXXFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN}"
+export CXXFLAGS="-g -O3 -flto=thin  ${XL_TARGETS} ${OSX_VERSION_MIN}"
 cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DBOX2D_BUILD_EXAMPLES=OFF
 make clean
 make -j 8
@@ -209,11 +209,11 @@ unset CFLAGS
 unset LDFLAGS
 
 
-ffmpeg:   currently using 5.1
+ffmpeg:   currently using 5.1.2
 # Note: requires nasm to be install.   Easiest option is via "brew install nasm"
 git clone https://git.ffmpeg.org/ffmpeg.git
 cd ffmpeg
-git checkout n5.1
+git checkout n5.1.2
 make clean
 git status --ignored -s | colrm 1 2 | xargs rm -rf
 ./configure --disable-inline-asm --enable-static --disable-shared --disable-securetransport --extra-cflags="${OSX_VERSION_MIN}" --disable-indev=lavfi --disable-libx264 --disable-lzma --enable-gpl --enable-opengl --disable-programs --arch=x86_64
