@@ -28,13 +28,6 @@ static AVPixelFormat negotiate_pixel_format(AVCodecContext *s, const AVPixelForm
     const enum AVPixelFormat *p;
     for (p = fmt; *p != AV_PIX_FMT_NONE; p++) {
         if (*p == AV_PIX_FMT_VIDEOTOOLBOX) {
-            if (s->hwaccel_context == NULL) {
-                AVVideotoolboxContext * vtctx = av_videotoolbox_alloc_context();
-                int result = av_videotoolbox_default_init2(s, vtctx);
-                if (result < 0) {
-                    return s->pix_fmt;
-                }
-            }
             return *p;
         }
     }
