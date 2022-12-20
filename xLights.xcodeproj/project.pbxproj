@@ -485,6 +485,8 @@
 		6750B03F28450E6800EFB924 /* DmxColorAbilityRGB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6750B03C28450E6800EFB924 /* DmxColorAbilityRGB.cpp */; };
 		6750B04028450E6800EFB924 /* DmxColorAbilityWheel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6750B03D28450E6800EFB924 /* DmxColorAbilityWheel.cpp */; };
 		6751104627D3F5630001BD98 /* FindDataPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6751104527D3F5630001BD98 /* FindDataPanel.cpp */; };
+		675A505129523E11000D038D /* ip_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675A504D29523E11000D038D /* ip_utils.cpp */; };
+		675A505229523E11000D038D /* string_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675A504E29523E11000D038D /* string_utils.cpp */; };
 		675EDD3D2789D87C00D40FEA /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675EDD3C2789D87C00D40FEA /* liblua.a */; };
 		675FD840204C3C0B003D280F /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B227204BA69B00E90AC7 /* CoreImage.framework */; };
 		676FB41C273400FC0081F91A /* xlGraphicsAccumulators.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 676FB41A273400FC0081F91A /* xlGraphicsAccumulators.cpp */; };
@@ -1603,6 +1605,10 @@
 		6750B03E28450E6800EFB924 /* DmxColorAbilityRGB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DmxColorAbilityRGB.h; sourceTree = "<group>"; };
 		6751104427D3F5630001BD98 /* FindDataPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindDataPanel.h; sourceTree = "<group>"; };
 		6751104527D3F5630001BD98 /* FindDataPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FindDataPanel.cpp; sourceTree = "<group>"; };
+		675A504D29523E11000D038D /* ip_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ip_utils.cpp; path = utils/ip_utils.cpp; sourceTree = "<group>"; };
+		675A504E29523E11000D038D /* string_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = string_utils.cpp; path = utils/string_utils.cpp; sourceTree = "<group>"; };
+		675A504F29523E11000D038D /* ip_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ip_utils.h; path = utils/ip_utils.h; sourceTree = "<group>"; };
+		675A505029523E11000D038D /* string_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = string_utils.h; path = utils/string_utils.h; sourceTree = "<group>"; };
 		675EDD3C2789D87C00D40FEA /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblua.a; path = /opt/local/lib/liblua.a; sourceTree = "<group>"; };
 		676FB41A273400FC0081F91A /* xlGraphicsAccumulators.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xlGraphicsAccumulators.cpp; sourceTree = "<group>"; };
 		676FB41B273400FC0081F91A /* xlGraphicsAccumulators.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xlGraphicsAccumulators.h; sourceTree = "<group>"; };
@@ -2225,6 +2231,7 @@
 				67164D0D25D7CE6D0041BB9A /* TraceLog.h */,
 				67164E0825D7CE6D0041BB9A /* UpdaterDialog.cpp */,
 				67164BE525D7CE6D0041BB9A /* UpdaterDialog.h */,
+				675A504C29523DFE000D038D /* util */,
 				6794AB3828C7DDAE00B12D0F /* UtilClasses.cpp */,
 				67164DA325D7CE6D0041BB9A /* UtilClasses.h */,
 				67164C7C25D7CE6D0041BB9A /* UtilFunctions.cpp */,
@@ -3045,6 +3052,17 @@
 				67BE0E002728230C00558A3A /* wxMetalCanvas.hpp */,
 			);
 			path = osxUtils;
+			sourceTree = "<group>";
+		};
+		675A504C29523DFE000D038D /* util */ = {
+			isa = PBXGroup;
+			children = (
+				675A504D29523E11000D038D /* ip_utils.cpp */,
+				675A504F29523E11000D038D /* ip_utils.h */,
+				675A504E29523E11000D038D /* string_utils.cpp */,
+				675A505029523E11000D038D /* string_utils.h */,
+			);
+			name = util;
 			sourceTree = "<group>";
 		};
 		67710569267BB903001DA926 /* xCapture */ = {
@@ -3985,6 +4003,7 @@
 				671651CD25D7CE700041BB9A /* AlignmentDialog.cpp in Sources */,
 				6716537C25D7CE720041BB9A /* J1Sys.cpp in Sources */,
 				6716556425D824F80041BB9A /* md5.cpp in Sources */,
+				675A505229523E11000D038D /* string_utils.cpp in Sources */,
 				6716536D25D7CE720041BB9A /* ShaderPanel.cpp in Sources */,
 				6716516925D7CE700041BB9A /* ColoursPanel.cpp in Sources */,
 				671651FC25D7CE700041BB9A /* TimeLine.cpp in Sources */,
@@ -4083,6 +4102,7 @@
 				6716538825D7CE720041BB9A /* LMSImportChannelMapDialog.cpp in Sources */,
 				6716514725D7CE700041BB9A /* ControllerConnectionDialog.cpp in Sources */,
 				6716532C25D7CE710041BB9A /* LightningPanel.cpp in Sources */,
+				675A505129523E11000D038D /* ip_utils.cpp in Sources */,
 				671652D425D7CE710041BB9A /* RenderCache.cpp in Sources */,
 				6716520125D7CE700041BB9A /* EffectsGrid.cpp in Sources */,
 				6716530D25D7CE710041BB9A /* xlGridCanvasMorph.cpp in Sources */,
