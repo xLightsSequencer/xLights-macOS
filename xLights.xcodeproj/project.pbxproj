@@ -462,6 +462,7 @@
 		6716568C25D829B90041BB9A /* phoneme_mapping in Resources */ = {isa = PBXBuildFile; fileRef = 6716568825D829B90041BB9A /* phoneme_mapping */; };
 		6716568D25D829BA0041BB9A /* user_dictionary in Resources */ = {isa = PBXBuildFile; fileRef = 6716568925D829B90041BB9A /* user_dictionary */; };
 		671929CC2789DFA200C60464 /* LuaRunner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671929CA2789DFA200C60464 /* LuaRunner.cpp */; };
+		67283815295E3CB900994782 /* DuplicateDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67283813295E3CB900994782 /* DuplicateDialog.cpp */; };
 		67290004255303D500C83C71 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67290003255303D500C83C71 /* VideoToolbox.framework */; };
 		672900082553040000C83C71 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B4C91F17B53D960006B951 /* CoreMedia.framework */; };
 		6729000D2553047600C83C71 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729000C2553046400C83C71 /* libbz2.tbd */; };
@@ -1568,6 +1569,8 @@
 		671929CB2789DFA200C60464 /* LuaRunner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaRunner.h; sourceTree = "<group>"; };
 		671C0BCC1C245E230098A48D /* libwx_osx_cocoau_qa-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_qa-3.3.dylib"; path = "/opt/local/libdbg/libwx_osx_cocoau_qa-3.3.dylib"; sourceTree = "<group>"; };
 		671E47FC2231CEC900049DC9 /* libcurl.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcurl.tbd; path = usr/lib/libcurl.tbd; sourceTree = SDKROOT; };
+		67283813295E3CB900994782 /* DuplicateDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DuplicateDialog.cpp; sourceTree = "<group>"; };
+		67283814295E3CB900994782 /* DuplicateDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DuplicateDialog.h; sourceTree = "<group>"; };
 		67290003255303D500C83C71 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		6729000C2553046400C83C71 /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
 		6729FFD92552EE9000C83C71 /* libliquidfun.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libliquidfun.a; path = ../../../../opt/local/lib/libliquidfun.a; sourceTree = "<group>"; };
@@ -2014,6 +2017,8 @@
 				67164D9C25D7CE6D0041BB9A /* DragColoursBitmapButton.h */,
 				67164C2B25D7CE6D0041BB9A /* DragValueCurveBitmapButton.cpp */,
 				67164C7A25D7CE6D0041BB9A /* DragValueCurveBitmapButton.h */,
+				67283813295E3CB900994782 /* DuplicateDialog.cpp */,
+				67283814295E3CB900994782 /* DuplicateDialog.h */,
 				67164C0125D7CE6D0041BB9A /* EffectAssist.cpp */,
 				67164C2325D7CE6D0041BB9A /* EffectAssist.h */,
 				67164C8A25D7CE6D0041BB9A /* EffectIconPanel.cpp */,
@@ -3830,6 +3835,7 @@
 				6716536425D7CE720041BB9A /* EffectManager.cpp in Sources */,
 				671651A225D7CE700041BB9A /* DmxSkull.cpp in Sources */,
 				671651C325D7CE700041BB9A /* xlGLCanvas.cpp in Sources */,
+				67283815295E3CB900994782 /* DuplicateDialog.cpp in Sources */,
 				6716532525D7CE710041BB9A /* EffectPanelUtils.cpp in Sources */,
 				6716536A25D7CE720041BB9A /* VideoEffect.cpp in Sources */,
 				6716555325D8245E0041BB9A /* MidiFile.cpp in Sources */,
