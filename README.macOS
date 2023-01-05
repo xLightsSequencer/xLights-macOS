@@ -10,14 +10,14 @@ compatibility layer across operating systems.
 On macOS, compilation is done using Xcode. Code::Blocks is not used.
 Xcode can be downloaded from the Apple developer web site or the App Store. Make
 sure you install the version of Xcode that matches your version of
-macOS. For example, I use macOS 12, so I installed Xcode 13.
+macOS. For example, I use macOS Ventura (13), so I installed Xcode 14.2.
 
-The latest wxWidgets release (3.1.6) will not work as we need some API's that have
+The latest wxWidgets release (3.2.1) will not work as we need some API's that have
 been added since then.  We also have several other fixes in place that fix various
 bugs we have encountered, configurations we need, etc...
 
 To get the latest code that we've tested, do:
-git clone  --recurse-submodules -b xlights_2022.17b https://github.com/xLightsSequencer/wxWidgets
+git clone  --recurse-submodules -b xlights_2023.01 https://github.com/xLightsSequencer/wxWidgets
 
 
 First, setup the target directories:
@@ -48,7 +48,7 @@ wxWidgets first.  If not doing release builds, this can be skipped.
                 --disable-compat30  --enable-mimetype --enable-aui --with-opengl \
                 --enable-webview --enable-webviewwebkit --disable-mdi --disable-mdidoc --disable-loggui \
                 --disable-xrc --disable-stc --disable-ribbon --disable-htmlhelp --disable-mediactrl \
-                --with-cxx=17 --enable-cxx11 --enable-std_containers --enable-std_string --enable-std_string_conv_in_wxstring \
+                --with-cxx=17 --enable-cxx11 --enable-std_containers --enable-std_string_conv_in_wxstring \
                 --without-liblzma  --with-expat=builtin --with-zlib=builtin --with-libjpeg=builtin  --without-libtiff \
                 --disable-sys-libs \
                 --enable-backtrace --enable-exceptions --disable-shared
@@ -76,7 +76,7 @@ For debug builds:
                 --disable-compat30  --enable-mimetype --enable-aui --with-opengl \
                 --enable-webview --enable-webviewwebkit --disable-mdi --disable-mdidoc --disable-loggui \
                 --disable-xrc --disable-stc --disable-ribbon --disable-htmlhelp --disable-mediactrl \
-                --with-cxx=17 --enable-cxx11 --enable-std_containers --enable-std_string --enable-std_string_conv_in_wxstring \
+                --with-cxx=17 --enable-cxx11 --enable-std_containers --enable-std_string_conv_in_wxstring \
                 --without-liblzma  --with-expat=builtin --with-zlib=builtin --with-libjpeg=builtin  --without-libtiff \
                 --disable-sys-libs \
                 --enable-backtrace --enable-exceptions
@@ -345,3 +345,4 @@ Mar 21, 2022 - zstd to 1.5.2
 April 28, 2022 - Update to wxWidgets 3.1.6+, ffmpeg to 5.0.1, SDL to 2.0.22
 June 8, 2022 - Update wxWidgets to 3.1.7+
 Aug 25, 2022 - Update to wxWidgets 3.3, SDL to 2.0.24, ffmpeg to 5.1
+Jan 5, 2023 - Update wxWidgets to include dark  mode for windows changes (work in progress, likely more updates to come)

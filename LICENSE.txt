@@ -1,6 +1,6 @@
 xLights-macOS License
 
-Copyright (c) 2021, Daniel Kulp and others
+Copyright (c) 2021-2023, Daniel Kulp and others
 All rights reserved.
 
 The files in this repository are licensed as "Source Available".    While the source is available, they are only licensed to be used for inclusion in xLights Sequencer and xCapture programs.   Any other use is prohibitted.
