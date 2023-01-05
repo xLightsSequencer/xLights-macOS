@@ -4585,7 +4585,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = Assets/xLights/xLightsDebug.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CURRENT_PROJECT_VERSION = 220140;
+				CURRENT_PROJECT_VERSION = 230010;
 				DEVELOPMENT_ASSET_PATHS = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREFIX_HEADER = ../xLights/xlPrefix.pch;
@@ -4604,7 +4604,7 @@
 					/opt/local/libdbg,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 2022.14;
+				MARKETING_VERSION = 2023.01;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
@@ -4629,7 +4629,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = Assets/xLights/xLights.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CURRENT_PROJECT_VERSION = 220140;
+				CURRENT_PROJECT_VERSION = 230010;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -4649,7 +4649,7 @@
 					/opt/local/lib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 2022.14;
+				MARKETING_VERSION = 2023.01;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
@@ -4788,7 +4788,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = Assets/xLights/xLightsArchive.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CURRENT_PROJECT_VERSION = 220140;
+				CURRENT_PROJECT_VERSION = 230010;
 				DEVELOPMENT_ASSET_PATHS = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREFIX_HEADER = ../xLights/xlPrefix.pch;
@@ -4807,7 +4807,7 @@
 					/opt/local/lib,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 2022.14;
+				MARKETING_VERSION = 2023.01;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
