@@ -545,6 +545,7 @@
 		67A88A4326164CAE00BFCEC0 /* xlVideoToolboxUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67A88A3A26164CAE00BFCEC0 /* xlVideoToolboxUtils.mm */; };
 		67A88A4426164CAE00BFCEC0 /* osxInAppPurchases.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67A88A3B26164CAE00BFCEC0 /* osxInAppPurchases.mm */; };
 		67A88A4726164CD600BFCEC0 /* libxLights-macOSLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A88A2726164C9B00BFCEC0 /* libxLights-macOSLib.a */; };
+		67ABBBC929884BAB004BB143 /* Curl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67ABBBC729884BAB004BB143 /* Curl.cpp */; };
 		67B73C1C279FBB0B00A8B06B /* FX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67B73C1B279FBB0B00A8B06B /* FX.cpp */; };
 		67B7400627664AC80051F15A /* xlMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67B740042766491D0051F15A /* xlMesh.cpp */; };
 		67BE0DFA2727C0AB00558A3A /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BE0DF82727C0AB00558A3A /* MetalKit.framework */; };
@@ -1705,6 +1706,8 @@
 		67A88A3926164CAE00BFCEC0 /* InAppPurchaseDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InAppPurchaseDialog.cpp; sourceTree = "<group>"; };
 		67A88A3A26164CAE00BFCEC0 /* xlVideoToolboxUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = xlVideoToolboxUtils.mm; sourceTree = "<group>"; };
 		67A88A3B26164CAE00BFCEC0 /* osxInAppPurchases.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = osxInAppPurchases.mm; sourceTree = "<group>"; };
+		67ABBBC729884BAB004BB143 /* Curl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Curl.cpp; path = utils/Curl.cpp; sourceTree = "<group>"; };
+		67ABBBC829884BAB004BB143 /* Curl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Curl.h; path = utils/Curl.h; sourceTree = "<group>"; };
 		67B4C91F17B53D960006B951 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		67B4C92017B53D960006B951 /* CoreMediaIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMediaIO.framework; path = System/Library/Frameworks/CoreMediaIO.framework; sourceTree = SDKROOT; };
 		67B4C92117B53D960006B951 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -2236,7 +2239,7 @@
 				67164D0D25D7CE6D0041BB9A /* TraceLog.h */,
 				67164E0825D7CE6D0041BB9A /* UpdaterDialog.cpp */,
 				67164BE525D7CE6D0041BB9A /* UpdaterDialog.h */,
-				675A504C29523DFE000D038D /* util */,
+				675A504C29523DFE000D038D /* utils */,
 				6794AB3828C7DDAE00B12D0F /* UtilClasses.cpp */,
 				67164DA325D7CE6D0041BB9A /* UtilClasses.h */,
 				67164C7C25D7CE6D0041BB9A /* UtilFunctions.cpp */,
@@ -3059,15 +3062,17 @@
 			path = osxUtils;
 			sourceTree = "<group>";
 		};
-		675A504C29523DFE000D038D /* util */ = {
+		675A504C29523DFE000D038D /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				67ABBBC729884BAB004BB143 /* Curl.cpp */,
+				67ABBBC829884BAB004BB143 /* Curl.h */,
 				675A504D29523E11000D038D /* ip_utils.cpp */,
 				675A504F29523E11000D038D /* ip_utils.h */,
 				675A504E29523E11000D038D /* string_utils.cpp */,
 				675A505029523E11000D038D /* string_utils.h */,
 			);
-			name = util;
+			name = utils;
 			sourceTree = "<group>";
 		};
 		67710569267BB903001DA926 /* xCapture */ = {
@@ -3805,6 +3810,7 @@
 				6716536525D7CE720041BB9A /* ShapePanel.cpp in Sources */,
 				6716517A25D7CE700041BB9A /* ValueCurveDialog.cpp in Sources */,
 				671655D325D827650041BB9A /* kiss_fftnd.c in Sources */,
+				67ABBBC929884BAB004BB143 /* Curl.cpp in Sources */,
 				6716519425D7CE700041BB9A /* Mesh.cpp in Sources */,
 				671652CE25D7CE710041BB9A /* SequenceData.cpp in Sources */,
 				6716531125D7CE710041BB9A /* ColorWashPanel.cpp in Sources */,
