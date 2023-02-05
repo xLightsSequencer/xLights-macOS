@@ -16,6 +16,18 @@ The latest wxWidgets release (3.2.1) will not work as we need some API's that ha
 been added since then.  We also have several other fixes in place that fix various
 bugs we have encountered, configurations we need, etc...
 
+
+IMPORTANT NOTE:
+Some of the third party libraries that need to be built below will NOT build if
+any directory in the path contains a space.   Make sure the directory that is
+used does not contain any spaces.  Also, the builds will be quite "large" and thus
+doing the builds in a directory that is synced to the cloud will consume a lot
+of cloud space. Make sure your cloud provider/plan has plenty of free space.
+Alternatively, use a directory that is not synced to the cloud.  Since all of this
+is easily recovered (just by rebuilding), there isn't much need for it to be
+cloud backed up.
+
+
 To get the latest code that we've tested, do:
 git clone  --recurse-submodules -b xlights_2023.02 https://github.com/xLightsSequencer/wxWidgets
 
