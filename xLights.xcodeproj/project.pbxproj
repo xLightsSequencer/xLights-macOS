@@ -476,6 +476,7 @@
 		6729FFFD2553039000C83C71 /* libswresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFFC2553037E00C83C71 /* libswresample.a */; };
 		6729FFFF255303AF00C83C71 /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFFE255303A300C83C71 /* libswscale.a */; };
 		672B5690278A72DF0011F216 /* scripts in Resources */ = {isa = PBXBuildFile; fileRef = 672B568F278A72DF0011F216 /* scripts */; };
+		672C9ADC29B11660008D4047 /* DmxColorAbilityCMY.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 672C9ADA29B11660008D4047 /* DmxColorAbilityCMY.cpp */; };
 		672F447626387B59005B795A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B229204BA6AF00E90AC7 /* QuartzCore.framework */; };
 		673B3D4E223BF203000F1D7E /* libcurl.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 671E47FC2231CEC900049DC9 /* libcurl.tbd */; };
 		67418CDF286B292B00EA516E /* ModelRemap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67418CDD286B292A00EA516E /* ModelRemap.cpp */; };
@@ -1594,6 +1595,8 @@
 		672BD4F01C207D2E008F8B36 /* libwx_osx_cocoau_core-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_core-3.3.dylib"; path = "/opt/local/libdbg/libwx_osx_cocoau_core-3.3.dylib"; sourceTree = "<group>"; };
 		672BD4F11C207D2E008F8B36 /* libwx_osx_cocoau_html-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_html-3.3.dylib"; path = "/opt/local/libdbg/libwx_osx_cocoau_html-3.3.dylib"; sourceTree = "<group>"; };
 		672BD4F21C207D2E008F8B36 /* libwx_osx_cocoau_media-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_media-3.3.dylib"; path = "/opt/local/libdbg/libwx_osx_cocoau_media-3.3.dylib"; sourceTree = "<group>"; };
+		672C9ADA29B11660008D4047 /* DmxColorAbilityCMY.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DmxColorAbilityCMY.cpp; sourceTree = "<group>"; };
+		672C9ADB29B11660008D4047 /* DmxColorAbilityCMY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DmxColorAbilityCMY.h; sourceTree = "<group>"; };
 		67418CDD286B292A00EA516E /* ModelRemap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModelRemap.cpp; sourceTree = "<group>"; };
 		67418CDE286B292A00EA516E /* ModelRemap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelRemap.h; sourceTree = "<group>"; };
 		674D3D1C1C207B9F000D632B /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -2439,6 +2442,8 @@
 			children = (
 				67164CB925D7CE6D0041BB9A /* DmxColorAbility.cpp */,
 				67164CC825D7CE6D0041BB9A /* DmxColorAbility.h */,
+				672C9ADA29B11660008D4047 /* DmxColorAbilityCMY.cpp */,
+				672C9ADB29B11660008D4047 /* DmxColorAbilityCMY.h */,
 				6750B03C28450E6800EFB924 /* DmxColorAbilityRGB.cpp */,
 				6750B03E28450E6800EFB924 /* DmxColorAbilityRGB.h */,
 				6750B03D28450E6800EFB924 /* DmxColorAbilityWheel.cpp */,
@@ -3801,6 +3806,7 @@
 				6716531D25D7CE710041BB9A /* SnowstormEffect.cpp in Sources */,
 				6716533025D7CE710041BB9A /* CirclesPanel.cpp in Sources */,
 				6716513C25D7CE700041BB9A /* CachedFileDownloader.cpp in Sources */,
+				672C9ADC29B11660008D4047 /* DmxColorAbilityCMY.cpp in Sources */,
 				6716539025D7CE720041BB9A /* LorControllers.cpp in Sources */,
 				6716520825D7CE700041BB9A /* CustomModelDialog.cpp in Sources */,
 				671651BA25D7CE700041BB9A /* SubModel.cpp in Sources */,

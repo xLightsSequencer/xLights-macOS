@@ -134,7 +134,7 @@ brew install automake libtool cmake nasm
 libzstd:
 git clone https://github.com/facebook/zstd
 cd zstd
-git checkout v1.5.2
+git checkout v1.5.4
 export CFLAGS="-g -flto=thin  ${OSX_VERSION_MIN} ${XL_TARGETS}"
 export LDFLAGS="-flto=thin  ${OSX_VERSION_MIN} ${XL_TARGETS} "
 make clean
@@ -197,11 +197,11 @@ unset CXXFLAGS
 unset CXX
 
 
-SDL2:  currently using 2.26.1
+SDL2:  currently using 2.26.3
 git clone https://github.com/libsdl-org/SDL
 cd SDL
 git reset --hard
-git checkout release-2.26.1
+git checkout release-2.26.3
 export CXXFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN}"
 export CFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN}"
 export LDFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN}"
@@ -297,10 +297,10 @@ make -j4 all CFLAGS="$CFLAGS" MYLDFLAGS="$CFLAGS"
 cp liblua.a /opt/local/libdbg
 unset CFLAGS
 
-libhidapi: (currently using 0.11.2)
+libhidapi: (currently using 0.13.1)
 git clone https://github.com/libusb/hidapi
 cd hidapi
-git checkout hidapi-0.11.2
+git checkout hidapi-0.13.1
 export CFLAGS="-g -O3 -flto=thin -Wall -fno-stack-protector -fno-common ${XL_TARGETS} ${OSX_VERSION_MIN}"
 ./bootstrap
 ./configure --prefix=/opt/local
