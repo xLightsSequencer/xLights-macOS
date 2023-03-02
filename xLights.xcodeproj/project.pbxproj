@@ -4283,7 +4283,7 @@
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
-					"-Iinclude/ffmpeg-5/include/",
+					"-Iinclude/ffmpeg-6/include/",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -4316,7 +4316,7 @@
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
-					"-Iinclude/ffmpeg-5/include/",
+					"-Iinclude/ffmpeg-6/include/",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -4349,7 +4349,7 @@
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
-					"-Iinclude/ffmpeg-5/include/",
+					"-Iinclude/ffmpeg-6/include/",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -4426,7 +4426,7 @@
 				HEADER_SEARCH_PATHS = (
 					../xLights,
 					../include,
-					"../include/ffmpeg-5/include/",
+					"../include/ffmpeg-6/include/",
 					/opt/local/include,
 					"macOS-src",
 				);
@@ -4537,7 +4537,7 @@
 				HEADER_SEARCH_PATHS = (
 					../xLights,
 					../include,
-					"../include/ffmpeg-5/include/",
+					"../include/ffmpeg-6/include/",
 					/opt/local/include,
 					"macOS-src",
 				);
@@ -4605,7 +4605,7 @@
 				HEADER_SEARCH_PATHS = (
 					../xLights,
 					../include,
-					"../include/ffmpeg-5/include/",
+					"../include/ffmpeg-6/include/",
 					"../include/sol2-3.2.2",
 					/opt/local/include,
 					"macOS-src",
@@ -4620,7 +4620,7 @@
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
-					"-Iinclude/ffmpeg-5/include/",
+					"-Iinclude/ffmpeg-6/include/",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -4650,7 +4650,7 @@
 				HEADER_SEARCH_PATHS = (
 					../xLights,
 					../include,
-					"../include/ffmpeg-5/include/",
+					"../include/ffmpeg-6/include/",
 					"../include/sol2-3.2.2",
 					/opt/local/include,
 					"macOS-src",
@@ -4665,7 +4665,7 @@
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
-					"-Iinclude/ffmpeg-5/include/",
+					"-Iinclude/ffmpeg-6/include/",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -4738,7 +4738,7 @@
 				HEADER_SEARCH_PATHS = (
 					../xLights,
 					../include,
-					"../include/ffmpeg-5/include/",
+					"../include/ffmpeg-6/include/",
 					/opt/local/include,
 					"macOS-src",
 				);
@@ -4808,7 +4808,7 @@
 				HEADER_SEARCH_PATHS = (
 					../xLights,
 					../include,
-					"../include/ffmpeg-5/include/",
+					"../include/ffmpeg-6/include/",
 					"../include/sol2-3.2.2",
 					/opt/local/include,
 					"macOS-src",
@@ -4823,7 +4823,7 @@
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
-					"-Iinclude/ffmpeg-5/include/",
+					"-Iinclude/ffmpeg-6/include/",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",

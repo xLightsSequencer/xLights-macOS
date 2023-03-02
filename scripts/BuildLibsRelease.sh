@@ -89,11 +89,11 @@ unset CFLAGS
 unset LDFLAGS
 
 
-echo "ffmpeg"   #currently using 5.0.1
+echo "ffmpeg"   #currently using 6.0
 # Note: requires nasm to be install.   Easiest option is via "brew install nasm"
 git clone https://git.ffmpeg.org/ffmpeg.git
 cd ffmpeg
-git checkout n5.0.1
+git checkout n6.0
 make clean
 ./configure --disable-inline-asm --enable-static --disable-shared --disable-securetransport --extra-cflags="${OSX_VERSION_MIN}" --disable-indev=lavfi --disable-libx264 --disable-lzma --enable-gpl --enable-opengl --disable-programs --arch=x86_64
 sed -i -e "s/^CFLAGS=/CFLAGS=-g ${X86_64_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak

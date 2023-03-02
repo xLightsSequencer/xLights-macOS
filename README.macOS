@@ -221,12 +221,13 @@ unset CFLAGS
 unset LDFLAGS
 
 
-ffmpeg:   currently using 5.1.2
+ffmpeg:   currently using 6.0
 # Note: requires nasm to be install.   Easiest option is via "brew install nasm"
 git clone https://git.ffmpeg.org/ffmpeg.git
 cd ffmpeg
-git checkout n5.1.2
+git checkout n6.0
 make clean
+rm -rf x86_64
 git status --ignored -s | colrm 1 2 | xargs rm -rf
 ./configure --disable-inline-asm --enable-static --disable-shared --disable-securetransport --extra-cflags="${OSX_VERSION_MIN}" --disable-indev=lavfi --disable-libx264 --disable-lzma --enable-gpl --enable-opengl --disable-programs --arch=x86_64
 sed -i -e "s/^CFLAGS=/CFLAGS=-g ${X86_64_TARGETS} ${OSX_VERSION_MIN} /" ffbuild/config.mak
@@ -358,3 +359,4 @@ April 28, 2022 - Update to wxWidgets 3.1.6+, ffmpeg to 5.0.1, SDL to 2.0.22
 June 8, 2022 - Update wxWidgets to 3.1.7+
 Aug 25, 2022 - Update to wxWidgets 3.3, SDL to 2.0.24, ffmpeg to 5.1
 Jan 5, 2023 - Update wxWidgets to include dark  mode for windows changes (work in progress, likely more updates to come)
+Mar 2, 2023 - Update ffmpeg to 6.0, zstd to 1.4, sdl to 2.0.26, hidapi to 0.13.1
