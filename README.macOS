@@ -184,12 +184,14 @@ git status --ignored -s | colrm 1 2 | xargs rm -rf
 export CXX=clang++
 export CXXFLAGS="-g -O3 -flto=thin  ${XL_TARGETS} ${OSX_VERSION_MIN}"
 cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DBOX2D_BUILD_EXAMPLES=OFF
+echo "CXX_FLAGS += -Wno-unused-but-set-variable -Wno-error" >> ./Box2D/CMakeFiles/Box2D.dir/flags.make
 make clean
 make -j 8
 cp ./Box2D/Release/libliquidfun.a /opt/local/lib
 git status --ignored -s | colrm 1 2 | xargs rm -rf
 export CXXFLAGS="-g ${XL_TARGETS} ${OSX_VERSION_MIN}"
 cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DBOX2D_BUILD_EXAMPLES=OFF
+echo "CXX_FLAGS += -Wno-unused-but-set-variable -Wno-error" >> ./Box2D/CMakeFiles/Box2D.dir/flags.make
 make clean
 make -j 8
 cp ./Box2D/Release/libliquidfun.a /opt/local/libdbg
@@ -197,11 +199,11 @@ unset CXXFLAGS
 unset CXX
 
 
-SDL2:  currently using 2.26.3
+SDL2:  currently using 2.26.4
 git clone https://github.com/libsdl-org/SDL
 cd SDL
 git reset --hard
-git checkout release-2.26.3
+git checkout release-2.26.4
 export CXXFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN}"
 export CFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN}"
 export LDFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN}"
