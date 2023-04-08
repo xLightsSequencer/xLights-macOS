@@ -478,6 +478,8 @@
 		672B5690278A72DF0011F216 /* scripts in Resources */ = {isa = PBXBuildFile; fileRef = 672B568F278A72DF0011F216 /* scripts */; };
 		672C9ADC29B11660008D4047 /* DmxColorAbilityCMY.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 672C9ADA29B11660008D4047 /* DmxColorAbilityCMY.cpp */; };
 		672F447626387B59005B795A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B229204BA6AF00E90AC7 /* QuartzCore.framework */; };
+		6735E1D529E1B7B700E339B0 /* GuitarPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6735E1D129E1B7B700E339B0 /* GuitarPanel.cpp */; };
+		6735E1D629E1B7B700E339B0 /* GuitarEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6735E1D429E1B7B700E339B0 /* GuitarEffect.cpp */; };
 		673B3D4E223BF203000F1D7E /* libcurl.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 671E47FC2231CEC900049DC9 /* libcurl.tbd */; };
 		67418CDF286B292B00EA516E /* ModelRemap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67418CDD286B292A00EA516E /* ModelRemap.cpp */; };
 		674D3D221C207BCC000D632B /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D211C207BCC000D632B /* IOKit.framework */; };
@@ -1597,6 +1599,10 @@
 		672BD4F21C207D2E008F8B36 /* libwx_osx_cocoau_media-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_media-3.3.dylib"; path = "/opt/local/libdbg/libwx_osx_cocoau_media-3.3.dylib"; sourceTree = "<group>"; };
 		672C9ADA29B11660008D4047 /* DmxColorAbilityCMY.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DmxColorAbilityCMY.cpp; sourceTree = "<group>"; };
 		672C9ADB29B11660008D4047 /* DmxColorAbilityCMY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DmxColorAbilityCMY.h; sourceTree = "<group>"; };
+		6735E1D129E1B7B700E339B0 /* GuitarPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GuitarPanel.cpp; sourceTree = "<group>"; };
+		6735E1D229E1B7B700E339B0 /* GuitarEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuitarEffect.h; sourceTree = "<group>"; };
+		6735E1D329E1B7B700E339B0 /* GuitarPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuitarPanel.h; sourceTree = "<group>"; };
+		6735E1D429E1B7B700E339B0 /* GuitarEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GuitarEffect.cpp; sourceTree = "<group>"; };
 		67418CDD286B292A00EA516E /* ModelRemap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModelRemap.cpp; sourceTree = "<group>"; };
 		67418CDE286B292A00EA516E /* ModelRemap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelRemap.h; sourceTree = "<group>"; };
 		674D3D1C1C207B9F000D632B /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -2608,6 +2614,10 @@
 				6716503225D7CE6F0041BB9A /* GlediatorEffect.h */,
 				6716501625D7CE6F0041BB9A /* GlediatorPanel.cpp */,
 				6716506125D7CE6F0041BB9A /* GlediatorPanel.h */,
+				6735E1D429E1B7B700E339B0 /* GuitarEffect.cpp */,
+				6735E1D229E1B7B700E339B0 /* GuitarEffect.h */,
+				6735E1D129E1B7B700E339B0 /* GuitarPanel.cpp */,
+				6735E1D329E1B7B700E339B0 /* GuitarPanel.h */,
 				6716503C25D7CE6F0041BB9A /* KaleidoscopeEffect.cpp */,
 				6716501925D7CE6F0041BB9A /* KaleidoscopeEffect.h */,
 				6716503825D7CE6F0041BB9A /* KaleidoscopePanel.cpp */,
@@ -3486,8 +3496,9 @@
 		67E7086517B51AB400A22034 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				CLASSPREFIX = xl;
-				LastUpgradeCheck = 1420;
+				LastUpgradeCheck = 1430;
 				ORGANIZATIONNAME = "Daniel Kulp";
 				TargetAttributes = {
 					678577AD272C735000E6E249 = {
@@ -3866,6 +3877,7 @@
 				6716538425D7CE720041BB9A /* SplashDialog.cpp in Sources */,
 				6716512325D7CE700041BB9A /* FileConverter.cpp in Sources */,
 				6716537925D7CE720041BB9A /* SanDevices.cpp in Sources */,
+				6735E1D629E1B7B700E339B0 /* GuitarEffect.cpp in Sources */,
 				6716519525D7CE700041BB9A /* DmxMovingHead3D.cpp in Sources */,
 				6716534C25D7CE710041BB9A /* LifeEffect.cpp in Sources */,
 				6716518A25D7CE700041BB9A /* ViewObject.cpp in Sources */,
@@ -4030,6 +4042,7 @@
 				6716535625D7CE720041BB9A /* LinesPanel.cpp in Sources */,
 				6716514A25D7CE700041BB9A /* ColorManager.cpp in Sources */,
 				6716518625D7CE700041BB9A /* LorConvertDialog.cpp in Sources */,
+				6735E1D529E1B7B700E339B0 /* GuitarPanel.cpp in Sources */,
 				671652D325D7CE710041BB9A /* NewTimingDialog.cpp in Sources */,
 				6716512925D7CE700041BB9A /* Render.cpp in Sources */,
 				671651E925D7CE700041BB9A /* BufferPanel.cpp in Sources */,
@@ -4472,8 +4485,6 @@
 				OTHER_TAPI_FLAGS = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = macosx;
-				STRIP_INSTALLED_PRODUCT = NO;
-				STRIP_STYLE = debugging;
 				WARNING_LDFLAGS = "-headerpad_max_install_names";
 			};
 			name = Debug;
@@ -4584,8 +4595,6 @@
 				OTHER_TAPI_FLAGS = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = macosx;
-				STRIP_INSTALLED_PRODUCT = NO;
-				STRIP_STYLE = debugging;
 				WARNING_LDFLAGS = "-headerpad_max_install_names";
 			};
 			name = Release;
@@ -4788,7 +4797,6 @@
 				OTHER_TAPI_FLAGS = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = macosx;
-				STRIP_STYLE = debugging;
 				WARNING_LDFLAGS = "-headerpad_max_install_names";
 			};
 			name = Archive;
