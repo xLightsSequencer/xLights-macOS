@@ -29,7 +29,7 @@ cloud backed up.
 
 
 To get the latest code that we've tested, do:
-git clone  --recurse-submodules -b xlights_2023.02 https://github.com/xLightsSequencer/wxWidgets
+git clone  --recurse-submodules -b xlights_2023.06 https://github.com/xLightsSequencer/wxWidgets
 
 
 First, setup the target directories:
