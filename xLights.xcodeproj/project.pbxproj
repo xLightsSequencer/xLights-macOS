@@ -4485,6 +4485,8 @@
 				OTHER_TAPI_FLAGS = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = macosx;
+				STRIP_INSTALLED_PRODUCT = NO;
+				STRIP_STYLE = debugging;
 				WARNING_LDFLAGS = "-headerpad_max_install_names";
 			};
 			name = Debug;
@@ -4595,6 +4597,7 @@
 				OTHER_TAPI_FLAGS = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = macosx;
+				STRIP_STYLE = debugging;
 				WARNING_LDFLAGS = "-headerpad_max_install_names";
 			};
 			name = Release;
@@ -4797,6 +4800,7 @@
 				OTHER_TAPI_FLAGS = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = macosx;
+				STRIP_STYLE = debugging;
 				WARNING_LDFLAGS = "-headerpad_max_install_names";
 			};
 			name = Archive;
