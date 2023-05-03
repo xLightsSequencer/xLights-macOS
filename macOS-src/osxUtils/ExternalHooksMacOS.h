@@ -14,8 +14,6 @@ class wxColour;
  * setup some various advanced functionality
  */
 
-void xlSetRetinaCanvasViewport(wxGLCanvas &win, int &x, int &y, int &x2, int&y2);
-double xlTranslateToRetina(const wxWindow &win, double x);
 bool ObtainAccessToURL(const std::string &path);
 bool FileExists(const std::string &s, bool waitForDownload = true);
 bool FileExists(const wxFileName &fn, bool waitForDownload = true);
