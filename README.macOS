@@ -134,7 +134,7 @@ brew install automake libtool cmake nasm
 libzstd:
 git clone https://github.com/facebook/zstd
 cd zstd
-git checkout v1.5.4
+git checkout v1.5.5
 export CFLAGS="-g -flto=thin  ${OSX_VERSION_MIN} ${XL_TARGETS}"
 export LDFLAGS="-flto=thin  ${OSX_VERSION_MIN} ${XL_TARGETS} "
 make clean
@@ -199,22 +199,22 @@ unset CXXFLAGS
 unset CXX
 
 
-SDL2:  currently using 2.26.4
+SDL2:  currently using 2.26.5
 git clone https://github.com/libsdl-org/SDL
 cd SDL
 git reset --hard
-git checkout release-2.26.4
+git checkout release-2.26.5
 export CXXFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN}"
 export CFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN}"
 export LDFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN}"
-./configure --disable-shared --enable-static --disable-render-metal --disable-video-metal --disable-video-dummy --disable-video-opengles --disable-video-opengles2 --disable-video-vulkan --disable-haptic --disable-joystick
+./configure --disable-shared --enable-static --disable-render-metal --disable-video-metal --disable-video-dummy --disable-video-opengles --disable-video-opengles2 --disable-video-vulkan --disable-haptic --disable-joystick --prefix=/opt/local
 make clean
 make -j 8
 cp ./build/.libs/libSDL2.a /opt/local/lib
 export CXXFLAGS="-g ${XL_TARGETS} ${OSX_VERSION_MIN}"
 export CFLAGS="-g ${XL_TARGETS} ${OSX_VERSION_MIN}"
 export LDFLAGS="-g ${XL_TARGETS} ${OSX_VERSION_MIN}"
-./configure --disable-shared --enable-static --disable-render-metal --disable-video-metal --disable-video-dummy --disable-video-opengles --disable-video-opengles2 --disable-video-vulkan --disable-haptic --disable-joystick
+./configure --disable-shared --enable-static --disable-render-metal --disable-video-metal --disable-video-dummy --disable-video-opengles --disable-video-opengles2 --disable-video-vulkan --disable-haptic --disable-joystick --prefix=/opt/local
 make clean
 make -j 8
 cp ./build/.libs/libSDL2.a /opt/local/libdbg
@@ -361,4 +361,5 @@ April 28, 2022 - Update to wxWidgets 3.1.6+, ffmpeg to 5.0.1, SDL to 2.0.22
 June 8, 2022 - Update wxWidgets to 3.1.7+
 Aug 25, 2022 - Update to wxWidgets 3.3, SDL to 2.0.24, ffmpeg to 5.1
 Jan 5, 2023 - Update wxWidgets to include dark  mode for windows changes (work in progress, likely more updates to come)
-Mar 2, 2023 - Update ffmpeg to 6.0, zstd to 1.4, sdl to 2.0.26, hidapi to 0.13.1
+Mar 2, 2023 - Update ffmpeg to 6.0, zstd to 1.5.4, sdl to 2.26.0, hidapi to 0.13.1
+May 16, 2023 - zset to 1.5.5, sdl to 2.26.5
