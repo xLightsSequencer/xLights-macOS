@@ -4433,7 +4433,7 @@
 					/opt/local/libdbg,
 				);
 				LLVM_LTO = NO;
-				MACOSX_DEPLOYMENT_TARGET = 12.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
 				MTL_LANGUAGE_REVISION = Metal21;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
