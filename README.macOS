@@ -207,7 +207,7 @@ git checkout release-2.26.5
 export CXXFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN}"
 export CFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN}"
 export LDFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN}"
-./configure --disable-shared --enable-static --disable-render-metal --disable-video-metal --disable-video-dummy --disable-video-opengles --disable-video-opengles2 --disable-video-vulkan --disable-haptic --disable-joystick --prefix=/opt/local
+./configure --disable-shared --enable-static --disable-render-metal --disable-video-metal --disable-video-dummy  --enable-video-x11 --disable-video-opengles --disable-video-opengles2 --disable-video-vulkan --disable-haptic --disable-joystick --prefix=/opt/local
 make clean
 make -j 8
 cp ./build/.libs/libSDL2.a /opt/local/lib
