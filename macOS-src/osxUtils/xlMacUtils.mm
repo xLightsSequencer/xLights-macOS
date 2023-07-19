@@ -57,13 +57,13 @@ static void LoadGroupEntries(wxConfig *config, const wxString &grp, std::list<st
                                                      error:&error];
             bool ok = [fileURL startAccessingSecurityScopedResource];
             if (ok) {
-                ACCESSIBLE_URLS.insert(f);
+                ACCESSIBLE_URLS.insert(f.ToStdString());
             } else {
-                removes.push_back(f);
+                removes.push_back(f.ToStdString());
             }
             [nsdata release];
         } else {
-            removes.push_back(f);
+            removes.push_back(f.ToStdString());
         }
         cont = config->GetNextEntry(ent, index);
     }
@@ -79,7 +79,7 @@ static void LoadGroupEntries(wxConfig *config, const wxString &grp, std::list<st
         cont = config->GetNextGroup(ent, index);
     }
     if (!hasItem) {
-        grpRemoves.push_back(grp);
+        grpRemoves.push_back(grp.ToStdString());
     }
 }
 
@@ -121,12 +121,12 @@ bool ObtainAccessToURL(const std::string &path) {
         if (!fn.IsDir()) {
             wxFileName parent(fn.GetPath());
             wxString ps = parent.GetPath();
-            while (ps != "" && ps != "/" && ACCESSIBLE_URLS.find(ps) == ACCESSIBLE_URLS.end()) {
+            while (ps != "" && ps != "/" && ACCESSIBLE_URLS.find(ps.ToStdString()) == ACCESSIBLE_URLS.end()) {
                 parent.RemoveLastDir();
                 ps = parent.GetPath();
             }
 
-            if (ACCESSIBLE_URLS.find(ps) != ACCESSIBLE_URLS.end()) {
+            if (ACCESSIBLE_URLS.find(ps.ToStdString()) != ACCESSIBLE_URLS.end()) {
                 // file is in a directory we already have access to, don't need to record it
                 ACCESSIBLE_URLS.insert(path);
                 return true;

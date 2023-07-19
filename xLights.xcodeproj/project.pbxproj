@@ -494,6 +494,7 @@
 		67718A0627D4F59600F1A95E /* MultiPointScreenLocation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67718A0427D4F59600F1A95E /* MultiPointScreenLocation.cpp */; };
 		6772736928FA095C00193C23 /* Experience.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6772736728FA095C00193C23 /* Experience.cpp */; };
 		6776DF8A28609D29007573A6 /* TipOfTheDayDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6776DF8828609D29007573A6 /* TipOfTheDayDialog.cpp */; };
+		677844542A680538009FCFD2 /* MetronomeLabelDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 677844522A680538009FCFD2 /* MetronomeLabelDialog.cpp */; };
 		6778610B272CD73200020F31 /* GPURenderUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67786109272CD73200020F31 /* GPURenderUtils.cpp */; };
 		677932E927D30D8F008FEEBE /* ThreePointScreenLocation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 677932E227D30D8F008FEEBE /* ThreePointScreenLocation.cpp */; };
 		677932EA27D30D8F008FEEBE /* TwoPointScreenLocation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 677932E427D30D8F008FEEBE /* TwoPointScreenLocation.cpp */; };
@@ -1636,6 +1637,8 @@
 		6772736828FA095C00193C23 /* Experience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Experience.h; sourceTree = "<group>"; };
 		6776DF8828609D29007573A6 /* TipOfTheDayDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TipOfTheDayDialog.cpp; sourceTree = "<group>"; };
 		6776DF8928609D29007573A6 /* TipOfTheDayDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TipOfTheDayDialog.h; sourceTree = "<group>"; };
+		677844522A680538009FCFD2 /* MetronomeLabelDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MetronomeLabelDialog.cpp; sourceTree = "<group>"; };
+		677844532A680538009FCFD2 /* MetronomeLabelDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MetronomeLabelDialog.h; sourceTree = "<group>"; };
 		67786109272CD73200020F31 /* GPURenderUtils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPURenderUtils.cpp; sourceTree = "<group>"; };
 		6778610A272CD73200020F31 /* GPURenderUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPURenderUtils.h; sourceTree = "<group>"; };
 		677932E127D30D8E008FEEBE /* PolyPointScreenLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PolyPointScreenLocation.h; sourceTree = "<group>"; };
@@ -2101,6 +2104,8 @@
 				67164BDA25D7CE6D0041BB9A /* MatrixFaceDownloadDialog.h */,
 				67164E3F25D7CE6E0041BB9A /* MediaImportOptionsDialog.cpp */,
 				6716511525D7CE6F0041BB9A /* MediaImportOptionsDialog.h */,
+				677844522A680538009FCFD2 /* MetronomeLabelDialog.cpp */,
+				677844532A680538009FCFD2 /* MetronomeLabelDialog.h */,
 				6716553F25D8245E0041BB9A /* MIDI */,
 				67164C6125D7CE6D0041BB9A /* ModelChainDialog.cpp */,
 				67164BD925D7CE6D0041BB9A /* ModelChainDialog.h */,
@@ -2240,11 +2245,11 @@
 				67164D0D25D7CE6D0041BB9A /* TraceLog.h */,
 				67164E0825D7CE6D0041BB9A /* UpdaterDialog.cpp */,
 				67164BE525D7CE6D0041BB9A /* UpdaterDialog.h */,
-				675A504C29523DFE000D038D /* utils */,
 				6794AB3828C7DDAE00B12D0F /* UtilClasses.cpp */,
 				67164DA325D7CE6D0041BB9A /* UtilClasses.h */,
 				67164C7C25D7CE6D0041BB9A /* UtilFunctions.cpp */,
 				67164C1925D7CE6D0041BB9A /* UtilFunctions.h */,
+				675A504C29523DFE000D038D /* utils */,
 				67164D9325D7CE6D0041BB9A /* ValueCurve.cpp */,
 				67164BE625D7CE6D0041BB9A /* ValueCurve.h */,
 				67164C2A25D7CE6D0041BB9A /* ValueCurveButton.cpp */,
@@ -3742,6 +3747,7 @@
 				67718A0627D4F59600F1A95E /* MultiPointScreenLocation.cpp in Sources */,
 				671651B425D7CE700041BB9A /* Model.cpp in Sources */,
 				6716538F25D7CE720041BB9A /* xxxEthernetOutput.cpp in Sources */,
+				677844542A680538009FCFD2 /* MetronomeLabelDialog.cpp in Sources */,
 				6716532125D7CE710041BB9A /* SnowflakesEffect.cpp in Sources */,
 				6716530E25D7CE710041BB9A /* BarsEffect.cpp in Sources */,
 				6716520025D7CE700041BB9A /* Element.cpp in Sources */,
