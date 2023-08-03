@@ -618,6 +618,7 @@
 		67D7159727287CE800E5EDB5 /* xlMetalGraphicsContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67D7159327287CE700E5EDB5 /* xlMetalGraphicsContext.mm */; };
 		67D7159827287CE800E5EDB5 /* xlMetalCanvas.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67D7159427287CE700E5EDB5 /* xlMetalCanvas.mm */; };
 		67D9B0A81D42A9BA005367DB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67E7087017B51AB400A22034 /* Cocoa.framework */; };
+		67DE38122A7BEFA60094B7D5 /* CurlManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67DE38112A7BEFA60094B7D5 /* CurlManager.cpp */; };
 		67E54A4527F61401008F834F /* SketchEffectDrawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E54A3F27F61401008F834F /* SketchEffectDrawing.cpp */; };
 		67E54A4627F61401008F834F /* SketchPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E54A4227F61401008F834F /* SketchPanel.cpp */; };
 		67E54A4727F61401008F834F /* SketchEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E54A4327F61401008F834F /* SketchEffect.cpp */; };
@@ -1769,6 +1770,8 @@
 		67D7159427287CE700E5EDB5 /* xlMetalCanvas.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = xlMetalCanvas.mm; sourceTree = "<group>"; };
 		67D7159527287CE700E5EDB5 /* xlMetalGraphicsContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xlMetalGraphicsContext.h; sourceTree = "<group>"; };
 		67D7159627287CE700E5EDB5 /* xlMetalCanvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xlMetalCanvas.h; sourceTree = "<group>"; };
+		67DE38102A7BEFA60094B7D5 /* CurlManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CurlManager.h; path = utils/CurlManager.h; sourceTree = "<group>"; };
+		67DE38112A7BEFA60094B7D5 /* CurlManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CurlManager.cpp; path = utils/CurlManager.cpp; sourceTree = "<group>"; };
 		67E00443256D6FA900E12C81 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		67E54A3F27F61401008F834F /* SketchEffectDrawing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SketchEffectDrawing.cpp; sourceTree = "<group>"; };
 		67E54A4027F61401008F834F /* SketchEffectDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SketchEffectDrawing.h; sourceTree = "<group>"; };
@@ -3077,6 +3080,8 @@
 		675A504C29523DFE000D038D /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				67DE38112A7BEFA60094B7D5 /* CurlManager.cpp */,
+				67DE38102A7BEFA60094B7D5 /* CurlManager.h */,
 				67ABBBC729884BAB004BB143 /* Curl.cpp */,
 				67ABBBC829884BAB004BB143 /* Curl.h */,
 				675A504D29523E11000D038D /* ip_utils.cpp */,
@@ -3896,6 +3901,7 @@
 				6716535B25D7CE720041BB9A /* CandlePanel.cpp in Sources */,
 				6716516A25D7CE700041BB9A /* ModelChainDialog.cpp in Sources */,
 				6716519825D7CE700041BB9A /* DmxGeneral.cpp in Sources */,
+				67DE38122A7BEFA60094B7D5 /* CurlManager.cpp in Sources */,
 				6716533F25D7CE710041BB9A /* RipplePanel.cpp in Sources */,
 				67D142BF275803100018A831 /* message.cpp in Sources */,
 				6716537E25D7CE720041BB9A /* ESPixelStick.cpp in Sources */,
