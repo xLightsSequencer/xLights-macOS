@@ -615,6 +615,7 @@
 		67D144F327580F930018A831 /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67061FD22746D5330020519D /* MetalPerformanceShaders.framework */; };
 		67D144F427580F930018A831 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C8520DD337E006EFCFA /* Security.framework */; };
 		67D144FB27580F930018A831 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6716568025D829790041BB9A /* Images.xcassets */; };
+		67D53D952A82887600ABF6F6 /* FPPUploadProgressDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D53D932A82887500ABF6F6 /* FPPUploadProgressDialog.cpp */; };
 		67D7159727287CE800E5EDB5 /* xlMetalGraphicsContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67D7159327287CE700E5EDB5 /* xlMetalGraphicsContext.mm */; };
 		67D7159827287CE800E5EDB5 /* xlMetalCanvas.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67D7159427287CE700E5EDB5 /* xlMetalCanvas.mm */; };
 		67D9B0A81D42A9BA005367DB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67E7087017B51AB400A22034 /* Cocoa.framework */; };
@@ -1766,6 +1767,8 @@
 		67D142B6275803100018A831 /* message.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = message.cpp; path = ../xSchedule/wxHTTPServer/message.cpp; sourceTree = "<group>"; };
 		67D142B7275803100018A831 /* response.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = response.cpp; path = ../xSchedule/wxHTTPServer/response.cpp; sourceTree = "<group>"; };
 		67D1450727580F930018A831 /* xFade.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = xFade.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		67D53D932A82887500ABF6F6 /* FPPUploadProgressDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FPPUploadProgressDialog.cpp; sourceTree = "<group>"; };
+		67D53D942A82887600ABF6F6 /* FPPUploadProgressDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPPUploadProgressDialog.h; sourceTree = "<group>"; };
 		67D7159327287CE700E5EDB5 /* xlMetalGraphicsContext.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = xlMetalGraphicsContext.mm; sourceTree = "<group>"; };
 		67D7159427287CE700E5EDB5 /* xlMetalCanvas.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = xlMetalCanvas.mm; sourceTree = "<group>"; };
 		67D7159527287CE700E5EDB5 /* xlMetalGraphicsContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xlMetalGraphicsContext.h; sourceTree = "<group>"; };
@@ -2799,10 +2802,6 @@
 		6716508425D7CE6F0041BB9A /* controllers */ = {
 			isa = PBXGroup;
 			children = (
-				6772736728FA095C00193C23 /* Experience.cpp */,
-				6772736828FA095C00193C23 /* Experience.h */,
-				67EC04DD26456A7500A3AFA2 /* WLED.cpp */,
-				67EC04DE26456A7500A3AFA2 /* WLED.h */,
 				6716508C25D7CE6F0041BB9A /* AlphaPix.cpp */,
 				6716509A25D7CE6F0041BB9A /* AlphaPix.h */,
 				6716509225D7CE6F0041BB9A /* BaseController.cpp */,
@@ -2813,12 +2812,16 @@
 				6716508B25D7CE6F0041BB9A /* ControllerUploadData.h */,
 				6716509E25D7CE6F0041BB9A /* ESPixelStick.cpp */,
 				6716508725D7CE6F0041BB9A /* ESPixelStick.h */,
+				6772736728FA095C00193C23 /* Experience.cpp */,
+				6772736828FA095C00193C23 /* Experience.h */,
 				6716508A25D7CE6F0041BB9A /* Falcon.cpp */,
 				6716508E25D7CE6F0041BB9A /* Falcon.h */,
 				6716509725D7CE6F0041BB9A /* FPP.cpp */,
 				6716508D25D7CE6F0041BB9A /* FPP.h */,
 				6716508625D7CE6F0041BB9A /* FPPConnectDialog.cpp */,
 				6716508F25D7CE6F0041BB9A /* FPPConnectDialog.h */,
+				67D53D932A82887500ABF6F6 /* FPPUploadProgressDialog.cpp */,
+				67D53D942A82887600ABF6F6 /* FPPUploadProgressDialog.h */,
 				6716509025D7CE6F0041BB9A /* HinksPix.cpp */,
 				6716509625D7CE6F0041BB9A /* HinksPix.h */,
 				671650A125D7CE6F0041BB9A /* HinksPixExportDialog.cpp */,
@@ -2833,6 +2836,8 @@
 				6716509325D7CE6F0041BB9A /* SanDevices.h */,
 				6716509D25D7CE6F0041BB9A /* WebSocketClient.cpp */,
 				671650A225D7CE6F0041BB9A /* WebSocketClient.h */,
+				67EC04DD26456A7500A3AFA2 /* WLED.cpp */,
+				67EC04DE26456A7500A3AFA2 /* WLED.h */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -3898,6 +3903,7 @@
 				6716531B25D7CE710041BB9A /* FireworksPanel.cpp in Sources */,
 				538F8DFE26B42E5D0080A1BB /* LORPreview.cpp in Sources */,
 				6716559E25D825410041BB9A /* Files.cpp in Sources */,
+				67D53D952A82887600ABF6F6 /* FPPUploadProgressDialog.cpp in Sources */,
 				6716535B25D7CE720041BB9A /* CandlePanel.cpp in Sources */,
 				6716516A25D7CE700041BB9A /* ModelChainDialog.cpp in Sources */,
 				6716519825D7CE700041BB9A /* DmxGeneral.cpp in Sources */,
