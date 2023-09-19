@@ -19,6 +19,7 @@
 		6703FE7627FDBE4400AFE78F /* SketchAssistPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6703FE7327FDBE4400AFE78F /* SketchAssistPanel.cpp */; };
 		6703FE7727FDBE4400AFE78F /* SketchCanvasPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6703FE7427FDBE4400AFE78F /* SketchCanvasPanel.cpp */; };
 		67061FD32746D5330020519D /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67061FD22746D5330020519D /* MetalPerformanceShaders.framework */; };
+		670DA2BA2AB9DD9B00380ACE /* AutoLabelDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670DA2B82AB9DD9B00380ACE /* AutoLabelDialog.cpp */; };
 		670F8DCA27652F5E002F0CD6 /* ModelIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 670F8DC927652F5E002F0CD6 /* ModelIO.framework */; };
 		6716512025D7CE700041BB9A /* SuperStarImportDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164BCA25D7CE6D0041BB9A /* SuperStarImportDialog.cpp */; };
 		6716512125D7CE700041BB9A /* ConvertDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164BCB25D7CE6D0041BB9A /* ConvertDialog.cpp */; };
@@ -528,7 +529,6 @@
 		67A14C7C20DD31E4006EFCFA /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7B20DD31E3006EFCFA /* AGL.framework */; };
 		67A14C7E20DD324D006EFCFA /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7D20DD324D006EFCFA /* libiconv.tbd */; };
 		67A14C8020DD328A006EFCFA /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7F20DD3289006EFCFA /* ImageIO.framework */; };
-		67A14C8220DD3345006EFCFA /* libSystem.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C8120DD3345006EFCFA /* libSystem.tbd */; };
 		67A14C8420DD336E006EFCFA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C8320DD336E006EFCFA /* libz.tbd */; };
 		67A14C8620DD337E006EFCFA /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C8520DD337E006EFCFA /* Security.framework */; };
 		67A889C62614FB2300BFCEC0 /* STLWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67A889BD2614FB2200BFCEC0 /* STLWriter.cpp */; };
@@ -669,6 +669,8 @@
 		6703FE7427FDBE4400AFE78F /* SketchCanvasPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SketchCanvasPanel.cpp; sourceTree = "<group>"; };
 		6703FE7527FDBE4400AFE78F /* SketchCanvasPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SketchCanvasPanel.h; sourceTree = "<group>"; };
 		67061FD22746D5330020519D /* MetalPerformanceShaders.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalPerformanceShaders.framework; path = System/Library/Frameworks/MetalPerformanceShaders.framework; sourceTree = SDKROOT; };
+		670DA2B82AB9DD9B00380ACE /* AutoLabelDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AutoLabelDialog.cpp; sourceTree = "<group>"; };
+		670DA2B92AB9DD9B00380ACE /* AutoLabelDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoLabelDialog.h; sourceTree = "<group>"; };
 		670F8DC927652F5E002F0CD6 /* ModelIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ModelIO.framework; path = System/Library/Frameworks/ModelIO.framework; sourceTree = SDKROOT; };
 		670F8DCB27652F8F002F0CD6 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 		67164BB325D7CD190041BB9A /* xFade.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = xFade.entitlements; sourceTree = "<group>"; };
@@ -1885,7 +1887,6 @@
 				67C7E283215E596000AE0775 /* CoreAudio.framework in Frameworks */,
 				674D3D241C207BD7000D632B /* AudioToolbox.framework in Frameworks */,
 				670F8DCA27652F5E002F0CD6 /* ModelIO.framework in Frameworks */,
-				67A14C8220DD3345006EFCFA /* libSystem.tbd in Frameworks */,
 				672F447626387B59005B795A /* QuartzCore.framework in Frameworks */,
 				6729000D2553047600C83C71 /* libbz2.tbd in Frameworks */,
 				6729FFFD2553039000C83C71 /* libswresample.a in Frameworks */,
@@ -1953,6 +1954,8 @@
 		67164BC525D7CE6D0041BB9A /* xLights */ = {
 			isa = PBXGroup;
 			children = (
+				670DA2B82AB9DD9B00380ACE /* AutoLabelDialog.cpp */,
+				670DA2B92AB9DD9B00380ACE /* AutoLabelDialog.h */,
 				67164C4D25D7CE6D0041BB9A /* AboutDialog.cpp */,
 				67164D1125D7CE6D0041BB9A /* AboutDialog.h */,
 				67164D1925D7CE6D0041BB9A /* AlignmentDialog.cpp */,
@@ -3500,7 +3503,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				CLASSPREFIX = xl;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1500;
 				ORGANIZATIONNAME = "Daniel Kulp";
 				TargetAttributes = {
 					678577AD272C735000E6E249 = {
@@ -4050,6 +4053,7 @@
 				6716512925D7CE700041BB9A /* Render.cpp in Sources */,
 				671651E925D7CE700041BB9A /* BufferPanel.cpp in Sources */,
 				6716535125D7CE710041BB9A /* SpirographPanel.cpp in Sources */,
+				670DA2BA2AB9DD9B00380ACE /* AutoLabelDialog.cpp in Sources */,
 				671651EA25D7CE700041BB9A /* ModelStateDialog.cpp in Sources */,
 				671651E725D7CE700041BB9A /* xlColorPicker.cpp in Sources */,
 				670059B5279A4403006AD9EA /* Mouse3DManager.cpp in Sources */,
@@ -4196,6 +4200,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4207,6 +4212,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4218,6 +4224,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4235,6 +4242,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREFIX_HEADER = "macOS-src/Prefix.pch";
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4254,6 +4262,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREFIX_HEADER = "macOS-src/Prefix.pch";
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4273,6 +4282,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREFIX_HEADER = "macOS-src/Prefix.pch";
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4412,6 +4422,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -4468,7 +4479,6 @@
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
-					"-Wl,-keep_dwarf_unwind",
 					"-Wl,-no_compact_unwind",
 					"-headerpad_max_install_names",
 					"-lwx_baseu-3.3",
@@ -4487,8 +4497,6 @@
 				OTHER_TAPI_FLAGS = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = macosx;
-				STRIP_INSTALLED_PRODUCT = NO;
-				STRIP_STYLE = debugging;
 				WARNING_LDFLAGS = "-headerpad_max_install_names";
 			};
 			name = Debug;
@@ -4527,6 +4535,7 @@
 				DEVELOPMENT_TEAM = U8ZT9RPC6S;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -4599,7 +4608,6 @@
 				OTHER_TAPI_FLAGS = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = macosx;
-				STRIP_STYLE = debugging;
 				WARNING_LDFLAGS = "-headerpad_max_install_names";
 			};
 			name = Release;
@@ -4630,6 +4638,7 @@
 					"$(inherited)",
 					/opt/local/libdbg,
 				);
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MARKETING_VERSION = 2023.01;
 				OTHER_CFLAGS = (
 					"$(inherited)",
@@ -4675,6 +4684,7 @@
 					"$(inherited)",
 					/opt/local/lib,
 				);
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MARKETING_VERSION = 2023.01;
 				OTHER_CFLAGS = (
 					"$(inherited)",
@@ -4727,6 +4737,7 @@
 				DEVELOPMENT_TEAM = U8ZT9RPC6S;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -4802,7 +4813,6 @@
 				OTHER_TAPI_FLAGS = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = macosx;
-				STRIP_STYLE = debugging;
 				WARNING_LDFLAGS = "-headerpad_max_install_names";
 			};
 			name = Archive;
@@ -4834,6 +4844,7 @@
 					"$(inherited)",
 					/opt/local/lib,
 				);
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MARKETING_VERSION = 2023.01;
 				OTHER_CFLAGS = (
 					"$(inherited)",

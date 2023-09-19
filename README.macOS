@@ -199,11 +199,11 @@ unset CXXFLAGS
 unset CXX
 
 
-SDL2:  currently using 2.28.1
+SDL2:  currently using 2.28.3
 git clone https://github.com/libsdl-org/SDL
 cd SDL
 git reset --hard
-git checkout release-2.28.1
+git checkout release-2.28.3
 export CXXFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN}"
 export CFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN}"
 export LDFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN}"
@@ -288,7 +288,7 @@ git status --ignored -s | colrm 1 3 | xargs rm -rf
 liblua: (currently using v5.4.4)
 git clone https://github.com/lua/lua
 cd lua
-git checkout v5.4.4
+git checkout v5.4.6
 make clean
 export CFLAGS="-g -O3 -flto=thin -Wall -fno-stack-protector -fno-common ${XL_TARGETS} ${OSX_VERSION_MIN}"
 make -j4 all CFLAGS="$CFLAGS" MYLDFLAGS="$CFLAGS"
@@ -300,10 +300,10 @@ make -j4 all CFLAGS="$CFLAGS" MYLDFLAGS="$CFLAGS"
 cp liblua.a /opt/local/libdbg
 unset CFLAGS
 
-libhidapi: (currently using 0.13.1)
+libhidapi: (currently using 0.14.0)
 git clone https://github.com/libusb/hidapi
 cd hidapi
-git checkout hidapi-0.13.1
+git checkout hidapi-0.14.0
 export CFLAGS="-g -O3 -flto=thin -Wall -fno-stack-protector -fno-common ${XL_TARGETS} ${OSX_VERSION_MIN}"
 ./bootstrap
 ./configure --prefix=/opt/local
@@ -362,4 +362,5 @@ June 8, 2022 - Update wxWidgets to 3.1.7+
 Aug 25, 2022 - Update to wxWidgets 3.3, SDL to 2.0.24, ffmpeg to 5.1
 Jan 5, 2023 - Update wxWidgets to include dark  mode for windows changes (work in progress, likely more updates to come)
 Mar 2, 2023 - Update ffmpeg to 6.0, zstd to 1.5.4, sdl to 2.26.0, hidapi to 0.13.1
-May 16, 2023 - zset to 1.5.5, sdl to 2.26.5
+May 16, 2023 - zstd to 1.5.5, sdl to 2.26.5
+Sep 19, 2023 - sdl to 2.28.3, lua to 5.4.6, hidapi to 0.14.0
