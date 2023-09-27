@@ -547,6 +547,8 @@
 		67A88A4426164CAE00BFCEC0 /* osxInAppPurchases.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67A88A3B26164CAE00BFCEC0 /* osxInAppPurchases.mm */; };
 		67A88A4726164CD600BFCEC0 /* libxLights-macOSLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A88A2726164C9B00BFCEC0 /* libxLights-macOSLib.a */; };
 		67ABBBC929884BAB004BB143 /* Curl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67ABBBC729884BAB004BB143 /* Curl.cpp */; };
+		67B052212AC4596900665480 /* DuplicateEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67B0521E2AC4596900665480 /* DuplicateEffect.cpp */; };
+		67B052222AC4596900665480 /* DuplicatePanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67B052202AC4596900665480 /* DuplicatePanel.cpp */; };
 		67B73C1C279FBB0B00A8B06B /* FX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67B73C1B279FBB0B00A8B06B /* FX.cpp */; };
 		67B7400627664AC80051F15A /* xlMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67B740042766491D0051F15A /* xlMesh.cpp */; };
 		67BE0DFA2727C0AB00558A3A /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BE0DF82727C0AB00558A3A /* MetalKit.framework */; };
@@ -1716,6 +1718,10 @@
 		67A88A3B26164CAE00BFCEC0 /* osxInAppPurchases.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = osxInAppPurchases.mm; sourceTree = "<group>"; };
 		67ABBBC729884BAB004BB143 /* Curl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Curl.cpp; path = utils/Curl.cpp; sourceTree = "<group>"; };
 		67ABBBC829884BAB004BB143 /* Curl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Curl.h; path = utils/Curl.h; sourceTree = "<group>"; };
+		67B0521D2AC4596900665480 /* DuplicatePanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DuplicatePanel.h; sourceTree = "<group>"; };
+		67B0521E2AC4596900665480 /* DuplicateEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DuplicateEffect.cpp; sourceTree = "<group>"; };
+		67B0521F2AC4596900665480 /* DuplicateEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DuplicateEffect.h; sourceTree = "<group>"; };
+		67B052202AC4596900665480 /* DuplicatePanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DuplicatePanel.cpp; sourceTree = "<group>"; };
 		67B4C91F17B53D960006B951 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		67B4C92017B53D960006B951 /* CoreMediaIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMediaIO.framework; path = System/Library/Frameworks/CoreMediaIO.framework; sourceTree = SDKROOT; };
 		67B4C92117B53D960006B951 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -2580,6 +2586,10 @@
 				67164FD025D7CE6E0041BB9A /* DMXEffect.h */,
 				67164FF825D7CE6F0041BB9A /* DMXPanel.cpp */,
 				6716502C25D7CE6F0041BB9A /* DMXPanel.h */,
+				67B0521E2AC4596900665480 /* DuplicateEffect.cpp */,
+				67B0521F2AC4596900665480 /* DuplicateEffect.h */,
+				67B052202AC4596900665480 /* DuplicatePanel.cpp */,
+				67B0521D2AC4596900665480 /* DuplicatePanel.h */,
 				6716506925D7CE6F0041BB9A /* EffectManager.cpp */,
 				67164FE625D7CE6E0041BB9A /* EffectManager.h */,
 				67164FF225D7CE6F0041BB9A /* EffectPanelUtils.cpp */,
@@ -3963,6 +3973,7 @@
 				6716534925D7CE710041BB9A /* TextPanel.cpp in Sources */,
 				6716534F25D7CE710041BB9A /* OffEffect.cpp in Sources */,
 				671655D025D827650041BB9A /* kiss_fftr.c in Sources */,
+				67B052212AC4596900665480 /* DuplicateEffect.cpp in Sources */,
 				671651A625D7CE700041BB9A /* IciclesModel.cpp in Sources */,
 				671651E325D7CE700041BB9A /* RenderBuffer.cpp in Sources */,
 				671653A625D7CE720041BB9A /* RenardOutput.cpp in Sources */,
@@ -4089,6 +4100,7 @@
 				671651B125D7CE700041BB9A /* BaseObject.cpp in Sources */,
 				671651A725D7CE700041BB9A /* ChannelBlockModel.cpp in Sources */,
 				671651CF25D7CE700041BB9A /* ViewsModelsPanel.cpp in Sources */,
+				67B052222AC4596900665480 /* DuplicatePanel.cpp in Sources */,
 				679C17B028BE64C900EFC875 /* CheckSequenceSettingsPanel.cpp in Sources */,
 				671653BB25D7CE720041BB9A /* SelectPanel.cpp in Sources */,
 				671652D125D7CE710041BB9A /* BitmapCache.cpp in Sources */,
