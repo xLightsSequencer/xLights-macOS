@@ -4616,6 +4616,8 @@
 					"-lwxjpeg-3.3",
 					"-lwxregexu-3.3",
 					"-lxlsxwriter",
+					"-Wl,-ld_classic",
+					"-Wl,-weak_reference_mismatches,weak",
 				);
 				OTHER_TAPI_FLAGS = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
@@ -4829,6 +4831,7 @@
 					"-lwxregexu-3.3",
 					"-lxlsxwriter",
 					"-Wl,-weak_reference_mismatches,weak",
+					"-Wl,-ld_classic",
 				);
 				OTHER_TAPI_FLAGS = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
