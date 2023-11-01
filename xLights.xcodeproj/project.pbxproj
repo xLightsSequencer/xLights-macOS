@@ -4695,7 +4695,6 @@
 					"$(inherited)",
 					"-IxLights",
 					"-Iinclude/ffmpeg-6/include/",
-					"-DwxUSE_WEBP",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -4747,7 +4746,6 @@
 					"$(inherited)",
 					"-IxLights",
 					"-Iinclude/ffmpeg-6/include/",
-					"-DwxUSE_WEBP",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -4915,7 +4913,6 @@
 					"$(inherited)",
 					"-IxLights",
 					"-Iinclude/ffmpeg-6/include/",
-					"-DwxUSE_WEBP",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
