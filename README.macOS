@@ -344,6 +344,28 @@ cp ./mac/.libs/libhidapi.a /opt/local/libdbg
 make clean
 
 
+libwebp: (currently using v1.3.2)
+git clone https://chromium.googlesource.com/webm/libwebp
+cd libwebp
+git checkout v1.3.2
+./autogen.sh
+export CFLAGS="-g -O3 -flto=thin -Wall -fno-stack-protector -fno-common ${XL_TARGETS} ${OSX_VERSION_MIN} -isysroot ${PATH_TO_SDK}"
+./configure --prefix=/opt/local --disable-shared
+make clean
+make -j 8
+cp ./src/.libs/libwebp.a /opt/local/lib
+cp ./src/demux/.libs/libwebpdemux.a  /opt/local/lib
+cp ./sharpyuv/.libs/libsharpyuv.a /opt/local/lib
+make clean
+export CFLAGS="-g -Wall -fno-stack-protector -fno-common ${XL_TARGETS} ${OSX_VERSION_MIN} -isysroot ${PATH_TO_SDK}"
+./configure --prefix=/opt/local --disable-shared
+make -j 8
+cp ./src/.libs/libwebp.a /opt/local/libdbg
+cp ./src/demux/.libs/libwebpdemux.a  /opt/local/libdbg
+cp ./sharpyuv/.libs/libsharpyuv.a /opt/local/libdbg
+
+
+
 CodeBlocks:
 Suggest download a nightly from
 https://drive.google.com/drive/folders/1-r9cbW1I8ZkaCt6iYDhcXH981n5FJTpV
