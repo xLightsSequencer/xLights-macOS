@@ -531,6 +531,8 @@
 		67A14C8020DD328A006EFCFA /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7F20DD3289006EFCFA /* ImageIO.framework */; };
 		67A14C8420DD336E006EFCFA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C8320DD336E006EFCFA /* libz.tbd */; };
 		67A14C8620DD337E006EFCFA /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C8520DD337E006EFCFA /* Security.framework */; };
+		67A731E32B1B0355000E9AA9 /* AdjustPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67A731DF2B1B0355000E9AA9 /* AdjustPanel.cpp */; };
+		67A731E42B1B0355000E9AA9 /* AdjustEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67A731E12B1B0355000E9AA9 /* AdjustEffect.cpp */; };
 		67A889C62614FB2300BFCEC0 /* STLWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67A889BD2614FB2200BFCEC0 /* STLWriter.cpp */; };
 		67A889C72614FB2300BFCEC0 /* DXFWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67A889BE2614FB2200BFCEC0 /* DXFWriter.cpp */; };
 		67A889C82614FB2300BFCEC0 /* VRMLWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67A889C02614FB2300BFCEC0 /* VRMLWriter.cpp */; };
@@ -1698,6 +1700,10 @@
 		67A14C8120DD3345006EFCFA /* libSystem.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libSystem.tbd; path = usr/lib/libSystem.tbd; sourceTree = SDKROOT; };
 		67A14C8320DD336E006EFCFA /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		67A14C8520DD337E006EFCFA /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		67A731DF2B1B0355000E9AA9 /* AdjustPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AdjustPanel.cpp; sourceTree = "<group>"; };
+		67A731E02B1B0355000E9AA9 /* AdjustPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdjustPanel.h; sourceTree = "<group>"; };
+		67A731E12B1B0355000E9AA9 /* AdjustEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AdjustEffect.cpp; sourceTree = "<group>"; };
+		67A731E22B1B0355000E9AA9 /* AdjustEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdjustEffect.h; sourceTree = "<group>"; };
 		67A889B92614FB2200BFCEC0 /* STLWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STLWriter.h; sourceTree = "<group>"; };
 		67A889BA2614FB2200BFCEC0 /* DXFWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DXFWriter.h; sourceTree = "<group>"; };
 		67A889BB2614FB2200BFCEC0 /* ModelToCAD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelToCAD.h; sourceTree = "<group>"; };
@@ -2570,6 +2576,10 @@
 		67164FA325D7CE6E0041BB9A /* effects */ = {
 			isa = PBXGroup;
 			children = (
+				67A731E12B1B0355000E9AA9 /* AdjustEffect.cpp */,
+				67A731E22B1B0355000E9AA9 /* AdjustEffect.h */,
+				67A731DF2B1B0355000E9AA9 /* AdjustPanel.cpp */,
+				67A731E02B1B0355000E9AA9 /* AdjustPanel.h */,
 				67164FB325D7CE6E0041BB9A /* assist */,
 				67164FBF25D7CE6E0041BB9A /* BarsEffect.cpp */,
 				67164FA825D7CE6E0041BB9A /* BarsEffect.h */,
@@ -3882,6 +3892,7 @@
 				671652CE25D7CE710041BB9A /* SequenceData.cpp in Sources */,
 				6716531125D7CE710041BB9A /* ColorWashPanel.cpp in Sources */,
 				671652B025D7CE710041BB9A /* SaveChangesDialog.cpp in Sources */,
+				67A731E32B1B0355000E9AA9 /* AdjustPanel.cpp in Sources */,
 				6716538A25D7CE720041BB9A /* ControllerSerial.cpp in Sources */,
 				6799D45927F1DDAB005A3B3B /* SearchPanel.cpp in Sources */,
 				6716532D25D7CE710041BB9A /* WavePanel.cpp in Sources */,
@@ -4061,6 +4072,7 @@
 				6716516325D7CE700041BB9A /* ModelPreview.cpp in Sources */,
 				6716539925D7CE720041BB9A /* PixelNetOutput.cpp in Sources */,
 				6716537625D7CE720041BB9A /* AlphaPix.cpp in Sources */,
+				67A731E42B1B0355000E9AA9 /* AdjustEffect.cpp in Sources */,
 				67E54A4627F61401008F834F /* SketchPanel.cpp in Sources */,
 				6716535425D7CE720041BB9A /* LinesEffect.cpp in Sources */,
 				6716533125D7CE710041BB9A /* ShockwaveEffect.cpp in Sources */,
