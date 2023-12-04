@@ -21,6 +21,7 @@
 		67061FD32746D5330020519D /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67061FD22746D5330020519D /* MetalPerformanceShaders.framework */; };
 		670DA2BA2AB9DD9B00380ACE /* AutoLabelDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670DA2B82AB9DD9B00380ACE /* AutoLabelDialog.cpp */; };
 		670F8DCA27652F5E002F0CD6 /* ModelIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 670F8DC927652F5E002F0CD6 /* ModelIO.framework */; };
+		671202F92B1DB6F7002E763A /* EditAliasesDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671202F72B1DB6F7002E763A /* EditAliasesDialog.cpp */; };
 		6716512025D7CE700041BB9A /* SuperStarImportDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164BCA25D7CE6D0041BB9A /* SuperStarImportDialog.cpp */; };
 		6716512125D7CE700041BB9A /* ConvertDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164BCB25D7CE6D0041BB9A /* ConvertDialog.cpp */; };
 		6716512225D7CE700041BB9A /* NodesGridCellEditor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164BCC25D7CE6D0041BB9A /* NodesGridCellEditor.cpp */; };
@@ -681,6 +682,8 @@
 		670DA2B92AB9DD9B00380ACE /* AutoLabelDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoLabelDialog.h; sourceTree = "<group>"; };
 		670F8DC927652F5E002F0CD6 /* ModelIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ModelIO.framework; path = System/Library/Frameworks/ModelIO.framework; sourceTree = SDKROOT; };
 		670F8DCB27652F8F002F0CD6 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
+		671202F72B1DB6F7002E763A /* EditAliasesDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EditAliasesDialog.cpp; sourceTree = "<group>"; };
+		671202F82B1DB6F7002E763A /* EditAliasesDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditAliasesDialog.h; sourceTree = "<group>"; };
 		67164BB325D7CD190041BB9A /* xFade.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = xFade.entitlements; sourceTree = "<group>"; };
 		67164BB525D7CD190041BB9A /* xLightsArchive.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = xLightsArchive.entitlements; sourceTree = "<group>"; };
 		67164BB625D7CD190041BB9A /* xLights.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = xLights.entitlements; sourceTree = "<group>"; };
@@ -1978,6 +1981,8 @@
 		67164BC525D7CE6D0041BB9A /* xLights */ = {
 			isa = PBXGroup;
 			children = (
+				671202F72B1DB6F7002E763A /* EditAliasesDialog.cpp */,
+				671202F82B1DB6F7002E763A /* EditAliasesDialog.h */,
 				67164C4D25D7CE6D0041BB9A /* AboutDialog.cpp */,
 				67164D1125D7CE6D0041BB9A /* AboutDialog.h */,
 				67164D1925D7CE6D0041BB9A /* AlignmentDialog.cpp */,
@@ -3787,6 +3792,7 @@
 				671653B125D7CE720041BB9A /* SubBufferPanel.cpp in Sources */,
 				671651D125D7CE700041BB9A /* ValueCurve.cpp in Sources */,
 				6716534625D7CE710041BB9A /* ShapeEffect.cpp in Sources */,
+				671202F92B1DB6F7002E763A /* EditAliasesDialog.cpp in Sources */,
 				6716535325D7CE710041BB9A /* ShaderEffect.cpp in Sources */,
 				6716513725D7CE700041BB9A /* OutputSettingsPanel.cpp in Sources */,
 				671651D025D7CE700041BB9A /* LyricsDialog.cpp in Sources */,
