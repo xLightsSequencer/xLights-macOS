@@ -478,6 +478,7 @@
 		672F447626387B59005B795A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B229204BA6AF00E90AC7 /* QuartzCore.framework */; };
 		6735E1D529E1B7B700E339B0 /* GuitarPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6735E1D129E1B7B700E339B0 /* GuitarPanel.cpp */; };
 		6735E1D629E1B7B700E339B0 /* GuitarEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6735E1D429E1B7B700E339B0 /* GuitarEffect.cpp */; };
+		673977882B2CC5DB00FF1B7A /* TempFileManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 673977862B2CC5DB00FF1B7A /* TempFileManager.cpp */; };
 		673B3D4E223BF203000F1D7E /* libcurl.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 671E47FC2231CEC900049DC9 /* libcurl.tbd */; };
 		67418CDF286B292B00EA516E /* ModelRemap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67418CDD286B292A00EA516E /* ModelRemap.cpp */; };
 		674D3D221C207BCC000D632B /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D211C207BCC000D632B /* IOKit.framework */; };
@@ -1609,6 +1610,8 @@
 		6735E1D229E1B7B700E339B0 /* GuitarEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuitarEffect.h; sourceTree = "<group>"; };
 		6735E1D329E1B7B700E339B0 /* GuitarPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuitarPanel.h; sourceTree = "<group>"; };
 		6735E1D429E1B7B700E339B0 /* GuitarEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GuitarEffect.cpp; sourceTree = "<group>"; };
+		673977862B2CC5DB00FF1B7A /* TempFileManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TempFileManager.cpp; sourceTree = "<group>"; };
+		673977872B2CC5DB00FF1B7A /* TempFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TempFileManager.h; sourceTree = "<group>"; };
 		67418CDD286B292A00EA516E /* ModelRemap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModelRemap.cpp; sourceTree = "<group>"; };
 		67418CDE286B292A00EA516E /* ModelRemap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelRemap.h; sourceTree = "<group>"; };
 		674D3D1C1C207B9F000D632B /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -1981,8 +1984,6 @@
 		67164BC525D7CE6D0041BB9A /* xLights */ = {
 			isa = PBXGroup;
 			children = (
-				671202F72B1DB6F7002E763A /* EditAliasesDialog.cpp */,
-				671202F82B1DB6F7002E763A /* EditAliasesDialog.h */,
 				67164C4D25D7CE6D0041BB9A /* AboutDialog.cpp */,
 				67164D1125D7CE6D0041BB9A /* AboutDialog.h */,
 				67164D1925D7CE6D0041BB9A /* AlignmentDialog.cpp */,
@@ -2064,6 +2065,8 @@
 				67164C7A25D7CE6D0041BB9A /* DragValueCurveBitmapButton.h */,
 				67283813295E3CB900994782 /* DuplicateDialog.cpp */,
 				67283814295E3CB900994782 /* DuplicateDialog.h */,
+				671202F72B1DB6F7002E763A /* EditAliasesDialog.cpp */,
+				671202F82B1DB6F7002E763A /* EditAliasesDialog.h */,
 				67164C0125D7CE6D0041BB9A /* EffectAssist.cpp */,
 				67164C2325D7CE6D0041BB9A /* EffectAssist.h */,
 				67164C8A25D7CE6D0041BB9A /* EffectIconPanel.cpp */,
@@ -2271,6 +2274,8 @@
 				67164D9E25D7CE6D0041BB9A /* TabPreview.cpp */,
 				67164C4125D7CE6D0041BB9A /* TabSequence.cpp */,
 				67164BDC25D7CE6D0041BB9A /* TabSetup.cpp */,
+				673977862B2CC5DB00FF1B7A /* TempFileManager.cpp */,
+				673977872B2CC5DB00FF1B7A /* TempFileManager.h */,
 				67164EFB25D7CE6E0041BB9A /* TimingPanel.cpp */,
 				67164EF425D7CE6E0041BB9A /* TimingPanel.h */,
 				6776DF8828609D29007573A6 /* TipOfTheDayDialog.cpp */,
@@ -3561,7 +3566,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				CLASSPREFIX = xl;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1510;
 				ORGANIZATIONNAME = "Daniel Kulp";
 				TargetAttributes = {
 					678577AD272C735000E6E249 = {
@@ -3920,6 +3925,7 @@
 				671651DB25D7CE700041BB9A /* VectorMath.cpp in Sources */,
 				6716514625D7CE700041BB9A /* PaletteMgmtDialog.cpp in Sources */,
 				6716537B25D7CE720041BB9A /* FPP.cpp in Sources */,
+				673977882B2CC5DB00FF1B7A /* TempFileManager.cpp in Sources */,
 				6716538225D7CE720041BB9A /* PathGenerationDialog.cpp in Sources */,
 				671652B125D7CE710041BB9A /* SeqExportDialog.cpp in Sources */,
 				6716536425D7CE720041BB9A /* EffectManager.cpp in Sources */,
@@ -4456,6 +4462,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -4569,6 +4576,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -4783,6 +4791,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
