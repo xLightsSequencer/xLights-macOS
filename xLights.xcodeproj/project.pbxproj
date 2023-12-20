@@ -492,6 +492,7 @@
 		675A505229523E11000D038D /* string_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675A504E29523E11000D038D /* string_utils.cpp */; };
 		675EDD3D2789D87C00D40FEA /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675EDD3C2789D87C00D40FEA /* liblua.a */; };
 		675FD840204C3C0B003D280F /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B227204BA69B00E90AC7 /* CoreImage.framework */; };
+		6768D20E2B307B5B004A4667 /* xlColourData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6768D20C2B307B5B004A4667 /* xlColourData.cpp */; };
 		676FB41C273400FC0081F91A /* xlGraphicsAccumulators.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 676FB41A273400FC0081F91A /* xlGraphicsAccumulators.cpp */; };
 		67718A0527D4F59600F1A95E /* MultiPointModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67718A0327D4F59600F1A95E /* MultiPointModel.cpp */; };
 		67718A0627D4F59600F1A95E /* MultiPointScreenLocation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67718A0427D4F59600F1A95E /* MultiPointScreenLocation.cpp */; };
@@ -1632,6 +1633,8 @@
 		675A504F29523E11000D038D /* ip_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ip_utils.h; path = utils/ip_utils.h; sourceTree = "<group>"; };
 		675A505029523E11000D038D /* string_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = string_utils.h; path = utils/string_utils.h; sourceTree = "<group>"; };
 		675EDD3C2789D87C00D40FEA /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblua.a; path = /opt/local/lib/liblua.a; sourceTree = "<group>"; };
+		6768D20C2B307B5B004A4667 /* xlColourData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xlColourData.cpp; sourceTree = "<group>"; };
+		6768D20D2B307B5B004A4667 /* xlColourData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xlColourData.h; sourceTree = "<group>"; };
 		676FB41A273400FC0081F91A /* xlGraphicsAccumulators.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xlGraphicsAccumulators.cpp; sourceTree = "<group>"; };
 		676FB41B273400FC0081F91A /* xlGraphicsAccumulators.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xlGraphicsAccumulators.h; sourceTree = "<group>"; };
 		6771056A267BB91C001DA926 /* UniverseEntryDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UniverseEntryDialog.cpp; path = ../xCapture/UniverseEntryDialog.cpp; sourceTree = "<group>"; };
@@ -2343,6 +2346,8 @@
 				67164C8025D7CE6D0041BB9A /* xlColorPicker.h */,
 				67164D1225D7CE6D0041BB9A /* xlColorPickerFields.cpp */,
 				671650A625D7CE6F0041BB9A /* xlColorPickerFields.h */,
+				6768D20C2B307B5B004A4667 /* xlColourData.cpp */,
+				6768D20D2B307B5B004A4667 /* xlColourData.h */,
 				67164BD425D7CE6D0041BB9A /* xlCustomControl.h */,
 				67164BD525D7CE6D0041BB9A /* xlGridCanvas.cpp */,
 				67164D9925D7CE6D0041BB9A /* xlGridCanvas.h */,
@@ -3818,6 +3823,7 @@
 				671651EE25D7CE700041BB9A /* KeyBindingEditDialog.cpp in Sources */,
 				6716534325D7CE710041BB9A /* OffPanel.cpp in Sources */,
 				6716513525D7CE700041BB9A /* BackupSettingsPanel.cpp in Sources */,
+				6768D20E2B307B5B004A4667 /* xlColourData.cpp in Sources */,
 				678577A5272C67D400E6E249 /* MetalButterflyEffect.mm in Sources */,
 				6716531C25D7CE710041BB9A /* FanEffect.cpp in Sources */,
 				6716518525D7CE700041BB9A /* ConvertLogDialog.cpp in Sources */,
@@ -4533,8 +4539,9 @@
 					/opt/local/libdbg,
 				);
 				LLVM_LTO = NO;
-				MACOSX_DEPLOYMENT_TARGET = 13.3;
-				MTL_LANGUAGE_REVISION = Metal21;
+				MACOSX_DEPLOYMENT_TARGET = 14.2;
+				MTL_LANGUAGE_REVISION = Metal31;
+				MTL_TREAT_WARNINGS_AS_ERRORS = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
 					"-D_FILE_OFFSET_BITS=64",
@@ -4642,6 +4649,7 @@
 				LLVM_LTO = YES_THIN;
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_LANGUAGE_REVISION = Metal21;
+				MTL_TREAT_WARNINGS_AS_ERRORS = YES;
 				OTHER_CFLAGS = (
 					"-D_FILE_OFFSET_BITS=64",
 					"-D__WXOSX__",
@@ -4860,6 +4868,7 @@
 				LLVM_LTO = YES_THIN;
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_LANGUAGE_REVISION = Metal21;
+				MTL_TREAT_WARNINGS_AS_ERRORS = YES;
 				OTHER_CFLAGS = (
 					"-D_FILE_OFFSET_BITS=64",
 					"-D__WXOSX__",
