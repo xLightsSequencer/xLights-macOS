@@ -492,6 +492,8 @@
 		675A505229523E11000D038D /* string_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675A504E29523E11000D038D /* string_utils.cpp */; };
 		675EDD3D2789D87C00D40FEA /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675EDD3C2789D87C00D40FEA /* liblua.a */; };
 		675FD840204C3C0B003D280F /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B227204BA69B00E90AC7 /* CoreImage.framework */; };
+		6760F9322B3972E400FD6B01 /* MetalPinwheelEffect.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6760F9312B3972E400FD6B01 /* MetalPinwheelEffect.mm */; };
+		6760F9342B39789600FD6B01 /* PinwheelFunctions.metal in Sources */ = {isa = PBXBuildFile; fileRef = 6760F9332B39789600FD6B01 /* PinwheelFunctions.metal */; };
 		6768D20E2B307B5B004A4667 /* xlColourData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6768D20C2B307B5B004A4667 /* xlColourData.cpp */; };
 		676FB41C273400FC0081F91A /* xlGraphicsAccumulators.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 676FB41A273400FC0081F91A /* xlGraphicsAccumulators.cpp */; };
 		67718A0527D4F59600F1A95E /* MultiPointModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67718A0327D4F59600F1A95E /* MultiPointModel.cpp */; };
@@ -1633,6 +1635,8 @@
 		675A504F29523E11000D038D /* ip_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ip_utils.h; path = utils/ip_utils.h; sourceTree = "<group>"; };
 		675A505029523E11000D038D /* string_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = string_utils.h; path = utils/string_utils.h; sourceTree = "<group>"; };
 		675EDD3C2789D87C00D40FEA /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblua.a; path = /opt/local/lib/liblua.a; sourceTree = "<group>"; };
+		6760F9312B3972E400FD6B01 /* MetalPinwheelEffect.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalPinwheelEffect.mm; sourceTree = "<group>"; };
+		6760F9332B39789600FD6B01 /* PinwheelFunctions.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = PinwheelFunctions.metal; sourceTree = "<group>"; };
 		6768D20C2B307B5B004A4667 /* xlColourData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xlColourData.cpp; sourceTree = "<group>"; };
 		6768D20D2B307B5B004A4667 /* xlColourData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xlColourData.h; sourceTree = "<group>"; };
 		676FB41A273400FC0081F91A /* xlGraphicsAccumulators.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xlGraphicsAccumulators.cpp; sourceTree = "<group>"; };
@@ -3167,10 +3171,12 @@
 			isa = PBXGroup;
 			children = (
 				678577B5272C73A000E6E249 /* ButterflyFunctions.metal */,
+				6760F9332B39789600FD6B01 /* PinwheelFunctions.metal */,
 				670260AB2902673700B9BD35 /* PlasmaFunctions.metal */,
 				678577A8272C6B6000E6E249 /* MetalEffectDataTypes.h */,
 				678577A3272C67D400E6E249 /* MetalButterflyEffect.mm */,
 				670260A92902304900B9BD35 /* MetalPlasmaEffect.mm */,
+				6760F9312B3972E400FD6B01 /* MetalPinwheelEffect.mm */,
 				678577AA272C721500E6E249 /* MetalComputeUtilities.hpp */,
 				678577A9272C721500E6E249 /* MetalComputeUtilities.mm */,
 				678577A1272C662700E6E249 /* MetalEffectManager.mm */,
@@ -3691,6 +3697,7 @@
 			files = (
 				678577B6272C73A000E6E249 /* ButterflyFunctions.metal in Sources */,
 				670260AC2902673700B9BD35 /* PlasmaFunctions.metal in Sources */,
+				6760F9342B39789600FD6B01 /* PinwheelFunctions.metal in Sources */,
 				67010954290A61B000F311A7 /* RotoZoomFunctions.metal in Sources */,
 				674DEE332791DE8E00DEA844 /* WarpFunctions.metal in Sources */,
 			);
@@ -3740,7 +3747,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				677A15C226A22AA8000AFE4D /* ResultDialog.cpp in Sources */,
 				677A15C326A22AA8000AFE4D /* UniverseEntryDialog.cpp in Sources */,
 				677A15C426A22AA8000AFE4D /* xCaptureMain.cpp in Sources */,
 				6716513E25D7CE700041BB9A /* ControllerModelDialog.cpp in Sources */,
@@ -3753,6 +3759,7 @@
 				6716530225D7CE710041BB9A /* ShaderDownloadDialog.cpp in Sources */,
 				6716517725D7CE700041BB9A /* FSEQFile.cpp in Sources */,
 				6716530625D7CE710041BB9A /* GarlandsEffect.cpp in Sources */,
+				677A15C226A22AA8000AFE4D /* ResultDialog.cpp in Sources */,
 				67B73C1C279FBB0B00A8B06B /* FX.cpp in Sources */,
 				6716518E25D7CE700041BB9A /* SingleLineModel.cpp in Sources */,
 				6716533725D7CE710041BB9A /* OnEffect.cpp in Sources */,
@@ -3856,6 +3863,7 @@
 				6716537A25D7CE720041BB9A /* ControllerUploadData.cpp in Sources */,
 				6716559A25D825410041BB9A /* PluginAdapter.cpp in Sources */,
 				6716518025D7CE700041BB9A /* StrandNodeNamesDialog.cpp in Sources */,
+				6760F9322B3972E400FD6B01 /* MetalPinwheelEffect.mm in Sources */,
 				6716519E25D7CE700041BB9A /* DmxModel.cpp in Sources */,
 				671652D225D7CE710041BB9A /* EffectTreeDialog.cpp in Sources */,
 				67D142C0275803100018A831 /* response.cpp in Sources */,
