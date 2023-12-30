@@ -562,24 +562,6 @@
 		67BE0DFB2727C0AB00558A3A /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BE0DF92727C0AB00558A3A /* Metal.framework */; };
 		67BE0E012728230C00558A3A /* wxMetalCanvas.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67BE0DFF2728230C00558A3A /* wxMetalCanvas.mm */; };
 		67BE0E022728230C00558A3A /* wxMetalCanvas.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67BE0E002728230C00558A3A /* wxMetalCanvas.hpp */; };
-		67BE673D2758115C00A71410 /* jsonreader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716552825D823C60041BB9A /* jsonreader.cpp */; };
-		67BE673E2758115C00A71410 /* jsonval.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716552A25D823C60041BB9A /* jsonval.cpp */; };
-		67BE673F2758115C00A71410 /* jsonwriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716552B25D823C60041BB9A /* jsonwriter.cpp */; };
-		67BE67402758118700A71410 /* xLightsTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C4425D7CE6D0041BB9A /* xLightsTimer.cpp */; };
-		67BE6741275811A000A71410 /* UtilFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C7C25D7CE6D0041BB9A /* UtilFunctions.cpp */; };
-		67BE6742275811A000A71410 /* xLightsVersion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650F625D7CE6F0041BB9A /* xLightsVersion.cpp */; };
-		67BE6743275811C200A71410 /* wxLED.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716555C25D8249D0041BB9A /* wxLED.cpp */; };
-		67BE6764275813C400A71410 /* UniverseData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BE674E275813C300A71410 /* UniverseData.cpp */; };
-		67BE6765275813C400A71410 /* ArtNETReceiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BE6751275813C300A71410 /* ArtNETReceiver.cpp */; };
-		67BE6766275813C400A71410 /* Emitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BE6752275813C300A71410 /* Emitter.cpp */; };
-		67BE6767275813C400A71410 /* xFadeMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BE6754275813C400A71410 /* xFadeMain.cpp */; };
-		67BE6768275813C400A71410 /* Settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BE6757275813C400A71410 /* Settings.cpp */; };
-		67BE6769275813C400A71410 /* SettingsDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BE6759275813C400A71410 /* SettingsDialog.cpp */; };
-		67BE676A275813C400A71410 /* FadeExcludeDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BE675B275813C400A71410 /* FadeExcludeDialog.cpp */; };
-		67BE676B275813C400A71410 /* xFadeApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BE675D275813C400A71410 /* xFadeApp.cpp */; };
-		67BE676C275813C400A71410 /* UniverseEntryDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BE675F275813C400A71410 /* UniverseEntryDialog.cpp */; };
-		67BE676D275813C400A71410 /* E131Receiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BE6760275813C400A71410 /* E131Receiver.cpp */; };
-		67BE676E275813C400A71410 /* PacketData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BE6762275813C400A71410 /* PacketData.cpp */; };
 		67C7E283215E596000AE0775 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B6F3422040FBB600B847E0 /* CoreAudio.framework */; };
 		67D142B8275803100018A831 /* pages.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D142AD275803100018A831 /* pages.cpp */; };
 		67D142B9275803100018A831 /* connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D142AE275803100018A831 /* connection.cpp */; };
@@ -590,40 +572,6 @@
 		67D142BE275803100018A831 /* request.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D142B5275803100018A831 /* request.cpp */; };
 		67D142BF275803100018A831 /* message.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D142B6275803100018A831 /* message.cpp */; };
 		67D142C0275803100018A831 /* response.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D142B7275803100018A831 /* response.cpp */; };
-		67D144D427580F930018A831 /* libcurl.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 671E47FC2231CEC900049DC9 /* libcurl.tbd */; };
-		67D144D527580F930018A831 /* libxLights-macOSLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A88A2726164C9B00BFCEC0 /* libxLights-macOSLib.a */; };
-		67D144D627580F930018A831 /* libavformat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFF92553033E00C83C71 /* libavformat.a */; };
-		67D144D727580F930018A831 /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFFE255303A300C83C71 /* libswscale.a */; };
-		67D144D827580F930018A831 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B4C91F17B53D960006B951 /* CoreMedia.framework */; };
-		67D144D927580F930018A831 /* libzstd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFDA2552EE9000C83C71 /* libzstd.a */; };
-		67D144DA27580F930018A831 /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFF42553031900C83C71 /* libavcodec.a */; };
-		67D144DB27580F930018A831 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B4C92117B53D960006B951 /* CoreVideo.framework */; };
-		67D144DC27580F930018A831 /* libliquidfun.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFD92552EE9000C83C71 /* libliquidfun.a */; };
-		67D144DD27580F930018A831 /* libavutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFF32553031800C83C71 /* libavutil.a */; };
-		67D144DE27580F930018A831 /* libpthread.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D251C207C25000D632B /* libpthread.tbd */; };
-		67D144DF27580F930018A831 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67290003255303D500C83C71 /* VideoToolbox.framework */; };
-		67D144E027580F930018A831 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFDB2552EE9000C83C71 /* libSDL2.a */; };
-		67D144E127580F930018A831 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BE0DF82727C0AB00558A3A /* MetalKit.framework */; };
-		67D144E227580F930018A831 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D211C207BCC000D632B /* IOKit.framework */; };
-		67D144E327580F930018A831 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7720DD313D006EFCFA /* Carbon.framework */; };
-		67D144E427580F930018A831 /* liblog4cpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFDC2552EE9000C83C71 /* liblog4cpp.a */; };
-		67D144E527580F930018A831 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67E7087017B51AB400A22034 /* Cocoa.framework */; };
-		67D144E627580F930018A831 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B6F3422040FBB600B847E0 /* CoreAudio.framework */; };
-		67D144E727580F930018A831 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D231C207BD7000D632B /* AudioToolbox.framework */; };
-		67D144E827580F930018A831 /* libSystem.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C8120DD3345006EFCFA /* libSystem.tbd */; };
-		67D144E927580F930018A831 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B229204BA6AF00E90AC7 /* QuartzCore.framework */; };
-		67D144EA27580F930018A831 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729000C2553046400C83C71 /* libbz2.tbd */; };
-		67D144EB27580F930018A831 /* libswresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFFC2553037E00C83C71 /* libswresample.a */; };
-		67D144EC27580F930018A831 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7D20DD324D006EFCFA /* libiconv.tbd */; };
-		67D144ED27580F930018A831 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B227204BA69B00E90AC7 /* CoreImage.framework */; };
-		67D144EE27580F930018A831 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7B20DD31E3006EFCFA /* AGL.framework */; };
-		67D144EF27580F930018A831 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7920DD31D6006EFCFA /* WebKit.framework */; };
-		67D144F027580F930018A831 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7F20DD3289006EFCFA /* ImageIO.framework */; };
-		67D144F127580F930018A831 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C8320DD336E006EFCFA /* libz.tbd */; };
-		67D144F227580F930018A831 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BE0DF92727C0AB00558A3A /* Metal.framework */; };
-		67D144F327580F930018A831 /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67061FD22746D5330020519D /* MetalPerformanceShaders.framework */; };
-		67D144F427580F930018A831 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C8520DD337E006EFCFA /* Security.framework */; };
-		67D144FB27580F930018A831 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6716568025D829790041BB9A /* Images.xcassets */; };
 		67D53D952A82887600ABF6F6 /* FPPUploadProgressDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D53D932A82887500ABF6F6 /* FPPUploadProgressDialog.cpp */; };
 		67D7159727287CE800E5EDB5 /* xlMetalGraphicsContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67D7159327287CE700E5EDB5 /* xlMetalGraphicsContext.mm */; };
 		67D7159827287CE800E5EDB5 /* xlMetalCanvas.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67D7159427287CE700E5EDB5 /* xlMetalCanvas.mm */; };
@@ -1797,7 +1745,6 @@
 		67D142B5275803100018A831 /* request.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = request.cpp; path = ../xSchedule/wxHTTPServer/request.cpp; sourceTree = "<group>"; };
 		67D142B6275803100018A831 /* message.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = message.cpp; path = ../xSchedule/wxHTTPServer/message.cpp; sourceTree = "<group>"; };
 		67D142B7275803100018A831 /* response.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = response.cpp; path = ../xSchedule/wxHTTPServer/response.cpp; sourceTree = "<group>"; };
-		67D1450727580F930018A831 /* xFade.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = xFade.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67D53D932A82887500ABF6F6 /* FPPUploadProgressDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FPPUploadProgressDialog.cpp; sourceTree = "<group>"; };
 		67D53D942A82887600ABF6F6 /* FPPUploadProgressDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPPUploadProgressDialog.h; sourceTree = "<group>"; };
 		67D7159327287CE700E5EDB5 /* xlMetalGraphicsContext.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = xlMetalGraphicsContext.mm; sourceTree = "<group>"; };
@@ -1852,46 +1799,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		67D144D327580F930018A831 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				67D144D427580F930018A831 /* libcurl.tbd in Frameworks */,
-				67D144D527580F930018A831 /* libxLights-macOSLib.a in Frameworks */,
-				67D144D627580F930018A831 /* libavformat.a in Frameworks */,
-				67D144D727580F930018A831 /* libswscale.a in Frameworks */,
-				67D144D827580F930018A831 /* CoreMedia.framework in Frameworks */,
-				67D144D927580F930018A831 /* libzstd.a in Frameworks */,
-				67D144DA27580F930018A831 /* libavcodec.a in Frameworks */,
-				67D144DB27580F930018A831 /* CoreVideo.framework in Frameworks */,
-				67D144DC27580F930018A831 /* libliquidfun.a in Frameworks */,
-				67D144DD27580F930018A831 /* libavutil.a in Frameworks */,
-				67D144DE27580F930018A831 /* libpthread.tbd in Frameworks */,
-				67D144DF27580F930018A831 /* VideoToolbox.framework in Frameworks */,
-				67D144E027580F930018A831 /* libSDL2.a in Frameworks */,
-				67D144E127580F930018A831 /* MetalKit.framework in Frameworks */,
-				67D144E227580F930018A831 /* IOKit.framework in Frameworks */,
-				67D144E327580F930018A831 /* Carbon.framework in Frameworks */,
-				67D144E427580F930018A831 /* liblog4cpp.a in Frameworks */,
-				67D144E527580F930018A831 /* Cocoa.framework in Frameworks */,
-				67D144E627580F930018A831 /* CoreAudio.framework in Frameworks */,
-				67D144E727580F930018A831 /* AudioToolbox.framework in Frameworks */,
-				67D144E827580F930018A831 /* libSystem.tbd in Frameworks */,
-				67D144E927580F930018A831 /* QuartzCore.framework in Frameworks */,
-				67D144EA27580F930018A831 /* libbz2.tbd in Frameworks */,
-				67D144EB27580F930018A831 /* libswresample.a in Frameworks */,
-				67D144EC27580F930018A831 /* libiconv.tbd in Frameworks */,
-				67D144ED27580F930018A831 /* CoreImage.framework in Frameworks */,
-				67D144EE27580F930018A831 /* AGL.framework in Frameworks */,
-				67D144EF27580F930018A831 /* WebKit.framework in Frameworks */,
-				67D144F027580F930018A831 /* ImageIO.framework in Frameworks */,
-				67D144F127580F930018A831 /* libz.tbd in Frameworks */,
-				67D144F227580F930018A831 /* Metal.framework in Frameworks */,
-				67D144F327580F930018A831 /* MetalPerformanceShaders.framework in Frameworks */,
-				67D144F427580F930018A831 /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3368,7 +3275,6 @@
 			children = (
 				67E7086D17B51AB400A22034 /* xLights.app */,
 				67A88A2726164C9B00BFCEC0 /* libxLights-macOSLib.a */,
-				67D1450727580F930018A831 /* xFade.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3518,6 +3424,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 67A88A2D26164C9C00BFCEC0 /* Build configuration list for PBXNativeTarget "xLights-macOSLib" */;
 			buildPhases = (
+				67A892BC2B408A4B00B1D094 /* ShellScript */,
 				67A88A2326164C9B00BFCEC0 /* Headers */,
 				67A88A2426164C9B00BFCEC0 /* Sources */,
 				67A88A2526164C9B00BFCEC0 /* Frameworks */,
@@ -3530,24 +3437,6 @@
 			productName = "xLights-macOSLib";
 			productReference = 67A88A2726164C9B00BFCEC0 /* libxLights-macOSLib.a */;
 			productType = "com.apple.product-type.library.static";
-		};
-		67D142FE27580F930018A831 /* xFade */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 67D1450327580F930018A831 /* Build configuration list for PBXNativeTarget "xFade" */;
-			buildPhases = (
-				67D1430327580F930018A831 /* Sources */,
-				67D144D327580F930018A831 /* Frameworks */,
-				67D144F527580F930018A831 /* Resources */,
-				67D1450227580F930018A831 /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = xFade;
-			productName = xLights;
-			productReference = 67D1450727580F930018A831 /* xFade.app */;
-			productType = "com.apple.product-type.application";
 		};
 		67E7086C17B51AB400A22034 /* xLights */ = {
 			isa = PBXNativeTarget;
@@ -3621,20 +3510,11 @@
 				67E7086C17B51AB400A22034 /* xLights */,
 				67A88A2626164C9B00BFCEC0 /* xLights-macOSLib */,
 				678577AD272C735000E6E249 /* EffectComputeFunctions */,
-				67D142FE27580F930018A831 /* xFade */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		67D144F527580F930018A831 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				67D144FB27580F930018A831 /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		67E7086B17B51AB400A22034 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3673,19 +3553,23 @@
 			shellScript = "scripts/mac_fix_dylibs\n";
 			showEnvVarsInLog = 0;
 		};
-		67D1450227580F930018A831 /* ShellScript */ = {
+		67A892BC2B408A4B00B1D094 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
-			buildActionMask = 12;
+			buildActionMask = 2147483647;
 			files = (
 			);
+			inputFileListPaths = (
+			);
 			inputPaths = (
+			);
+			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
-			shellScript = "scripts/mac_fix_dylibs\n";
+			shellPath = /bin/sh;
+			shellScript = "# if the local artifacts are available, use them\nif [ -f /opt/local/include/lualib.h ]; then\n    ln -sf /opt/local dependencies\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -3715,31 +3599,6 @@
 				67A88A4426164CAE00BFCEC0 /* osxInAppPurchases.mm in Sources */,
 				6786706D27296B4000A5375D /* SIMDMathUtilities.cpp in Sources */,
 				67A88A4126164CAE00BFCEC0 /* xlMacUtils.mm in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		67D1430327580F930018A831 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				67BE6743275811C200A71410 /* wxLED.cpp in Sources */,
-				67BE6741275811A000A71410 /* UtilFunctions.cpp in Sources */,
-				67BE6768275813C400A71410 /* Settings.cpp in Sources */,
-				67BE6742275811A000A71410 /* xLightsVersion.cpp in Sources */,
-				67BE676A275813C400A71410 /* FadeExcludeDialog.cpp in Sources */,
-				67BE67402758118700A71410 /* xLightsTimer.cpp in Sources */,
-				67BE6766275813C400A71410 /* Emitter.cpp in Sources */,
-				67BE6764275813C400A71410 /* UniverseData.cpp in Sources */,
-				67BE673D2758115C00A71410 /* jsonreader.cpp in Sources */,
-				67BE673E2758115C00A71410 /* jsonval.cpp in Sources */,
-				67BE6765275813C400A71410 /* ArtNETReceiver.cpp in Sources */,
-				67BE676E275813C400A71410 /* PacketData.cpp in Sources */,
-				67BE676C275813C400A71410 /* UniverseEntryDialog.cpp in Sources */,
-				67BE6769275813C400A71410 /* SettingsDialog.cpp in Sources */,
-				67BE676B275813C400A71410 /* xFadeApp.cpp in Sources */,
-				67BE673F2758115C00A71410 /* jsonwriter.cpp in Sources */,
-				67BE676D275813C400A71410 /* E131Receiver.cpp in Sources */,
-				67BE6767275813C400A71410 /* xFadeMain.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4374,104 +4233,6 @@
 			};
 			name = Archive;
 		};
-		67D1450427580F930018A831 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_ENTITLEMENTS = Assets/xFade/xFadeDebug.entitlements;
-				CODE_SIGN_IDENTITY = "-";
-				CURRENT_PROJECT_VERSION = 220020;
-				DEVELOPMENT_ASSET_PATHS = "";
-				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INFOPLIST_FILE = "$(SRCROOT)/Assets/xFade/Info.plist";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
-				MARKETING_VERSION = 2022.02;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-IxLights",
-					"-Iinclude/ffmpeg-6/include/",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-framework",
-					OpenGL,
-					"-framework",
-					StoreKit,
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.xlights;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		67D1450527580F930018A831 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_ENTITLEMENTS = Assets/xFade/xFade.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CURRENT_PROJECT_VERSION = 220020;
-				DEVELOPMENT_ASSET_PATHS = "";
-				ENABLE_HARDENED_RUNTIME = YES;
-				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INFOPLIST_FILE = "$(SRCROOT)/Assets/xFade/Info.plist";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
-				MARKETING_VERSION = 2022.02;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-IxLights",
-					"-Iinclude/ffmpeg-6/include/",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-framework",
-					OpenGL,
-					"-framework",
-					StoreKit,
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.xlights;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		67D1450627580F930018A831 /* Archive */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_ENTITLEMENTS = Assets/xFade/xFade.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CURRENT_PROJECT_VERSION = 220020;
-				DEVELOPMENT_ASSET_PATHS = "";
-				ENABLE_HARDENED_RUNTIME = YES;
-				GCC_PREFIX_HEADER = "";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INFOPLIST_FILE = "$(SRCROOT)/Assets/xFade/Info.plist";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
-				MARKETING_VERSION = 2022.02;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-IxLights",
-					"-Iinclude/ffmpeg-6/include/",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-framework",
-					OpenGL,
-					"-framework",
-					StoreKit,
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.xlights;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Archive;
-		};
 		67E7088817B51AB400A22034 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4538,13 +4299,13 @@
 					../xLights,
 					../include,
 					"../include/ffmpeg-6/include/",
-					/opt/local/include,
+					dependencies/include,
 					"macOS-src",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				"LIBRARY_SEARCH_PATHS[arch=*]" = (
 					/usr/lib,
-					/opt/local/libdbg,
+					dependencies/libdbg,
 				);
 				LLVM_LTO = NO;
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
@@ -4558,8 +4319,8 @@
 					"-D__WXOSX_COCOA__",
 					"-D_LIBCPP_DISABLE_AVAILABILITY",
 					"-ferror-limit=0",
-					"-I/opt/local/libdbg/wx/include/osx_cocoa-unicode-3.3",
-					"-I/opt/local/include/wx-3.3",
+					"-Idependencies/libdbg/wx/include/osx_cocoa-unicode-3.3",
+					"-Idependencies/include/wx-3.3",
 					"-DwxDEBUG_LEVEL=1",
 					"-Iinclude",
 				);
@@ -4649,7 +4410,7 @@
 					../xLights,
 					../include,
 					"../include/ffmpeg-6/include/",
-					/opt/local/include,
+					dependencies/include,
 					"macOS-src",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
@@ -4665,8 +4426,8 @@
 					"-D_LIBCPP_DISABLE_AVAILABILITY",
 					"-D__WXOSX_COCOA__",
 					"-ferror-limit=0",
-					"-I/opt/local/lib/wx/include/osx_cocoa-unicode-static-3.3",
-					"-I/opt/local/include/wx-3.3",
+					"-Idependencies/lib/wx/include/osx_cocoa-unicode-static-3.3",
+					"-Idependencies/include/wx-3.3",
 					"-DNDEBUG",
 					"-DwxDEBUG_LEVEL=0",
 					"-Iinclude",
@@ -4722,14 +4483,14 @@
 					../include,
 					"../include/ffmpeg-6/include/",
 					"../include/sol2-3.2.2",
-					/opt/local/include,
+					dependencies/include,
 					"macOS-src",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Assets/xLights/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/opt/local/libdbg,
+					dependencies/libdbg,
 				);
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MARKETING_VERSION = 2023.01;
@@ -4772,15 +4533,15 @@
 					../include,
 					"../include/ffmpeg-6/include/",
 					"../include/sol2-3.2.2",
-					/opt/local/include,
+					dependencies/include,
 					"macOS-src",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Assets/xLights/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/opt/local/lib,
-					/opt/local/libdbg,
+					dependencies/lib,
+					dependencies/libdbg,
 				);
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MARKETING_VERSION = 2023.01;
@@ -4865,13 +4626,13 @@
 					../xLights,
 					../include,
 					"../include/ffmpeg-6/include/",
-					/opt/local/include,
+					dependencies/include,
 					"macOS-src",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				"LIBRARY_SEARCH_PATHS[arch=*]" = (
 					/usr/lib,
-					/opt/local/lib,
+					dependencies/lib,
 				);
 				LLVM_LTO = YES_THIN;
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
@@ -4884,8 +4645,8 @@
 					"-D_LIBCPP_DISABLE_AVAILABILITY",
 					"-D__WXOSX_COCOA__",
 					"-ferror-limit=0",
-					"-I/opt/local/lib/wx/include/osx_cocoa-unicode-static-3.3",
-					"-I/opt/local/include/wx-3.3",
+					"-Idependencies/lib/wx/include/osx_cocoa-unicode-static-3.3",
+					"-Idependencies/include/wx-3.3",
 					"-DNDEBUG",
 					"-DwxDEBUG_LEVEL=0",
 					"-Iinclude",
@@ -4941,15 +4702,15 @@
 					../include,
 					"../include/ffmpeg-6/include/",
 					"../include/sol2-3.2.2",
-					/opt/local/include,
+					dependencies/include,
 					"macOS-src",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Assets/xLights/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/opt/local/lib,
-					/opt/local/libdbg,
+					dependencies/lib,
+					dependencies/libdbg,
 				);
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MARKETING_VERSION = 2023.01;
@@ -4991,16 +4752,6 @@
 				67A88A2E26164C9C00BFCEC0 /* Debug */,
 				67A88A2F26164C9C00BFCEC0 /* Release */,
 				67A88A3026164C9C00BFCEC0 /* Archive */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		67D1450327580F930018A831 /* Build configuration list for PBXNativeTarget "xFade" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				67D1450427580F930018A831 /* Debug */,
-				67D1450527580F930018A831 /* Release */,
-				67D1450627580F930018A831 /* Archive */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
