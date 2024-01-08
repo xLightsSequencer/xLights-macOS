@@ -4472,7 +4472,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 230010;
+				CURRENT_PROJECT_VERSION = 240000;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = U8ZT9RPC6S;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -4492,8 +4492,8 @@
 					"$(inherited)",
 					dependencies/libdbg,
 				);
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
-				MARKETING_VERSION = 2023.01;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 2024.01;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
@@ -4522,7 +4522,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 230010;
+				CURRENT_PROJECT_VERSION = 240000;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = U8ZT9RPC6S;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -4543,8 +4543,8 @@
 					dependencies/lib,
 					dependencies/libdbg,
 				);
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
-				MARKETING_VERSION = 2023.01;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 2024.01;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
@@ -4691,7 +4691,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 230010;
+				CURRENT_PROJECT_VERSION = 240000;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = U8ZT9RPC6S;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -4712,8 +4712,8 @@
 					dependencies/lib,
 					dependencies/libdbg,
 				);
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
-				MARKETING_VERSION = 2023.01;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 2024.01;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",

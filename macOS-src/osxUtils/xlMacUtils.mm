@@ -362,14 +362,14 @@ static const AudioObjectPropertyAddress devlist_address = {
 static const AudioObjectPropertyAddress defaultdev_address = {
     kAudioHardwarePropertyDefaultOutputDevice,
     kAudioObjectPropertyScopeGlobal,
-    kAudioObjectPropertyElementMaster
+    kAudioObjectPropertyElementMain
 };
 
 /* this is called when the system's list of available audio devices changes. */
 static std::function<void()> AUDIO_CALLBACK;
 
 static OSStatus device_list_changed(AudioObjectID systemObj, UInt32 num_addr, const AudioObjectPropertyAddress *addrs, void *data) {
-    wxTheApp->CallAfter([]() {AUDIO_CALLBACK();});
+    AUDIO_CALLBACK();
     return 0;
 }
 void AddAudioDeviceChangeListener(std::function<void()> &&cb) {
