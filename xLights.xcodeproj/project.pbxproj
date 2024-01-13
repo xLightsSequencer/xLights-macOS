@@ -4493,7 +4493,7 @@
 					dependencies/libdbg,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 2024.01;
+				MARKETING_VERSION = 2024.00.0;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
@@ -4544,7 +4544,7 @@
 					dependencies/libdbg,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 2024.01;
+				MARKETING_VERSION = 2024.00.0;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
@@ -4713,7 +4713,7 @@
 					dependencies/libdbg,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 2024.01;
+				MARKETING_VERSION = 2024.00.0;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",

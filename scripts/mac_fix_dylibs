@@ -13,20 +13,14 @@ else
 fi
 
 # iff need to manually force a version number
-#XLVERSION=2021.34.3
+#XLVERSION=2024.01.3
+#That will create build number of 2401003
+
 
 SHORTVER="${XLVERSION//./0}"
-SHORTVERPFX=${SHORTVER:2:5}
+SHORTVERPFX="${SHORTVER:2:2}${SHORTVER:5:2}"
 SHORTVERPO=${SHORTVER:8}
-
-if [ "x${SHORTVERPO}" == "x" ]; then
-    SHORTVERPO="0"
-fi
-
-if [ ${#SHORTVERPO} -gt 1 ]; then
-    SHORTVERPO="${SHORTVERPO:0:1}.${SHORTVERPO:2}"
-fi
-
+printf -v SHORTVERPO "%03d" $SHORTVERPO
 SHORTVER="${SHORTVERPFX}${SHORTVERPO}"
 
 cp $TARGET_BUILD_DIR/*.metallib $TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources
