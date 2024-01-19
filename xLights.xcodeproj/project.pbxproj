@@ -604,6 +604,7 @@
 		C40D87E92B4B428700A10AF8 /* MhFeature.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40D87E32B4B428600A10AF8 /* MhFeature.cpp */; };
 		C40D87EA2B4B428700A10AF8 /* MhChannel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40D87E62B4B428600A10AF8 /* MhChannel.cpp */; };
 		C40D87EB2B4B428700A10AF8 /* MhChannelDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40D87E72B4B428600A10AF8 /* MhChannelDialog.cpp */; };
+		C40D87F02B5A25AC00A10AF8 /* SpecialOptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40D87EF2B5A25AC00A10AF8 /* SpecialOptions.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1835,6 +1836,7 @@
 		C40D87E62B4B428600A10AF8 /* MhChannel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MhChannel.cpp; sourceTree = "<group>"; };
 		C40D87E72B4B428600A10AF8 /* MhChannelDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MhChannelDialog.cpp; sourceTree = "<group>"; };
 		C40D87ED2B4F6B3700A10AF8 /* MHColorPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHColorPanel.h; sourceTree = "<group>"; };
+		C40D87EF2B5A25AC00A10AF8 /* SpecialOptions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpecialOptions.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1941,6 +1943,7 @@
 		67164BC525D7CE6D0041BB9A /* xLights */ = {
 			isa = PBXGroup;
 			children = (
+				C40D87EF2B5A25AC00A10AF8 /* SpecialOptions.cpp */,
 				67164C4D25D7CE6D0041BB9A /* AboutDialog.cpp */,
 				67164D1125D7CE6D0041BB9A /* AboutDialog.h */,
 				67164D1925D7CE6D0041BB9A /* AlignmentDialog.cpp */,
@@ -4078,6 +4081,7 @@
 				671652CD25D7CE710041BB9A /* VSAFile.cpp in Sources */,
 				671651CD25D7CE700041BB9A /* AlignmentDialog.cpp in Sources */,
 				6716537C25D7CE720041BB9A /* J1Sys.cpp in Sources */,
+				C40D87F02B5A25AC00A10AF8 /* SpecialOptions.cpp in Sources */,
 				6716556425D824F80041BB9A /* md5.cpp in Sources */,
 				675A505229523E11000D038D /* string_utils.cpp in Sources */,
 				6716536D25D7CE720041BB9A /* ShaderPanel.cpp in Sources */,
