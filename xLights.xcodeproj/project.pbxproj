@@ -489,6 +489,7 @@
 		6751104627D3F5630001BD98 /* FindDataPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6751104527D3F5630001BD98 /* FindDataPanel.cpp */; };
 		675A505129523E11000D038D /* ip_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675A504D29523E11000D038D /* ip_utils.cpp */; };
 		675A505229523E11000D038D /* string_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675A504E29523E11000D038D /* string_utils.cpp */; };
+		675C6FA82B555DB20091D0BF /* SpecialOptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675C6FA72B555DB20091D0BF /* SpecialOptions.cpp */; };
 		675EDD3D2789D87C00D40FEA /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675EDD3C2789D87C00D40FEA /* liblua.a */; };
 		675FD840204C3C0B003D280F /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B227204BA69B00E90AC7 /* CoreImage.framework */; };
 		6760F9322B3972E400FD6B01 /* MetalPinwheelEffect.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6760F9312B3972E400FD6B01 /* MetalPinwheelEffect.mm */; };
@@ -1594,6 +1595,7 @@
 		675A504E29523E11000D038D /* string_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = string_utils.cpp; path = utils/string_utils.cpp; sourceTree = "<group>"; };
 		675A504F29523E11000D038D /* ip_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ip_utils.h; path = utils/ip_utils.h; sourceTree = "<group>"; };
 		675A505029523E11000D038D /* string_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = string_utils.h; path = utils/string_utils.h; sourceTree = "<group>"; };
+		675C6FA72B555DB20091D0BF /* SpecialOptions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpecialOptions.cpp; sourceTree = "<group>"; };
 		675EDD3C2789D87C00D40FEA /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblua.a; path = /opt/local/lib/liblua.a; sourceTree = "<group>"; };
 		6760F9312B3972E400FD6B01 /* MetalPinwheelEffect.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalPinwheelEffect.mm; sourceTree = "<group>"; };
 		6760F9332B39789600FD6B01 /* PinwheelFunctions.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = PinwheelFunctions.metal; sourceTree = "<group>"; };
@@ -2211,6 +2213,7 @@
 				67164BEC25D7CE6D0041BB9A /* SevenSegmentDialog.h */,
 				67164FA125D7CE6E0041BB9A /* ShaderDownloadDialog.cpp */,
 				67164DFD25D7CE6D0041BB9A /* ShaderDownloadDialog.h */,
+				675C6FA72B555DB20091D0BF /* SpecialOptions.cpp */,
 				67164C5725D7CE6D0041BB9A /* SpecialOptions.h */,
 				671650A825D7CE6F0041BB9A /* SplashDialog.cpp */,
 				67164E0725D7CE6D0041BB9A /* SplashDialog.h */,
@@ -3552,7 +3555,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				CLASSPREFIX = xl;
-				LastUpgradeCheck = 1510;
+				LastUpgradeCheck = 1520;
 				ORGANIZATIONNAME = "Daniel Kulp";
 				TargetAttributes = {
 					678577AD272C735000E6E249 = {
@@ -3961,6 +3964,7 @@
 				6778610B272CD73200020F31 /* GPURenderUtils.cpp in Sources */,
 				6716553525D823C60041BB9A /* jsonval.cpp in Sources */,
 				671651BC25D7CE700041BB9A /* ModelManager.cpp in Sources */,
+				675C6FA82B555DB20091D0BF /* SpecialOptions.cpp in Sources */,
 				6716514F25D7CE700041BB9A /* SeqSettingsDialog.cpp in Sources */,
 				6716532B25D7CE710041BB9A /* VUMeterPanel.cpp in Sources */,
 				6716512A25D7CE700041BB9A /* MatrixFaceDownloadDialog.cpp in Sources */,
@@ -4572,7 +4576,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 230010;
+				CURRENT_PROJECT_VERSION = 2400000;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = U8ZT9RPC6S;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -4592,8 +4596,8 @@
 					"$(inherited)",
 					dependencies/libdbg,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 2023.01;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 2024.00.0;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
@@ -4622,7 +4626,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 230010;
+				CURRENT_PROJECT_VERSION = 2400000;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = U8ZT9RPC6S;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -4643,8 +4647,8 @@
 					dependencies/lib,
 					dependencies/libdbg,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 2023.01;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 2024.00.0;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
@@ -4791,7 +4795,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 230010;
+				CURRENT_PROJECT_VERSION = 2400000;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = U8ZT9RPC6S;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -4812,8 +4816,8 @@
 					dependencies/lib,
 					dependencies/libdbg,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 2023.01;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 2024.00.0;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
