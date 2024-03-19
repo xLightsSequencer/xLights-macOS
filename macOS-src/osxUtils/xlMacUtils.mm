@@ -244,6 +244,134 @@ void GetAllFilesInDir(const wxString &dir, wxArrayString &files, const wxString 
     }
 }
 
+void MarkNewFileRevision(const std::string &path, int retainMax) {
+    if (path.empty()) {
+        return;
+    }
+    @autoreleasepool {
+        NSString *nsfilePath = [NSString stringWithUTF8String:path.c_str()];
+        NSURL *fileURL = [NSURL fileURLWithPath:nsfilePath];
+        NSError *error = nil;
+        NSFileVersion *v = [NSFileVersion addVersionOfItemAtURL:fileURL withContentsOfURL:fileURL options:0 error:&error];
+        v.discardable = YES;
+        
+        NSArray<NSFileVersion*> *versions = [NSFileVersion otherVersionsOfItemAtURL:fileURL];
+        int size = [versions count] - retainMax;
+        while (size > 0) {
+            size--;
+            NSFileVersion *fv2 = versions[size];
+            NSError *error = nil;
+            [fv2 removeAndReturnError:&error];
+        }
+    }
+}
+
+//static std::map<std::string, NSArray<NSFileVersion *>*> remotes;
+std::list<std::string> GetFileRevisions(const std::string &path) {
+    std::list<std::string> ret;
+    if (!path.empty()) {
+        @autoreleasepool {
+            NSString *nsfilePath = [NSString stringWithUTF8String:path.c_str()];
+            NSURL *fileURL = [NSURL fileURLWithPath:nsfilePath];
+            
+            /*
+            volatile bool doneRemote = false;
+            NSArray<NSFileVersion*> *conflicts = [NSFileVersion unresolvedConflictVersionsOfItemAtURL:fileURL];
+            for (NSFileVersion *c in conflicts) {
+                c.resolved = true;
+            }
+            if (remotes.find(path) == remotes.end()) {
+                [NSFileVersion getNonlocalVersionsOfItemAtURL:fileURL completionHandler:[&](NSArray<NSFileVersion *> * _Nullable nonlocalFileVersions, NSError * _Nullable) {
+                    remotes[path] = nonlocalFileVersions;
+                    [nonlocalFileVersions retain];
+                    doneRemote = true;
+                }];
+            } else {
+                doneRemote = true;
+            }
+            */
+            
+            NSArray<NSFileVersion*> *versions = [NSFileVersion otherVersionsOfItemAtURL:fileURL];
+            for (NSFileVersion *fv2 in versions) {
+                NSString *dateString = [NSDateFormatter localizedStringFromDate:fv2.modificationDate
+                                                                      dateStyle:NSDateFormatterShortStyle
+                                                                      timeStyle:NSDateFormatterLongStyle];
+                std::string str = [dateString UTF8String];
+                ret.push_front(str);
+            }
+            /*
+            while (!doneRemote) {
+                wxMilliSleep(10);
+            }
+            for (NSFileVersion *fv2 in remotes[path]) {
+                NSString *dateString = [NSDateFormatter localizedStringFromDate:fv2.modificationDate
+                                                                      dateStyle:NSDateFormatterShortStyle
+                                                                      timeStyle:NSDateFormatterLongStyle];
+                std::string str = [dateString UTF8String];
+                str += " (iCloud)";
+                ret.push_front(str);
+            }
+             */
+        }
+    }
+    return ret;
+}
+std::string GetURLForRevision(const std::string &path, const std::string &rev) {
+    if (!path.empty()) {
+        @autoreleasepool {
+            NSString *nsfilePath = [NSString stringWithUTF8String:path.c_str()];
+            NSURL *fileURL = [NSURL fileURLWithPath:nsfilePath];
+            
+            NSArray<NSFileVersion*> *versions = [NSFileVersion otherVersionsOfItemAtURL:fileURL];
+            for (NSFileVersion *fv2 in versions) {
+                NSString *dateString = [NSDateFormatter localizedStringFromDate:fv2.modificationDate
+                                                                      dateStyle:NSDateFormatterShortStyle
+                                                                      timeStyle:NSDateFormatterLongStyle];
+                
+                std::string str = [dateString UTF8String];
+                if (str == rev) {
+                    NSFileManager *fileManager = [NSFileManager defaultManager];
+                    NSError *error;
+                    std::string p2 = path + "_REV_" + std::to_string(std::rand());
+                    NSString *toPath = [NSString stringWithUTF8String:p2.c_str()];
+                    [fileManager copyItemAtPath:[fv2.URL path] toPath:toPath error:&error];
+                    return p2;
+                }
+            }
+            /*
+             //this is downloading the revision, but then creating a new local revisition with the current timestamp
+             //instead of the original modifcation date which then screws up the local modifications
+             //need to investigate more
+            for (NSFileVersion *fv2 in remotes[path]) {
+                NSString *dateString = [NSDateFormatter localizedStringFromDate:fv2.modificationDate
+                                                                      dateStyle:NSDateFormatterShortStyle
+                                                                      timeStyle:NSDateFormatterLongStyle];
+                std::string str = [dateString UTF8String];
+                str += " (iCloud)";
+                if (str == rev) {
+                    NSError *error;
+                    std::string p2 = path + "_REV_" + std::to_string(std::rand());
+                    NSString *toPath = [NSString stringWithUTF8String:p2.c_str()];
+                    
+                    NSFileCoordinator *fileCoordinator = [[NSFileCoordinator alloc] initWithFilePresenter:nil];
+                    [fileCoordinator coordinateReadingItemAtURL:fv2.URL options:NSFileCoordinatorReadingWithoutChanges error:&error byAccessor:^(NSURL * _Nonnull newURL) {
+                        NSError *error;
+                        //[fv2 replaceItemAtURL:[NSURL fileURLWithPath:toPath] options:0 error:&error];
+                        NSFileManager *fileManager = [NSFileManager defaultManager];
+                        [fileManager copyItemAtPath:[newURL path] toPath:toPath error:&error];
+                        remotes.erase(path);
+                    }];
+                    
+                    //[fileManager copyItemAtPath:[fv2.URL path] toPath:toPath error:&error];
+                    return p2;
+                }
+            }
+            */
+        }
+    }
+    return path;
+}
+
 
 
 double xlOSGetMainScreenContentScaleFactor()

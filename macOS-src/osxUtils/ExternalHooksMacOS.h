@@ -19,6 +19,9 @@ bool FileExists(const std::string &s, bool waitForDownload = true);
 bool FileExists(const wxFileName &fn, bool waitForDownload = true);
 bool FileExists(const wxString &s, bool waitForDownload = true);
 void GetAllFilesInDir(const wxString &dir, wxArrayString &files, const wxString &filespec, int flags = -1);
+void MarkNewFileRevision(const std::string &path, int retainMax = 15);
+std::list<std::string> GetFileRevisions(const std::string &path);
+std::string GetURLForRevision(const std::string &path, const std::string &rev);
 
 void EnableSleepModes();
 void DisableSleepModes();
