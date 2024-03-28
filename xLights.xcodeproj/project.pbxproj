@@ -4405,6 +4405,7 @@
 					"../include/ffmpeg-6/include/",
 					dependencies/include,
 					"macOS-src",
+					../dependencies,
 				);
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				"LIBRARY_SEARCH_PATHS[arch=*]" = (
@@ -4516,6 +4517,7 @@
 					"../include/ffmpeg-6/include/",
 					dependencies/include,
 					"macOS-src",
+					../dependencies,
 				);
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				"LIBRARY_SEARCH_PATHS[arch=*]" = /usr/lib;
@@ -4601,7 +4603,8 @@
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
-					"-Iinclude/ffmpeg-6/include/",
+					"-I../include/ffmpeg-6/include",
+					"-I../dependencies",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -4652,7 +4655,8 @@
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
-					"-Iinclude/ffmpeg-6/include/",
+					"-I../include/ffmpeg-6/include",
+					"-I../dependencies",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -4732,6 +4736,7 @@
 					"../include/ffmpeg-6/include/",
 					dependencies/include,
 					"macOS-src",
+					../dependencies,
 				);
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				"LIBRARY_SEARCH_PATHS[arch=*]" = (
@@ -4821,7 +4826,8 @@
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
-					"-Iinclude/ffmpeg-6/include/",
+					"-I../include/ffmpeg-6/include",
+					"-I../dependencies",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
