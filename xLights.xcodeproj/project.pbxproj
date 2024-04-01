@@ -584,6 +584,7 @@
 		67D9A28A2AF278FB00C6C506 /* libsharpyuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67D9A2882AF278ED00C6C506 /* libsharpyuv.a */; };
 		67D9B0A81D42A9BA005367DB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67E7087017B51AB400A22034 /* Cocoa.framework */; };
 		67DE38122A7BEFA60094B7D5 /* CurlManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67DE38112A7BEFA60094B7D5 /* CurlManager.cpp */; };
+		67E4A02D2BB9CE9C0046341E /* TransitionFunctions.metal in Sources */ = {isa = PBXBuildFile; fileRef = 67E4A02C2BB9CE9C0046341E /* TransitionFunctions.metal */; };
 		67E54A4527F61401008F834F /* SketchEffectDrawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E54A3F27F61401008F834F /* SketchEffectDrawing.cpp */; };
 		67E54A4627F61401008F834F /* SketchPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E54A4227F61401008F834F /* SketchPanel.cpp */; };
 		67E54A4727F61401008F834F /* SketchEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E54A4327F61401008F834F /* SketchEffect.cpp */; };
@@ -1765,6 +1766,7 @@
 		67DE38102A7BEFA60094B7D5 /* CurlManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CurlManager.h; path = utils/CurlManager.h; sourceTree = "<group>"; };
 		67DE38112A7BEFA60094B7D5 /* CurlManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CurlManager.cpp; path = utils/CurlManager.cpp; sourceTree = "<group>"; };
 		67E00443256D6FA900E12C81 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		67E4A02C2BB9CE9C0046341E /* TransitionFunctions.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = TransitionFunctions.metal; sourceTree = "<group>"; };
 		67E54A3F27F61401008F834F /* SketchEffectDrawing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SketchEffectDrawing.cpp; sourceTree = "<group>"; };
 		67E54A4027F61401008F834F /* SketchEffectDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SketchEffectDrawing.h; sourceTree = "<group>"; };
 		67E54A4127F61401008F834F /* SketchPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SketchPanel.h; sourceTree = "<group>"; };
@@ -3100,6 +3102,7 @@
 				674DEE322791DE8E00DEA844 /* WarpFunctions.metal */,
 				67010953290A61B000F311A7 /* RotoZoomFunctions.metal */,
 				6767A0102BB739410034581D /* ShockwaveFunctions.metal */,
+				67E4A02C2BB9CE9C0046341E /* TransitionFunctions.metal */,
 			);
 			path = metal;
 			sourceTree = "<group>";
@@ -3592,6 +3595,7 @@
 				6767A0112BB739410034581D /* ShockwaveFunctions.metal in Sources */,
 				670260AC2902673700B9BD35 /* PlasmaFunctions.metal in Sources */,
 				6760F9342B39789600FD6B01 /* PinwheelFunctions.metal in Sources */,
+				67E4A02D2BB9CE9C0046341E /* TransitionFunctions.metal in Sources */,
 				67010954290A61B000F311A7 /* RotoZoomFunctions.metal in Sources */,
 				674DEE332791DE8E00DEA844 /* WarpFunctions.metal in Sources */,
 			);
