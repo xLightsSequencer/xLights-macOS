@@ -514,6 +514,7 @@
 		677A15C426A22AA8000AFE4D /* xCaptureMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6771056E267BB91C001DA926 /* xCaptureMain.cpp */; };
 		678064DF29FEC8DD00BFE936 /* xlOGL3GraphicsContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 678064DD29FEC8DD00BFE936 /* xlOGL3GraphicsContext.cpp */; };
 		6781D632234C24BD00408604 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B4C92117B53D960006B951 /* CoreVideo.framework */; };
+		67824F7E2BBF48C600F6869F /* LayerBlendingFunctions.metal in Sources */ = {isa = PBXBuildFile; fileRef = 67824F7D2BBF48C600F6869F /* LayerBlendingFunctions.metal */; };
 		678577A2272C662700E6E249 /* MetalEffectManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 678577A1272C662700E6E249 /* MetalEffectManager.mm */; };
 		678577A5272C67D400E6E249 /* MetalButterflyEffect.mm in Sources */ = {isa = PBXBuildFile; fileRef = 678577A3272C67D400E6E249 /* MetalButterflyEffect.mm */; };
 		678577AB272C721500E6E249 /* MetalComputeUtilities.mm in Sources */ = {isa = PBXBuildFile; fileRef = 678577A9272C721500E6E249 /* MetalComputeUtilities.mm */; };
@@ -1645,6 +1646,7 @@
 		677932E827D30D8F008FEEBE /* TwoPointScreenLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoPointScreenLocation.h; sourceTree = "<group>"; };
 		678064DD29FEC8DD00BFE936 /* xlOGL3GraphicsContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xlOGL3GraphicsContext.cpp; sourceTree = "<group>"; };
 		678064E029FEC92C00BFE936 /* xlOGL3GraphicsContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xlOGL3GraphicsContext.h; sourceTree = "<group>"; };
+		67824F7D2BBF48C600F6869F /* LayerBlendingFunctions.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = LayerBlendingFunctions.metal; sourceTree = "<group>"; };
 		678577A1272C662700E6E249 /* MetalEffectManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalEffectManager.mm; sourceTree = "<group>"; };
 		678577A3272C67D400E6E249 /* MetalButterflyEffect.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalButterflyEffect.mm; sourceTree = "<group>"; };
 		678577A4272C67D400E6E249 /* MetalEffects.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MetalEffects.hpp; sourceTree = "<group>"; };
@@ -3166,6 +3168,7 @@
 				67010953290A61B000F311A7 /* RotoZoomFunctions.metal */,
 				6767A0102BB739410034581D /* ShockwaveFunctions.metal */,
 				67E4A02C2BB9CE9C0046341E /* TransitionFunctions.metal */,
+				67824F7D2BBF48C600F6869F /* LayerBlendingFunctions.metal */,
 			);
 			path = metal;
 			sourceTree = "<group>";
@@ -3693,6 +3696,7 @@
 				6760F9342B39789600FD6B01 /* PinwheelFunctions.metal in Sources */,
 				67E4A02D2BB9CE9C0046341E /* TransitionFunctions.metal in Sources */,
 				67010954290A61B000F311A7 /* RotoZoomFunctions.metal in Sources */,
+				67824F7E2BBF48C600F6869F /* LayerBlendingFunctions.metal in Sources */,
 				674DEE332791DE8E00DEA844 /* WarpFunctions.metal in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
