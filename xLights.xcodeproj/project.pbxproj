@@ -1845,6 +1845,8 @@
 		C413A3CE2BBF466B001AF90B /* BaseObjectVisitor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseObjectVisitor.h; sourceTree = "<group>"; };
 		C413A3CF2BBF58E3001AF90B /* XmlSerializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XmlSerializer.h; sourceTree = "<group>"; };
 		C413A3D02BBF7BF6001AF90B /* DmxMovingHeadComm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DmxMovingHeadComm.h; sourceTree = "<group>"; };
+		C413A3D12BC10457001AF90B /* DmxMotorBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DmxMotorBase.h; sourceTree = "<group>"; };
+		C413A3D22BC10457001AF90B /* DmxMotorPanTilt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DmxMotorPanTilt.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2462,6 +2464,8 @@
 		67164CA825D7CE6D0041BB9A /* DMX */ = {
 			isa = PBXGroup;
 			children = (
+				C413A3D12BC10457001AF90B /* DmxMotorBase.h */,
+				C413A3D22BC10457001AF90B /* DmxMotorPanTilt.h */,
 				C413A3D02BBF7BF6001AF90B /* DmxMovingHeadComm.h */,
 				C40D87DF2B4B428600A10AF8 /* MovingHeads */,
 				C40D87C72B4B383E00A10AF8 /* DmxMotor.cpp */,
