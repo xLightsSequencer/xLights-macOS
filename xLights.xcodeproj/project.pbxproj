@@ -4335,7 +4335,7 @@
 					dependencies/libdbg,
 				);
 				LLVM_LTO = NO;
-				MACOSX_DEPLOYMENT_TARGET = 14.2;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MTL_LANGUAGE_REVISION = Metal31;
 				MTL_TREAT_WARNINGS_AS_ERRORS = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -4371,6 +4371,7 @@
 				OTHER_TAPI_FLAGS = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = macosx;
+				STRIP_INSTALLED_PRODUCT = NO;
 				WARNING_LDFLAGS = "-headerpad_max_install_names";
 			};
 			name = Debug;
@@ -4520,7 +4521,7 @@
 					"$(inherited)",
 					dependencies/libdbg,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 2024.00.0;
 				OTHER_CFLAGS = (
 					"$(inherited)",
