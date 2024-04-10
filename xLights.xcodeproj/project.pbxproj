@@ -1817,7 +1817,7 @@
 		7FB5CEDB27A27A2A007612B2 /* xlBaseApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = xlBaseApp.h; path = ../common/xlBaseApp.h; sourceTree = "<group>"; };
 		7FB5CEDC27A27A2A007612B2 /* xlBaseApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = xlBaseApp.cpp; path = ../common/xlBaseApp.cpp; sourceTree = "<group>"; };
 		7FB5CEDD27A27A2A007612B2 /* xlStackWalker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = xlStackWalker.h; path = ../common/xlStackWalker.h; sourceTree = "<group>"; };
-		C40BF5512BC6217800D701CF /* mhpresets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = mhpresets; sourceTree = "<group>"; };
+		C40BF5512BC6217800D701CF /* mhpresets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = mhpresets; path = ../mhpresets; sourceTree = "<group>"; };
 		C40D87BD2B4B359E00A10AF8 /* MovingHeadPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovingHeadPanel.h; sourceTree = "<group>"; };
 		C40D87BE2B4B359E00A10AF8 /* MovingHeadPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MovingHeadPanel.cpp; sourceTree = "<group>"; };
 		C40D87BF2B4B359E00A10AF8 /* MovingHeadEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MovingHeadEffect.cpp; sourceTree = "<group>"; };
