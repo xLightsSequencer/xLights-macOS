@@ -595,6 +595,7 @@
 		67FDC38A27CA76F40009A3C7 /* ColourReplaceDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67FDC38927CA76F40009A3C7 /* ColourReplaceDialog.cpp */; };
 		67FDC38C27CA77890009A3C7 /* libhidapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67FDC38B27CA77610009A3C7 /* libhidapi.a */; };
 		7FDE55FF280A94E900C4EB70 /* xlBaseApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FB5CEDC27A27A2A007612B2 /* xlBaseApp.cpp */; };
+		C40BF5522BC6217800D701CF /* mhpresets in Resources */ = {isa = PBXBuildFile; fileRef = C40BF5512BC6217800D701CF /* mhpresets */; };
 		C40D87C22B4B359E00A10AF8 /* MovingHeadPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40D87BE2B4B359E00A10AF8 /* MovingHeadPanel.cpp */; };
 		C40D87C32B4B359E00A10AF8 /* MovingHeadEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40D87BF2B4B359E00A10AF8 /* MovingHeadEffect.cpp */; };
 		C40D87C92B4B383F00A10AF8 /* DmxMotor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40D87C72B4B383E00A10AF8 /* DmxMotor.cpp */; };
@@ -1816,6 +1817,7 @@
 		7FB5CEDB27A27A2A007612B2 /* xlBaseApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = xlBaseApp.h; path = ../common/xlBaseApp.h; sourceTree = "<group>"; };
 		7FB5CEDC27A27A2A007612B2 /* xlBaseApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = xlBaseApp.cpp; path = ../common/xlBaseApp.cpp; sourceTree = "<group>"; };
 		7FB5CEDD27A27A2A007612B2 /* xlStackWalker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = xlStackWalker.h; path = ../common/xlStackWalker.h; sourceTree = "<group>"; };
+		C40BF5512BC6217800D701CF /* mhpresets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = mhpresets; sourceTree = "<group>"; };
 		C40D87BD2B4B359E00A10AF8 /* MovingHeadPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovingHeadPanel.h; sourceTree = "<group>"; };
 		C40D87BE2B4B359E00A10AF8 /* MovingHeadPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MovingHeadPanel.cpp; sourceTree = "<group>"; };
 		C40D87BF2B4B359E00A10AF8 /* MovingHeadEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MovingHeadEffect.cpp; sourceTree = "<group>"; };
@@ -3199,6 +3201,7 @@
 		67AAF8F31B63782F00585431 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C40BF5512BC6217800D701CF /* mhpresets */,
 				6716567725D829270041BB9A /* colorcurves */,
 				6716567525D829270041BB9A /* controllers */,
 				6716568625D829B90041BB9A /* extended_dictionary */,
@@ -3642,6 +3645,7 @@
 				6716567A25D829270041BB9A /* meshobjects in Resources */,
 				6716567025D829140041BB9A /* palettes in Resources */,
 				678AAF4026C40B6300467B3C /* model_vendor_mapping.json in Resources */,
+				C40BF5522BC6217800D701CF /* mhpresets in Resources */,
 				6716568B25D829B90041BB9A /* standard_dictionary in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
