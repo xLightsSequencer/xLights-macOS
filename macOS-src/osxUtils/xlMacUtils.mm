@@ -520,28 +520,26 @@ bool IsFromAppStore() {
         if (status != errSecSuccess) {
             return false;
         }
-        NSString *requirementText = @"anchor apple generic";   // For code signed by Apple
-        SecRequirementRef requirement = NULL;
-        status = SecRequirementCreateWithString((__bridge CFStringRef)requirementText, kSecCSDefaultFlags, &requirement);
-        if (status != errSecSuccess) {
-            if (staticCode) {
-                CFRelease(staticCode);
-            }
-            return false;
-        }
         
-        status = SecStaticCodeCheckValidity(staticCode, kSecCSDefaultFlags, requirement);
+        CFDictionaryRef info;
+        status = SecCodeCopySigningInformation(staticCode, kSecCSSigningInformation, &info);
         if (status != errSecSuccess) {
-            if (staticCode) {
-                CFRelease(staticCode);
-            }
-            if (requirement) {
-                CFRelease(requirement);
-            }
             return false;
         }
-        if (staticCode) CFRelease(staticCode);
-        if (requirement) CFRelease(requirement);
+
+        CFArrayRef certChain = (CFArrayRef)CFDictionaryGetValue(info, kSecCodeInfoCertificates);
+        SecCertificateRef cert = SecCertificateRef(CFArrayGetValueAtIndex(certChain, 0));
+        
+        CFStringRef cn;
+        SecCertificateCopyCommonName(cert, &cn);
+        NSString *cnnss = (NSString *)cn;
+        std::string c = [cnnss UTF8String];
+        if (staticCode) {
+            CFRelease(staticCode);
+        }
+        if (!c.starts_with("Apple Mac OS") && !c.starts_with("TestFlight")) {
+            return false;
+        }
         OPTIONFLAGS = NSActivityLatencyCritical | NSActivityUserInitiated;
         OSX_STATUS = 1;
     }
