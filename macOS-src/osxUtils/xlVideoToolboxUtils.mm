@@ -69,9 +69,6 @@ void CleanupVideoToolbox(AVCodecContext *s, void *cache) {
     if (c) {
         delete c;
     }
-    if (s->hwaccel_context != NULL) {
-        av_videotoolbox_default_free(s);
-    }
 }
 void InitVideoToolboxAcceleration() {
     static log4cpp::Category& logger_base = log4cpp::Category::getInstance(std::string("log_base"));
@@ -97,7 +94,12 @@ void InitVideoToolboxAcceleration() {
     } else {
         [ciContext retain];
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+        // This can be changed to metal when we go MacOS 12+
         rbFlipKernel = [CIColorKernel kernelWithString: @"kernel vec4 swapRedAndGreenAmount(__sample s) { return s.bgra; }" ];
+#pragma clang diagnostic pop
+
         [rbFlipKernel retain];
     }
     [dict release];

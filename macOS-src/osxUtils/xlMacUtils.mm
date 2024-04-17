@@ -478,9 +478,14 @@ wxString GetOSFormattedClipboardData() {
     return "";
 }
 
+// OpenGL is marked deprecated in OSX so we'll turn off the deprecation warnings for this file
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 void WXGLUnsetCurrentContext() {
     [NSOpenGLContext clearCurrentContext];
 }
+#pragma clang diagnostic pop
+
 
 static const AudioObjectPropertyAddress devlist_address = {
     kAudioHardwarePropertyDevices,
