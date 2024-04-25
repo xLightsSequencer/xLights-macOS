@@ -596,6 +596,7 @@
 		67FDC38C27CA77890009A3C7 /* libhidapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67FDC38B27CA77610009A3C7 /* libhidapi.a */; };
 		7FDE55FF280A94E900C4EB70 /* xlBaseApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FB5CEDC27A27A2A007612B2 /* xlBaseApp.cpp */; };
 		C40BF5522BC6217800D701CF /* mhpresets in Resources */ = {isa = PBXBuildFile; fileRef = C40BF5512BC6217800D701CF /* mhpresets */; };
+		C40BF55E2BD9F18600D701CF /* ILightThat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40BF55C2BD9F18600D701CF /* ILightThat.cpp */; };
 		C40D87C22B4B359E00A10AF8 /* MovingHeadPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40D87BE2B4B359E00A10AF8 /* MovingHeadPanel.cpp */; };
 		C40D87C32B4B359E00A10AF8 /* MovingHeadEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40D87BF2B4B359E00A10AF8 /* MovingHeadEffect.cpp */; };
 		C40D87C92B4B383F00A10AF8 /* DmxMotor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40D87C72B4B383E00A10AF8 /* DmxMotor.cpp */; };
@@ -1818,6 +1819,8 @@
 		7FB5CEDC27A27A2A007612B2 /* xlBaseApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = xlBaseApp.cpp; path = ../common/xlBaseApp.cpp; sourceTree = "<group>"; };
 		7FB5CEDD27A27A2A007612B2 /* xlStackWalker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = xlStackWalker.h; path = ../common/xlStackWalker.h; sourceTree = "<group>"; };
 		C40BF5512BC6217800D701CF /* mhpresets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = mhpresets; path = ../mhpresets; sourceTree = "<group>"; };
+		C40BF55C2BD9F18600D701CF /* ILightThat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ILightThat.cpp; sourceTree = "<group>"; };
+		C40BF55D2BD9F18600D701CF /* ILightThat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILightThat.h; sourceTree = "<group>"; };
 		C40D87BD2B4B359E00A10AF8 /* MovingHeadPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovingHeadPanel.h; sourceTree = "<group>"; };
 		C40D87BE2B4B359E00A10AF8 /* MovingHeadPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MovingHeadPanel.cpp; sourceTree = "<group>"; };
 		C40D87BF2B4B359E00A10AF8 /* MovingHeadEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MovingHeadEffect.cpp; sourceTree = "<group>"; };
@@ -2840,6 +2843,8 @@
 		6716508425D7CE6F0041BB9A /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C40BF55C2BD9F18600D701CF /* ILightThat.cpp */,
+				C40BF55D2BD9F18600D701CF /* ILightThat.h */,
 				6716508C25D7CE6F0041BB9A /* AlphaPix.cpp */,
 				6716509A25D7CE6F0041BB9A /* AlphaPix.h */,
 				6716509225D7CE6F0041BB9A /* BaseController.cpp */,
@@ -3777,6 +3782,7 @@
 				6716518125D7CE700041BB9A /* EffectIconPanel.cpp in Sources */,
 				6716559B25D825410041BB9A /* acsymbols.c in Sources */,
 				6716532225D7CE710041BB9A /* CurtainPanel.cpp in Sources */,
+				C40BF55E2BD9F18600D701CF /* ILightThat.cpp in Sources */,
 				671651E025D7CE700041BB9A /* SelectTimingsDialog.cpp in Sources */,
 				6716519625D7CE700041BB9A /* DmxShutterAbility.cpp in Sources */,
 				671653A025D7CE720041BB9A /* ZCPPOutput.cpp in Sources */,
