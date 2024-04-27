@@ -597,6 +597,8 @@
 		7FDE55FF280A94E900C4EB70 /* xlBaseApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FB5CEDC27A27A2A007612B2 /* xlBaseApp.cpp */; };
 		C40BF5522BC6217800D701CF /* mhpresets in Resources */ = {isa = PBXBuildFile; fileRef = C40BF5512BC6217800D701CF /* mhpresets */; };
 		C40BF55E2BD9F18600D701CF /* ILightThat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40BF55C2BD9F18600D701CF /* ILightThat.cpp */; };
+		C40BF5672BDCA13200D701CF /* MovingHeadDimmerPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40BF5652BDCA13200D701CF /* MovingHeadDimmerPanel.cpp */; };
+		C40BF56A2BDCA19A00D701CF /* DmxDimmerAbility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40BF5682BDCA19A00D701CF /* DmxDimmerAbility.cpp */; };
 		C40D87C22B4B359E00A10AF8 /* MovingHeadPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40D87BE2B4B359E00A10AF8 /* MovingHeadPanel.cpp */; };
 		C40D87C32B4B359E00A10AF8 /* MovingHeadEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40D87BF2B4B359E00A10AF8 /* MovingHeadEffect.cpp */; };
 		C40D87C92B4B383F00A10AF8 /* DmxMotor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40D87C72B4B383E00A10AF8 /* DmxMotor.cpp */; };
@@ -1821,6 +1823,10 @@
 		C40BF5512BC6217800D701CF /* mhpresets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = mhpresets; path = ../mhpresets; sourceTree = "<group>"; };
 		C40BF55C2BD9F18600D701CF /* ILightThat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ILightThat.cpp; sourceTree = "<group>"; };
 		C40BF55D2BD9F18600D701CF /* ILightThat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILightThat.h; sourceTree = "<group>"; };
+		C40BF5652BDCA13200D701CF /* MovingHeadDimmerPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MovingHeadDimmerPanel.cpp; sourceTree = "<group>"; };
+		C40BF5662BDCA13200D701CF /* MovingHeadDimmerPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovingHeadDimmerPanel.h; sourceTree = "<group>"; };
+		C40BF5682BDCA19A00D701CF /* DmxDimmerAbility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DmxDimmerAbility.cpp; sourceTree = "<group>"; };
+		C40BF5692BDCA19A00D701CF /* DmxDimmerAbility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DmxDimmerAbility.h; sourceTree = "<group>"; };
 		C40D87BD2B4B359E00A10AF8 /* MovingHeadPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovingHeadPanel.h; sourceTree = "<group>"; };
 		C40D87BE2B4B359E00A10AF8 /* MovingHeadPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MovingHeadPanel.cpp; sourceTree = "<group>"; };
 		C40D87BF2B4B359E00A10AF8 /* MovingHeadEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MovingHeadEffect.cpp; sourceTree = "<group>"; };
@@ -2471,6 +2477,8 @@
 		67164CA825D7CE6D0041BB9A /* DMX */ = {
 			isa = PBXGroup;
 			children = (
+				C40BF5682BDCA19A00D701CF /* DmxDimmerAbility.cpp */,
+				C40BF5692BDCA19A00D701CF /* DmxDimmerAbility.h */,
 				C413A3D12BC10457001AF90B /* DmxMotorBase.h */,
 				C413A3D22BC10457001AF90B /* DmxMotorPanTilt.h */,
 				C413A3D02BBF7BF6001AF90B /* DmxMovingHeadComm.h */,
@@ -3476,6 +3484,8 @@
 		C40D87CF2B4B425A00A10AF8 /* MovingHeadPanels */ = {
 			isa = PBXGroup;
 			children = (
+				C40BF5652BDCA13200D701CF /* MovingHeadDimmerPanel.cpp */,
+				C40BF5662BDCA13200D701CF /* MovingHeadDimmerPanel.h */,
 				C40D87ED2B4F6B3700A10AF8 /* MHColorPanel.h */,
 				C40D87D02B4B425A00A10AF8 /* MovingHeadCanvasPanel.h */,
 				C40D87D12B4B425A00A10AF8 /* MovingHeadCanvasPanel.cpp */,
@@ -3895,6 +3905,7 @@
 				6716520825D7CE700041BB9A /* CustomModelDialog.cpp in Sources */,
 				671651BA25D7CE700041BB9A /* SubModel.cpp in Sources */,
 				6716514925D7CE700041BB9A /* xlSlider.cpp in Sources */,
+				C40BF56A2BDCA19A00D701CF /* DmxDimmerAbility.cpp in Sources */,
 				6716518425D7CE700041BB9A /* CheckboxSelectDialog.cpp in Sources */,
 				6716519725D7CE700041BB9A /* DmxServo.cpp in Sources */,
 				6716536525D7CE720041BB9A /* ShapePanel.cpp in Sources */,
@@ -4208,6 +4219,7 @@
 				6716533425D7CE710041BB9A /* MorphPanel.cpp in Sources */,
 				6716518D25D7CE700041BB9A /* TerrainScreenLocation.cpp in Sources */,
 				C40D87C32B4B359E00A10AF8 /* MovingHeadEffect.cpp in Sources */,
+				C40BF5672BDCA13200D701CF /* MovingHeadDimmerPanel.cpp in Sources */,
 				671653B825D7CE720041BB9A /* LOREdit.cpp in Sources */,
 				6716520725D7CE700041BB9A /* ModelGroupPanel.cpp in Sources */,
 				6716514825D7CE700041BB9A /* xLightsApp.cpp in Sources */,
