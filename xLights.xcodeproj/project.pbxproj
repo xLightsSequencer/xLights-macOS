@@ -599,6 +599,7 @@
 		C40BF55E2BD9F18600D701CF /* ILightThat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40BF55C2BD9F18600D701CF /* ILightThat.cpp */; };
 		C40BF5672BDCA13200D701CF /* MovingHeadDimmerPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40BF5652BDCA13200D701CF /* MovingHeadDimmerPanel.cpp */; };
 		C40BF56A2BDCA19A00D701CF /* DmxDimmerAbility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40BF5682BDCA19A00D701CF /* DmxDimmerAbility.cpp */; };
+		C40BF56D2BDDBD5100D701CF /* MHDimmerPresetBitmapButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40BF56B2BDDBD5100D701CF /* MHDimmerPresetBitmapButton.cpp */; };
 		C40D87C22B4B359E00A10AF8 /* MovingHeadPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40D87BE2B4B359E00A10AF8 /* MovingHeadPanel.cpp */; };
 		C40D87C32B4B359E00A10AF8 /* MovingHeadEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40D87BF2B4B359E00A10AF8 /* MovingHeadEffect.cpp */; };
 		C40D87C92B4B383F00A10AF8 /* DmxMotor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40D87C72B4B383E00A10AF8 /* DmxMotor.cpp */; };
@@ -1827,6 +1828,8 @@
 		C40BF5662BDCA13200D701CF /* MovingHeadDimmerPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovingHeadDimmerPanel.h; sourceTree = "<group>"; };
 		C40BF5682BDCA19A00D701CF /* DmxDimmerAbility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DmxDimmerAbility.cpp; sourceTree = "<group>"; };
 		C40BF5692BDCA19A00D701CF /* DmxDimmerAbility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DmxDimmerAbility.h; sourceTree = "<group>"; };
+		C40BF56B2BDDBD5100D701CF /* MHDimmerPresetBitmapButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MHDimmerPresetBitmapButton.cpp; sourceTree = "<group>"; };
+		C40BF56C2BDDBD5100D701CF /* MHDimmerPresetBitmapButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHDimmerPresetBitmapButton.h; sourceTree = "<group>"; };
 		C40D87BD2B4B359E00A10AF8 /* MovingHeadPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovingHeadPanel.h; sourceTree = "<group>"; };
 		C40D87BE2B4B359E00A10AF8 /* MovingHeadPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MovingHeadPanel.cpp; sourceTree = "<group>"; };
 		C40D87BF2B4B359E00A10AF8 /* MovingHeadEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MovingHeadEffect.cpp; sourceTree = "<group>"; };
@@ -3484,6 +3487,8 @@
 		C40D87CF2B4B425A00A10AF8 /* MovingHeadPanels */ = {
 			isa = PBXGroup;
 			children = (
+				C40BF56B2BDDBD5100D701CF /* MHDimmerPresetBitmapButton.cpp */,
+				C40BF56C2BDDBD5100D701CF /* MHDimmerPresetBitmapButton.h */,
 				C40BF5652BDCA13200D701CF /* MovingHeadDimmerPanel.cpp */,
 				C40BF5662BDCA13200D701CF /* MovingHeadDimmerPanel.h */,
 				C40D87ED2B4F6B3700A10AF8 /* MHColorPanel.h */,
@@ -3976,6 +3981,7 @@
 				6716512B25D7CE700041BB9A /* ColorCurve.cpp in Sources */,
 				6789EF4F26635DFD00889606 /* Pixels.cpp in Sources */,
 				67A889C82614FB2300BFCEC0 /* VRMLWriter.cpp in Sources */,
+				C40BF56D2BDDBD5100D701CF /* MHDimmerPresetBitmapButton.cpp in Sources */,
 				671653A325D7CE720041BB9A /* LOROptimisedOutput.cpp in Sources */,
 				6716534125D7CE710041BB9A /* SpiralsEffect.cpp in Sources */,
 				6716514C25D7CE700041BB9A /* Parallel.cpp in Sources */,
