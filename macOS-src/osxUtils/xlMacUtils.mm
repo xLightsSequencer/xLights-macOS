@@ -574,7 +574,19 @@ void SetButtonBackground(wxButton *b, const wxColour &c, int bgType) {
     } else {
         NSButton *nsb = (NSButton*)b->GetHandle();
         [nsb setBezelStyle:NSBezelStylePush];
-        [nsb setBezelColor:c.OSXGetNSColor()];
+        if (bgType == 1) {
+            CGColorRef cgc = c.GetCGColor();
+            [nsb setBordered:NO];
+            [nsb setWantsLayer:YES];
+            
+            [[nsb layer] setBackgroundColor:cgc];
+            [[nsb layer] setCornerRadius:6];
+            [[nsb layer] setBorderWidth:1];
+            [[nsb layer] setBorderColor:cgc];
+        } else {
+            NSColor *nsc = c.OSXGetNSColor();
+            [nsb setBezelColor:nsc];
+        }
     }
     b->Refresh();
 }

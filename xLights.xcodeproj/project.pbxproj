@@ -613,7 +613,6 @@
 		C40D87E92B4B428700A10AF8 /* MhFeature.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40D87E32B4B428600A10AF8 /* MhFeature.cpp */; };
 		C40D87EA2B4B428700A10AF8 /* MhChannel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40D87E62B4B428600A10AF8 /* MhChannel.cpp */; };
 		C40D87EB2B4B428700A10AF8 /* MhChannelDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40D87E72B4B428600A10AF8 /* MhChannelDialog.cpp */; };
-		C40D87F02B5A25AC00A10AF8 /* SpecialOptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40D87EF2B5A25AC00A10AF8 /* SpecialOptions.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -3600,7 +3599,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				CLASSPREFIX = xl;
-				LastUpgradeCheck = 1520;
+				LastUpgradeCheck = 1540;
 				ORGANIZATIONNAME = "Daniel Kulp";
 				TargetAttributes = {
 					678577AD272C735000E6E249 = {
@@ -4132,7 +4131,6 @@
 				671652CD25D7CE710041BB9A /* VSAFile.cpp in Sources */,
 				671651CD25D7CE700041BB9A /* AlignmentDialog.cpp in Sources */,
 				6716537C25D7CE720041BB9A /* J1Sys.cpp in Sources */,
-				C40D87F02B5A25AC00A10AF8 /* SpecialOptions.cpp in Sources */,
 				6716556425D824F80041BB9A /* md5.cpp in Sources */,
 				675A505229523E11000D038D /* string_utils.cpp in Sources */,
 				6716536D25D7CE720041BB9A /* ShaderPanel.cpp in Sources */,
