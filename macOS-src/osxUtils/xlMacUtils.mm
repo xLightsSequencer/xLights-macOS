@@ -566,59 +566,15 @@ void SetThreadQOS(int i) {
 }
 
 
-
-static NSColor *GetColorForButtonBg(int i) {
-    if (i == 2) {
-        return [NSColor windowBackgroundColor]; // Preview Save Button
-    }
-    if (wxSystemSettings::GetAppearance().IsDark()) {
-        if (i == 0) {
-            //Controller tab save button
-            NSColor *c = [[NSColor unemphasizedSelectedContentBackgroundColor] colorUsingColorSpace:[NSColorSpace deviceRGBColorSpace]];
-            c = [NSColor colorWithHue:[c hueComponent]
-                           saturation:[c saturationComponent]
-                           brightness:[c brightnessComponent] * 0.80
-                                alpha:1.0];
-            return c;
-        } else if (i == 1) {
-            return [NSColor underPageBackgroundColor]; // Color manager buttons
-        }
-    }
-    if (i == 0) {
-        //Controller tab save button
-        NSColor *c = [[NSColor windowBackgroundColor] colorUsingColorSpace:[NSColorSpace deviceRGBColorSpace]];
-        c = [NSColor colorWithHue:[c hueComponent]
-                       saturation:[c saturationComponent]
-                       brightness:[c brightnessComponent] * 0.97
-                            alpha:1.0];
-        return c;
-    }
-    return [NSColor windowBackgroundColor]; // Color manager buttons
-
-}
-
 void SetButtonBackground(wxButton *b, const wxColour &c, int bgType) {
-    CGColorRef nsc = c.GetCGColor();
-    b->SetBackgroundColour(c);
     if (c == wxTransparentColour) {
         NSButton *nsb = (NSButton*)b->GetHandle();
-        [nsb setBordered:YES];
-        [nsb setWantsLayer:YES];
-        [nsb setBezelStyle:NSBezelStyleRounded];
-        [[nsb layer] setBackgroundColor:nsc];
-        
-        [[nsb layer] setCornerRadius:0];
-        [[nsb layer] setBorderWidth:0];
-        [[nsb layer] setBorderColor:wxTransparentColor.GetCGColor()];
+        [nsb setBezelStyle:NSBezelStylePush];
+        [nsb setBezelColor:nil];
     } else {
         NSButton *nsb = (NSButton*)b->GetHandle();
-        [nsb setBordered:NO];
-        [nsb setWantsLayer:YES];
-        [nsb setBezelStyle:NSBezelStyleRounded];
-        [[nsb layer] setBackgroundColor:nsc];
-        [[nsb layer] setCornerRadius:10];
-        [[nsb layer] setBorderWidth:6];
-        [[nsb layer] setBorderColor:[GetColorForButtonBg(bgType) CGColor]];
+        [nsb setBezelStyle:NSBezelStylePush];
+        [nsb setBezelColor:c.OSXGetNSColor()];
     }
     b->Refresh();
 }
