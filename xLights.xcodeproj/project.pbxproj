@@ -519,9 +519,7 @@
 		678577A5272C67D400E6E249 /* MetalButterflyEffect.mm in Sources */ = {isa = PBXBuildFile; fileRef = 678577A3272C67D400E6E249 /* MetalButterflyEffect.mm */; };
 		678577AB272C721500E6E249 /* MetalComputeUtilities.mm in Sources */ = {isa = PBXBuildFile; fileRef = 678577A9272C721500E6E249 /* MetalComputeUtilities.mm */; };
 		678577B6272C73A000E6E249 /* ButterflyFunctions.metal in Sources */ = {isa = PBXBuildFile; fileRef = 678577B5272C73A000E6E249 /* ButterflyFunctions.metal */; };
-		6786706A2729104A00A5375D /* MetalShaderTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 678670692729104A00A5375D /* MetalShaderTypes.h */; };
 		6786706D27296B4000A5375D /* SIMDMathUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6786706B27296B4000A5375D /* SIMDMathUtilities.cpp */; };
-		6786706E27296B4000A5375D /* SIMDMathUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 6786706C27296B4000A5375D /* SIMDMathUtilities.h */; };
 		6787EAA1274FF60E00DAEE47 /* ScriptsDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6787EAA0274FF60E00DAEE47 /* ScriptsDialog.cpp */; };
 		6789EF4F26635DFD00889606 /* Pixels.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6789EF4E26635DFD00889606 /* Pixels.cpp */; };
 		678AAF4026C40B6300467B3C /* model_vendor_mapping.json in Resources */ = {isa = PBXBuildFile; fileRef = 678AAF3F26C40B6300467B3C /* model_vendor_mapping.json */; };
@@ -548,9 +546,6 @@
 		67A889C92614FB2300BFCEC0 /* CADWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67A889C12614FB2300BFCEC0 /* CADWriter.cpp */; };
 		67A889CA2614FB2300BFCEC0 /* ModelToCAD.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67A889C32614FB2300BFCEC0 /* ModelToCAD.cpp */; };
 		67A889CB2614FB2300BFCEC0 /* CADModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67A889C52614FB2300BFCEC0 /* CADModel.cpp */; };
-		67A88A3C26164CAE00BFCEC0 /* TouchBars.h in Headers */ = {isa = PBXBuildFile; fileRef = 67A88A3326164CAD00BFCEC0 /* TouchBars.h */; };
-		67A88A3D26164CAE00BFCEC0 /* ExternalHooksMacOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 67A88A3426164CAE00BFCEC0 /* ExternalHooksMacOS.h */; };
-		67A88A3F26164CAE00BFCEC0 /* InAppPurchaseDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = 67A88A3626164CAE00BFCEC0 /* InAppPurchaseDialog.h */; };
 		67A88A4026164CAE00BFCEC0 /* TouchBars.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67A88A3726164CAE00BFCEC0 /* TouchBars.mm */; };
 		67A88A4126164CAE00BFCEC0 /* xlMacUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67A88A3826164CAE00BFCEC0 /* xlMacUtils.mm */; };
 		67A88A4226164CAE00BFCEC0 /* InAppPurchaseDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67A88A3926164CAE00BFCEC0 /* InAppPurchaseDialog.cpp */; };
@@ -565,7 +560,6 @@
 		67BE0DFA2727C0AB00558A3A /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BE0DF82727C0AB00558A3A /* MetalKit.framework */; };
 		67BE0DFB2727C0AB00558A3A /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BE0DF92727C0AB00558A3A /* Metal.framework */; };
 		67BE0E012728230C00558A3A /* wxMetalCanvas.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67BE0DFF2728230C00558A3A /* wxMetalCanvas.mm */; };
-		67BE0E022728230C00558A3A /* wxMetalCanvas.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67BE0E002728230C00558A3A /* wxMetalCanvas.hpp */; };
 		67C7E283215E596000AE0775 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B6F3422040FBB600B847E0 /* CoreAudio.framework */; };
 		67D142B8275803100018A831 /* pages.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D142AD275803100018A831 /* pages.cpp */; };
 		67D142B9275803100018A831 /* connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D142AE275803100018A831 /* connection.cpp */; };
@@ -3522,22 +3516,6 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		67A88A2326164C9B00BFCEC0 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6786706E27296B4000A5375D /* SIMDMathUtilities.h in Headers */,
-				6786706A2729104A00A5375D /* MetalShaderTypes.h in Headers */,
-				67A88A3C26164CAE00BFCEC0 /* TouchBars.h in Headers */,
-				67BE0E022728230C00558A3A /* wxMetalCanvas.hpp in Headers */,
-				67A88A3F26164CAE00BFCEC0 /* InAppPurchaseDialog.h in Headers */,
-				67A88A3D26164CAE00BFCEC0 /* ExternalHooksMacOS.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
 		678577AD272C735000E6E249 /* EffectComputeFunctions */ = {
 			isa = PBXNativeTarget;
@@ -3558,7 +3536,6 @@
 			buildConfigurationList = 67A88A2D26164C9C00BFCEC0 /* Build configuration list for PBXNativeTarget "xLights-macOSLib" */;
 			buildPhases = (
 				67A892BC2B408A4B00B1D094 /* ShellScript */,
-				67A88A2326164C9B00BFCEC0 /* Headers */,
 				67A88A2426164C9B00BFCEC0 /* Sources */,
 				67A88A2526164C9B00BFCEC0 /* Frameworks */,
 			);
@@ -3599,7 +3576,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				CLASSPREFIX = xl;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 1600;
 				ORGANIZATIONNAME = "Daniel Kulp";
 				TargetAttributes = {
 					678577AD272C735000E6E249 = {
