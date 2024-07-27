@@ -1682,6 +1682,7 @@
 		67A14C8120DD3345006EFCFA /* libSystem.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libSystem.tbd; path = usr/lib/libSystem.tbd; sourceTree = SDKROOT; };
 		67A14C8320DD336E006EFCFA /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		67A14C8520DD337E006EFCFA /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		67A221C52C540B200048F888 /* PWMOutput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWMOutput.h; sourceTree = "<group>"; };
 		67A731DF2B1B0355000E9AA9 /* AdjustPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AdjustPanel.cpp; sourceTree = "<group>"; };
 		67A731E02B1B0355000E9AA9 /* AdjustPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdjustPanel.h; sourceTree = "<group>"; };
 		67A731E12B1B0355000E9AA9 /* AdjustEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AdjustEffect.cpp; sourceTree = "<group>"; };
@@ -2381,6 +2382,7 @@
 		67164C9325D7CE6D0041BB9A /* models */ = {
 			isa = PBXGroup;
 			children = (
+				67A221C52C540B200048F888 /* PWMOutput.h */,
 				67164CE125D7CE6D0041BB9A /* ArchesModel.cpp */,
 				67164CD625D7CE6D0041BB9A /* ArchesModel.h */,
 				67164CE625D7CE6D0041BB9A /* BaseObject.cpp */,
