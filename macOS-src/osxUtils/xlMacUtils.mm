@@ -55,8 +55,16 @@ static void LoadGroupEntries(wxConfig *config, const wxString &grp, std::list<st
                                                      relativeToURL:nil
                                                      bookmarkDataIsStale:&isStale
                                                      error:&error];
+            
+            bool writable = true;
             bool ok = [fileURL startAccessingSecurityScopedResource];
-            if (ok) {
+            wxString f2 = f;
+            if (wxDirExists(f) && !f.EndsWith("/")) {
+                f2 += "/";
+                NSString* fstr = [NSString stringWithUTF8String:f2.c_str()];
+                writable = ![[NSFileManager defaultManager] isWritableFileAtPath:fstr];
+            }
+            if (ok && writable) {
                 ACCESSIBLE_URLS.insert(f.ToStdString());
             } else {
                 removes.push_back(f.ToStdString());
@@ -83,10 +91,29 @@ static void LoadGroupEntries(wxConfig *config, const wxString &grp, std::list<st
     }
 }
 
-bool ObtainAccessToURL(const std::string &path) {
+static bool IsDirAccessible(const std::string &path, bool enforceWritable) {
+    if (wxDir::Exists(path) && enforceWritable) {
+        std::string p1 = path.ends_with("/") ? path : path + "/";
+        NSString *nsfilePath = [NSString stringWithUTF8String:p1.c_str()];
+        if (![[NSFileManager defaultManager] isWritableFileAtPath:nsfilePath]) {
+            //not writable, need to remove the tokens
+            ACCESSIBLE_URLS.erase(path);
+            wxConfig *config = new wxConfig("xLights-Bookmarks");
+            config->DeleteEntry(path, true);
+            config->DeleteGroup(path);
+            config->Flush();
+            delete config;
+            return false;
+        }
+    }
+    return true;
+}
+
+bool ObtainAccessToURL(const std::string &path, bool enforceWritable) {
     if ("" == path) {
         return true;
     }
+    
     std::unique_lock<std::mutex> lock(URL_LOCK);
     @autoreleasepool {
         if (ACCESSIBLE_URLS.empty()) {
@@ -110,7 +137,7 @@ bool ObtainAccessToURL(const std::string &path) {
             delete config;
         }
         if (ACCESSIBLE_URLS.find(path) != ACCESSIBLE_URLS.end()) {
-            return true;
+            return IsDirAccessible(path, enforceWritable);
         }
         NSString *nsfilePath = [NSString stringWithUTF8String:path.c_str()];
         bool exists = [[NSFileManager defaultManager] fileExistsAtPath:nsfilePath];
@@ -129,7 +156,7 @@ bool ObtainAccessToURL(const std::string &path) {
             if (ACCESSIBLE_URLS.find(ps.ToStdString()) != ACCESSIBLE_URLS.end()) {
                 // file is in a directory we already have access to, don't need to record it
                 ACCESSIBLE_URLS.insert(path);
-                return true;
+                return IsDirAccessible(path, enforceWritable);
             }
         }
 
@@ -145,13 +172,24 @@ bool ObtainAccessToURL(const std::string &path) {
                                                   relativeToURL: nil
                                                           error: &error];
             NSString *base64 = [newData base64EncodedStringWithOptions:0];
-            const char *cstr = [base64 UTF8String];
-            if (cstr != nullptr && *cstr) {
-                data = cstr;
-                config->Write(pathurl, data);
-                ACCESSIBLE_URLS.insert(pathurl);
+            
+            bool write = true;
+            if (wxDir::Exists(path)) {
+                // don't save book marks to dirs
+                std::string p1 = path.ends_with("/") ? path : path + "/";
+                nsfilePath = [NSString stringWithUTF8String:p1.c_str()];
+                write = [[NSFileManager defaultManager] isWritableFileAtPath:nsfilePath];
+            }
+            if (write) {
+                const char *cstr = [base64 UTF8String];
+                if (cstr != nullptr && *cstr) {
+                    data = cstr;
+                    config->Write(pathurl, data);
+                    ACCESSIBLE_URLS.insert(pathurl);
+                }
             }
         }
+        delete config;
 
         if (data.length() > 0) {
             NSString* dstr = [NSString stringWithUTF8String:data.c_str()];
@@ -164,10 +202,18 @@ bool ObtainAccessToURL(const std::string &path) {
                                                  relativeToURL:nil
                                                  bookmarkDataIsStale:&isStale
                                                  error:&error];
-            [fileURL startAccessingSecurityScopedResource];
+            
+            if (wxDir::Exists(path) && path.ends_with("/")) {
+                std::string p1 = path + "/";
+                nsfilePath = [NSString stringWithUTF8String:p1.c_str()];
+            }
+
+            if ([fileURL startAccessingSecurityScopedResource] == 0) {
+                ACCESSIBLE_URLS.erase(path);
+                return false;
+            }
         }
-        delete config;
-        return data.length() > 0;
+        return data.length() > 0 && IsDirAccessible(path, enforceWritable);
     }
 }
 

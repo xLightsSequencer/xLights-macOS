@@ -14,7 +14,7 @@ class wxColour;
  * setup some various advanced functionality
  */
 
-bool ObtainAccessToURL(const std::string &path);
+bool ObtainAccessToURL(const std::string &path, bool enforceWritable = false);
 bool FileExists(const std::string &s, bool waitForDownload = true);
 bool FileExists(const wxFileName &fn, bool waitForDownload = true);
 bool FileExists(const wxString &s, bool waitForDownload = true);
