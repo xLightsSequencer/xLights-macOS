@@ -8,7 +8,7 @@
 	<array>
 		<dict>
 			<key>CFBundleTypeIconFile</key>
-			<string></string>
+			<string>AppIcon</string>
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
 			<key>CFBundleTypeName</key>
@@ -26,7 +26,7 @@
 		</dict>
 		<dict>
 			<key>CFBundleTypeIconFile</key>
-			<string></string>
+			<string>AppIconXSQZ</string>
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
 			<key>CFBundleTypeName</key>
@@ -91,7 +91,9 @@
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBadgeName</key>
-				<string></string>
+				<string>AppIcon</string>
+				<key>UTTypeIconText</key>
+				<string>xsq</string>
 			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>org.xlights.xsq</string>
@@ -115,7 +117,9 @@
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBadgeName</key>
-				<string></string>
+				<string>AppIconXSQZ</string>
+				<key>UTTypeIconText</key>
+				<string>xsqz</string>
 			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>org.xlights.xsqz</string>
