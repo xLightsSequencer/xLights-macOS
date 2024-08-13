@@ -7,46 +7,38 @@
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>xsq</string>
-			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>AppIcon.icns</string>
+			<string></string>
 			<key>CFBundleTypeIconSystemGenerated</key>
-			<integer>0</integer>
+			<integer>1</integer>
 			<key>CFBundleTypeName</key>
 			<string>xLights Sequence</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>LSHandlerRank</key>
 			<string>Owner</string>
-			<key>LSIsAppleDefaultForType</key>
-			<true/>
-			<key>LSTypeIsPackage</key>
-			<integer>0</integer>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>org.xlights.xsq</string>
+			</array>
 			<key>NSDocumentClass</key>
 			<string></string>
 		</dict>
 		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>xsqz</string>
-			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>AppIconXSQZ.icns</string>
+			<string></string>
 			<key>CFBundleTypeIconSystemGenerated</key>
-			<integer>0</integer>
+			<integer>1</integer>
 			<key>CFBundleTypeName</key>
 			<string>xLights Packaged Sequence</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>LSHandlerRank</key>
 			<string>Owner</string>
-			<key>LSIsAppleDefaultForType</key>
-			<true/>
-			<key>LSTypeIsPackage</key>
-			<integer>1</integer>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>org.xlights.xsqz</string>
+			</array>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
@@ -85,5 +77,56 @@
 	<string>The "FPP Connect" feature in xLights can save sequences, media, and configuration to FPP storage drives mounted as removable media.</string>
 	<key>NSSupportsAutomaticGraphicsSwitching</key>
 	<true/>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>xLights Sequence</string>
+			<key>UTTypeIconFile</key>
+			<string>AppIcon</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBadgeName</key>
+				<string></string>
+			</dict>
+			<key>UTTypeIdentifier</key>
+			<string>org.xlights.xsq</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>xsq</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>xLights Packaged Sequence</string>
+			<key>UTTypeIconFile</key>
+			<string>AppIconXSQZ</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBadgeName</key>
+				<string></string>
+			</dict>
+			<key>UTTypeIdentifier</key>
+			<string>org.xlights.xsqz</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>xsqz</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
 </dict>
 </plist>
