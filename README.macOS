@@ -42,7 +42,7 @@ cloud backed up.
 
 
 To get the latest code that we've tested, do:
-git clone  --recurse-submodules -b xlights_2024.06 https://github.com/xLightsSequencer/wxWidgets
+git clone  --recurse-submodules -b xlights_2024.16 https://github.com/xLightsSequencer/wxWidgets
 
 
 First, setup the target directories:
@@ -148,7 +148,7 @@ brew install automake libtool cmake nasm
 libzstd:
 git clone https://github.com/facebook/zstd
 cd zstd
-git checkout v1.5.5
+git checkout v1.5.6
 export CFLAGS="-g -flto=thin  ${OSX_VERSION_MIN} ${XL_TARGETS}"
 export LDFLAGS="-flto=thin  ${OSX_VERSION_MIN} ${XL_TARGETS} "
 make clean
@@ -213,11 +213,11 @@ unset CXXFLAGS
 unset CXX
 
 
-SDL2:  currently using 2.30.1
+SDL2:  currently using 2.30.7
 git clone https://github.com/libsdl-org/SDL
 cd SDL
 git reset --hard
-git checkout release-2.30.1
+git checkout release-2.30.7
 export CXXFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN} "
 export CFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN} "
 export LDFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN} "
@@ -237,11 +237,11 @@ unset CFLAGS
 unset LDFLAGS
 
 
-ffmpeg:   currently using 6.1.1
+ffmpeg:   currently using 6.1.2
 # Note: requires nasm to be install.   Easiest option is via "brew install nasm"
 git clone https://git.ffmpeg.org/ffmpeg.git
 cd ffmpeg
-git checkout n6.1.1
+git checkout n6.1.2
 make clean
 rm -rf x86_64
 git status --ignored -s | colrm 1 2 | xargs rm -rf
@@ -279,7 +279,9 @@ find . -name "*.a" -exec cp {} /opt/local/libdbg/ \;
 
 libxslwriter:
 git clone https://github.com/jmcnamara/libxlsxwriter.git
-cd libxlsxwriter/cmake
+cd libxlswriter
+git checkout v1.1.8
+cd cmake
 export CXXFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN} "
 export CFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN} "
 export LDFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN} "
@@ -302,10 +304,10 @@ unset LDFLAGS
 
 
 
-liblua: (currently using v5.4.6)
+liblua: (currently using v5.4.7)
 git clone https://github.com/lua/lua
 cd lua
-git checkout v5.4.6
+git checkout v5.4.7
 make clean
 export CFLAGS="-g -O3 -flto=thin -Wall -fno-stack-protector -fno-common ${XL_TARGETS} ${OSX_VERSION_MIN} "
 make -j4 all CFLAGS="$CFLAGS" MYLDFLAGS="$CFLAGS"
@@ -407,4 +409,5 @@ May 16, 2023 - zstd to 1.5.5, sdl to 2.26.5
 Sep 19, 2023 - sdl to 2.28.3, lua to 5.4.6, hidapi to 0.14.0
 Sep 27, 2023 - updates to be able to use Xcode 15
 Dec 17, 2023 - update ffmpeg to 6.1, SDL to 2.28.5, remove workaround for clipping problem in wxWidgets on Sonoma (xlights_2023.23 includes fix)
-Mar 6, 2024 - SDL -> 20.30.1, ffmpeg -> 6.1.1, wxWidgets -> xlights_2024.05, remove sonoma workaround hacks
+Mar 6, 2024 - SDL -> 2.30.1, ffmpeg -> 6.1.1, wxWidgets -> xlights_2024.05, remove sonoma workaround hacks
+Sep 17, 2024 - SDL -> 2.30.7, ffmpeg -> 6.1.2, zstd -> 1.5.6, xlswriter -> v1.1.8, lua -> 5.4.7
