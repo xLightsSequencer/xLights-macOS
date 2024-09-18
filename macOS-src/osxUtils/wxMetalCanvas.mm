@@ -4,6 +4,8 @@
 #include <Metal/Metal.h>
 #include <MetalKit/MetalKit.h>
 
+#import <QuartzCore/QuartzCore.h>
+
 #include <log4cpp/Category.hh>
 
 #include "wxMetalCanvas.hpp"
@@ -16,7 +18,6 @@
 
 BEGIN_EVENT_TABLE(wxMetalCanvas, wxWindow)
 END_EVENT_TABLE()
-
 
 wxMetalCanvas::wxMetalCanvas(wxWindow *parent,
                              wxWindowID id,
@@ -69,6 +70,23 @@ wxMetalCanvas::wxMetalCanvas(wxWindow *parent,
 
 @end
 
+// This can be used to get callbacks of when the screen is syncing
+// so we can start drawing the next frame, could possibly replace the wxTimer
+// that is currently used to give us the maximum time to draw
+/*
+@interface ScreenCallback : NSObject {
+}
+@end
+@implementation ScreenCallback
+- (void)displayLinkCallback:(CADisplayLink *)link  API_AVAILABLE(macos(14.0)){
+    auto targetTimestamp = link.targetTimestamp - link.timestamp;
+    printf("displayLinkCallback %f    Preferred: %f  %f/%f      Duration: %f\n", targetTimestamp, link.preferredFrameRateRange.preferred,
+           link.preferredFrameRateRange.minimum, link.preferredFrameRateRange.maximum, link.duration);
+}
+@end
+static ScreenCallback *SCREEN_CALLBACK = [[ScreenCallback alloc] init];
+*/
+
 
 class PipelineInfo {
 public:
@@ -94,8 +112,6 @@ static std::map<std::string, PipelineInfo> BLENDED_PIPELINE_STATES_2D;
 static std::map<std::string, PipelineInfo> PIPELINE_STATES_3D;
 static std::map<std::string, PipelineInfo> BLENDED_PIPELINE_STATES_3D;
 static std::atomic_int METAL_USE_COUNT(0);
-
-
 
 wxMetalCanvas::~wxMetalCanvas() {
     METAL_USE_COUNT--;
@@ -208,6 +224,23 @@ bool wxMetalCanvas::Create(wxWindow *parent,
         } else if ([MTL_DEVICE supportsTextureSampleCount:8]) {
             MTL_SAMPLE_COUNT = 8;
         }
+        
+        /*
+        if (@available(macOS 14.0, *)) {
+            NSArray<NSScreen *> *screens = [NSScreen screens];
+            for (NSScreen *scr in screens) {
+                CADisplayLink *link = [scr displayLinkWithTarget:SCREEN_CALLBACK selector:@selector(displayLinkCallback:)];
+                [link addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+                [link setPaused:false];
+                
+                CAFrameRateRange fr;
+                fr.minimum = 40;
+                fr.preferred = 40;
+                fr.maximum = 40;
+                [link setPreferredFrameRateRange:fr];
+            }
+        }
+         */
     }
     METAL_USE_COUNT++;
 
@@ -367,8 +400,12 @@ bool wxMetalCanvas::isInSyncPoint() {
 }
  
 void wxMetalCanvas::addToSyncPoint(id<MTLCommandBuffer> &buffer, id<CAMetalDrawable> &drawable) {
-    buffersToComplete.push_back(buffer);
-    drawablesToPresent.push_back(drawable);
+    [buffer presentDrawable:drawable afterMinimumDuration:0.00833f];
+    [buffer commit];
+    [drawable release];
+    // [buffer retain];
+    //buffersToComplete.push_back(buffer);
+    //drawablesToPresent.push_back(drawable);
 }
 
 void StartMetalGraphicsSyncPoint() {

@@ -153,7 +153,7 @@ bool ObtainAccessToURL(const std::string &path, bool enforceWritable) {
                 ps = parent.GetPath();
             }
 
-            if (ACCESSIBLE_URLS.find(ps.ToStdString()) != ACCESSIBLE_URLS.end()) {
+            if (ACCESSIBLE_URLS.find(ps.ToStdString()) != ACCESSIBLE_URLS.end() && IsDirAccessible(ps, enforceWritable)) {
                 // file is in a directory we already have access to, don't need to record it
                 ACCESSIBLE_URLS.insert(path);
                 return IsDirAccessible(path, enforceWritable);
