@@ -25,6 +25,10 @@ public:
 
     const std::string &getName() const { return name; }
 
+    int getScreenIndex() const;    
+    bool startFrameForTime(double ts);
+    void cancelFrameForTime();
+    
 #ifdef __OBJC__
     //methods only available from objective-c.  Cannot be virtual as they cannot be in the virtual function table
     static id<MTLDevice> getMTLDevice();
@@ -38,16 +42,12 @@ public:
     id<MTLRenderPipelineState> getPipelineState(const std::string &name, const char *vShader, const char *fShader,
                                                 bool blending);
 
-    static void addToSyncPoint(id<MTLCommandBuffer> &buffer, id<CAMetalDrawable> &drawable);
+    void addToSyncPoint(id<MTLCommandBuffer> &buffer, id<CAMetalDrawable> &drawable);
 #endif
 
     bool usesMSAA() { return usesMsaa; }
     virtual bool RequiresDepthBuffer() const { return false; }
-    
-    
-    static bool isInSyncPoint();
-    static void StartGraphicsSyncPoint();
-    static void EndGraphicsSyncPoint();
+        
 protected:
     DECLARE_EVENT_TABLE()
 
@@ -62,7 +62,9 @@ protected:
     bool is3d = false;
     bool usesMsaa = false;
     std::string name;
-
+    
+    double nextPresentTime = 0;
+    bool   isUsingPresentTime = false;
 private:
     static bool inSyncPoint;
 };

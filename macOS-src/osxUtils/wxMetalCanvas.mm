@@ -70,24 +70,6 @@ wxMetalCanvas::wxMetalCanvas(wxWindow *parent,
 
 @end
 
-// This can be used to get callbacks of when the screen is syncing
-// so we can start drawing the next frame, could possibly replace the wxTimer
-// that is currently used to give us the maximum time to draw
-/*
-@interface ScreenCallback : NSObject {
-}
-@end
-@implementation ScreenCallback
-- (void)displayLinkCallback:(CADisplayLink *)link  API_AVAILABLE(macos(14.0)){
-    auto targetTimestamp = link.targetTimestamp - link.timestamp;
-    printf("displayLinkCallback %f    Preferred: %f  %f/%f      Duration: %f\n", targetTimestamp, link.preferredFrameRateRange.preferred,
-           link.preferredFrameRateRange.minimum, link.preferredFrameRateRange.maximum, link.duration);
-}
-@end
-static ScreenCallback *SCREEN_CALLBACK = [[ScreenCallback alloc] init];
-*/
-
-
 class PipelineInfo {
 public:
     PipelineInfo() {
@@ -224,23 +206,6 @@ bool wxMetalCanvas::Create(wxWindow *parent,
         } else if ([MTL_DEVICE supportsTextureSampleCount:8]) {
             MTL_SAMPLE_COUNT = 8;
         }
-        
-        /*
-        if (@available(macOS 14.0, *)) {
-            NSArray<NSScreen *> *screens = [NSScreen screens];
-            for (NSScreen *scr in screens) {
-                CADisplayLink *link = [scr displayLinkWithTarget:SCREEN_CALLBACK selector:@selector(displayLinkCallback:)];
-                [link addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
-                [link setPaused:false];
-                
-                CAFrameRateRange fr;
-                fr.minimum = 40;
-                fr.preferred = 40;
-                fr.maximum = 40;
-                [link setPreferredFrameRateRange:fr];
-            }
-        }
-         */
     }
     METAL_USE_COUNT++;
 
@@ -369,48 +334,34 @@ id<MTLRenderPipelineState> wxMetalCanvas::getPipelineState(const std::string &n,
     return a.state;
 }
 
-
-
-bool wxMetalCanvas::inSyncPoint = false;
-
-static std::list<id<CAMetalDrawable>> drawablesToPresent;
-static std::list<id<MTLCommandBuffer>> buffersToComplete;
-void wxMetalCanvas::StartGraphicsSyncPoint() {
-    inSyncPoint = true;
-}
-void wxMetalCanvas::EndGraphicsSyncPoint() {
-    inSyncPoint = false;
-    while (!buffersToComplete.empty()) {
-        id<MTLCommandBuffer> buffer = buffersToComplete.front();
-        buffersToComplete.pop_front();
-        [buffer waitUntilCompleted];
-        [buffer release];
-
-    }
-    while (!drawablesToPresent.empty()) {
-        id<CAMetalDrawable> drawable = drawablesToPresent.front();
-        drawablesToPresent.pop_front();
-        [drawable present];
-        [drawable release];
-    }
-}
-
-bool wxMetalCanvas::isInSyncPoint() {
-    return inSyncPoint;
-}
  
 void wxMetalCanvas::addToSyncPoint(id<MTLCommandBuffer> &buffer, id<CAMetalDrawable> &drawable) {
-    [buffer presentDrawable:drawable afterMinimumDuration:0.00833f];
-    [buffer commit];
-    [drawable release];
-    // [buffer retain];
-    //buffersToComplete.push_back(buffer);
-    //drawablesToPresent.push_back(drawable);
+    if (!isUsingPresentTime) {
+        [buffer presentDrawable:drawable];
+        [buffer commit];
+    } else {
+        [buffer presentDrawable:drawable atTime:nextPresentTime];
+        [buffer commit];
+        isUsingPresentTime = false;
+    }
 }
 
-void StartMetalGraphicsSyncPoint() {
-    wxMetalCanvas::StartGraphicsSyncPoint();
+int wxMetalCanvas::getScreenIndex() const {
+    NSScreen *scr = [getMTKView() window].screen;
+    NSArray<NSScreen *> *screens = [NSScreen screens];
+    for (NSUInteger i = 0; i < screens.count; i++) {
+        if (screens[i] == scr) {
+            return i;
+        }
+    }
+    return 0;
 }
-void EndMetalGraphicsSyncPoint() {
-    wxMetalCanvas::EndGraphicsSyncPoint();
+bool wxMetalCanvas::startFrameForTime(double ts) {
+    if (ts > nextPresentTime) {
+        nextPresentTime = ts;
+        isUsingPresentTime = true;
+        return true;
+    }
+    return false;
 }
+

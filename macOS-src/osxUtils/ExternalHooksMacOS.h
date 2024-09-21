@@ -41,12 +41,6 @@ double xlOSGetMainScreenContentScaleFactor();
 void RunInAutoReleasePool(std::function<void()> &&f);
 #define AdjustModalDialogParent(par) par = nullptr
 
-void StartMetalGraphicsSyncPoint();
-void EndMetalGraphicsSyncPoint();
-
-#define StartGraphicsSyncPoint() StartMetalGraphicsSyncPoint()
-#define EndGraphicsSyncPoint() EndMetalGraphicsSyncPoint()
-
 void SetThreadQOS(int i);
 void SetButtonBackground(wxButton *b, const wxColour &c, int bgType = 0);
 
