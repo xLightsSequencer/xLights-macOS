@@ -36,6 +36,7 @@ public:
     static id<MTLDepthStencilState> getDepthStencilStateLE();
     static id<MTLDepthStencilState> getDepthStencilStateL();
     static id<MTLCommandQueue> getMTLCommandQueue();
+    static id<MTLCommandQueue> getBltCommandQueue();
     static int getMSAASampleCount();
 
     MTKView* getMTKView() const;

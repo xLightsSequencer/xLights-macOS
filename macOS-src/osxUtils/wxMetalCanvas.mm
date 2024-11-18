@@ -84,6 +84,7 @@ public:
 
 static id<MTLDevice> MTL_DEVICE = nil;
 static id<MTLCommandQueue> MTL_COMMAND_QUEUE = nil;
+static id<MTLCommandQueue> BLT_COMMAND_QUEUE = nil;
 static id<MTLLibrary> MTL_DEFAULT_LIBRARY = nil;
 static id<MTLDepthStencilState> MTL_DEPTH_STENCIL_STATE_LE = nil;
 static id<MTLDepthStencilState> MTL_DEPTH_STENCIL_STATE_L = nil;
@@ -131,6 +132,10 @@ wxMetalCanvas::~wxMetalCanvas() {
             [MTL_COMMAND_QUEUE release];
             MTL_COMMAND_QUEUE = nil;
         }
+        if (BLT_COMMAND_QUEUE) {
+            [BLT_COMMAND_QUEUE release];
+            BLT_COMMAND_QUEUE = nil;
+        }
         if (MTL_DEFAULT_LIBRARY) {
             [MTL_DEFAULT_LIBRARY release];
             MTL_DEFAULT_LIBRARY = nil;
@@ -160,6 +165,10 @@ id<MTLDepthStencilState> wxMetalCanvas::getDepthStencilStateL() {
 id<MTLCommandQueue> wxMetalCanvas::getMTLCommandQueue() {
     return MTL_COMMAND_QUEUE;
 }
+id<MTLCommandQueue> wxMetalCanvas::getBltCommandQueue() {
+    return BLT_COMMAND_QUEUE;
+}
+
 
 int wxMetalCanvas::getMSAASampleCount() {
     return MTL_SAMPLE_COUNT;
@@ -186,6 +195,8 @@ bool wxMetalCanvas::Create(wxWindow *parent,
         MTL_DEVICE = MTLCreateSystemDefaultDevice();
         MTL_COMMAND_QUEUE = [MTL_DEVICE newCommandQueue];
         [MTL_COMMAND_QUEUE setLabel:@"xLightsMetalCommandQueue"];
+        BLT_COMMAND_QUEUE = [MTL_DEVICE newCommandQueue];
+        [BLT_COMMAND_QUEUE setLabel:@"xLightsBltCommandQueue"];
         MTLDepthStencilDescriptor *depthDescriptor = [MTLDepthStencilDescriptor new];
         depthDescriptor.depthCompareFunction = MTLCompareFunctionLessEqual;
         depthDescriptor.depthWriteEnabled = YES;
