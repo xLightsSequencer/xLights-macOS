@@ -70,7 +70,7 @@ wxWidgets first.  If not doing release builds, this can be skipped.
   export CPP="clang -E"
   export CFLAGS="-g"
   ../configure  --disable-debug_flag --enable-debug_info --enable-optimise --prefix=/opt/local --enable-universal_binary=${BINARY_PLATFORMS} \
-                --with-osx_cocoa --with-macosx-version-min=10.14 --disable-dependency-tracking \
+                --with-osx_cocoa --with-macosx-version-min=11.0 --disable-dependency-tracking \
                 --disable-compat30  --enable-mimetype --enable-aui --with-opengl \
                 --enable-webview --enable-webviewwebkit --disable-mdi --disable-mdidoc --disable-loggui \
                 --disable-xrc --disable-stc --disable-ribbon --disable-htmlhelp --disable-mediactrl \
@@ -98,7 +98,7 @@ For debug builds:
   export CFLAGS="-g"
   ../configure  --prefix=/opt/local --libdir=/opt/local/libdbg \
                 --enable-debug --enable-debug_info --disable-optimise --enable-universal_binary=${BINARY_PLATFORMS} \
-                --with-osx_cocoa --with-macosx-version-min=10.14 --disable-dependency-tracking \
+                --with-osx_cocoa --with-macosx-version-min=11.0 --disable-dependency-tracking \
                 --disable-compat30  --enable-mimetype --enable-aui --with-opengl \
                 --enable-webview --enable-webviewwebkit --disable-mdi --disable-mdidoc --disable-loggui \
                 --disable-xrc --disable-stc --disable-ribbon --disable-htmlhelp --disable-mediactrl \
@@ -125,10 +125,10 @@ Note:  These instructions now assume Xcode 12 with support for Arm64.
 You must set the env variables at the top first to setup the architecture and version targets
 
 
-export MACOSX_DEPLOYMENT_TARGET=10.14
+export MACOSX_DEPLOYMENT_TARGET=11.0
 export OSX_VERSION_MIN="-mmacosx-version-min=${MACOSX_DEPLOYMENT_TARGET}"
-export ARM64_TARGETS="-target arm64-apple-macos10.14 -arch arm64"
-export X86_64_TARGETS="-target x86_64-apple-macos10.14 -arch x86_64"
+export ARM64_TARGETS="-target arm64-apple-macos11.0 -arch arm64"
+export X86_64_TARGETS="-target x86_64-apple-macos11.0 -arch x86_64"
 
 #need ONE of these lines
 export XL_TARGETS="${X86_64_TARGETS} ${ARM64_TARGETS}"
@@ -213,11 +213,11 @@ unset CXXFLAGS
 unset CXX
 
 
-SDL2:  currently using 2.30.7
+SDL2:  currently using 2.30.9
 git clone https://github.com/libsdl-org/SDL
 cd SDL
 git reset --hard
-git checkout release-2.30.7
+git checkout release-2.30.9
 export CXXFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN} "
 export CFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN} "
 export LDFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN} "
@@ -280,7 +280,7 @@ find . -name "*.a" -exec cp {} /opt/local/libdbg/ \;
 libxslwriter:
 git clone https://github.com/jmcnamara/libxlsxwriter.git
 cd libxlswriter
-git checkout v1.1.8
+git checkout v1.1.9
 cd cmake
 export CXXFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN} "
 export CFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN} "
@@ -339,10 +339,10 @@ make clean
 unset CFLAGS
 
 
-libwebp: (currently using v1.3.2)
+libwebp: (currently using v1.4.0)
 git clone https://chromium.googlesource.com/webm/libwebp
 cd libwebp
-git checkout v1.3.2
+git checkout v1.4.0
 ./autogen.sh
 export CFLAGS="-g -O3 -flto=thin -Wall -fno-stack-protector -fno-common ${XL_TARGETS} ${OSX_VERSION_MIN} "
 ./configure --prefix=/opt/local --disable-shared

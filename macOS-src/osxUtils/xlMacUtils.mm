@@ -49,7 +49,7 @@ static void LoadGroupEntries(wxConfig *config, const wxString &grp, std::list<st
             BOOL isStale = false;
             //options:(NSURLBookmarkResolutionOptions)options
             //relativeToURL:(NSURL *)relativeURL
-            NSError *error;
+            NSError *error = nil;
             NSURL *fileURL = [NSURL URLByResolvingBookmarkData:nsdata
                                                      options:NSURLBookmarkResolutionWithoutUI | NSURLBookmarkResolutionWithSecurityScope
                                                      relativeToURL:nil
@@ -60,9 +60,11 @@ static void LoadGroupEntries(wxConfig *config, const wxString &grp, std::list<st
             bool ok = [fileURL startAccessingSecurityScopedResource];
             wxString f2 = f;
             if (wxDirExists(f) && !f.EndsWith("/")) {
-                f2 += "/";
+                f2 += "/xL" + std::to_string(rand()) + ".tmp";
                 NSString* fstr = [NSString stringWithUTF8String:f2.c_str()];
-                writable = ![[NSFileManager defaultManager] isWritableFileAtPath:fstr];
+                [[NSFileManager defaultManager] createFileAtPath:fstr contents:nil attributes:nil];
+                writable = [[NSFileManager defaultManager] isWritableFileAtPath:fstr];
+                [[NSFileManager defaultManager] removeItemAtPath:fstr error:&error];
             }
             if (ok && writable) {
                 ACCESSIBLE_URLS.insert(f.ToStdString());
