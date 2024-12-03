@@ -42,7 +42,7 @@ cloud backed up.
 
 
 To get the latest code that we've tested, do:
-git clone  --recurse-submodules -b xlights_2024.19 https://github.com/xLightsSequencer/wxWidgets
+git clone  --recurse-submodules -b xlights_2024.20 https://github.com/xLightsSequencer/wxWidgets
 
 
 First, setup the target directories:
@@ -110,6 +110,9 @@ For debug builds:
   rm -rf /opt/local/libdbg/libwx*.dylib
   make install
 
+To create the packaged used by the cloud build scripts:
+cd /top
+tar  --exclude-vcs -c xLights-macOS-dependencies | zstd -18 -T0 -f -o ~/xLights-macOS-dependencies.tar.zst
 
 
 Next, you will use Xcode to compile xLights. Most of the steps are listed here:
