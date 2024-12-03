@@ -582,7 +582,9 @@ bool IsFromAppStore() {
 
         CFArrayRef certChain = (CFArrayRef)CFDictionaryGetValue(info, kSecCodeInfoCertificates);
         SecCertificateRef cert = SecCertificateRef(CFArrayGetValueAtIndex(certChain, 0));
-        
+        if (cert == NULL) {    // Signed to run locally
+            return false;
+        }
         CFStringRef cn;
         SecCertificateCopyCommonName(cert, &cn);
         NSString *cnnss = (NSString *)cn;
