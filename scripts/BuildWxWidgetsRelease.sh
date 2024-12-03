@@ -1,7 +1,7 @@
 #!/bin/bash -e
 # System dependency checks...
-if [ ! -d /opt/local ] || [ ! -d /opt/local/libdbg ] || [ ! -d /opt/local/bin ] ; then
-  echo "/opt/local/lib, /opt/local/libdbg and /opt/local/include must exist and be writable!"
+if [ ! -d /opt/local ] || [ ! -d /opt/local/bin ] ; then
+  echo "/opt/local/lib and /opt/local/include must exist and be writable!"
   exit 1
 fi
 
