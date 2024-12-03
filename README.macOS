@@ -277,9 +277,9 @@ make -j 12 ; make
 find . -name "*.a" -exec cp {} /opt/local/libdbg/ \;
 
 
-libxslwriter:
+libxslxwriter:
 git clone https://github.com/jmcnamara/libxlsxwriter.git
-cd libxlswriter
+cd libxlsxwriter
 git checkout v1.1.9
 cd cmake
 export CXXFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN} "
