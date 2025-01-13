@@ -42,7 +42,7 @@ cloud backed up.
 
 
 To get the latest code that we've tested, do:
-git clone  --recurse-submodules -b xlights_2024.20 https://github.com/xLightsSequencer/wxWidgets
+git clone  --recurse-submodules -b xlights_2025.01 https://github.com/xLightsSequencer/wxWidgets
 
 
 First, setup the target directories:
@@ -111,7 +111,7 @@ For debug builds:
   make install
 
 To create the packaged used by the cloud build scripts:
-cd /top
+cd /opt
 tar  --exclude-vcs -c xLights-macOS-dependencies | zstd -18 -T0 -f -o ~/xLights-macOS-dependencies.tar.zst
 
 
@@ -362,6 +362,17 @@ cp ./src/.libs/libwebp.a /opt/local/libdbg
 cp ./src/demux/.libs/libwebpdemux.a  /opt/local/libdbg
 cp ./sharpyuv/.libs/libsharpyuv.a /opt/local/libdbg
 unset CFLAGS
+
+
+# ISPC is needed to compile the SIMD kernels used for various effect rendering.   We cannot
+# use the version in homebrew as that will only allow generating the kernels for the architecture it is running
+# and thus release mode builds will fail.  Thus, we have to grab the "universal" version.
+# We only need the binary from the package.
+ispc:
+wget https://github.com/ispc/ispc/releases/download/v1.25.3/ispc-v1.25.3-macOS.universal.tar.gz
+tar -xzf ispc-v1.25.3-macOS.universal.tar.gz
+cp ispc-v1.25.3-macOS.universal/bin/ispc /opt/local/bin
+rm -rf ispc-v1.25.3-macOS.universal*
 
 
 

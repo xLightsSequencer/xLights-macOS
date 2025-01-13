@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 73;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -609,6 +609,22 @@
 		C40D87EA2B4B428700A10AF8 /* MhChannel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40D87E62B4B428600A10AF8 /* MhChannel.cpp */; };
 		C40D87EB2B4B428700A10AF8 /* MhChannelDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40D87E72B4B428600A10AF8 /* MhChannelDialog.cpp */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXBuildRule section */
+		67F18E3F2D3307D0005633FE /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.ispc";
+			fileType = pattern.proxy;
+			inputFiles = (
+			);
+			isEditable = 1;
+			outputFiles = (
+				"$(PER_ARCH_OBJECT_FILE_DIR)/$(INPUT_FILE_BASE).o",
+			);
+			script = "#!/bin/bash\n\n# env\nif [[ \"$CONFIGURATION\" == \"Debug\" ]]; then\nISPCFLAG=-g\nelse\nISPCFLAG=--math-lib=fast\nfi\n\n\nif [[ \"$ARCHS\" == *\"arm64\"* ]]; then\necho ${SRCROOT}/dependencies/bin/ispc ${ISPCFLAG} --target-os=macos --target=neon-i32x8 --arch=aarch64 -o ${OBJECT_FILE_DIR_normal}/arm64/${INPUT_FILE_BASE}.o $SCRIPT_INPUT_FILE \n${SRCROOT}/dependencies/bin/ispc ${ISPCFLAG} --target-os=macos --target=neon-i32x8 --arch=aarch64 -o ${OBJECT_FILE_DIR_normal}/arm64/${INPUT_FILE_BASE}.o $SCRIPT_INPUT_FILE \nfi\nif [[ \"$ARCHS\" == *\"x86_64\"* ]]; then\n${SRCROOT}/dependencies/bin/ispc ${ISPCFLAG} --target-os=macos --target=sse2-i32x8 --target=avx2-i32x8 --target=avx2-i32x16 --target=avx512icl-x32 --arch=x86_64 -o ${OBJECT_FILE_DIR_normal}/x86_64/${INPUT_FILE_BASE}.o $SCRIPT_INPUT_FILE \nfi\n\n${SRCROOT}/dependencies/bin/ispc --target-os=macos --target=neon-i32x8 --arch=aarch64 -h $SCRIPT_INPUT_FILE.h $SCRIPT_INPUT_FILE \n";
+		};
+/* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
 		678577B7272C756100E6E249 /* PBXContainerItemProxy */ = {
@@ -1862,6 +1878,30 @@
 		C413A3D22BC10457001AF90B /* DmxMotorPanTilt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DmxMotorPanTilt.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		67F18E422D330E1B005633FE /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				LayerBlendingFunctions.ispc,
+			);
+			target = 67E7086C17B51AB400A22034 /* xLights */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		67F18E432D330E1B005633FE /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = 67E7086917B51AB400A22034 /* Sources */;
+			membershipExceptions = (
+				LayerBlendingFunctions.ispc,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		67F18E292D330355005633FE /* ispc */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (67F18E422D330E1B005633FE /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 67F18E432D330E1B005633FE /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = ispc; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		67A88A2526164C9B00BFCEC0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -2587,6 +2627,7 @@
 		67164FA325D7CE6E0041BB9A /* effects */ = {
 			isa = PBXGroup;
 			children = (
+				67F18E292D330355005633FE /* ispc */,
 				C40D87CF2B4B425A00A10AF8 /* MovingHeadPanels */,
 				C40D87BF2B4B359E00A10AF8 /* MovingHeadEffect.cpp */,
 				C40D87C02B4B359E00A10AF8 /* MovingHeadEffect.h */,
@@ -3565,10 +3606,14 @@
 				674298661C1FC3CC00B11478 /* ShellScript */,
 			);
 			buildRules = (
+				67F18E3F2D3307D0005633FE /* PBXBuildRule */,
 			);
 			dependencies = (
 				678577B8272C756100E6E249 /* PBXTargetDependency */,
 				67A88A4926164CD700BFCEC0 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				67F18E292D330355005633FE /* ispc */,
 			);
 			name = xLights;
 			productName = xLights;
@@ -3583,7 +3628,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				CLASSPREFIX = xl;
-				LastUpgradeCheck = 1600;
+				LastUpgradeCheck = 1620;
 				ORGANIZATIONNAME = "Daniel Kulp";
 				TargetAttributes = {
 					678577AD272C735000E6E249 = {
@@ -3612,7 +3657,6 @@
 				};
 			};
 			buildConfigurationList = 67E7086817B51AB400A22034 /* Build configuration list for PBXProject "xLights" */;
-			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -3620,6 +3664,7 @@
 				Base,
 			);
 			mainGroup = 67E7086417B51AB400A22034;
+			preferredProjectObjectVersion = 52;
 			productRefGroup = 67E7086E17B51AB400A22034 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -4599,7 +4644,6 @@
 					"-lwxjpeg-3.3",
 					"-lwxregexu-3.3",
 					"-lxlsxwriter",
-					"-Wl,-ld_classic",
 					"-Wl,-weak_reference_mismatches,weak",
 				);
 				OTHER_TAPI_FLAGS = "";
@@ -4640,7 +4684,7 @@
 					"$(inherited)",
 					dependencies/libdbg,
 				);
-				MARKETING_VERSION = 2024.00.0;
+				MARKETING_VERSION = 2025.00.0;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
@@ -4693,7 +4737,7 @@
 					dependencies/lib,
 					dependencies/libdbg,
 				);
-				MARKETING_VERSION = 2024.00.0;
+				MARKETING_VERSION = 2025.00.0;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
@@ -4825,7 +4869,6 @@
 					"-lwxregexu-3.3",
 					"-lxlsxwriter",
 					"-Wl,-weak_reference_mismatches,weak",
-					"-Wl,-ld_classic",
 				);
 				OTHER_TAPI_FLAGS = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
@@ -4866,7 +4909,7 @@
 					dependencies/lib,
 					dependencies/libdbg,
 				);
-				MARKETING_VERSION = 2024.00.0;
+				MARKETING_VERSION = 2025.00.0;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
