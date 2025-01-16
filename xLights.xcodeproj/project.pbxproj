@@ -622,7 +622,7 @@
 			outputFiles = (
 				"$(PER_ARCH_OBJECT_FILE_DIR)/$(INPUT_FILE_BASE).o",
 			);
-			script = "#!/bin/bash\n\n# env\nif [[ \"$CONFIGURATION\" == \"Debug\" ]]; then\nISPCFLAG=-g\nelse\nISPCFLAG=--math-lib=fast\nfi\n\n\nif [[ \"$ARCHS\" == *\"arm64\"* ]]; then\necho ${SRCROOT}/dependencies/bin/ispc ${ISPCFLAG} --target-os=macos --target=neon-i32x8 --arch=aarch64 -o ${OBJECT_FILE_DIR_normal}/arm64/${INPUT_FILE_BASE}.o $SCRIPT_INPUT_FILE \n${SRCROOT}/dependencies/bin/ispc ${ISPCFLAG} --target-os=macos --target=neon-i32x8 --arch=aarch64 -o ${OBJECT_FILE_DIR_normal}/arm64/${INPUT_FILE_BASE}.o $SCRIPT_INPUT_FILE \nfi\nif [[ \"$ARCHS\" == *\"x86_64\"* ]]; then\n${SRCROOT}/dependencies/bin/ispc ${ISPCFLAG} --target-os=macos --target=sse2-i32x8 --target=avx2-i32x8 --target=avx2-i32x16 --target=avx512icl-x32 --arch=x86_64 -o ${OBJECT_FILE_DIR_normal}/x86_64/${INPUT_FILE_BASE}.o $SCRIPT_INPUT_FILE \nfi\n\n${SRCROOT}/dependencies/bin/ispc --target-os=macos --target=neon-i32x8 --arch=aarch64 -h $SCRIPT_INPUT_FILE.h $SCRIPT_INPUT_FILE \n";
+			script = "#!/bin/bash\n\n# env\nif [[ \"$CONFIGURATION\" == \"Debug\" ]]; then\nISPCFLAG=-g\nelse\nISPCFLAG=-O3\nfi\n\n\nif [[ \"$ARCHS\" == *\"arm64\"* ]]; then\necho ${SRCROOT}/dependencies/bin/ispc ${ISPCFLAG} --target-os=macos --target=neon-i32x8 --arch=aarch64 -o ${OBJECT_FILE_DIR_normal}/arm64/${INPUT_FILE_BASE}.o $SCRIPT_INPUT_FILE \n${SRCROOT}/dependencies/bin/ispc ${ISPCFLAG} --target-os=macos --target=neon-i32x8 --arch=aarch64 -o ${OBJECT_FILE_DIR_normal}/arm64/${INPUT_FILE_BASE}.o $SCRIPT_INPUT_FILE \nfi\nif [[ \"$ARCHS\" == *\"x86_64\"* ]]; then\n${SRCROOT}/dependencies/bin/ispc ${ISPCFLAG} --target-os=macos --target=sse2-i32x8 --target=avx2-i32x8 --target=avx2-i32x16 --target=avx512icl-x32 --arch=x86_64 -o ${OBJECT_FILE_DIR_normal}/x86_64/${INPUT_FILE_BASE}.o $SCRIPT_INPUT_FILE \nfi\n\n${SRCROOT}/dependencies/bin/ispc --target-os=macos --target=neon-i32x8 --arch=aarch64 -h $SCRIPT_INPUT_FILE.h $SCRIPT_INPUT_FILE \n";
 		};
 /* End PBXBuildRule section */
 
@@ -1882,6 +1882,7 @@
 		67F18E422D330E1B005633FE /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				ButterflyFunctions.ispc,
 				LayerBlendingFunctions.ispc,
 			);
 			target = 67E7086C17B51AB400A22034 /* xLights */;
@@ -1893,6 +1894,7 @@
 			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
 			buildPhase = 67E7086917B51AB400A22034 /* Sources */;
 			membershipExceptions = (
+				ButterflyFunctions.ispc,
 				LayerBlendingFunctions.ispc,
 			);
 		};
