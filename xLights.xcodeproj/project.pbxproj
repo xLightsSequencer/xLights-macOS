@@ -1884,6 +1884,8 @@
 			membershipExceptions = (
 				ButterflyFunctions.ispc,
 				LayerBlendingFunctions.ispc,
+				PinwheelFunctions.ispc,
+				PlasmaFunctions.ispc,
 			);
 			target = 67E7086C17B51AB400A22034 /* xLights */;
 		};
@@ -1896,6 +1898,8 @@
 			membershipExceptions = (
 				ButterflyFunctions.ispc,
 				LayerBlendingFunctions.ispc,
+				PinwheelFunctions.ispc,
+				PlasmaFunctions.ispc,
 			);
 		};
 /* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
