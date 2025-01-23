@@ -223,36 +223,34 @@ bool FileExists(const std::string &path, bool waitForDownload) {
     if (path.empty()) {
         return false;
     }
-    @autoreleasepool {
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        NSString *nsfilePath = [NSString stringWithUTF8String:path.c_str()];
-        bool exists = [fileManager fileExistsAtPath:nsfilePath];
-        if (!exists) {
-            NSURL *fileURL = [NSURL fileURLWithPath:nsfilePath];
-            exists = [fileManager isUbiquitousItemAtURL:fileURL];
-            if (exists) {
-                //doesn't actually exist locally, but does exist in the cloud, trigger a download and wait
-                exists = [fileManager startDownloadingUbiquitousItemAtURL:fileURL error:nil];
-                if (exists && waitForDownload) {
-                    //download started OK
-                    //NSMetadataUbiquitousItemDownloadingStatusKey
-                    NSString *value = nil;
-                    NSError *error = nil;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *nsfilePath = [NSString stringWithUTF8String:path.c_str()];
+    bool exists = [fileManager fileExistsAtPath:nsfilePath];
+    if (!exists) {
+        NSURL *fileURL = [NSURL fileURLWithPath:nsfilePath];
+        exists = [fileManager isUbiquitousItemAtURL:fileURL];
+        if (exists) {
+            //doesn't actually exist locally, but does exist in the cloud, trigger a download and wait
+            exists = [fileManager startDownloadingUbiquitousItemAtURL:fileURL error:nil];
+            if (exists && waitForDownload) {
+                //download started OK
+                //NSMetadataUbiquitousItemDownloadingStatusKey
+                NSString *value = nil;
+                NSError *error = nil;
+                [fileURL getResourceValue:&value forKey:NSURLUbiquitousItemDownloadingStatusKey error:&error];
+                int count = 0;
+                while (![value isEqualToString:NSURLUbiquitousItemDownloadingStatusCurrent] && (count < 6000)) {
+                    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+                    count++;
+                    fileURL = [NSURL fileURLWithPath:nsfilePath];
                     [fileURL getResourceValue:&value forKey:NSURLUbiquitousItemDownloadingStatusKey error:&error];
-                    int count = 0;
-                    while (![value isEqualToString:NSURLUbiquitousItemDownloadingStatusCurrent] && (count < 6000)) {
-                        std::this_thread::sleep_for(std::chrono::milliseconds(10));
-                        count++;
-                        fileURL = [NSURL fileURLWithPath:nsfilePath];
-                        [fileURL getResourceValue:&value forKey:NSURLUbiquitousItemDownloadingStatusKey error:&error];
-                    }
-                    exists = [fileManager fileExistsAtPath:nsfilePath];
                 }
+                exists = [fileManager fileExistsAtPath:nsfilePath];
             }
         }
-
-        return exists;
     }
+
+    return exists;
 }
 bool FileExists(const wxFileName &fn, bool waitForDownload) {
    return FileExists(fn.GetFullPath().ToStdString(), waitForDownload);
