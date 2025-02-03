@@ -538,6 +538,8 @@
 		67A14C8020DD328A006EFCFA /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7F20DD3289006EFCFA /* ImageIO.framework */; };
 		67A14C8420DD336E006EFCFA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C8320DD336E006EFCFA /* libz.tbd */; };
 		67A14C8620DD337E006EFCFA /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C8520DD337E006EFCFA /* Security.framework */; };
+		67A2161F2D512FBF0022DBCD /* ServicesPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67A2161E2D512FBF0022DBCD /* ServicesPanel.cpp */; };
+		67A216222D5130200022DBCD /* chatGPT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67A216212D5130200022DBCD /* chatGPT.cpp */; };
 		67A731E32B1B0355000E9AA9 /* AdjustPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67A731DF2B1B0355000E9AA9 /* AdjustPanel.cpp */; };
 		67A731E42B1B0355000E9AA9 /* AdjustEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67A731E12B1B0355000E9AA9 /* AdjustEffect.cpp */; };
 		67A889C62614FB2300BFCEC0 /* STLWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67A889BD2614FB2200BFCEC0 /* STLWriter.cpp */; };
@@ -1700,6 +1702,10 @@
 		67A14C8120DD3345006EFCFA /* libSystem.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libSystem.tbd; path = usr/lib/libSystem.tbd; sourceTree = SDKROOT; };
 		67A14C8320DD336E006EFCFA /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		67A14C8520DD337E006EFCFA /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		67A2161D2D512FBF0022DBCD /* ServicesPanel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServicesPanel.h; sourceTree = "<group>"; };
+		67A2161E2D512FBF0022DBCD /* ServicesPanel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ServicesPanel.cpp; sourceTree = "<group>"; };
+		67A216202D5130200022DBCD /* chatGPT.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = chatGPT.h; sourceTree = "<group>"; };
+		67A216212D5130200022DBCD /* chatGPT.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = chatGPT.cpp; sourceTree = "<group>"; };
 		67A221C52C540B200048F888 /* PWMOutput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWMOutput.h; sourceTree = "<group>"; };
 		67A731DF2B1B0355000E9AA9 /* AdjustPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AdjustPanel.cpp; sourceTree = "<group>"; };
 		67A731E02B1B0355000E9AA9 /* AdjustPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdjustPanel.h; sourceTree = "<group>"; };
@@ -2046,6 +2052,8 @@
 				67164EFD25D7CE6E0041BB9A /* ChannelLayoutDialog.cpp */,
 				671650FC25D7CE6F0041BB9A /* CharMapDialog.h */,
 				67164C6A25D7CE6D0041BB9A /* CharMapDialog.cpp */,
+				67A216202D5130200022DBCD /* chatGPT.h */,
+				67A216212D5130200022DBCD /* chatGPT.cpp */,
 				67164C0225D7CE6D0041BB9A /* CheckboxSelectDialog.h */,
 				67164C8E25D7CE6D0041BB9A /* CheckboxSelectDialog.cpp */,
 				67164C8725D7CE6D0041BB9A /* Color.h */,
@@ -2407,24 +2415,26 @@
 		67164BEF25D7CE6D0041BB9A /* preferences */ = {
 			isa = PBXGroup;
 			children = (
-				67164BF925D7CE6D0041BB9A /* BackupSettingsPanel.cpp */,
 				67164BFD25D7CE6D0041BB9A /* BackupSettingsPanel.h */,
-				679C17AF28BE64C900EFC875 /* CheckSequenceSettingsPanel.cpp */,
+				67164BF925D7CE6D0041BB9A /* BackupSettingsPanel.cpp */,
 				679C17AE28BE64C900EFC875 /* CheckSequenceSettingsPanel.h */,
-				67164BFF25D7CE6D0041BB9A /* ColorManagerSettingsPanel.cpp */,
+				679C17AF28BE64C900EFC875 /* CheckSequenceSettingsPanel.cpp */,
 				67164BF225D7CE6D0041BB9A /* ColorManagerSettingsPanel.h */,
-				67164BF025D7CE6D0041BB9A /* EffectsGridSettingsPanel.cpp */,
+				67164BFF25D7CE6D0041BB9A /* ColorManagerSettingsPanel.cpp */,
 				67164BFA25D7CE6D0041BB9A /* EffectsGridSettingsPanel.h */,
-				67164BF825D7CE6D0041BB9A /* OtherSettingsPanel.cpp */,
+				67164BF025D7CE6D0041BB9A /* EffectsGridSettingsPanel.cpp */,
 				67164BFE25D7CE6D0041BB9A /* OtherSettingsPanel.h */,
-				67164BFC25D7CE6D0041BB9A /* OutputSettingsPanel.cpp */,
+				67164BF825D7CE6D0041BB9A /* OtherSettingsPanel.cpp */,
 				67164BF625D7CE6D0041BB9A /* OutputSettingsPanel.h */,
-				67164BF125D7CE6D0041BB9A /* RandomEffectsSettingsPanel.cpp */,
+				67164BFC25D7CE6D0041BB9A /* OutputSettingsPanel.cpp */,
 				67164BF525D7CE6D0041BB9A /* RandomEffectsSettingsPanel.h */,
-				67164BFB25D7CE6D0041BB9A /* SequenceFileSettingsPanel.cpp */,
+				67164BF125D7CE6D0041BB9A /* RandomEffectsSettingsPanel.cpp */,
 				67164BF725D7CE6D0041BB9A /* SequenceFileSettingsPanel.h */,
-				67164BF425D7CE6D0041BB9A /* ViewSettingsPanel.cpp */,
+				67164BFB25D7CE6D0041BB9A /* SequenceFileSettingsPanel.cpp */,
+				67A2161D2D512FBF0022DBCD /* ServicesPanel.h */,
+				67A2161E2D512FBF0022DBCD /* ServicesPanel.cpp */,
 				67164C0025D7CE6D0041BB9A /* ViewSettingsPanel.h */,
+				67164BF425D7CE6D0041BB9A /* ViewSettingsPanel.cpp */,
 				67164BF325D7CE6D0041BB9A /* xLightsPreferences.cpp */,
 			);
 			path = preferences;
@@ -3980,6 +3990,7 @@
 				673977882B2CC5DB00FF1B7A /* TempFileManager.cpp in Sources */,
 				6716538225D7CE720041BB9A /* PathGenerationDialog.cpp in Sources */,
 				671652B125D7CE710041BB9A /* SeqExportDialog.cpp in Sources */,
+				67A2161F2D512FBF0022DBCD /* ServicesPanel.cpp in Sources */,
 				6716536425D7CE720041BB9A /* EffectManager.cpp in Sources */,
 				671651A225D7CE700041BB9A /* DmxSkull.cpp in Sources */,
 				671651C325D7CE700041BB9A /* xlGLCanvas.cpp in Sources */,
@@ -4211,6 +4222,7 @@
 				671653B325D7CE720041BB9A /* JukeboxPanel.cpp in Sources */,
 				671651DD25D7CE700041BB9A /* EzGrid.cpp in Sources */,
 				6716518C25D7CE700041BB9A /* CustomModel.cpp in Sources */,
+				67A216222D5130200022DBCD /* chatGPT.cpp in Sources */,
 				671651AF25D7CE700041BB9A /* GridlinesObject.cpp in Sources */,
 				6716536925D7CE720041BB9A /* WarpPanel.cpp in Sources */,
 				6716533325D7CE710041BB9A /* GIFImage.cpp in Sources */,
