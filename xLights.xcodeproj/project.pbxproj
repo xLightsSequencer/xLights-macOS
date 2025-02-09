@@ -539,7 +539,6 @@
 		67A14C8420DD336E006EFCFA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C8320DD336E006EFCFA /* libz.tbd */; };
 		67A14C8620DD337E006EFCFA /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C8520DD337E006EFCFA /* Security.framework */; };
 		67A2161F2D512FBF0022DBCD /* ServicesPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67A2161E2D512FBF0022DBCD /* ServicesPanel.cpp */; };
-		67A216222D5130200022DBCD /* chatGPT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67A216212D5130200022DBCD /* chatGPT.cpp */; };
 		67A731E32B1B0355000E9AA9 /* AdjustPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67A731DF2B1B0355000E9AA9 /* AdjustPanel.cpp */; };
 		67A731E42B1B0355000E9AA9 /* AdjustEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67A731E12B1B0355000E9AA9 /* AdjustEffect.cpp */; };
 		67A889C62614FB2300BFCEC0 /* STLWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67A889BD2614FB2200BFCEC0 /* STLWriter.cpp */; };
@@ -1705,8 +1704,6 @@
 		67A14C8520DD337E006EFCFA /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		67A2161D2D512FBF0022DBCD /* ServicesPanel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServicesPanel.h; sourceTree = "<group>"; };
 		67A2161E2D512FBF0022DBCD /* ServicesPanel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ServicesPanel.cpp; sourceTree = "<group>"; };
-		67A216202D5130200022DBCD /* chatGPT.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = chatGPT.h; sourceTree = "<group>"; };
-		67A216212D5130200022DBCD /* chatGPT.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = chatGPT.cpp; sourceTree = "<group>"; };
 		67A221C52C540B200048F888 /* PWMOutput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWMOutput.h; sourceTree = "<group>"; };
 		67A731DF2B1B0355000E9AA9 /* AdjustPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AdjustPanel.cpp; sourceTree = "<group>"; };
 		67A731E02B1B0355000E9AA9 /* AdjustPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdjustPanel.h; sourceTree = "<group>"; };
@@ -1914,6 +1911,7 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		67F18E292D330355005633FE /* ispc */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (67F18E422D330E1B005633FE /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 67F18E432D330E1B005633FE /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = ispc; sourceTree = "<group>"; };
+		67F7DB8A2D582A9D00921286 /* ai */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ai; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2020,6 +2018,7 @@
 		67164BC525D7CE6D0041BB9A /* xLights */ = {
 			isa = PBXGroup;
 			children = (
+				67F7DB8A2D582A9D00921286 /* ai */,
 				67164D1125D7CE6D0041BB9A /* AboutDialog.h */,
 				67164C4D25D7CE6D0041BB9A /* AboutDialog.cpp */,
 				67164BDE25D7CE6D0041BB9A /* AlignmentDialog.h */,
@@ -2054,8 +2053,6 @@
 				67164EFD25D7CE6E0041BB9A /* ChannelLayoutDialog.cpp */,
 				671650FC25D7CE6F0041BB9A /* CharMapDialog.h */,
 				67164C6A25D7CE6D0041BB9A /* CharMapDialog.cpp */,
-				67A216202D5130200022DBCD /* chatGPT.h */,
-				67A216212D5130200022DBCD /* chatGPT.cpp */,
 				67164C0225D7CE6D0041BB9A /* CheckboxSelectDialog.h */,
 				67164C8E25D7CE6D0041BB9A /* CheckboxSelectDialog.cpp */,
 				67164C8725D7CE6D0041BB9A /* Color.h */,
@@ -3633,6 +3630,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				67F18E292D330355005633FE /* ispc */,
+				67F7DB8A2D582A9D00921286 /* ai */,
 			);
 			name = xLights;
 			productName = xLights;
@@ -4226,7 +4224,6 @@
 				671653B325D7CE720041BB9A /* JukeboxPanel.cpp in Sources */,
 				671651DD25D7CE700041BB9A /* EzGrid.cpp in Sources */,
 				6716518C25D7CE700041BB9A /* CustomModel.cpp in Sources */,
-				67A216222D5130200022DBCD /* chatGPT.cpp in Sources */,
 				671651AF25D7CE700041BB9A /* GridlinesObject.cpp in Sources */,
 				6716536925D7CE720041BB9A /* WarpPanel.cpp in Sources */,
 				6716533325D7CE710041BB9A /* GIFImage.cpp in Sources */,
