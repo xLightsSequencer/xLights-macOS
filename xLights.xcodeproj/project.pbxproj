@@ -589,6 +589,8 @@
 		67EC04DF26456A7500A3AFA2 /* WLED.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67EC04DD26456A7500A3AFA2 /* WLED.cpp */; };
 		67F7DB852D58291B00921286 /* prompts in Resources */ = {isa = PBXBuildFile; fileRef = 67F7DB842D58291B00921286 /* prompts */; };
 		67F9B092272899080005A74B /* MetalShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 67F9B091272899080005A74B /* MetalShaders.metal */; };
+		67FD63522D5884FC004547FF /* CheckSequenceReport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67FD63512D5884FC004547FF /* CheckSequenceReport.cpp */; };
+		67FD63542D588527004547FF /* resources in Resources */ = {isa = PBXBuildFile; fileRef = 67FD63532D588527004547FF /* resources */; };
 		67FDC38A27CA76F40009A3C7 /* ColourReplaceDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67FDC38927CA76F40009A3C7 /* ColourReplaceDialog.cpp */; };
 		67FDC38C27CA77890009A3C7 /* libhidapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67FDC38B27CA77610009A3C7 /* libhidapi.a */; };
 		7FDE55FF280A94E900C4EB70 /* xlBaseApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FB5CEDC27A27A2A007612B2 /* xlBaseApp.cpp */; };
@@ -1833,6 +1835,9 @@
 		67F23F741E329DDC00F8B985 /* libwx_osx_cocoau_qa-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_qa-3.3.dylib"; path = "../../../../opt/local/libdbg/libwx_osx_cocoau_qa-3.3.dylib"; sourceTree = "<group>"; };
 		67F7DB842D58291B00921286 /* prompts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = prompts; path = ../prompts; sourceTree = "<group>"; };
 		67F9B091272899080005A74B /* MetalShaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = MetalShaders.metal; sourceTree = "<group>"; };
+		67FD63502D5884FC004547FF /* CheckSequenceReport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckSequenceReport.h; sourceTree = "<group>"; };
+		67FD63512D5884FC004547FF /* CheckSequenceReport.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CheckSequenceReport.cpp; sourceTree = "<group>"; };
+		67FD63532D588527004547FF /* resources */ = {isa = PBXFileReference; lastKnownFileType = folder; name = resources; path = ../resources; sourceTree = "<group>"; };
 		67FDC38827CA76F30009A3C7 /* ColourReplaceDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColourReplaceDialog.h; sourceTree = "<group>"; };
 		67FDC38927CA76F40009A3C7 /* ColourReplaceDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ColourReplaceDialog.cpp; sourceTree = "<group>"; };
 		67FDC38B27CA77610009A3C7 /* libhidapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libhidapi.a; path = ../../../../../opt/local/libdbg/libhidapi.a; sourceTree = "<group>"; };
@@ -2018,9 +2023,9 @@
 		67164BC525D7CE6D0041BB9A /* xLights */ = {
 			isa = PBXGroup;
 			children = (
-				67F7DB8A2D582A9D00921286 /* ai */,
 				67164D1125D7CE6D0041BB9A /* AboutDialog.h */,
 				67164C4D25D7CE6D0041BB9A /* AboutDialog.cpp */,
+				67F7DB8A2D582A9D00921286 /* ai */,
 				67164BDE25D7CE6D0041BB9A /* AlignmentDialog.h */,
 				67164D1925D7CE6D0041BB9A /* AlignmentDialog.cpp */,
 				67164C2125D7CE6D0041BB9A /* AudioManager.h */,
@@ -2055,6 +2060,8 @@
 				67164C6A25D7CE6D0041BB9A /* CharMapDialog.cpp */,
 				67164C0225D7CE6D0041BB9A /* CheckboxSelectDialog.h */,
 				67164C8E25D7CE6D0041BB9A /* CheckboxSelectDialog.cpp */,
+				67FD63502D5884FC004547FF /* CheckSequenceReport.h */,
+				67FD63512D5884FC004547FF /* CheckSequenceReport.cpp */,
 				67164C8725D7CE6D0041BB9A /* Color.h */,
 				67164D0B25D7CE6D0041BB9A /* Color.cpp */,
 				67164BE925D7CE6D0041BB9A /* ColorCurve.h */,
@@ -3273,6 +3280,7 @@
 		67AAF8F31B63782F00585431 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				67FD63532D588527004547FF /* resources */,
 				67F7DB842D58291B00921286 /* prompts */,
 				C40BF5512BC6217800D701CF /* mhpresets */,
 				6716567725D829270041BB9A /* colorcurves */,
@@ -3698,6 +3706,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67FD63542D588527004547FF /* resources in Resources */,
 				67F7DB852D58291B00921286 /* prompts in Resources */,
 				6716567925D829270041BB9A /* controllers in Resources */,
 				6716568D25D829BA0041BB9A /* user_dictionary in Resources */,
@@ -4115,6 +4124,7 @@
 				6716531425D7CE710041BB9A /* LifePanel.cpp in Sources */,
 				6703FE7727FDBE4400AFE78F /* SketchCanvasPanel.cpp in Sources */,
 				6716539D25D7CE720041BB9A /* ControllerNull.cpp in Sources */,
+				67FD63522D5884FC004547FF /* CheckSequenceReport.cpp in Sources */,
 				671651A925D7CE700041BB9A /* SphereModel.cpp in Sources */,
 				67718A0527D4F59600F1A95E /* MultiPointModel.cpp in Sources */,
 				6716530C25D7CE710041BB9A /* xlGridCanvasPictures.cpp in Sources */,
