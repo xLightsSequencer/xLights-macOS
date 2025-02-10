@@ -42,7 +42,7 @@ cloud backed up.
 
 
 To get the latest code that we've tested, do:
-git clone  --recurse-submodules -b xlights_2025.01 https://github.com/xLightsSequencer/wxWidgets
+git clone  --recurse-submodules -b xlights_2025.03 https://github.com/xLightsSequencer/wxWidgets
 
 
 First, setup the target directories:
@@ -168,11 +168,10 @@ unset LDFLAGS
 
 
 log4cpp:
-Download latest src release (current 1.1.3)
-wget https://nchc.dl.sourceforge.net/project/log4cpp/log4cpp-1.1.x%20%28new%29/log4cpp-1.1/log4cpp-1.1.3.tar.gz
-tar -xzf log4cpp-1.1.3.tar.gz
+Download latest src release (current 1.1.4)
+wget https://nchc.dl.sourceforge.net/project/log4cpp/log4cpp-1.1.x%20%28new%29/log4cpp-1.1/log4cpp-1.1.4.tar.gz
+tar -xzf log4cpp-1.1.4.tar.gz
 cd log4cpp
-patch -p1 < ~/working/xLights/macOS/patches/log4cpp.patch
 export CXXFLAGS="-g -O2 -flto=thin ${OSX_VERSION_MIN} ${XL_TARGETS} -std=c++11 -stdlib=libc++ -fvisibility-inlines-hidden "
 export LDFLAGS="-flto=thin ${XL_TARGETS} "
 ./configure --prefix=/opt/local -host ${BUILD_HOST}
@@ -216,11 +215,11 @@ unset CXXFLAGS
 unset CXX
 
 
-SDL2:  currently using 2.30.9
+SDL2:  currently using 2.32.0
 git clone https://github.com/libsdl-org/SDL
 cd SDL
 git reset --hard
-git checkout release-2.30.9
+git checkout release-2.32.0
 export CXXFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN} "
 export CFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN} "
 export LDFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN} "
@@ -342,10 +341,10 @@ make clean
 unset CFLAGS
 
 
-libwebp: (currently using v1.4.0)
+libwebp: (currently using v1.5.0)
 git clone https://chromium.googlesource.com/webm/libwebp
 cd libwebp
-git checkout v1.4.0
+git checkout v1.5.0
 ./autogen.sh
 export CFLAGS="-g -O3 -flto=thin -Wall -fno-stack-protector -fno-common ${XL_TARGETS} ${OSX_VERSION_MIN} "
 ./configure --prefix=/opt/local --disable-shared
@@ -369,10 +368,10 @@ unset CFLAGS
 # and thus release mode builds will fail.  Thus, we have to grab the "universal" version.
 # We only need the binary from the package.
 ispc:
-wget https://github.com/ispc/ispc/releases/download/v1.25.3/ispc-v1.25.3-macOS.universal.tar.gz
-tar -xzf ispc-v1.25.3-macOS.universal.tar.gz
-cp ispc-v1.25.3-macOS.universal/bin/ispc /opt/local/bin
-rm -rf ispc-v1.25.3-macOS.universal*
+wget https://github.com/ispc/ispc/releases/download/v1.26.0/ispc-v1.26.0-macOS.universal.tar.gz
+tar -xzf ispc-v1.26.0-macOS.universal.tar.gz
+cp ispc-v1.26.0-macOS.universal/bin/ispc /opt/local/bin
+rm -rf ispc-v1.26.0-macOS.universal*
 
 
 
