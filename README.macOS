@@ -42,7 +42,7 @@ cloud backed up.
 
 
 To get the latest code that we've tested, do:
-git clone  --recurse-submodules -b xlights_2025.03 https://github.com/xLightsSequencer/wxWidgets
+git clone  --recurse-submodules -b xlights_2025.04 https://github.com/xLightsSequencer/wxWidgets
 
 
 First, setup the target directories:
@@ -151,7 +151,7 @@ brew install automake libtool cmake nasm
 libzstd:
 git clone https://github.com/facebook/zstd
 cd zstd
-git checkout v1.5.6
+git checkout v1.5.7
 export CFLAGS="-g -flto=thin  ${OSX_VERSION_MIN} ${XL_TARGETS}"
 export LDFLAGS="-flto=thin  ${OSX_VERSION_MIN} ${XL_TARGETS} "
 make clean
