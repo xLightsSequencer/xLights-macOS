@@ -4705,7 +4705,7 @@
 					../xLights,
 					../include,
 					"../include/ffmpeg-6/include/",
-					"../include/sol2-3.2.2",
+					"../include/sol2-3.5.0",
 					dependencies/include,
 					"macOS-src",
 				);
@@ -4757,7 +4757,7 @@
 					../xLights,
 					../include,
 					"../include/ffmpeg-6/include/",
-					"../include/sol2-3.2.2",
+					"../include/sol2-3.5.0",
 					dependencies/include,
 					"macOS-src",
 				);
@@ -4929,7 +4929,7 @@
 					../xLights,
 					../include,
 					"../include/ffmpeg-6/include/",
-					"../include/sol2-3.2.2",
+					"../include/sol2-3.5.0",
 					dependencies/include,
 					"macOS-src",
 				);
