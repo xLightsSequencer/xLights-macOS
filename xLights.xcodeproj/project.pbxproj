@@ -1617,6 +1617,7 @@
 		6750B03E28450E6800EFB924 /* DmxColorAbilityRGB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DmxColorAbilityRGB.h; sourceTree = "<group>"; };
 		6751104427D3F5630001BD98 /* FindDataPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindDataPanel.h; sourceTree = "<group>"; };
 		6751104527D3F5630001BD98 /* FindDataPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FindDataPanel.cpp; sourceTree = "<group>"; };
+		67586F8C2DA6AD0C00379F3A /* xlPropertyGrid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xlPropertyGrid.h; sourceTree = "<group>"; };
 		675A504D29523E11000D038D /* ip_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ip_utils.cpp; path = utils/ip_utils.cpp; sourceTree = "<group>"; };
 		675A504E29523E11000D038D /* string_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = string_utils.cpp; path = utils/string_utils.cpp; sourceTree = "<group>"; };
 		675A504F29523E11000D038D /* ip_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ip_utils.h; path = utils/ip_utils.h; sourceTree = "<group>"; };
@@ -2412,6 +2413,7 @@
 				67164C6525D7CE6D0041BB9A /* xLightsXmlFile.cpp */,
 				67164D0725D7CE6D0041BB9A /* xlLockButton.h */,
 				67164D1025D7CE6D0041BB9A /* xlLockButton.cpp */,
+				67586F8C2DA6AD0C00379F3A /* xlPropertyGrid.h */,
 				67164D0E25D7CE6D0041BB9A /* xlSlider.h */,
 				67164C1E25D7CE6D0041BB9A /* xlSlider.cpp */,
 				7FB5CEDD27A27A2A007612B2 /* xlStackWalker.h */,
