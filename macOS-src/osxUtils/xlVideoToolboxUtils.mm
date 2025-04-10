@@ -7,6 +7,7 @@
 #include "CoreImage/CIContext.h"
 #include "CoreImage/CIKernel.h"
 #include "CoreImage/CIFilter.h"
+#include "CoreImage/CIFilterBuiltins.h"
 #include "CoreImage/CISampler.h"
 
 #include <Metal/Metal.h>
@@ -15,6 +16,7 @@ extern "C" {
 #include "libavcodec/videotoolbox.h"
 #include "libavutil/pixdesc.h"
 #include "libavutil/imgutils.h"
+#include "libswscale/swscale.h"
 }
 
 #include <log4cpp/Category.hh>
@@ -130,7 +132,7 @@ bool IsVideoToolboxAcceleratedFrame(AVFrame *frame) {
 @end
 
 
-bool VideoToolboxScaleImage(AVCodecContext *codecContext, AVFrame *frame, AVFrame *dstFrame, void *&cache) {
+bool VideoToolboxScaleImage(AVCodecContext *codecContext, AVFrame *frame, AVFrame *dstFrame, void *&cache, int scaleAlgorithm) {
     CVPixelBufferRef pixbuf = (CVPixelBufferRef)frame->data[3];
     bool doScale = (dstFrame->height != frame->height) || (dstFrame->width != frame->width);
     if (pixbuf == nullptr) {
@@ -181,8 +183,28 @@ bool VideoToolboxScaleImage(AVCodecContext *codecContext, AVFrame *frame, AVFram
             w /= (float)frame->width;
             float h = dstFrame->height;
             h /= (float)frame->height;
-
-            scaledimage = [image imageByApplyingTransform:CGAffineTransformMakeScale(w, h) highQualityDownsample:TRUE];
+            
+            if (scaleAlgorithm == SWS_BICUBIC) {
+                CIFilter *f = [CIFilter filterWithName:@"CIBicubicScaleTransform"];
+                [f setValue:[NSNumber numberWithFloat:h] forKey:@"inputScale"];
+                [f setValue:[NSNumber numberWithFloat:(w/h)] forKey:@"inputAspectRatio"];
+                [f setValue:[NSNumber numberWithFloat:0.0] forKey:@"inputB"];
+                [f setValue:[NSNumber numberWithFloat:0.75] forKey:@"inputC"];
+                [f setValue:image forKey:@"inputImage"];
+                scaledimage = [f valueForKey:@"outputImage"];
+            } else if (scaleAlgorithm == SWS_LANCZOS) {
+                CIFilter *f = [CIFilter filterWithName:@"CILanczosScaleTransform"];
+                [f setValue:[NSNumber numberWithFloat:h] forKey:@"inputScale"];
+                [f setValue:[NSNumber numberWithFloat:(w/h)] forKey:@"inputAspectRatio"];
+                [f setValue:image forKey:@"inputImage"];
+                scaledimage = [f valueForKey:@"outputImage"];
+            } else if (scaleAlgorithm == SWS_AREA) {
+                // fairly close to SWS_AREA
+                scaledimage = [image imageByApplyingTransform:CGAffineTransformMakeScale(w, h) highQualityDownsample:TRUE];
+            } else {
+                // fairly close to SWS_POINT
+                scaledimage = [image imageByApplyingTransform:CGAffineTransformMakeScale(w, h) highQualityDownsample:FALSE];
+            }
             if (scaledimage == nullptr) {
                 return false;
             }
