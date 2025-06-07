@@ -575,9 +575,6 @@
 		67D53D952A82887600ABF6F6 /* FPPUploadProgressDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D53D932A82887500ABF6F6 /* FPPUploadProgressDialog.cpp */; };
 		67D7159727287CE800E5EDB5 /* xlMetalGraphicsContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67D7159327287CE700E5EDB5 /* xlMetalGraphicsContext.mm */; };
 		67D7159827287CE800E5EDB5 /* xlMetalCanvas.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67D7159427287CE700E5EDB5 /* xlMetalCanvas.mm */; };
-		67D9A2842AF273BC00C6C506 /* imagwebp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D9A2832AF273BC00C6C506 /* imagwebp.cpp */; };
-		67D9A2862AF274C100C6C506 /* libwebp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67D9A2852AF274A100C6C506 /* libwebp.a */; };
-		67D9A2892AF278FB00C6C506 /* libwebpdemux.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67D9A2872AF278ED00C6C506 /* libwebpdemux.a */; };
 		67D9A28A2AF278FB00C6C506 /* libsharpyuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67D9A2882AF278ED00C6C506 /* libsharpyuv.a */; };
 		67D9B0A81D42A9BA005367DB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67E7087017B51AB400A22034 /* Cocoa.framework */; };
 		67DE38122A7BEFA60094B7D5 /* CurlManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67DE38112A7BEFA60094B7D5 /* CurlManager.cpp */; };
@@ -1799,8 +1796,6 @@
 		67D7159427287CE700E5EDB5 /* xlMetalCanvas.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = xlMetalCanvas.mm; sourceTree = "<group>"; };
 		67D7159527287CE700E5EDB5 /* xlMetalGraphicsContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xlMetalGraphicsContext.h; sourceTree = "<group>"; };
 		67D7159627287CE700E5EDB5 /* xlMetalCanvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xlMetalCanvas.h; sourceTree = "<group>"; };
-		67D9A2822AF273BC00C6C506 /* imagwebp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imagwebp.h; sourceTree = "<group>"; };
-		67D9A2832AF273BC00C6C506 /* imagwebp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imagwebp.cpp; sourceTree = "<group>"; };
 		67D9A2852AF274A100C6C506 /* libwebp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwebp.a; path = ../../../../../opt/local/libdbg/libwebp.a; sourceTree = "<group>"; };
 		67D9A2872AF278ED00C6C506 /* libwebpdemux.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwebpdemux.a; path = ../../../../../opt/local/libdbg/libwebpdemux.a; sourceTree = "<group>"; };
 		67D9A2882AF278ED00C6C506 /* libsharpyuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsharpyuv.a; path = ../../../../../opt/local/libdbg/libsharpyuv.a; sourceTree = "<group>"; };
@@ -1962,10 +1957,8 @@
 				6729FFFD2553039000C83C71 /* libswresample.a in Frameworks */,
 				67A14C7E20DD324D006EFCFA /* libiconv.tbd in Frameworks */,
 				675FD840204C3C0B003D280F /* CoreImage.framework in Frameworks */,
-				67D9A2892AF278FB00C6C506 /* libwebpdemux.a in Frameworks */,
 				67A14C7C20DD31E4006EFCFA /* AGL.framework in Frameworks */,
 				67A14C7A20DD31D6006EFCFA /* WebKit.framework in Frameworks */,
-				67D9A2862AF274C100C6C506 /* libwebp.a in Frameworks */,
 				67A14C8020DD328A006EFCFA /* ImageIO.framework in Frameworks */,
 				67A14C8420DD336E006EFCFA /* libz.tbd in Frameworks */,
 				67FDC38C27CA77890009A3C7 /* libhidapi.a in Frameworks */,
@@ -2385,7 +2378,6 @@
 				67164C8225D7CE6D0041BB9A /* wxCheckedListCtrl.cpp */,
 				67164BDF25D7CE6D0041BB9A /* wxModelGridCellRenderer.h */,
 				67164F7325D7CE6E0041BB9A /* wxModelGridCellRenderer.cpp */,
-				67D9A2802AF273BC00C6C506 /* wxWEBPHandler */,
 				7FB5CEDB27A27A2A007612B2 /* xlBaseApp.h */,
 				7FB5CEDC27A27A2A007612B2 /* xlBaseApp.cpp */,
 				67164D0825D7CE6D0041BB9A /* xlColorCanvas.h */,
@@ -3404,23 +3396,6 @@
 			path = ../xFade;
 			sourceTree = "<group>";
 		};
-		67D9A2802AF273BC00C6C506 /* wxWEBPHandler */ = {
-			isa = PBXGroup;
-			children = (
-				67D9A2812AF273BC00C6C506 /* wx */,
-				67D9A2832AF273BC00C6C506 /* imagwebp.cpp */,
-			);
-			path = wxWEBPHandler;
-			sourceTree = "<group>";
-		};
-		67D9A2812AF273BC00C6C506 /* wx */ = {
-			isa = PBXGroup;
-			children = (
-				67D9A2822AF273BC00C6C506 /* imagwebp.h */,
-			);
-			path = wx;
-			sourceTree = "<group>";
-		};
 		67E7086417B51AB400A22034 = {
 			isa = PBXGroup;
 			children = (
@@ -3851,7 +3826,6 @@
 				6716516F25D7CE700041BB9A /* SubModelsDialog.cpp in Sources */,
 				67E832C6292D242400F80E3B /* BulkEditComboDialog.cpp in Sources */,
 				6716514025D7CE700041BB9A /* Vixen3.cpp in Sources */,
-				67D9A2842AF273BC00C6C506 /* imagwebp.cpp in Sources */,
 				6716537325D7CE720041BB9A /* FPPConnectDialog.cpp in Sources */,
 				C40D87C22B4B359E00A10AF8 /* MovingHeadPanel.cpp in Sources */,
 				6716518125D7CE700041BB9A /* EffectIconPanel.cpp in Sources */,
@@ -4614,7 +4588,7 @@
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = fast;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = "";
@@ -4644,6 +4618,7 @@
 				MTL_LANGUAGE_REVISION = Metal23;
 				MTL_TREAT_WARNINGS_AS_ERRORS = YES;
 				OTHER_CFLAGS = (
+					"-ffast-math",
 					"-D_FILE_OFFSET_BITS=64",
 					"-D__WXOSX__",
 					"-D__WXMAC__",
@@ -4671,6 +4646,7 @@
 					"-lwx_osx_cocoau_webview-3.3",
 					"-lwx_osx_cocoau_html-3.3",
 					"-lwx_osx_cocoau_qa-3.3",
+					"-lwxwebp-3.3",
 					"-lwxexpat-3.3",
 					"-lwxpng-3.3",
 					"-lwxzlib-3.3",
@@ -4835,7 +4811,7 @@
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = fast;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = "";
@@ -4868,6 +4844,7 @@
 				MTL_LANGUAGE_REVISION = Metal23;
 				MTL_TREAT_WARNINGS_AS_ERRORS = YES;
 				OTHER_CFLAGS = (
+					"-ffast-math",
 					"-D_FILE_OFFSET_BITS=64",
 					"-D__WXOSX__",
 					"-D__WXMAC__",
@@ -4895,6 +4872,7 @@
 					"-lwx_osx_cocoau_html-3.3",
 					"-lwx_osx_cocoau_webview-3.3",
 					"-lwx_osx_cocoau_qa-3.3",
+					"-lwxwebp-3.3",
 					"-lwxexpat-3.3",
 					"-lwxjpeg-3.3",
 					"-lwxpng-3.3",

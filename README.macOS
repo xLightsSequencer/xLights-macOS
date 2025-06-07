@@ -42,7 +42,7 @@ cloud backed up.
 
 
 To get the latest code that we've tested, do:
-git clone  --recurse-submodules -b xlights_2025.04 https://github.com/xLightsSequencer/wxWidgets
+git clone  --recurse-submodules -b xlights_2025.06 https://github.com/xLightsSequencer/wxWidgets
 
 
 First, setup the target directories:
@@ -215,11 +215,11 @@ unset CXXFLAGS
 unset CXX
 
 
-SDL2:  currently using 2.32.0
+SDL2:  currently using 2.32.6
 git clone https://github.com/libsdl-org/SDL
 cd SDL
 git reset --hard
-git checkout release-2.32.0
+git checkout release-2.32.6
 export CXXFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN} "
 export CFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN} "
 export LDFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN} "
@@ -341,37 +341,15 @@ make clean
 unset CFLAGS
 
 
-libwebp: (currently using v1.5.0)
-git clone https://chromium.googlesource.com/webm/libwebp
-cd libwebp
-git checkout v1.5.0
-./autogen.sh
-export CFLAGS="-g -O3 -flto=thin -Wall -fno-stack-protector -fno-common ${XL_TARGETS} ${OSX_VERSION_MIN} "
-./configure --prefix=/opt/local --disable-shared
-make clean
-make -j 8
-cp ./src/.libs/libwebp.a /opt/local/lib
-cp ./src/demux/.libs/libwebpdemux.a  /opt/local/lib
-cp ./sharpyuv/.libs/libsharpyuv.a /opt/local/lib
-make clean
-export CFLAGS="-g -Wall -fno-stack-protector -fno-common ${XL_TARGETS} ${OSX_VERSION_MIN} "
-./configure --prefix=/opt/local --disable-shared
-make -j 8
-cp ./src/.libs/libwebp.a /opt/local/libdbg
-cp ./src/demux/.libs/libwebpdemux.a  /opt/local/libdbg
-cp ./sharpyuv/.libs/libsharpyuv.a /opt/local/libdbg
-unset CFLAGS
-
-
 # ISPC is needed to compile the SIMD kernels used for various effect rendering.   We cannot
 # use the version in homebrew as that will only allow generating the kernels for the architecture it is running
 # and thus release mode builds will fail.  Thus, we have to grab the "universal" version.
 # We only need the binary from the package.
 ispc:
-wget https://github.com/ispc/ispc/releases/download/v1.26.0/ispc-v1.26.0-macOS.universal.tar.gz
-tar -xzf ispc-v1.26.0-macOS.universal.tar.gz
-cp ispc-v1.26.0-macOS.universal/bin/ispc /opt/local/bin
-rm -rf ispc-v1.26.0-macOS.universal*
+wget https://github.com/ispc/ispc/releases/download/v1.27.0/ispc-v1.27.0-macOS.universal.tar.gz
+tar -xzf ispc-v1.27.0-macOS.universal.tar.gz
+cp ispc-v1.27.0-macOS.universal/bin/ispc /opt/local/bin
+rm -rf ispc-v1.27.0-macOS.universal*
 
 
 
