@@ -533,7 +533,6 @@
 		679D19A5274BC45800AD9F7F /* automation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 679D19A3274BC45800AD9F7F /* automation.cpp */; };
 		67A14C7820DD313D006EFCFA /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7720DD313D006EFCFA /* Carbon.framework */; };
 		67A14C7A20DD31D6006EFCFA /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7920DD31D6006EFCFA /* WebKit.framework */; };
-		67A14C7C20DD31E4006EFCFA /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7B20DD31E3006EFCFA /* AGL.framework */; };
 		67A14C7E20DD324D006EFCFA /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7D20DD324D006EFCFA /* libiconv.tbd */; };
 		67A14C8020DD328A006EFCFA /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7F20DD3289006EFCFA /* ImageIO.framework */; };
 		67A14C8420DD336E006EFCFA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C8320DD336E006EFCFA /* libz.tbd */; };
@@ -1957,7 +1956,6 @@
 				6729FFFD2553039000C83C71 /* libswresample.a in Frameworks */,
 				67A14C7E20DD324D006EFCFA /* libiconv.tbd in Frameworks */,
 				675FD840204C3C0B003D280F /* CoreImage.framework in Frameworks */,
-				67A14C7C20DD31E4006EFCFA /* AGL.framework in Frameworks */,
 				67A14C7A20DD31D6006EFCFA /* WebKit.framework in Frameworks */,
 				67A14C8020DD328A006EFCFA /* ImageIO.framework in Frameworks */,
 				67A14C8420DD336E006EFCFA /* libz.tbd in Frameworks */,
@@ -3632,7 +3630,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				CLASSPREFIX = xl;
-				LastUpgradeCheck = 1620;
+				LastUpgradeCheck = 1640;
 				ORGANIZATIONNAME = "Daniel Kulp";
 				TargetAttributes = {
 					678577AD272C735000E6E249 = {
@@ -4508,6 +4506,7 @@
 				MTL_TREAT_WARNINGS_AS_ERRORS = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
+					"-fno-common",
 					"-D_FILE_OFFSET_BITS=64",
 					"-D__WXOSX__",
 					"-D__WXMAC__",
@@ -4619,6 +4618,7 @@
 				MTL_TREAT_WARNINGS_AS_ERRORS = YES;
 				OTHER_CFLAGS = (
 					"-ffast-math",
+					"-fno-common",
 					"-D_FILE_OFFSET_BITS=64",
 					"-D__WXOSX__",
 					"-D__WXMAC__",
@@ -4845,6 +4845,7 @@
 				MTL_TREAT_WARNINGS_AS_ERRORS = YES;
 				OTHER_CFLAGS = (
 					"-ffast-math",
+					"-fno-common",
 					"-D_FILE_OFFSET_BITS=64",
 					"-D__WXOSX__",
 					"-D__WXMAC__",
