@@ -25,8 +25,6 @@ static CIContext *ciContext = nullptr;
 static CIColorKernel *rbFlipKernel = nullptr;
 static CIContext *ciEncContext = nullptr;
 
-std::mutex ciLock;
-
 static AVPixelFormat negotiate_pixel_format(AVCodecContext *s, const AVPixelFormat *fmt) {
     const enum AVPixelFormat *p;
     for (p = fmt; *p != AV_PIX_FMT_NONE; p++) {
@@ -223,9 +221,14 @@ bool VideoToolboxScaleImage(AVCodecContext *codecContext, AVFrame *frame, AVFram
             }
         }
 
+#ifdef DEBUG
+        static std::mutex ciLock;
         std::unique_lock<std::mutex> lck(ciLock);
         [ciContext render:swappedImage toCVPixelBuffer:scaledBuf];
         lck.unlock();
+#else
+        [ciContext render:swappedImage toCVPixelBuffer:scaledBuf];
+#endif
         pixbuf = nil;
 
         CVPixelBufferLockBaseAddress(scaledBuf, kCVPixelBufferLock_ReadOnly);
