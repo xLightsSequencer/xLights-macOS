@@ -89,9 +89,8 @@ inline void WXGLUnsetCurrentContext() {
 
 #define AdjustModalDialogParent(par) par = nullptr
 
-inline void SetThreadQOS(int i) {
-    xLights_macOSLib::setThreadQOS(i);
-}
+void SetThreadQOS(int i);
+
 inline void SetButtonBackground(wxButton *b, const wxColour &c, int bgType = 0) {
     xLights_macOSLib::setButtonBackground((NSButton*)(b->GetHandle()), c.OSXGetNSColor(), c == wxTransparentColor, bgType);
 }

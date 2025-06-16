@@ -445,10 +445,6 @@ public func WXGLUnsetCurrentContext() {
     NSOpenGLContext.clearCurrentContext();
 }
 
-public func setThreadQOS(_ priority: Int) {
-    let qosClass: qos_class_t = priority != 0 ? QOS_CLASS_USER_INITIATED : QOS_CLASS_BACKGROUND
-    pthread_set_qos_class_self_np(qosClass, 0)
-}
 
 public func setButtonBackground(_ button: NSButton, color: NSColor, transparent: Bool, bgType: Int) {
     MainActor.assumeIsolated {

@@ -22,6 +22,7 @@
 		6703FE7727FDBE4400AFE78F /* SketchCanvasPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6703FE7427FDBE4400AFE78F /* SketchCanvasPanel.cpp */; };
 		67061FD32746D5330020519D /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67061FD22746D5330020519D /* MetalPerformanceShaders.framework */; };
 		670DA2BA2AB9DD9B00380ACE /* AutoLabelDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670DA2B82AB9DD9B00380ACE /* AutoLabelDialog.cpp */; };
+		670F3D132E00C24B00C26585 /* MetalCompute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670F3D122E00C24B00C26585 /* MetalCompute.swift */; };
 		670F8DCA27652F5E002F0CD6 /* ModelIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 670F8DC927652F5E002F0CD6 /* ModelIO.framework */; };
 		671202F92B1DB6F7002E763A /* EditAliasesDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671202F72B1DB6F7002E763A /* EditAliasesDialog.cpp */; };
 		6716512025D7CE700041BB9A /* SuperStarImportDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164BCA25D7CE6D0041BB9A /* SuperStarImportDialog.cpp */; };
@@ -671,6 +672,7 @@
 		67061FD22746D5330020519D /* MetalPerformanceShaders.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalPerformanceShaders.framework; path = System/Library/Frameworks/MetalPerformanceShaders.framework; sourceTree = SDKROOT; };
 		670DA2B82AB9DD9B00380ACE /* AutoLabelDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AutoLabelDialog.cpp; sourceTree = "<group>"; };
 		670DA2B92AB9DD9B00380ACE /* AutoLabelDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoLabelDialog.h; sourceTree = "<group>"; };
+		670F3D122E00C24B00C26585 /* MetalCompute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalCompute.swift; sourceTree = "<group>"; };
 		670F8DC927652F5E002F0CD6 /* ModelIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ModelIO.framework; path = System/Library/Frameworks/ModelIO.framework; sourceTree = SDKROOT; };
 		670F8DCB27652F8F002F0CD6 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 		671202F72B1DB6F7002E763A /* EditAliasesDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EditAliasesDialog.cpp; sourceTree = "<group>"; };
@@ -3247,6 +3249,7 @@
 				6767A0102BB739410034581D /* ShockwaveFunctions.metal */,
 				67E4A02C2BB9CE9C0046341E /* TransitionFunctions.metal */,
 				67824F7D2BBF48C600F6869F /* LayerBlendingFunctions.metal */,
+				670F3D122E00C24B00C26585 /* MetalCompute.swift */,
 			);
 			path = metal;
 			sourceTree = "<group>";
@@ -3644,7 +3647,7 @@
 						LastSwiftMigration = 1640;
 					};
 					67E7086C17B51AB400A22034 = {
-						LastSwiftMigration = 0810;
+						LastSwiftMigration = 1640;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.Mac = {
 								enabled = 0;
@@ -4082,6 +4085,7 @@
 				67A889CA2614FB2300BFCEC0 /* ModelToCAD.cpp in Sources */,
 				6716519C25D7CE700041BB9A /* DmxFloodlight.cpp in Sources */,
 				671651C525D7CE700041BB9A /* xlLockButton.cpp in Sources */,
+				670F3D132E00C24B00C26585 /* MetalCompute.swift in Sources */,
 				671651ED25D7CE700041BB9A /* SequenceVideoPreview.cpp in Sources */,
 				6716512125D7CE700041BB9A /* ConvertDialog.cpp in Sources */,
 				67032DB6284F77CB0074638D /* DmxPresetAbility.cpp in Sources */,
@@ -4689,6 +4693,7 @@
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = Assets/xLights/xLightsDebug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -4732,6 +4737,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
@@ -4741,6 +4748,7 @@
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = Assets/xLights/xLights.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -4785,6 +4793,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_STYLE = debugging;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Release;
 		};
@@ -4919,6 +4928,7 @@
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = Assets/xLights/xLightsArchive.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -4963,6 +4973,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_STYLE = debugging;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Archive;
 		};

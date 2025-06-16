@@ -107,3 +107,11 @@ void AddAudioDeviceChangeListener(std::function<void()> &&cb) {
 void RemoveAudioDeviceChangeListener() {
     AUDIO_CALLBACK = {};
 }
+
+void SetThreadQOS(int i) {
+    if (i) {
+        pthread_set_qos_class_self_np(QOS_CLASS_USER_INITIATED, 0);
+    } else {
+        pthread_set_qos_class_self_np(QOS_CLASS_BACKGROUND, 0);
+    }
+}
