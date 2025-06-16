@@ -547,7 +547,6 @@
 		67A889CA2614FB2300BFCEC0 /* ModelToCAD.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67A889C32614FB2300BFCEC0 /* ModelToCAD.cpp */; };
 		67A889CB2614FB2300BFCEC0 /* CADModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67A889C52614FB2300BFCEC0 /* CADModel.cpp */; };
 		67A88A4026164CAE00BFCEC0 /* TouchBars.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67A88A3726164CAE00BFCEC0 /* TouchBars.mm */; };
-		67A88A4126164CAE00BFCEC0 /* xlMacUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67A88A3826164CAE00BFCEC0 /* xlMacUtils.mm */; };
 		67A88A4226164CAE00BFCEC0 /* InAppPurchaseDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67A88A3926164CAE00BFCEC0 /* InAppPurchaseDialog.cpp */; };
 		67A88A4326164CAE00BFCEC0 /* xlVideoToolboxUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67A88A3A26164CAE00BFCEC0 /* xlVideoToolboxUtils.mm */; };
 		67A88A4426164CAE00BFCEC0 /* osxInAppPurchases.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67A88A3B26164CAE00BFCEC0 /* osxInAppPurchases.mm */; };
@@ -555,12 +554,14 @@
 		67ABBBC929884BAB004BB143 /* Curl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67ABBBC729884BAB004BB143 /* Curl.cpp */; };
 		67B052212AC4596900665480 /* DuplicateEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67B0521E2AC4596900665480 /* DuplicateEffect.cpp */; };
 		67B052222AC4596900665480 /* DuplicatePanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67B052202AC4596900665480 /* DuplicatePanel.cpp */; };
+		67B72BC42E0081E5004515D9 /* xlMacUtilsCpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67B72BC32E0081E5004515D9 /* xlMacUtilsCpp.cpp */; };
 		67B73C1C279FBB0B00A8B06B /* FX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67B73C1B279FBB0B00A8B06B /* FX.cpp */; };
 		67B7400627664AC80051F15A /* xlMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67B740042766491D0051F15A /* xlMesh.cpp */; };
 		67B9ACCB2C9B605C005EF249 /* xLightsTimer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67B9ACCA2C9B6055005EF249 /* xLightsTimer.mm */; };
 		67BE0DFA2727C0AB00558A3A /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BE0DF82727C0AB00558A3A /* MetalKit.framework */; };
 		67BE0DFB2727C0AB00558A3A /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BE0DF92727C0AB00558A3A /* Metal.framework */; };
 		67BE0E012728230C00558A3A /* wxMetalCanvas.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67BE0DFF2728230C00558A3A /* wxMetalCanvas.mm */; };
+		67C1C8E22DFE955300932259 /* xlMacUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C1C8E12DFE955300932259 /* xlMacUtils.swift */; };
 		67C7E283215E596000AE0775 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B6F3422040FBB600B847E0 /* CoreAudio.framework */; };
 		67D142B8275803100018A831 /* pages.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D142AD275803100018A831 /* pages.cpp */; };
 		67D142B9275803100018A831 /* connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D142AE275803100018A831 /* connection.cpp */; };
@@ -1726,7 +1727,6 @@
 		67A88A3426164CAE00BFCEC0 /* ExternalHooksMacOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExternalHooksMacOS.h; sourceTree = "<group>"; };
 		67A88A3626164CAE00BFCEC0 /* InAppPurchaseDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InAppPurchaseDialog.h; sourceTree = "<group>"; };
 		67A88A3726164CAE00BFCEC0 /* TouchBars.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TouchBars.mm; sourceTree = "<group>"; };
-		67A88A3826164CAE00BFCEC0 /* xlMacUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = xlMacUtils.mm; sourceTree = "<group>"; };
 		67A88A3926164CAE00BFCEC0 /* InAppPurchaseDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InAppPurchaseDialog.cpp; sourceTree = "<group>"; };
 		67A88A3A26164CAE00BFCEC0 /* xlVideoToolboxUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = xlVideoToolboxUtils.mm; sourceTree = "<group>"; };
 		67A88A3B26164CAE00BFCEC0 /* osxInAppPurchases.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = osxInAppPurchases.mm; sourceTree = "<group>"; };
@@ -1741,6 +1741,7 @@
 		67B4C92117B53D960006B951 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		67B6F3402040FB7800B847E0 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		67B6F3422040FBB600B847E0 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		67B72BC32E0081E5004515D9 /* xlMacUtilsCpp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xlMacUtilsCpp.cpp; sourceTree = "<group>"; };
 		67B73C1A279FBB0B00A8B06B /* FX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FX.h; sourceTree = "<group>"; };
 		67B73C1B279FBB0B00A8B06B /* FX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FX.cpp; sourceTree = "<group>"; };
 		67B740042766491D0051F15A /* xlMesh.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xlMesh.cpp; sourceTree = "<group>"; };
@@ -1778,6 +1779,7 @@
 		67BE6761275813C400A71410 /* PacketData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PacketData.h; sourceTree = "<group>"; };
 		67BE6762275813C400A71410 /* PacketData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PacketData.cpp; sourceTree = "<group>"; };
 		67BE6763275813C400A71410 /* E131Receiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = E131Receiver.h; sourceTree = "<group>"; };
+		67C1C8E12DFE955300932259 /* xlMacUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xlMacUtils.swift; sourceTree = "<group>"; };
 		67D142AD275803100018A831 /* pages.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pages.cpp; path = ../xSchedule/wxHTTPServer/pages.cpp; sourceTree = "<group>"; };
 		67D142AE275803100018A831 /* connection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = connection.cpp; path = ../xSchedule/wxHTTPServer/connection.cpp; sourceTree = "<group>"; };
 		67D142AF275803100018A831 /* sha1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sha1.cpp; path = ../xSchedule/wxHTTPServer/sha1.cpp; sourceTree = "<group>"; };
@@ -3179,16 +3181,17 @@
 		671656A125D82D1D0041BB9A /* osxUtils */ = {
 			isa = PBXGroup;
 			children = (
+				67C1C8E12DFE955300932259 /* xlMacUtils.swift */,
 				67A88A3426164CAE00BFCEC0 /* ExternalHooksMacOS.h */,
 				67A88A3926164CAE00BFCEC0 /* InAppPurchaseDialog.cpp */,
 				67A88A3626164CAE00BFCEC0 /* InAppPurchaseDialog.h */,
 				67A88A3B26164CAE00BFCEC0 /* osxInAppPurchases.mm */,
 				67A88A3326164CAD00BFCEC0 /* TouchBars.h */,
 				67A88A3726164CAE00BFCEC0 /* TouchBars.mm */,
-				67A88A3826164CAE00BFCEC0 /* xlMacUtils.mm */,
 				67A88A3A26164CAE00BFCEC0 /* xlVideoToolboxUtils.mm */,
 				67BE0DFF2728230C00558A3A /* wxMetalCanvas.mm */,
 				67BE0E002728230C00558A3A /* wxMetalCanvas.hpp */,
+				67B72BC32E0081E5004515D9 /* xlMacUtilsCpp.cpp */,
 			);
 			path = osxUtils;
 			sourceTree = "<group>";
@@ -3638,6 +3641,7 @@
 					};
 					67A88A2626164C9B00BFCEC0 = {
 						CreatedOnToolsVersion = 12.4;
+						LastSwiftMigration = 1640;
 					};
 					67E7086C17B51AB400A22034 = {
 						LastSwiftMigration = 0810;
@@ -3764,11 +3768,12 @@
 				67F9B092272899080005A74B /* MetalShaders.metal in Sources */,
 				67BE0E012728230C00558A3A /* wxMetalCanvas.mm in Sources */,
 				67A88A4226164CAE00BFCEC0 /* InAppPurchaseDialog.cpp in Sources */,
+				67B72BC42E0081E5004515D9 /* xlMacUtilsCpp.cpp in Sources */,
 				67A88A4326164CAE00BFCEC0 /* xlVideoToolboxUtils.mm in Sources */,
 				67A88A4026164CAE00BFCEC0 /* TouchBars.mm in Sources */,
 				67A88A4426164CAE00BFCEC0 /* osxInAppPurchases.mm in Sources */,
+				67C1C8E22DFE955300932259 /* xlMacUtils.swift in Sources */,
 				6786706D27296B4000A5375D /* SIMDMathUtilities.cpp in Sources */,
-				67A88A4126164CAE00BFCEC0 /* xlMacUtils.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4370,6 +4375,7 @@
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
@@ -4379,8 +4385,11 @@
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "-enable-experimental-feature Extern";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
@@ -4389,6 +4398,7 @@
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
@@ -4399,8 +4409,10 @@
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "-enable-experimental-feature Extern";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Release;
 		};
@@ -4409,6 +4421,7 @@
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
@@ -4419,8 +4432,10 @@
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "-enable-experimental-feature Extern";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Archive;
 		};
@@ -4494,6 +4509,7 @@
 					dependencies/include,
 					"macOS-src",
 					../dependencies,
+					"$(DERIVED_SOURCES_DIR)",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				"LIBRARY_SEARCH_PATHS[arch=*]" = (
@@ -4539,6 +4555,8 @@
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = macosx;
 				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
+				SWIFT_VERSION = 6.0;
 				WARNING_LDFLAGS = "-headerpad_max_install_names";
 			};
 			name = Debug;
@@ -4609,6 +4627,7 @@
 					dependencies/include,
 					"macOS-src",
 					../dependencies,
+					"$(DERIVED_SOURCES_DIR)",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				"LIBRARY_SEARCH_PATHS[arch=*]" = /usr/lib;
@@ -4658,6 +4677,8 @@
 				OTHER_TAPI_FLAGS = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = macosx;
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
+				SWIFT_VERSION = 6.0;
 				WARNING_LDFLAGS = "-headerpad_max_install_names";
 			};
 			name = Release;
@@ -4833,6 +4854,7 @@
 					dependencies/include,
 					"macOS-src",
 					../dependencies,
+					"$(DERIVED_SOURCES_DIR)",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				"LIBRARY_SEARCH_PATHS[arch=*]" = (
@@ -4885,6 +4907,8 @@
 				OTHER_TAPI_FLAGS = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = macosx;
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
+				SWIFT_VERSION = 6.0;
 				WARNING_LDFLAGS = "-headerpad_max_install_names";
 			};
 			name = Archive;
