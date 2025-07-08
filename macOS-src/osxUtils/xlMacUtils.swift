@@ -103,18 +103,26 @@ private func obtainAccessToURLInternal(_ path: String, enforceWritable: Bool) ->
         return false
     }
 }
+
+
+class AsyncBoolResult: @unchecked Sendable {
+    var result: Bool = false
+    
+    
+}
+
 // MARK: - Public Functions
 public func obtainAccessToURL(_ path: String, enforceWritable: Bool)  -> Bool {
     let semaphore = DispatchSemaphore(value: 0)
-    var result: Bool = false
+    let result: AsyncBoolResult = .init()
     Task {
         defer {
             semaphore.signal()
         }
-        result = await obtainAccessToURLInternal(path, enforceWritable: enforceWritable);
+        result.result = await obtainAccessToURLInternal(path, enforceWritable: enforceWritable);
     }
     semaphore.wait()
-    return result;
+    return result.result;
 }
 public func addAccessibleURL(path: String, data: String) -> Void {
     Task {
@@ -428,16 +436,15 @@ public func removeAudioDeviceChangeListener() {
 }
 public func isFromAppStore() -> Bool {
     let semaphore = DispatchSemaphore(value: 0)
-    var result = false;
+    let result: AsyncBoolResult = .init();
     Task {
         defer {
             semaphore.signal()
         }
-        result = await isFromAppStoreInternal();
-        
+        result.result = await isFromAppStoreInternal();
     }
     semaphore.wait()
-    return result;
+    return result.result;
 }
 
 @available(*, deprecated)
