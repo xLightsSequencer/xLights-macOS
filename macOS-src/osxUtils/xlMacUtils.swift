@@ -416,7 +416,11 @@ public func removeAudioDeviceChangeListener() {
         
         guard status == errSecSuccess, let signingInfo = info else { return false }
         
-        let certChain = (signingInfo as NSDictionary)[kSecCodeInfoCertificates] as! [SecCertificate];
+        let ccTmp = (signingInfo as NSDictionary)[kSecCodeInfoCertificates];
+        if (ccTmp == nil) {
+            return false;
+        }
+        let certChain = ccTmp as! [SecCertificate];
         let cert = certChain.first
         
         var commonName: CFString?
