@@ -30,6 +30,17 @@ cp $PROJECT_TEMP_ROOT/UninstalledProducts/macosx/*.metallib $TARGET_BUILD_DIR/$P
 /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $SHORTVER" "${TARGET_BUILD_DIR}/${INFOPLIST_PATH}"
 
 
+if [ -f "$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/xLights.debug.dylib" ]; then
+    LIBS=`otool -L $TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/xLights.debug.dylib | grep opt/local | awk '{print $1}' | colrm 1 18`
+    for LS in $LIBS
+    do
+        install_name_tool -change /opt/local/libdbg/$LS @rpath/$LS  "$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/xLights.debug.dylib" 2>@1
+    done
+    install_name_tool -add_rpath "${PROJECT_DIR}/dependencies/libdbg" "$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/xLights.debug.dylib" 2>@1 || true    
+fi
+
+
+
 #if [ -z "${CODE_SIGN_IDENTITY}" ] ; then
 #    exit 0
 #fi
