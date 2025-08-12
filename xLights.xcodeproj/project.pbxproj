@@ -3743,7 +3743,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# if the local artifacts are available, use them\nif [ -f /opt/local/include/lualib.h ]; then\n    rm -f dependencies\n    ln -sf /opt/local dependencies\nfi\n";
+			shellScript = "# if the local artifacts are available, use them\nif [ -f /opt/local/include/lualib.h ]; then\n    rm -f dependencies\n    ln -sf /opt/local dependencies\nelif [ -f xLights-macOS-dependencies/include/lualib.h ]; then\n    rm -f dependencies\n    ln -sf xLights-macOS-dependencies dependencies\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
