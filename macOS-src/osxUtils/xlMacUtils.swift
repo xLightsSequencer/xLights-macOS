@@ -483,3 +483,22 @@ public func setButtonBackground(_ button: NSButton, color: NSColor, transparent:
         button.needsDisplay = true
     }
 }
+
+public func hasFullDiskAccess() -> Bool {
+    let protectedPath = "/Library/Application Support/com.apple.TCC/"
+    let fileManager = FileManager.default
+
+    do {
+        // Attempt to get contents of a directory requiring FDA
+        _ = try fileManager.contentsOfDirectory(atPath: protectedPath)
+        return true // If no error, FDA is likely granted
+    } catch let error as NSError {
+        // Check for specific error code indicating permission denied
+        if error.code == NSFileReadNoPermissionError {
+            return false // FDA not granted
+        } else {
+            // Handle other potential errors, or assume FDA not granted for simplicity
+            return false
+        }
+    }
+}

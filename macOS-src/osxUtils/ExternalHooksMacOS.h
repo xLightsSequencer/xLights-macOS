@@ -51,6 +51,10 @@ inline void DisableSleepModes() {
 inline bool IsMouseEventFromTouchpad() {
     return xLights_macOSLib::isMouseEventFromTouchpad();
 }
+inline bool hasFullDiskAccess() {
+    return xLights_macOSLib::hasFullDiskAccess();
+}
+
 
 void AddAudioDeviceChangeListener(std::function<void()> &&callback);
 void RemoveAudioDeviceChangeListener();
