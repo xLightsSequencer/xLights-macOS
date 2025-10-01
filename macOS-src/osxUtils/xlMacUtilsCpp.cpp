@@ -97,7 +97,9 @@ void AudioDeviceChangedCallback();
 
 static std::function<void()> AUDIO_CALLBACK;
 void AudioDeviceChangedCallback() {
-    AUDIO_CALLBACK();
+    if (AUDIO_CALLBACK) {
+        AUDIO_CALLBACK();
+    }
 }
 
 void AddAudioDeviceChangeListener(std::function<void()> &&cb) {
@@ -105,6 +107,7 @@ void AddAudioDeviceChangeListener(std::function<void()> &&cb) {
     xLights_macOSLib::addAudioDeviceChangeListener();
 }
 void RemoveAudioDeviceChangeListener() {
+    xLights_macOSLib::removeAudioDeviceChangeListener();
     AUDIO_CALLBACK = {};
 }
 
