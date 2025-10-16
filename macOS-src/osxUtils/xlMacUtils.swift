@@ -484,6 +484,28 @@ public func setButtonBackground(_ button: NSButton, color: NSColor, transparent:
     }
 }
 
+func isSIPDisabled() -> Bool {
+    let process = Process()
+    process.launchPath = "/usr/bin/csrutil"
+    process.arguments = ["status"]
+
+    let pipe = Pipe()
+    process.standardOutput = pipe
+    
+    do {
+        try process.run()
+        process.waitUntilExit()
+
+        let data = pipe.fileHandleForReading.readDataToEndOfFile()
+        if let output = String(data: data, encoding: .utf8) {
+            return output.contains("System Integrity Protection status: disabled")
+        }
+    } catch {
+        return false
+    }
+    return false
+}
+
 public func hasFullDiskAccess() -> Bool {
     let protectedPath = "/Library/Application Support/com.apple.TCC/"
     let fileManager = FileManager.default
@@ -491,6 +513,12 @@ public func hasFullDiskAccess() -> Bool {
     do {
         // Attempt to get contents of a directory requiring FDA
         _ = try fileManager.contentsOfDirectory(atPath: protectedPath)
+        
+        // If SIP is disabled, the above would allow access even if xLights doesn't have full disk access
+        // We'll check if SIP is disabled and return false to avoid the semi-false possitive
+        if isSIPDisabled() {
+            return false
+        }
         return true // If no error, FDA is likely granted
     } catch let error as NSError {
         // Check for specific error code indicating permission denied
