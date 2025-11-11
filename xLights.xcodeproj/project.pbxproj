@@ -4659,6 +4659,7 @@
 				"OTHER_CODE_SIGN_FLAGS[sdk=*]" = "--timestamp";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
+					"-Wl,-force_load,$(SDKROOT)/usr/lib/libc++abi.tbd",
 					"-headerpad_max_install_names",
 					"-lwx_baseu-3.3",
 					"-lwx_baseu_xml-3.3",
@@ -4679,6 +4680,8 @@
 					"-lwxregexu-3.3",
 					"-lxlsxwriter",
 					"-Wl,-weak_reference_mismatches,weak",
+					"-Wl,-weak_library,$(SDKROOT)/usr/lib/libc++.tbd",
+					"-Wl,-weak_library,$(SDKROOT)/usr/lib/libc++.1.tbd",
 				);
 				OTHER_TAPI_FLAGS = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
@@ -4917,6 +4920,7 @@
 				"OTHER_CODE_SIGN_FLAGS[sdk=*]" = "--timestamp";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
+					"-Wl,-force_load,$(SDKROOT)/usr/lib/libc++abi.tbd",
 					"-headerpad_max_install_names",
 					"-lwx_baseu-3.3",
 					"-lwx_baseu_xml-3.3",
@@ -4937,6 +4941,8 @@
 					"-lwxregexu-3.3",
 					"-lxlsxwriter",
 					"-Wl,-weak_reference_mismatches,weak",
+					"-Wl,-weak_library,$(SDKROOT)/usr/lib/libc++.tbd",
+					"-Wl,-weak_library,$(SDKROOT)/usr/lib/libc++.1.tbd",
 				);
 				OTHER_TAPI_FLAGS = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
