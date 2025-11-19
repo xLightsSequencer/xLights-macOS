@@ -36,7 +36,7 @@ cloud backed up.
 
 
 To get the latest code that we've tested, do:
-git clone  --recurse-submodules -b xlights_2025.09 https://github.com/xLightsSequencer/wxWidgets
+git clone  --recurse-submodules -b xlights_2025.13 https://github.com/xLightsSequencer/wxWidgets
 
 
 First, setup the target directories:
@@ -340,10 +340,10 @@ unset CFLAGS
 # and thus release mode builds will fail.  Thus, we have to grab the "universal" version.
 # We only need the binary from the package.
 ispc:
-wget https://github.com/ispc/ispc/releases/download/v1.28.0/ispc-v1.28.0-macOS.universal.tar.gz
-tar -xzf ispc-v1.28.0-macOS.universal.tar.gz
-cp ispc-v1.28.0-macOS.universal/bin/ispc /opt/local/bin
-rm -rf ispc-v1.28.0-macOS.universal*
+wget https://github.com/ispc/ispc/releases/download/v1.28.2/ispc-v1.28.2-macOS.universal.tar.gz
+tar -xzf ispc-v1.28.2-macOS.universal.tar.gz
+cp ispc-v1.28.2-macOS.universal/bin/ispc /opt/local/bin
+rm -rf ispc-v1.28.2-macOS.universal*
 
 
 
