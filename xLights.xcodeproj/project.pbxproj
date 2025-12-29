@@ -610,6 +610,7 @@
 		C40D87E92B4B428700A10AF8 /* MhFeature.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40D87E32B4B428600A10AF8 /* MhFeature.cpp */; };
 		C40D87EA2B4B428700A10AF8 /* MhChannel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40D87E62B4B428600A10AF8 /* MhChannel.cpp */; };
 		C40D87EB2B4B428700A10AF8 /* MhChannelDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40D87E72B4B428600A10AF8 /* MhChannelDialog.cpp */; };
+		C477311B2F02C615000B901E /* ControllerConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C477311A2F02C615000B901E /* ControllerConnection.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -1885,6 +1886,8 @@
 		C413A3D02BBF7BF6001AF90B /* DmxMovingHeadComm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DmxMovingHeadComm.h; sourceTree = "<group>"; };
 		C413A3D12BC10457001AF90B /* DmxMotorBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DmxMotorBase.h; sourceTree = "<group>"; };
 		C413A3D22BC10457001AF90B /* DmxMotorPanTilt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DmxMotorPanTilt.h; sourceTree = "<group>"; };
+		C47731192F02C615000B901E /* ControllerConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ControllerConnection.h; sourceTree = "<group>"; };
+		C477311A2F02C615000B901E /* ControllerConnection.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ControllerConnection.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -2021,6 +2024,8 @@
 		67164BC525D7CE6D0041BB9A /* xLights */ = {
 			isa = PBXGroup;
 			children = (
+				C47731192F02C615000B901E /* ControllerConnection.h */,
+				C477311A2F02C615000B901E /* ControllerConnection.cpp */,
 				67164D1125D7CE6D0041BB9A /* AboutDialog.h */,
 				67164C4D25D7CE6D0041BB9A /* AboutDialog.cpp */,
 				67F7DB8A2D582A9D00921286 /* ai */,
@@ -3820,6 +3825,7 @@
 				6716536625D7CE720041BB9A /* PinwheelEffect.cpp in Sources */,
 				67D142BC275803100018A831 /* context.cpp in Sources */,
 				6716536E25D7CE720041BB9A /* GalaxyPanel.cpp in Sources */,
+				C477311B2F02C615000B901E /* ControllerConnection.cpp in Sources */,
 				671653A725D7CE720041BB9A /* LOROutput.cpp in Sources */,
 				671651EB25D7CE700041BB9A /* UpdaterDialog.cpp in Sources */,
 				6716533B25D7CE710041BB9A /* CurtainEffect.cpp in Sources */,
