@@ -4713,7 +4713,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2500000;
+				CURRENT_PROJECT_VERSION = 2600000;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_APP_SANDBOX = YES;
@@ -4741,7 +4741,7 @@
 					"$(inherited)",
 					dependencies/libdbg,
 				);
-				MARKETING_VERSION = 2025.00.0;
+				MARKETING_VERSION = 2026.00.0;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
@@ -4778,7 +4778,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2500000;
+				CURRENT_PROJECT_VERSION = 2600000;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = U8ZT9RPC6S;
 				ENABLE_APP_SANDBOX = YES;
@@ -4807,7 +4807,7 @@
 					dependencies/lib,
 					dependencies/libdbg,
 				);
-				MARKETING_VERSION = 2025.00.0;
+				MARKETING_VERSION = 2026.00.0;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
@@ -4973,7 +4973,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2500000;
+				CURRENT_PROJECT_VERSION = 2600000;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = U8ZT9RPC6S;
 				ENABLE_APP_SANDBOX = YES;
@@ -5002,7 +5002,7 @@
 					dependencies/lib,
 					dependencies/libdbg,
 				);
-				MARKETING_VERSION = 2025.00.0;
+				MARKETING_VERSION = 2026.00.0;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",

@@ -64,21 +64,21 @@
 	<key>NSCameraUsageDescription</key>
 	<string>xLights can use the Camera to aid in the creation of custom models.</string>
 	<key>NSDownloadsFolderUsageDescription</key>
-	<string>When using select features in xLights such as &quot;Download Sequences/Lyrics&quot;, files may be downloaded to the Download folder and accessed from there.</string>
+	<string>When using select features in xLights such as "Download Sequences/Lyrics", files may be downloaded to the Download folder and accessed from there.</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2025 Daniel Kulp and others. All rights reserved.</string>
+	<string>Copyright © 2026 Daniel Kulp and others. All rights reserved.</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>xLights needs to be able to communicate with controllers on your local network to be able to push configuration,  output data to lights, upload sequence files, etc...</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSNetworkVolumesUsageDescription</key>
-	<string>The &quot;FPP Connect&quot; feature in xLights can use FPP instances mounted remotely as volumes to upload sequences, media, and configuration.</string>
+	<string>The "FPP Connect" feature in xLights can use FPP instances mounted remotely as volumes to upload sequences, media, and configuration.</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>NSRemovableVolumesUsageDescription</key>
-	<string>The &quot;FPP Connect&quot; feature in xLights can save sequences, media, and configuration to FPP storage drives mounted as removable media.</string>
+	<string>The "FPP Connect" feature in xLights can save sequences, media, and configuration to FPP storage drives mounted as removable media.</string>
 	<key>NSSupportsAutomaticGraphicsSwitching</key>
 	<true/>
-	<key>NSLocalNetworkUsageDescription</key>
-	<string>xLights needs to be able to communicate with controllers on your local network to be able to push configuration,  output data to lights, upload sequence files, etc...</string>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>
