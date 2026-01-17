@@ -119,7 +119,6 @@
 		6716519025D7CE700041BB9A /* CandyCaneModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164CA625D7CE6D0041BB9A /* CandyCaneModel.cpp */; };
 		6716519125D7CE700041BB9A /* ServoConfigDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164CAA25D7CE6D0041BB9A /* ServoConfigDialog.cpp */; };
 		6716519225D7CE700041BB9A /* DmxImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164CAB25D7CE6D0041BB9A /* DmxImage.cpp */; };
-		6716519325D7CE700041BB9A /* DmxPanTiltAbility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164CAC25D7CE6D0041BB9A /* DmxPanTiltAbility.cpp */; };
 		6716519425D7CE700041BB9A /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164CAD25D7CE6D0041BB9A /* Mesh.cpp */; };
 		6716519625D7CE700041BB9A /* DmxShutterAbility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164CB125D7CE6D0041BB9A /* DmxShutterAbility.cpp */; };
 		6716519725D7CE700041BB9A /* DmxServo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164CB325D7CE6D0041BB9A /* DmxServo.cpp */; };
@@ -132,7 +131,6 @@
 		6716519E25D7CE700041BB9A /* DmxModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164CBD25D7CE6D0041BB9A /* DmxModel.cpp */; };
 		6716519F25D7CE700041BB9A /* SkullConfigDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164CBE25D7CE6D0041BB9A /* SkullConfigDialog.cpp */; };
 		671651A025D7CE700041BB9A /* DmxServo3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164CC025D7CE6D0041BB9A /* DmxServo3D.cpp */; };
-		671651A125D7CE700041BB9A /* DmxSkulltronix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164CC525D7CE6D0041BB9A /* DmxSkulltronix.cpp */; };
 		671651A225D7CE700041BB9A /* DmxSkull.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164CC625D7CE6D0041BB9A /* DmxSkull.cpp */; };
 		671651A325D7CE700041BB9A /* CubeModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164CCD25D7CE6D0041BB9A /* CubeModel.cpp */; };
 		671651A425D7CE700041BB9A /* ImageModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164CCE25D7CE6D0041BB9A /* ImageModel.cpp */; };
@@ -878,9 +876,7 @@
 		67164CA925D7CE6D0041BB9A /* DmxServo3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DmxServo3D.h; sourceTree = "<group>"; };
 		67164CAA25D7CE6D0041BB9A /* ServoConfigDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ServoConfigDialog.cpp; sourceTree = "<group>"; };
 		67164CAB25D7CE6D0041BB9A /* DmxImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DmxImage.cpp; sourceTree = "<group>"; };
-		67164CAC25D7CE6D0041BB9A /* DmxPanTiltAbility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DmxPanTiltAbility.cpp; sourceTree = "<group>"; };
 		67164CAD25D7CE6D0041BB9A /* Mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Mesh.cpp; sourceTree = "<group>"; };
-		67164CAE25D7CE6D0041BB9A /* DmxPanTiltAbility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DmxPanTiltAbility.h; sourceTree = "<group>"; };
 		67164CB025D7CE6D0041BB9A /* DmxFloodArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DmxFloodArea.h; sourceTree = "<group>"; };
 		67164CB125D7CE6D0041BB9A /* DmxShutterAbility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DmxShutterAbility.cpp; sourceTree = "<group>"; };
 		67164CB225D7CE6D0041BB9A /* ServoConfigDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServoConfigDialog.h; sourceTree = "<group>"; };
@@ -893,7 +889,6 @@
 		67164CB925D7CE6D0041BB9A /* DmxColorAbility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DmxColorAbility.cpp; sourceTree = "<group>"; };
 		67164CBA25D7CE6D0041BB9A /* DmxFloodlight.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DmxFloodlight.cpp; sourceTree = "<group>"; };
 		67164CBB25D7CE6D0041BB9A /* DmxMovingHead.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DmxMovingHead.cpp; sourceTree = "<group>"; };
-		67164CBC25D7CE6D0041BB9A /* DmxSkulltronix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DmxSkulltronix.h; sourceTree = "<group>"; };
 		67164CBD25D7CE6D0041BB9A /* DmxModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DmxModel.cpp; sourceTree = "<group>"; };
 		67164CBE25D7CE6D0041BB9A /* SkullConfigDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SkullConfigDialog.cpp; sourceTree = "<group>"; };
 		67164CBF25D7CE6D0041BB9A /* Servo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Servo.h; sourceTree = "<group>"; };
@@ -901,7 +896,6 @@
 		67164CC125D7CE6D0041BB9A /* DmxServo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DmxServo.h; sourceTree = "<group>"; };
 		67164CC225D7CE6D0041BB9A /* DmxModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DmxModel.h; sourceTree = "<group>"; };
 		67164CC325D7CE6D0041BB9A /* DmxSkull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DmxSkull.h; sourceTree = "<group>"; };
-		67164CC525D7CE6D0041BB9A /* DmxSkulltronix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DmxSkulltronix.cpp; sourceTree = "<group>"; };
 		67164CC625D7CE6D0041BB9A /* DmxSkull.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DmxSkull.cpp; sourceTree = "<group>"; };
 		67164CC725D7CE6D0041BB9A /* SkullConfigDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkullConfigDialog.h; sourceTree = "<group>"; };
 		67164CC825D7CE6D0041BB9A /* DmxColorAbility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DmxColorAbility.h; sourceTree = "<group>"; };
@@ -2575,8 +2569,6 @@
 				67164CC225D7CE6D0041BB9A /* DmxModel.h */,
 				67164CBB25D7CE6D0041BB9A /* DmxMovingHead.cpp */,
 				67164CCB25D7CE6D0041BB9A /* DmxMovingHead.h */,
-				67164CAC25D7CE6D0041BB9A /* DmxPanTiltAbility.cpp */,
-				67164CAE25D7CE6D0041BB9A /* DmxPanTiltAbility.h */,
 				67032DB5284F77CA0074638D /* DmxPresetAbility.cpp */,
 				67032DB4284F77CA0074638D /* DmxPresetAbility.h */,
 				67164CB325D7CE6D0041BB9A /* DmxServo.cpp */,
@@ -2587,8 +2579,6 @@
 				67164CCA25D7CE6D0041BB9A /* DmxShutterAbility.h */,
 				67164CC625D7CE6D0041BB9A /* DmxSkull.cpp */,
 				67164CC325D7CE6D0041BB9A /* DmxSkull.h */,
-				67164CC525D7CE6D0041BB9A /* DmxSkulltronix.cpp */,
-				67164CBC25D7CE6D0041BB9A /* DmxSkulltronix.h */,
 				67164CAD25D7CE6D0041BB9A /* Mesh.cpp */,
 				67164CB725D7CE6D0041BB9A /* Mesh.h */,
 				67164CB825D7CE6D0041BB9A /* Servo.cpp */,
@@ -4070,7 +4060,6 @@
 				6716530925D7CE710041BB9A /* xlGridCanvasEmpty.cpp in Sources */,
 				671651FF25D7CE700041BB9A /* DragEffectBitmapButton.cpp in Sources */,
 				6716512825D7CE700041BB9A /* TabSetup.cpp in Sources */,
-				671651A125D7CE700041BB9A /* DmxSkulltronix.cpp in Sources */,
 				671652B725D7CE710041BB9A /* EffectListDialog.cpp in Sources */,
 				6716536025D7CE720041BB9A /* CandleEffect.cpp in Sources */,
 				6716530B25D7CE710041BB9A /* PicturesAssistPanel.cpp in Sources */,
@@ -4163,7 +4152,6 @@
 				6716533125D7CE710041BB9A /* ShockwaveEffect.cpp in Sources */,
 				67D142BD275803100018A831 /* status.cpp in Sources */,
 				67D142BB275803100018A831 /* server.cpp in Sources */,
-				6716519325D7CE700041BB9A /* DmxPanTiltAbility.cpp in Sources */,
 				671651AC25D7CE700041BB9A /* WholeHouseModel.cpp in Sources */,
 				6716554F25D8245E0041BB9A /* MidiMessage.cpp in Sources */,
 				6716520525D7CE700041BB9A /* MediaImportOptionsDialog.cpp in Sources */,
