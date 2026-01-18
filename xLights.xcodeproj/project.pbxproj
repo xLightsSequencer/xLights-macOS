@@ -608,6 +608,7 @@
 		C40D87E92B4B428700A10AF8 /* MhFeature.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40D87E32B4B428600A10AF8 /* MhFeature.cpp */; };
 		C40D87EA2B4B428700A10AF8 /* MhChannel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40D87E62B4B428600A10AF8 /* MhChannel.cpp */; };
 		C40D87EB2B4B428700A10AF8 /* MhChannelDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40D87E72B4B428600A10AF8 /* MhChannelDialog.cpp */; };
+		C471E0202F1BD7FA0063881B /* DmxBeamAbility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C471E01F2F1BD7FA0063881B /* DmxBeamAbility.cpp */; };
 		C477311B2F02C615000B901E /* ControllerConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C477311A2F02C615000B901E /* ControllerConnection.cpp */; };
 /* End PBXBuildFile section */
 
@@ -1878,8 +1879,8 @@
 		C413A3CE2BBF466B001AF90B /* BaseObjectVisitor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseObjectVisitor.h; sourceTree = "<group>"; };
 		C413A3CF2BBF58E3001AF90B /* XmlSerializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XmlSerializer.h; sourceTree = "<group>"; };
 		C413A3D02BBF7BF6001AF90B /* DmxMovingHeadComm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DmxMovingHeadComm.h; sourceTree = "<group>"; };
-		C413A3D12BC10457001AF90B /* DmxMotorBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DmxMotorBase.h; sourceTree = "<group>"; };
-		C413A3D22BC10457001AF90B /* DmxMotorPanTilt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DmxMotorPanTilt.h; sourceTree = "<group>"; };
+		C471E01E2F1BD7FA0063881B /* DmxBeamAbility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DmxBeamAbility.h; sourceTree = "<group>"; };
+		C471E01F2F1BD7FA0063881B /* DmxBeamAbility.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DmxBeamAbility.cpp; sourceTree = "<group>"; };
 		C47731192F02C615000B901E /* ControllerConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ControllerConnection.h; sourceTree = "<group>"; };
 		C477311A2F02C615000B901E /* ControllerConnection.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ControllerConnection.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2539,10 +2540,10 @@
 		67164CA825D7CE6D0041BB9A /* DMX */ = {
 			isa = PBXGroup;
 			children = (
+				C471E01E2F1BD7FA0063881B /* DmxBeamAbility.h */,
+				C471E01F2F1BD7FA0063881B /* DmxBeamAbility.cpp */,
 				C40BF5682BDCA19A00D701CF /* DmxDimmerAbility.cpp */,
 				C40BF5692BDCA19A00D701CF /* DmxDimmerAbility.h */,
-				C413A3D12BC10457001AF90B /* DmxMotorBase.h */,
-				C413A3D22BC10457001AF90B /* DmxMotorPanTilt.h */,
 				C413A3D02BBF7BF6001AF90B /* DmxMovingHeadComm.h */,
 				C40D87DF2B4B428600A10AF8 /* MovingHeads */,
 				C40D87C72B4B383E00A10AF8 /* DmxMotor.cpp */,
@@ -4097,6 +4098,7 @@
 				6776DF8A28609D29007573A6 /* TipOfTheDayDialog.cpp in Sources */,
 				C40D87DC2B4B425A00A10AF8 /* MHColorWheelPanel.cpp in Sources */,
 				671655A125D825410041BB9A /* PluginHostAdapter.cpp in Sources */,
+				C471E0202F1BD7FA0063881B /* DmxBeamAbility.cpp in Sources */,
 				671651A525D7CE700041BB9A /* Node.cpp in Sources */,
 				671651C125D7CE700041BB9A /* PixelBuffer.cpp in Sources */,
 				6716530825D7CE710041BB9A /* MusicEffect.cpp in Sources */,
