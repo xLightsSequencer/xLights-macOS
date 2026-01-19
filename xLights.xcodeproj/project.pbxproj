@@ -1877,7 +1877,6 @@
 		C40D87ED2B4F6B3700A10AF8 /* MHColorPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHColorPanel.h; sourceTree = "<group>"; };
 		C40D87EF2B5A25AC00A10AF8 /* SpecialOptions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpecialOptions.cpp; sourceTree = "<group>"; };
 		C413A3CE2BBF466B001AF90B /* BaseObjectVisitor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseObjectVisitor.h; sourceTree = "<group>"; };
-		C413A3CF2BBF58E3001AF90B /* XmlSerializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XmlSerializer.h; sourceTree = "<group>"; };
 		C413A3D02BBF7BF6001AF90B /* DmxMovingHeadComm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DmxMovingHeadComm.h; sourceTree = "<group>"; };
 		C471E01E2F1BD7FA0063881B /* DmxBeamAbility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DmxBeamAbility.h; sourceTree = "<group>"; };
 		C471E01F2F1BD7FA0063881B /* DmxBeamAbility.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DmxBeamAbility.cpp; sourceTree = "<group>"; };
@@ -1916,6 +1915,7 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		67F18E292D330355005633FE /* ispc */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (67F18E422D330E1B005633FE /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 67F18E432D330E1B005633FE /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = ispc; sourceTree = "<group>"; };
 		67F7DB8A2D582A9D00921286 /* ai */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ai; sourceTree = "<group>"; };
+		C471E0212F1ED95A0063881B /* XmlSerializer */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = XmlSerializer; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2019,6 +2019,7 @@
 		67164BC525D7CE6D0041BB9A /* xLights */ = {
 			isa = PBXGroup;
 			children = (
+				C471E0212F1ED95A0063881B /* XmlSerializer */,
 				C47731192F02C615000B901E /* ControllerConnection.h */,
 				C477311A2F02C615000B901E /* ControllerConnection.cpp */,
 				67164D1125D7CE6D0041BB9A /* AboutDialog.h */,
@@ -2532,7 +2533,6 @@
 				67164CA425D7CE6D0041BB9A /* WreathModel.cpp */,
 				67164CDF25D7CE6D0041BB9A /* WreathModel.h */,
 				C413A3CE2BBF466B001AF90B /* BaseObjectVisitor.h */,
-				C413A3CF2BBF58E3001AF90B /* XmlSerializer.h */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -3618,6 +3618,7 @@
 			fileSystemSynchronizedGroups = (
 				67F18E292D330355005633FE /* ispc */,
 				67F7DB8A2D582A9D00921286 /* ai */,
+				C471E0212F1ED95A0063881B /* XmlSerializer */,
 			);
 			name = xLights;
 			productName = xLights;
