@@ -142,7 +142,7 @@
 		671651AA25D7CE700041BB9A /* ImageObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164CDC25D7CE6D0041BB9A /* ImageObject.cpp */; };
 		671651AB25D7CE700041BB9A /* CircleModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164CDD25D7CE6D0041BB9A /* CircleModel.cpp */; };
 		671651AC25D7CE700041BB9A /* WholeHouseModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164CDE25D7CE6D0041BB9A /* WholeHouseModel.cpp */; };
-		671651AD25D7CE700041BB9A /* TerrianObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164CE025D7CE6D0041BB9A /* TerrianObject.cpp */; };
+		671651AD25D7CE700041BB9A /* TerrainObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164CE025D7CE6D0041BB9A /* TerrainObject.cpp */; };
 		671651AE25D7CE700041BB9A /* ArchesModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164CE125D7CE6D0041BB9A /* ArchesModel.cpp */; };
 		671651AF25D7CE700041BB9A /* GridlinesObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164CE225D7CE6D0041BB9A /* GridlinesObject.cpp */; };
 		671651B025D7CE700041BB9A /* ModelScreenLocation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164CE525D7CE6D0041BB9A /* ModelScreenLocation.cpp */; };
@@ -867,7 +867,7 @@
 		67164C9E25D7CE6D0041BB9A /* IciclesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IciclesModel.h; sourceTree = "<group>"; };
 		67164C9F25D7CE6D0041BB9A /* RulerObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RulerObject.h; sourceTree = "<group>"; };
 		67164CA025D7CE6D0041BB9A /* BaseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseObject.h; sourceTree = "<group>"; };
-		67164CA125D7CE6D0041BB9A /* TerrianObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerrianObject.h; sourceTree = "<group>"; };
+		67164CA125D7CE6D0041BB9A /* TerrainObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerrainObject.h; sourceTree = "<group>"; };
 		67164CA225D7CE6D0041BB9A /* ImageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageModel.h; sourceTree = "<group>"; };
 		67164CA325D7CE6D0041BB9A /* SingleLineModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SingleLineModel.cpp; sourceTree = "<group>"; };
 		67164CA425D7CE6D0041BB9A /* WreathModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WreathModel.cpp; sourceTree = "<group>"; };
@@ -916,14 +916,14 @@
 		67164CD625D7CE6D0041BB9A /* ArchesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArchesModel.h; sourceTree = "<group>"; };
 		67164CD725D7CE6D0041BB9A /* ChannelBlockModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelBlockModel.h; sourceTree = "<group>"; };
 		67164CD825D7CE6D0041BB9A /* CubeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CubeModel.h; sourceTree = "<group>"; };
-		67164CD925D7CE6D0041BB9A /* TerrianScreenLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerrianScreenLocation.h; sourceTree = "<group>"; };
+		67164CD925D7CE6D0041BB9A /* TerrainScreenLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerrainScreenLocation.h; sourceTree = "<group>"; };
 		67164CDA25D7CE6D0041BB9A /* WindowFrameModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WindowFrameModel.cpp; sourceTree = "<group>"; };
 		67164CDB25D7CE6D0041BB9A /* SphereModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SphereModel.cpp; sourceTree = "<group>"; };
 		67164CDC25D7CE6D0041BB9A /* ImageObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageObject.cpp; sourceTree = "<group>"; };
 		67164CDD25D7CE6D0041BB9A /* CircleModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CircleModel.cpp; sourceTree = "<group>"; };
 		67164CDE25D7CE6D0041BB9A /* WholeHouseModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WholeHouseModel.cpp; sourceTree = "<group>"; };
 		67164CDF25D7CE6D0041BB9A /* WreathModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WreathModel.h; sourceTree = "<group>"; };
-		67164CE025D7CE6D0041BB9A /* TerrianObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TerrianObject.cpp; sourceTree = "<group>"; };
+		67164CE025D7CE6D0041BB9A /* TerrainObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TerrainObject.cpp; sourceTree = "<group>"; };
 		67164CE125D7CE6D0041BB9A /* ArchesModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ArchesModel.cpp; sourceTree = "<group>"; };
 		67164CE225D7CE6D0041BB9A /* GridlinesObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GridlinesObject.cpp; sourceTree = "<group>"; };
 		67164CE325D7CE6D0041BB9A /* SphereModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SphereModel.h; sourceTree = "<group>"; };
@@ -2512,9 +2512,9 @@
 				67164CFB25D7CE6D0041BB9A /* SubModel.cpp */,
 				67164CF125D7CE6D0041BB9A /* SubModel.h */,
 				67164C9D25D7CE6D0041BB9A /* TerrainScreenLocation.cpp */,
-				67164CE025D7CE6D0041BB9A /* TerrianObject.cpp */,
-				67164CA125D7CE6D0041BB9A /* TerrianObject.h */,
-				67164CD925D7CE6D0041BB9A /* TerrianScreenLocation.h */,
+				67164CE025D7CE6D0041BB9A /* TerrainObject.cpp */,
+				67164CA125D7CE6D0041BB9A /* TerrainObject.h */,
+				67164CD925D7CE6D0041BB9A /* TerrainScreenLocation.h */,
 				677932E227D30D8F008FEEBE /* ThreePointScreenLocation.cpp */,
 				677932E327D30D8F008FEEBE /* ThreePointScreenLocation.h */,
 				67164CFA25D7CE6D0041BB9A /* TreeModel.cpp */,
@@ -4267,7 +4267,7 @@
 				6716520725D7CE700041BB9A /* ModelGroupPanel.cpp in Sources */,
 				6716514825D7CE700041BB9A /* xLightsApp.cpp in Sources */,
 				6716513925D7CE700041BB9A /* EffectAssist.cpp in Sources */,
-				671651AD25D7CE700041BB9A /* TerrianObject.cpp in Sources */,
+				671651AD25D7CE700041BB9A /* TerrainObject.cpp in Sources */,
 				6716532825D7CE710041BB9A /* DMXPanel.cpp in Sources */,
 				6716515E25D7CE700041BB9A /* BulkEditControls.cpp in Sources */,
 				671653B225D7CE720041BB9A /* VideoExporter.cpp in Sources */,
