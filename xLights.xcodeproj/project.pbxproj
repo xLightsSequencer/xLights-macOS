@@ -576,7 +576,6 @@
 		67D53D952A82887600ABF6F6 /* FPPUploadProgressDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D53D932A82887500ABF6F6 /* FPPUploadProgressDialog.cpp */; };
 		67D7159727287CE800E5EDB5 /* xlMetalGraphicsContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67D7159327287CE700E5EDB5 /* xlMetalGraphicsContext.mm */; };
 		67D7159827287CE800E5EDB5 /* xlMetalCanvas.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67D7159427287CE700E5EDB5 /* xlMetalCanvas.mm */; };
-		67D9A28A2AF278FB00C6C506 /* libsharpyuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67D9A2882AF278ED00C6C506 /* libsharpyuv.a */; };
 		67D9B0A81D42A9BA005367DB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67E7087017B51AB400A22034 /* Cocoa.framework */; };
 		67DE38122A7BEFA60094B7D5 /* CurlManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67DE38112A7BEFA60094B7D5 /* CurlManager.cpp */; };
 		67E4A02D2BB9CE9C0046341E /* TransitionFunctions.metal in Sources */ = {isa = PBXBuildFile; fileRef = 67E4A02C2BB9CE9C0046341E /* TransitionFunctions.metal */; };
@@ -1941,7 +1940,6 @@
 				6729FFE42552EEF300C83C71 /* libzstd.a in Frameworks */,
 				6729FFFB2553036F00C83C71 /* libavcodec.a in Frameworks */,
 				6781D632234C24BD00408604 /* CoreVideo.framework in Frameworks */,
-				67D9A28A2AF278FB00C6C506 /* libsharpyuv.a in Frameworks */,
 				6729FFE22552EEBA00C83C71 /* libliquidfun.a in Frameworks */,
 				6729FFF52553032900C83C71 /* libavutil.a in Frameworks */,
 				674D3D261C207C25000D632B /* libpthread.tbd in Frameworks */,
@@ -3636,7 +3634,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				CLASSPREFIX = xl;
-				LastUpgradeCheck = 2600;
+				LastUpgradeCheck = 2620;
 				ORGANIZATIONNAME = "Daniel Kulp";
 				TargetAttributes = {
 					678577AD272C735000E6E249 = {
@@ -4343,7 +4341,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4355,7 +4353,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4367,7 +4365,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4386,7 +4384,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREFIX_HEADER = "macOS-src/Prefix.pch";
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				OTHER_SWIFT_FLAGS = "-enable-experimental-feature Extern";
@@ -4410,7 +4408,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREFIX_HEADER = "macOS-src/Prefix.pch";
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_SWIFT_FLAGS = "-enable-experimental-feature Extern";
@@ -4433,7 +4431,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREFIX_HEADER = "macOS-src/Prefix.pch";
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_SWIFT_FLAGS = "-enable-experimental-feature Extern";
@@ -4735,6 +4733,7 @@
 					"$(inherited)",
 					dependencies/libdbg,
 				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 2026.00.0;
 				OTHER_CFLAGS = (
 					"$(inherited)",
@@ -4801,6 +4800,7 @@
 					dependencies/lib,
 					dependencies/libdbg,
 				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 2026.00.0;
 				OTHER_CFLAGS = (
 					"$(inherited)",
@@ -4996,6 +4996,7 @@
 					dependencies/lib,
 					dependencies/libdbg,
 				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 2026.00.0;
 				OTHER_CFLAGS = (
 					"$(inherited)",
