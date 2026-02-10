@@ -628,6 +628,13 @@
 /* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
+		671013292F391C0300E6B8EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 67A88A2626164C9B00BFCEC0;
+			remoteInfo = "xLights-macOSLib";
+		};
 		678577B7272C756100E6E249 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
@@ -3575,6 +3582,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				6710132A2F391C0300E6B8EC /* PBXTargetDependency */,
 			);
 			name = EffectComputeFunctions;
 			productName = EffectComputeFunctions;
@@ -3737,8 +3745,8 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# if the local artifacts are available, use them\n# env\n\nexport TAG=$(cat README.macOS | grep recurse-submodules | cut -d \"_\" -f 2 | cut -d \" \"  -f 1)\nexport OLDTAG=$(cat .CURTAG)\n\nif [ $TAG != $OLDTAG ]; then\n    rm -f dependencies\n    rm -rf xLights-macOS-dependencies*    \n    rm .CURTAG\nfi\n\nif [ -f dependencies/include/lualib.h ]; then \n    #link is already good\n    exit 0\nfi\n\nif [ -f /opt/local/include/lualib.h ]; then\n    rm -f dependencies\n    ln -sf /opt/local dependencies\n    exit 0\nfi\n\nrm -f dependencies\ncurl -L https://github.com/xLightsSequencer/xLights-macOS-dependencies/releases/download/xlights_${TAG}/xLights-macOS-dependencies.tar.zst --output xLights-macOS-dependencies.tar.zst\nPATH=$PATH:/opt/homebrew/bin\ntar -xzf xLights-macOS-dependencies.tar.zst\nmv xLights-macOS-dependencies xLights-macOS-dependencies-${TAG}\nln -sf xLights-macOS-dependencies-${TAG} dependencies\nrm -f xLights-macOS-dependencies.tar.zst\necho $TAG > .CURTAG\n";
+			shellPath = /bin/bash;
+			shellScript = "# if the local artifacts are available, use them\n# env\n\nexport TAG=$(cat README.macOS | grep recurse-submodules | cut -d \"_\" -f 2 | cut -d \" \"  -f 1)\nexport OLDTAG=$(cat .CURTAG)\n\necho \"Tag:  $TAG\"\necho \"Old Tag:  $OLDTAG\"\n\nif [ \"x$OLDTAG\" == \"x\" ]; then\n    OLDTAG=\"xxxxx\"\nfi\nif [ $TAG != $OLDTAG ]; then\n    rm -f dependencies\n    rm -rf xLights-macOS-dependencies*    \n    rm -f .CURTAG\nfi\n\nif [ -f dependencies/include/lualib.h ]; then \n    #link is already good\n    exit 0\nfi\n\nif [ -f /opt/local/include/lualib.h ]; then\n    rm -f dependencies\n    ln -sf /opt/local dependencies\n    exit 0\nfi\n\nrm -f dependencies\ncurl -L https://github.com/xLightsSequencer/xLights-macOS-dependencies/releases/download/xlights_${TAG}/xLights-macOS-dependencies.tar.zst --output xLights-macOS-dependencies.tar.zst\nPATH=$PATH:/opt/homebrew/bin\ntar -xzf xLights-macOS-dependencies.tar.zst\nmv xLights-macOS-dependencies xLights-macOS-dependencies-${TAG}\nln -sf xLights-macOS-dependencies-${TAG} dependencies\nrm -f xLights-macOS-dependencies.tar.zst\necho $TAG > .CURTAG\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -4320,6 +4328,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		6710132A2F391C0300E6B8EC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 67A88A2626164C9B00BFCEC0 /* xLights-macOSLib */;
+			targetProxy = 671013292F391C0300E6B8EC /* PBXContainerItemProxy */;
+		};
 		678577B8272C756100E6E249 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 678577AD272C735000E6E249 /* EffectComputeFunctions */;
@@ -4471,6 +4484,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = U8ZT9RPC6S;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
