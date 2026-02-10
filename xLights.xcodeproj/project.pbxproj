@@ -1895,13 +1895,6 @@
 			);
 			target = 67E7086C17B51AB400A22034 /* xLights */;
 		};
-		C471E2842F240C1F0063881B /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				XmlSerializeRgbEffects.cpp,
-			);
-			target = 67E7086C17B51AB400A22034 /* xLights */;
-		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
@@ -1921,7 +1914,7 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		67F18E292D330355005633FE /* ispc */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (67F18E422D330E1B005633FE /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 67F18E432D330E1B005633FE /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = ispc; sourceTree = "<group>"; };
 		67F7DB8A2D582A9D00921286 /* ai */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ai; sourceTree = "<group>"; };
-		C471E0212F1ED95A0063881B /* XmlSerializer */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (C471E2842F240C1F0063881B /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = XmlSerializer; sourceTree = "<group>"; };
+		C471E0212F1ED95A0063881B /* XmlSerializer */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = XmlSerializer; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
