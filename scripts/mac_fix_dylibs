@@ -31,10 +31,20 @@ cp $PROJECT_TEMP_ROOT/UninstalledProducts/macosx/*.metallib $TARGET_BUILD_DIR/$P
 
 
 if [ -f "$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/xLights.debug.dylib" ]; then
-    LIBS=`otool -L $TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/xLights.debug.dylib | grep opt/local | awk '{print $1}' | colrm 1 18`
+    SRCLOCATION=`otool -L $TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/xLights.debug.dylib | grep libwx_osx_cocoau_propgrid`
+    #echo $SRCLOCATION > /tmp/foo.txt
+    SRCLOCATION=${SRCLOCATION/\/libwx_osx_cocoau_propgrid*/}
+    #echo $SRCLOCATION >> /tmp/foo.txt
+    SRCINDEX=${#SRCLOCATION}
+    #echo $SRCINDEX >> /tmp/foo.txt
+    #SRCINDEX=$((SRCINDEX - 1))
+    #echo $SRCINDEX >> /tmp/foo.txt
+
+    LIBS=`otool -L $TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/xLights.debug.dylib | grep xLights-macOS-dependencies | awk '{print $1}' | colrm 1 ${SRCINDEX}`
+    echo $LIBS >> /tmp/foo.txt
     for LS in $LIBS
     do
-        install_name_tool -change /opt/local/libdbg/$LS @rpath/$LS  "$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/xLights.debug.dylib" 2> /dev/null
+       install_name_tool -change $SRCLOCATION/$LS @rpath/$LS  "$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/xLights.debug.dylib" 2> /dev/null
     done
     install_name_tool -add_rpath "${PROJECT_DIR}/dependencies/libdbg" "$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/xLights.debug.dylib" 2> /dev/null || true
 fi
