@@ -462,6 +462,7 @@
 		6716568C25D829B90041BB9A /* phoneme_mapping in Resources */ = {isa = PBXBuildFile; fileRef = 6716568825D829B90041BB9A /* phoneme_mapping */; };
 		6716568D25D829BA0041BB9A /* user_dictionary in Resources */ = {isa = PBXBuildFile; fileRef = 6716568925D829B90041BB9A /* user_dictionary */; };
 		671929CC2789DFA200C60464 /* LuaRunner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671929CA2789DFA200C60464 /* LuaRunner.cpp */; };
+		671FDE322F46508900F9AD8E /* ManageMediaPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671FDE312F46508900F9AD8E /* ManageMediaPanel.cpp */; };
 		67283815295E3CB900994782 /* DuplicateDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67283813295E3CB900994782 /* DuplicateDialog.cpp */; };
 		67290004255303D500C83C71 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67290003255303D500C83C71 /* VideoToolbox.framework */; };
 		672900082553040000C83C71 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B4C91F17B53D960006B951 /* CoreMedia.framework */; };
@@ -1578,6 +1579,8 @@
 		671929CB2789DFA200C60464 /* LuaRunner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaRunner.h; sourceTree = "<group>"; };
 		671C0BCC1C245E230098A48D /* libwx_osx_cocoau_qa-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_qa-3.3.dylib"; path = "/opt/local/libdbg/libwx_osx_cocoau_qa-3.3.dylib"; sourceTree = "<group>"; };
 		671E47FC2231CEC900049DC9 /* libcurl.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcurl.tbd; path = usr/lib/libcurl.tbd; sourceTree = SDKROOT; };
+		671FDE302F46506400F9AD8E /* ManageMediaPanel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ManageMediaPanel.h; sourceTree = "<group>"; };
+		671FDE312F46508900F9AD8E /* ManageMediaPanel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ManageMediaPanel.cpp; sourceTree = "<group>"; };
 		67283813295E3CB900994782 /* DuplicateDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DuplicateDialog.cpp; sourceTree = "<group>"; };
 		67283814295E3CB900994782 /* DuplicateDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DuplicateDialog.h; sourceTree = "<group>"; };
 		67290003255303D500C83C71 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
@@ -2191,6 +2194,8 @@
 				67164D9225D7CE6D0041BB9A /* LyricsDialog.cpp */,
 				67164D9B25D7CE6D0041BB9A /* LyricUserDictDialog.h */,
 				6716510525D7CE6F0041BB9A /* LyricUserDictDialog.cpp */,
+				671FDE302F46506400F9AD8E /* ManageMediaPanel.h */,
+				671FDE312F46508900F9AD8E /* ManageMediaPanel.cpp */,
 				67164BDA25D7CE6D0041BB9A /* MatrixFaceDownloadDialog.h */,
 				67164BE125D7CE6D0041BB9A /* MatrixFaceDownloadDialog.cpp */,
 				6716511525D7CE6F0041BB9A /* MediaImportOptionsDialog.h */,
@@ -4155,6 +4160,7 @@
 				53EB767E2719BAFE00ED8702 /* ExportSettings.cpp in Sources */,
 				671652B525D7CE710041BB9A /* RenderProgressDialog.cpp in Sources */,
 				671651FD25D7CE700041BB9A /* Effect.cpp in Sources */,
+				671FDE322F46508900F9AD8E /* ManageMediaPanel.cpp in Sources */,
 				67D7159727287CE800E5EDB5 /* xlMetalGraphicsContext.mm in Sources */,
 				6716537F25D7CE720041BB9A /* Minleon.cpp in Sources */,
 				671655B925D827100041BB9A /* PluginBufferingAdapter.cpp in Sources */,
