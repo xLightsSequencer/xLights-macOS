@@ -61,7 +61,6 @@
 		6716514225D7CE700041BB9A /* ExportModelSelect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C1325D7CE6D0041BB9A /* ExportModelSelect.cpp */; };
 		6716514325D7CE700041BB9A /* MusicXML.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C1425D7CE6D0041BB9A /* MusicXML.cpp */; };
 		6716514425D7CE700041BB9A /* GenerateLyricsDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C1625D7CE6D0041BB9A /* GenerateLyricsDialog.cpp */; };
-		6716514625D7CE700041BB9A /* PaletteMgmtDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C1A25D7CE6D0041BB9A /* PaletteMgmtDialog.cpp */; };
 		6716514725D7CE700041BB9A /* ControllerConnectionDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C1C25D7CE6D0041BB9A /* ControllerConnectionDialog.cpp */; };
 		6716514825D7CE700041BB9A /* xLightsApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C1D25D7CE6D0041BB9A /* xLightsApp.cpp */; };
 		6716514925D7CE700041BB9A /* xlSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C1E25D7CE6D0041BB9A /* xlSlider.cpp */; };
@@ -772,7 +771,6 @@
 		67164C1625D7CE6D0041BB9A /* GenerateLyricsDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GenerateLyricsDialog.cpp; sourceTree = "<group>"; };
 		67164C1725D7CE6D0041BB9A /* NoteImportDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteImportDialog.h; sourceTree = "<group>"; };
 		67164C1925D7CE6D0041BB9A /* UtilFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilFunctions.h; sourceTree = "<group>"; };
-		67164C1A25D7CE6D0041BB9A /* PaletteMgmtDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PaletteMgmtDialog.cpp; sourceTree = "<group>"; };
 		67164C1B25D7CE6D0041BB9A /* TopEffectsPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopEffectsPanel.h; sourceTree = "<group>"; };
 		67164C1C25D7CE6D0041BB9A /* ControllerConnectionDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ControllerConnectionDialog.cpp; sourceTree = "<group>"; };
 		67164C1D25D7CE6D0041BB9A /* xLightsApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xLightsApp.cpp; sourceTree = "<group>"; };
@@ -789,7 +787,6 @@
 		67164C2825D7CE6D0041BB9A /* SeqSettingsDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SeqSettingsDialog.cpp; sourceTree = "<group>"; };
 		67164C2A25D7CE6D0041BB9A /* ValueCurveButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ValueCurveButton.cpp; sourceTree = "<group>"; };
 		67164C2B25D7CE6D0041BB9A /* DragValueCurveBitmapButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DragValueCurveBitmapButton.cpp; sourceTree = "<group>"; };
-		67164C2D25D7CE6D0041BB9A /* PaletteMgmtDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaletteMgmtDialog.h; sourceTree = "<group>"; };
 		67164C2E25D7CE6D0041BB9A /* ViewsModelsPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewsModelsPanel.h; sourceTree = "<group>"; };
 		67164C2F25D7CE6D0041BB9A /* NodeSelectGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodeSelectGrid.h; sourceTree = "<group>"; };
 		67164C3E25D7CE6D0041BB9A /* ExternalHooks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExternalHooks.h; sourceTree = "<group>"; };
@@ -2246,8 +2243,6 @@
 				67164BC625D7CE6D0041BB9A /* OutputModelManager.h */,
 				67164C0E25D7CE6D0041BB9A /* OutputModelManager.cpp */,
 				671650B425D7CE6F0041BB9A /* outputs */,
-				67164C2D25D7CE6D0041BB9A /* PaletteMgmtDialog.h */,
-				67164C1A25D7CE6D0041BB9A /* PaletteMgmtDialog.cpp */,
 				671650B025D7CE6F0041BB9A /* Parallel.h */,
 				67164C2425D7CE6D0041BB9A /* Parallel.cpp */,
 				67164E0925D7CE6D0041BB9A /* PathGenerationDialog.h */,
@@ -3996,7 +3991,6 @@
 				6716535825D7CE720041BB9A /* ButterflyPanel.cpp in Sources */,
 				6716516225D7CE700041BB9A /* StartChannelDialog.cpp in Sources */,
 				671651DB25D7CE700041BB9A /* VectorMath.cpp in Sources */,
-				6716514625D7CE700041BB9A /* PaletteMgmtDialog.cpp in Sources */,
 				6716537B25D7CE720041BB9A /* FPP.cpp in Sources */,
 				673977882B2CC5DB00FF1B7A /* TempFileManager.cpp in Sources */,
 				6716538225D7CE720041BB9A /* PathGenerationDialog.cpp in Sources */,
