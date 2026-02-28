@@ -1926,13 +1926,6 @@
 			);
 			target = 67E7086C17B51AB400A22034 /* xLights */;
 		};
-		C471E5FD2F3BF81A0063881B /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				XmlSerializeRgbEffects.cpp,
-			);
-			target = 67E7086C17B51AB400A22034 /* xLights */;
-		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
@@ -1952,7 +1945,7 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		67F18E292D330355005633FE /* ispc */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (67F18E422D330E1B005633FE /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 67F18E432D330E1B005633FE /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = ispc; sourceTree = "<group>"; };
 		67F7DB8A2D582A9D00921286 /* ai */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ai; sourceTree = "<group>"; };
-		C471E0212F1ED95A0063881B /* XmlSerializer */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (C471E5FD2F3BF81A0063881B /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = XmlSerializer; sourceTree = "<group>"; };
+		C471E0212F1ED95A0063881B /* XmlSerializer */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = XmlSerializer; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -4217,7 +4210,6 @@
 				67D142BD275803100018A831 /* status.cpp in Sources */,
 				67D142BB275803100018A831 /* server.cpp in Sources */,
 				6741115F2F5358D000FB5CA1 /* MetalFanEffect.mm in Sources */,
-				6716519325D7CE700041BB9A /* DmxPanTiltAbility.cpp in Sources */,
 				6716554F25D8245E0041BB9A /* MidiMessage.cpp in Sources */,
 				6716520525D7CE700041BB9A /* MediaImportOptionsDialog.cpp in Sources */,
 				6716517625D7CE700041BB9A /* SeqFileUtilities.cpp in Sources */,
