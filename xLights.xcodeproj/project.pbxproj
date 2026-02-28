@@ -487,6 +487,8 @@
 		6741115B2F53549D00FB5CA1 /* MetalKaleidoscopeEffect.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6741115A2F5353EB00FB5CA1 /* MetalKaleidoscopeEffect.mm */; };
 		6741115D2F53589000FB5CA1 /* FanFunctions.metal in Sources */ = {isa = PBXBuildFile; fileRef = 6741115C2F53589000FB5CA1 /* FanFunctions.metal */; };
 		6741115F2F5358D000FB5CA1 /* MetalFanEffect.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6741115E2F5358C200FB5CA1 /* MetalFanEffect.mm */; };
+		674111612F535B4D00FB5CA1 /* SpiralsFunctions.metal in Sources */ = {isa = PBXBuildFile; fileRef = 674111602F535B4D00FB5CA1 /* SpiralsFunctions.metal */; };
+		674111632F535B7400FB5CA1 /* MetalSpiralsEffect.mm in Sources */ = {isa = PBXBuildFile; fileRef = 674111622F535B6C00FB5CA1 /* MetalSpiralsEffect.mm */; };
 		67418CDF286B292B00EA516E /* ModelRemap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67418CDD286B292A00EA516E /* ModelRemap.cpp */; };
 		674D3D221C207BCC000D632B /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D211C207BCC000D632B /* IOKit.framework */; };
 		674D3D241C207BD7000D632B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D231C207BD7000D632B /* AudioToolbox.framework */; };
@@ -1621,6 +1623,8 @@
 		6741115A2F5353EB00FB5CA1 /* MetalKaleidoscopeEffect.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalKaleidoscopeEffect.mm; sourceTree = "<group>"; };
 		6741115C2F53589000FB5CA1 /* FanFunctions.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = FanFunctions.metal; sourceTree = "<group>"; };
 		6741115E2F5358C200FB5CA1 /* MetalFanEffect.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalFanEffect.mm; sourceTree = "<group>"; };
+		674111602F535B4D00FB5CA1 /* SpiralsFunctions.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = SpiralsFunctions.metal; sourceTree = "<group>"; };
+		674111622F535B6C00FB5CA1 /* MetalSpiralsEffect.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalSpiralsEffect.mm; sourceTree = "<group>"; };
 		67418CDD286B292A00EA516E /* ModelRemap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModelRemap.cpp; sourceTree = "<group>"; };
 		67418CDE286B292A00EA516E /* ModelRemap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelRemap.h; sourceTree = "<group>"; };
 		674D3D1C1C207B9F000D632B /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -3277,6 +3281,8 @@
 				6741115A2F5353EB00FB5CA1 /* MetalKaleidoscopeEffect.mm */,
 				6741115C2F53589000FB5CA1 /* FanFunctions.metal */,
 				6741115E2F5358C200FB5CA1 /* MetalFanEffect.mm */,
+				674111602F535B4D00FB5CA1 /* SpiralsFunctions.metal */,
+				674111622F535B6C00FB5CA1 /* MetalSpiralsEffect.mm */,
 			);
 			path = metal;
 			sourceTree = "<group>";
@@ -3791,6 +3797,7 @@
 				6741115D2F53589000FB5CA1 /* FanFunctions.metal in Sources */,
 				674111592F5353C000FB5CA1 /* KaleidoscopeFunctions.metal in Sources */,
 				674DEE332791DE8E00DEA844 /* WarpFunctions.metal in Sources */,
+				674111612F535B4D00FB5CA1 /* SpiralsFunctions.metal in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4111,6 +4118,7 @@
 				6716515B25D7CE700041BB9A /* TabSequence.cpp in Sources */,
 				6787EAA1274FF60E00DAEE47 /* ScriptsDialog.cpp in Sources */,
 				671653AB25D7CE720041BB9A /* xLightsVersion.cpp in Sources */,
+				674111632F535B7400FB5CA1 /* MetalSpiralsEffect.mm in Sources */,
 				6716535C25D7CE720041BB9A /* FireworksEffect.cpp in Sources */,
 				6716532625D7CE710041BB9A /* TwinklePanel.cpp in Sources */,
 				671651FA25D7CE700041BB9A /* EffectLayer.cpp in Sources */,
