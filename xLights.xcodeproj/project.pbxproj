@@ -489,6 +489,12 @@
 		6741115F2F5358D000FB5CA1 /* MetalFanEffect.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6741115E2F5358C200FB5CA1 /* MetalFanEffect.mm */; };
 		674111612F535B4D00FB5CA1 /* SpiralsFunctions.metal in Sources */ = {isa = PBXBuildFile; fileRef = 674111602F535B4D00FB5CA1 /* SpiralsFunctions.metal */; };
 		674111632F535B7400FB5CA1 /* MetalSpiralsEffect.mm in Sources */ = {isa = PBXBuildFile; fileRef = 674111622F535B6C00FB5CA1 /* MetalSpiralsEffect.mm */; };
+		674111652F535CF700FB5CA1 /* ColorWashFunctions.metal in Sources */ = {isa = PBXBuildFile; fileRef = 674111642F535CF700FB5CA1 /* ColorWashFunctions.metal */; };
+		674111672F535D1300FB5CA1 /* BarsFunctions.metal in Sources */ = {isa = PBXBuildFile; fileRef = 674111662F535D1300FB5CA1 /* BarsFunctions.metal */; };
+		674111692F535D3100FB5CA1 /* MetalColorWashEffect.mm in Sources */ = {isa = PBXBuildFile; fileRef = 674111682F535D2A00FB5CA1 /* MetalColorWashEffect.mm */; };
+		6741116B2F535D7600FB5CA1 /* MetalBarsEffect.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6741116A2F535D4900FB5CA1 /* MetalBarsEffect.mm */; };
+		6741116D2F535E1E00FB5CA1 /* CirclesFunctions.metal in Sources */ = {isa = PBXBuildFile; fileRef = 6741116C2F535E1E00FB5CA1 /* CirclesFunctions.metal */; };
+		6741116F2F535F7C00FB5CA1 /* MetalCirclesEffect.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6741116E2F535E5200FB5CA1 /* MetalCirclesEffect.mm */; };
 		67418CDF286B292B00EA516E /* ModelRemap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67418CDD286B292A00EA516E /* ModelRemap.cpp */; };
 		674D3D221C207BCC000D632B /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D211C207BCC000D632B /* IOKit.framework */; };
 		674D3D241C207BD7000D632B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D231C207BD7000D632B /* AudioToolbox.framework */; };
@@ -1625,6 +1631,12 @@
 		6741115E2F5358C200FB5CA1 /* MetalFanEffect.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalFanEffect.mm; sourceTree = "<group>"; };
 		674111602F535B4D00FB5CA1 /* SpiralsFunctions.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = SpiralsFunctions.metal; sourceTree = "<group>"; };
 		674111622F535B6C00FB5CA1 /* MetalSpiralsEffect.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalSpiralsEffect.mm; sourceTree = "<group>"; };
+		674111642F535CF700FB5CA1 /* ColorWashFunctions.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = ColorWashFunctions.metal; sourceTree = "<group>"; };
+		674111662F535D1300FB5CA1 /* BarsFunctions.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = BarsFunctions.metal; sourceTree = "<group>"; };
+		674111682F535D2A00FB5CA1 /* MetalColorWashEffect.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalColorWashEffect.mm; sourceTree = "<group>"; };
+		6741116A2F535D4900FB5CA1 /* MetalBarsEffect.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalBarsEffect.mm; sourceTree = "<group>"; };
+		6741116C2F535E1E00FB5CA1 /* CirclesFunctions.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = CirclesFunctions.metal; sourceTree = "<group>"; };
+		6741116E2F535E5200FB5CA1 /* MetalCirclesEffect.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalCirclesEffect.mm; sourceTree = "<group>"; };
 		67418CDD286B292A00EA516E /* ModelRemap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModelRemap.cpp; sourceTree = "<group>"; };
 		67418CDE286B292A00EA516E /* ModelRemap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelRemap.h; sourceTree = "<group>"; };
 		674D3D1C1C207B9F000D632B /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -3283,6 +3295,12 @@
 				6741115E2F5358C200FB5CA1 /* MetalFanEffect.mm */,
 				674111602F535B4D00FB5CA1 /* SpiralsFunctions.metal */,
 				674111622F535B6C00FB5CA1 /* MetalSpiralsEffect.mm */,
+				674111642F535CF700FB5CA1 /* ColorWashFunctions.metal */,
+				674111662F535D1300FB5CA1 /* BarsFunctions.metal */,
+				674111682F535D2A00FB5CA1 /* MetalColorWashEffect.mm */,
+				6741116A2F535D4900FB5CA1 /* MetalBarsEffect.mm */,
+				6741116C2F535E1E00FB5CA1 /* CirclesFunctions.metal */,
+				6741116E2F535E5200FB5CA1 /* MetalCirclesEffect.mm */,
 			);
 			path = metal;
 			sourceTree = "<group>";
@@ -3791,6 +3809,8 @@
 				6767A0112BB739410034581D /* ShockwaveFunctions.metal in Sources */,
 				670260AC2902673700B9BD35 /* PlasmaFunctions.metal in Sources */,
 				6760F9342B39789600FD6B01 /* PinwheelFunctions.metal in Sources */,
+				674111652F535CF700FB5CA1 /* ColorWashFunctions.metal in Sources */,
+				674111672F535D1300FB5CA1 /* BarsFunctions.metal in Sources */,
 				67E4A02D2BB9CE9C0046341E /* TransitionFunctions.metal in Sources */,
 				67010954290A61B000F311A7 /* RotoZoomFunctions.metal in Sources */,
 				67824F7E2BBF48C600F6869F /* LayerBlendingFunctions.metal in Sources */,
@@ -3798,6 +3818,7 @@
 				674111592F5353C000FB5CA1 /* KaleidoscopeFunctions.metal in Sources */,
 				674DEE332791DE8E00DEA844 /* WarpFunctions.metal in Sources */,
 				674111612F535B4D00FB5CA1 /* SpiralsFunctions.metal in Sources */,
+				6741116D2F535E1E00FB5CA1 /* CirclesFunctions.metal in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3884,6 +3905,7 @@
 				6716514D25D7CE700041BB9A /* TopEffectsPanel.cpp in Sources */,
 				671653B125D7CE720041BB9A /* SubBufferPanel.cpp in Sources */,
 				671651D125D7CE700041BB9A /* ValueCurve.cpp in Sources */,
+				6741116F2F535F7C00FB5CA1 /* MetalCirclesEffect.mm in Sources */,
 				6716534625D7CE710041BB9A /* ShapeEffect.cpp in Sources */,
 				671202F92B1DB6F7002E763A /* EditAliasesDialog.cpp in Sources */,
 				6716535325D7CE710041BB9A /* ShaderEffect.cpp in Sources */,
@@ -4140,6 +4162,7 @@
 				671653A625D7CE720041BB9A /* RenardOutput.cpp in Sources */,
 				6716534825D7CE710041BB9A /* PicturesEffect.cpp in Sources */,
 				6776DF8A28609D29007573A6 /* TipOfTheDayDialog.cpp in Sources */,
+				674111692F535D3100FB5CA1 /* MetalColorWashEffect.mm in Sources */,
 				C40D87DC2B4B425A00A10AF8 /* MHColorWheelPanel.cpp in Sources */,
 				671655A125D825410041BB9A /* PluginHostAdapter.cpp in Sources */,
 				671651A525D7CE700041BB9A /* Node.cpp in Sources */,
@@ -4236,6 +4259,7 @@
 				670DA2BA2AB9DD9B00380ACE /* AutoLabelDialog.cpp in Sources */,
 				671651EA25D7CE700041BB9A /* ModelStateDialog.cpp in Sources */,
 				671651E725D7CE700041BB9A /* xlColorPicker.cpp in Sources */,
+				6741116B2F535D7600FB5CA1 /* MetalBarsEffect.mm in Sources */,
 				670059B5279A4403006AD9EA /* Mouse3DManager.cpp in Sources */,
 				6716539325D7CE720041BB9A /* xxxSerialOutput.cpp in Sources */,
 				C40D87EA2B4B428700A10AF8 /* MhChannel.cpp in Sources */,
