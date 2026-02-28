@@ -485,6 +485,8 @@
 		673B3D4E223BF203000F1D7E /* libcurl.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 671E47FC2231CEC900049DC9 /* libcurl.tbd */; };
 		674111592F5353C000FB5CA1 /* KaleidoscopeFunctions.metal in Sources */ = {isa = PBXBuildFile; fileRef = 674111582F5353C000FB5CA1 /* KaleidoscopeFunctions.metal */; };
 		6741115B2F53549D00FB5CA1 /* MetalKaleidoscopeEffect.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6741115A2F5353EB00FB5CA1 /* MetalKaleidoscopeEffect.mm */; };
+		6741115D2F53589000FB5CA1 /* FanFunctions.metal in Sources */ = {isa = PBXBuildFile; fileRef = 6741115C2F53589000FB5CA1 /* FanFunctions.metal */; };
+		6741115F2F5358D000FB5CA1 /* MetalFanEffect.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6741115E2F5358C200FB5CA1 /* MetalFanEffect.mm */; };
 		67418CDF286B292B00EA516E /* ModelRemap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67418CDD286B292A00EA516E /* ModelRemap.cpp */; };
 		674D3D221C207BCC000D632B /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D211C207BCC000D632B /* IOKit.framework */; };
 		674D3D241C207BD7000D632B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D231C207BD7000D632B /* AudioToolbox.framework */; };
@@ -1617,6 +1619,8 @@
 		673977872B2CC5DB00FF1B7A /* TempFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TempFileManager.h; sourceTree = "<group>"; };
 		674111582F5353C000FB5CA1 /* KaleidoscopeFunctions.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = KaleidoscopeFunctions.metal; sourceTree = "<group>"; };
 		6741115A2F5353EB00FB5CA1 /* MetalKaleidoscopeEffect.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalKaleidoscopeEffect.mm; sourceTree = "<group>"; };
+		6741115C2F53589000FB5CA1 /* FanFunctions.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = FanFunctions.metal; sourceTree = "<group>"; };
+		6741115E2F5358C200FB5CA1 /* MetalFanEffect.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalFanEffect.mm; sourceTree = "<group>"; };
 		67418CDD286B292A00EA516E /* ModelRemap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModelRemap.cpp; sourceTree = "<group>"; };
 		67418CDE286B292A00EA516E /* ModelRemap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelRemap.h; sourceTree = "<group>"; };
 		674D3D1C1C207B9F000D632B /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -3271,6 +3275,8 @@
 				670F3D122E00C24B00C26585 /* MetalCompute.swift */,
 				674111582F5353C000FB5CA1 /* KaleidoscopeFunctions.metal */,
 				6741115A2F5353EB00FB5CA1 /* MetalKaleidoscopeEffect.mm */,
+				6741115C2F53589000FB5CA1 /* FanFunctions.metal */,
+				6741115E2F5358C200FB5CA1 /* MetalFanEffect.mm */,
 			);
 			path = metal;
 			sourceTree = "<group>";
@@ -3782,6 +3788,7 @@
 				67E4A02D2BB9CE9C0046341E /* TransitionFunctions.metal in Sources */,
 				67010954290A61B000F311A7 /* RotoZoomFunctions.metal in Sources */,
 				67824F7E2BBF48C600F6869F /* LayerBlendingFunctions.metal in Sources */,
+				6741115D2F53589000FB5CA1 /* FanFunctions.metal in Sources */,
 				674111592F5353C000FB5CA1 /* KaleidoscopeFunctions.metal in Sources */,
 				674DEE332791DE8E00DEA844 /* WarpFunctions.metal in Sources */,
 			);
@@ -4184,6 +4191,7 @@
 				6716533125D7CE710041BB9A /* ShockwaveEffect.cpp in Sources */,
 				67D142BD275803100018A831 /* status.cpp in Sources */,
 				67D142BB275803100018A831 /* server.cpp in Sources */,
+				6741115F2F5358D000FB5CA1 /* MetalFanEffect.mm in Sources */,
 				6716519325D7CE700041BB9A /* DmxPanTiltAbility.cpp in Sources */,
 				671651AC25D7CE700041BB9A /* WholeHouseModel.cpp in Sources */,
 				6716554F25D8245E0041BB9A /* MidiMessage.cpp in Sources */,
