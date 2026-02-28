@@ -483,6 +483,8 @@
 		6735E1D629E1B7B700E339B0 /* GuitarEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6735E1D429E1B7B700E339B0 /* GuitarEffect.cpp */; };
 		673977882B2CC5DB00FF1B7A /* TempFileManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 673977862B2CC5DB00FF1B7A /* TempFileManager.cpp */; };
 		673B3D4E223BF203000F1D7E /* libcurl.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 671E47FC2231CEC900049DC9 /* libcurl.tbd */; };
+		674111592F5353C000FB5CA1 /* KaleidoscopeFunctions.metal in Sources */ = {isa = PBXBuildFile; fileRef = 674111582F5353C000FB5CA1 /* KaleidoscopeFunctions.metal */; };
+		6741115B2F53549D00FB5CA1 /* MetalKaleidoscopeEffect.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6741115A2F5353EB00FB5CA1 /* MetalKaleidoscopeEffect.mm */; };
 		67418CDF286B292B00EA516E /* ModelRemap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67418CDD286B292A00EA516E /* ModelRemap.cpp */; };
 		674D3D221C207BCC000D632B /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D211C207BCC000D632B /* IOKit.framework */; };
 		674D3D241C207BD7000D632B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D231C207BD7000D632B /* AudioToolbox.framework */; };
@@ -1613,6 +1615,8 @@
 		6735E1D429E1B7B700E339B0 /* GuitarEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GuitarEffect.cpp; sourceTree = "<group>"; };
 		673977862B2CC5DB00FF1B7A /* TempFileManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TempFileManager.cpp; sourceTree = "<group>"; };
 		673977872B2CC5DB00FF1B7A /* TempFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TempFileManager.h; sourceTree = "<group>"; };
+		674111582F5353C000FB5CA1 /* KaleidoscopeFunctions.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = KaleidoscopeFunctions.metal; sourceTree = "<group>"; };
+		6741115A2F5353EB00FB5CA1 /* MetalKaleidoscopeEffect.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalKaleidoscopeEffect.mm; sourceTree = "<group>"; };
 		67418CDD286B292A00EA516E /* ModelRemap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModelRemap.cpp; sourceTree = "<group>"; };
 		67418CDE286B292A00EA516E /* ModelRemap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelRemap.h; sourceTree = "<group>"; };
 		674D3D1C1C207B9F000D632B /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -3265,6 +3269,8 @@
 				67E4A02C2BB9CE9C0046341E /* TransitionFunctions.metal */,
 				67824F7D2BBF48C600F6869F /* LayerBlendingFunctions.metal */,
 				670F3D122E00C24B00C26585 /* MetalCompute.swift */,
+				674111582F5353C000FB5CA1 /* KaleidoscopeFunctions.metal */,
+				6741115A2F5353EB00FB5CA1 /* MetalKaleidoscopeEffect.mm */,
 			);
 			path = metal;
 			sourceTree = "<group>";
@@ -3776,6 +3782,7 @@
 				67E4A02D2BB9CE9C0046341E /* TransitionFunctions.metal in Sources */,
 				67010954290A61B000F311A7 /* RotoZoomFunctions.metal in Sources */,
 				67824F7E2BBF48C600F6869F /* LayerBlendingFunctions.metal in Sources */,
+				674111592F5353C000FB5CA1 /* KaleidoscopeFunctions.metal in Sources */,
 				674DEE332791DE8E00DEA844 /* WarpFunctions.metal in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4014,6 +4021,7 @@
 				671651D625D7CE700041BB9A /* VendorMusicDialog.cpp in Sources */,
 				671651B525D7CE700041BB9A /* RulerObject.cpp in Sources */,
 				671651B825D7CE700041BB9A /* ViewObjectManager.cpp in Sources */,
+				6741115B2F53549D00FB5CA1 /* MetalKaleidoscopeEffect.mm in Sources */,
 				6716531625D7CE710041BB9A /* VUMeterEffect.cpp in Sources */,
 				671653A425D7CE720041BB9A /* ControllerEthernet.cpp in Sources */,
 				6716538325D7CE720041BB9A /* CopyFormat1.cpp in Sources */,
