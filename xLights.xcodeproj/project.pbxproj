@@ -21,6 +21,7 @@
 		6703FE7627FDBE4400AFE78F /* SketchAssistPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6703FE7327FDBE4400AFE78F /* SketchAssistPanel.cpp */; };
 		6703FE7727FDBE4400AFE78F /* SketchCanvasPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6703FE7427FDBE4400AFE78F /* SketchCanvasPanel.cpp */; };
 		67061FD32746D5330020519D /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67061FD22746D5330020519D /* MetalPerformanceShaders.framework */; };
+		670726972F590F82000514B7 /* EffectPresetManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670726962F590F82000514B7 /* EffectPresetManager.cpp */; };
 		670DA2BA2AB9DD9B00380ACE /* AutoLabelDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670DA2B82AB9DD9B00380ACE /* AutoLabelDialog.cpp */; };
 		670F3D132E00C24B00C26585 /* MetalCompute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670F3D122E00C24B00C26585 /* MetalCompute.swift */; };
 		670F8DCA27652F5E002F0CD6 /* ModelIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 670F8DC927652F5E002F0CD6 /* ModelIO.framework */; };
@@ -689,6 +690,8 @@
 		6703FE7427FDBE4400AFE78F /* SketchCanvasPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SketchCanvasPanel.cpp; sourceTree = "<group>"; };
 		6703FE7527FDBE4400AFE78F /* SketchCanvasPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SketchCanvasPanel.h; sourceTree = "<group>"; };
 		67061FD22746D5330020519D /* MetalPerformanceShaders.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalPerformanceShaders.framework; path = System/Library/Frameworks/MetalPerformanceShaders.framework; sourceTree = SDKROOT; };
+		670726952F590F5A000514B7 /* EffectPresetManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EffectPresetManager.h; sourceTree = "<group>"; };
+		670726962F590F82000514B7 /* EffectPresetManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EffectPresetManager.cpp; sourceTree = "<group>"; };
 		670DA2B82AB9DD9B00380ACE /* AutoLabelDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AutoLabelDialog.cpp; sourceTree = "<group>"; };
 		670DA2B92AB9DD9B00380ACE /* AutoLabelDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoLabelDialog.h; sourceTree = "<group>"; };
 		670F3D122E00C24B00C26585 /* MetalCompute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalCompute.swift; sourceTree = "<group>"; };
@@ -2444,6 +2447,8 @@
 				67164D0E25D7CE6D0041BB9A /* xlSlider.h */,
 				67164C1E25D7CE6D0041BB9A /* xlSlider.cpp */,
 				7FB5CEDD27A27A2A007612B2 /* xlStackWalker.h */,
+				670726952F590F5A000514B7 /* EffectPresetManager.h */,
+				670726962F590F82000514B7 /* EffectPresetManager.cpp */,
 			);
 			name = xLights;
 			path = ../xLights;
@@ -4370,6 +4375,7 @@
 				C4C2CA3C2F58F8CD004F682E /* DisplayAsType.cpp in Sources */,
 				6716513F25D7CE700041BB9A /* OutputModelManager.cpp in Sources */,
 				671651FE25D7CE700041BB9A /* Waveform.cpp in Sources */,
+				670726972F590F82000514B7 /* EffectPresetManager.cpp in Sources */,
 				6716512D25D7CE700041BB9A /* LayoutGroup.cpp in Sources */,
 				6716532325D7CE710041BB9A /* ServoEffect.cpp in Sources */,
 				5326AEB92D191277001BB084 /* ShowFolderSearchDialog.cpp in Sources */,
