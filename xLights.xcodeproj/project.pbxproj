@@ -621,6 +621,7 @@
 		C40D87EB2B4B428700A10AF8 /* MhChannelDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40D87E72B4B428600A10AF8 /* MhChannelDialog.cpp */; };
 		C471E0202F1BD7FA0063881B /* DmxBeamAbility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C471E01F2F1BD7FA0063881B /* DmxBeamAbility.cpp */; };
 		C477311B2F02C615000B901E /* ControllerConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C477311A2F02C615000B901E /* ControllerConnection.cpp */; };
+		C4C2CA3C2F58F8CD004F682E /* DisplayAsType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C4C2CA3B2F58F8CD004F682E /* DisplayAsType.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -1912,6 +1913,8 @@
 		C471E01F2F1BD7FA0063881B /* DmxBeamAbility.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DmxBeamAbility.cpp; sourceTree = "<group>"; };
 		C47731192F02C615000B901E /* ControllerConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ControllerConnection.h; sourceTree = "<group>"; };
 		C477311A2F02C615000B901E /* ControllerConnection.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ControllerConnection.cpp; sourceTree = "<group>"; };
+		C4C2CA3A2F58F8B9004F682E /* DisplayAsType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DisplayAsType.h; sourceTree = "<group>"; };
+		C4C2CA3B2F58F8CD004F682E /* DisplayAsType.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DisplayAsType.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -2560,6 +2563,8 @@
 				67164CA425D7CE6D0041BB9A /* WreathModel.cpp */,
 				67164CDF25D7CE6D0041BB9A /* WreathModel.h */,
 				C413A3CE2BBF466B001AF90B /* BaseObjectVisitor.h */,
+				C4C2CA3A2F58F8B9004F682E /* DisplayAsType.h */,
+				C4C2CA3B2F58F8CD004F682E /* DisplayAsType.cpp */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -4362,6 +4367,7 @@
 				6716535725D7CE720041BB9A /* GarlandsPanel.cpp in Sources */,
 				6716533A25D7CE710041BB9A /* DMXEffect.cpp in Sources */,
 				677932E927D30D8F008FEEBE /* ThreePointScreenLocation.cpp in Sources */,
+				C4C2CA3C2F58F8CD004F682E /* DisplayAsType.cpp in Sources */,
 				6716513F25D7CE700041BB9A /* OutputModelManager.cpp in Sources */,
 				671651FE25D7CE700041BB9A /* Waveform.cpp in Sources */,
 				6716512D25D7CE700041BB9A /* LayoutGroup.cpp in Sources */,
