@@ -2,8 +2,8 @@
 
 #include <functional>
 
-#include "../../xLights-macOSLib.build/DerivedSources/xLights_macOSLib-Swift.h"
 #include <wx/osx/core/private.h>
+#include "../../xLights-macOSLib.build/DerivedSources/xLights_macOSLib-Swift.h"
 
 class wxGLCanvas;
 class wxWindow;
@@ -59,13 +59,7 @@ inline bool hasFullDiskAccess() {
 void AddAudioDeviceChangeListener(std::function<void()> &&callback);
 void RemoveAudioDeviceChangeListener();
 
-inline void AdjustColorToDeviceColorspace(const wxColor &c, uint8_t &r, uint8_t &g, uint8_t &b, uint8_t &a) {
-    uint32_t ret = xLights_macOSLib::adjustColorToDeviceColorspace(c.OSXGetNSColor());
-    a = (ret >> 24) & 0xFF;
-    r = (ret >> 16) & 0xFF;
-    g = (ret >> 8) & 0xFF;
-    b = ret & 0xFF;
-}
+void AdjustColorToDeviceColorspace(const wxColor &c, uint8_t &r, uint8_t &g, uint8_t &b, uint8_t &a);
 
 inline bool IsFromAppStore() {
     return xLights_macOSLib::isFromAppStore();
@@ -95,9 +89,7 @@ inline void WXGLUnsetCurrentContext() {
 
 void SetThreadQOS(int i);
 
-inline void SetButtonBackground(wxButton *b, const wxColour &c, int bgType = 0) {
-    xLights_macOSLib::setButtonBackground((NSButton*)(b->GetHandle()), c.OSXGetNSColor(), c == wxTransparentColor, bgType);
-}
+void SetButtonBackground(wxButton *b, const wxColour &c, int bgType = 0);
 
 
 

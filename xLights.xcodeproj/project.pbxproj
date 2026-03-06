@@ -596,6 +596,7 @@
 		67E832C6292D242400F80E3B /* BulkEditComboDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E832C4292D242400F80E3B /* BulkEditComboDialog.cpp */; };
 		67EC04DF26456A7500A3AFA2 /* WLED.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67EC04DD26456A7500A3AFA2 /* WLED.cpp */; };
 		67F7DB852D58291B00921286 /* prompts in Resources */ = {isa = PBXBuildFile; fileRef = 67F7DB842D58291B00921286 /* prompts */; };
+		67F8492A2F5A5490005D144E /* ExternalHooksMacOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67F849292F5A5490005D144E /* ExternalHooksMacOS.mm */; };
 		67F9B092272899080005A74B /* MetalShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 67F9B091272899080005A74B /* MetalShaders.metal */; };
 		67FD63522D5884FC004547FF /* CheckSequenceReport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67FD63512D5884FC004547FF /* CheckSequenceReport.cpp */; };
 		67FD63542D588527004547FF /* resources in Resources */ = {isa = PBXBuildFile; fileRef = 67FD63532D588527004547FF /* resources */; };
@@ -1863,6 +1864,7 @@
 		67F23F731E329DDC00F8B985 /* libwx_osx_cocoau_propgrid-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_propgrid-3.3.dylib"; path = "../../../../opt/local/libdbg/libwx_osx_cocoau_propgrid-3.3.dylib"; sourceTree = "<group>"; };
 		67F23F741E329DDC00F8B985 /* libwx_osx_cocoau_qa-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_qa-3.3.dylib"; path = "../../../../opt/local/libdbg/libwx_osx_cocoau_qa-3.3.dylib"; sourceTree = "<group>"; };
 		67F7DB842D58291B00921286 /* prompts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = prompts; path = ../prompts; sourceTree = "<group>"; };
+		67F849292F5A5490005D144E /* ExternalHooksMacOS.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ExternalHooksMacOS.mm; sourceTree = "<group>"; };
 		67F9B091272899080005A74B /* MetalShaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = MetalShaders.metal; sourceTree = "<group>"; };
 		67FD63502D5884FC004547FF /* CheckSequenceReport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckSequenceReport.h; sourceTree = "<group>"; };
 		67FD63512D5884FC004547FF /* CheckSequenceReport.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CheckSequenceReport.cpp; sourceTree = "<group>"; };
@@ -3229,6 +3231,7 @@
 				67BE0DFF2728230C00558A3A /* wxMetalCanvas.mm */,
 				67BE0E002728230C00558A3A /* wxMetalCanvas.hpp */,
 				67B72BC32E0081E5004515D9 /* xlMacUtilsCpp.cpp */,
+				67F849292F5A5490005D144E /* ExternalHooksMacOS.mm */,
 			);
 			path = osxUtils;
 			sourceTree = "<group>";
@@ -3832,6 +3835,7 @@
 				67A88A4426164CAE00BFCEC0 /* osxInAppPurchases.mm in Sources */,
 				67C1C8E22DFE955300932259 /* xlMacUtils.swift in Sources */,
 				6786706D27296B4000A5375D /* SIMDMathUtilities.cpp in Sources */,
+				67F8492A2F5A5490005D144E /* ExternalHooksMacOS.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
