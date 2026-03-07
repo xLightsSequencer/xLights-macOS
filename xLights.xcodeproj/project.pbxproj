@@ -1824,6 +1824,7 @@
 		67D142B5275803100018A831 /* request.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = request.cpp; path = ../xSchedule/wxHTTPServer/request.cpp; sourceTree = "<group>"; };
 		67D142B6275803100018A831 /* message.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = message.cpp; path = ../xSchedule/wxHTTPServer/message.cpp; sourceTree = "<group>"; };
 		67D142B7275803100018A831 /* response.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = response.cpp; path = ../xSchedule/wxHTTPServer/response.cpp; sourceTree = "<group>"; };
+		67D39A182F5C145C00CEB465 /* CLAUDE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = CLAUDE.md; path = ../CLAUDE.md; sourceTree = SOURCE_ROOT; };
 		67D53D932A82887500ABF6F6 /* FPPUploadProgressDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FPPUploadProgressDialog.cpp; sourceTree = "<group>"; };
 		67D53D942A82887600ABF6F6 /* FPPUploadProgressDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPPUploadProgressDialog.h; sourceTree = "<group>"; };
 		67D7159327287CE700E5EDB5 /* xlMetalGraphicsContext.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = xlMetalGraphicsContext.mm; sourceTree = "<group>"; };
@@ -3453,6 +3454,7 @@
 		67E7086417B51AB400A22034 = {
 			isa = PBXGroup;
 			children = (
+				67D39A182F5C145C00CEB465 /* CLAUDE.md */,
 				67D142D627580EEE0018A831 /* xFade */,
 				67710569267BB903001DA926 /* xCapture */,
 				67164BB125D7CD190041BB9A /* Assets */,
