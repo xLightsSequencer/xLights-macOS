@@ -3,6 +3,8 @@
 #include <functional>
 
 #include <wx/osx/core/private.h>
+#include <wx/filename.h>
+
 #include "../../xLights-macOSLib.build/DerivedSources/xLights_macOSLib-Swift.h"
 
 class wxGLCanvas;
