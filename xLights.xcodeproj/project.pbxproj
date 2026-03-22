@@ -52,8 +52,7 @@
 		6716514D25D7CE700041BB9A /* TopEffectsPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C2625D7CE6D0041BB9A /* TopEffectsPanel.cpp */; };
 		6716514E25D7CE700041BB9A /* EffectTimingDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C2725D7CE6D0041BB9A /* EffectTimingDialog.cpp */; };
 		6716514F25D7CE700041BB9A /* SeqSettingsDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C2825D7CE6D0041BB9A /* SeqSettingsDialog.cpp */; };
-		6716515025D7CE700041BB9A /* ValueCurveButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C2A25D7CE6D0041BB9A /* ValueCurveButton.cpp */; };
-		6716515125D7CE700041BB9A /* DragValueCurveBitmapButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C2B25D7CE6D0041BB9A /* DragValueCurveBitmapButton.cpp */; };
+
 		6716515A25D7CE700041BB9A /* BatchRenderDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C4025D7CE6D0041BB9A /* BatchRenderDialog.cpp */; };
 		6716515B25D7CE700041BB9A /* TabSequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C4125D7CE6D0041BB9A /* TabSequence.cpp */; };
 		6716515E25D7CE700041BB9A /* BulkEditControls.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C4625D7CE6D0041BB9A /* BulkEditControls.cpp */; };
@@ -77,7 +76,7 @@
 		6716517625D7CE700041BB9A /* SeqFileUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C7525D7CE6D0041BB9A /* SeqFileUtilities.cpp */; };
 		6716517825D7CE700041BB9A /* ColorPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C7B25D7CE6D0041BB9A /* ColorPanel.cpp */; };
 		6716517925D7CE700041BB9A /* UtilFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C7C25D7CE6D0041BB9A /* UtilFunctions.cpp */; };
-		6716517A25D7CE700041BB9A /* ValueCurveDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C7D25D7CE6D0041BB9A /* ValueCurveDialog.cpp */; };
+
 		6716517B25D7CE700041BB9A /* SevenSegmentDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C7E25D7CE6D0041BB9A /* SevenSegmentDialog.cpp */; };
 		6716517C25D7CE700041BB9A /* ViewpointDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C7F25D7CE6D0041BB9A /* ViewpointDialog.cpp */; };
 		6716517D25D7CE700041BB9A /* BulkEditColourPickerDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C8125D7CE6D0041BB9A /* BulkEditColourPickerDialog.cpp */; };
@@ -107,7 +106,7 @@
 		671651CE25D7CE700041BB9A /* VsaImportDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164D1B25D7CE6D0041BB9A /* VsaImportDialog.cpp */; };
 		671651CF25D7CE700041BB9A /* ViewsModelsPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164D1C25D7CE6D0041BB9A /* ViewsModelsPanel.cpp */; };
 		671651D025D7CE700041BB9A /* LyricsDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164D9225D7CE6D0041BB9A /* LyricsDialog.cpp */; };
-		671651D125D7CE700041BB9A /* ValueCurve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164D9325D7CE6D0041BB9A /* ValueCurve.cpp */; };
+
 		671651D225D7CE700041BB9A /* PixelTestDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164D9425D7CE6D0041BB9A /* PixelTestDialog.cpp */; };
 		671651D325D7CE700041BB9A /* GenerateCustomModelDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164D9A25D7CE6D0041BB9A /* GenerateCustomModelDialog.cpp */; };
 		671651D425D7CE700041BB9A /* NodeSelectGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164D9D25D7CE6D0041BB9A /* NodeSelectGrid.cpp */; };
@@ -119,7 +118,7 @@
 		671651E125D7CE700041BB9A /* PreviewPane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164DFA25D7CE6D0041BB9A /* PreviewPane.cpp */; };
 		671651E625D7CE700041BB9A /* ModelFaceDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164E0125D7CE6D0041BB9A /* ModelFaceDialog.cpp */; };
 		671651E725D7CE700041BB9A /* xlColorPicker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164E0225D7CE6D0041BB9A /* xlColorPicker.cpp */; };
-		671651E825D7CE700041BB9A /* ValueCurvesPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164E0325D7CE6D0041BB9A /* ValueCurvesPanel.cpp */; };
+
 		671651E925D7CE700041BB9A /* BufferPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164E0425D7CE6D0041BB9A /* BufferPanel.cpp */; };
 		671651EA25D7CE700041BB9A /* ModelStateDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164E0525D7CE6D0041BB9A /* ModelStateDialog.cpp */; };
 		671651EB25D7CE700041BB9A /* UpdaterDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164E0825D7CE6D0041BB9A /* UpdaterDialog.cpp */; };
@@ -435,7 +434,7 @@
 		67164BE325D7CE6D0041BB9A /* ColorCurve.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ColorCurve.cpp; sourceTree = "<group>"; };
 		67164BE425D7CE6D0041BB9A /* EffectsPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EffectsPanel.h; sourceTree = "<group>"; };
 		67164BE525D7CE6D0041BB9A /* UpdaterDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdaterDialog.h; sourceTree = "<group>"; };
-		67164BE625D7CE6D0041BB9A /* ValueCurve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValueCurve.h; sourceTree = "<group>"; };
+
 		67164BE725D7CE6D0041BB9A /* KeyBindingEditDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyBindingEditDialog.h; sourceTree = "<group>"; };
 		67164BE925D7CE6D0041BB9A /* ColorCurve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorCurve.h; sourceTree = "<group>"; };
 		67164BEA25D7CE6D0041BB9A /* LayoutGroup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LayoutGroup.cpp; sourceTree = "<group>"; };
@@ -447,7 +446,7 @@
 		67164C0225D7CE6D0041BB9A /* CheckboxSelectDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckboxSelectDialog.h; sourceTree = "<group>"; };
 		67164C0325D7CE6D0041BB9A /* Discovery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Discovery.h; sourceTree = "<group>"; };
 		67164C0425D7CE6D0041BB9A /* SelectTimingsDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectTimingsDialog.h; sourceTree = "<group>"; };
-		67164C0525D7CE6D0041BB9A /* ValueCurveButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValueCurveButton.h; sourceTree = "<group>"; };
+
 		67164C0625D7CE6D0041BB9A /* xLightsMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xLightsMain.h; sourceTree = "<group>"; };
 		67164C0725D7CE6D0041BB9A /* NoteImportDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NoteImportDialog.cpp; sourceTree = "<group>"; };
 		67164C0825D7CE6D0041BB9A /* IPEntryDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IPEntryDialog.cpp; sourceTree = "<group>"; };
@@ -480,8 +479,7 @@
 		67164C2625D7CE6D0041BB9A /* TopEffectsPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TopEffectsPanel.cpp; sourceTree = "<group>"; };
 		67164C2725D7CE6D0041BB9A /* EffectTimingDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EffectTimingDialog.cpp; sourceTree = "<group>"; };
 		67164C2825D7CE6D0041BB9A /* SeqSettingsDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SeqSettingsDialog.cpp; sourceTree = "<group>"; };
-		67164C2A25D7CE6D0041BB9A /* ValueCurveButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ValueCurveButton.cpp; sourceTree = "<group>"; };
-		67164C2B25D7CE6D0041BB9A /* DragValueCurveBitmapButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DragValueCurveBitmapButton.cpp; sourceTree = "<group>"; };
+
 		67164C2E25D7CE6D0041BB9A /* ViewsModelsPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewsModelsPanel.h; sourceTree = "<group>"; };
 		67164C2F25D7CE6D0041BB9A /* NodeSelectGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodeSelectGrid.h; sourceTree = "<group>"; };
 		67164C3E25D7CE6D0041BB9A /* ExternalHooks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExternalHooks.h; sourceTree = "<group>"; };
@@ -532,10 +530,10 @@
 		67164C7725D7CE6D0041BB9A /* SubModelsDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubModelsDialog.h; sourceTree = "<group>"; };
 		67164C7825D7CE6D0041BB9A /* wxCheckedListCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wxCheckedListCtrl.h; sourceTree = "<group>"; };
 		67164C7925D7CE6D0041BB9A /* ExportModelSelect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExportModelSelect.h; sourceTree = "<group>"; };
-		67164C7A25D7CE6D0041BB9A /* DragValueCurveBitmapButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DragValueCurveBitmapButton.h; sourceTree = "<group>"; };
+
 		67164C7B25D7CE6D0041BB9A /* ColorPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ColorPanel.cpp; sourceTree = "<group>"; };
 		67164C7C25D7CE6D0041BB9A /* UtilFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UtilFunctions.cpp; sourceTree = "<group>"; };
-		67164C7D25D7CE6D0041BB9A /* ValueCurveDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ValueCurveDialog.cpp; sourceTree = "<group>"; };
+
 		67164C7E25D7CE6D0041BB9A /* SevenSegmentDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SevenSegmentDialog.cpp; sourceTree = "<group>"; };
 		67164C7F25D7CE6D0041BB9A /* ViewpointDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ViewpointDialog.cpp; sourceTree = "<group>"; };
 		67164C8025D7CE6D0041BB9A /* xlColorPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xlColorPicker.h; sourceTree = "<group>"; };
@@ -584,12 +582,12 @@
 		67164D1D25D7CE6D0041BB9A /* GenerateCustomModelDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenerateCustomModelDialog.h; sourceTree = "<group>"; };
 		67164D9125D7CE6D0041BB9A /* StartChannelDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartChannelDialog.h; sourceTree = "<group>"; };
 		67164D9225D7CE6D0041BB9A /* LyricsDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LyricsDialog.cpp; sourceTree = "<group>"; };
-		67164D9325D7CE6D0041BB9A /* ValueCurve.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ValueCurve.cpp; sourceTree = "<group>"; };
+
 		67164D9425D7CE6D0041BB9A /* PixelTestDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PixelTestDialog.cpp; sourceTree = "<group>"; };
 		67164D9525D7CE6D0041BB9A /* VendorModelDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VendorModelDialog.h; sourceTree = "<group>"; };
 		67164D9625D7CE6D0041BB9A /* VideoReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoReader.h; sourceTree = "<group>"; };
 		67164D9725D7CE6D0041BB9A /* NoteRangeDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteRangeDialog.h; sourceTree = "<group>"; };
-		67164D9825D7CE6D0041BB9A /* ValueCurveDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValueCurveDialog.h; sourceTree = "<group>"; };
+
 		67164D9925D7CE6D0041BB9A /* xlGridCanvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xlGridCanvas.h; sourceTree = "<group>"; };
 		67164D9A25D7CE6D0041BB9A /* GenerateCustomModelDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GenerateCustomModelDialog.cpp; sourceTree = "<group>"; };
 		67164D9B25D7CE6D0041BB9A /* LyricUserDictDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyricUserDictDialog.h; sourceTree = "<group>"; };
@@ -613,7 +611,7 @@
 		67164E0025D7CE6D0041BB9A /* FontManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontManager.h; sourceTree = "<group>"; };
 		67164E0125D7CE6D0041BB9A /* ModelFaceDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModelFaceDialog.cpp; sourceTree = "<group>"; };
 		67164E0225D7CE6D0041BB9A /* xlColorPicker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xlColorPicker.cpp; sourceTree = "<group>"; };
-		67164E0325D7CE6D0041BB9A /* ValueCurvesPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ValueCurvesPanel.cpp; sourceTree = "<group>"; };
+
 		67164E0425D7CE6D0041BB9A /* BufferPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BufferPanel.cpp; sourceTree = "<group>"; };
 		67164E0525D7CE6D0041BB9A /* ModelStateDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModelStateDialog.cpp; sourceTree = "<group>"; };
 		67164E0625D7CE6D0041BB9A /* ColorCurveDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorCurveDialog.h; sourceTree = "<group>"; };
@@ -626,7 +624,7 @@
 		67164E0D25D7CE6E0041BB9A /* SuperStarImportDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperStarImportDialog.h; sourceTree = "<group>"; };
 		67164E3E25D7CE6E0041BB9A /* VideoExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoExporter.h; sourceTree = "<group>"; };
 		67164E3F25D7CE6E0041BB9A /* MediaImportOptionsDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MediaImportOptionsDialog.cpp; sourceTree = "<group>"; };
-		67164E4025D7CE6E0041BB9A /* ValueCurvesPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValueCurvesPanel.h; sourceTree = "<group>"; };
+
 		67164E4125D7CE6E0041BB9A /* OptionChooser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OptionChooser.cpp; sourceTree = "<group>"; };
 		67164E4225D7CE6E0041BB9A /* ModelGroupPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModelGroupPanel.cpp; sourceTree = "<group>"; };
 		67164E4325D7CE6E0041BB9A /* Images_png.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Images_png.h; sourceTree = "<group>"; };
@@ -1523,8 +1521,7 @@
 				67164E0A25D7CE6D0041BB9A /* DissolveTransitionPattern.cpp */,
 				67164D9C25D7CE6D0041BB9A /* DragColoursBitmapButton.h */,
 				671650F825D7CE6F0041BB9A /* DragColoursBitmapButton.cpp */,
-				67164C7A25D7CE6D0041BB9A /* DragValueCurveBitmapButton.h */,
-				67164C2B25D7CE6D0041BB9A /* DragValueCurveBitmapButton.cpp */,
+
 				67283814295E3CB900994782 /* DuplicateDialog.h */,
 				67283813295E3CB900994782 /* DuplicateDialog.cpp */,
 				671202F82B1DB6F7002E763A /* EditAliasesDialog.h */,
@@ -1755,14 +1752,7 @@
 				67164C1925D7CE6D0041BB9A /* UtilFunctions.h */,
 				67164C7C25D7CE6D0041BB9A /* UtilFunctions.cpp */,
 				675A504C29523DFE000D038D /* utils */,
-				67164BE625D7CE6D0041BB9A /* ValueCurve.h */,
-				67164D9325D7CE6D0041BB9A /* ValueCurve.cpp */,
-				67164C0525D7CE6D0041BB9A /* ValueCurveButton.h */,
-				67164C2A25D7CE6D0041BB9A /* ValueCurveButton.cpp */,
-				67164D9825D7CE6D0041BB9A /* ValueCurveDialog.h */,
-				67164C7D25D7CE6D0041BB9A /* ValueCurveDialog.cpp */,
-				67164E4025D7CE6E0041BB9A /* ValueCurvesPanel.h */,
-				67164E0325D7CE6D0041BB9A /* ValueCurvesPanel.cpp */,
+
 				67164C4225D7CE6D0041BB9A /* VAMPPluginDialog.h */,
 				67164C5525D7CE6D0041BB9A /* VAMPPluginDialog.cpp */,
 				67164D9525D7CE6D0041BB9A /* VendorModelDialog.h */,
@@ -2596,7 +2586,7 @@
 				6716553625D823C60041BB9A /* jsonwriter.cpp in Sources */,
 				6716514D25D7CE700041BB9A /* TopEffectsPanel.cpp in Sources */,
 				671653B125D7CE720041BB9A /* SubBufferPanel.cpp in Sources */,
-				671651D125D7CE700041BB9A /* ValueCurve.cpp in Sources */,
+
 				671202F92B1DB6F7002E763A /* EditAliasesDialog.cpp in Sources */,
 				671651D025D7CE700041BB9A /* LyricsDialog.cpp in Sources */,
 				6716516425D7CE700041BB9A /* AboutDialog.cpp in Sources */,
@@ -2647,7 +2637,7 @@
 				6716520825D7CE700041BB9A /* CustomModelDialog.cpp in Sources */,
 				6716514925D7CE700041BB9A /* xlSlider.cpp in Sources */,
 				6716518425D7CE700041BB9A /* CheckboxSelectDialog.cpp in Sources */,
-				6716517A25D7CE700041BB9A /* ValueCurveDialog.cpp in Sources */,
+
 				671655D325D827650041BB9A /* kiss_fftnd.c in Sources */,
 				67ABBBC929884BAB004BB143 /* Curl.cpp in Sources */,
 				671652CE25D7CE710041BB9A /* SequenceData.cpp in Sources */,
@@ -2775,7 +2765,7 @@
 				67418CDF286B292B00EA516E /* ModelRemap.cpp in Sources */,
 				6716516D25D7CE700041BB9A /* xLightsXmlFile.cpp in Sources */,
 				6716513A25D7CE700041BB9A /* NoteImportDialog.cpp in Sources */,
-				6716515125D7CE700041BB9A /* DragValueCurveBitmapButton.cpp in Sources */,
+
 				6716539625D7CE720041BB9A /* Output.cpp in Sources */,
 				671651C925D7CE700041BB9A /* OpenGLShaders.cpp in Sources */,
 				671653B325D7CE720041BB9A /* JukeboxPanel.cpp in Sources */,
@@ -2786,7 +2776,7 @@
 				671651DF25D7CE700041BB9A /* ViewpointMgr.cpp in Sources */,
 				671651BD25D7CE700041BB9A /* xLightsMain.cpp in Sources */,
 				67FDC38A27CA76F40009A3C7 /* ColourReplaceDialog.cpp in Sources */,
-				6716515025D7CE700041BB9A /* ValueCurveButton.cpp in Sources */,
+
 				6716555125D8245E0041BB9A /* MidiEvent.cpp in Sources */,
 				671655A325D825410041BB9A /* PluginSummarisingAdapter.cpp in Sources */,
 				6716515F25D7CE700041BB9A /* xLightsImportChannelMapDialog.cpp in Sources */,
@@ -2799,7 +2789,7 @@
 				6716512425D7CE700041BB9A /* LinkJukeboxButtonDialog.cpp in Sources */,
 				6716555025D8245E0041BB9A /* Binasc.cpp in Sources */,
 				671653AC25D7CE720041BB9A /* DragColoursBitmapButton.cpp in Sources */,
-				671651E825D7CE700041BB9A /* ValueCurvesPanel.cpp in Sources */,
+
 				6794AB3928C7DDAE00B12D0F /* UtilClasses.cpp in Sources */,
 				6716514E25D7CE700041BB9A /* EffectTimingDialog.cpp in Sources */,
 				671653AF25D7CE720041BB9A /* LyricUserDictDialog.cpp in Sources */,
