@@ -8,8 +8,6 @@
 #include <mutex>
 #include <thread>
 
-#include <log4cpp/Category.hh>
-
 #include <wx/wx.h>
 #include <wx/config.h>
 #include <wx/dir.h>

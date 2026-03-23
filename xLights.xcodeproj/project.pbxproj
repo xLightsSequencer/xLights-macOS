@@ -3009,6 +3009,7 @@
 					"macOS-src",
 					../dependencies,
 					../dependencies/pugixml/src,
+					../dependencies/spdlog/include,
 					"$(DERIVED_SOURCES_DIR)",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
@@ -3131,6 +3132,7 @@
 					"macOS-src",
 					../dependencies,
 					../dependencies/pugixml/src,
+					../dependencies/spdlog/include,
 					"$(DERIVED_SOURCES_DIR)",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
@@ -3229,6 +3231,7 @@
 					"macOS-src",
 					../dependencies,
 					../dependencies/pugixml/src,
+					../dependencies/spdlog/include,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Assets/xLights/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
@@ -3298,6 +3301,7 @@
 					"macOS-src",
 					../dependencies,
 					../dependencies/pugixml/src,
+					../dependencies/spdlog/include,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Assets/xLights/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
@@ -3399,6 +3403,7 @@
 					"macOS-src",
 					../dependencies,
 					../dependencies/pugixml/src,
+					../dependencies/spdlog/include,
 					"$(DERIVED_SOURCES_DIR)",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
@@ -3499,6 +3504,7 @@
 					"macOS-src",
 					../dependencies,
 					../dependencies/pugixml/src,
+					../dependencies/spdlog/include,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Assets/xLights/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";

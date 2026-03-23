@@ -6,7 +6,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#include <log4cpp/Category.hh>
+#include <log.h>
 
 #include "wxMetalCanvas.hpp"
 
@@ -253,7 +253,6 @@ id<MTLRenderPipelineState> wxMetalCanvas::getPipelineState(const std::string &n,
     auto &a = is3d ? (blending ? BLENDED_PIPELINE_STATES_3D[name] : PIPELINE_STATES_3D[name])
                 : (blending ? BLENDED_PIPELINE_STATES_2D[name] : PIPELINE_STATES_2D[name]);
     if (a.state == nil) {
-        static log4cpp::Category& logger_base = log4cpp::Category::getInstance(std::string("log_base"));
         if (MTL_DEFAULT_LIBRARY == nil) {
             MTL_DEFAULT_LIBRARY = [MTL_DEVICE newDefaultLibrary];
         }
@@ -337,7 +336,7 @@ id<MTLRenderPipelineState> wxMetalCanvas::getPipelineState(const std::string &n,
             }
             if (nserror) {
                 NSString *err = [NSString stringWithFormat:@"%@", nserror];
-                logger_base.info("Could not create render pipeline for %s:  %s", name.c_str(), [err UTF8String]);
+                spdlog::info("Could not create render pipeline for {}:  {}", name, [err UTF8String]);
                 [nserror release];
             }
         }

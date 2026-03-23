@@ -19,7 +19,7 @@ extern "C" {
 #include "libswscale/swscale.h"
 }
 
-#include <log4cpp/Category.hh>
+#include <log.h>
 
 static CIContext *ciContext = nullptr;
 static CIColorKernel *rbFlipKernel = nullptr;
@@ -72,8 +72,6 @@ void CleanupVideoToolbox(AVCodecContext *s, void *cache) {
     }
 }
 void InitVideoToolboxAcceleration() {
-    static log4cpp::Category& logger_base = log4cpp::Category::getInstance(std::string("log_base"));
-    
     NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
     [dict setObject:@NO forKey:kCIContextUseSoftwareRenderer];
     [dict setObject:@NO forKey:kCIContextOutputPremultiplied];
@@ -84,14 +82,14 @@ void InitVideoToolboxAcceleration() {
     ciContext = [[CIContext alloc] initWithOptions:dict];
 
     if (ciContext == nullptr) {
-        logger_base.info("Could not create hardware context for scaling.");
+        spdlog::info("Could not create hardware context for scaling.");
         // wasn't able to create the context, let's try
         // with allowing the software renderer
         [dict setObject:@YES forKey:kCIContextUseSoftwareRenderer];
         ciContext = [[CIContext alloc] initWithOptions:dict];
     }
     if (ciContext == nullptr) {
-        logger_base.info("Could not create context for scaling.");
+        spdlog::info("Could not create context for scaling.");
     } else {
         [ciContext retain];
 
@@ -104,7 +102,7 @@ void InitVideoToolboxAcceleration() {
         [rbFlipKernel retain];
     }
     [dict release];
-    logger_base.info("Hardware decoder initialized.");
+    spdlog::info("Hardware decoder initialized.");
 }
 
 
