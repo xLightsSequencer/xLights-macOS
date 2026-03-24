@@ -230,7 +230,6 @@
 		6716567925D829270041BB9A /* controllers in Resources */ = {isa = PBXBuildFile; fileRef = 6716567525D829270041BB9A /* controllers */; };
 		6716567A25D829270041BB9A /* meshobjects in Resources */ = {isa = PBXBuildFile; fileRef = 6716567625D829270041BB9A /* meshobjects */; };
 		6716567B25D829270041BB9A /* colorcurves in Resources */ = {isa = PBXBuildFile; fileRef = 6716567725D829270041BB9A /* colorcurves */; };
-		6716568125D829790041BB9A /* xlights.mac.properties in Resources */ = {isa = PBXBuildFile; fileRef = 6716567F25D829790041BB9A /* xlights.mac.properties */; };
 		6716568225D829790041BB9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6716568025D829790041BB9A /* Images.xcassets */; };
 		6716568A25D829B90041BB9A /* extended_dictionary in Resources */ = {isa = PBXBuildFile; fileRef = 6716568625D829B90041BB9A /* extended_dictionary */; };
 		6716568B25D829B90041BB9A /* standard_dictionary in Resources */ = {isa = PBXBuildFile; fileRef = 6716568725D829B90041BB9A /* standard_dictionary */; };
@@ -373,6 +372,7 @@
 				"else",
 				"    echo \"    Did not create $tn.  Skipping.\"",
 				"fi",
+				"",
 				"",
 			);
 		};
@@ -881,16 +881,13 @@
 		6716567525D829270041BB9A /* controllers */ = {isa = PBXFileReference; lastKnownFileType = folder; name = controllers; path = ../controllers; sourceTree = "<group>"; };
 		6716567625D829270041BB9A /* meshobjects */ = {isa = PBXFileReference; lastKnownFileType = folder; name = meshobjects; path = ../meshobjects; sourceTree = "<group>"; };
 		6716567725D829270041BB9A /* colorcurves */ = {isa = PBXFileReference; lastKnownFileType = folder; name = colorcurves; path = ../colorcurves; sourceTree = "<group>"; };
-		6716567F25D829790041BB9A /* xlights.mac.properties */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = xlights.mac.properties; path = Assets/xLights/xlights.mac.properties; sourceTree = "<group>"; };
 		6716568025D829790041BB9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Assets/xLights/Images.xcassets; sourceTree = "<group>"; };
 		6716568625D829B90041BB9A /* extended_dictionary */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = extended_dictionary; path = ../bin/extended_dictionary; sourceTree = "<group>"; };
 		6716568725D829B90041BB9A /* standard_dictionary */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = standard_dictionary; path = ../bin/standard_dictionary; sourceTree = "<group>"; };
 		6716568825D829B90041BB9A /* phoneme_mapping */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = phoneme_mapping; path = ../bin/phoneme_mapping; sourceTree = "<group>"; };
 		6716568925D829B90041BB9A /* user_dictionary */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = user_dictionary; path = ../bin/user_dictionary; sourceTree = "<group>"; };
 		671656C825D834130041BB9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Assets/xLights/Images.xcassets; sourceTree = SOURCE_ROOT; };
-		671656C925D834130041BB9A /* xcapture.mac.properties */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = xcapture.mac.properties; sourceTree = "<group>"; };
 		671656CA25D834130041BB9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		671656DA25D835780041BB9A /* xfade.mac.properties */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = xfade.mac.properties; sourceTree = "<group>"; };
 		671656DB25D835780041BB9A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		671656DC25D835780041BB9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		671C0BCC1C245E230098A48D /* libwx_osx_cocoau_qa-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_qa-3.3.dylib"; path = "/opt/local/libdbg/libwx_osx_cocoau_qa-3.3.dylib"; sourceTree = "<group>"; };
@@ -1300,7 +1297,6 @@
 			children = (
 				671656DB25D835780041BB9A /* Assets.xcassets */,
 				671656DC25D835780041BB9A /* Info.plist */,
-				671656DA25D835780041BB9A /* xfade.mac.properties */,
 				678BCB1A27581E6F0057E4FA /* xFadeDebug.entitlements */,
 				67164BB325D7CD190041BB9A /* xFade.entitlements */,
 			);
@@ -1324,7 +1320,6 @@
 			children = (
 				671656C825D834130041BB9A /* Images.xcassets */,
 				671656CA25D834130041BB9A /* Info.plist */,
-				671656C925D834130041BB9A /* xcapture.mac.properties */,
 				67164BBB25D7CD190041BB9A /* xCapture.entitlements */,
 			);
 			path = xCapture;
@@ -2005,7 +2000,6 @@
 				6716568725D829B90041BB9A /* standard_dictionary */,
 				6716568925D829B90041BB9A /* user_dictionary */,
 				6716567425D829270041BB9A /* valuecurves */,
-				6716567F25D829790041BB9A /* xlights.mac.properties */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -2392,7 +2386,6 @@
 				6716568D25D829BA0041BB9A /* user_dictionary in Resources */,
 				6716568A25D829B90041BB9A /* extended_dictionary in Resources */,
 				6716568C25D829B90041BB9A /* phoneme_mapping in Resources */,
-				6716568125D829790041BB9A /* xlights.mac.properties in Resources */,
 				6716568225D829790041BB9A /* Images.xcassets in Resources */,
 				6716567B25D829270041BB9A /* colorcurves in Resources */,
 				6716567825D829270041BB9A /* valuecurves in Resources */,
