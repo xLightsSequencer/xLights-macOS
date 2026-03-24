@@ -68,7 +68,6 @@
 		6716516A25D7CE700041BB9A /* ModelChainDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C6125D7CE6D0041BB9A /* ModelChainDialog.cpp */; };
 		6716516B25D7CE700041BB9A /* SubModelGenerateDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C6225D7CE6D0041BB9A /* SubModelGenerateDialog.cpp */; };
 		6716516C25D7CE700041BB9A /* Discovery.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C6425D7CE6D0041BB9A /* Discovery.cpp */; };
-		6716516D25D7CE700041BB9A /* xLightsXmlFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C6525D7CE6D0041BB9A /* xLightsXmlFile.cpp */; };
 		6716516E25D7CE700041BB9A /* BulkEditSliderDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C6825D7CE6D0041BB9A /* BulkEditSliderDialog.cpp */; };
 		6716516F25D7CE700041BB9A /* SubModelsDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C6925D7CE6D0041BB9A /* SubModelsDialog.cpp */; };
 		6716517025D7CE700041BB9A /* CharMapDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C6A25D7CE6D0041BB9A /* CharMapDialog.cpp */; };
@@ -512,7 +511,6 @@
 		67164C6225D7CE6D0041BB9A /* SubModelGenerateDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SubModelGenerateDialog.cpp; sourceTree = "<group>"; };
 		67164C6325D7CE6D0041BB9A /* ConvertDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvertDialog.h; sourceTree = "<group>"; };
 		67164C6425D7CE6D0041BB9A /* Discovery.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Discovery.cpp; sourceTree = "<group>"; };
-		67164C6525D7CE6D0041BB9A /* xLightsXmlFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xLightsXmlFile.cpp; sourceTree = "<group>"; };
 		67164C6625D7CE6D0041BB9A /* BulkEditSliderDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulkEditSliderDialog.h; sourceTree = "<group>"; };
 		67164C6825D7CE6D0041BB9A /* BulkEditSliderDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BulkEditSliderDialog.cpp; sourceTree = "<group>"; };
 		67164C6925D7CE6D0041BB9A /* SubModelsDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SubModelsDialog.cpp; sourceTree = "<group>"; };
@@ -745,7 +743,6 @@
 		6716510025D7CE6F0041BB9A /* AudioManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioManager.cpp; sourceTree = "<group>"; };
 		6716510125D7CE6F0041BB9A /* LinkJukeboxButtonDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkJukeboxButtonDialog.h; sourceTree = "<group>"; };
 		6716510225D7CE6F0041BB9A /* BulkEditControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulkEditControls.h; sourceTree = "<group>"; };
-		6716510425D7CE6F0041BB9A /* xLightsXmlFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xLightsXmlFile.h; sourceTree = "<group>"; };
 		6716510525D7CE6F0041BB9A /* LyricUserDictDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LyricUserDictDialog.cpp; sourceTree = "<group>"; };
 		6716510625D7CE6F0041BB9A /* ImportPreviewsModelsDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImportPreviewsModelsDialog.cpp; sourceTree = "<group>"; };
 		6716510825D7CE6F0041BB9A /* SubBufferPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SubBufferPanel.cpp; sourceTree = "<group>"; };
@@ -1797,8 +1794,6 @@
 				67B9ACCA2C9B6055005EF249 /* xLightsTimer.mm */,
 				67164C5B25D7CE6D0041BB9A /* xLightsVersion.h */,
 				671650F625D7CE6F0041BB9A /* xLightsVersion.cpp */,
-				6716510425D7CE6F0041BB9A /* xLightsXmlFile.h */,
-				67164C6525D7CE6D0041BB9A /* xLightsXmlFile.cpp */,
 				67164D0725D7CE6D0041BB9A /* xlLockButton.h */,
 				67164D1025D7CE6D0041BB9A /* xlLockButton.cpp */,
 				67586F8C2DA6AD0C00379F3A /* xlPropertyGrid.h */,
@@ -2751,7 +2746,6 @@
 				6716512E25D7CE700041BB9A /* RemapDMXChannelsDialog.cpp in Sources */,
 				67D142B8275803100018A831 /* pages.cpp in Sources */,
 				67418CDF286B292B00EA516E /* ModelRemap.cpp in Sources */,
-				6716516D25D7CE700041BB9A /* xLightsXmlFile.cpp in Sources */,
 				6716513A25D7CE700041BB9A /* NoteImportDialog.cpp in Sources */,
 				6716539625D7CE720041BB9A /* Output.cpp in Sources */,
 				671651C925D7CE700041BB9A /* OpenGLShaders.cpp in Sources */,
