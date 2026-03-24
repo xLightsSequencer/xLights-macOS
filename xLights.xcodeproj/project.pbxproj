@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 73;
+	objectVersion = 90;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -47,7 +47,6 @@
 		6716514825D7CE700041BB9A /* xLightsApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C1D25D7CE6D0041BB9A /* xLightsApp.cpp */; };
 		6716514925D7CE700041BB9A /* xlSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C1E25D7CE6D0041BB9A /* xlSlider.cpp */; };
 		6716514A25D7CE700041BB9A /* ColorManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C2025D7CE6D0041BB9A /* ColorManager.cpp */; };
-		6716514B25D7CE700041BB9A /* DataLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C2225D7CE6D0041BB9A /* DataLayer.cpp */; };
 		6716514C25D7CE700041BB9A /* Parallel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C2425D7CE6D0041BB9A /* Parallel.cpp */; };
 		6716514D25D7CE700041BB9A /* TopEffectsPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C2625D7CE6D0041BB9A /* TopEffectsPanel.cpp */; };
 		6716514E25D7CE700041BB9A /* EffectTimingDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C2725D7CE6D0041BB9A /* EffectTimingDialog.cpp */; };
@@ -117,7 +116,6 @@
 		671651E925D7CE700041BB9A /* BufferPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164E0425D7CE6D0041BB9A /* BufferPanel.cpp */; };
 		671651EA25D7CE700041BB9A /* ModelStateDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164E0525D7CE6D0041BB9A /* ModelStateDialog.cpp */; };
 		671651EB25D7CE700041BB9A /* UpdaterDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164E0825D7CE6D0041BB9A /* UpdaterDialog.cpp */; };
-		671651EC25D7CE700041BB9A /* DissolveTransitionPattern.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164E0A25D7CE6D0041BB9A /* DissolveTransitionPattern.cpp */; };
 		671651ED25D7CE700041BB9A /* SequenceVideoPreview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164E0B25D7CE6E0041BB9A /* SequenceVideoPreview.cpp */; };
 		671651EE25D7CE700041BB9A /* KeyBindingEditDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164E0C25D7CE6E0041BB9A /* KeyBindingEditDialog.cpp */; };
 		6716520525D7CE700041BB9A /* MediaImportOptionsDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164E3F25D7CE6E0041BB9A /* MediaImportOptionsDialog.cpp */; };
@@ -270,15 +268,14 @@
 		676FB41C273400FC0081F91A /* xlGraphicsAccumulators.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 676FB41A273400FC0081F91A /* xlGraphicsAccumulators.cpp */; };
 		6776DF8A28609D29007573A6 /* TipOfTheDayDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6776DF8828609D29007573A6 /* TipOfTheDayDialog.cpp */; };
 		677844542A680538009FCFD2 /* MetronomeLabelDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 677844522A680538009FCFD2 /* MetronomeLabelDialog.cpp */; };
-		6778610B272CD73200020F31 /* GPURenderUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67786109272CD73200020F31 /* GPURenderUtils.cpp */; };
 		677A15C226A22AA8000AFE4D /* ResultDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6771056D267BB91C001DA926 /* ResultDialog.cpp */; };
 		677A15C326A22AA8000AFE4D /* UniverseEntryDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6771056A267BB91C001DA926 /* UniverseEntryDialog.cpp */; };
 		677A15C426A22AA8000AFE4D /* xCaptureMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6771056E267BB91C001DA926 /* xCaptureMain.cpp */; };
 		678064DF29FEC8DD00BFE936 /* xlOGL3GraphicsContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 678064DD29FEC8DD00BFE936 /* xlOGL3GraphicsContext.cpp */; };
 		6781D632234C24BD00408604 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B4C92117B53D960006B951 /* CoreVideo.framework */; };
+		678571702F72C71F00F50F9F /* libISPCEffectComputeFunctions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6785716B2F72C6E100F50F9F /* libISPCEffectComputeFunctions.a */; };
 		6786706D27296B4000A5375D /* SIMDMathUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6786706B27296B4000A5375D /* SIMDMathUtilities.cpp */; };
 		6787EAA1274FF60E00DAEE47 /* ScriptsDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6787EAA0274FF60E00DAEE47 /* ScriptsDialog.cpp */; };
-		6789EF4F26635DFD00889606 /* Pixels.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6789EF4E26635DFD00889606 /* Pixels.cpp */; };
 		678AAF4026C40B6300467B3C /* model_vendor_mapping.json in Resources */ = {isa = PBXBuildFile; fileRef = 678AAF3F26C40B6300467B3C /* model_vendor_mapping.json */; };
 		6793F91D282B312B00B8F34C /* TwinklyOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6793F91B282B312B00B8F34C /* TwinklyOutput.cpp */; };
 		6794AB3928C7DDAE00B12D0F /* UtilClasses.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6794AB3828C7DDAE00B12D0F /* UtilClasses.cpp */; };
@@ -328,27 +325,75 @@
 		7FDE55FF280A94E900C4EB70 /* xlBaseApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FB5CEDC27A27A2A007612B2 /* xlBaseApp.cpp */; };
 		AA000001PUGI000000000002 /* pugixml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA000001PUGI000000000001 /* pugixml.cpp */; };
 		C40BF5522BC6217800D701CF /* mhpresets in Resources */ = {isa = PBXBuildFile; fileRef = C40BF5512BC6217800D701CF /* mhpresets */; };
-		C477311B2F02C615000B901E /* ControllerConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C477311A2F02C615000B901E /* ControllerConnection.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
-		67F18E3F2D3307D0005633FE /* PBXBuildRule */ = {
+		678571732F72C7C800F50F9F /* PBXBuildRule */ = {
 			isa = PBXBuildRule;
 			compilerSpec = com.apple.compilers.proxy.script;
 			filePatterns = "*.ispc";
 			fileType = pattern.proxy;
-			inputFiles = (
-			);
-			isEditable = 1;
 			outputFiles = (
 				"$(PER_ARCH_OBJECT_FILE_DIR)/$(INPUT_FILE_BASE).o",
 			);
-			script = "#!/bin/bash\n\n#env\nif [[ \"$CONFIGURATION\" == \"Debug\" ]]; then\nISPCFLAG=\"-g -O0\"\nelse\nISPCFLAG=-O3\nfi\n\n\nif [[ \"$ARCHS\" == *\"arm64\"* ]]; then\necho ${SRCROOT}/dependencies/bin/ispc ${ISPCFLAG} --darwin-version-min=11.0 --target-os=macos --target=neon-i32x8 --arch=aarch64 -o ${OBJECT_FILE_DIR_normal}/arm64/${INPUT_FILE_BASE}.o $SCRIPT_INPUT_FILE \n${SRCROOT}/dependencies/bin/ispc ${ISPCFLAG} --target-os=macos --target=neon-i32x8 --arch=aarch64 -o ${OBJECT_FILE_DIR_normal}/arm64/${INPUT_FILE_BASE}.o $SCRIPT_INPUT_FILE \nfi\nif [[ \"$ARCHS\" == *\"x86_64\"* ]]; then\n${SRCROOT}/dependencies/bin/ispc ${ISPCFLAG} --darwin-version-min=11.0 --target-os=macos --target=avx2-i32x16 --target=avx1-i32x16  --target=sse4.2-i32x8 --target=sse2-i32x8 --arch=x86_64 --pic -o ${OBJECT_FILE_DIR_normal}/x86_64/${INPUT_FILE_BASE}.o $SCRIPT_INPUT_FILE \nfi\n\nbn=$(basename \"$SCRIPT_INPUT_FILE\")\ndn=$(dirname \"$SCRIPT_INPUT_FILE\")\ntn=\"${dn}/.new${arch}${bn}.h\"\necho \"Output new header to ${tn}\"\n\n${SRCROOT}/dependencies/bin/ispc --target-os=macos --target=avx2-i32x16 --target=avx1-i32x16 --arch=x86_64 -h \"${tn}\" \"$SCRIPT_INPUT_FILE\"\nif [ -f \"$tn\" ]; then\n    sed -i '' '/.ispc.h/d' \"${tn}\" \n\n    if ! diff -q \"${tn}\" \"$SCRIPT_INPUT_FILE.h\" >/dev/null; then\n      mv -f \"${tn}\"  \"$SCRIPT_INPUT_FILE.h\"\n    else\n      rm -f \"${tn}\" \n    fi\nelse\n    echo \"    Did not create $tn.  Skipping.\"\nfi\n";
+			script = (
+				"#!/bin/bash",
+				"",
+				"#env",
+				"if [[ \"$CONFIGURATION\" == \"Debug\" ]]; then",
+				"ISPCFLAG=\"-g -O0\"",
+				"else",
+				"ISPCFLAG=-O3",
+				"fi",
+				"",
+				"if [[ \"$ARCHS\" == *\"arm64\"* ]]; then",
+				"echo ${SRCROOT}/dependencies/bin/ispc ${ISPCFLAG}  --darwin-version-min=11.0 --target-os=macos --target=neon-i32x8 --arch=aarch64 -o ${OBJECT_FILE_DIR_normal}/arm64/${INPUT_FILE_BASE}.o $SCRIPT_INPUT_FILE ",
+				"mkdir -p ${OBJECT_FILE_DIR_normal}/arm64/",
+				"${SRCROOT}/dependencies/bin/ispc ${ISPCFLAG} --darwin-version-min=11.0 --target-os=macos --target=neon-i32x8 --arch=aarch64 -o ${OBJECT_FILE_DIR_normal}/arm64/${INPUT_FILE_BASE}.o $SCRIPT_INPUT_FILE ",
+				"fi",
+				"if [[ \"$ARCHS\" == *\"x86_64\"* ]]; then",
+				"mkdir -p ${OBJECT_FILE_DIR_normal}/x86_64/",
+				"${SRCROOT}/dependencies/bin/ispc ${ISPCFLAG} --darwin-version-min=11.0 --target-os=macos --target=avx2-i32x16 --target=avx1-i32x16  --target=sse4.2-i32x8 --target=sse2-i32x8 --arch=x86_64 --pic -o ${OBJECT_FILE_DIR_normal}/x86_64/${INPUT_FILE_BASE}.o $SCRIPT_INPUT_FILE ",
+				"fi",
+				"",
+				"bn=$(basename \"$SCRIPT_INPUT_FILE\")",
+				"dn=$(dirname \"$SCRIPT_INPUT_FILE\")",
+				"tn=\"${dn}/.new${arch}${bn}.h\"",
+				"echo \"Output new header to ${tn}\"",
+				"",
+				"${SRCROOT}/dependencies/bin/ispc --target-os=macos --target=avx2-i32x16 --target=avx1-i32x16 --arch=x86_64 -h \"${tn}\" \"$SCRIPT_INPUT_FILE\"",
+				"if [ -f \"$tn\" ]; then",
+				"    sed -i '' '/.ispc.h/d' \"${tn}\" ",
+				"",
+				"    if ! diff -q \"${tn}\" \"$SCRIPT_INPUT_FILE.h\" >/dev/null; then",
+				"      mv -f \"${tn}\"  \"$SCRIPT_INPUT_FILE.h\"",
+				"    else",
+				"      rm -f \"${tn}\" ",
+				"    fi",
+				"else",
+				"    echo \"    Did not create $tn.  Skipping.\"",
+				"fi",
+				"",
+			);
 		};
 /* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
 		671013292F391C0300E6B8EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 67A88A2626164C9B00BFCEC0;
+			remoteInfo = "xLights-macOSLib";
+		};
+		678571712F72C78300F50F9F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6785716A2F72C6E100F50F9F;
+			remoteInfo = ISPCEffectComputeFunctions;
+		};
+		6785717A2F72CE4200F50F9F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
 			proxyType = 1;
@@ -466,7 +511,6 @@
 		67164C1F25D7CE6D0041BB9A /* BulkEditColourPickerDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulkEditColourPickerDialog.h; sourceTree = "<group>"; };
 		67164C2025D7CE6D0041BB9A /* ColorManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ColorManager.cpp; sourceTree = "<group>"; };
 		67164C2125D7CE6D0041BB9A /* AudioManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioManager.h; sourceTree = "<group>"; };
-		67164C2225D7CE6D0041BB9A /* DataLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DataLayer.cpp; sourceTree = "<group>"; };
 		67164C2325D7CE6D0041BB9A /* EffectAssist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EffectAssist.h; sourceTree = "<group>"; };
 		67164C2425D7CE6D0041BB9A /* Parallel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Parallel.cpp; sourceTree = "<group>"; };
 		67164C2525D7CE6D0041BB9A /* SubModelGenerateDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubModelGenerateDialog.h; sourceTree = "<group>"; };
@@ -605,7 +649,6 @@
 		67164E0725D7CE6D0041BB9A /* SplashDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashDialog.h; sourceTree = "<group>"; };
 		67164E0825D7CE6D0041BB9A /* UpdaterDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UpdaterDialog.cpp; sourceTree = "<group>"; };
 		67164E0925D7CE6D0041BB9A /* PathGenerationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PathGenerationDialog.h; sourceTree = "<group>"; };
-		67164E0A25D7CE6D0041BB9A /* DissolveTransitionPattern.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DissolveTransitionPattern.cpp; sourceTree = "<group>"; };
 		67164E0B25D7CE6E0041BB9A /* SequenceVideoPreview.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SequenceVideoPreview.cpp; sourceTree = "<group>"; };
 		67164E0C25D7CE6E0041BB9A /* KeyBindingEditDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KeyBindingEditDialog.cpp; sourceTree = "<group>"; };
 		67164E0D25D7CE6E0041BB9A /* SuperStarImportDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperStarImportDialog.h; sourceTree = "<group>"; };
@@ -735,10 +778,8 @@
 		671650F825D7CE6F0041BB9A /* DragColoursBitmapButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DragColoursBitmapButton.cpp; sourceTree = "<group>"; };
 		671650F925D7CE6F0041BB9A /* LMSImportChannelMapDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMSImportChannelMapDialog.h; sourceTree = "<group>"; };
 		671650FA25D7CE6F0041BB9A /* DimmingCurve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DimmingCurve.h; sourceTree = "<group>"; };
-		671650FB25D7CE6F0041BB9A /* DissolveTransitionPattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DissolveTransitionPattern.h; sourceTree = "<group>"; };
 		671650FC25D7CE6F0041BB9A /* CharMapDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharMapDialog.h; sourceTree = "<group>"; };
 		671650FD25D7CE6F0041BB9A /* xlColorCanvas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xlColorCanvas.cpp; sourceTree = "<group>"; };
-		671650FE25D7CE6F0041BB9A /* DataLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataLayer.h; sourceTree = "<group>"; };
 		671650FF25D7CE6F0041BB9A /* WiringDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WiringDialog.h; sourceTree = "<group>"; };
 		6716510025D7CE6F0041BB9A /* AudioManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioManager.cpp; sourceTree = "<group>"; };
 		6716510125D7CE6F0041BB9A /* LinkJukeboxButtonDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkJukeboxButtonDialog.h; sourceTree = "<group>"; };
@@ -920,17 +961,14 @@
 		6776DF8928609D29007573A6 /* TipOfTheDayDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TipOfTheDayDialog.h; sourceTree = "<group>"; };
 		677844522A680538009FCFD2 /* MetronomeLabelDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MetronomeLabelDialog.cpp; sourceTree = "<group>"; };
 		677844532A680538009FCFD2 /* MetronomeLabelDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MetronomeLabelDialog.h; sourceTree = "<group>"; };
-		67786109272CD73200020F31 /* GPURenderUtils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GPURenderUtils.cpp; sourceTree = "<group>"; };
-		6778610A272CD73200020F31 /* GPURenderUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPURenderUtils.h; sourceTree = "<group>"; };
 		678064DD29FEC8DD00BFE936 /* xlOGL3GraphicsContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xlOGL3GraphicsContext.cpp; sourceTree = "<group>"; };
 		678064E029FEC92C00BFE936 /* xlOGL3GraphicsContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xlOGL3GraphicsContext.h; sourceTree = "<group>"; };
+		6785716B2F72C6E100F50F9F /* libISPCEffectComputeFunctions.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libISPCEffectComputeFunctions.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		678670692729104A00A5375D /* MetalShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MetalShaderTypes.h; sourceTree = "<group>"; };
 		6786706B27296B4000A5375D /* SIMDMathUtilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SIMDMathUtilities.cpp; sourceTree = "<group>"; };
 		6786706C27296B4000A5375D /* SIMDMathUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIMDMathUtilities.h; sourceTree = "<group>"; };
 		6787EA9F274FF60E00DAEE47 /* ScriptsDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScriptsDialog.h; sourceTree = "<group>"; };
 		6787EAA0274FF60E00DAEE47 /* ScriptsDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptsDialog.cpp; sourceTree = "<group>"; };
-		6789EF4C26635BEA00889606 /* Pixels.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pixels.h; sourceTree = "<group>"; };
-		6789EF4E26635DFD00889606 /* Pixels.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Pixels.cpp; sourceTree = "<group>"; };
 		678AAF3F26C40B6300467B3C /* model_vendor_mapping.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = model_vendor_mapping.json; path = ../download/model_vendor_mapping.json; sourceTree = "<group>"; };
 		678BCB1A27581E6F0057E4FA /* xFadeDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = xFadeDebug.entitlements; sourceTree = "<group>"; };
 		6793F91B282B312B00B8F34C /* TwinklyOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TwinklyOutput.cpp; sourceTree = "<group>"; };
@@ -1055,202 +1093,35 @@
 		AA000001PUGI000000000001 /* pugixml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pugixml.cpp; path = ../dependencies/pugixml/src/pugixml.cpp; sourceTree = "<group>"; };
 		C40BF5512BC6217800D701CF /* mhpresets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = mhpresets; path = ../mhpresets; sourceTree = "<group>"; };
 		C40D87EF2B5A25AC00A10AF8 /* SpecialOptions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpecialOptions.cpp; sourceTree = "<group>"; };
-		C47731192F02C615000B901E /* ControllerConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ControllerConnection.h; sourceTree = "<group>"; };
-		C477311A2F02C615000B901E /* ControllerConnection.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ControllerConnection.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		670011312F6F419300BA900E /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		678571502F72C4D200F50F9F /* Exceptions for "effects" folder in "xLights" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				ArchesModel.cpp,
-				BaseObject.cpp,
-				BoxedScreenLocation.cpp,
-				CandyCaneModel.cpp,
-				ChannelBlockModel.cpp,
-				CircleModel.cpp,
-				CubeModel.cpp,
-				CustomModel.cpp,
-				DisplayAsType.cpp,
-				DMX/DmxBeamAbility.cpp,
-				DMX/DmxColorAbility.cpp,
-				DMX/DmxColorAbilityCMY.cpp,
-				DMX/DmxColorAbilityRGB.cpp,
-				DMX/DmxColorAbilityWheel.cpp,
-				DMX/DmxDimmerAbility.cpp,
-				DMX/DmxFloodArea.cpp,
-				DMX/DmxFloodlight.cpp,
-				DMX/DmxGeneral.cpp,
-				DMX/DmxImage.cpp,
-				DMX/DmxModel.cpp,
-				DMX/DmxMotor.cpp,
-				DMX/DmxMovingHead.cpp,
-				DMX/DmxMovingHeadAdv.cpp,
-				DMX/DmxPresetAbility.cpp,
-				DMX/DmxServo.cpp,
-				DMX/DmxServo3D.cpp,
-				DMX/DmxShutterAbility.cpp,
-				DMX/DmxSkull.cpp,
-				DMX/Mesh.cpp,
-				DMX/MovingHeads/MhChannel.cpp,
-				DMX/MovingHeads/MhFeature.cpp,
-				DMX/Servo.cpp,
-				GridlinesObject.cpp,
-				IciclesModel.cpp,
-				ImageModel.cpp,
-				ImageObject.cpp,
-				MatrixModel.cpp,
-				MeshObject.cpp,
-				Model.cpp,
-				ModelGroup.cpp,
-				ModelManager.cpp,
-				ModelScreenLocation.cpp,
-				MultiPointModel.cpp,
-				MultiPointScreenLocation.cpp,
-				Node.cpp,
-				ObjectManager.cpp,
-				PolyLineModel.cpp,
-				PolyPointScreenLocation.cpp,
-				RulerObject.cpp,
-				Shapes.cpp,
-				SingleLineModel.cpp,
-				SphereModel.cpp,
-				SpinnerModel.cpp,
-				StarModel.cpp,
-				SubModel.cpp,
-				TerrainObject.cpp,
-				TerrainScreenLocation.cpp,
-				ThreePointScreenLocation.cpp,
-				TreeModel.cpp,
-				TwoPointScreenLocation.cpp,
-				ViewObject.cpp,
-				ViewObjectManager.cpp,
-				WindowFrameModel.cpp,
-				WreathModel.cpp,
+				ispc/ButterflyFunctions.ispc,
+				ispc/LayerBlendingFunctions.ispc,
+				ispc/PinwheelFunctions.ispc,
+				ispc/PlasmaFunctions.ispc,
+				ispc/VideoFunctions.ispc,
+				metal/BarsFunctions.metal,
+				metal/ButterflyFunctions.metal,
+				metal/CirclesFunctions.metal,
+				metal/ColorWashFunctions.metal,
+				metal/FanFunctions.metal,
+				metal/KaleidoscopeFunctions.metal,
+				metal/LayerBlendingFunctions.metal,
+				metal/PinwheelFunctions.metal,
+				metal/PlasmaFunctions.metal,
+				metal/RotoZoomFunctions.metal,
+				metal/ShockwaveFunctions.metal,
+				metal/SpiralsFunctions.metal,
+				metal/TransitionFunctions.metal,
+				metal/WarpFunctions.metal,
 			);
 			target = 67E7086C17B51AB400A22034 /* xLights */;
 		};
-		6700139C2F6FD7D600BA900E /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				CADModel.cpp,
-				CADWriter.cpp,
-				DXFWriter.cpp,
-				ModelToCAD.cpp,
-				STLWriter.cpp,
-				VRMLWriter.cpp,
-			);
-			target = 67E7086C17B51AB400A22034 /* xLights */;
-		};
-		670013D72F6FD7DD00BA900E /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				AlphaPix.cpp,
-				BaseController.cpp,
-				ControllerCaps.cpp,
-				ControllerUploadData.cpp,
-				ESPixelStick.cpp,
-				Experience.cpp,
-				Falcon.cpp,
-				FPP.cpp,
-				FPPConnectDialog.cpp,
-				FPPUploadProgressDialog.cpp,
-				HinksPix.cpp,
-				HinksPixExportDialog.cpp,
-				ILightThat.cpp,
-				J1Sys.cpp,
-				Minleon.cpp,
-				Pixlite16.cpp,
-				SanDevices.cpp,
-				WebSocketClient.cpp,
-				WLED.cpp,
-			);
-			target = 67E7086C17B51AB400A22034 /* xLights */;
-		};
-		670015B82F6FD7E400BA900E /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				AdjustEffect.cpp,
-				BarsEffect.cpp,
-				ButterflyEffect.cpp,
-				CandleEffect.cpp,
-				CirclesEffect.cpp,
-				ColorWashEffect.cpp,
-				CurtainEffect.cpp,
-				DMXEffect.cpp,
-				DuplicateEffect.cpp,
-				EffectManager.cpp,
-				FacesEffect.cpp,
-				FanEffect.cpp,
-				FillEffect.cpp,
-				FireEffect.cpp,
-				FireworksEffect.cpp,
-				FX.cpp,
-				GalaxyEffect.cpp,
-				GarlandsEffect.cpp,
-				GIFImage.cpp,
-				GlediatorEffect.cpp,
-				GuitarEffect.cpp,
-				ispc/ISPCComputeUtilities.cpp,
-				KaleidoscopeEffect.cpp,
-				LifeEffect.cpp,
-				LightningEffect.cpp,
-				LinesEffect.cpp,
-				LiquidEffect.cpp,
-				MarqueeEffect.cpp,
-				metal/MetalBarsEffect.mm,
-				metal/MetalButterflyEffect.mm,
-				metal/MetalCirclesEffect.mm,
-				metal/MetalColorWashEffect.mm,
-				metal/MetalCompute.swift,
-				metal/MetalComputeUtilities.mm,
-				metal/MetalEffectManager.mm,
-				metal/MetalFanEffect.mm,
-				metal/MetalKaleidoscopeEffect.mm,
-				metal/MetalPinwheelEffect.mm,
-				metal/MetalPlasmaEffect.mm,
-				metal/MetalShockwaveEffect.mm,
-				metal/MetalSpiralsEffect.mm,
-				metal/MetalWarpEffect.mm,
-				MeteorsEffect.cpp,
-				MorphEffect.cpp,
-				MovingHeadEffect.cpp,
-				MusicEffect.cpp,
-				nanosvgrast_impl.cpp,
-				OffEffect.cpp,
-				OnEffect.cpp,
-				PianoEffect.cpp,
-				PicturesEffect.cpp,
-				PinwheelEffect.cpp,
-				PlasmaEffect.cpp,
-				RenderableEffect.cpp,
-				RippleEffect.cpp,
-				ServoEffect.cpp,
-				ShaderEffect.cpp,
-				ShapeEffect.cpp,
-				ShimmerEffect.cpp,
-				ShockwaveEffect.cpp,
-				SingleStrandEffect.cpp,
-				SketchEffect.cpp,
-				SketchEffectDrawing.cpp,
-				SnowflakesEffect.cpp,
-				SnowstormEffect.cpp,
-				SpiralsEffect.cpp,
-				SpirographEffect.cpp,
-				StateEffect.cpp,
-				StrobeEffect.cpp,
-				TendrilEffect.cpp,
-				TextEffect.cpp,
-				TreeEffect.cpp,
-				TwinkleEffect.cpp,
-				VideoEffect.cpp,
-				VUMeterEffect.cpp,
-				WarpEffect.cpp,
-				WaveEffect.cpp,
-			);
-			target = 67E7086C17B51AB400A22034 /* xLights */;
-		};
-		670015BA2F6FD7E400BA900E /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		6785715F2F72C4D800F50F9F /* Exceptions for "effects" folder in "EffectComputeFunctions" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				metal/BarsFunctions.metal,
@@ -1270,37 +1141,12 @@
 			);
 			target = 678577AD272C735000E6E249 /* EffectComputeFunctions */;
 		};
-		670015F82F6FD82000BA900E /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				DragEffectBitmapButton.cpp,
-				EffectDropTarget.cpp,
-				EffectsGrid.cpp,
-				MainSequencer.cpp,
-				RowHeading.cpp,
-				tabSequencer.cpp,
-				TimeLine.cpp,
-				UndoManager.cpp,
-				Waveform.cpp,
-			);
-			target = 67E7086C17B51AB400A22034 /* xLights */;
-		};
-		670016062F6FD82600BA900E /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				EzGrid.cpp,
-				FastComboEditor.cpp,
-				GridCellChoiceRenderer.cpp,
-				VectorMath.cpp,
-			);
-			target = 67E7086C17B51AB400A22034 /* xLights */;
-		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		670015B92F6FD7E400BA900E /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */ = {
+		678571792F72C81E00F50F9F /* Exceptions for "effects" folder in "Compile Sources" phase from "ISPCEffectComputeFunctions" target */ = {
 			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
-			buildPhase = 67E7086917B51AB400A22034 /* Sources */;
+			buildPhase = 678571682F72C6E100F50F9F /* Sources */;
 			membershipExceptions = (
 				ispc/ButterflyFunctions.ispc,
 				ispc/LayerBlendingFunctions.ispc,
@@ -1312,32 +1158,94 @@
 /* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		67000F2E2F6DA72E00BA900E /* ui */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ui; sourceTree = "<group>"; };
-		67000F3A2F6DA77200BA900E /* automation */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = automation; sourceTree = "<group>"; };
-		670010EC2F6F419300BA900E /* models */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (670011312F6F419300BA900E /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = models; sourceTree = "<group>"; };
-		670013952F6FD7D600BA900E /* cad */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (6700139C2F6FD7D600BA900E /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = cad; sourceTree = "<group>"; };
-		670013C32F6FD7DD00BA900E /* controllers */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (670013D72F6FD7DD00BA900E /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = controllers; sourceTree = "<group>"; };
-		670015112F6FD7E400BA900E /* effects */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (670015B82F6FD7E400BA900E /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 670015B92F6FD7E400BA900E /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, 670015BA2F6FD7E400BA900E /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = effects; sourceTree = "<group>"; };
-		670015D02F6FD81A00BA900E /* preferences */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = preferences; sourceTree = "<group>"; };
-		670015EE2F6FD82000BA900E /* sequencer */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (670015F82F6FD82000BA900E /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = sequencer; sourceTree = "<group>"; };
-		670016012F6FD82500BA900E /* support */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (670016062F6FD82600BA900E /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = support; sourceTree = "<group>"; };
-		67F7DB8A2D582A9D00921286 /* ai */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ai; sourceTree = "<group>"; };
-		AA000001RENDER000000000001 /* render */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = render; sourceTree = "<group>"; };
-		C471E0212F1ED95A0063881B /* XmlSerializer */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = XmlSerializer; sourceTree = "<group>"; };
+		67000F2E2F6DA72E00BA900E /* ui */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ui;
+			sourceTree = "<group>";
+		};
+		67000F3A2F6DA77200BA900E /* automation */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = automation;
+			sourceTree = "<group>";
+		};
+		670015D02F6FD81A00BA900E /* preferences */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = preferences;
+			sourceTree = "<group>";
+		};
+		678570EF2F72C4C300F50F9F /* effects */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				678571502F72C4D200F50F9F /* Exceptions for "effects" folder in "xLights" target */,
+				6785715F2F72C4D800F50F9F /* Exceptions for "effects" folder in "EffectComputeFunctions" target */,
+				678571792F72C81E00F50F9F /* Exceptions for "effects" folder in "Compile Sources" phase from "ISPCEffectComputeFunctions" target */,
+			);
+			path = effects;
+			sourceTree = "<group>";
+		};
+		67DE1F092F72BD800010AE7E /* models */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = models;
+			sourceTree = "<group>";
+		};
+		67DE1F592F72BDC50010AE7E /* cad */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = cad;
+			sourceTree = "<group>";
+		};
+		67DE1F802F72BDC50010AE7E /* controllers */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = controllers;
+			sourceTree = "<group>";
+		};
+		67DE1FAC2F72BDFE0010AE7E /* sequencer */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = sequencer;
+			sourceTree = "<group>";
+		};
+		67DE1FB52F72BDFE0010AE7E /* support */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = support;
+			sourceTree = "<group>";
+		};
+		67DE25B12F72BECB0010AE7E /* include */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			name = include;
+			path = ../include;
+			sourceTree = SOURCE_ROOT;
+		};
+		67F7DB8A2D582A9D00921286 /* ai */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ai;
+			sourceTree = "<group>";
+		};
+		AA000001RENDER000000000001 /* render */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = render;
+			sourceTree = "<group>";
+		};
+		C471E0212F1ED95A0063881B /* XmlSerializer */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = XmlSerializer;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		67A88A2526164C9B00BFCEC0 /* Frameworks */ = {
+		678571692F72C6E100F50F9F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+		};
+		67A88A2526164C9B00BFCEC0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
 		};
 		67E7086A17B51AB400A22034 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
+				678571702F72C71F00F50F9F /* libISPCEffectComputeFunctions.a in Frameworks */,
 				675EDD3D2789D87C00D40FEA /* liblua.a in Frameworks */,
 				673B3D4E223BF203000F1D7E /* libcurl.tbd in Frameworks */,
 				67A88A4726164CD600BFCEC0 /* libxLights-macOSLib.a in Frameworks */,
@@ -1373,7 +1281,6 @@
 				67061FD32746D5330020519D /* MetalPerformanceShaders.framework in Frameworks */,
 				67A14C8620DD337E006EFCFA /* Security.framework in Frameworks */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
@@ -1456,7 +1363,7 @@
 				67164C6825D7CE6D0041BB9A /* BulkEditSliderDialog.cpp */,
 				6716511225D7CE6F0041BB9A /* CachedFileDownloader.h */,
 				67164C0925D7CE6D0041BB9A /* CachedFileDownloader.cpp */,
-				670013952F6FD7D600BA900E /* cad */,
+				67DE1F592F72BDC50010AE7E /* cad */,
 				67164D0025D7CE6D0041BB9A /* ChannelLayoutDialog.h */,
 				67164EFD25D7CE6E0041BB9A /* ChannelLayoutDialog.cpp */,
 				671650FC25D7CE6F0041BB9A /* CharMapDialog.h */,
@@ -1479,13 +1386,11 @@
 				67FDC38927CA76F40009A3C7 /* ColourReplaceDialog.cpp */,
 				67164BDB25D7CE6D0041BB9A /* ColoursPanel.h */,
 				67164C6025D7CE6D0041BB9A /* ColoursPanel.cpp */,
-				C47731192F02C615000B901E /* ControllerConnection.h */,
-				C477311A2F02C615000B901E /* ControllerConnection.cpp */,
 				67164C0C25D7CE6D0041BB9A /* ControllerConnectionDialog.h */,
 				67164C1C25D7CE6D0041BB9A /* ControllerConnectionDialog.cpp */,
 				6716511E25D7CE6F0041BB9A /* ControllerModelDialog.h */,
 				67164C0D25D7CE6D0041BB9A /* ControllerModelDialog.cpp */,
-				670013C32F6FD7DD00BA900E /* controllers */,
+				67DE1F802F72BDC50010AE7E /* controllers */,
 				67164C6325D7CE6D0041BB9A /* ConvertDialog.h */,
 				67164BCB25D7CE6D0041BB9A /* ConvertDialog.cpp */,
 				67164DF725D7CE6D0041BB9A /* ConvertLogDialog.h */,
@@ -1496,16 +1401,12 @@
 				67164E4425D7CE6E0041BB9A /* CustomModelDialog.cpp */,
 				67164F0025D7CE6E0041BB9A /* CustomTimingDialog.h */,
 				67164F2D25D7CE6E0041BB9A /* CustomTimingDialog.cpp */,
-				671650FE25D7CE6F0041BB9A /* DataLayer.h */,
-				67164C2225D7CE6D0041BB9A /* DataLayer.cpp */,
 				671650FA25D7CE6F0041BB9A /* DimmingCurve.h */,
 				6716511925D7CE6F0041BB9A /* DimmingCurve.cpp */,
 				67164C7425D7CE6D0041BB9A /* DimmingCurvePanel.h */,
 				671650F525D7CE6F0041BB9A /* DimmingCurvePanel.cpp */,
 				67164C0325D7CE6D0041BB9A /* Discovery.h */,
 				67164C6425D7CE6D0041BB9A /* Discovery.cpp */,
-				671650FB25D7CE6F0041BB9A /* DissolveTransitionPattern.h */,
-				67164E0A25D7CE6D0041BB9A /* DissolveTransitionPattern.cpp */,
 				67164D9C25D7CE6D0041BB9A /* DragColoursBitmapButton.h */,
 				671650F825D7CE6F0041BB9A /* DragColoursBitmapButton.cpp */,
 				67283814295E3CB900994782 /* DuplicateDialog.h */,
@@ -1522,7 +1423,7 @@
 				67164EFE25D7CE6E0041BB9A /* EffectListDialog.cpp */,
 				670726952F590F5A000514B7 /* EffectPresetManager.h */,
 				670726962F590F82000514B7 /* EffectPresetManager.cpp */,
-				670015112F6FD7E400BA900E /* effects */,
+				678570EF2F72C4C300F50F9F /* effects */,
 				67164BE425D7CE6D0041BB9A /* EffectsPanel.h */,
 				67164C4A25D7CE6D0041BB9A /* EffectsPanel.cpp */,
 				67164C5E25D7CE6D0041BB9A /* EffectTimingDialog.h */,
@@ -1548,8 +1449,6 @@
 				67164D9A25D7CE6D0041BB9A /* GenerateCustomModelDialog.cpp */,
 				67164F6D25D7CE6E0041BB9A /* GenerateLyricsDialog.h */,
 				67164C1625D7CE6D0041BB9A /* GenerateLyricsDialog.cpp */,
-				6778610A272CD73200020F31 /* GPURenderUtils.h */,
-				67786109272CD73200020F31 /* GPURenderUtils.cpp */,
 				67BE0DEE2727872C00558A3A /* graphics */,
 				67164EF525D7CE6E0041BB9A /* HousePreviewPanel.h */,
 				671650AA25D7CE6F0041BB9A /* HousePreviewPanel.cpp */,
@@ -1609,7 +1508,7 @@
 				67164C4C25D7CE6D0041BB9A /* ModelPreview.cpp */,
 				67418CDE286B292A00EA516E /* ModelRemap.h */,
 				67418CDD286B292A00EA516E /* ModelRemap.cpp */,
-				670010EC2F6F419300BA900E /* models */,
+				67DE1F092F72BD800010AE7E /* models */,
 				671650A925D7CE6F0041BB9A /* ModelStateDialog.h */,
 				67164E0525D7CE6D0041BB9A /* ModelStateDialog.cpp */,
 				670059B4279A4403006AD9EA /* Mouse3DManager.h */,
@@ -1643,17 +1542,17 @@
 				67164D0525D7CE6D0041BB9A /* PerspectivesPanel.cpp */,
 				67164F7425D7CE6E0041BB9A /* PhonemeDictionary.h */,
 				67164F3025D7CE6E0041BB9A /* PhonemeDictionary.cpp */,
-				6789EF4C26635BEA00889606 /* Pixels.h */,
-				6789EF4E26635DFD00889606 /* Pixels.cpp */,
 				67164C4525D7CE6D0041BB9A /* PixelTestDialog.h */,
 				67164D9425D7CE6D0041BB9A /* PixelTestDialog.cpp */,
 				670015D02F6FD81A00BA900E /* preferences */,
 				67164C6C25D7CE6D0041BB9A /* PreviewPane.h */,
 				67164DFA25D7CE6D0041BB9A /* PreviewPane.cpp */,
+				AA000001PUGI000000000001 /* pugixml.cpp */,
 				671650F425D7CE6F0041BB9A /* RemapDMXChannelsDialog.h */,
 				67164BEB25D7CE6D0041BB9A /* RemapDMXChannelsDialog.cpp */,
 				67164C5625D7CE6D0041BB9A /* RenameTextDialog.h */,
 				67164C4825D7CE6D0041BB9A /* RenameTextDialog.cpp */,
+				AA000001RENDER000000000001 /* render */,
 				671650AF25D7CE6F0041BB9A /* RenderCommandEvent.h */,
 				67164C5325D7CE6D0041BB9A /* RenderProgressDialog.h */,
 				67164EFC25D7CE6E0041BB9A /* RenderProgressDialog.cpp */,
@@ -1682,8 +1581,7 @@
 				67164F3225D7CE6E0041BB9A /* SequenceData.cpp */,
 				67164D0A25D7CE6D0041BB9A /* SequencePackage.h */,
 				67164C8D25D7CE6D0041BB9A /* SequencePackage.cpp */,
-				670015EE2F6FD82000BA900E /* sequencer */,
-				AA000001RENDER000000000001 /* render */,
+				67DE1FAC2F72BDFE0010AE7E /* sequencer */,
 				671650AC25D7CE6F0041BB9A /* SequenceVideoPanel.h */,
 				671650AD25D7CE6F0041BB9A /* SequenceVideoPanel.cpp */,
 				67164C5425D7CE6D0041BB9A /* SequenceVideoPreview.h */,
@@ -1713,7 +1611,7 @@
 				67164C6925D7CE6D0041BB9A /* SubModelsDialog.cpp */,
 				67164E0D25D7CE6E0041BB9A /* SuperStarImportDialog.h */,
 				67164BCA25D7CE6D0041BB9A /* SuperStarImportDialog.cpp */,
-				670016012F6FD82500BA900E /* support */,
+				67DE1FB52F72BDFE0010AE7E /* support */,
 				67164C9225D7CE6D0041BB9A /* TabConvert.cpp */,
 				67164D9E25D7CE6D0041BB9A /* TabPreview.cpp */,
 				67164C4125D7CE6D0041BB9A /* TabSequence.cpp */,
@@ -1801,7 +1699,6 @@
 				67164C1E25D7CE6D0041BB9A /* xlSlider.cpp */,
 				7FB5CEDD27A27A2A007612B2 /* xlStackWalker.h */,
 				C471E0212F1ED95A0063881B /* XmlSerializer */,
-				AA000001PUGI000000000001 /* pugixml.cpp */,
 			);
 			name = xLights;
 			path = ../xLights;
@@ -2225,6 +2122,7 @@
 				67E7086E17B51AB400A22034 /* Products */,
 				67AAF8F31B63782F00585431 /* Resources */,
 				671656A025D82D1D0041BB9A /* macOS-src */,
+				67DE25B12F72BECB0010AE7E /* include */,
 				67164BC525D7CE6D0041BB9A /* xLights */,
 			);
 			sourceTree = "<group>";
@@ -2234,6 +2132,7 @@
 			children = (
 				67E7086D17B51AB400A22034 /* xLights.app */,
 				67A88A2726164C9B00BFCEC0 /* libxLights-macOSLib.a */,
+				6785716B2F72C6E100F50F9F /* libISPCEffectComputeFunctions.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2328,7 +2227,34 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		678571672F72C6E100F50F9F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			files = (
+			);
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		6785716A2F72C6E100F50F9F /* ISPCEffectComputeFunctions */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6785716C2F72C6E100F50F9F /* Build configuration list for PBXNativeTarget "ISPCEffectComputeFunctions" */;
+			buildPhases = (
+				678571672F72C6E100F50F9F /* Headers */,
+				678571682F72C6E100F50F9F /* Sources */,
+				678571692F72C6E100F50F9F /* Frameworks */,
+			);
+			buildRules = (
+				678571732F72C7C800F50F9F /* PBXBuildRule */,
+			);
+			dependencies = (
+				6785717B2F72CE4200F50F9F /* PBXTargetDependency */,
+			);
+			name = ISPCEffectComputeFunctions;
+			productName = ISPCEffectComputeFunctions;
+			productReference = 6785716B2F72C6E100F50F9F /* libISPCEffectComputeFunctions.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		678577AD272C735000E6E249 /* EffectComputeFunctions */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 678577B1272C735000E6E249 /* Build configuration list for PBXNativeTarget "EffectComputeFunctions" */;
@@ -2354,8 +2280,6 @@
 			);
 			buildRules = (
 			);
-			dependencies = (
-			);
 			name = "xLights-macOSLib";
 			productName = "xLights-macOSLib";
 			productReference = 67A88A2726164C9B00BFCEC0 /* libxLights-macOSLib.a */;
@@ -2371,9 +2295,9 @@
 				674298661C1FC3CC00B11478 /* ShellScript */,
 			);
 			buildRules = (
-				67F18E3F2D3307D0005633FE /* PBXBuildRule */,
 			);
 			dependencies = (
+				678571722F72C78300F50F9F /* PBXTargetDependency */,
 				678577B8272C756100E6E249 /* PBXTargetDependency */,
 				67A88A4926164CD700BFCEC0 /* PBXTargetDependency */,
 			);
@@ -2381,6 +2305,12 @@
 				67000F2E2F6DA72E00BA900E /* ui */,
 				67000F3A2F6DA77200BA900E /* automation */,
 				670015D02F6FD81A00BA900E /* preferences */,
+				678570EF2F72C4C300F50F9F /* effects */,
+				67DE1F092F72BD800010AE7E /* models */,
+				67DE1F592F72BDC50010AE7E /* cad */,
+				67DE1F802F72BDC50010AE7E /* controllers */,
+				67DE1FAC2F72BDFE0010AE7E /* sequencer */,
+				67DE1FB52F72BDFE0010AE7E /* support */,
 				67F7DB8A2D582A9D00921286 /* ai */,
 				AA000001RENDER000000000001 /* render */,
 				C471E0212F1ED95A0063881B /* XmlSerializer */,
@@ -2401,6 +2331,9 @@
 				LastUpgradeCheck = 2630;
 				ORGANIZATIONNAME = "Daniel Kulp";
 				TargetAttributes = {
+					6785716A2F72C6E100F50F9F = {
+						CreatedOnToolsVersion = 26.3;
+					};
 					678577AD272C735000E6E249 = {
 						CreatedOnToolsVersion = 13.1;
 					};
@@ -2435,7 +2368,8 @@
 				Base,
 			);
 			mainGroup = 67E7086417B51AB400A22034;
-			preferredProjectObjectVersion = 52;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 90;
 			productRefGroup = 67E7086E17B51AB400A22034 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -2443,6 +2377,7 @@
 				67E7086C17B51AB400A22034 /* xLights */,
 				67A88A2626164C9B00BFCEC0 /* xLights-macOSLib */,
 				678577AD272C735000E6E249 /* EffectComputeFunctions */,
+				6785716A2F72C6E100F50F9F /* ISPCEffectComputeFunctions */,
 			);
 		};
 /* End PBXProject section */
@@ -2450,7 +2385,6 @@
 /* Begin PBXResourcesBuildPhase section */
 		67E7086B17B51AB400A22034 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				67FD63542D588527004547FF /* resources in Resources */,
 				67F7DB852D58291B00921286 /* prompts in Resources */,
@@ -2469,7 +2403,6 @@
 				C40BF5522BC6217800D701CF /* mhpresets in Resources */,
 				6716568B25D829B90041BB9A /* standard_dictionary in Resources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
@@ -2477,50 +2410,82 @@
 		674298661C1FC3CC00B11478 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
-			buildActionMask = 12;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "scripts/mac_fix_dylibs\n";
+			shellScript = (
+				"scripts/mac_fix_dylibs",
+				"",
+			);
 			showEnvVarsInLog = 0;
 		};
 		67A892BC2B408A4B00B1D094 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "# if the local artifacts are available, use them\n# env\n\nexport TAG=$(cat README.macOS | grep recurse-submodules | cut -d \"_\" -f 2 | cut -d \" \"  -f 1)\nexport OLDTAG=$(cat .CURTAG)\n\necho \"Tag:  $TAG\"\necho \"Old Tag:  $OLDTAG\"\n\nif [ \"x$OLDTAG\" == \"x\" ]; then\n    OLDTAG=\"xxxxx\"\nfi\nif [ $TAG != $OLDTAG ]; then\n    rm -f dependencies\n    rm -rf xLights-macOS-dependencies*    \n    rm -f .CURTAG\nfi\n\nif [ -f dependencies/include/lualib.h ]; then \n    #link is already good\n    exit 0\nfi\n\nif [ -f /opt/local/include/lualib.h ]; then\n    rm -f dependencies\n    ln -sf /opt/local dependencies\n    exit 0\nfi\n\nrm -f dependencies\ncurl -L https://github.com/xLightsSequencer/xLights-macOS-dependencies/releases/download/xlights_${TAG}/xLights-macOS-dependencies.tar.zst --output xLights-macOS-dependencies.tar.zst\nPATH=$PATH:/opt/homebrew/bin\ntar -xzf xLights-macOS-dependencies.tar.zst\nmv xLights-macOS-dependencies xLights-macOS-dependencies-${TAG}\nln -sf xLights-macOS-dependencies-${TAG} dependencies\nrm -f xLights-macOS-dependencies.tar.zst\necho $TAG > .CURTAG\n";
+			shellScript = (
+				"# if the local artifacts are available, use them",
+				"# env",
+				"",
+				"export TAG=$(cat README.macOS | grep recurse-submodules | cut -d \"_\" -f 2 | cut -d \" \"  -f 1)",
+				"export OLDTAG=$(cat .CURTAG)",
+				"",
+				"echo \"Tag:  $TAG\"",
+				"echo \"Old Tag:  $OLDTAG\"",
+				"",
+				"if [ \"x$OLDTAG\" == \"x\" ]; then",
+				"    OLDTAG=\"xxxxx\"",
+				"fi",
+				"if [ \"$OLDTAG\" == \"LOCAL\" ]; then",
+				"    rm -rf xLights-macOS-dependencies*    ",
+				"    if [ -f dependencies/include/lualib.h ]; then ",
+				"        #link is already good",
+				"        exit 0",
+				"    fi",
+				"fi",
+				"if [ $TAG != $OLDTAG ]; then",
+				"    rm -f dependencies",
+				"    rm -rf xLights-macOS-dependencies*    ",
+				"    rm -f .CURTAG",
+				"fi",
+				"",
+				"if [ -f dependencies/include/lualib.h ]; then ",
+				"    #link is already good",
+				"    exit 0",
+				"fi",
+				"",
+				"if [ -f /opt/local/include/lualib.h ]; then",
+				"    rm -f dependencies",
+				"    ln -sf /opt/local dependencies",
+				"    echo \"LOCAL\" > .CURTAG",
+				"    exit 0",
+				"fi",
+				"",
+				"rm -f dependencies",
+				"curl -L https://github.com/xLightsSequencer/xLights-macOS-dependencies/releases/download/xlights_${TAG}/xLights-macOS-dependencies.tar.zst --output xLights-macOS-dependencies.tar.zst",
+				"PATH=$PATH:/opt/homebrew/bin",
+				"tar -xzf xLights-macOS-dependencies.tar.zst",
+				"mv xLights-macOS-dependencies xLights-macOS-dependencies-${TAG}",
+				"ln -sf xLights-macOS-dependencies-${TAG} dependencies",
+				"rm -f xLights-macOS-dependencies.tar.zst",
+				"echo $TAG > .CURTAG",
+				"",
+			);
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		678577AC272C735000E6E249 /* Sources */ = {
+		678571682F72C6E100F50F9F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+		};
+		678577AC272C735000E6E249 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
 		};
 		67A88A2426164C9B00BFCEC0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				67F9B092272899080005A74B /* MetalShaders.metal in Sources */,
 				67BE0E012728230C00558A3A /* wxMetalCanvas.mm in Sources */,
@@ -2533,11 +2498,9 @@
 				6786706D27296B4000A5375D /* SIMDMathUtilities.cpp in Sources */,
 				67F8492A2F5A5490005D144E /* ExternalHooksMacOS.mm in Sources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		67E7086917B51AB400A22034 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				677A15C326A22AA8000AFE4D /* UniverseEntryDialog.cpp in Sources */,
 				677A15C426A22AA8000AFE4D /* xCaptureMain.cpp in Sources */,
@@ -2555,7 +2518,6 @@
 				6716559925D825410041BB9A /* RealTime.cpp in Sources */,
 				6716516B25D7CE700041BB9A /* SubModelGenerateDialog.cpp in Sources */,
 				67D142BC275803100018A831 /* context.cpp in Sources */,
-				C477311B2F02C615000B901E /* ControllerConnection.cpp in Sources */,
 				671653A725D7CE720041BB9A /* LOROutput.cpp in Sources */,
 				671651EB25D7CE700041BB9A /* UpdaterDialog.cpp in Sources */,
 				671655D225D827650041BB9A /* kfc.c in Sources */,
@@ -2577,7 +2539,6 @@
 				671653AD25D7CE720041BB9A /* xlColorCanvas.cpp in Sources */,
 				6716513D25D7CE700041BB9A /* SequenceViewManager.cpp in Sources */,
 				6716514425D7CE700041BB9A /* GenerateLyricsDialog.cpp in Sources */,
-				671651EC25D7CE700041BB9A /* DissolveTransitionPattern.cpp in Sources */,
 				671652CA25D7CE710041BB9A /* VideoReader.cpp in Sources */,
 				679B58232735D63900368F0A /* xlFontInfo.cpp in Sources */,
 				671655A025D825410041BB9A /* PluginChannelAdapter.cpp in Sources */,
@@ -2651,7 +2612,6 @@
 				671651E625D7CE700041BB9A /* ModelFaceDialog.cpp in Sources */,
 				6716539C25D7CE720041BB9A /* OPCOutput.cpp in Sources */,
 				6716512B25D7CE700041BB9A /* ColorCurve.cpp in Sources */,
-				6789EF4F26635DFD00889606 /* Pixels.cpp in Sources */,
 				671653A325D7CE720041BB9A /* LOROptimisedOutput.cpp in Sources */,
 				6716514C25D7CE700041BB9A /* Parallel.cpp in Sources */,
 				6716539F25D7CE720041BB9A /* OpenPixelNetOutput.cpp in Sources */,
@@ -2667,7 +2627,6 @@
 				6716539825D7CE720041BB9A /* OutputManager.cpp in Sources */,
 				6716539125D7CE720041BB9A /* serial_osx.cpp in Sources */,
 				67D7159827287CE800E5EDB5 /* xlMetalCanvas.mm in Sources */,
-				6778610B272CD73200020F31 /* GPURenderUtils.cpp in Sources */,
 				6716553525D823C60041BB9A /* jsonval.cpp in Sources */,
 				675C6FA82B555DB20091D0BF /* SpecialOptions.cpp in Sources */,
 				6716514F25D7CE700041BB9A /* SeqSettingsDialog.cpp in Sources */,
@@ -2697,7 +2656,6 @@
 				6716538625D7CE720041BB9A /* SequenceVideoPanel.cpp in Sources */,
 				671652D025D7CE710041BB9A /* FlickerFreeBitmapButton.cpp in Sources */,
 				671653BA25D7CE720041BB9A /* BulkEditFontPickerDialog.cpp in Sources */,
-				6716514B25D7CE700041BB9A /* DataLayer.cpp in Sources */,
 				6716512F25D7CE700041BB9A /* VendorMusicHelpers.cpp in Sources */,
 				6716538925D7CE720041BB9A /* ViewObjectPanel.cpp in Sources */,
 				671652CC25D7CE710041BB9A /* PhonemeDictionary.cpp in Sources */,
@@ -2802,7 +2760,6 @@
 				6716512D25D7CE700041BB9A /* LayoutGroup.cpp in Sources */,
 				5326AEB92D191277001BB084 /* ShowFolderSearchDialog.cpp in Sources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
@@ -2811,6 +2768,16 @@
 			isa = PBXTargetDependency;
 			target = 67A88A2626164C9B00BFCEC0 /* xLights-macOSLib */;
 			targetProxy = 671013292F391C0300E6B8EC /* PBXContainerItemProxy */;
+		};
+		678571722F72C78300F50F9F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6785716A2F72C6E100F50F9F /* ISPCEffectComputeFunctions */;
+			targetProxy = 678571712F72C78300F50F9F /* PBXContainerItemProxy */;
+		};
+		6785717B2F72CE4200F50F9F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 67A88A2626164C9B00BFCEC0 /* xLights-macOSLib */;
+			targetProxy = 6785717A2F72CE4200F50F9F /* PBXContainerItemProxy */;
 		};
 		678577B8272C756100E6E249 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2825,7 +2792,96 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		678577B2272C735000E6E249 /* Debug */ = {
+		6785716D2F72C6E100F50F9F /* Debug configuration for PBXNativeTarget "ISPCEffectComputeFunctions" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U8ZT9RPC6S;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		6785716E2F72C6E100F50F9F /* Release configuration for PBXNativeTarget "ISPCEffectComputeFunctions" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U8ZT9RPC6S;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		6785716F2F72C6E100F50F9F /* Archive configuration for PBXNativeTarget "ISPCEffectComputeFunctions" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U8ZT9RPC6S;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Archive;
+		};
+		678577B2272C735000E6E249 /* Debug configuration for PBXNativeTarget "EffectComputeFunctions" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -2837,7 +2893,7 @@
 			};
 			name = Debug;
 		};
-		678577B3272C735000E6E249 /* Release */ = {
+		678577B3272C735000E6E249 /* Release configuration for PBXNativeTarget "EffectComputeFunctions" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -2849,7 +2905,7 @@
 			};
 			name = Release;
 		};
-		678577B4272C735000E6E249 /* Archive */ = {
+		678577B4272C735000E6E249 /* Archive configuration for PBXNativeTarget "EffectComputeFunctions" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -2861,7 +2917,7 @@
 			};
 			name = Archive;
 		};
-		67A88A2E26164C9C00BFCEC0 /* Debug */ = {
+		67A88A2E26164C9C00BFCEC0 /* Debug configuration for PBXNativeTarget "xLights-macOSLib" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
@@ -2884,7 +2940,7 @@
 			};
 			name = Debug;
 		};
-		67A88A2F26164C9C00BFCEC0 /* Release */ = {
+		67A88A2F26164C9C00BFCEC0 /* Release configuration for PBXNativeTarget "xLights-macOSLib" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
@@ -2907,7 +2963,7 @@
 			};
 			name = Release;
 		};
-		67A88A3026164C9C00BFCEC0 /* Archive */ = {
+		67A88A3026164C9C00BFCEC0 /* Archive configuration for PBXNativeTarget "xLights-macOSLib" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
@@ -2930,7 +2986,7 @@
 			};
 			name = Archive;
 		};
-		67E7088817B51AB400A22034 /* Debug */ = {
+		67E7088817B51AB400A22034 /* Debug configuration for PBXProject "xLights" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -3058,7 +3114,7 @@
 			};
 			name = Debug;
 		};
-		67E7088917B51AB400A22034 /* Release */ = {
+		67E7088917B51AB400A22034 /* Release configuration for PBXProject "xLights" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -3189,7 +3245,7 @@
 			};
 			name = Release;
 		};
-		67E7088B17B51AB400A22034 /* Debug */ = {
+		67E7088B17B51AB400A22034 /* Debug configuration for PBXNativeTarget "xLights" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "";
@@ -3259,7 +3315,7 @@
 			};
 			name = Debug;
 		};
-		67E7088C17B51AB400A22034 /* Release */ = {
+		67E7088C17B51AB400A22034 /* Release configuration for PBXNativeTarget "xLights" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "";
@@ -3329,7 +3385,7 @@
 			};
 			name = Release;
 		};
-		67F5E4BA24A0E6DC00DE0FF0 /* Archive */ = {
+		67F5E4BA24A0E6DC00DE0FF0 /* Archive configuration for PBXProject "xLights" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -3462,7 +3518,7 @@
 			};
 			name = Archive;
 		};
-		67F5E4BB24A0E6DC00DE0FF0 /* Archive */ = {
+		67F5E4BB24A0E6DC00DE0FF0 /* Archive configuration for PBXNativeTarget "xLights" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "";
@@ -3535,44 +3591,49 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		6785716C2F72C6E100F50F9F /* Build configuration list for PBXNativeTarget "ISPCEffectComputeFunctions" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6785716D2F72C6E100F50F9F /* Debug configuration for PBXNativeTarget "ISPCEffectComputeFunctions" */,
+				6785716E2F72C6E100F50F9F /* Release configuration for PBXNativeTarget "ISPCEffectComputeFunctions" */,
+				6785716F2F72C6E100F50F9F /* Archive configuration for PBXNativeTarget "ISPCEffectComputeFunctions" */,
+			);
+			defaultConfigurationName = Release;
+		};
 		678577B1272C735000E6E249 /* Build configuration list for PBXNativeTarget "EffectComputeFunctions" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				678577B2272C735000E6E249 /* Debug */,
-				678577B3272C735000E6E249 /* Release */,
-				678577B4272C735000E6E249 /* Archive */,
+				678577B2272C735000E6E249 /* Debug configuration for PBXNativeTarget "EffectComputeFunctions" */,
+				678577B3272C735000E6E249 /* Release configuration for PBXNativeTarget "EffectComputeFunctions" */,
+				678577B4272C735000E6E249 /* Archive configuration for PBXNativeTarget "EffectComputeFunctions" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		67A88A2D26164C9C00BFCEC0 /* Build configuration list for PBXNativeTarget "xLights-macOSLib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				67A88A2E26164C9C00BFCEC0 /* Debug */,
-				67A88A2F26164C9C00BFCEC0 /* Release */,
-				67A88A3026164C9C00BFCEC0 /* Archive */,
+				67A88A2E26164C9C00BFCEC0 /* Debug configuration for PBXNativeTarget "xLights-macOSLib" */,
+				67A88A2F26164C9C00BFCEC0 /* Release configuration for PBXNativeTarget "xLights-macOSLib" */,
+				67A88A3026164C9C00BFCEC0 /* Archive configuration for PBXNativeTarget "xLights-macOSLib" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		67E7086817B51AB400A22034 /* Build configuration list for PBXProject "xLights" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				67E7088817B51AB400A22034 /* Debug */,
-				67E7088917B51AB400A22034 /* Release */,
-				67F5E4BA24A0E6DC00DE0FF0 /* Archive */,
+				67E7088817B51AB400A22034 /* Debug configuration for PBXProject "xLights" */,
+				67E7088917B51AB400A22034 /* Release configuration for PBXProject "xLights" */,
+				67F5E4BA24A0E6DC00DE0FF0 /* Archive configuration for PBXProject "xLights" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		67E7088A17B51AB400A22034 /* Build configuration list for PBXNativeTarget "xLights" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				67E7088B17B51AB400A22034 /* Debug */,
-				67E7088C17B51AB400A22034 /* Release */,
-				67F5E4BB24A0E6DC00DE0FF0 /* Archive */,
+				67E7088B17B51AB400A22034 /* Debug configuration for PBXNativeTarget "xLights" */,
+				67E7088C17B51AB400A22034 /* Release configuration for PBXNativeTarget "xLights" */,
+				67F5E4BB24A0E6DC00DE0FF0 /* Archive configuration for PBXNativeTarget "xLights" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
