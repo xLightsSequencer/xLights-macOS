@@ -37,21 +37,6 @@ cp lib/libzstd.a /opt/local/lib
 unset CFLAGS
 unset LDFLAGS
 
-echo "log4cpp"
-#Download latest src release (current 1.1.3)
-wget https://nchc.dl.sourceforge.net/project/log4cpp/log4cpp-1.1.x%20%28new%29/log4cpp-1.1/log4cpp-1.1.3.tar.gz
-tar -xzf log4cpp-1.1.3.tar.gz
-cd log4cpp
-patch -p1 < ~/working/xLights/macOS/patches/log4cpp.patch
-export CXXFLAGS="-g -O2 -flto=thin ${OSX_VERSION_MIN} ${XL_TARGETS} -std=c++11 -stdlib=libc++ -fvisibility-inlines-hidden"
-export LDFLAGS="-flto=thin ${XL_TARGETS} "
-./configure --prefix=/opt/local -host ${BUILD_HOST}
-make clean
-make -j 8
-cp src/.libs/liblog4cpp.a /opt/local/lib
-unset CXXFLAGS
-unset LDFLAGS
-
 
 echo "liquidfun"
 # requires cmake to be installed, most likely need to have

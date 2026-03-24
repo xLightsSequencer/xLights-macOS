@@ -240,7 +240,6 @@
 		67290004255303D500C83C71 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67290003255303D500C83C71 /* VideoToolbox.framework */; };
 		672900082553040000C83C71 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B4C91F17B53D960006B951 /* CoreMedia.framework */; };
 		6729000D2553047600C83C71 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729000C2553046400C83C71 /* libbz2.tbd */; };
-		6729FFDF2552EEAD00C83C71 /* liblog4cpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFDC2552EE9000C83C71 /* liblog4cpp.a */; };
 		6729FFE22552EEBA00C83C71 /* libliquidfun.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFD92552EE9000C83C71 /* libliquidfun.a */; };
 		6729FFE32552EEC300C83C71 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFDB2552EE9000C83C71 /* libSDL2.a */; };
 		6729FFE42552EEF300C83C71 /* libzstd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFDA2552EE9000C83C71 /* libzstd.a */; };
@@ -901,7 +900,6 @@
 		6729FFD92552EE9000C83C71 /* libliquidfun.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libliquidfun.a; path = ../../../../opt/local/lib/libliquidfun.a; sourceTree = "<group>"; };
 		6729FFDA2552EE9000C83C71 /* libzstd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libzstd.a; path = ../../../../opt/local/lib/libzstd.a; sourceTree = "<group>"; };
 		6729FFDB2552EE9000C83C71 /* libSDL2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2.a; path = ../../../../opt/local/lib/libSDL2.a; sourceTree = "<group>"; };
-		6729FFDC2552EE9000C83C71 /* liblog4cpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblog4cpp.a; path = ../../../../opt/local/lib/liblog4cpp.a; sourceTree = "<group>"; };
 		6729FFF32553031800C83C71 /* libavutil.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavutil.a; path = ../../../../opt/local/lib/libavutil.a; sourceTree = "<group>"; };
 		6729FFF42553031900C83C71 /* libavcodec.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavcodec.a; path = ../../../../opt/local/lib/libavcodec.a; sourceTree = "<group>"; };
 		6729FFF92553033E00C83C71 /* libavformat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavformat.a; path = ../../../../opt/local/lib/libavformat.a; sourceTree = "<group>"; };
@@ -949,7 +947,6 @@
 		6771056F267BB91C001DA926 /* xCaptureApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = xCaptureApp.h; path = ../xCapture/xCaptureApp.h; sourceTree = "<group>"; };
 		67710570267BB91C001DA926 /* xCaptureMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = xCaptureMain.h; path = ../xCapture/xCaptureMain.h; sourceTree = "<group>"; };
 		67710571267BB91C001DA926 /* xCaptureApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = xCaptureApp.cpp; path = ../xCapture/xCaptureApp.cpp; sourceTree = "<group>"; };
-		67710576267BB9B7001DA926 /* liblog4cpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblog4cpp.a; path = ../../../../../opt/local/lib/liblog4cpp.a; sourceTree = "<group>"; };
 		67710581267BBAC5001DA926 /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
 		67710582267BBAC5001DA926 /* CoreAudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioKit.framework; path = System/Library/Frameworks/CoreAudioKit.framework; sourceTree = SDKROOT; };
 		6771B227204BA69B00E90AC7 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
@@ -1260,7 +1257,6 @@
 				67BE0DFA2727C0AB00558A3A /* MetalKit.framework in Frameworks */,
 				674D3D221C207BCC000D632B /* IOKit.framework in Frameworks */,
 				67A14C7820DD313D006EFCFA /* Carbon.framework in Frameworks */,
-				6729FFDF2552EEAD00C83C71 /* liblog4cpp.a in Frameworks */,
 				67D9B0A81D42A9BA005367DB /* Cocoa.framework in Frameworks */,
 				67C7E283215E596000AE0775 /* CoreAudio.framework in Frameworks */,
 				674D3D241C207BD7000D632B /* AudioToolbox.framework in Frameworks */,
@@ -2146,7 +2142,6 @@
 				67BE0DF82727C0AB00558A3A /* MetalKit.framework */,
 				67710582267BBAC5001DA926 /* CoreAudioKit.framework */,
 				67710581267BBAC5001DA926 /* CoreAudioTypes.framework */,
-				67710576267BB9B7001DA926 /* liblog4cpp.a */,
 				67E00443256D6FA900E12C81 /* StoreKit.framework */,
 				6729000C2553046400C83C71 /* libbz2.tbd */,
 				67290003255303D500C83C71 /* VideoToolbox.framework */,
@@ -2156,7 +2151,6 @@
 				6729FFF42553031900C83C71 /* libavcodec.a */,
 				6729FFF32553031800C83C71 /* libavutil.a */,
 				6729FFD92552EE9000C83C71 /* libliquidfun.a */,
-				6729FFDC2552EE9000C83C71 /* liblog4cpp.a */,
 				6729FFDB2552EE9000C83C71 /* libSDL2.a */,
 				6729FFDA2552EE9000C83C71 /* libzstd.a */,
 				671E47FC2231CEC900049DC9 /* libcurl.tbd */,
