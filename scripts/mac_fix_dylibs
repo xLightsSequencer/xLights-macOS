@@ -30,23 +30,56 @@ cp $PROJECT_TEMP_ROOT/UninstalledProducts/macosx/*.metallib $TARGET_BUILD_DIR/$P
 /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $SHORTVER" "${TARGET_BUILD_DIR}/${INFOPLIST_PATH}"
 
 
-if [ -f "$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/xLights.debug.dylib" ]; then
-    SRCLOCATION=`otool -L $TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/xLights.debug.dylib | grep libwx_osx_cocoau_propgrid`
-    #echo $SRCLOCATION > /tmp/foo.txt
-    SRCLOCATION=${SRCLOCATION/\/libwx_osx_cocoau_propgrid*/}
-    #echo $SRCLOCATION >> /tmp/foo.txt
-    SRCINDEX=${#SRCLOCATION}
-    #echo $SRCINDEX >> /tmp/foo.txt
-    #SRCINDEX=$((SRCINDEX - 1))
-    #echo $SRCINDEX >> /tmp/foo.txt
+PROCESSED_DYLIBS=""
 
-    LIBS=`otool -L $TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/xLights.debug.dylib | grep xLights-macOS-dependencies | awk '{print $1}' | colrm 1 ${SRCINDEX}`
-    echo $LIBS >> /tmp/foo.txt
-    for LS in $LIBS
+fix_wx_dylib_rpaths() {
+    local DYLIB="$1"
+
+    if [ ! -f "$DYLIB" ]; then
+        return
+    fi
+
+    # Skip if already processed
+    local RESOLVED
+    RESOLVED=$(cd "$(dirname "$DYLIB")" && pwd)/$(basename "$DYLIB")
+    if echo "$PROCESSED_DYLIBS" | grep -qF "$RESOLVED"; then
+        return
+    fi
+    PROCESSED_DYLIBS="$PROCESSED_DYLIBS|$RESOLVED"
+
+    # Find the absolute prefix used by the CI runner for wx dylibs
+    local SRCLOCATION
+    SRCLOCATION=$(otool -L "$DYLIB" | grep xLights-macOS-dependencies | head -1 | awk '{print $1}')
+    if [ -z "$SRCLOCATION" ]; then
+        return
+    fi
+    # Strip everything from /libwx onward to get the directory prefix
+    SRCLOCATION=${SRCLOCATION%/lib*}
+
+    local LIBS
+    LIBS=$(otool -L "$DYLIB" | grep xLights-macOS-dependencies | awk '{print $1}')
+    for FULLPATH in $LIBS
     do
-       install_name_tool -change $SRCLOCATION/$LS @rpath/$LS  "$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/xLights.debug.dylib" 2> /dev/null
+        local LIBNAME
+        LIBNAME=${FULLPATH#${SRCLOCATION}/}
+        install_name_tool -change "$FULLPATH" "@rpath/$LIBNAME" "$DYLIB" 2> /dev/null
     done
-    install_name_tool -add_rpath "${PROJECT_DIR}/dependencies/libdbg" "$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/xLights.debug.dylib" 2> /dev/null || true
+    install_name_tool -add_rpath "${PROJECT_DIR}/dependencies/libdbg" "$DYLIB" 2> /dev/null || true
+
+    # Recursively fix any wx dylibs that this dylib depends on
+    local LIBDIR="${PROJECT_DIR}/dependencies/libdbg"
+    for FULLPATH in $LIBS
+    do
+        local DEPNAME
+        DEPNAME=$(basename "$FULLPATH")
+        if [ -f "$LIBDIR/$DEPNAME" ]; then
+            fix_wx_dylib_rpaths "$LIBDIR/$DEPNAME"
+        fi
+    done
+}
+
+if [ -f "$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/xLights.debug.dylib" ]; then
+    fix_wx_dylib_rpaths "$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/xLights.debug.dylib"
 fi
 
 

@@ -373,6 +373,7 @@
 				"fi",
 				"",
 				"",
+				"",
 			);
 		};
 /* End PBXBuildRule section */
