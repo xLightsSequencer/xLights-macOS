@@ -2315,7 +2315,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				CLASSPREFIX = xl;
-				LastUpgradeCheck = 2630;
+				LastUpgradeCheck = 2640;
 				ORGANIZATIONNAME = "Daniel Kulp";
 				TargetAttributes = {
 					6785716A2F72C6E100F50F9F = {
