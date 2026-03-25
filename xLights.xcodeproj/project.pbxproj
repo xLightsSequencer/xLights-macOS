@@ -372,8 +372,6 @@
 				"    echo \"    Did not create $tn.  Skipping.\"",
 				"fi",
 				"",
-				"",
-				"",
 			);
 		};
 /* End PBXBuildRule section */
