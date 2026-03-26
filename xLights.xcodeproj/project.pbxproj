@@ -364,7 +364,6 @@
 				"    echo \"    Did not create $tn.  Skipping.\"",
 				"fi",
 				"",
-				"",
 			);
 		};
 /* End PBXBuildRule section */
@@ -1148,11 +1147,6 @@
 			path = utils;
 			sourceTree = "<group>";
 		};
-		AA000001IMEX000000000001 /* import_export */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = import_export;
-			sourceTree = "<group>";
-		};
 		678570EF2F72C4C300F50F9F /* effects */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -1197,6 +1191,11 @@
 		67F7DB8A2D582A9D00921286 /* ai */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = ai;
+			sourceTree = "<group>";
+		};
+		AA000001IMEX000000000001 /* import_export */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = import_export;
 			sourceTree = "<group>";
 		};
 		AA000001RENDER000000000001 /* render */ = {
@@ -1401,7 +1400,6 @@
 				670726952F590F5A000514B7 /* EffectPresetManager.h */,
 				670726962F590F82000514B7 /* EffectPresetManager.cpp */,
 				678570EF2F72C4C300F50F9F /* effects */,
-				AA000001IMEX000000000001 /* import_export */,
 				67164BE425D7CE6D0041BB9A /* EffectsPanel.h */,
 				67164C4A25D7CE6D0041BB9A /* EffectsPanel.cpp */,
 				67164C5E25D7CE6D0041BB9A /* EffectTimingDialog.h */,
@@ -1429,6 +1427,7 @@
 				67164EF525D7CE6E0041BB9A /* HousePreviewPanel.h */,
 				671650AA25D7CE6F0041BB9A /* HousePreviewPanel.cpp */,
 				67164E4325D7CE6E0041BB9A /* Images_png.h */,
+				AA000001IMEX000000000001 /* import_export */,
 				67164EF125D7CE6E0041BB9A /* ImportPreviewsModelsDialog.h */,
 				6716510625D7CE6F0041BB9A /* ImportPreviewsModelsDialog.cpp */,
 				67164C5925D7CE6D0041BB9A /* IPEntryDialog.h */,
@@ -2259,13 +2258,13 @@
 				670015D02F6FD81A00BA900E /* preferences */,
 				670CA87F2F756E2800FE629F /* utils */,
 				678570EF2F72C4C300F50F9F /* effects */,
-				AA000001IMEX000000000001 /* import_export */,
 				67DE1F092F72BD800010AE7E /* models */,
 				67DE1F592F72BDC50010AE7E /* cad */,
 				67DE1F802F72BDC50010AE7E /* controllers */,
 				67DE1FAC2F72BDFE0010AE7E /* sequencer */,
 				67DE1FB52F72BDFE0010AE7E /* support */,
 				67F7DB8A2D582A9D00921286 /* ai */,
+				AA000001IMEX000000000001 /* import_export */,
 				AA000001RENDER000000000001 /* render */,
 				C471E0212F1ED95A0063881B /* XmlSerializer */,
 			);
