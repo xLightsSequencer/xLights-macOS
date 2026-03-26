@@ -1,9 +1,11 @@
 #pragma once
 
+#include <filesystem>
 #include <functional>
 
 #include <wx/osx/core/private.h>
 #include <wx/filename.h>
+#include <wx/stdpaths.h>
 
 #include "../../xLights-macOSLib.build/DerivedSources/xLights_macOSLib-Swift.h"
 
@@ -88,6 +90,10 @@ inline void WXGLUnsetCurrentContext() {
 #pragma clang diagnostic pop
 
 #define AdjustModalDialogParent(par) par = nullptr
+
+inline std::string GetResourcesDir() {
+    return wxStandardPaths::Get().GetResourcesDir().ToStdString();
+}
 
 void SetThreadQOS(int i);
 
