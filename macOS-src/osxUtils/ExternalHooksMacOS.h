@@ -2,21 +2,10 @@
 
 #include <filesystem>
 #include <functional>
-
-#include <wx/osx/core/private.h>
-#include <wx/filename.h>
-#include <wx/stdpaths.h>
+#include <string>
+#include <list>
 
 #include "../../xLights-macOSLib.build/DerivedSources/xLights_macOSLib-Swift.h"
-
-class wxGLCanvas;
-class wxWindow;
-class wxString;
-class wxFileName;
-class wxColor;
-class wxArrayString;
-class wxButton;
-class wxColour;
 
 /* Various touch points that the OSX builds can use to
  * setup some various advanced functionality
@@ -27,14 +16,6 @@ bool ObtainAccessToURL(const std::string &path, bool enforceWritable = false);
 inline bool FileExists(const std::string &s, bool waitForDownload = true) {
     return xLights_macOSLib::fileExists(s, waitForDownload);
 }
-
-inline bool FileExists(const wxFileName &fn, bool waitForDownload = true) {
-    return FileExists(fn.GetFullPath().ToStdString(), waitForDownload);
-}
-inline bool FileExists(const wxString &s, bool waitForDownload = true) {
-    return FileExists(s.ToStdString(), waitForDownload);
-}
-void GetAllFilesInDir(const wxString &dir, wxArrayString &filesOut, const wxString &filespec, int flags = -1);
 
 inline void MarkNewFileRevision(const std::string &path, int retainMax = 15) {
     xLights_macOSLib::markNewFileRevision(path, retainMax);
@@ -59,29 +40,19 @@ inline bool hasFullDiskAccess() {
     return xLights_macOSLib::hasFullDiskAccess();
 }
 
-
 void AddAudioDeviceChangeListener(std::function<void()> &&callback);
 void RemoveAudioDeviceChangeListener();
-
-void AdjustColorToDeviceColorspace(const wxColor &c, uint8_t &r, uint8_t &g, uint8_t &b, uint8_t &a);
 
 inline bool IsFromAppStore() {
     return xLights_macOSLib::isFromAppStore();
 }
 
-bool DoInAppPurchases(wxWindow *w);
-inline wxString GetOSFormattedClipboardData() {
-    std::string s = xLights_macOSLib::getOSFormattedClipboardData();
-    return wxString(s);
-}
 inline double xlOSGetMainScreenContentScaleFactor() {
     return xLights_macOSLib::xlOSGetMainScreenContentScaleFactor();
 }
 
-inline void RunInAutoReleasePool(std::function<void()> &&f) {
-    wxMacAutoreleasePool pool;
-    f();
-}
+void RunInAutoReleasePool(std::function<void()> &&f);
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 inline void WXGLUnsetCurrentContext() {
@@ -89,16 +60,6 @@ inline void WXGLUnsetCurrentContext() {
 }
 #pragma clang diagnostic pop
 
-#define AdjustModalDialogParent(par) par = nullptr
-
-inline std::string GetResourcesDir() {
-    return wxStandardPaths::Get().GetResourcesDir().ToStdString();
-}
-
 void SetThreadQOS(int i);
-
-void SetButtonBackground(wxButton *b, const wxColour &c, int bgType = 0);
-
-
 
 #define __XL_EXTERNAL_HOOKS__

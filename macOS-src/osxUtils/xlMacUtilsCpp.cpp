@@ -7,7 +7,16 @@
 //
 
 #include <stdio.h>
+#include <mutex>
+#include <set>
+
+#include <wx/config.h>
+#include <wx/dir.h>
+#include <wx/filename.h>
+#include <wx/string.h>
+
 #include "../../xLights-macOSLib.build/DerivedSources/xLights_macOSLib-Swift.h"
+#include "ExternalHooksMacOS.h"
 
 
 
@@ -33,7 +42,7 @@ static void loadGroupEntries(wxConfig *bookmarks, const std::string &pfx) {
 
 }
 
-bool ObtainAccessToURL(const std::string &path, bool enforceWritable = false) {
+bool ObtainAccessToURL(const std::string &path, bool enforceWritable) {
     static bool oldPrefsChecked = false;
     if (!oldPrefsChecked) {
         static std::mutex oldLock;
@@ -47,6 +56,18 @@ bool ObtainAccessToURL(const std::string &path, bool enforceWritable = false) {
         oldPrefsChecked = true;
     }
     return xLights_macOSLib::obtainAccessToURL(path, enforceWritable);
+}
+
+bool FileExists(const wxFileName &fn, bool waitForDownload) {
+    return FileExists(fn.GetFullPath().ToStdString(), waitForDownload);
+}
+bool FileExists(const wxString &s, bool waitForDownload) {
+    return FileExists(s.ToStdString(), waitForDownload);
+}
+
+wxString GetOSFormattedClipboardData() {
+    std::string s = xLights_macOSLib::getOSFormattedClipboardData();
+    return wxString(s);
 }
 
 void GetAllFilesInDir(const wxString &dir, wxArrayString &files, const wxString &filespec, int flags) {

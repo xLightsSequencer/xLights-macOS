@@ -2,7 +2,17 @@
 #include "../../xLights-macOSLib.build/DerivedSources/xLights_macOSLib-Swift.h"
 #include "ExternalHooksMacOS.h"
 
+#include <wx/colour.h>
+#include <wx/button.h>
+#include <wx/window.h>
 
+#include <functional>
+
+void RunInAutoReleasePool(std::function<void()> &&f) {
+    @autoreleasepool {
+        f();
+    }
+}
 
 void AdjustColorToDeviceColorspace(const wxColor &c, uint8_t &r, uint8_t &g, uint8_t &b, uint8_t &a) {
     uint32_t ret = xLights_macOSLib::adjustColorToDeviceColorspace(c.OSXGetNSColor());
