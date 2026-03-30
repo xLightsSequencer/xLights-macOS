@@ -125,6 +125,7 @@
 		671652B125D7CE710041BB9A /* SeqExportDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164EF225D7CE6E0041BB9A /* SeqExportDialog.cpp */; };
 		671652B425D7CE710041BB9A /* TimingPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164EFB25D7CE6E0041BB9A /* TimingPanel.cpp */; };
 		671652B525D7CE710041BB9A /* RenderProgressDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164EFC25D7CE6E0041BB9A /* RenderProgressDialog.cpp */; };
+		AA0000012F85A00000000002 /* RenderCommandEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA0000012F85A00000000001 /* RenderCommandEvent.cpp */; };
 		671652B625D7CE710041BB9A /* ChannelLayoutDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164EFD25D7CE6E0041BB9A /* ChannelLayoutDialog.cpp */; };
 		671652B725D7CE710041BB9A /* EffectListDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164EFE25D7CE6E0041BB9A /* EffectListDialog.cpp */; };
 		671652B825D7CE710041BB9A /* TraceLog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164EFF25D7CE6E0041BB9A /* TraceLog.cpp */; };
@@ -690,6 +691,7 @@
 		671650AD25D7CE6F0041BB9A /* SequenceVideoPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SequenceVideoPanel.cpp; sourceTree = "<group>"; };
 		671650AE25D7CE6F0041BB9A /* VendorModelDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VendorModelDialog.cpp; sourceTree = "<group>"; };
 		671650AF25D7CE6F0041BB9A /* RenderCommandEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderCommandEvent.h; sourceTree = "<group>"; };
+		AA0000012F85A00000000001 /* RenderCommandEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RenderCommandEvent.cpp; sourceTree = "<group>"; };
 		671650B025D7CE6F0041BB9A /* Parallel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Parallel.h; sourceTree = "<group>"; };
 		671650B125D7CE6F0041BB9A /* LMSImportChannelMapDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LMSImportChannelMapDialog.cpp; sourceTree = "<group>"; };
 		671650B225D7CE6F0041BB9A /* ViewObjectPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ViewObjectPanel.cpp; sourceTree = "<group>"; };
@@ -1526,6 +1528,7 @@
 				67164C5625D7CE6D0041BB9A /* RenameTextDialog.h */,
 				67164C4825D7CE6D0041BB9A /* RenameTextDialog.cpp */,
 				AA000001RENDER000000000001 /* render */,
+				AA0000012F85A00000000001 /* RenderCommandEvent.cpp */,
 				671650AF25D7CE6F0041BB9A /* RenderCommandEvent.h */,
 				67164C5325D7CE6D0041BB9A /* RenderProgressDialog.h */,
 				67164EFC25D7CE6E0041BB9A /* RenderProgressDialog.cpp */,
@@ -2617,6 +2620,7 @@
 				6716554D25D8245E0041BB9A /* MidiEventList.cpp in Sources */,
 				53EB767E2719BAFE00ED8702 /* ExportSettings.cpp in Sources */,
 				671652B525D7CE710041BB9A /* RenderProgressDialog.cpp in Sources */,
+				AA0000012F85A00000000002 /* RenderCommandEvent.cpp in Sources */,
 				671FDE322F46508900F9AD8E /* ManageMediaPanel.cpp in Sources */,
 				67D7159727287CE800E5EDB5 /* xlMetalGraphicsContext.mm in Sources */,
 				671655B925D827100041BB9A /* PluginBufferingAdapter.cpp in Sources */,
