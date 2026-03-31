@@ -106,7 +106,6 @@
 		67F9B092272899080005A74B /* MetalShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 67F9B091272899080005A74B /* MetalShaders.metal */; };
 		67FD63542D588527004547FF /* resources in Resources */ = {isa = PBXBuildFile; fileRef = 67FD63532D588527004547FF /* resources */; };
 		67FDC38C27CA77890009A3C7 /* libhidapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67FDC38B27CA77610009A3C7 /* libhidapi.a */; };
-		7FDE55FF280A94E900C4EB70 /* xlBaseApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FB5CEDC27A27A2A007612B2 /* xlBaseApp.cpp */; };
 		AA000001PUGI000000000002 /* pugixml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA000001PUGI000000000001 /* pugixml.cpp */; };
 		C40BF5522BC6217800D701CF /* mhpresets in Resources */ = {isa = PBXBuildFile; fileRef = C40BF5512BC6217800D701CF /* mhpresets */; };
 /* End PBXBuildFile section */
@@ -436,9 +435,6 @@
 		67F9B091272899080005A74B /* MetalShaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = MetalShaders.metal; sourceTree = "<group>"; };
 		67FD63532D588527004547FF /* resources */ = {isa = PBXFileReference; lastKnownFileType = folder; name = resources; path = ../resources; sourceTree = "<group>"; };
 		67FDC38B27CA77610009A3C7 /* libhidapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libhidapi.a; path = ../../../../../opt/local/libdbg/libhidapi.a; sourceTree = "<group>"; };
-		7FB5CEDB27A27A2A007612B2 /* xlBaseApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = xlBaseApp.h; path = ../common/xlBaseApp.h; sourceTree = "<group>"; };
-		7FB5CEDC27A27A2A007612B2 /* xlBaseApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = xlBaseApp.cpp; path = ../common/xlBaseApp.cpp; sourceTree = "<group>"; };
-		7FB5CEDD27A27A2A007612B2 /* xlStackWalker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = xlStackWalker.h; path = ../common/xlStackWalker.h; sourceTree = "<group>"; };
 		AA000001PUGI000000000001 /* pugixml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pugixml.cpp; path = ../dependencies/pugixml/src/pugixml.cpp; sourceTree = "<group>"; };
 		C40BF5512BC6217800D701CF /* mhpresets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = mhpresets; path = ../mhpresets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -585,6 +581,11 @@
 		6762A5FD2F7C5D9000F33C18 /* MIDI */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = MIDI;
+			sourceTree = "<group>";
+		};
+		6762DB232F7C664D00F33C18 /* common */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = common;
 			sourceTree = "<group>";
 		};
 		678570EF2F72C4C300F50F9F /* effects */ = {
@@ -760,6 +761,7 @@
 				67F7DB8A2D582A9D00921286 /* ai */,
 				67000F3A2F6DA77200BA900E /* automation */,
 				67DE1F592F72BDC50010AE7E /* cad */,
+				6762DB232F7C664D00F33C18 /* common */,
 				67DE1F802F72BDC50010AE7E /* controllers */,
 				67164DF925D7CE6D0041BB9A /* CopyFormat1.h */,
 				671650A725D7CE6F0041BB9A /* CopyFormat1.cpp */,
@@ -783,15 +785,12 @@
 				67164BEE25D7CE6D0041BB9A /* VendorMusicHelpers.h */,
 				67164BED25D7CE6D0041BB9A /* VendorMusicHelpers.cpp */,
 				67164C4F25D7CE6D0041BB9A /* wininet.h */,
-				7FB5CEDB27A27A2A007612B2 /* xlBaseApp.h */,
-				7FB5CEDC27A27A2A007612B2 /* xlBaseApp.cpp */,
 				67164BC725D7CE6D0041BB9A /* xLightsApp.h */,
 				67164C1D25D7CE6D0041BB9A /* xLightsApp.cpp */,
 				67164C0625D7CE6D0041BB9A /* xLightsMain.h */,
 				67164D0125D7CE6D0041BB9A /* xLightsMain.cpp */,
 				67164C5B25D7CE6D0041BB9A /* xLightsVersion.h */,
 				671650F625D7CE6F0041BB9A /* xLightsVersion.cpp */,
-				7FB5CEDD27A27A2A007612B2 /* xlStackWalker.h */,
 				C471E0212F1ED95A0063881B /* XmlSerializer */,
 			);
 			name = xLights;
@@ -1251,6 +1250,7 @@
 				67000F3A2F6DA77200BA900E /* automation */,
 				670CA87F2F756E2800FE629F /* utils */,
 				6762A5FD2F7C5D9000F33C18 /* MIDI */,
+				6762DB232F7C664D00F33C18 /* common */,
 				678570EF2F72C4C300F50F9F /* effects */,
 				67DE1F092F72BD800010AE7E /* models */,
 				67DE1F592F72BDC50010AE7E /* cad */,
@@ -1462,7 +1462,6 @@
 				6716559C25D825410041BB9A /* PluginInputDomainAdapter.cpp in Sources */,
 				6716559A25D825410041BB9A /* PluginAdapter.cpp in Sources */,
 				67D142C0275803100018A831 /* response.cpp in Sources */,
-				7FDE55FF280A94E900C4EB70 /* xlBaseApp.cpp in Sources */,
 				671655D325D827650041BB9A /* kiss_fftnd.c in Sources */,
 				6716553425D823C60041BB9A /* jsonreader.cpp in Sources */,
 				6716559F25D825410041BB9A /* host-c.cpp in Sources */,
