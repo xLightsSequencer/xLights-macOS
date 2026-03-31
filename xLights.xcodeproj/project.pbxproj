@@ -67,7 +67,7 @@
 		674D3D261C207C25000D632B /* libpthread.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D251C207C25000D632B /* libpthread.tbd */; };
 		675EDD3D2789D87C00D40FEA /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675EDD3C2789D87C00D40FEA /* liblua.a */; };
 		675FD840204C3C0B003D280F /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B227204BA69B00E90AC7 /* CoreImage.framework */; };
-		6762DB2C2F7C677F00F33C18 /* xlBaseApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6762DB2A2F7C677F00F33C18 /* xlBaseApp.cpp */; };
+		6762DB302F7C67C800F33C18 /* xlBaseApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6762DB2E2F7C67C800F33C18 /* xlBaseApp.cpp */; };
 		677A15C226A22AA8000AFE4D /* ResultDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6771056D267BB91C001DA926 /* ResultDialog.cpp */; };
 		677A15C326A22AA8000AFE4D /* UniverseEntryDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6771056A267BB91C001DA926 /* UniverseEntryDialog.cpp */; };
 		677A15C426A22AA8000AFE4D /* xCaptureMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6771056E267BB91C001DA926 /* xCaptureMain.cpp */; };
@@ -329,9 +329,9 @@
 		674E27A41B5B37B000274B20 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		674E9C631C9106D600D12F0D /* libwx_osx_cocoau_propgrid-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_propgrid-3.3.dylib"; path = "../../../../opt/local/libdbg/libwx_osx_cocoau_propgrid-3.3.dylib"; sourceTree = "<group>"; };
 		675EDD3C2789D87C00D40FEA /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblua.a; path = /opt/local/lib/liblua.a; sourceTree = "<group>"; };
-		6762DB292F7C677F00F33C18 /* xlBaseApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xlBaseApp.h; sourceTree = "<group>"; };
-		6762DB2A2F7C677F00F33C18 /* xlBaseApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xlBaseApp.cpp; sourceTree = "<group>"; };
-		6762DB2B2F7C677F00F33C18 /* xlStackWalker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xlStackWalker.h; sourceTree = "<group>"; };
+		6762DB2D2F7C67C800F33C18 /* xlBaseApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = xlBaseApp.h; path = ../common/xlBaseApp.h; sourceTree = SOURCE_ROOT; };
+		6762DB2E2F7C67C800F33C18 /* xlBaseApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = xlBaseApp.cpp; path = ../common/xlBaseApp.cpp; sourceTree = SOURCE_ROOT; };
+		6762DB2F2F7C67C800F33C18 /* xlStackWalker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = xlStackWalker.h; path = ../common/xlStackWalker.h; sourceTree = SOURCE_ROOT; };
 		6771056A267BB91C001DA926 /* UniverseEntryDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UniverseEntryDialog.cpp; path = ../xCapture/UniverseEntryDialog.cpp; sourceTree = "<group>"; };
 		6771056B267BB91C001DA926 /* UniverseEntryDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UniverseEntryDialog.h; path = ../xCapture/UniverseEntryDialog.h; sourceTree = "<group>"; };
 		6771056C267BB91C001DA926 /* ResultDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResultDialog.h; path = ../xCapture/ResultDialog.h; sourceTree = "<group>"; };
@@ -952,9 +952,9 @@
 		6762DB282F7C675900F33C18 /* common */ = {
 			isa = PBXGroup;
 			children = (
-				6762DB292F7C677F00F33C18 /* xlBaseApp.h */,
-				6762DB2A2F7C677F00F33C18 /* xlBaseApp.cpp */,
-				6762DB2B2F7C677F00F33C18 /* xlStackWalker.h */,
+				6762DB2D2F7C67C800F33C18 /* xlBaseApp.h */,
+				6762DB2E2F7C67C800F33C18 /* xlBaseApp.cpp */,
+				6762DB2F2F7C67C800F33C18 /* xlStackWalker.h */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -1461,7 +1461,7 @@
 				67D142BE275803100018A831 /* request.cpp in Sources */,
 				677A15C226A22AA8000AFE4D /* ResultDialog.cpp in Sources */,
 				6716559925D825410041BB9A /* RealTime.cpp in Sources */,
-				6762DB2C2F7C677F00F33C18 /* xlBaseApp.cpp in Sources */,
+				6762DB302F7C67C800F33C18 /* xlBaseApp.cpp in Sources */,
 				67D142BC275803100018A831 /* context.cpp in Sources */,
 				671655D225D827650041BB9A /* kfc.c in Sources */,
 				6716559B25D825410041BB9A /* acsymbols.c in Sources */,
