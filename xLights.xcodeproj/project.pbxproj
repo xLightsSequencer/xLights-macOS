@@ -7,190 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5326AEB92D191277001BB084 /* ShowFolderSearchDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5326AEB82D191277001BB084 /* ShowFolderSearchDialog.cpp */; };
-		538F8DFE26B42E5D0080A1BB /* LORPreview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 538F8DFC26B42E5D0080A1BB /* LORPreview.cpp */; };
-		53DAD7B3288ED35D000E06E1 /* LayoutUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 53DAD7B1288ED35D000E06E1 /* LayoutUtils.cpp */; };
-		53EAB8DD2874DBE300FD1449 /* RestoreBackupDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 53EAB8DB2874DBE300FD1449 /* RestoreBackupDialog.cpp */; };
-		53EB767E2719BAFE00ED8702 /* ExportSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 53EB767D2719BAFE00ED8702 /* ExportSettings.cpp */; };
-		670059B5279A4403006AD9EA /* Mouse3DManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670059B3279A4403006AD9EA /* Mouse3DManager.cpp */; };
-		670215432BBC3D120076CAF3 /* EditSubmodelAliasesDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670215422BBC3D120076CAF3 /* EditSubmodelAliasesDialog.cpp */; };
 		67061FD32746D5330020519D /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67061FD22746D5330020519D /* MetalPerformanceShaders.framework */; };
-		670726972F590F82000514B7 /* EffectPresetManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670726962F590F82000514B7 /* EffectPresetManager.cpp */; };
-		670DA2BA2AB9DD9B00380ACE /* AutoLabelDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670DA2B82AB9DD9B00380ACE /* AutoLabelDialog.cpp */; };
 		670F8DCA27652F5E002F0CD6 /* ModelIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 670F8DC927652F5E002F0CD6 /* ModelIO.framework */; };
-		671202F92B1DB6F7002E763A /* EditAliasesDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671202F72B1DB6F7002E763A /* EditAliasesDialog.cpp */; };
-		6716512025D7CE700041BB9A /* SuperStarImportDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164BCA25D7CE6D0041BB9A /* SuperStarImportDialog.cpp */; };
-		6716512125D7CE700041BB9A /* ConvertDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164BCB25D7CE6D0041BB9A /* ConvertDialog.cpp */; };
-		6716512225D7CE700041BB9A /* NodesGridCellEditor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164BCC25D7CE6D0041BB9A /* NodesGridCellEditor.cpp */; };
-		6716512425D7CE700041BB9A /* LinkJukeboxButtonDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164BD325D7CE6D0041BB9A /* LinkJukeboxButtonDialog.cpp */; };
-		6716512525D7CE700041BB9A /* xlGridCanvas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164BD525D7CE6D0041BB9A /* xlGridCanvas.cpp */; };
-		6716512825D7CE700041BB9A /* TabSetup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164BDC25D7CE6D0041BB9A /* TabSetup.cpp */; };
-		6716512A25D7CE700041BB9A /* MatrixFaceDownloadDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164BE125D7CE6D0041BB9A /* MatrixFaceDownloadDialog.cpp */; };
-		6716512D25D7CE700041BB9A /* LayoutGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164BEA25D7CE6D0041BB9A /* LayoutGroup.cpp */; };
-		6716512E25D7CE700041BB9A /* RemapDMXChannelsDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164BEB25D7CE6D0041BB9A /* RemapDMXChannelsDialog.cpp */; };
 		6716512F25D7CE700041BB9A /* VendorMusicHelpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164BED25D7CE6D0041BB9A /* VendorMusicHelpers.cpp */; };
-		6716513925D7CE700041BB9A /* EffectAssist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C0125D7CE6D0041BB9A /* EffectAssist.cpp */; };
-		6716513A25D7CE700041BB9A /* NoteImportDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C0725D7CE6D0041BB9A /* NoteImportDialog.cpp */; };
-		6716513B25D7CE700041BB9A /* IPEntryDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C0825D7CE6D0041BB9A /* IPEntryDialog.cpp */; };
-		6716513D25D7CE700041BB9A /* SequenceViewManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C0B25D7CE6D0041BB9A /* SequenceViewManager.cpp */; };
-		6716513E25D7CE700041BB9A /* ControllerModelDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C0D25D7CE6D0041BB9A /* ControllerModelDialog.cpp */; };
-		6716513F25D7CE700041BB9A /* OutputModelManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C0E25D7CE6D0041BB9A /* OutputModelManager.cpp */; };
-		6716514225D7CE700041BB9A /* ExportModelSelect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C1325D7CE6D0041BB9A /* ExportModelSelect.cpp */; };
 		6716514325D7CE700041BB9A /* MusicXML.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C1425D7CE6D0041BB9A /* MusicXML.cpp */; };
-		6716514425D7CE700041BB9A /* GenerateLyricsDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C1625D7CE6D0041BB9A /* GenerateLyricsDialog.cpp */; };
-		6716514725D7CE700041BB9A /* ControllerConnectionDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C1C25D7CE6D0041BB9A /* ControllerConnectionDialog.cpp */; };
 		6716514825D7CE700041BB9A /* xLightsApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C1D25D7CE6D0041BB9A /* xLightsApp.cpp */; };
-		6716514925D7CE700041BB9A /* xlSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C1E25D7CE6D0041BB9A /* xlSlider.cpp */; };
-		6716514A25D7CE700041BB9A /* ColorManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C2025D7CE6D0041BB9A /* ColorManager.cpp */; };
-		6716514D25D7CE700041BB9A /* TopEffectsPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C2625D7CE6D0041BB9A /* TopEffectsPanel.cpp */; };
-		6716514E25D7CE700041BB9A /* EffectTimingDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C2725D7CE6D0041BB9A /* EffectTimingDialog.cpp */; };
-		6716514F25D7CE700041BB9A /* SeqSettingsDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C2825D7CE6D0041BB9A /* SeqSettingsDialog.cpp */; };
-		6716515A25D7CE700041BB9A /* BatchRenderDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C4025D7CE6D0041BB9A /* BatchRenderDialog.cpp */; };
-		6716515B25D7CE700041BB9A /* TabSequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C4125D7CE6D0041BB9A /* TabSequence.cpp */; };
-		6716515E25D7CE700041BB9A /* BulkEditControls.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C4625D7CE6D0041BB9A /* BulkEditControls.cpp */; };
-		6716515F25D7CE700041BB9A /* xLightsImportChannelMapDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C4725D7CE6D0041BB9A /* xLightsImportChannelMapDialog.cpp */; };
-		6716516025D7CE700041BB9A /* RenameTextDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C4825D7CE6D0041BB9A /* RenameTextDialog.cpp */; };
-		6716516125D7CE700041BB9A /* EffectsPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C4A25D7CE6D0041BB9A /* EffectsPanel.cpp */; };
-		6716516225D7CE700041BB9A /* StartChannelDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C4B25D7CE6D0041BB9A /* StartChannelDialog.cpp */; };
-		6716516325D7CE700041BB9A /* ModelPreview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C4C25D7CE6D0041BB9A /* ModelPreview.cpp */; };
-		6716516425D7CE700041BB9A /* AboutDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C4D25D7CE6D0041BB9A /* AboutDialog.cpp */; };
-		6716516625D7CE700041BB9A /* SeqElementMismatchDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C5225D7CE6D0041BB9A /* SeqElementMismatchDialog.cpp */; };
-		6716516725D7CE700041BB9A /* VAMPPluginDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C5525D7CE6D0041BB9A /* VAMPPluginDialog.cpp */; };
-		6716516825D7CE700041BB9A /* MultiControllerUploadDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C5D25D7CE6D0041BB9A /* MultiControllerUploadDialog.cpp */; };
-		6716516925D7CE700041BB9A /* ColoursPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C6025D7CE6D0041BB9A /* ColoursPanel.cpp */; };
-		6716516A25D7CE700041BB9A /* ModelChainDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C6125D7CE6D0041BB9A /* ModelChainDialog.cpp */; };
-		6716516B25D7CE700041BB9A /* SubModelGenerateDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C6225D7CE6D0041BB9A /* SubModelGenerateDialog.cpp */; };
-		6716516C25D7CE700041BB9A /* Discovery.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C6425D7CE6D0041BB9A /* Discovery.cpp */; };
-		6716516E25D7CE700041BB9A /* BulkEditSliderDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C6825D7CE6D0041BB9A /* BulkEditSliderDialog.cpp */; };
-		6716516F25D7CE700041BB9A /* SubModelsDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C6925D7CE6D0041BB9A /* SubModelsDialog.cpp */; };
-		6716517025D7CE700041BB9A /* CharMapDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C6A25D7CE6D0041BB9A /* CharMapDialog.cpp */; };
-		6716517625D7CE700041BB9A /* SeqFileUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C7525D7CE6D0041BB9A /* SeqFileUtilities.cpp */; };
-		6716517825D7CE700041BB9A /* ColorPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C7B25D7CE6D0041BB9A /* ColorPanel.cpp */; };
-		6716517B25D7CE700041BB9A /* SevenSegmentDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C7E25D7CE6D0041BB9A /* SevenSegmentDialog.cpp */; };
-		6716517C25D7CE700041BB9A /* ViewpointDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C7F25D7CE6D0041BB9A /* ViewpointDialog.cpp */; };
-		6716517D25D7CE700041BB9A /* BulkEditColourPickerDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C8125D7CE6D0041BB9A /* BulkEditColourPickerDialog.cpp */; };
-		6716517E25D7CE700041BB9A /* wxCheckedListCtrl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C8225D7CE6D0041BB9A /* wxCheckedListCtrl.cpp */; };
-		6716518025D7CE700041BB9A /* StrandNodeNamesDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C8825D7CE6D0041BB9A /* StrandNodeNamesDialog.cpp */; };
-		6716518125D7CE700041BB9A /* EffectIconPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C8A25D7CE6D0041BB9A /* EffectIconPanel.cpp */; };
-		6716518225D7CE700041BB9A /* EmailDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C8C25D7CE6D0041BB9A /* EmailDialog.cpp */; };
-		6716518325D7CE700041BB9A /* SequencePackage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C8D25D7CE6D0041BB9A /* SequencePackage.cpp */; };
-		6716518425D7CE700041BB9A /* CheckboxSelectDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C8E25D7CE6D0041BB9A /* CheckboxSelectDialog.cpp */; };
-		6716518525D7CE700041BB9A /* ConvertLogDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C8F25D7CE6D0041BB9A /* ConvertLogDialog.cpp */; };
-		6716518625D7CE700041BB9A /* LorConvertDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C9025D7CE6D0041BB9A /* LorConvertDialog.cpp */; };
-		6716518725D7CE700041BB9A /* TabConvert.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C9225D7CE6D0041BB9A /* TabConvert.cpp */; };
 		671651BD25D7CE700041BB9A /* xLightsMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164D0125D7CE6D0041BB9A /* xLightsMain.cpp */; };
-		671651BE25D7CE700041BB9A /* KeyBindings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164D0225D7CE6D0041BB9A /* KeyBindings.cpp */; };
-		671651BF25D7CE700041BB9A /* NoteRangeDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164D0325D7CE6D0041BB9A /* NoteRangeDialog.cpp */; };
-		671651C025D7CE700041BB9A /* PerspectivesPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164D0525D7CE6D0041BB9A /* PerspectivesPanel.cpp */; };
-		671651C425D7CE700041BB9A /* ModelDimmingCurveDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164D0F25D7CE6D0041BB9A /* ModelDimmingCurveDialog.cpp */; };
-		671651C525D7CE700041BB9A /* xlLockButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164D1025D7CE6D0041BB9A /* xlLockButton.cpp */; };
-		671651C625D7CE700041BB9A /* xlColorPickerFields.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164D1225D7CE6D0041BB9A /* xlColorPickerFields.cpp */; };
-		671651C925D7CE700041BB9A /* OpenGLShaders.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164D1525D7CE6D0041BB9A /* OpenGLShaders.cpp */; };
-		671651CA25D7CE700041BB9A /* ResizeImageDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164D1625D7CE6D0041BB9A /* ResizeImageDialog.cpp */; };
-		671651CC25D7CE700041BB9A /* ColorCurveDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164D1825D7CE6D0041BB9A /* ColorCurveDialog.cpp */; };
-		671651CD25D7CE700041BB9A /* AlignmentDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164D1925D7CE6D0041BB9A /* AlignmentDialog.cpp */; };
-		671651CE25D7CE700041BB9A /* VsaImportDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164D1B25D7CE6D0041BB9A /* VsaImportDialog.cpp */; };
-		671651CF25D7CE700041BB9A /* ViewsModelsPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164D1C25D7CE6D0041BB9A /* ViewsModelsPanel.cpp */; };
-		671651D025D7CE700041BB9A /* LyricsDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164D9225D7CE6D0041BB9A /* LyricsDialog.cpp */; };
-		671651D225D7CE700041BB9A /* PixelTestDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164D9425D7CE6D0041BB9A /* PixelTestDialog.cpp */; };
-		671651D325D7CE700041BB9A /* GenerateCustomModelDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164D9A25D7CE6D0041BB9A /* GenerateCustomModelDialog.cpp */; };
-		671651D425D7CE700041BB9A /* NodeSelectGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164D9D25D7CE6D0041BB9A /* NodeSelectGrid.cpp */; };
-		671651D525D7CE700041BB9A /* TabPreview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164D9E25D7CE6D0041BB9A /* TabPreview.cpp */; };
-		671651D625D7CE700041BB9A /* VendorMusicDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164D9F25D7CE6D0041BB9A /* VendorMusicDialog.cpp */; };
-		671651D725D7CE700041BB9A /* LayoutPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164DA025D7CE6D0041BB9A /* LayoutPanel.cpp */; };
-		671651DF25D7CE700041BB9A /* ViewpointMgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164DAF25D7CE6D0041BB9A /* ViewpointMgr.cpp */; };
-		671651E025D7CE700041BB9A /* SelectTimingsDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164DF825D7CE6D0041BB9A /* SelectTimingsDialog.cpp */; };
-		671651E125D7CE700041BB9A /* PreviewPane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164DFA25D7CE6D0041BB9A /* PreviewPane.cpp */; };
-		671651E625D7CE700041BB9A /* ModelFaceDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164E0125D7CE6D0041BB9A /* ModelFaceDialog.cpp */; };
-		671651E725D7CE700041BB9A /* xlColorPicker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164E0225D7CE6D0041BB9A /* xlColorPicker.cpp */; };
-		671651E925D7CE700041BB9A /* BufferPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164E0425D7CE6D0041BB9A /* BufferPanel.cpp */; };
-		671651EA25D7CE700041BB9A /* ModelStateDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164E0525D7CE6D0041BB9A /* ModelStateDialog.cpp */; };
-		671651EB25D7CE700041BB9A /* UpdaterDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164E0825D7CE6D0041BB9A /* UpdaterDialog.cpp */; };
-		671651ED25D7CE700041BB9A /* SequenceVideoPreview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164E0B25D7CE6E0041BB9A /* SequenceVideoPreview.cpp */; };
-		671651EE25D7CE700041BB9A /* KeyBindingEditDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164E0C25D7CE6E0041BB9A /* KeyBindingEditDialog.cpp */; };
-		6716520525D7CE700041BB9A /* MediaImportOptionsDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164E3F25D7CE6E0041BB9A /* MediaImportOptionsDialog.cpp */; };
-		6716520625D7CE700041BB9A /* OptionChooser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164E4125D7CE6E0041BB9A /* OptionChooser.cpp */; };
-		6716520725D7CE700041BB9A /* ModelGroupPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164E4225D7CE6E0041BB9A /* ModelGroupPanel.cpp */; };
-		6716520825D7CE700041BB9A /* CustomModelDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164E4425D7CE6E0041BB9A /* CustomModelDialog.cpp */; };
-		6716520925D7CE700041BB9A /* LayerSelectDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164E4725D7CE6E0041BB9A /* LayerSelectDialog.cpp */; };
-		671652B025D7CE710041BB9A /* SaveChangesDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164EF025D7CE6E0041BB9A /* SaveChangesDialog.cpp */; };
-		671652B125D7CE710041BB9A /* SeqExportDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164EF225D7CE6E0041BB9A /* SeqExportDialog.cpp */; };
-		671652B425D7CE710041BB9A /* TimingPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164EFB25D7CE6E0041BB9A /* TimingPanel.cpp */; };
-		671652B525D7CE710041BB9A /* RenderProgressDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164EFC25D7CE6E0041BB9A /* RenderProgressDialog.cpp */; };
-		671652B625D7CE710041BB9A /* ChannelLayoutDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164EFD25D7CE6E0041BB9A /* ChannelLayoutDialog.cpp */; };
-		671652B725D7CE710041BB9A /* EffectListDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164EFE25D7CE6E0041BB9A /* EffectListDialog.cpp */; };
-		671652B825D7CE710041BB9A /* TraceLog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164EFF25D7CE6E0041BB9A /* TraceLog.cpp */; };
-		671652C925D7CE710041BB9A /* CustomTimingDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164F2D25D7CE6E0041BB9A /* CustomTimingDialog.cpp */; };
-		671652CA25D7CE710041BB9A /* VideoReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164F2E25D7CE6E0041BB9A /* VideoReader.cpp */; };
 		671652CC25D7CE710041BB9A /* PhonemeDictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164F3025D7CE6E0041BB9A /* PhonemeDictionary.cpp */; };
-		671652CE25D7CE710041BB9A /* SequenceData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164F3225D7CE6E0041BB9A /* SequenceData.cpp */; };
-		671652D025D7CE710041BB9A /* FlickerFreeBitmapButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164F6A25D7CE6E0041BB9A /* FlickerFreeBitmapButton.cpp */; };
-		671652D125D7CE710041BB9A /* BitmapCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164F6B25D7CE6E0041BB9A /* BitmapCache.cpp */; };
-		671652D225D7CE710041BB9A /* EffectTreeDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164F6C25D7CE6E0041BB9A /* EffectTreeDialog.cpp */; };
-		671652D325D7CE710041BB9A /* NewTimingDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164F6E25D7CE6E0041BB9A /* NewTimingDialog.cpp */; };
-		671652D625D7CE710041BB9A /* WiringDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164F7225D7CE6E0041BB9A /* WiringDialog.cpp */; };
-		671652D725D7CE710041BB9A /* wxModelGridCellRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164F7325D7CE6E0041BB9A /* wxModelGridCellRenderer.cpp */; };
-		6716530225D7CE710041BB9A /* ShaderDownloadDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164FA125D7CE6E0041BB9A /* ShaderDownloadDialog.cpp */; };
-		6716538225D7CE720041BB9A /* PathGenerationDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650A325D7CE6F0041BB9A /* PathGenerationDialog.cpp */; };
 		6716538325D7CE720041BB9A /* CopyFormat1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650A725D7CE6F0041BB9A /* CopyFormat1.cpp */; };
-		6716538425D7CE720041BB9A /* SplashDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650A825D7CE6F0041BB9A /* SplashDialog.cpp */; };
-		6716538525D7CE720041BB9A /* HousePreviewPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650AA25D7CE6F0041BB9A /* HousePreviewPanel.cpp */; };
-		6716538625D7CE720041BB9A /* SequenceVideoPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650AD25D7CE6F0041BB9A /* SequenceVideoPanel.cpp */; };
-		6716538725D7CE720041BB9A /* VendorModelDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650AE25D7CE6F0041BB9A /* VendorModelDialog.cpp */; };
-		6716538825D7CE720041BB9A /* LMSImportChannelMapDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650B125D7CE6F0041BB9A /* LMSImportChannelMapDialog.cpp */; };
-		6716538925D7CE720041BB9A /* ViewObjectPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650B225D7CE6F0041BB9A /* ViewObjectPanel.cpp */; };
-		6716538A25D7CE720041BB9A /* ControllerSerial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650B725D7CE6F0041BB9A /* ControllerSerial.cpp */; };
-		6716538B25D7CE720041BB9A /* DDPOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650B825D7CE6F0041BB9A /* DDPOutput.cpp */; };
-		6716538C25D7CE720041BB9A /* KinetOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650BA25D7CE6F0041BB9A /* KinetOutput.cpp */; };
-		6716538D25D7CE720041BB9A /* NullOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650BD25D7CE6F0041BB9A /* NullOutput.cpp */; };
-		6716538E25D7CE720041BB9A /* ArtNetOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650C225D7CE6F0041BB9A /* ArtNetOutput.cpp */; };
-		6716538F25D7CE720041BB9A /* xxxEthernetOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650C325D7CE6F0041BB9A /* xxxEthernetOutput.cpp */; };
-		6716539025D7CE720041BB9A /* LorControllers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650C525D7CE6F0041BB9A /* LorControllers.cpp */; };
-		6716539125D7CE720041BB9A /* serial_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650C625D7CE6F0041BB9A /* serial_osx.cpp */; };
-		6716539225D7CE720041BB9A /* IPOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650CA25D7CE6F0041BB9A /* IPOutput.cpp */; };
-		6716539325D7CE720041BB9A /* xxxSerialOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650CB25D7CE6F0041BB9A /* xxxSerialOutput.cpp */; };
-		6716539425D7CE720041BB9A /* DMXOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650CE25D7CE6F0041BB9A /* DMXOutput.cpp */; };
-		6716539525D7CE720041BB9A /* SerialOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650D025D7CE6F0041BB9A /* SerialOutput.cpp */; };
-		6716539625D7CE720041BB9A /* Output.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650D125D7CE6F0041BB9A /* Output.cpp */; };
-		6716539725D7CE720041BB9A /* GenericSerialOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650D325D7CE6F0041BB9A /* GenericSerialOutput.cpp */; };
-		6716539825D7CE720041BB9A /* OutputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650D525D7CE6F0041BB9A /* OutputManager.cpp */; };
-		6716539925D7CE720041BB9A /* PixelNetOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650D825D7CE6F0041BB9A /* PixelNetOutput.cpp */; };
-		6716539C25D7CE720041BB9A /* OPCOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650DD25D7CE6F0041BB9A /* OPCOutput.cpp */; };
-		6716539D25D7CE720041BB9A /* ControllerNull.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650DE25D7CE6F0041BB9A /* ControllerNull.cpp */; };
-		6716539E25D7CE720041BB9A /* serial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650DF25D7CE6F0041BB9A /* serial.cpp */; };
-		6716539F25D7CE720041BB9A /* OpenPixelNetOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650E325D7CE6F0041BB9A /* OpenPixelNetOutput.cpp */; };
-		671653A025D7CE720041BB9A /* ZCPPOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650E425D7CE6F0041BB9A /* ZCPPOutput.cpp */; };
-		671653A125D7CE720041BB9A /* TestPreset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650E525D7CE6F0041BB9A /* TestPreset.cpp */; };
-		671653A225D7CE720041BB9A /* Controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650E625D7CE6F0041BB9A /* Controller.cpp */; };
-		671653A325D7CE720041BB9A /* LOROptimisedOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650E725D7CE6F0041BB9A /* LOROptimisedOutput.cpp */; };
-		671653A425D7CE720041BB9A /* ControllerEthernet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650EA25D7CE6F0041BB9A /* ControllerEthernet.cpp */; };
-		671653A525D7CE720041BB9A /* E131Output.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650EB25D7CE6F0041BB9A /* E131Output.cpp */; };
-		671653A625D7CE720041BB9A /* RenardOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650EC25D7CE6F0041BB9A /* RenardOutput.cpp */; };
-		671653A725D7CE720041BB9A /* LOROutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650EF25D7CE6F0041BB9A /* LOROutput.cpp */; };
-		671653A825D7CE720041BB9A /* OpenDMXOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650F225D7CE6F0041BB9A /* OpenDMXOutput.cpp */; };
-		671653A925D7CE720041BB9A /* LorController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650F325D7CE6F0041BB9A /* LorController.cpp */; };
-		671653AA25D7CE720041BB9A /* DimmingCurvePanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650F525D7CE6F0041BB9A /* DimmingCurvePanel.cpp */; };
 		671653AB25D7CE720041BB9A /* xLightsVersion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650F625D7CE6F0041BB9A /* xLightsVersion.cpp */; };
-		671653AC25D7CE720041BB9A /* DragColoursBitmapButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650F825D7CE6F0041BB9A /* DragColoursBitmapButton.cpp */; };
-		671653AD25D7CE720041BB9A /* xlColorCanvas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650FD25D7CE6F0041BB9A /* xlColorCanvas.cpp */; };
-		671653AF25D7CE720041BB9A /* LyricUserDictDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716510525D7CE6F0041BB9A /* LyricUserDictDialog.cpp */; };
-		671653B025D7CE720041BB9A /* ImportPreviewsModelsDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716510625D7CE6F0041BB9A /* ImportPreviewsModelsDialog.cpp */; };
-		671653B125D7CE720041BB9A /* SubBufferPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716510825D7CE6F0041BB9A /* SubBufferPanel.cpp */; };
-		671653B225D7CE720041BB9A /* VideoExporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716510925D7CE6F0041BB9A /* VideoExporter.cpp */; };
-		671653B325D7CE720041BB9A /* JukeboxPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716510B25D7CE6F0041BB9A /* JukeboxPanel.cpp */; };
-		671653B625D7CE720041BB9A /* tmGridCell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716511025D7CE6F0041BB9A /* tmGridCell.cpp */; };
-		671653B725D7CE720041BB9A /* BufferSizeDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716511725D7CE6F0041BB9A /* BufferSizeDialog.cpp */; };
-		671653BA25D7CE720041BB9A /* BulkEditFontPickerDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716511A25D7CE6F0041BB9A /* BulkEditFontPickerDialog.cpp */; };
-		671653BB25D7CE720041BB9A /* SelectPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716511B25D7CE6F0041BB9A /* SelectPanel.cpp */; };
 		6716553425D823C60041BB9A /* jsonreader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716552825D823C60041BB9A /* jsonreader.cpp */; };
 		6716553525D823C60041BB9A /* jsonval.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716552A25D823C60041BB9A /* jsonval.cpp */; };
 		6716553625D823C60041BB9A /* jsonwriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716552B25D823C60041BB9A /* jsonwriter.cpp */; };
-		6716554D25D8245E0041BB9A /* MidiEventList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716554225D8245E0041BB9A /* MidiEventList.cpp */; };
-		6716554E25D8245E0041BB9A /* Options.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716554525D8245E0041BB9A /* Options.cpp */; };
-		6716554F25D8245E0041BB9A /* MidiMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716554825D8245E0041BB9A /* MidiMessage.cpp */; };
-		6716555025D8245E0041BB9A /* Binasc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716554925D8245E0041BB9A /* Binasc.cpp */; };
-		6716555125D8245E0041BB9A /* MidiEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716554A25D8245E0041BB9A /* MidiEvent.cpp */; };
-		6716555325D8245E0041BB9A /* MidiFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716554C25D8245E0041BB9A /* MidiFile.cpp */; };
 		6716555D25D8249D0041BB9A /* wxLED.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716555C25D8249D0041BB9A /* wxLED.cpp */; };
 		6716556425D824F80041BB9A /* md5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716556225D824F80041BB9A /* md5.cpp */; };
 		6716559525D825410041BB9A /* PluginWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716556C25D825410041BB9A /* PluginWrapper.cpp */; };
@@ -220,8 +48,6 @@
 		6716568B25D829B90041BB9A /* standard_dictionary in Resources */ = {isa = PBXBuildFile; fileRef = 6716568725D829B90041BB9A /* standard_dictionary */; };
 		6716568C25D829B90041BB9A /* phoneme_mapping in Resources */ = {isa = PBXBuildFile; fileRef = 6716568825D829B90041BB9A /* phoneme_mapping */; };
 		6716568D25D829BA0041BB9A /* user_dictionary in Resources */ = {isa = PBXBuildFile; fileRef = 6716568925D829B90041BB9A /* user_dictionary */; };
-		671FDE322F46508900F9AD8E /* ManageMediaPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671FDE312F46508900F9AD8E /* ManageMediaPanel.cpp */; };
-		67283815295E3CB900994782 /* DuplicateDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67283813295E3CB900994782 /* DuplicateDialog.cpp */; };
 		67290004255303D500C83C71 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67290003255303D500C83C71 /* VideoToolbox.framework */; };
 		672900082553040000C83C71 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B4C91F17B53D960006B951 /* CoreMedia.framework */; };
 		6729000D2553047600C83C71 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729000C2553046400C83C71 /* libbz2.tbd */; };
@@ -236,27 +62,18 @@
 		672B5690278A72DF0011F216 /* scripts in Resources */ = {isa = PBXBuildFile; fileRef = 672B568F278A72DF0011F216 /* scripts */; };
 		672F447626387B59005B795A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B229204BA6AF00E90AC7 /* QuartzCore.framework */; };
 		673B3D4E223BF203000F1D7E /* libcurl.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 671E47FC2231CEC900049DC9 /* libcurl.tbd */; };
-		67418CDF286B292B00EA516E /* ModelRemap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67418CDD286B292A00EA516E /* ModelRemap.cpp */; };
 		674D3D221C207BCC000D632B /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D211C207BCC000D632B /* IOKit.framework */; };
 		674D3D241C207BD7000D632B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D231C207BD7000D632B /* AudioToolbox.framework */; };
 		674D3D261C207C25000D632B /* libpthread.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D251C207C25000D632B /* libpthread.tbd */; };
-		6751104627D3F5630001BD98 /* FindDataPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6751104527D3F5630001BD98 /* FindDataPanel.cpp */; };
-		675C6FA82B555DB20091D0BF /* SpecialOptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675C6FA72B555DB20091D0BF /* SpecialOptions.cpp */; };
 		675EDD3D2789D87C00D40FEA /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675EDD3C2789D87C00D40FEA /* liblua.a */; };
 		675FD840204C3C0B003D280F /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B227204BA69B00E90AC7 /* CoreImage.framework */; };
-		6768D20E2B307B5B004A4667 /* xlColourData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6768D20C2B307B5B004A4667 /* xlColourData.cpp */; };
-		6776DF8A28609D29007573A6 /* TipOfTheDayDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6776DF8828609D29007573A6 /* TipOfTheDayDialog.cpp */; };
-		677844542A680538009FCFD2 /* MetronomeLabelDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 677844522A680538009FCFD2 /* MetronomeLabelDialog.cpp */; };
 		677A15C226A22AA8000AFE4D /* ResultDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6771056D267BB91C001DA926 /* ResultDialog.cpp */; };
 		677A15C326A22AA8000AFE4D /* UniverseEntryDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6771056A267BB91C001DA926 /* UniverseEntryDialog.cpp */; };
 		677A15C426A22AA8000AFE4D /* xCaptureMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6771056E267BB91C001DA926 /* xCaptureMain.cpp */; };
 		6781D632234C24BD00408604 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B4C92117B53D960006B951 /* CoreVideo.framework */; };
 		678571702F72C71F00F50F9F /* libISPCEffectComputeFunctions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6785716B2F72C6E100F50F9F /* libISPCEffectComputeFunctions.a */; };
 		6786706D27296B4000A5375D /* SIMDMathUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6786706B27296B4000A5375D /* SIMDMathUtilities.cpp */; };
-		6787EAA1274FF60E00DAEE47 /* ScriptsDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6787EAA0274FF60E00DAEE47 /* ScriptsDialog.cpp */; };
 		678AAF4026C40B6300467B3C /* model_vendor_mapping.json in Resources */ = {isa = PBXBuildFile; fileRef = 678AAF3F26C40B6300467B3C /* model_vendor_mapping.json */; };
-		6793F91D282B312B00B8F34C /* TwinklyOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6793F91B282B312B00B8F34C /* TwinklyOutput.cpp */; };
-		6799D45927F1DDAB005A3B3B /* SearchPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6799D45827F1DDAB005A3B3B /* SearchPanel.cpp */; };
 		67A14C7820DD313D006EFCFA /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7720DD313D006EFCFA /* Carbon.framework */; };
 		67A14C7A20DD31D6006EFCFA /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7920DD31D6006EFCFA /* WebKit.framework */; };
 		67A14C7E20DD324D006EFCFA /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7D20DD324D006EFCFA /* libiconv.tbd */; };
@@ -269,7 +86,6 @@
 		67A88A4426164CAE00BFCEC0 /* osxInAppPurchases.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67A88A3B26164CAE00BFCEC0 /* osxInAppPurchases.mm */; };
 		67A88A4726164CD600BFCEC0 /* libxLights-macOSLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A88A2726164C9B00BFCEC0 /* libxLights-macOSLib.a */; };
 		67B72BC42E0081E5004515D9 /* xlMacUtilsCpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67B72BC32E0081E5004515D9 /* xlMacUtilsCpp.cpp */; };
-		67B9ACCB2C9B605C005EF249 /* xLightsTimer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67B9ACCA2C9B6055005EF249 /* xLightsTimer.mm */; };
 		67BE0DFA2727C0AB00558A3A /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BE0DF82727C0AB00558A3A /* MetalKit.framework */; };
 		67BE0DFB2727C0AB00558A3A /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BE0DF92727C0AB00558A3A /* Metal.framework */; };
 		67BE0E012728230C00558A3A /* wxMetalCanvas.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67BE0DFF2728230C00558A3A /* wxMetalCanvas.mm */; };
@@ -285,16 +101,12 @@
 		67D142BF275803100018A831 /* message.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D142B6275803100018A831 /* message.cpp */; };
 		67D142C0275803100018A831 /* response.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D142B7275803100018A831 /* response.cpp */; };
 		67D9B0A81D42A9BA005367DB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67E7087017B51AB400A22034 /* Cocoa.framework */; };
-		67E832C6292D242400F80E3B /* BulkEditComboDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E832C4292D242400F80E3B /* BulkEditComboDialog.cpp */; };
 		67F7DB852D58291B00921286 /* prompts in Resources */ = {isa = PBXBuildFile; fileRef = 67F7DB842D58291B00921286 /* prompts */; };
 		67F8492A2F5A5490005D144E /* ExternalHooksMacOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67F849292F5A5490005D144E /* ExternalHooksMacOS.mm */; };
 		67F9B092272899080005A74B /* MetalShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 67F9B091272899080005A74B /* MetalShaders.metal */; };
-		67FD63522D5884FC004547FF /* CheckSequenceReport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67FD63512D5884FC004547FF /* CheckSequenceReport.cpp */; };
 		67FD63542D588527004547FF /* resources in Resources */ = {isa = PBXBuildFile; fileRef = 67FD63532D588527004547FF /* resources */; };
-		67FDC38A27CA76F40009A3C7 /* ColourReplaceDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67FDC38927CA76F40009A3C7 /* ColourReplaceDialog.cpp */; };
 		67FDC38C27CA77890009A3C7 /* libhidapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67FDC38B27CA77610009A3C7 /* libhidapi.a */; };
 		7FDE55FF280A94E900C4EB70 /* xlBaseApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FB5CEDC27A27A2A007612B2 /* xlBaseApp.cpp */; };
-		AA0000012F85A00000000002 /* RenderCommandEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA0000012F85A00000000001 /* RenderCommandEvent.cpp */; };
 		AA000001PUGI000000000002 /* pugixml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA000001PUGI000000000001 /* pugixml.cpp */; };
 		C40BF5522BC6217800D701CF /* mhpresets in Resources */ = {isa = PBXBuildFile; fileRef = C40BF5512BC6217800D701CF /* mhpresets */; };
 /* End PBXBuildFile section */
@@ -347,7 +159,6 @@
 				"fi",
 				"",
 				"",
-				"",
 			);
 		};
 /* End PBXBuildRule section */
@@ -391,29 +202,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5326AEB72D191277001BB084 /* ShowFolderSearchDialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShowFolderSearchDialog.h; sourceTree = "<group>"; };
-		5326AEB82D191277001BB084 /* ShowFolderSearchDialog.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ShowFolderSearchDialog.cpp; sourceTree = "<group>"; };
-		538F8DFC26B42E5D0080A1BB /* LORPreview.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LORPreview.cpp; sourceTree = "<group>"; };
-		538F8DFD26B42E5D0080A1BB /* LORPreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LORPreview.h; sourceTree = "<group>"; };
-		53DAD7B1288ED35D000E06E1 /* LayoutUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LayoutUtils.cpp; sourceTree = "<group>"; };
-		53DAD7B2288ED35D000E06E1 /* LayoutUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayoutUtils.h; sourceTree = "<group>"; };
-		53EAB8DB2874DBE300FD1449 /* RestoreBackupDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RestoreBackupDialog.cpp; sourceTree = "<group>"; };
-		53EAB8DC2874DBE300FD1449 /* RestoreBackupDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestoreBackupDialog.h; sourceTree = "<group>"; };
-		53EB767C2719BAFE00ED8702 /* ExportSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExportSettings.h; sourceTree = "<group>"; };
-		53EB767D2719BAFE00ED8702 /* ExportSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExportSettings.cpp; sourceTree = "<group>"; };
-		670059B3279A4403006AD9EA /* Mouse3DManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Mouse3DManager.cpp; sourceTree = "<group>"; };
-		670059B4279A4403006AD9EA /* Mouse3DManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mouse3DManager.h; sourceTree = "<group>"; };
-		670215412BBC3D120076CAF3 /* EditSubmodelAliasesDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditSubmodelAliasesDialog.h; sourceTree = "<group>"; };
-		670215422BBC3D120076CAF3 /* EditSubmodelAliasesDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EditSubmodelAliasesDialog.cpp; sourceTree = "<group>"; };
 		67061FD22746D5330020519D /* MetalPerformanceShaders.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalPerformanceShaders.framework; path = System/Library/Frameworks/MetalPerformanceShaders.framework; sourceTree = SDKROOT; };
-		670726952F590F5A000514B7 /* EffectPresetManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EffectPresetManager.h; sourceTree = "<group>"; };
-		670726962F590F82000514B7 /* EffectPresetManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EffectPresetManager.cpp; sourceTree = "<group>"; };
-		670DA2B82AB9DD9B00380ACE /* AutoLabelDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AutoLabelDialog.cpp; sourceTree = "<group>"; };
-		670DA2B92AB9DD9B00380ACE /* AutoLabelDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoLabelDialog.h; sourceTree = "<group>"; };
 		670F8DC927652F5E002F0CD6 /* ModelIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ModelIO.framework; path = System/Library/Frameworks/ModelIO.framework; sourceTree = SDKROOT; };
 		670F8DCB27652F8F002F0CD6 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
-		671202F72B1DB6F7002E763A /* EditAliasesDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EditAliasesDialog.cpp; sourceTree = "<group>"; };
-		671202F82B1DB6F7002E763A /* EditAliasesDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditAliasesDialog.h; sourceTree = "<group>"; };
 		67164BB325D7CD190041BB9A /* xFade.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = xFade.entitlements; sourceTree = "<group>"; };
 		67164BB525D7CD190041BB9A /* xLightsArchive.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = xLightsArchive.entitlements; sourceTree = "<group>"; };
 		67164BB625D7CD190041BB9A /* xLights.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = xLights.entitlements; sourceTree = "<group>"; };
@@ -421,335 +212,22 @@
 		67164BB825D7CD190041BB9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		67164BB925D7CD190041BB9A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		67164BBB25D7CD190041BB9A /* xCapture.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = xCapture.entitlements; sourceTree = "<group>"; };
-		67164BC625D7CE6D0041BB9A /* OutputModelManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutputModelManager.h; sourceTree = "<group>"; };
 		67164BC725D7CE6D0041BB9A /* xLightsApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xLightsApp.h; sourceTree = "<group>"; };
-		67164BC925D7CE6D0041BB9A /* VsaImportDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VsaImportDialog.h; sourceTree = "<group>"; };
-		67164BCA25D7CE6D0041BB9A /* SuperStarImportDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SuperStarImportDialog.cpp; sourceTree = "<group>"; };
-		67164BCB25D7CE6D0041BB9A /* ConvertDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConvertDialog.cpp; sourceTree = "<group>"; };
-		67164BCC25D7CE6D0041BB9A /* NodesGridCellEditor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NodesGridCellEditor.cpp; sourceTree = "<group>"; };
-		67164BCD25D7CE6D0041BB9A /* SequenceViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SequenceViewManager.h; sourceTree = "<group>"; };
-		67164BCE25D7CE6D0041BB9A /* EffectIconPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EffectIconPanel.h; sourceTree = "<group>"; };
-		67164BD025D7CE6D0041BB9A /* ColorPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPanel.h; sourceTree = "<group>"; };
-		67164BD125D7CE6D0041BB9A /* SaveChangesDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveChangesDialog.h; sourceTree = "<group>"; };
-		67164BD225D7CE6D0041BB9A /* LayoutGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayoutGroup.h; sourceTree = "<group>"; };
-		67164BD325D7CE6D0041BB9A /* LinkJukeboxButtonDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LinkJukeboxButtonDialog.cpp; sourceTree = "<group>"; };
-		67164BD425D7CE6D0041BB9A /* xlCustomControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xlCustomControl.h; sourceTree = "<group>"; };
-		67164BD525D7CE6D0041BB9A /* xlGridCanvas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xlGridCanvas.cpp; sourceTree = "<group>"; };
-		67164BD725D7CE6D0041BB9A /* LayoutPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayoutPanel.h; sourceTree = "<group>"; };
-		67164BD925D7CE6D0041BB9A /* ModelChainDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelChainDialog.h; sourceTree = "<group>"; };
-		67164BDA25D7CE6D0041BB9A /* MatrixFaceDownloadDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatrixFaceDownloadDialog.h; sourceTree = "<group>"; };
-		67164BDB25D7CE6D0041BB9A /* ColoursPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColoursPanel.h; sourceTree = "<group>"; };
-		67164BDC25D7CE6D0041BB9A /* TabSetup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TabSetup.cpp; sourceTree = "<group>"; };
-		67164BDE25D7CE6D0041BB9A /* AlignmentDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlignmentDialog.h; sourceTree = "<group>"; };
-		67164BDF25D7CE6D0041BB9A /* wxModelGridCellRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wxModelGridCellRenderer.h; sourceTree = "<group>"; };
-		67164BE025D7CE6D0041BB9A /* BulkEditFontPickerDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulkEditFontPickerDialog.h; sourceTree = "<group>"; };
-		67164BE125D7CE6D0041BB9A /* MatrixFaceDownloadDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MatrixFaceDownloadDialog.cpp; sourceTree = "<group>"; };
-		67164BE425D7CE6D0041BB9A /* EffectsPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EffectsPanel.h; sourceTree = "<group>"; };
-		67164BE525D7CE6D0041BB9A /* UpdaterDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdaterDialog.h; sourceTree = "<group>"; };
-		67164BE725D7CE6D0041BB9A /* KeyBindingEditDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyBindingEditDialog.h; sourceTree = "<group>"; };
-		67164BEA25D7CE6D0041BB9A /* LayoutGroup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LayoutGroup.cpp; sourceTree = "<group>"; };
-		67164BEB25D7CE6D0041BB9A /* RemapDMXChannelsDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RemapDMXChannelsDialog.cpp; sourceTree = "<group>"; };
-		67164BEC25D7CE6D0041BB9A /* SevenSegmentDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SevenSegmentDialog.h; sourceTree = "<group>"; };
 		67164BED25D7CE6D0041BB9A /* VendorMusicHelpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VendorMusicHelpers.cpp; sourceTree = "<group>"; };
 		67164BEE25D7CE6D0041BB9A /* VendorMusicHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VendorMusicHelpers.h; sourceTree = "<group>"; };
-		67164C0125D7CE6D0041BB9A /* EffectAssist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EffectAssist.cpp; sourceTree = "<group>"; };
-		67164C0225D7CE6D0041BB9A /* CheckboxSelectDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckboxSelectDialog.h; sourceTree = "<group>"; };
-		67164C0325D7CE6D0041BB9A /* Discovery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Discovery.h; sourceTree = "<group>"; };
-		67164C0425D7CE6D0041BB9A /* SelectTimingsDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectTimingsDialog.h; sourceTree = "<group>"; };
 		67164C0625D7CE6D0041BB9A /* xLightsMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xLightsMain.h; sourceTree = "<group>"; };
-		67164C0725D7CE6D0041BB9A /* NoteImportDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NoteImportDialog.cpp; sourceTree = "<group>"; };
-		67164C0825D7CE6D0041BB9A /* IPEntryDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IPEntryDialog.cpp; sourceTree = "<group>"; };
-		67164C0A25D7CE6D0041BB9A /* LyricsDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyricsDialog.h; sourceTree = "<group>"; };
-		67164C0B25D7CE6D0041BB9A /* SequenceViewManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SequenceViewManager.cpp; sourceTree = "<group>"; };
-		67164C0C25D7CE6D0041BB9A /* ControllerConnectionDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControllerConnectionDialog.h; sourceTree = "<group>"; };
-		67164C0D25D7CE6D0041BB9A /* ControllerModelDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ControllerModelDialog.cpp; sourceTree = "<group>"; };
-		67164C0E25D7CE6D0041BB9A /* OutputModelManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OutputModelManager.cpp; sourceTree = "<group>"; };
-		67164C1025D7CE6D0041BB9A /* ViewpointDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewpointDialog.h; sourceTree = "<group>"; };
-		67164C1125D7CE6D0041BB9A /* xLightsImportChannelMapDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xLightsImportChannelMapDialog.h; sourceTree = "<group>"; };
-		67164C1325D7CE6D0041BB9A /* ExportModelSelect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExportModelSelect.cpp; sourceTree = "<group>"; };
 		67164C1425D7CE6D0041BB9A /* MusicXML.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MusicXML.cpp; sourceTree = "<group>"; };
-		67164C1525D7CE6D0041BB9A /* ModelPreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelPreview.h; sourceTree = "<group>"; };
-		67164C1625D7CE6D0041BB9A /* GenerateLyricsDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GenerateLyricsDialog.cpp; sourceTree = "<group>"; };
-		67164C1725D7CE6D0041BB9A /* NoteImportDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteImportDialog.h; sourceTree = "<group>"; };
-		67164C1B25D7CE6D0041BB9A /* TopEffectsPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopEffectsPanel.h; sourceTree = "<group>"; };
-		67164C1C25D7CE6D0041BB9A /* ControllerConnectionDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ControllerConnectionDialog.cpp; sourceTree = "<group>"; };
 		67164C1D25D7CE6D0041BB9A /* xLightsApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xLightsApp.cpp; sourceTree = "<group>"; };
-		67164C1E25D7CE6D0041BB9A /* xlSlider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xlSlider.cpp; sourceTree = "<group>"; };
-		67164C1F25D7CE6D0041BB9A /* BulkEditColourPickerDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulkEditColourPickerDialog.h; sourceTree = "<group>"; };
-		67164C2025D7CE6D0041BB9A /* ColorManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ColorManager.cpp; sourceTree = "<group>"; };
-		67164C2325D7CE6D0041BB9A /* EffectAssist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EffectAssist.h; sourceTree = "<group>"; };
-		67164C2525D7CE6D0041BB9A /* SubModelGenerateDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubModelGenerateDialog.h; sourceTree = "<group>"; };
-		67164C2625D7CE6D0041BB9A /* TopEffectsPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TopEffectsPanel.cpp; sourceTree = "<group>"; };
-		67164C2725D7CE6D0041BB9A /* EffectTimingDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EffectTimingDialog.cpp; sourceTree = "<group>"; };
-		67164C2825D7CE6D0041BB9A /* SeqSettingsDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SeqSettingsDialog.cpp; sourceTree = "<group>"; };
-		67164C2E25D7CE6D0041BB9A /* ViewsModelsPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewsModelsPanel.h; sourceTree = "<group>"; };
-		67164C2F25D7CE6D0041BB9A /* NodeSelectGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodeSelectGrid.h; sourceTree = "<group>"; };
-		67164C3E25D7CE6D0041BB9A /* ExternalHooks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExternalHooks.h; sourceTree = "<group>"; };
-		67164C3F25D7CE6D0041BB9A /* SeqElementMismatchDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeqElementMismatchDialog.h; sourceTree = "<group>"; };
-		67164C4025D7CE6D0041BB9A /* BatchRenderDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BatchRenderDialog.cpp; sourceTree = "<group>"; };
-		67164C4125D7CE6D0041BB9A /* TabSequence.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TabSequence.cpp; sourceTree = "<group>"; };
-		67164C4225D7CE6D0041BB9A /* VAMPPluginDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VAMPPluginDialog.h; sourceTree = "<group>"; };
-		67164C4525D7CE6D0041BB9A /* PixelTestDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PixelTestDialog.h; sourceTree = "<group>"; };
-		67164C4625D7CE6D0041BB9A /* BulkEditControls.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BulkEditControls.cpp; sourceTree = "<group>"; };
-		67164C4725D7CE6D0041BB9A /* xLightsImportChannelMapDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xLightsImportChannelMapDialog.cpp; sourceTree = "<group>"; };
-		67164C4825D7CE6D0041BB9A /* RenameTextDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RenameTextDialog.cpp; sourceTree = "<group>"; };
-		67164C4925D7CE6D0041BB9A /* StrandNodeNamesDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StrandNodeNamesDialog.h; sourceTree = "<group>"; };
-		67164C4A25D7CE6D0041BB9A /* EffectsPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EffectsPanel.cpp; sourceTree = "<group>"; };
-		67164C4B25D7CE6D0041BB9A /* StartChannelDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StartChannelDialog.cpp; sourceTree = "<group>"; };
-		67164C4C25D7CE6D0041BB9A /* ModelPreview.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModelPreview.cpp; sourceTree = "<group>"; };
-		67164C4D25D7CE6D0041BB9A /* AboutDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AboutDialog.cpp; sourceTree = "<group>"; };
-		67164C4E25D7CE6D0041BB9A /* ModelFaceDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelFaceDialog.h; sourceTree = "<group>"; };
 		67164C4F25D7CE6D0041BB9A /* wininet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wininet.h; sourceTree = "<group>"; };
-		67164C5025D7CE6D0041BB9A /* VendorMusicDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VendorMusicDialog.h; sourceTree = "<group>"; };
-		67164C5225D7CE6D0041BB9A /* SeqElementMismatchDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SeqElementMismatchDialog.cpp; sourceTree = "<group>"; };
-		67164C5325D7CE6D0041BB9A /* RenderProgressDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderProgressDialog.h; sourceTree = "<group>"; };
-		67164C5425D7CE6D0041BB9A /* SequenceVideoPreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SequenceVideoPreview.h; sourceTree = "<group>"; };
-		67164C5525D7CE6D0041BB9A /* VAMPPluginDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VAMPPluginDialog.cpp; sourceTree = "<group>"; };
-		67164C5625D7CE6D0041BB9A /* RenameTextDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenameTextDialog.h; sourceTree = "<group>"; };
-		67164C5725D7CE6D0041BB9A /* SpecialOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecialOptions.h; sourceTree = "<group>"; };
-		67164C5825D7CE6D0041BB9A /* LayerSelectDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerSelectDialog.h; sourceTree = "<group>"; };
-		67164C5925D7CE6D0041BB9A /* IPEntryDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPEntryDialog.h; sourceTree = "<group>"; };
-		67164C5A25D7CE6D0041BB9A /* SequenceData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SequenceData.h; sourceTree = "<group>"; };
 		67164C5B25D7CE6D0041BB9A /* xLightsVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xLightsVersion.h; sourceTree = "<group>"; };
-		67164C5C25D7CE6D0041BB9A /* PerspectivesPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerspectivesPanel.h; sourceTree = "<group>"; };
-		67164C5D25D7CE6D0041BB9A /* MultiControllerUploadDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MultiControllerUploadDialog.cpp; sourceTree = "<group>"; };
-		67164C5E25D7CE6D0041BB9A /* EffectTimingDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EffectTimingDialog.h; sourceTree = "<group>"; };
-		67164C5F25D7CE6D0041BB9A /* FlickerFreeBitmapButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickerFreeBitmapButton.h; sourceTree = "<group>"; };
-		67164C6025D7CE6D0041BB9A /* ColoursPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ColoursPanel.cpp; sourceTree = "<group>"; };
-		67164C6125D7CE6D0041BB9A /* ModelChainDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModelChainDialog.cpp; sourceTree = "<group>"; };
-		67164C6225D7CE6D0041BB9A /* SubModelGenerateDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SubModelGenerateDialog.cpp; sourceTree = "<group>"; };
-		67164C6325D7CE6D0041BB9A /* ConvertDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvertDialog.h; sourceTree = "<group>"; };
-		67164C6425D7CE6D0041BB9A /* Discovery.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Discovery.cpp; sourceTree = "<group>"; };
-		67164C6625D7CE6D0041BB9A /* BulkEditSliderDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulkEditSliderDialog.h; sourceTree = "<group>"; };
-		67164C6825D7CE6D0041BB9A /* BulkEditSliderDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BulkEditSliderDialog.cpp; sourceTree = "<group>"; };
-		67164C6925D7CE6D0041BB9A /* SubModelsDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SubModelsDialog.cpp; sourceTree = "<group>"; };
-		67164C6A25D7CE6D0041BB9A /* CharMapDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CharMapDialog.cpp; sourceTree = "<group>"; };
-		67164C6B25D7CE6D0041BB9A /* xLightsTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xLightsTimer.h; sourceTree = "<group>"; };
-		67164C6C25D7CE6D0041BB9A /* PreviewPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewPane.h; sourceTree = "<group>"; };
-		67164C7425D7CE6D0041BB9A /* DimmingCurvePanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DimmingCurvePanel.h; sourceTree = "<group>"; };
-		67164C7525D7CE6D0041BB9A /* SeqFileUtilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SeqFileUtilities.cpp; sourceTree = "<group>"; };
-		67164C7725D7CE6D0041BB9A /* SubModelsDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubModelsDialog.h; sourceTree = "<group>"; };
-		67164C7825D7CE6D0041BB9A /* wxCheckedListCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wxCheckedListCtrl.h; sourceTree = "<group>"; };
-		67164C7925D7CE6D0041BB9A /* ExportModelSelect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExportModelSelect.h; sourceTree = "<group>"; };
-		67164C7B25D7CE6D0041BB9A /* ColorPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ColorPanel.cpp; sourceTree = "<group>"; };
-		67164C7E25D7CE6D0041BB9A /* SevenSegmentDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SevenSegmentDialog.cpp; sourceTree = "<group>"; };
-		67164C7F25D7CE6D0041BB9A /* ViewpointDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ViewpointDialog.cpp; sourceTree = "<group>"; };
-		67164C8025D7CE6D0041BB9A /* xlColorPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xlColorPicker.h; sourceTree = "<group>"; };
-		67164C8125D7CE6D0041BB9A /* BulkEditColourPickerDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BulkEditColourPickerDialog.cpp; sourceTree = "<group>"; };
-		67164C8225D7CE6D0041BB9A /* wxCheckedListCtrl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wxCheckedListCtrl.cpp; sourceTree = "<group>"; };
-		67164C8325D7CE6D0041BB9A /* ViewpointMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewpointMgr.h; sourceTree = "<group>"; };
-		67164C8425D7CE6D0041BB9A /* MultiControllerUploadDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiControllerUploadDialog.h; sourceTree = "<group>"; };
-		67164C8525D7CE6D0041BB9A /* ViewObjectPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewObjectPanel.h; sourceTree = "<group>"; };
-		67164C8825D7CE6D0041BB9A /* StrandNodeNamesDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StrandNodeNamesDialog.cpp; sourceTree = "<group>"; };
 		67164C8925D7CE6D0041BB9A /* MusicXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicXML.h; sourceTree = "<group>"; };
-		67164C8A25D7CE6D0041BB9A /* EffectIconPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EffectIconPanel.cpp; sourceTree = "<group>"; };
-		67164C8B25D7CE6D0041BB9A /* ColorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorManager.h; sourceTree = "<group>"; };
-		67164C8C25D7CE6D0041BB9A /* EmailDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EmailDialog.cpp; sourceTree = "<group>"; };
-		67164C8D25D7CE6D0041BB9A /* SequencePackage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SequencePackage.cpp; sourceTree = "<group>"; };
-		67164C8E25D7CE6D0041BB9A /* CheckboxSelectDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CheckboxSelectDialog.cpp; sourceTree = "<group>"; };
-		67164C8F25D7CE6D0041BB9A /* ConvertLogDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConvertLogDialog.cpp; sourceTree = "<group>"; };
-		67164C9025D7CE6D0041BB9A /* LorConvertDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LorConvertDialog.cpp; sourceTree = "<group>"; };
-		67164C9225D7CE6D0041BB9A /* TabConvert.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TabConvert.cpp; sourceTree = "<group>"; };
-		67164D0025D7CE6D0041BB9A /* ChannelLayoutDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelLayoutDialog.h; sourceTree = "<group>"; };
 		67164D0125D7CE6D0041BB9A /* xLightsMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xLightsMain.cpp; sourceTree = "<group>"; };
-		67164D0225D7CE6D0041BB9A /* KeyBindings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KeyBindings.cpp; sourceTree = "<group>"; };
-		67164D0325D7CE6D0041BB9A /* NoteRangeDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NoteRangeDialog.cpp; sourceTree = "<group>"; };
-		67164D0525D7CE6D0041BB9A /* PerspectivesPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PerspectivesPanel.cpp; sourceTree = "<group>"; };
-		67164D0625D7CE6D0041BB9A /* BatchRenderDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BatchRenderDialog.h; sourceTree = "<group>"; };
-		67164D0725D7CE6D0041BB9A /* xlLockButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xlLockButton.h; sourceTree = "<group>"; };
-		67164D0825D7CE6D0041BB9A /* xlColorCanvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xlColorCanvas.h; sourceTree = "<group>"; };
-		67164D0A25D7CE6D0041BB9A /* SequencePackage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SequencePackage.h; sourceTree = "<group>"; };
-		67164D0D25D7CE6D0041BB9A /* TraceLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TraceLog.h; sourceTree = "<group>"; };
-		67164D0E25D7CE6D0041BB9A /* xlSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xlSlider.h; sourceTree = "<group>"; };
-		67164D0F25D7CE6D0041BB9A /* ModelDimmingCurveDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModelDimmingCurveDialog.cpp; sourceTree = "<group>"; };
-		67164D1025D7CE6D0041BB9A /* xlLockButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xlLockButton.cpp; sourceTree = "<group>"; };
-		67164D1125D7CE6D0041BB9A /* AboutDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutDialog.h; sourceTree = "<group>"; };
-		67164D1225D7CE6D0041BB9A /* xlColorPickerFields.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xlColorPickerFields.cpp; sourceTree = "<group>"; };
-		67164D1525D7CE6D0041BB9A /* OpenGLShaders.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLShaders.cpp; sourceTree = "<group>"; };
-		67164D1625D7CE6D0041BB9A /* ResizeImageDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ResizeImageDialog.cpp; sourceTree = "<group>"; };
-		67164D1825D7CE6D0041BB9A /* ColorCurveDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ColorCurveDialog.cpp; sourceTree = "<group>"; };
-		67164D1925D7CE6D0041BB9A /* AlignmentDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AlignmentDialog.cpp; sourceTree = "<group>"; };
-		67164D1A25D7CE6D0041BB9A /* CustomModelDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomModelDialog.h; sourceTree = "<group>"; };
-		67164D1B25D7CE6D0041BB9A /* VsaImportDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VsaImportDialog.cpp; sourceTree = "<group>"; };
-		67164D1C25D7CE6D0041BB9A /* ViewsModelsPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ViewsModelsPanel.cpp; sourceTree = "<group>"; };
-		67164D1D25D7CE6D0041BB9A /* GenerateCustomModelDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenerateCustomModelDialog.h; sourceTree = "<group>"; };
-		67164D9125D7CE6D0041BB9A /* StartChannelDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartChannelDialog.h; sourceTree = "<group>"; };
-		67164D9225D7CE6D0041BB9A /* LyricsDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LyricsDialog.cpp; sourceTree = "<group>"; };
-		67164D9425D7CE6D0041BB9A /* PixelTestDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PixelTestDialog.cpp; sourceTree = "<group>"; };
-		67164D9525D7CE6D0041BB9A /* VendorModelDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VendorModelDialog.h; sourceTree = "<group>"; };
-		67164D9625D7CE6D0041BB9A /* VideoReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoReader.h; sourceTree = "<group>"; };
-		67164D9725D7CE6D0041BB9A /* NoteRangeDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteRangeDialog.h; sourceTree = "<group>"; };
-		67164D9925D7CE6D0041BB9A /* xlGridCanvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xlGridCanvas.h; sourceTree = "<group>"; };
-		67164D9A25D7CE6D0041BB9A /* GenerateCustomModelDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GenerateCustomModelDialog.cpp; sourceTree = "<group>"; };
-		67164D9B25D7CE6D0041BB9A /* LyricUserDictDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyricUserDictDialog.h; sourceTree = "<group>"; };
-		67164D9C25D7CE6D0041BB9A /* DragColoursBitmapButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DragColoursBitmapButton.h; sourceTree = "<group>"; };
-		67164D9D25D7CE6D0041BB9A /* NodeSelectGrid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NodeSelectGrid.cpp; sourceTree = "<group>"; };
-		67164D9E25D7CE6D0041BB9A /* TabPreview.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TabPreview.cpp; sourceTree = "<group>"; };
-		67164D9F25D7CE6D0041BB9A /* VendorMusicDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VendorMusicDialog.cpp; sourceTree = "<group>"; };
-		67164DA025D7CE6D0041BB9A /* LayoutPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LayoutPanel.cpp; sourceTree = "<group>"; };
-		67164DAD25D7CE6D0041BB9A /* tmGridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tmGridCell.h; sourceTree = "<group>"; };
-		67164DAF25D7CE6D0041BB9A /* ViewpointMgr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ViewpointMgr.cpp; sourceTree = "<group>"; };
-		67164DB025D7CE6D0041BB9A /* SeqSettingsDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeqSettingsDialog.h; sourceTree = "<group>"; };
-		67164DF525D7CE6D0041BB9A /* KeyBindings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyBindings.h; sourceTree = "<group>"; };
-		67164DF625D7CE6D0041BB9A /* EffectTreeDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EffectTreeDialog.h; sourceTree = "<group>"; };
-		67164DF725D7CE6D0041BB9A /* ConvertLogDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvertLogDialog.h; sourceTree = "<group>"; };
-		67164DF825D7CE6D0041BB9A /* SelectTimingsDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SelectTimingsDialog.cpp; sourceTree = "<group>"; };
 		67164DF925D7CE6D0041BB9A /* CopyFormat1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CopyFormat1.h; sourceTree = "<group>"; };
-		67164DFA25D7CE6D0041BB9A /* PreviewPane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PreviewPane.cpp; sourceTree = "<group>"; };
-		67164DFD25D7CE6D0041BB9A /* ShaderDownloadDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderDownloadDialog.h; sourceTree = "<group>"; };
-		67164E0125D7CE6D0041BB9A /* ModelFaceDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModelFaceDialog.cpp; sourceTree = "<group>"; };
-		67164E0225D7CE6D0041BB9A /* xlColorPicker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xlColorPicker.cpp; sourceTree = "<group>"; };
-		67164E0425D7CE6D0041BB9A /* BufferPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BufferPanel.cpp; sourceTree = "<group>"; };
-		67164E0525D7CE6D0041BB9A /* ModelStateDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModelStateDialog.cpp; sourceTree = "<group>"; };
-		67164E0625D7CE6D0041BB9A /* ColorCurveDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorCurveDialog.h; sourceTree = "<group>"; };
-		67164E0725D7CE6D0041BB9A /* SplashDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashDialog.h; sourceTree = "<group>"; };
-		67164E0825D7CE6D0041BB9A /* UpdaterDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UpdaterDialog.cpp; sourceTree = "<group>"; };
-		67164E0925D7CE6D0041BB9A /* PathGenerationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PathGenerationDialog.h; sourceTree = "<group>"; };
-		67164E0B25D7CE6E0041BB9A /* SequenceVideoPreview.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SequenceVideoPreview.cpp; sourceTree = "<group>"; };
-		67164E0C25D7CE6E0041BB9A /* KeyBindingEditDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KeyBindingEditDialog.cpp; sourceTree = "<group>"; };
-		67164E0D25D7CE6E0041BB9A /* SuperStarImportDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperStarImportDialog.h; sourceTree = "<group>"; };
-		67164E3E25D7CE6E0041BB9A /* VideoExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoExporter.h; sourceTree = "<group>"; };
-		67164E3F25D7CE6E0041BB9A /* MediaImportOptionsDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MediaImportOptionsDialog.cpp; sourceTree = "<group>"; };
-		67164E4125D7CE6E0041BB9A /* OptionChooser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OptionChooser.cpp; sourceTree = "<group>"; };
-		67164E4225D7CE6E0041BB9A /* ModelGroupPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModelGroupPanel.cpp; sourceTree = "<group>"; };
 		67164E4325D7CE6E0041BB9A /* Images_png.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Images_png.h; sourceTree = "<group>"; };
-		67164E4425D7CE6E0041BB9A /* CustomModelDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CustomModelDialog.cpp; sourceTree = "<group>"; };
-		67164E4625D7CE6E0041BB9A /* LorConvertDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LorConvertDialog.h; sourceTree = "<group>"; };
-		67164E4725D7CE6E0041BB9A /* LayerSelectDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LayerSelectDialog.cpp; sourceTree = "<group>"; };
-		67164E4825D7CE6E0041BB9A /* SeqExportDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeqExportDialog.h; sourceTree = "<group>"; };
-		67164EF025D7CE6E0041BB9A /* SaveChangesDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SaveChangesDialog.cpp; sourceTree = "<group>"; };
-		67164EF125D7CE6E0041BB9A /* ImportPreviewsModelsDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImportPreviewsModelsDialog.h; sourceTree = "<group>"; };
-		67164EF225D7CE6E0041BB9A /* SeqExportDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SeqExportDialog.cpp; sourceTree = "<group>"; };
-		67164EF425D7CE6E0041BB9A /* TimingPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimingPanel.h; sourceTree = "<group>"; };
-		67164EF525D7CE6E0041BB9A /* HousePreviewPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HousePreviewPanel.h; sourceTree = "<group>"; };
-		67164EF725D7CE6E0041BB9A /* ModelGroupPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelGroupPanel.h; sourceTree = "<group>"; };
-		67164EF825D7CE6E0041BB9A /* ModelDimmingCurveDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelDimmingCurveDialog.h; sourceTree = "<group>"; };
-		67164EFB25D7CE6E0041BB9A /* TimingPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TimingPanel.cpp; sourceTree = "<group>"; };
-		67164EFC25D7CE6E0041BB9A /* RenderProgressDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RenderProgressDialog.cpp; sourceTree = "<group>"; };
-		67164EFD25D7CE6E0041BB9A /* ChannelLayoutDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ChannelLayoutDialog.cpp; sourceTree = "<group>"; };
-		67164EFE25D7CE6E0041BB9A /* EffectListDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EffectListDialog.cpp; sourceTree = "<group>"; };
-		67164EFF25D7CE6E0041BB9A /* TraceLog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TraceLog.cpp; sourceTree = "<group>"; };
-		67164F0025D7CE6E0041BB9A /* CustomTimingDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTimingDialog.h; sourceTree = "<group>"; };
-		67164F2D25D7CE6E0041BB9A /* CustomTimingDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CustomTimingDialog.cpp; sourceTree = "<group>"; };
-		67164F2E25D7CE6E0041BB9A /* VideoReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VideoReader.cpp; sourceTree = "<group>"; };
 		67164F3025D7CE6E0041BB9A /* PhonemeDictionary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PhonemeDictionary.cpp; sourceTree = "<group>"; };
-		67164F3225D7CE6E0041BB9A /* SequenceData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SequenceData.cpp; sourceTree = "<group>"; };
-		67164F6A25D7CE6E0041BB9A /* FlickerFreeBitmapButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FlickerFreeBitmapButton.cpp; sourceTree = "<group>"; };
-		67164F6B25D7CE6E0041BB9A /* BitmapCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BitmapCache.cpp; sourceTree = "<group>"; };
-		67164F6C25D7CE6E0041BB9A /* EffectTreeDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EffectTreeDialog.cpp; sourceTree = "<group>"; };
-		67164F6D25D7CE6E0041BB9A /* GenerateLyricsDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenerateLyricsDialog.h; sourceTree = "<group>"; };
-		67164F6E25D7CE6E0041BB9A /* NewTimingDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NewTimingDialog.cpp; sourceTree = "<group>"; };
-		67164F7125D7CE6E0041BB9A /* NodesGridCellEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodesGridCellEditor.h; sourceTree = "<group>"; };
-		67164F7225D7CE6E0041BB9A /* WiringDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WiringDialog.cpp; sourceTree = "<group>"; };
-		67164F7325D7CE6E0041BB9A /* wxModelGridCellRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wxModelGridCellRenderer.cpp; sourceTree = "<group>"; };
 		67164F7425D7CE6E0041BB9A /* PhonemeDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhonemeDictionary.h; sourceTree = "<group>"; };
-		67164FA025D7CE6E0041BB9A /* SelectPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectPanel.h; sourceTree = "<group>"; };
-		67164FA125D7CE6E0041BB9A /* ShaderDownloadDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShaderDownloadDialog.cpp; sourceTree = "<group>"; };
-		67164FA225D7CE6E0041BB9A /* EmailDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailDialog.h; sourceTree = "<group>"; };
-		671650A325D7CE6F0041BB9A /* PathGenerationDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PathGenerationDialog.cpp; sourceTree = "<group>"; };
-		671650A425D7CE6F0041BB9A /* BufferSizeDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BufferSizeDialog.h; sourceTree = "<group>"; };
-		671650A625D7CE6F0041BB9A /* xlColorPickerFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xlColorPickerFields.h; sourceTree = "<group>"; };
 		671650A725D7CE6F0041BB9A /* CopyFormat1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CopyFormat1.cpp; sourceTree = "<group>"; };
-		671650A825D7CE6F0041BB9A /* SplashDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SplashDialog.cpp; sourceTree = "<group>"; };
-		671650A925D7CE6F0041BB9A /* ModelStateDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelStateDialog.h; sourceTree = "<group>"; };
-		671650AA25D7CE6F0041BB9A /* HousePreviewPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HousePreviewPanel.cpp; sourceTree = "<group>"; };
-		671650AB25D7CE6F0041BB9A /* OptionChooser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionChooser.h; sourceTree = "<group>"; };
-		671650AC25D7CE6F0041BB9A /* SequenceVideoPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SequenceVideoPanel.h; sourceTree = "<group>"; };
-		671650AD25D7CE6F0041BB9A /* SequenceVideoPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SequenceVideoPanel.cpp; sourceTree = "<group>"; };
-		671650AE25D7CE6F0041BB9A /* VendorModelDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VendorModelDialog.cpp; sourceTree = "<group>"; };
-		671650AF25D7CE6F0041BB9A /* RenderCommandEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderCommandEvent.h; sourceTree = "<group>"; };
-		671650B125D7CE6F0041BB9A /* LMSImportChannelMapDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LMSImportChannelMapDialog.cpp; sourceTree = "<group>"; };
-		671650B225D7CE6F0041BB9A /* ViewObjectPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ViewObjectPanel.cpp; sourceTree = "<group>"; };
-		671650B325D7CE6F0041BB9A /* SubBufferPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubBufferPanel.h; sourceTree = "<group>"; };
-		671650B525D7CE6F0041BB9A /* TestPreset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestPreset.h; sourceTree = "<group>"; };
-		671650B625D7CE6F0041BB9A /* xxxEthernetOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xxxEthernetOutput.h; sourceTree = "<group>"; };
-		671650B725D7CE6F0041BB9A /* ControllerSerial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ControllerSerial.cpp; sourceTree = "<group>"; };
-		671650B825D7CE6F0041BB9A /* DDPOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DDPOutput.cpp; sourceTree = "<group>"; };
-		671650B925D7CE6F0041BB9A /* ZCPPOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCPPOutput.h; sourceTree = "<group>"; };
-		671650BA25D7CE6F0041BB9A /* KinetOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KinetOutput.cpp; sourceTree = "<group>"; };
-		671650BB25D7CE6F0041BB9A /* RenardOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenardOutput.h; sourceTree = "<group>"; };
-		671650BC25D7CE6F0041BB9A /* ControllerEthernet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControllerEthernet.h; sourceTree = "<group>"; };
-		671650BD25D7CE6F0041BB9A /* NullOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NullOutput.cpp; sourceTree = "<group>"; };
-		671650BE25D7CE6F0041BB9A /* DDPOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDPOutput.h; sourceTree = "<group>"; };
-		671650BF25D7CE6F0041BB9A /* E131Output.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = E131Output.h; sourceTree = "<group>"; };
-		671650C025D7CE6F0041BB9A /* OpenDMXOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenDMXOutput.h; sourceTree = "<group>"; };
-		671650C125D7CE6F0041BB9A /* NullOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NullOutput.h; sourceTree = "<group>"; };
-		671650C225D7CE6F0041BB9A /* ArtNetOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ArtNetOutput.cpp; sourceTree = "<group>"; };
-		671650C325D7CE6F0041BB9A /* xxxEthernetOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xxxEthernetOutput.cpp; sourceTree = "<group>"; };
-		671650C425D7CE6F0041BB9A /* ControllerNull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControllerNull.h; sourceTree = "<group>"; };
-		671650C525D7CE6F0041BB9A /* LorControllers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LorControllers.cpp; sourceTree = "<group>"; };
-		671650C625D7CE6F0041BB9A /* serial_osx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = serial_osx.cpp; sourceTree = "<group>"; };
-		671650C725D7CE6F0041BB9A /* ControllerSerial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControllerSerial.h; sourceTree = "<group>"; };
-		671650C825D7CE6F0041BB9A /* ZCPP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCPP.h; sourceTree = "<group>"; };
-		671650C925D7CE6F0041BB9A /* OpenPixelNetOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenPixelNetOutput.h; sourceTree = "<group>"; };
-		671650CA25D7CE6F0041BB9A /* IPOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IPOutput.cpp; sourceTree = "<group>"; };
-		671650CB25D7CE6F0041BB9A /* xxxSerialOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xxxSerialOutput.cpp; sourceTree = "<group>"; };
-		671650CC25D7CE6F0041BB9A /* xxxSerialOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xxxSerialOutput.h; sourceTree = "<group>"; };
-		671650CD25D7CE6F0041BB9A /* IPOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPOutput.h; sourceTree = "<group>"; };
-		671650CE25D7CE6F0041BB9A /* DMXOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DMXOutput.cpp; sourceTree = "<group>"; };
-		671650CF25D7CE6F0041BB9A /* Output.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Output.h; sourceTree = "<group>"; };
-		671650D025D7CE6F0041BB9A /* SerialOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SerialOutput.cpp; sourceTree = "<group>"; };
-		671650D125D7CE6F0041BB9A /* Output.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Output.cpp; sourceTree = "<group>"; };
-		671650D225D7CE6F0041BB9A /* LOROptimisedOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LOROptimisedOutput.h; sourceTree = "<group>"; };
-		671650D325D7CE6F0041BB9A /* GenericSerialOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GenericSerialOutput.cpp; sourceTree = "<group>"; };
-		671650D425D7CE6F0041BB9A /* LorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LorController.h; sourceTree = "<group>"; };
-		671650D525D7CE6F0041BB9A /* OutputManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OutputManager.cpp; sourceTree = "<group>"; };
-		671650D625D7CE6F0041BB9A /* serial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = serial.h; sourceTree = "<group>"; };
-		671650D725D7CE6F0041BB9A /* Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Controller.h; sourceTree = "<group>"; };
-		671650D825D7CE6F0041BB9A /* PixelNetOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PixelNetOutput.cpp; sourceTree = "<group>"; };
-		671650DA25D7CE6F0041BB9A /* GenericSerialOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericSerialOutput.h; sourceTree = "<group>"; };
-		671650DB25D7CE6F0041BB9A /* ArtNetOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtNetOutput.h; sourceTree = "<group>"; };
-		671650DD25D7CE6F0041BB9A /* OPCOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OPCOutput.cpp; sourceTree = "<group>"; };
-		671650DE25D7CE6F0041BB9A /* ControllerNull.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ControllerNull.cpp; sourceTree = "<group>"; };
-		671650DF25D7CE6F0041BB9A /* serial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = serial.cpp; sourceTree = "<group>"; };
-		671650E025D7CE6F0041BB9A /* DMXOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMXOutput.h; sourceTree = "<group>"; };
-		671650E125D7CE6F0041BB9A /* LOROutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LOROutput.h; sourceTree = "<group>"; };
-		671650E225D7CE6F0041BB9A /* OPCOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OPCOutput.h; sourceTree = "<group>"; };
-		671650E325D7CE6F0041BB9A /* OpenPixelNetOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenPixelNetOutput.cpp; sourceTree = "<group>"; };
-		671650E425D7CE6F0041BB9A /* ZCPPOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ZCPPOutput.cpp; sourceTree = "<group>"; };
-		671650E525D7CE6F0041BB9A /* TestPreset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestPreset.cpp; sourceTree = "<group>"; };
-		671650E625D7CE6F0041BB9A /* Controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Controller.cpp; sourceTree = "<group>"; };
-		671650E725D7CE6F0041BB9A /* LOROptimisedOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LOROptimisedOutput.cpp; sourceTree = "<group>"; };
-		671650E825D7CE6F0041BB9A /* KinetOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KinetOutput.h; sourceTree = "<group>"; };
-		671650E925D7CE6F0041BB9A /* LorControllers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LorControllers.h; sourceTree = "<group>"; };
-		671650EA25D7CE6F0041BB9A /* ControllerEthernet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ControllerEthernet.cpp; sourceTree = "<group>"; };
-		671650EB25D7CE6F0041BB9A /* E131Output.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = E131Output.cpp; sourceTree = "<group>"; };
-		671650EC25D7CE6F0041BB9A /* RenardOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RenardOutput.cpp; sourceTree = "<group>"; };
-		671650ED25D7CE6F0041BB9A /* SerialOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SerialOutput.h; sourceTree = "<group>"; };
-		671650EE25D7CE6F0041BB9A /* DLightOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLightOutput.h; sourceTree = "<group>"; };
-		671650EF25D7CE6F0041BB9A /* LOROutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LOROutput.cpp; sourceTree = "<group>"; };
-		671650F025D7CE6F0041BB9A /* OutputManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutputManager.h; sourceTree = "<group>"; };
-		671650F125D7CE6F0041BB9A /* PixelNetOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PixelNetOutput.h; sourceTree = "<group>"; };
-		671650F225D7CE6F0041BB9A /* OpenDMXOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenDMXOutput.cpp; sourceTree = "<group>"; };
-		671650F325D7CE6F0041BB9A /* LorController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LorController.cpp; sourceTree = "<group>"; };
-		671650F425D7CE6F0041BB9A /* RemapDMXChannelsDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemapDMXChannelsDialog.h; sourceTree = "<group>"; };
-		671650F525D7CE6F0041BB9A /* DimmingCurvePanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DimmingCurvePanel.cpp; sourceTree = "<group>"; };
 		671650F625D7CE6F0041BB9A /* xLightsVersion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xLightsVersion.cpp; sourceTree = "<group>"; };
-		671650F725D7CE6F0041BB9A /* NewTimingDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewTimingDialog.h; sourceTree = "<group>"; };
-		671650F825D7CE6F0041BB9A /* DragColoursBitmapButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DragColoursBitmapButton.cpp; sourceTree = "<group>"; };
-		671650F925D7CE6F0041BB9A /* LMSImportChannelMapDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMSImportChannelMapDialog.h; sourceTree = "<group>"; };
-		671650FC25D7CE6F0041BB9A /* CharMapDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharMapDialog.h; sourceTree = "<group>"; };
-		671650FD25D7CE6F0041BB9A /* xlColorCanvas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xlColorCanvas.cpp; sourceTree = "<group>"; };
-		671650FF25D7CE6F0041BB9A /* WiringDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WiringDialog.h; sourceTree = "<group>"; };
-		6716510125D7CE6F0041BB9A /* LinkJukeboxButtonDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkJukeboxButtonDialog.h; sourceTree = "<group>"; };
-		6716510225D7CE6F0041BB9A /* BulkEditControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulkEditControls.h; sourceTree = "<group>"; };
-		6716510525D7CE6F0041BB9A /* LyricUserDictDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LyricUserDictDialog.cpp; sourceTree = "<group>"; };
-		6716510625D7CE6F0041BB9A /* ImportPreviewsModelsDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImportPreviewsModelsDialog.cpp; sourceTree = "<group>"; };
-		6716510825D7CE6F0041BB9A /* SubBufferPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SubBufferPanel.cpp; sourceTree = "<group>"; };
-		6716510925D7CE6F0041BB9A /* VideoExporter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VideoExporter.cpp; sourceTree = "<group>"; };
-		6716510A25D7CE6F0041BB9A /* EffectListDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EffectListDialog.h; sourceTree = "<group>"; };
-		6716510B25D7CE6F0041BB9A /* JukeboxPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JukeboxPanel.cpp; sourceTree = "<group>"; };
-		6716510C25D7CE6F0041BB9A /* OpenGLShaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLShaders.h; sourceTree = "<group>"; };
-		6716511025D7CE6F0041BB9A /* tmGridCell.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tmGridCell.cpp; sourceTree = "<group>"; };
-		6716511125D7CE6F0041BB9A /* ResizeImageDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResizeImageDialog.h; sourceTree = "<group>"; };
-		6716511425D7CE6F0041BB9A /* BitmapCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapCache.h; sourceTree = "<group>"; };
-		6716511525D7CE6F0041BB9A /* MediaImportOptionsDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaImportOptionsDialog.h; sourceTree = "<group>"; };
-		6716511725D7CE6F0041BB9A /* BufferSizeDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BufferSizeDialog.cpp; sourceTree = "<group>"; };
-		6716511A25D7CE6F0041BB9A /* BulkEditFontPickerDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BulkEditFontPickerDialog.cpp; sourceTree = "<group>"; };
-		6716511B25D7CE6F0041BB9A /* SelectPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SelectPanel.cpp; sourceTree = "<group>"; };
-		6716511C25D7CE6F0041BB9A /* JukeboxPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JukeboxPanel.h; sourceTree = "<group>"; };
-		6716511D25D7CE6F0041BB9A /* BufferPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BufferPanel.h; sourceTree = "<group>"; };
-		6716511E25D7CE6F0041BB9A /* ControllerModelDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControllerModelDialog.h; sourceTree = "<group>"; };
 		6716552825D823C60041BB9A /* jsonreader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsonreader.cpp; sourceTree = "<group>"; };
 		6716552925D823C60041BB9A /* jsonreader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jsonreader.h; sourceTree = "<group>"; };
 		6716552A25D823C60041BB9A /* jsonval.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsonval.cpp; sourceTree = "<group>"; };
@@ -757,18 +235,6 @@
 		6716552C25D823C60041BB9A /* jsonwriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jsonwriter.h; sourceTree = "<group>"; };
 		6716552D25D823C60041BB9A /* jsonval.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jsonval.h; sourceTree = "<group>"; };
 		6716552E25D823C60041BB9A /* json_defs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = json_defs.h; sourceTree = "<group>"; };
-		6716554025D8245E0041BB9A /* MidiEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidiEvent.h; sourceTree = "<group>"; };
-		6716554125D8245E0041BB9A /* MidiFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidiFile.h; sourceTree = "<group>"; };
-		6716554225D8245E0041BB9A /* MidiEventList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MidiEventList.cpp; sourceTree = "<group>"; };
-		6716554325D8245E0041BB9A /* MidiEventList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidiEventList.h; sourceTree = "<group>"; };
-		6716554425D8245E0041BB9A /* Binasc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Binasc.h; sourceTree = "<group>"; };
-		6716554525D8245E0041BB9A /* Options.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Options.cpp; sourceTree = "<group>"; };
-		6716554625D8245E0041BB9A /* Options.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Options.h; sourceTree = "<group>"; };
-		6716554725D8245E0041BB9A /* MidiMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidiMessage.h; sourceTree = "<group>"; };
-		6716554825D8245E0041BB9A /* MidiMessage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MidiMessage.cpp; sourceTree = "<group>"; };
-		6716554925D8245E0041BB9A /* Binasc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Binasc.cpp; sourceTree = "<group>"; };
-		6716554A25D8245E0041BB9A /* MidiEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MidiEvent.cpp; sourceTree = "<group>"; };
-		6716554C25D8245E0041BB9A /* MidiFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MidiFile.cpp; sourceTree = "<group>"; };
 		6716555B25D8249D0041BB9A /* wxLED.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wxLED.h; path = ../xFade/wxLED.h; sourceTree = "<group>"; };
 		6716555C25D8249D0041BB9A /* wxLED.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wxLED.cpp; path = ../xFade/wxLED.cpp; sourceTree = "<group>"; };
 		6716556225D824F80041BB9A /* md5.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md5.cpp; path = ../xSchedule/md5.cpp; sourceTree = "<group>"; };
@@ -835,10 +301,6 @@
 		671656DC25D835780041BB9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		671C0BCC1C245E230098A48D /* libwx_osx_cocoau_qa-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_qa-3.3.dylib"; path = "/opt/local/libdbg/libwx_osx_cocoau_qa-3.3.dylib"; sourceTree = "<group>"; };
 		671E47FC2231CEC900049DC9 /* libcurl.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcurl.tbd; path = usr/lib/libcurl.tbd; sourceTree = SDKROOT; };
-		671FDE302F46506400F9AD8E /* ManageMediaPanel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ManageMediaPanel.h; sourceTree = "<group>"; };
-		671FDE312F46508900F9AD8E /* ManageMediaPanel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ManageMediaPanel.cpp; sourceTree = "<group>"; };
-		67283813295E3CB900994782 /* DuplicateDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DuplicateDialog.cpp; sourceTree = "<group>"; };
-		67283814295E3CB900994782 /* DuplicateDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DuplicateDialog.h; sourceTree = "<group>"; };
 		67290003255303D500C83C71 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		6729000C2553046400C83C71 /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
 		6729FFD92552EE9000C83C71 /* libliquidfun.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libliquidfun.a; path = ../../../../opt/local/lib/libliquidfun.a; sourceTree = "<group>"; };
@@ -860,21 +322,13 @@
 		672BD4F01C207D2E008F8B36 /* libwx_osx_cocoau_core-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_core-3.3.dylib"; path = "/opt/local/libdbg/libwx_osx_cocoau_core-3.3.dylib"; sourceTree = "<group>"; };
 		672BD4F11C207D2E008F8B36 /* libwx_osx_cocoau_html-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_html-3.3.dylib"; path = "/opt/local/libdbg/libwx_osx_cocoau_html-3.3.dylib"; sourceTree = "<group>"; };
 		672BD4F21C207D2E008F8B36 /* libwx_osx_cocoau_media-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_media-3.3.dylib"; path = "/opt/local/libdbg/libwx_osx_cocoau_media-3.3.dylib"; sourceTree = "<group>"; };
-		67418CDD286B292A00EA516E /* ModelRemap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModelRemap.cpp; sourceTree = "<group>"; };
-		67418CDE286B292A00EA516E /* ModelRemap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelRemap.h; sourceTree = "<group>"; };
 		674D3D1C1C207B9F000D632B /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		674D3D211C207BCC000D632B /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		674D3D231C207BD7000D632B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		674D3D251C207C25000D632B /* libpthread.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libpthread.tbd; path = usr/lib/libpthread.tbd; sourceTree = SDKROOT; };
 		674E27A41B5B37B000274B20 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		674E9C631C9106D600D12F0D /* libwx_osx_cocoau_propgrid-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_propgrid-3.3.dylib"; path = "../../../../opt/local/libdbg/libwx_osx_cocoau_propgrid-3.3.dylib"; sourceTree = "<group>"; };
-		6751104427D3F5630001BD98 /* FindDataPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindDataPanel.h; sourceTree = "<group>"; };
-		6751104527D3F5630001BD98 /* FindDataPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FindDataPanel.cpp; sourceTree = "<group>"; };
-		67586F8C2DA6AD0C00379F3A /* xlPropertyGrid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xlPropertyGrid.h; sourceTree = "<group>"; };
-		675C6FA72B555DB20091D0BF /* SpecialOptions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpecialOptions.cpp; sourceTree = "<group>"; };
 		675EDD3C2789D87C00D40FEA /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblua.a; path = /opt/local/lib/liblua.a; sourceTree = "<group>"; };
-		6768D20C2B307B5B004A4667 /* xlColourData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xlColourData.cpp; sourceTree = "<group>"; };
-		6768D20D2B307B5B004A4667 /* xlColourData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xlColourData.h; sourceTree = "<group>"; };
 		6771056A267BB91C001DA926 /* UniverseEntryDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UniverseEntryDialog.cpp; path = ../xCapture/UniverseEntryDialog.cpp; sourceTree = "<group>"; };
 		6771056B267BB91C001DA926 /* UniverseEntryDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UniverseEntryDialog.h; path = ../xCapture/UniverseEntryDialog.h; sourceTree = "<group>"; };
 		6771056C267BB91C001DA926 /* ResultDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResultDialog.h; path = ../xCapture/ResultDialog.h; sourceTree = "<group>"; };
@@ -887,22 +341,12 @@
 		67710582267BBAC5001DA926 /* CoreAudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioKit.framework; path = System/Library/Frameworks/CoreAudioKit.framework; sourceTree = SDKROOT; };
 		6771B227204BA69B00E90AC7 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		6771B229204BA6AF00E90AC7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		6776DF8828609D29007573A6 /* TipOfTheDayDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TipOfTheDayDialog.cpp; sourceTree = "<group>"; };
-		6776DF8928609D29007573A6 /* TipOfTheDayDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TipOfTheDayDialog.h; sourceTree = "<group>"; };
-		677844522A680538009FCFD2 /* MetronomeLabelDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MetronomeLabelDialog.cpp; sourceTree = "<group>"; };
-		677844532A680538009FCFD2 /* MetronomeLabelDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MetronomeLabelDialog.h; sourceTree = "<group>"; };
 		6785716B2F72C6E100F50F9F /* libISPCEffectComputeFunctions.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libISPCEffectComputeFunctions.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		678670692729104A00A5375D /* MetalShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MetalShaderTypes.h; sourceTree = "<group>"; };
 		6786706B27296B4000A5375D /* SIMDMathUtilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SIMDMathUtilities.cpp; sourceTree = "<group>"; };
 		6786706C27296B4000A5375D /* SIMDMathUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIMDMathUtilities.h; sourceTree = "<group>"; };
-		6787EA9F274FF60E00DAEE47 /* ScriptsDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScriptsDialog.h; sourceTree = "<group>"; };
-		6787EAA0274FF60E00DAEE47 /* ScriptsDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptsDialog.cpp; sourceTree = "<group>"; };
 		678AAF3F26C40B6300467B3C /* model_vendor_mapping.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = model_vendor_mapping.json; path = ../download/model_vendor_mapping.json; sourceTree = "<group>"; };
 		678BCB1A27581E6F0057E4FA /* xFadeDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = xFadeDebug.entitlements; sourceTree = "<group>"; };
-		6793F91B282B312B00B8F34C /* TwinklyOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TwinklyOutput.cpp; sourceTree = "<group>"; };
-		6793F91C282B312B00B8F34C /* TwinklyOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwinklyOutput.h; sourceTree = "<group>"; };
-		6799D45727F1DDAB005A3B3B /* SearchPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchPanel.h; sourceTree = "<group>"; };
-		6799D45827F1DDAB005A3B3B /* SearchPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SearchPanel.cpp; sourceTree = "<group>"; };
 		67A14C7720DD313D006EFCFA /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		67A14C7920DD31D6006EFCFA /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		67A14C7B20DD31E3006EFCFA /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = System/Library/Frameworks/AGL.framework; sourceTree = SDKROOT; };
@@ -925,7 +369,6 @@
 		67B6F3402040FB7800B847E0 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		67B6F3422040FBB600B847E0 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		67B72BC32E0081E5004515D9 /* xlMacUtilsCpp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = xlMacUtilsCpp.cpp; sourceTree = "<group>"; };
-		67B9ACCA2C9B6055005EF249 /* xLightsTimer.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = xLightsTimer.mm; sourceTree = "<group>"; };
 		67BE0DF82727C0AB00558A3A /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		67BE0DF92727C0AB00558A3A /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		67BE0DFF2728230C00558A3A /* wxMetalCanvas.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = wxMetalCanvas.mm; sourceTree = "<group>"; };
@@ -977,8 +420,6 @@
 		67E7087317B51AB400A22034 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		67E7087417B51AB400A22034 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		67E7087517B51AB400A22034 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		67E832C4292D242400F80E3B /* BulkEditComboDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BulkEditComboDialog.cpp; sourceTree = "<group>"; };
-		67E832C5292D242400F80E3B /* BulkEditComboDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulkEditComboDialog.h; sourceTree = "<group>"; };
 		67F23F6A1E329DDC00F8B985 /* libwx_baseu_net-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_baseu_net-3.3.dylib"; path = "../../../../opt/local/libdbg/libwx_baseu_net-3.3.dylib"; sourceTree = "<group>"; };
 		67F23F6B1E329DDC00F8B985 /* libwx_baseu_xml-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_baseu_xml-3.3.dylib"; path = "../../../../opt/local/libdbg/libwx_baseu_xml-3.3.dylib"; sourceTree = "<group>"; };
 		67F23F6C1E329DDC00F8B985 /* libwx_baseu-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_baseu-3.3.dylib"; path = "../../../../opt/local/libdbg/libwx_baseu-3.3.dylib"; sourceTree = "<group>"; };
@@ -993,22 +434,53 @@
 		67F7DB842D58291B00921286 /* prompts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = prompts; path = ../prompts; sourceTree = "<group>"; };
 		67F849292F5A5490005D144E /* ExternalHooksMacOS.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ExternalHooksMacOS.mm; sourceTree = "<group>"; };
 		67F9B091272899080005A74B /* MetalShaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = MetalShaders.metal; sourceTree = "<group>"; };
-		67FD63502D5884FC004547FF /* CheckSequenceReport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckSequenceReport.h; sourceTree = "<group>"; };
-		67FD63512D5884FC004547FF /* CheckSequenceReport.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CheckSequenceReport.cpp; sourceTree = "<group>"; };
 		67FD63532D588527004547FF /* resources */ = {isa = PBXFileReference; lastKnownFileType = folder; name = resources; path = ../resources; sourceTree = "<group>"; };
-		67FDC38827CA76F30009A3C7 /* ColourReplaceDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColourReplaceDialog.h; sourceTree = "<group>"; };
-		67FDC38927CA76F40009A3C7 /* ColourReplaceDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ColourReplaceDialog.cpp; sourceTree = "<group>"; };
 		67FDC38B27CA77610009A3C7 /* libhidapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libhidapi.a; path = ../../../../../opt/local/libdbg/libhidapi.a; sourceTree = "<group>"; };
 		7FB5CEDB27A27A2A007612B2 /* xlBaseApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = xlBaseApp.h; path = ../common/xlBaseApp.h; sourceTree = "<group>"; };
 		7FB5CEDC27A27A2A007612B2 /* xlBaseApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = xlBaseApp.cpp; path = ../common/xlBaseApp.cpp; sourceTree = "<group>"; };
 		7FB5CEDD27A27A2A007612B2 /* xlStackWalker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = xlStackWalker.h; path = ../common/xlStackWalker.h; sourceTree = "<group>"; };
-		AA0000012F85A00000000001 /* RenderCommandEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RenderCommandEvent.cpp; sourceTree = "<group>"; };
 		AA000001PUGI000000000001 /* pugixml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pugixml.cpp; path = ../dependencies/pugixml/src/pugixml.cpp; sourceTree = "<group>"; };
 		C40BF5512BC6217800D701CF /* mhpresets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = mhpresets; path = ../mhpresets; sourceTree = "<group>"; };
-		C40D87EF2B5A25AC00A10AF8 /* SpecialOptions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpecialOptions.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		6762A5ED2F7C5D0B00F33C18 /* Exceptions for "outputs" folder in "xLights" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				ArtNetOutput.cpp,
+				Controller.cpp,
+				ControllerEthernet.cpp,
+				ControllerNull.cpp,
+				ControllerSerial.cpp,
+				DDPOutput.cpp,
+				DMXOutput.cpp,
+				E131Output.cpp,
+				GenericSerialOutput.cpp,
+				IPOutput.cpp,
+				KinetOutput.cpp,
+				LorController.cpp,
+				LorControllers.cpp,
+				LOROptimisedOutput.cpp,
+				LOROutput.cpp,
+				NullOutput.cpp,
+				OPCOutput.cpp,
+				OpenDMXOutput.cpp,
+				OpenPixelNetOutput.cpp,
+				Output.cpp,
+				OutputManager.cpp,
+				PixelNetOutput.cpp,
+				RenardOutput.cpp,
+				serial_osx.cpp,
+				serial.cpp,
+				SerialOutput.cpp,
+				TestPreset.cpp,
+				TwinklyOutput.cpp,
+				xxxEthernetOutput.cpp,
+				xxxSerialOutput.cpp,
+				ZCPPOutput.cpp,
+			);
+			target = 67E7086C17B51AB400A22034 /* xLights */;
+		};
 		678571502F72C4D200F50F9F /* Exceptions for "effects" folder in "xLights" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -1097,14 +569,22 @@
 			path = automation;
 			sourceTree = "<group>";
 		};
-		670015D02F6FD81A00BA900E /* preferences */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = preferences;
-			sourceTree = "<group>";
-		};
 		670CA87F2F756E2800FE629F /* utils */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = utils;
+			sourceTree = "<group>";
+		};
+		6762A5CD2F7C5D0A00F33C18 /* outputs */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				6762A5ED2F7C5D0B00F33C18 /* Exceptions for "outputs" folder in "xLights" target */,
+			);
+			path = outputs;
+			sourceTree = "<group>";
+		};
+		6762A5FD2F7C5D9000F33C18 /* MIDI */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = MIDI;
 			sourceTree = "<group>";
 		};
 		678570EF2F72C4C300F50F9F /* effects */ = {
@@ -1277,417 +757,45 @@
 		67164BC525D7CE6D0041BB9A /* xLights */ = {
 			isa = PBXGroup;
 			children = (
-				67164D1125D7CE6D0041BB9A /* AboutDialog.h */,
-				67164C4D25D7CE6D0041BB9A /* AboutDialog.cpp */,
 				67F7DB8A2D582A9D00921286 /* ai */,
-				67164BDE25D7CE6D0041BB9A /* AlignmentDialog.h */,
-				67164D1925D7CE6D0041BB9A /* AlignmentDialog.cpp */,
-				670DA2B92AB9DD9B00380ACE /* AutoLabelDialog.h */,
-				670DA2B82AB9DD9B00380ACE /* AutoLabelDialog.cpp */,
 				67000F3A2F6DA77200BA900E /* automation */,
-				67164D0625D7CE6D0041BB9A /* BatchRenderDialog.h */,
-				67164C4025D7CE6D0041BB9A /* BatchRenderDialog.cpp */,
-				6716511425D7CE6F0041BB9A /* BitmapCache.h */,
-				67164F6B25D7CE6E0041BB9A /* BitmapCache.cpp */,
-				6716511D25D7CE6F0041BB9A /* BufferPanel.h */,
-				67164E0425D7CE6D0041BB9A /* BufferPanel.cpp */,
-				671650A425D7CE6F0041BB9A /* BufferSizeDialog.h */,
-				6716511725D7CE6F0041BB9A /* BufferSizeDialog.cpp */,
-				67164C1F25D7CE6D0041BB9A /* BulkEditColourPickerDialog.h */,
-				67164C8125D7CE6D0041BB9A /* BulkEditColourPickerDialog.cpp */,
-				67E832C5292D242400F80E3B /* BulkEditComboDialog.h */,
-				67E832C4292D242400F80E3B /* BulkEditComboDialog.cpp */,
-				6716510225D7CE6F0041BB9A /* BulkEditControls.h */,
-				67164C4625D7CE6D0041BB9A /* BulkEditControls.cpp */,
-				67164BE025D7CE6D0041BB9A /* BulkEditFontPickerDialog.h */,
-				6716511A25D7CE6F0041BB9A /* BulkEditFontPickerDialog.cpp */,
-				67164C6625D7CE6D0041BB9A /* BulkEditSliderDialog.h */,
-				67164C6825D7CE6D0041BB9A /* BulkEditSliderDialog.cpp */,
 				67DE1F592F72BDC50010AE7E /* cad */,
-				67164D0025D7CE6D0041BB9A /* ChannelLayoutDialog.h */,
-				67164EFD25D7CE6E0041BB9A /* ChannelLayoutDialog.cpp */,
-				671650FC25D7CE6F0041BB9A /* CharMapDialog.h */,
-				67164C6A25D7CE6D0041BB9A /* CharMapDialog.cpp */,
-				67164C0225D7CE6D0041BB9A /* CheckboxSelectDialog.h */,
-				67164C8E25D7CE6D0041BB9A /* CheckboxSelectDialog.cpp */,
-				67FD63502D5884FC004547FF /* CheckSequenceReport.h */,
-				67FD63512D5884FC004547FF /* CheckSequenceReport.cpp */,
-				67164E0625D7CE6D0041BB9A /* ColorCurveDialog.h */,
-				67164D1825D7CE6D0041BB9A /* ColorCurveDialog.cpp */,
-				67164C8B25D7CE6D0041BB9A /* ColorManager.h */,
-				67164C2025D7CE6D0041BB9A /* ColorManager.cpp */,
-				67164BD025D7CE6D0041BB9A /* ColorPanel.h */,
-				67164C7B25D7CE6D0041BB9A /* ColorPanel.cpp */,
-				67FDC38827CA76F30009A3C7 /* ColourReplaceDialog.h */,
-				67FDC38927CA76F40009A3C7 /* ColourReplaceDialog.cpp */,
-				67164BDB25D7CE6D0041BB9A /* ColoursPanel.h */,
-				67164C6025D7CE6D0041BB9A /* ColoursPanel.cpp */,
-				67164C0C25D7CE6D0041BB9A /* ControllerConnectionDialog.h */,
-				67164C1C25D7CE6D0041BB9A /* ControllerConnectionDialog.cpp */,
-				6716511E25D7CE6F0041BB9A /* ControllerModelDialog.h */,
-				67164C0D25D7CE6D0041BB9A /* ControllerModelDialog.cpp */,
 				67DE1F802F72BDC50010AE7E /* controllers */,
-				67164C6325D7CE6D0041BB9A /* ConvertDialog.h */,
-				67164BCB25D7CE6D0041BB9A /* ConvertDialog.cpp */,
-				67164DF725D7CE6D0041BB9A /* ConvertLogDialog.h */,
-				67164C8F25D7CE6D0041BB9A /* ConvertLogDialog.cpp */,
 				67164DF925D7CE6D0041BB9A /* CopyFormat1.h */,
 				671650A725D7CE6F0041BB9A /* CopyFormat1.cpp */,
-				67164D1A25D7CE6D0041BB9A /* CustomModelDialog.h */,
-				67164E4425D7CE6E0041BB9A /* CustomModelDialog.cpp */,
-				67164F0025D7CE6E0041BB9A /* CustomTimingDialog.h */,
-				67164F2D25D7CE6E0041BB9A /* CustomTimingDialog.cpp */,
-				67164C7425D7CE6D0041BB9A /* DimmingCurvePanel.h */,
-				671650F525D7CE6F0041BB9A /* DimmingCurvePanel.cpp */,
-				67164C0325D7CE6D0041BB9A /* Discovery.h */,
-				67164C6425D7CE6D0041BB9A /* Discovery.cpp */,
-				67164D9C25D7CE6D0041BB9A /* DragColoursBitmapButton.h */,
-				671650F825D7CE6F0041BB9A /* DragColoursBitmapButton.cpp */,
-				67283814295E3CB900994782 /* DuplicateDialog.h */,
-				67283813295E3CB900994782 /* DuplicateDialog.cpp */,
-				671202F82B1DB6F7002E763A /* EditAliasesDialog.h */,
-				671202F72B1DB6F7002E763A /* EditAliasesDialog.cpp */,
-				670215412BBC3D120076CAF3 /* EditSubmodelAliasesDialog.h */,
-				670215422BBC3D120076CAF3 /* EditSubmodelAliasesDialog.cpp */,
-				67164C2325D7CE6D0041BB9A /* EffectAssist.h */,
-				67164C0125D7CE6D0041BB9A /* EffectAssist.cpp */,
-				67164BCE25D7CE6D0041BB9A /* EffectIconPanel.h */,
-				67164C8A25D7CE6D0041BB9A /* EffectIconPanel.cpp */,
-				6716510A25D7CE6F0041BB9A /* EffectListDialog.h */,
-				67164EFE25D7CE6E0041BB9A /* EffectListDialog.cpp */,
-				670726952F590F5A000514B7 /* EffectPresetManager.h */,
-				670726962F590F82000514B7 /* EffectPresetManager.cpp */,
 				678570EF2F72C4C300F50F9F /* effects */,
-				67164BE425D7CE6D0041BB9A /* EffectsPanel.h */,
-				67164C4A25D7CE6D0041BB9A /* EffectsPanel.cpp */,
-				67164C5E25D7CE6D0041BB9A /* EffectTimingDialog.h */,
-				67164C2725D7CE6D0041BB9A /* EffectTimingDialog.cpp */,
-				67164DF625D7CE6D0041BB9A /* EffectTreeDialog.h */,
-				67164F6C25D7CE6E0041BB9A /* EffectTreeDialog.cpp */,
-				67164FA225D7CE6E0041BB9A /* EmailDialog.h */,
-				67164C8C25D7CE6D0041BB9A /* EmailDialog.cpp */,
-				67164C7925D7CE6D0041BB9A /* ExportModelSelect.h */,
-				67164C1325D7CE6D0041BB9A /* ExportModelSelect.cpp */,
-				53EB767C2719BAFE00ED8702 /* ExportSettings.h */,
-				53EB767D2719BAFE00ED8702 /* ExportSettings.cpp */,
-				67164C3E25D7CE6D0041BB9A /* ExternalHooks.h */,
-				6751104427D3F5630001BD98 /* FindDataPanel.h */,
-				6751104527D3F5630001BD98 /* FindDataPanel.cpp */,
-				67164C5F25D7CE6D0041BB9A /* FlickerFreeBitmapButton.h */,
-				67164F6A25D7CE6E0041BB9A /* FlickerFreeBitmapButton.cpp */,
-				67164D1D25D7CE6D0041BB9A /* GenerateCustomModelDialog.h */,
-				67164D9A25D7CE6D0041BB9A /* GenerateCustomModelDialog.cpp */,
-				67164F6D25D7CE6E0041BB9A /* GenerateLyricsDialog.h */,
-				67164C1625D7CE6D0041BB9A /* GenerateLyricsDialog.cpp */,
 				67D534682F7BFDB2008AAC0A /* graphics */,
-				67164EF525D7CE6E0041BB9A /* HousePreviewPanel.h */,
-				671650AA25D7CE6F0041BB9A /* HousePreviewPanel.cpp */,
 				67164E4325D7CE6E0041BB9A /* Images_png.h */,
 				AA000001IMEX000000000001 /* import_export */,
-				67164EF125D7CE6E0041BB9A /* ImportPreviewsModelsDialog.h */,
-				6716510625D7CE6F0041BB9A /* ImportPreviewsModelsDialog.cpp */,
-				67164C5925D7CE6D0041BB9A /* IPEntryDialog.h */,
-				67164C0825D7CE6D0041BB9A /* IPEntryDialog.cpp */,
-				6716511C25D7CE6F0041BB9A /* JukeboxPanel.h */,
-				6716510B25D7CE6F0041BB9A /* JukeboxPanel.cpp */,
-				67164BE725D7CE6D0041BB9A /* KeyBindingEditDialog.h */,
-				67164E0C25D7CE6E0041BB9A /* KeyBindingEditDialog.cpp */,
-				67164DF525D7CE6D0041BB9A /* KeyBindings.h */,
-				67164D0225D7CE6D0041BB9A /* KeyBindings.cpp */,
-				67164C5825D7CE6D0041BB9A /* LayerSelectDialog.h */,
-				67164E4725D7CE6E0041BB9A /* LayerSelectDialog.cpp */,
-				67164BD225D7CE6D0041BB9A /* LayoutGroup.h */,
-				67164BEA25D7CE6D0041BB9A /* LayoutGroup.cpp */,
-				67164BD725D7CE6D0041BB9A /* LayoutPanel.h */,
-				67164DA025D7CE6D0041BB9A /* LayoutPanel.cpp */,
-				53DAD7B2288ED35D000E06E1 /* LayoutUtils.h */,
-				53DAD7B1288ED35D000E06E1 /* LayoutUtils.cpp */,
-				6716510125D7CE6F0041BB9A /* LinkJukeboxButtonDialog.h */,
-				67164BD325D7CE6D0041BB9A /* LinkJukeboxButtonDialog.cpp */,
-				671650F925D7CE6F0041BB9A /* LMSImportChannelMapDialog.h */,
-				671650B125D7CE6F0041BB9A /* LMSImportChannelMapDialog.cpp */,
-				67164E4625D7CE6E0041BB9A /* LorConvertDialog.h */,
-				67164C9025D7CE6D0041BB9A /* LorConvertDialog.cpp */,
-				538F8DFD26B42E5D0080A1BB /* LORPreview.h */,
-				538F8DFC26B42E5D0080A1BB /* LORPreview.cpp */,
-				67164C0A25D7CE6D0041BB9A /* LyricsDialog.h */,
-				67164D9225D7CE6D0041BB9A /* LyricsDialog.cpp */,
-				67164D9B25D7CE6D0041BB9A /* LyricUserDictDialog.h */,
-				6716510525D7CE6F0041BB9A /* LyricUserDictDialog.cpp */,
-				671FDE302F46506400F9AD8E /* ManageMediaPanel.h */,
-				671FDE312F46508900F9AD8E /* ManageMediaPanel.cpp */,
-				67164BDA25D7CE6D0041BB9A /* MatrixFaceDownloadDialog.h */,
-				67164BE125D7CE6D0041BB9A /* MatrixFaceDownloadDialog.cpp */,
-				6716511525D7CE6F0041BB9A /* MediaImportOptionsDialog.h */,
-				67164E3F25D7CE6E0041BB9A /* MediaImportOptionsDialog.cpp */,
-				677844532A680538009FCFD2 /* MetronomeLabelDialog.h */,
-				677844522A680538009FCFD2 /* MetronomeLabelDialog.cpp */,
-				6716553F25D8245E0041BB9A /* MIDI */,
-				67164BD925D7CE6D0041BB9A /* ModelChainDialog.h */,
-				67164C6125D7CE6D0041BB9A /* ModelChainDialog.cpp */,
-				67164EF825D7CE6E0041BB9A /* ModelDimmingCurveDialog.h */,
-				67164D0F25D7CE6D0041BB9A /* ModelDimmingCurveDialog.cpp */,
-				67164C4E25D7CE6D0041BB9A /* ModelFaceDialog.h */,
-				67164E0125D7CE6D0041BB9A /* ModelFaceDialog.cpp */,
-				67164EF725D7CE6E0041BB9A /* ModelGroupPanel.h */,
-				67164E4225D7CE6E0041BB9A /* ModelGroupPanel.cpp */,
-				67164C1525D7CE6D0041BB9A /* ModelPreview.h */,
-				67164C4C25D7CE6D0041BB9A /* ModelPreview.cpp */,
-				67418CDE286B292A00EA516E /* ModelRemap.h */,
-				67418CDD286B292A00EA516E /* ModelRemap.cpp */,
+				6762A5FD2F7C5D9000F33C18 /* MIDI */,
 				67DE1F092F72BD800010AE7E /* models */,
-				671650A925D7CE6F0041BB9A /* ModelStateDialog.h */,
-				67164E0525D7CE6D0041BB9A /* ModelStateDialog.cpp */,
-				670059B4279A4403006AD9EA /* Mouse3DManager.h */,
-				670059B3279A4403006AD9EA /* Mouse3DManager.cpp */,
-				67164C8425D7CE6D0041BB9A /* MultiControllerUploadDialog.h */,
-				67164C5D25D7CE6D0041BB9A /* MultiControllerUploadDialog.cpp */,
 				67164C8925D7CE6D0041BB9A /* MusicXML.h */,
 				67164C1425D7CE6D0041BB9A /* MusicXML.cpp */,
-				671650F725D7CE6F0041BB9A /* NewTimingDialog.h */,
-				67164F6E25D7CE6E0041BB9A /* NewTimingDialog.cpp */,
-				67164C2F25D7CE6D0041BB9A /* NodeSelectGrid.h */,
-				67164D9D25D7CE6D0041BB9A /* NodeSelectGrid.cpp */,
-				67164F7125D7CE6E0041BB9A /* NodesGridCellEditor.h */,
-				67164BCC25D7CE6D0041BB9A /* NodesGridCellEditor.cpp */,
-				67164C1725D7CE6D0041BB9A /* NoteImportDialog.h */,
-				67164C0725D7CE6D0041BB9A /* NoteImportDialog.cpp */,
-				67164D9725D7CE6D0041BB9A /* NoteRangeDialog.h */,
-				67164D0325D7CE6D0041BB9A /* NoteRangeDialog.cpp */,
-				6716510C25D7CE6F0041BB9A /* OpenGLShaders.h */,
-				67164D1525D7CE6D0041BB9A /* OpenGLShaders.cpp */,
-				671650AB25D7CE6F0041BB9A /* OptionChooser.h */,
-				67164E4125D7CE6E0041BB9A /* OptionChooser.cpp */,
-				67164BC625D7CE6D0041BB9A /* OutputModelManager.h */,
-				67164C0E25D7CE6D0041BB9A /* OutputModelManager.cpp */,
-				671650B425D7CE6F0041BB9A /* outputs */,
-				67164E0925D7CE6D0041BB9A /* PathGenerationDialog.h */,
-				671650A325D7CE6F0041BB9A /* PathGenerationDialog.cpp */,
-				67164C5C25D7CE6D0041BB9A /* PerspectivesPanel.h */,
-				67164D0525D7CE6D0041BB9A /* PerspectivesPanel.cpp */,
+				6762A5CD2F7C5D0A00F33C18 /* outputs */,
 				67164F7425D7CE6E0041BB9A /* PhonemeDictionary.h */,
 				67164F3025D7CE6E0041BB9A /* PhonemeDictionary.cpp */,
-				67164C4525D7CE6D0041BB9A /* PixelTestDialog.h */,
-				67164D9425D7CE6D0041BB9A /* PixelTestDialog.cpp */,
-				670015D02F6FD81A00BA900E /* preferences */,
-				67164C6C25D7CE6D0041BB9A /* PreviewPane.h */,
-				67164DFA25D7CE6D0041BB9A /* PreviewPane.cpp */,
 				AA000001PUGI000000000001 /* pugixml.cpp */,
-				671650F425D7CE6F0041BB9A /* RemapDMXChannelsDialog.h */,
-				67164BEB25D7CE6D0041BB9A /* RemapDMXChannelsDialog.cpp */,
-				67164C5625D7CE6D0041BB9A /* RenameTextDialog.h */,
-				67164C4825D7CE6D0041BB9A /* RenameTextDialog.cpp */,
 				AA000001RENDER000000000001 /* render */,
-				AA0000012F85A00000000001 /* RenderCommandEvent.cpp */,
-				671650AF25D7CE6F0041BB9A /* RenderCommandEvent.h */,
-				67164C5325D7CE6D0041BB9A /* RenderProgressDialog.h */,
-				67164EFC25D7CE6E0041BB9A /* RenderProgressDialog.cpp */,
-				6716511125D7CE6F0041BB9A /* ResizeImageDialog.h */,
-				67164D1625D7CE6D0041BB9A /* ResizeImageDialog.cpp */,
-				53EAB8DC2874DBE300FD1449 /* RestoreBackupDialog.h */,
-				53EAB8DB2874DBE300FD1449 /* RestoreBackupDialog.cpp */,
-				67164BD125D7CE6D0041BB9A /* SaveChangesDialog.h */,
-				67164EF025D7CE6E0041BB9A /* SaveChangesDialog.cpp */,
-				6787EA9F274FF60E00DAEE47 /* ScriptsDialog.h */,
-				6787EAA0274FF60E00DAEE47 /* ScriptsDialog.cpp */,
-				6799D45727F1DDAB005A3B3B /* SearchPanel.h */,
-				6799D45827F1DDAB005A3B3B /* SearchPanel.cpp */,
-				67164FA025D7CE6E0041BB9A /* SelectPanel.h */,
-				6716511B25D7CE6F0041BB9A /* SelectPanel.cpp */,
-				67164C0425D7CE6D0041BB9A /* SelectTimingsDialog.h */,
-				67164DF825D7CE6D0041BB9A /* SelectTimingsDialog.cpp */,
-				67164C3F25D7CE6D0041BB9A /* SeqElementMismatchDialog.h */,
-				67164C5225D7CE6D0041BB9A /* SeqElementMismatchDialog.cpp */,
-				67164E4825D7CE6E0041BB9A /* SeqExportDialog.h */,
-				67164EF225D7CE6E0041BB9A /* SeqExportDialog.cpp */,
-				67164C7525D7CE6D0041BB9A /* SeqFileUtilities.cpp */,
-				67164DB025D7CE6D0041BB9A /* SeqSettingsDialog.h */,
-				67164C2825D7CE6D0041BB9A /* SeqSettingsDialog.cpp */,
-				67164C5A25D7CE6D0041BB9A /* SequenceData.h */,
-				67164F3225D7CE6E0041BB9A /* SequenceData.cpp */,
-				67164D0A25D7CE6D0041BB9A /* SequencePackage.h */,
-				67164C8D25D7CE6D0041BB9A /* SequencePackage.cpp */,
 				67DE1FAC2F72BDFE0010AE7E /* sequencer */,
-				671650AC25D7CE6F0041BB9A /* SequenceVideoPanel.h */,
-				671650AD25D7CE6F0041BB9A /* SequenceVideoPanel.cpp */,
-				67164C5425D7CE6D0041BB9A /* SequenceVideoPreview.h */,
-				67164E0B25D7CE6E0041BB9A /* SequenceVideoPreview.cpp */,
-				67164BCD25D7CE6D0041BB9A /* SequenceViewManager.h */,
-				67164C0B25D7CE6D0041BB9A /* SequenceViewManager.cpp */,
-				67164BEC25D7CE6D0041BB9A /* SevenSegmentDialog.h */,
-				67164C7E25D7CE6D0041BB9A /* SevenSegmentDialog.cpp */,
-				67164DFD25D7CE6D0041BB9A /* ShaderDownloadDialog.h */,
-				67164FA125D7CE6E0041BB9A /* ShaderDownloadDialog.cpp */,
-				5326AEB72D191277001BB084 /* ShowFolderSearchDialog.h */,
-				5326AEB82D191277001BB084 /* ShowFolderSearchDialog.cpp */,
-				67164C5725D7CE6D0041BB9A /* SpecialOptions.h */,
-				C40D87EF2B5A25AC00A10AF8 /* SpecialOptions.cpp */,
-				675C6FA72B555DB20091D0BF /* SpecialOptions.cpp */,
-				67164E0725D7CE6D0041BB9A /* SplashDialog.h */,
-				671650A825D7CE6F0041BB9A /* SplashDialog.cpp */,
-				67164D9125D7CE6D0041BB9A /* StartChannelDialog.h */,
-				67164C4B25D7CE6D0041BB9A /* StartChannelDialog.cpp */,
-				67164C4925D7CE6D0041BB9A /* StrandNodeNamesDialog.h */,
-				67164C8825D7CE6D0041BB9A /* StrandNodeNamesDialog.cpp */,
-				671650B325D7CE6F0041BB9A /* SubBufferPanel.h */,
-				6716510825D7CE6F0041BB9A /* SubBufferPanel.cpp */,
-				67164C2525D7CE6D0041BB9A /* SubModelGenerateDialog.h */,
-				67164C6225D7CE6D0041BB9A /* SubModelGenerateDialog.cpp */,
-				67164C7725D7CE6D0041BB9A /* SubModelsDialog.h */,
-				67164C6925D7CE6D0041BB9A /* SubModelsDialog.cpp */,
-				67164E0D25D7CE6E0041BB9A /* SuperStarImportDialog.h */,
-				67164BCA25D7CE6D0041BB9A /* SuperStarImportDialog.cpp */,
 				67DE1FB52F72BDFE0010AE7E /* support */,
-				67164C9225D7CE6D0041BB9A /* TabConvert.cpp */,
-				67164D9E25D7CE6D0041BB9A /* TabPreview.cpp */,
-				67164C4125D7CE6D0041BB9A /* TabSequence.cpp */,
-				67164BDC25D7CE6D0041BB9A /* TabSetup.cpp */,
-				67164EF425D7CE6E0041BB9A /* TimingPanel.h */,
-				67164EFB25D7CE6E0041BB9A /* TimingPanel.cpp */,
-				6776DF8928609D29007573A6 /* TipOfTheDayDialog.h */,
-				6776DF8828609D29007573A6 /* TipOfTheDayDialog.cpp */,
-				67164DAD25D7CE6D0041BB9A /* tmGridCell.h */,
-				6716511025D7CE6F0041BB9A /* tmGridCell.cpp */,
-				67164C1B25D7CE6D0041BB9A /* TopEffectsPanel.h */,
-				67164C2625D7CE6D0041BB9A /* TopEffectsPanel.cpp */,
-				67164D0D25D7CE6D0041BB9A /* TraceLog.h */,
-				67164EFF25D7CE6E0041BB9A /* TraceLog.cpp */,
 				67000F2E2F6DA72E00BA900E /* ui */,
-				67164BE525D7CE6D0041BB9A /* UpdaterDialog.h */,
-				67164E0825D7CE6D0041BB9A /* UpdaterDialog.cpp */,
 				670CA87F2F756E2800FE629F /* utils */,
-				67164C4225D7CE6D0041BB9A /* VAMPPluginDialog.h */,
-				67164C5525D7CE6D0041BB9A /* VAMPPluginDialog.cpp */,
-				67164D9525D7CE6D0041BB9A /* VendorModelDialog.h */,
-				671650AE25D7CE6F0041BB9A /* VendorModelDialog.cpp */,
-				67164C5025D7CE6D0041BB9A /* VendorMusicDialog.h */,
-				67164D9F25D7CE6D0041BB9A /* VendorMusicDialog.cpp */,
 				67164BEE25D7CE6D0041BB9A /* VendorMusicHelpers.h */,
 				67164BED25D7CE6D0041BB9A /* VendorMusicHelpers.cpp */,
-				67164E3E25D7CE6E0041BB9A /* VideoExporter.h */,
-				6716510925D7CE6F0041BB9A /* VideoExporter.cpp */,
-				67164D9625D7CE6D0041BB9A /* VideoReader.h */,
-				67164F2E25D7CE6E0041BB9A /* VideoReader.cpp */,
-				67164C8525D7CE6D0041BB9A /* ViewObjectPanel.h */,
-				671650B225D7CE6F0041BB9A /* ViewObjectPanel.cpp */,
-				67164C1025D7CE6D0041BB9A /* ViewpointDialog.h */,
-				67164C7F25D7CE6D0041BB9A /* ViewpointDialog.cpp */,
-				67164C8325D7CE6D0041BB9A /* ViewpointMgr.h */,
-				67164DAF25D7CE6D0041BB9A /* ViewpointMgr.cpp */,
-				67164C2E25D7CE6D0041BB9A /* ViewsModelsPanel.h */,
-				67164D1C25D7CE6D0041BB9A /* ViewsModelsPanel.cpp */,
-				67164BC925D7CE6D0041BB9A /* VsaImportDialog.h */,
-				67164D1B25D7CE6D0041BB9A /* VsaImportDialog.cpp */,
 				67164C4F25D7CE6D0041BB9A /* wininet.h */,
-				671650FF25D7CE6F0041BB9A /* WiringDialog.h */,
-				67164F7225D7CE6E0041BB9A /* WiringDialog.cpp */,
-				67164C7825D7CE6D0041BB9A /* wxCheckedListCtrl.h */,
-				67164C8225D7CE6D0041BB9A /* wxCheckedListCtrl.cpp */,
-				67164BDF25D7CE6D0041BB9A /* wxModelGridCellRenderer.h */,
-				67164F7325D7CE6E0041BB9A /* wxModelGridCellRenderer.cpp */,
 				7FB5CEDB27A27A2A007612B2 /* xlBaseApp.h */,
 				7FB5CEDC27A27A2A007612B2 /* xlBaseApp.cpp */,
-				67164D0825D7CE6D0041BB9A /* xlColorCanvas.h */,
-				671650FD25D7CE6F0041BB9A /* xlColorCanvas.cpp */,
-				67164C8025D7CE6D0041BB9A /* xlColorPicker.h */,
-				67164E0225D7CE6D0041BB9A /* xlColorPicker.cpp */,
-				671650A625D7CE6F0041BB9A /* xlColorPickerFields.h */,
-				67164D1225D7CE6D0041BB9A /* xlColorPickerFields.cpp */,
-				6768D20D2B307B5B004A4667 /* xlColourData.h */,
-				6768D20C2B307B5B004A4667 /* xlColourData.cpp */,
-				67164BD425D7CE6D0041BB9A /* xlCustomControl.h */,
-				67164D9925D7CE6D0041BB9A /* xlGridCanvas.h */,
-				67164BD525D7CE6D0041BB9A /* xlGridCanvas.cpp */,
 				67164BC725D7CE6D0041BB9A /* xLightsApp.h */,
 				67164C1D25D7CE6D0041BB9A /* xLightsApp.cpp */,
-				67164C1125D7CE6D0041BB9A /* xLightsImportChannelMapDialog.h */,
-				67164C4725D7CE6D0041BB9A /* xLightsImportChannelMapDialog.cpp */,
 				67164C0625D7CE6D0041BB9A /* xLightsMain.h */,
 				67164D0125D7CE6D0041BB9A /* xLightsMain.cpp */,
-				67164C6B25D7CE6D0041BB9A /* xLightsTimer.h */,
-				67B9ACCA2C9B6055005EF249 /* xLightsTimer.mm */,
 				67164C5B25D7CE6D0041BB9A /* xLightsVersion.h */,
 				671650F625D7CE6F0041BB9A /* xLightsVersion.cpp */,
-				67164D0725D7CE6D0041BB9A /* xlLockButton.h */,
-				67164D1025D7CE6D0041BB9A /* xlLockButton.cpp */,
-				67586F8C2DA6AD0C00379F3A /* xlPropertyGrid.h */,
-				67164D0E25D7CE6D0041BB9A /* xlSlider.h */,
-				67164C1E25D7CE6D0041BB9A /* xlSlider.cpp */,
 				7FB5CEDD27A27A2A007612B2 /* xlStackWalker.h */,
 				C471E0212F1ED95A0063881B /* XmlSerializer */,
 			);
 			name = xLights;
 			path = ../xLights;
-			sourceTree = "<group>";
-		};
-		671650B425D7CE6F0041BB9A /* outputs */ = {
-			isa = PBXGroup;
-			children = (
-				671650C225D7CE6F0041BB9A /* ArtNetOutput.cpp */,
-				671650DB25D7CE6F0041BB9A /* ArtNetOutput.h */,
-				671650E625D7CE6F0041BB9A /* Controller.cpp */,
-				671650D725D7CE6F0041BB9A /* Controller.h */,
-				671650EA25D7CE6F0041BB9A /* ControllerEthernet.cpp */,
-				671650BC25D7CE6F0041BB9A /* ControllerEthernet.h */,
-				671650DE25D7CE6F0041BB9A /* ControllerNull.cpp */,
-				671650C425D7CE6F0041BB9A /* ControllerNull.h */,
-				671650B725D7CE6F0041BB9A /* ControllerSerial.cpp */,
-				671650C725D7CE6F0041BB9A /* ControllerSerial.h */,
-				671650B825D7CE6F0041BB9A /* DDPOutput.cpp */,
-				671650BE25D7CE6F0041BB9A /* DDPOutput.h */,
-				671650EE25D7CE6F0041BB9A /* DLightOutput.h */,
-				671650CE25D7CE6F0041BB9A /* DMXOutput.cpp */,
-				671650E025D7CE6F0041BB9A /* DMXOutput.h */,
-				671650EB25D7CE6F0041BB9A /* E131Output.cpp */,
-				671650BF25D7CE6F0041BB9A /* E131Output.h */,
-				671650D325D7CE6F0041BB9A /* GenericSerialOutput.cpp */,
-				671650DA25D7CE6F0041BB9A /* GenericSerialOutput.h */,
-				671650CA25D7CE6F0041BB9A /* IPOutput.cpp */,
-				671650CD25D7CE6F0041BB9A /* IPOutput.h */,
-				671650BA25D7CE6F0041BB9A /* KinetOutput.cpp */,
-				671650E825D7CE6F0041BB9A /* KinetOutput.h */,
-				671650F325D7CE6F0041BB9A /* LorController.cpp */,
-				671650D425D7CE6F0041BB9A /* LorController.h */,
-				671650C525D7CE6F0041BB9A /* LorControllers.cpp */,
-				671650E925D7CE6F0041BB9A /* LorControllers.h */,
-				671650E725D7CE6F0041BB9A /* LOROptimisedOutput.cpp */,
-				671650D225D7CE6F0041BB9A /* LOROptimisedOutput.h */,
-				671650EF25D7CE6F0041BB9A /* LOROutput.cpp */,
-				671650E125D7CE6F0041BB9A /* LOROutput.h */,
-				671650BD25D7CE6F0041BB9A /* NullOutput.cpp */,
-				671650C125D7CE6F0041BB9A /* NullOutput.h */,
-				671650DD25D7CE6F0041BB9A /* OPCOutput.cpp */,
-				671650E225D7CE6F0041BB9A /* OPCOutput.h */,
-				671650F225D7CE6F0041BB9A /* OpenDMXOutput.cpp */,
-				671650C025D7CE6F0041BB9A /* OpenDMXOutput.h */,
-				671650E325D7CE6F0041BB9A /* OpenPixelNetOutput.cpp */,
-				671650C925D7CE6F0041BB9A /* OpenPixelNetOutput.h */,
-				671650D125D7CE6F0041BB9A /* Output.cpp */,
-				671650CF25D7CE6F0041BB9A /* Output.h */,
-				671650D525D7CE6F0041BB9A /* OutputManager.cpp */,
-				671650F025D7CE6F0041BB9A /* OutputManager.h */,
-				671650D825D7CE6F0041BB9A /* PixelNetOutput.cpp */,
-				671650F125D7CE6F0041BB9A /* PixelNetOutput.h */,
-				671650EC25D7CE6F0041BB9A /* RenardOutput.cpp */,
-				671650BB25D7CE6F0041BB9A /* RenardOutput.h */,
-				671650C625D7CE6F0041BB9A /* serial_osx.cpp */,
-				671650DF25D7CE6F0041BB9A /* serial.cpp */,
-				671650D625D7CE6F0041BB9A /* serial.h */,
-				671650D025D7CE6F0041BB9A /* SerialOutput.cpp */,
-				671650ED25D7CE6F0041BB9A /* SerialOutput.h */,
-				671650E525D7CE6F0041BB9A /* TestPreset.cpp */,
-				671650B525D7CE6F0041BB9A /* TestPreset.h */,
-				6793F91B282B312B00B8F34C /* TwinklyOutput.cpp */,
-				6793F91C282B312B00B8F34C /* TwinklyOutput.h */,
-				671650C325D7CE6F0041BB9A /* xxxEthernetOutput.cpp */,
-				671650B625D7CE6F0041BB9A /* xxxEthernetOutput.h */,
-				671650CB25D7CE6F0041BB9A /* xxxSerialOutput.cpp */,
-				671650CC25D7CE6F0041BB9A /* xxxSerialOutput.h */,
-				671650C825D7CE6F0041BB9A /* ZCPP.h */,
-				671650E425D7CE6F0041BB9A /* ZCPPOutput.cpp */,
-				671650B925D7CE6F0041BB9A /* ZCPPOutput.h */,
-			);
-			path = outputs;
 			sourceTree = "<group>";
 		};
 		671653D125D7CF4E0041BB9A /* Libraries */ = {
@@ -1717,25 +825,6 @@
 			);
 			name = wxJSON;
 			path = ../xSchedule/wxJSON;
-			sourceTree = "<group>";
-		};
-		6716553F25D8245E0041BB9A /* MIDI */ = {
-			isa = PBXGroup;
-			children = (
-				6716554025D8245E0041BB9A /* MidiEvent.h */,
-				6716554125D8245E0041BB9A /* MidiFile.h */,
-				6716554225D8245E0041BB9A /* MidiEventList.cpp */,
-				6716554325D8245E0041BB9A /* MidiEventList.h */,
-				6716554425D8245E0041BB9A /* Binasc.h */,
-				6716554525D8245E0041BB9A /* Options.cpp */,
-				6716554625D8245E0041BB9A /* Options.h */,
-				6716554725D8245E0041BB9A /* MidiMessage.h */,
-				6716554825D8245E0041BB9A /* MidiMessage.cpp */,
-				6716554925D8245E0041BB9A /* Binasc.cpp */,
-				6716554A25D8245E0041BB9A /* MidiEvent.cpp */,
-				6716554C25D8245E0041BB9A /* MidiFile.cpp */,
-			);
-			path = MIDI;
 			sourceTree = "<group>";
 		};
 		6716555A25D824890041BB9A /* wxLED */ = {
@@ -2160,8 +1249,8 @@
 			fileSystemSynchronizedGroups = (
 				67000F2E2F6DA72E00BA900E /* ui */,
 				67000F3A2F6DA77200BA900E /* automation */,
-				670015D02F6FD81A00BA900E /* preferences */,
 				670CA87F2F756E2800FE629F /* utils */,
+				6762A5FD2F7C5D9000F33C18 /* MIDI */,
 				678570EF2F72C4C300F50F9F /* effects */,
 				67DE1F092F72BD800010AE7E /* models */,
 				67DE1F592F72BDC50010AE7E /* cad */,
@@ -2361,235 +1450,47 @@
 			files = (
 				677A15C326A22AA8000AFE4D /* UniverseEntryDialog.cpp in Sources */,
 				677A15C426A22AA8000AFE4D /* xCaptureMain.cpp in Sources */,
-				6716513E25D7CE700041BB9A /* ControllerModelDialog.cpp in Sources */,
-				6716516025D7CE700041BB9A /* RenameTextDialog.cpp in Sources */,
-				6716515A25D7CE700041BB9A /* BatchRenderDialog.cpp in Sources */,
 				67D142BE275803100018A831 /* request.cpp in Sources */,
-				6716530225D7CE710041BB9A /* ShaderDownloadDialog.cpp in Sources */,
 				677A15C226A22AA8000AFE4D /* ResultDialog.cpp in Sources */,
-				6716512225D7CE700041BB9A /* NodesGridCellEditor.cpp in Sources */,
-				6716538D25D7CE720041BB9A /* NullOutput.cpp in Sources */,
-				671652D725D7CE710041BB9A /* wxModelGridCellRenderer.cpp in Sources */,
-				67B9ACCB2C9B605C005EF249 /* xLightsTimer.mm in Sources */,
 				6716559925D825410041BB9A /* RealTime.cpp in Sources */,
-				6716516B25D7CE700041BB9A /* SubModelGenerateDialog.cpp in Sources */,
 				67D142BC275803100018A831 /* context.cpp in Sources */,
-				671653A725D7CE720041BB9A /* LOROutput.cpp in Sources */,
-				671651EB25D7CE700041BB9A /* UpdaterDialog.cpp in Sources */,
 				671655D225D827650041BB9A /* kfc.c in Sources */,
-				671653A125D7CE720041BB9A /* TestPreset.cpp in Sources */,
-				6716516F25D7CE700041BB9A /* SubModelsDialog.cpp in Sources */,
-				67E832C6292D242400F80E3B /* BulkEditComboDialog.cpp in Sources */,
-				6716518125D7CE700041BB9A /* EffectIconPanel.cpp in Sources */,
 				6716559B25D825410041BB9A /* acsymbols.c in Sources */,
-				671651E025D7CE700041BB9A /* SelectTimingsDialog.cpp in Sources */,
-				671653A025D7CE720041BB9A /* ZCPPOutput.cpp in Sources */,
 				6716553625D823C60041BB9A /* jsonwriter.cpp in Sources */,
-				6716514D25D7CE700041BB9A /* TopEffectsPanel.cpp in Sources */,
-				671653B125D7CE720041BB9A /* SubBufferPanel.cpp in Sources */,
-				671202F92B1DB6F7002E763A /* EditAliasesDialog.cpp in Sources */,
-				671651D025D7CE700041BB9A /* LyricsDialog.cpp in Sources */,
-				6716516425D7CE700041BB9A /* AboutDialog.cpp in Sources */,
 				6716559525D825410041BB9A /* PluginWrapper.cpp in Sources */,
-				671653AD25D7CE720041BB9A /* xlColorCanvas.cpp in Sources */,
-				6716513D25D7CE700041BB9A /* SequenceViewManager.cpp in Sources */,
-				6716514425D7CE700041BB9A /* GenerateLyricsDialog.cpp in Sources */,
-				671652CA25D7CE710041BB9A /* VideoReader.cpp in Sources */,
 				671655A025D825410041BB9A /* PluginChannelAdapter.cpp in Sources */,
-				671651EE25D7CE700041BB9A /* KeyBindingEditDialog.cpp in Sources */,
-				6768D20E2B307B5B004A4667 /* xlColourData.cpp in Sources */,
-				6716518525D7CE700041BB9A /* ConvertLogDialog.cpp in Sources */,
-				6716538F25D7CE720041BB9A /* xxxEthernetOutput.cpp in Sources */,
-				677844542A680538009FCFD2 /* MetronomeLabelDialog.cpp in Sources */,
-				6716516725D7CE700041BB9A /* VAMPPluginDialog.cpp in Sources */,
-				6716539525D7CE720041BB9A /* SerialOutput.cpp in Sources */,
-				671653AA25D7CE720041BB9A /* DimmingCurvePanel.cpp in Sources */,
-				6716538C25D7CE720041BB9A /* KinetOutput.cpp in Sources */,
 				6716559C25D825410041BB9A /* PluginInputDomainAdapter.cpp in Sources */,
-				671653A925D7CE720041BB9A /* LorController.cpp in Sources */,
-				6716539E25D7CE720041BB9A /* serial.cpp in Sources */,
-				6751104627D3F5630001BD98 /* FindDataPanel.cpp in Sources */,
 				6716559A25D825410041BB9A /* PluginAdapter.cpp in Sources */,
-				6716518025D7CE700041BB9A /* StrandNodeNamesDialog.cpp in Sources */,
-				671652D225D7CE710041BB9A /* EffectTreeDialog.cpp in Sources */,
 				67D142C0275803100018A831 /* response.cpp in Sources */,
-				6716518225D7CE700041BB9A /* EmailDialog.cpp in Sources */,
-				6716516125D7CE700041BB9A /* EffectsPanel.cpp in Sources */,
-				671653B025D7CE720041BB9A /* ImportPreviewsModelsDialog.cpp in Sources */,
-				6716514225D7CE700041BB9A /* ExportModelSelect.cpp in Sources */,
-				6793F91D282B312B00B8F34C /* TwinklyOutput.cpp in Sources */,
-				6716517025D7CE700041BB9A /* CharMapDialog.cpp in Sources */,
-				671651E125D7CE700041BB9A /* PreviewPane.cpp in Sources */,
-				671652B425D7CE710041BB9A /* TimingPanel.cpp in Sources */,
-				671651D325D7CE700041BB9A /* GenerateCustomModelDialog.cpp in Sources */,
-				671652D625D7CE710041BB9A /* WiringDialog.cpp in Sources */,
-				671651CC25D7CE700041BB9A /* ColorCurveDialog.cpp in Sources */,
 				7FDE55FF280A94E900C4EB70 /* xlBaseApp.cpp in Sources */,
-				6716538B25D7CE720041BB9A /* DDPOutput.cpp in Sources */,
-				6716512525D7CE700041BB9A /* xlGridCanvas.cpp in Sources */,
-				6716539025D7CE720041BB9A /* LorControllers.cpp in Sources */,
-				6716520825D7CE700041BB9A /* CustomModelDialog.cpp in Sources */,
-				6716514925D7CE700041BB9A /* xlSlider.cpp in Sources */,
-				6716518425D7CE700041BB9A /* CheckboxSelectDialog.cpp in Sources */,
 				671655D325D827650041BB9A /* kiss_fftnd.c in Sources */,
-				671652CE25D7CE710041BB9A /* SequenceData.cpp in Sources */,
-				671652B025D7CE710041BB9A /* SaveChangesDialog.cpp in Sources */,
-				6716538A25D7CE720041BB9A /* ControllerSerial.cpp in Sources */,
-				6799D45927F1DDAB005A3B3B /* SearchPanel.cpp in Sources */,
-				6716516825D7CE700041BB9A /* MultiControllerUploadDialog.cpp in Sources */,
-				671653B625D7CE720041BB9A /* tmGridCell.cpp in Sources */,
 				6716553425D823C60041BB9A /* jsonreader.cpp in Sources */,
-				671651D425D7CE700041BB9A /* NodeSelectGrid.cpp in Sources */,
 				6716559F25D825410041BB9A /* host-c.cpp in Sources */,
-				671651C425D7CE700041BB9A /* ModelDimmingCurveDialog.cpp in Sources */,
-				6716512025D7CE700041BB9A /* SuperStarImportDialog.cpp in Sources */,
-				6716516225D7CE700041BB9A /* StartChannelDialog.cpp in Sources */,
-				6716538225D7CE720041BB9A /* PathGenerationDialog.cpp in Sources */,
-				671652B125D7CE710041BB9A /* SeqExportDialog.cpp in Sources */,
-				67283815295E3CB900994782 /* DuplicateDialog.cpp in Sources */,
-				6716555325D8245E0041BB9A /* MidiFile.cpp in Sources */,
-				671651D625D7CE700041BB9A /* VendorMusicDialog.cpp in Sources */,
-				671653A425D7CE720041BB9A /* ControllerEthernet.cpp in Sources */,
 				6716538325D7CE720041BB9A /* CopyFormat1.cpp in Sources */,
-				6716538725D7CE720041BB9A /* VendorModelDialog.cpp in Sources */,
-				671653A225D7CE720041BB9A /* Controller.cpp in Sources */,
-				6716538425D7CE720041BB9A /* SplashDialog.cpp in Sources */,
-				671651E625D7CE700041BB9A /* ModelFaceDialog.cpp in Sources */,
-				6716539C25D7CE720041BB9A /* OPCOutput.cpp in Sources */,
-				671653A325D7CE720041BB9A /* LOROptimisedOutput.cpp in Sources */,
-				6716539F25D7CE720041BB9A /* OpenPixelNetOutput.cpp in Sources */,
-				671651C025D7CE700041BB9A /* PerspectivesPanel.cpp in Sources */,
-				538F8DFE26B42E5D0080A1BB /* LORPreview.cpp in Sources */,
 				AA000001PUGI000000000002 /* pugixml.cpp in Sources */,
 				6716559E25D825410041BB9A /* Files.cpp in Sources */,
-				6716516A25D7CE700041BB9A /* ModelChainDialog.cpp in Sources */,
 				67D142BF275803100018A831 /* message.cpp in Sources */,
-				6716516C25D7CE700041BB9A /* Discovery.cpp in Sources */,
-				671652C925D7CE710041BB9A /* CustomTimingDialog.cpp in Sources */,
-				6716539825D7CE720041BB9A /* OutputManager.cpp in Sources */,
-				6716539125D7CE720041BB9A /* serial_osx.cpp in Sources */,
 				6716553525D823C60041BB9A /* jsonval.cpp in Sources */,
-				675C6FA82B555DB20091D0BF /* SpecialOptions.cpp in Sources */,
-				6716514F25D7CE700041BB9A /* SeqSettingsDialog.cpp in Sources */,
-				6716512A25D7CE700041BB9A /* MatrixFaceDownloadDialog.cpp in Sources */,
-				6716512825D7CE700041BB9A /* TabSetup.cpp in Sources */,
-				671652B725D7CE710041BB9A /* EffectListDialog.cpp in Sources */,
-				6716517E25D7CE700041BB9A /* wxCheckedListCtrl.cpp in Sources */,
-				6716539225D7CE720041BB9A /* IPOutput.cpp in Sources */,
-				6716517C25D7CE700041BB9A /* ViewpointDialog.cpp in Sources */,
-				6716516E25D7CE700041BB9A /* BulkEditSliderDialog.cpp in Sources */,
-				6716515B25D7CE700041BB9A /* TabSequence.cpp in Sources */,
-				6787EAA1274FF60E00DAEE47 /* ScriptsDialog.cpp in Sources */,
 				671653AB25D7CE720041BB9A /* xLightsVersion.cpp in Sources */,
-				671651C525D7CE700041BB9A /* xlLockButton.cpp in Sources */,
-				671651ED25D7CE700041BB9A /* SequenceVideoPreview.cpp in Sources */,
-				6716512125D7CE700041BB9A /* ConvertDialog.cpp in Sources */,
 				671655D025D827650041BB9A /* kiss_fftr.c in Sources */,
-				671653A625D7CE720041BB9A /* RenardOutput.cpp in Sources */,
-				6776DF8A28609D29007573A6 /* TipOfTheDayDialog.cpp in Sources */,
 				671655A125D825410041BB9A /* PluginHostAdapter.cpp in Sources */,
-				670215432BBC3D120076CAF3 /* EditSubmodelAliasesDialog.cpp in Sources */,
-				6716539D25D7CE720041BB9A /* ControllerNull.cpp in Sources */,
-				67FD63522D5884FC004547FF /* CheckSequenceReport.cpp in Sources */,
-				6716520625D7CE700041BB9A /* OptionChooser.cpp in Sources */,
 				671655CE25D827650041BB9A /* kiss_fft.c in Sources */,
-				6716538625D7CE720041BB9A /* SequenceVideoPanel.cpp in Sources */,
-				671652D025D7CE710041BB9A /* FlickerFreeBitmapButton.cpp in Sources */,
-				671653BA25D7CE720041BB9A /* BulkEditFontPickerDialog.cpp in Sources */,
 				6716512F25D7CE700041BB9A /* VendorMusicHelpers.cpp in Sources */,
-				6716538925D7CE720041BB9A /* ViewObjectPanel.cpp in Sources */,
 				671652CC25D7CE710041BB9A /* PhonemeDictionary.cpp in Sources */,
-				6716538525D7CE720041BB9A /* HousePreviewPanel.cpp in Sources */,
-				671651BE25D7CE700041BB9A /* KeyBindings.cpp in Sources */,
-				53EAB8DD2874DBE300FD1449 /* RestoreBackupDialog.cpp in Sources */,
-				6716513B25D7CE700041BB9A /* IPEntryDialog.cpp in Sources */,
-				6716554E25D8245E0041BB9A /* Options.cpp in Sources */,
-				671651D725D7CE700041BB9A /* LayoutPanel.cpp in Sources */,
-				6716538E25D7CE720041BB9A /* ArtNetOutput.cpp in Sources */,
-				6716554D25D8245E0041BB9A /* MidiEventList.cpp in Sources */,
-				53EB767E2719BAFE00ED8702 /* ExportSettings.cpp in Sources */,
-				671652B525D7CE710041BB9A /* RenderProgressDialog.cpp in Sources */,
-				AA0000012F85A00000000002 /* RenderCommandEvent.cpp in Sources */,
-				671FDE322F46508900F9AD8E /* ManageMediaPanel.cpp in Sources */,
 				671655B925D827100041BB9A /* PluginBufferingAdapter.cpp in Sources */,
-				6716516325D7CE700041BB9A /* ModelPreview.cpp in Sources */,
-				6716539925D7CE720041BB9A /* PixelNetOutput.cpp in Sources */,
 				67D142BD275803100018A831 /* status.cpp in Sources */,
 				67D142BB275803100018A831 /* server.cpp in Sources */,
-				6716554F25D8245E0041BB9A /* MidiMessage.cpp in Sources */,
-				6716520525D7CE700041BB9A /* MediaImportOptionsDialog.cpp in Sources */,
-				6716517625D7CE700041BB9A /* SeqFileUtilities.cpp in Sources */,
 				67D142BA275803100018A831 /* sha1.cpp in Sources */,
-				6716516625D7CE700041BB9A /* SeqElementMismatchDialog.cpp in Sources */,
-				6716517D25D7CE700041BB9A /* BulkEditColourPickerDialog.cpp in Sources */,
-				6716518725D7CE700041BB9A /* TabConvert.cpp in Sources */,
-				671651CD25D7CE700041BB9A /* AlignmentDialog.cpp in Sources */,
 				6716556425D824F80041BB9A /* md5.cpp in Sources */,
-				6716516925D7CE700041BB9A /* ColoursPanel.cpp in Sources */,
-				671651BF25D7CE700041BB9A /* NoteRangeDialog.cpp in Sources */,
 				671655D125D827650041BB9A /* kiss_fftndr.c in Sources */,
-				6716514A25D7CE700041BB9A /* ColorManager.cpp in Sources */,
-				6716518625D7CE700041BB9A /* LorConvertDialog.cpp in Sources */,
-				671652D325D7CE710041BB9A /* NewTimingDialog.cpp in Sources */,
-				671651E925D7CE700041BB9A /* BufferPanel.cpp in Sources */,
-				670DA2BA2AB9DD9B00380ACE /* AutoLabelDialog.cpp in Sources */,
-				671651EA25D7CE700041BB9A /* ModelStateDialog.cpp in Sources */,
-				671651E725D7CE700041BB9A /* xlColorPicker.cpp in Sources */,
-				670059B5279A4403006AD9EA /* Mouse3DManager.cpp in Sources */,
-				6716539325D7CE720041BB9A /* xxxSerialOutput.cpp in Sources */,
-				671653A825D7CE720041BB9A /* OpenDMXOutput.cpp in Sources */,
-				6716512E25D7CE700041BB9A /* RemapDMXChannelsDialog.cpp in Sources */,
 				67D142B8275803100018A831 /* pages.cpp in Sources */,
-				67418CDF286B292B00EA516E /* ModelRemap.cpp in Sources */,
-				6716513A25D7CE700041BB9A /* NoteImportDialog.cpp in Sources */,
-				6716539625D7CE720041BB9A /* Output.cpp in Sources */,
-				671651C925D7CE700041BB9A /* OpenGLShaders.cpp in Sources */,
-				671653B325D7CE720041BB9A /* JukeboxPanel.cpp in Sources */,
-				671651C625D7CE700041BB9A /* xlColorPickerFields.cpp in Sources */,
-				671651CF25D7CE700041BB9A /* ViewsModelsPanel.cpp in Sources */,
-				671653BB25D7CE720041BB9A /* SelectPanel.cpp in Sources */,
-				671652D125D7CE710041BB9A /* BitmapCache.cpp in Sources */,
-				671651DF25D7CE700041BB9A /* ViewpointMgr.cpp in Sources */,
 				671651BD25D7CE700041BB9A /* xLightsMain.cpp in Sources */,
-				67FDC38A27CA76F40009A3C7 /* ColourReplaceDialog.cpp in Sources */,
-				6716555125D8245E0041BB9A /* MidiEvent.cpp in Sources */,
 				671655A325D825410041BB9A /* PluginSummarisingAdapter.cpp in Sources */,
-				6716515F25D7CE700041BB9A /* xLightsImportChannelMapDialog.cpp in Sources */,
-				53DAD7B3288ED35D000E06E1 /* LayoutUtils.cpp in Sources */,
 				6716514325D7CE700041BB9A /* MusicXML.cpp in Sources */,
-				671653A525D7CE720041BB9A /* E131Output.cpp in Sources */,
 				6716559D25D825410041BB9A /* PluginLoader.cpp in Sources */,
-				6716512425D7CE700041BB9A /* LinkJukeboxButtonDialog.cpp in Sources */,
-				6716555025D8245E0041BB9A /* Binasc.cpp in Sources */,
-				671653AC25D7CE720041BB9A /* DragColoursBitmapButton.cpp in Sources */,
-				6716514E25D7CE700041BB9A /* EffectTimingDialog.cpp in Sources */,
-				671653AF25D7CE720041BB9A /* LyricUserDictDialog.cpp in Sources */,
-				6716520925D7CE700041BB9A /* LayerSelectDialog.cpp in Sources */,
-				6716520725D7CE700041BB9A /* ModelGroupPanel.cpp in Sources */,
 				6716514825D7CE700041BB9A /* xLightsApp.cpp in Sources */,
-				6716513925D7CE700041BB9A /* EffectAssist.cpp in Sources */,
-				6716515E25D7CE700041BB9A /* BulkEditControls.cpp in Sources */,
-				671653B225D7CE720041BB9A /* VideoExporter.cpp in Sources */,
-				671651D225D7CE700041BB9A /* PixelTestDialog.cpp in Sources */,
-				671651D525D7CE700041BB9A /* TabPreview.cpp in Sources */,
-				6716539725D7CE720041BB9A /* GenericSerialOutput.cpp in Sources */,
-				6716538825D7CE720041BB9A /* LMSImportChannelMapDialog.cpp in Sources */,
-				6716514725D7CE700041BB9A /* ControllerConnectionDialog.cpp in Sources */,
-				671651CA25D7CE700041BB9A /* ResizeImageDialog.cpp in Sources */,
-				6716517825D7CE700041BB9A /* ColorPanel.cpp in Sources */,
-				6716517B25D7CE700041BB9A /* SevenSegmentDialog.cpp in Sources */,
 				67D142B9275803100018A831 /* connection.cpp in Sources */,
-				671651CE25D7CE700041BB9A /* VsaImportDialog.cpp in Sources */,
-				671653B725D7CE720041BB9A /* BufferSizeDialog.cpp in Sources */,
-				671652B625D7CE710041BB9A /* ChannelLayoutDialog.cpp in Sources */,
 				6716555D25D8249D0041BB9A /* wxLED.cpp in Sources */,
-				6716518325D7CE700041BB9A /* SequencePackage.cpp in Sources */,
-				6716539425D7CE720041BB9A /* DMXOutput.cpp in Sources */,
-				671652B825D7CE710041BB9A /* TraceLog.cpp in Sources */,
-				6716513F25D7CE700041BB9A /* OutputModelManager.cpp in Sources */,
-				670726972F590F82000514B7 /* EffectPresetManager.cpp in Sources */,
-				6716512D25D7CE700041BB9A /* LayoutGroup.cpp in Sources */,
-				5326AEB92D191277001BB084 /* ShowFolderSearchDialog.cpp in Sources */,
 			);
 		};
 /* End PBXSourcesBuildPhase section */
