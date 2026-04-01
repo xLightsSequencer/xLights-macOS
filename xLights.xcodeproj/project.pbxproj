@@ -157,8 +157,6 @@
 				"else",
 				"    echo \"    Did not create $tn.  Skipping.\"",
 				"fi",
-				"",
-				"",
 			);
 		};
 /* End PBXBuildRule section */
@@ -620,11 +618,6 @@
 			path = controllers;
 			sourceTree = "<group>";
 		};
-		67DE1FAC2F72BDFE0010AE7E /* sequencer */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = sequencer;
-			sourceTree = "<group>";
-		};
 		67DE1FB52F72BDFE0010AE7E /* support */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = support;
@@ -777,7 +770,6 @@
 				67164F3025D7CE6E0041BB9A /* PhonemeDictionary.cpp */,
 				AA000001PUGI000000000001 /* pugixml.cpp */,
 				AA000001RENDER000000000001 /* render */,
-				67DE1FAC2F72BDFE0010AE7E /* sequencer */,
 				67DE1FB52F72BDFE0010AE7E /* support */,
 				67000F2E2F6DA72E00BA900E /* ui */,
 				670CA87F2F756E2800FE629F /* utils */,
@@ -1263,7 +1255,6 @@
 				67DE1F092F72BD800010AE7E /* models */,
 				67DE1F592F72BDC50010AE7E /* cad */,
 				67DE1F802F72BDC50010AE7E /* controllers */,
-				67DE1FAC2F72BDFE0010AE7E /* sequencer */,
 				67DE1FB52F72BDFE0010AE7E /* support */,
 				67F7DB8A2D582A9D00921286 /* ai */,
 				AA000001IMEX000000000001 /* import_export */,
