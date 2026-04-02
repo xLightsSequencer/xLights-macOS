@@ -153,6 +153,7 @@
 				"fi",
 				"",
 				"",
+				"",
 			);
 		};
 /* End PBXBuildRule section */
@@ -544,6 +545,11 @@
 			path = effects;
 			sourceTree = "<group>";
 		};
+		67CE0D3A2F7F006F00818F6E /* discovery */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = discovery;
+			sourceTree = "<group>";
+		};
 		67D534682F7BFDB2008AAC0A /* graphics */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -676,13 +682,14 @@
 		67164BC525D7CE6D0041BB9A /* xLights */ = {
 			isa = PBXGroup;
 			children = (
-				6762DB282F7C675900F33C18 /* common */,
 				67F7DB8A2D582A9D00921286 /* ai */,
 				67000F3A2F6DA77200BA900E /* automation */,
 				67DE1F592F72BDC50010AE7E /* cad */,
+				6762DB282F7C675900F33C18 /* common */,
 				67DE1F802F72BDC50010AE7E /* controllers */,
 				67164DF925D7CE6D0041BB9A /* CopyFormat1.h */,
 				671650A725D7CE6F0041BB9A /* CopyFormat1.cpp */,
+				67CE0D3A2F7F006F00818F6E /* discovery */,
 				678570EF2F72C4C300F50F9F /* effects */,
 				67D534682F7BFDB2008AAC0A /* graphics */,
 				67164E4325D7CE6E0041BB9A /* Images_png.h */,
@@ -1104,6 +1111,7 @@
 				670CA87F2F756E2800FE629F /* utils */,
 				6762A5FD2F7C5D9000F33C18 /* MIDI */,
 				678570EF2F72C4C300F50F9F /* effects */,
+				67CE0D3A2F7F006F00818F6E /* discovery */,
 				67DE1F092F72BD800010AE7E /* models */,
 				67DE1F592F72BDC50010AE7E /* cad */,
 				67DE1F802F72BDC50010AE7E /* controllers */,
