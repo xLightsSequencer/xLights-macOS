@@ -96,12 +96,12 @@
 		67D142BF275803100018A831 /* message.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D142B6275803100018A831 /* message.cpp */; };
 		67D142C0275803100018A831 /* response.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D142B7275803100018A831 /* response.cpp */; };
 		67D9B0A81D42A9BA005367DB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67E7087017B51AB400A22034 /* Cocoa.framework */; };
+		67DA60672F7FF15300A41238 /* pugixml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67DA60662F7FF15300A41238 /* pugixml.cpp */; };
 		67F7DB852D58291B00921286 /* prompts in Resources */ = {isa = PBXBuildFile; fileRef = 67F7DB842D58291B00921286 /* prompts */; };
 		67F8492A2F5A5490005D144E /* ExternalHooksMacOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67F849292F5A5490005D144E /* ExternalHooksMacOS.mm */; };
 		67F9B092272899080005A74B /* MetalShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 67F9B091272899080005A74B /* MetalShaders.metal */; };
 		67FD63542D588527004547FF /* resources in Resources */ = {isa = PBXBuildFile; fileRef = 67FD63532D588527004547FF /* resources */; };
 		67FDC38C27CA77890009A3C7 /* libhidapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67FDC38B27CA77610009A3C7 /* libhidapi.a */; };
-		AA000001PUGI000000000002 /* pugixml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA000001PUGI000000000001 /* pugixml.cpp */; };
 		C40BF5522BC6217800D701CF /* mhpresets in Resources */ = {isa = PBXBuildFile; fileRef = C40BF5512BC6217800D701CF /* mhpresets */; };
 /* End PBXBuildFile section */
 
@@ -151,8 +151,6 @@
 				"else",
 				"    echo \"    Did not create $tn.  Skipping.\"",
 				"fi",
-				"",
-				"",
 				"",
 			);
 		};
@@ -365,6 +363,9 @@
 		67D9A2852AF274A100C6C506 /* libwebp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwebp.a; path = ../../../../../opt/local/libdbg/libwebp.a; sourceTree = "<group>"; };
 		67D9A2872AF278ED00C6C506 /* libwebpdemux.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwebpdemux.a; path = ../../../../../opt/local/libdbg/libwebpdemux.a; sourceTree = "<group>"; };
 		67D9A2882AF278ED00C6C506 /* libsharpyuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsharpyuv.a; path = ../../../../../opt/local/libdbg/libsharpyuv.a; sourceTree = "<group>"; };
+		67DA60642F7FF15300A41238 /* pugiconfig.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = pugiconfig.hpp; path = ../dependencies/pugixml/src/pugiconfig.hpp; sourceTree = SOURCE_ROOT; };
+		67DA60652F7FF15300A41238 /* pugixml.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = pugixml.hpp; path = ../dependencies/pugixml/src/pugixml.hpp; sourceTree = SOURCE_ROOT; };
+		67DA60662F7FF15300A41238 /* pugixml.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = pugixml.cpp; path = ../dependencies/pugixml/src/pugixml.cpp; sourceTree = SOURCE_ROOT; };
 		67E00443256D6FA900E12C81 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		67E7086D17B51AB400A22034 /* xLights.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = xLights.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67E7087017B51AB400A22034 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -387,7 +388,6 @@
 		67F9B091272899080005A74B /* MetalShaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = MetalShaders.metal; sourceTree = "<group>"; };
 		67FD63532D588527004547FF /* resources */ = {isa = PBXFileReference; lastKnownFileType = folder; name = resources; path = ../resources; sourceTree = "<group>"; };
 		67FDC38B27CA77610009A3C7 /* libhidapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libhidapi.a; path = ../../../../../opt/local/libdbg/libhidapi.a; sourceTree = "<group>"; };
-		AA000001PUGI000000000001 /* pugixml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pugixml.cpp; path = ../dependencies/pugixml/src/pugixml.cpp; sourceTree = "<group>"; };
 		C40BF5512BC6217800D701CF /* mhpresets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = mhpresets; path = ../mhpresets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -478,12 +478,6 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				mapbox/LICENSE,
-				metal/xlMetalCanvas.mm,
-				metal/xlMetalGraphicsContext.mm,
-				opengl/DrawGLUtils.cpp,
-				opengl/GL/readme.txt,
-				opengl/xlGLCanvas.cpp,
-				opengl/xlOGL3GraphicsContext.cpp,
 				xlFontInfo.cpp,
 				xlGraphicsAccumulators.cpp,
 				xlMesh.cpp,
@@ -701,7 +695,6 @@
 				6762A5CD2F7C5D0A00F33C18 /* outputs */,
 				67164F7425D7CE6E0041BB9A /* PhonemeDictionary.h */,
 				67164F3025D7CE6E0041BB9A /* PhonemeDictionary.cpp */,
-				AA000001PUGI000000000001 /* pugixml.cpp */,
 				AA000001RENDER000000000001 /* render */,
 				67DE1FB52F72BDFE0010AE7E /* support */,
 				67000F2E2F6DA72E00BA900E /* ui */,
@@ -724,6 +717,7 @@
 		671653D125D7CF4E0041BB9A /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				67DA60632F7FF12F00A41238 /* pugixml */,
 				67D142AC275802F50018A831 /* wxHTTPServer */,
 				671655BD25D827650041BB9A /* kiss_fft */,
 				6716556825D8251D0041BB9A /* vamp */,
@@ -916,6 +910,16 @@
 				67D142B0275803100018A831 /* wxhttpserver.h */,
 			);
 			name = wxHTTPServer;
+			sourceTree = "<group>";
+		};
+		67DA60632F7FF12F00A41238 /* pugixml */ = {
+			isa = PBXGroup;
+			children = (
+				67DA60642F7FF15300A41238 /* pugiconfig.hpp */,
+				67DA60652F7FF15300A41238 /* pugixml.hpp */,
+				67DA60662F7FF15300A41238 /* pugixml.cpp */,
+			);
+			path = pugixml;
 			sourceTree = "<group>";
 		};
 		67E7086417B51AB400A22034 = {
@@ -1318,10 +1322,10 @@
 				6716559C25D825410041BB9A /* PluginInputDomainAdapter.cpp in Sources */,
 				6716559A25D825410041BB9A /* PluginAdapter.cpp in Sources */,
 				67D142C0275803100018A831 /* response.cpp in Sources */,
+				67DA60672F7FF15300A41238 /* pugixml.cpp in Sources */,
 				671655D325D827650041BB9A /* kiss_fftnd.c in Sources */,
 				6716559F25D825410041BB9A /* host-c.cpp in Sources */,
 				6716538325D7CE720041BB9A /* CopyFormat1.cpp in Sources */,
-				AA000001PUGI000000000002 /* pugixml.cpp in Sources */,
 				6716559E25D825410041BB9A /* Files.cpp in Sources */,
 				67D142BF275803100018A831 /* message.cpp in Sources */,
 				671653AB25D7CE720041BB9A /* xLightsVersion.cpp in Sources */,
