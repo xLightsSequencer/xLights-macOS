@@ -152,6 +152,7 @@
 				"    echo \"    Did not create $tn.  Skipping.\"",
 				"fi",
 				"",
+				"",
 			);
 		};
 /* End PBXBuildRule section */
@@ -432,6 +433,7 @@
 		678571502F72C4D200F50F9F /* Exceptions for "effects" folder in "xLights" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				ispc/BarsFunctions.ispc,
 				ispc/ButterflyFunctions.ispc,
 				ispc/LayerBlendingFunctions.ispc,
 				ispc/PinwheelFunctions.ispc,
@@ -491,6 +493,7 @@
 			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
 			buildPhase = 678571682F72C6E100F50F9F /* Sources */;
 			membershipExceptions = (
+				ispc/BarsFunctions.ispc,
 				ispc/ButterflyFunctions.ispc,
 				ispc/LayerBlendingFunctions.ispc,
 				ispc/PinwheelFunctions.ispc,
