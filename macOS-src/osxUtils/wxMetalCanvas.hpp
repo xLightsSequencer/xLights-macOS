@@ -1,3 +1,6 @@
+#ifndef GL_SILENCE_DEPRECATION
+#define GL_SILENCE_DEPRECATION
+#endif
 #include <wx/window.h>
 
 

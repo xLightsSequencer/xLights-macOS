@@ -102,6 +102,8 @@
 		67F9B092272899080005A74B /* MetalShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 67F9B091272899080005A74B /* MetalShaders.metal */; };
 		67FD63542D588527004547FF /* resources in Resources */ = {isa = PBXBuildFile; fileRef = 67FD63532D588527004547FF /* resources */; };
 		67FDC38C27CA77890009A3C7 /* libhidapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67FDC38B27CA77610009A3C7 /* libhidapi.a */; };
+		AA0001012F900000000000A1 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = AA0001032F900000000000A1 /* ioapi.c */; settings = {COMPILER_FLAGS = "-std=gnu11 -w"; }; };
+		AA0001022F900000000000A2 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = AA0001042F900000000000A2 /* unzip.c */; settings = {COMPILER_FLAGS = "-std=gnu11 -w"; }; };
 		C40BF5522BC6217800D701CF /* mhpresets in Resources */ = {isa = PBXBuildFile; fileRef = C40BF5512BC6217800D701CF /* mhpresets */; };
 /* End PBXBuildFile section */
 
@@ -151,6 +153,8 @@
 				"else",
 				"    echo \"    Did not create $tn.  Skipping.\"",
 				"fi",
+				"",
+				"",
 				"",
 				"",
 			);
@@ -389,6 +393,10 @@
 		67F9B091272899080005A74B /* MetalShaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = MetalShaders.metal; sourceTree = "<group>"; };
 		67FD63532D588527004547FF /* resources */ = {isa = PBXFileReference; lastKnownFileType = folder; name = resources; path = ../resources; sourceTree = "<group>"; };
 		67FDC38B27CA77610009A3C7 /* libhidapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libhidapi.a; path = ../../../../../opt/local/libdbg/libhidapi.a; sourceTree = "<group>"; };
+		AA0001032F900000000000A1 /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ioapi.c; path = ../dependencies/libxlsxwriter/third_party/minizip/ioapi.c; sourceTree = "<group>"; };
+		AA0001042F900000000000A2 /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = unzip.c; path = ../dependencies/libxlsxwriter/third_party/minizip/unzip.c; sourceTree = "<group>"; };
+		AA0001052F900000000000A3 /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ioapi.h; path = ../dependencies/libxlsxwriter/third_party/minizip/ioapi.h; sourceTree = "<group>"; };
+		AA0001062F900000000000A4 /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = unzip.h; path = ../dependencies/libxlsxwriter/third_party/minizip/unzip.h; sourceTree = "<group>"; };
 		C40BF5512BC6217800D701CF /* mhpresets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = mhpresets; path = ../mhpresets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -725,6 +733,7 @@
 				671655BD25D827650041BB9A /* kiss_fft */,
 				6716556825D8251D0041BB9A /* vamp */,
 				6716556125D824E50041BB9A /* MD5 */,
+				AA0001002F900000000000A0 /* minizip */,
 				6716555A25D824890041BB9A /* wxLED */,
 			);
 			name = Libraries;
@@ -1036,6 +1045,17 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
+		AA0001002F900000000000A0 /* minizip */ = {
+			isa = PBXGroup;
+			children = (
+				AA0001032F900000000000A1 /* ioapi.c */,
+				AA0001052F900000000000A3 /* ioapi.h */,
+				AA0001042F900000000000A2 /* unzip.c */,
+				AA0001062F900000000000A4 /* unzip.h */,
+			);
+			name = minizip;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1342,6 +1362,8 @@
 				67D142BB275803100018A831 /* server.cpp in Sources */,
 				67D142BA275803100018A831 /* sha1.cpp in Sources */,
 				6716556425D824F80041BB9A /* md5.cpp in Sources */,
+				AA0001012F900000000000A1 /* ioapi.c in Sources */,
+				AA0001022F900000000000A2 /* unzip.c in Sources */,
 				671655D125D827650041BB9A /* kiss_fftndr.c in Sources */,
 				67D142B8275803100018A831 /* pages.cpp in Sources */,
 				671651BD25D7CE700041BB9A /* xLightsMain.cpp in Sources */,
