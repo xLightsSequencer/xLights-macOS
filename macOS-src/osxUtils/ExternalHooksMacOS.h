@@ -5,6 +5,16 @@
 #include <string>
 #include <list>
 
+// The generated Swift header contains C++ interop thunks that reference AppKit
+// types (NSColor, NSButton).  In ObjC++ translation units those types come from
+// AppKit.  In plain C++ we forward-declare them as opaque structs so the header
+// parses (wxWidgets headers use the same convention via DECLARE_WXCOCOA_OBJC_CLASS).
+#ifdef __OBJC__
+#import <AppKit/AppKit.h>
+#else
+struct NSColor;
+struct NSButton;
+#endif
 #include "../../xLights-macOSLib.build/DerivedSources/xLights_macOSLib-Swift.h"
 
 /* Various touch points that the OSX builds can use to
