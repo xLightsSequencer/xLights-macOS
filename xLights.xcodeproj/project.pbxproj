@@ -157,6 +157,7 @@
 				"",
 				"",
 				"",
+				"",
 			);
 		};
 /* End PBXBuildRule section */
@@ -484,16 +485,6 @@
 			);
 			target = 678577AD272C735000E6E249 /* EffectComputeFunctions */;
 		};
-		67D534732F7BFDB3008AAC0A /* Exceptions for "graphics" folder in "xLights" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				mapbox/LICENSE,
-				xlFontInfo.cpp,
-				xlGraphicsAccumulators.cpp,
-				xlMesh.cpp,
-			);
-			target = 67E7086C17B51AB400A22034 /* xLights */;
-		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
@@ -557,9 +548,6 @@
 		};
 		67D534682F7BFDB2008AAC0A /* graphics */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				67D534732F7BFDB3008AAC0A /* Exceptions for "graphics" folder in "xLights" target */,
-			);
 			path = graphics;
 			sourceTree = "<group>";
 		};
@@ -1139,6 +1127,7 @@
 				6762A5FD2F7C5D9000F33C18 /* MIDI */,
 				678570EF2F72C4C300F50F9F /* effects */,
 				67CE0D3A2F7F006F00818F6E /* discovery */,
+				67D534682F7BFDB2008AAC0A /* graphics */,
 				67DE1F092F72BD800010AE7E /* models */,
 				67DE1F592F72BDC50010AE7E /* cad */,
 				67DE1F802F72BDC50010AE7E /* controllers */,
