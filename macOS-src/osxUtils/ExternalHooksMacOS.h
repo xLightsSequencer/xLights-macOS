@@ -1,5 +1,8 @@
 #pragma once
 
+// Core-safe macOS hooks.  No wxWidgets types in the interface.
+// UI-specific hooks live in ExternalHooksMacOSUI.h.
+
 #include <filesystem>
 #include <functional>
 #include <string>
@@ -43,12 +46,6 @@ inline void EnableSleepModes() {
 inline void DisableSleepModes() {
     xLights_macOSLib::disableSleepModes();
 }
-inline bool IsMouseEventFromTouchpad() {
-    return xLights_macOSLib::isMouseEventFromTouchpad();
-}
-inline bool hasFullDiskAccess() {
-    return xLights_macOSLib::hasFullDiskAccess();
-}
 
 void AddAudioDeviceChangeListener(std::function<void()> &&callback);
 void RemoveAudioDeviceChangeListener();
@@ -57,18 +54,7 @@ inline bool IsFromAppStore() {
     return xLights_macOSLib::isFromAppStore();
 }
 
-inline double xlOSGetMainScreenContentScaleFactor() {
-    return xLights_macOSLib::xlOSGetMainScreenContentScaleFactor();
-}
-
 void RunInAutoReleasePool(std::function<void()> &&f);
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-inline void WXGLUnsetCurrentContext() {
-    xLights_macOSLib::WXGLUnsetCurrentContext();
-}
-#pragma clang diagnostic pop
 
 void SetThreadQOS(int i);
 

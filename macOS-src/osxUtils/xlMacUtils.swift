@@ -2,10 +2,11 @@
 //  xlMacUtils.swift
 //  xLights
 //
+//  Core-safe macOS utilities.  No AppKit UI types (NSApp, NSScreen, etc.)
+//  UI-specific utilities live in xlMacUtilsUI.swift.
 //
 
 import Foundation
-import AppKit
 import CoreAudio
 import CoreServices
 import Security
@@ -20,16 +21,16 @@ actor xLightsUtilsActor {
 @xLightsUtilsActor
 class xLightsUtilsState {
     static let shared = xLightsUtilsState()
-    
+
     func addAccessibleURL(path: String, data: String) -> Void {
         let cv = config.string(forKey: path);
         if (cv == nil) {
             config.set(data, forKey: path);
         }
     }
-    
+
     let config = UserDefaults(suiteName: "xLights-Bookmarks") ?? UserDefaults.standard
-    
+
     // Application from app store or not?
     var osxStatus = -1
     var optionFlags: ProcessInfo.ActivityOptions = []
@@ -63,7 +64,7 @@ private func obtainAccessToURLInternal(_ path: String, enforceWritable: Bool) ->
                                      options: [.withoutUI, .withSecurityScope],
                                      relativeTo: nil,
                                      bookmarkDataIsStale: &isStale)
-             
+
              if !resolvedURL.startAccessingSecurityScopedResource() {
                  xLightsUtilsState.shared.config.removeObject(forKey: path);
                  return false;
@@ -72,14 +73,14 @@ private func obtainAccessToURLInternal(_ path: String, enforceWritable: Bool) ->
              xLightsUtilsState.shared.config.removeObject(forKey: path);
              return false
          }
-        
+
         return isDirAccessible(path, enforceWritable: enforceWritable)
     }
-    
+
     if !FileManager.default.fileExists(atPath: path) {
         return false
     }
-    
+
     let url = URL(fileURLWithPath: path)
     // Create new bookmark
     do {
@@ -87,17 +88,17 @@ private func obtainAccessToURLInternal(_ path: String, enforceWritable: Bool) ->
                                               includingResourceValuesForKeys: nil,
                                               relativeTo: nil)
         let base64String = bookmarkData.base64EncodedString()
-        
+
         var shouldSave = true
         if url.hasDirectoryPath {
             let pathToCheck = path.hasSuffix("/") ? path : path + "/"
             shouldSave = FileManager.default.isWritableFile(atPath: pathToCheck)
         }
-        
+
         if shouldSave && !base64String.isEmpty {
             xLightsUtilsState.shared.config.set(base64String, forKey: path)
         }
-        
+
         return isDirAccessible(path, enforceWritable: enforceWritable)
     } catch {
         return false
@@ -107,8 +108,8 @@ private func obtainAccessToURLInternal(_ path: String, enforceWritable: Bool) ->
 
 class AsyncBoolResult: @unchecked Sendable {
     var result: Bool = false
-    
-    
+
+
 }
 
 // MARK: - Public Functions
@@ -134,10 +135,10 @@ public func fileExists(_ path: String, waitForDownload: Bool) -> Bool {
     if path.isEmpty {
         return false
     }
-    
+
     let fileManager = FileManager.default
     let url = URL(fileURLWithPath: path)
-    
+
     var exists = fileManager.fileExists(atPath: path)
     if (exists && fileManager.isUbiquitousItem(at: url)) {
         var status: AnyObject?
@@ -146,32 +147,32 @@ public func fileExists(_ path: String, waitForDownload: Bool) -> Bool {
             exists = false;
         }
     }
-    
-    
+
+
     if !exists {
         do {
             var isUbiquitous: AnyObject?
             try (url as NSURL).getResourceValue(&isUbiquitous, forKey: .ubiquitousItemDownloadingStatusKey)
-            
+
             if isUbiquitous != nil {
                 exists = true
                 if waitForDownload {
                     try fileManager.startDownloadingUbiquitousItem(at: url)
-                    
+
                     var downloadStatus: URLUbiquitousItemDownloadingStatus?
                     var count = 0
-                    
+
                     repeat {
                         Thread.sleep(forTimeInterval: 0.01)
                         count += 1
-                        
+
                         var status: AnyObject?
                         let newurl = URL(fileURLWithPath: path)
                         try? (newurl as NSURL).getResourceValue(&status, forKey: .ubiquitousItemDownloadingStatusKey)
                         downloadStatus = status as? URLUbiquitousItemDownloadingStatus
-                        
+
                     } while downloadStatus != .current && count < 6000
-                    
+
                     exists = fileManager.fileExists(atPath: path)
                 }
             }
@@ -179,22 +180,22 @@ public func fileExists(_ path: String, waitForDownload: Bool) -> Bool {
             // Handle error if needed
         }
     }
-    
+
     return exists
 }
 
 public func markNewFileRevision(_ path: String, retainMax: Int) {
     if path.isEmpty { return }
-    
+
     autoreleasepool {
         let url = URL(fileURLWithPath: path)
         do {
             let version = try NSFileVersion.addOfItem(at: url, withContentsOf: url, options: [])
             version.isDiscardable = true
-            
+
             let versions = NSFileVersion.otherVersionsOfItem(at: url)
             let versionsToRemove = max(0, (versions?.count ?? 10) - retainMax)
-            
+
             for i in 0..<versionsToRemove {
                 try versions?[i].remove()
             }
@@ -206,7 +207,7 @@ public func markNewFileRevision(_ path: String, retainMax: Int) {
 
 public func getFileRevisions(_ path: String) -> [String] {
     var revisions: [String] = []
-    
+
     if !path.isEmpty {
         autoreleasepool {
             let url = URL(fileURLWithPath: path)
@@ -215,14 +216,14 @@ public func getFileRevisions(_ path: String) -> [String] {
             let dateFormatter = DateFormatter()
             dateFormatter.dateStyle = .short
             dateFormatter.timeStyle = .long
-            
+
             for version in versions! {
                 let dateString = dateFormatter.string(from: version.modificationDate!);
                 revisions.insert(String(data: dateString.data(using: .utf8)!,  encoding: .utf8)!, at: 0)
             }
         }
     }
-    
+
     return revisions
 }
 
@@ -234,7 +235,7 @@ public func getURLForRevision(_ path: String, revision: String) -> String {
             let dateFormatter = DateFormatter()
             dateFormatter.dateStyle = .short
             dateFormatter.timeStyle = .long
-            
+
             for version in versions! {
                 let dateString = dateFormatter.string(from: version.modificationDate!)
                 if dateString == revision {
@@ -249,62 +250,8 @@ public func getURLForRevision(_ path: String, revision: String) -> String {
             }
         }
     }
-    
+
     return path
-}
-
-public func xlOSGetMainScreenContentScaleFactor() -> Double {
-    var maxScale: Double = 1.0
-    
-    for screen in NSScreen.screens {
-        let scale = Double(screen.backingScaleFactor)
-        if scale > maxScale {
-            maxScale = scale
-        }
-    }
-    
-    return maxScale
-}
-
-private func adjustColorToDeviceColorspaceInternal(_ color: NSColor) -> (red: UInt8, green: UInt8, blue: UInt8, alpha: UInt8) {
-    let formerAppearance : NSAppearance =  NSAppearance.current;
-    MainActor.assumeIsolated {
-        NSAppearance.current = NSApp.effectiveAppearance
-    }
-    
-    defer { NSAppearance.current = formerAppearance }
-    if let deviceColor = color.usingColorSpace(.deviceRGB) {
-        let r = UInt8(deviceColor.redComponent * 255)
-        let g = UInt8(deviceColor.greenComponent * 255)
-        let b = UInt8(deviceColor.blueComponent * 255)
-        let a = UInt8(deviceColor.alphaComponent * 255)
-        return (r, g, b, a)
-    } else {
-        // Fallback to original color components
-        let r = UInt8(color.redComponent * 255)
-        let g = UInt8(color.greenComponent * 255)
-        let b = UInt8(color.blueComponent * 255)
-        let a = UInt8(color.alphaComponent * 255)
-        return (r, g, b, a)
-    }
-}
-public func adjustColorToDeviceColorspace(_ color: NSColor) -> UInt32{
-    let result = adjustColorToDeviceColorspaceInternal(color);
-    var r : UInt32;
-    r = UInt32(result.blue)
-    r |= UInt32(result.alpha) << 24
-    r |= UInt32(result.red) << 16
-    r |= UInt32(result.green) << 8
-    return r;
-}
-
-
-public func isMouseEventFromTouchpad() -> Bool {
-    MainActor.assumeIsolated {
-        guard let event = NSApp.currentEvent else { return false }
-        return event.momentumPhase != []
-            || event.phase != []
-    }
 }
 
 // MARK: - App Nap Management
@@ -313,7 +260,7 @@ private class AppNapSuspender {
     static let shared = AppNapSuspender()
     private var activityId: NSObjectProtocol?
     private var isSuspended = false
-    
+
     func suspend() async {
         if !isSuspended {
             let optionFlags = xLightsUtilsState.shared.optionFlags;
@@ -321,7 +268,7 @@ private class AppNapSuspender {
             isSuspended = true
         }
     }
-    
+
     func resume() async {
         if isSuspended, let activity = activityId {
             ProcessInfo.processInfo.endActivity(activity)
@@ -344,16 +291,6 @@ public func disableSleepModes() {
     }
 }
 
-public func getOSFormattedClipboardData() -> String {
-    let pasteboard = NSPasteboard.general
-    
-    if let string = pasteboard.string(forType: .string) {
-        return string
-    }
-    
-    return ""
-}
-
 
 // MARK: - Audio Device Management
 @_extern(c, "AudioDeviceChangedCallback")
@@ -372,13 +309,13 @@ public func addAudioDeviceChangeListener() {
         mScope: kAudioObjectPropertyScopeGlobal,
         mElement: kAudioObjectPropertyElementMaster
     )
-    
+
     var defaultDevAddress = AudioObjectPropertyAddress(
         mSelector: kAudioHardwarePropertyDefaultOutputDevice,
         mScope: kAudioObjectPropertyScopeGlobal,
         mElement: kAudioObjectPropertyElementMain
     )
-    
+
     AudioObjectAddPropertyListener(AudioObjectID(kAudioObjectSystemObject), &devListAddress, deviceListChanged, nil)
     AudioObjectAddPropertyListener(AudioObjectID(kAudioObjectSystemObject), &defaultDevAddress, deviceListChanged, nil)
 }
@@ -389,13 +326,13 @@ public func removeAudioDeviceChangeListener() {
         mScope: kAudioObjectPropertyScopeGlobal,
         mElement: kAudioObjectPropertyElementMaster
     )
-    
+
     var defaultDevAddress = AudioObjectPropertyAddress(
         mSelector: kAudioHardwarePropertyDefaultOutputDevice,
         mScope: kAudioObjectPropertyScopeGlobal,
         mElement: kAudioObjectPropertyElementMain
     )
-    
+
     AudioObjectRemovePropertyListener(AudioObjectID(kAudioObjectSystemObject), &devListAddress, deviceListChanged, nil)
     AudioObjectRemovePropertyListener(AudioObjectID(kAudioObjectSystemObject), &defaultDevAddress, deviceListChanged, nil)
 }
@@ -403,39 +340,39 @@ public func removeAudioDeviceChangeListener() {
 @xLightsUtilsActor private func isFromAppStoreInternal() -> Bool {
     if xLightsUtilsState.shared.osxStatus == -1 {
         xLightsUtilsState.shared.osxStatus = 0
-        
+
         let bundleURL = Bundle.main.bundleURL;
-        
+
         var staticCode: SecStaticCode?
         var status = SecStaticCodeCreateWithPath(bundleURL as CFURL, SecCSFlags(), &staticCode)
-        
+
         guard status == errSecSuccess, let code = staticCode else { return false }
-        
+
         var info: CFDictionary?
         status = SecCodeCopySigningInformation(code, SecCSFlags(rawValue: kSecCSSigningInformation), &info)
-        
+
         guard status == errSecSuccess, let signingInfo = info else { return false }
-        
+
         let ccTmp = (signingInfo as NSDictionary)[kSecCodeInfoCertificates];
         if (ccTmp == nil) {
             return false;
         }
         let certChain = ccTmp as! [SecCertificate];
         let cert = certChain.first
-        
+
         var commonName: CFString?
         status = SecCertificateCopyCommonName(cert!, &commonName)
-        
+
         guard status == errSecSuccess, let cn = commonName as String? else { return false }
-        
+
         if !cn.hasPrefix("Apple Mac OS") && !cn.hasPrefix("TestFlight") {
             return false
         }
-        
+
         xLightsUtilsState.shared.optionFlags = [.latencyCritical, .userInitiated]
         xLightsUtilsState.shared.osxStatus = 1
     }
-    
+
     return xLightsUtilsState.shared.osxStatus == 1
 }
 public func isFromAppStore() -> Bool {
@@ -451,82 +388,3 @@ public func isFromAppStore() -> Bool {
     return result.result;
 }
 
-@available(*, deprecated)
-public func WXGLUnsetCurrentContext() {
-    NSOpenGLContext.clearCurrentContext();
-}
-
-
-public func setButtonBackground(_ button: NSButton, color: NSColor, transparent: Bool, bgType: Int) {
-    MainActor.assumeIsolated {
-        if transparent {
-            button.bezelStyle = .push
-            button.bezelColor = nil
-        } else {
-            button.bezelStyle = .push
-            
-            if bgType == 1 {
-                button.isBordered = false
-                button.wantsLayer = true
-                
-                if let layer = button.layer {
-                    layer.backgroundColor = color.cgColor
-                    layer.cornerRadius = 6
-                    layer.borderWidth = 1
-                    layer.borderColor = color.cgColor
-                }
-            } else {
-                button.bezelColor = color
-            }
-        }
-        
-        button.needsDisplay = true
-    }
-}
-
-func isSIPDisabled() -> Bool {
-    let process = Process()
-    process.launchPath = "/usr/bin/csrutil"
-    process.arguments = ["status"]
-
-    let pipe = Pipe()
-    process.standardOutput = pipe
-    
-    do {
-        try process.run()
-        process.waitUntilExit()
-
-        let data = pipe.fileHandleForReading.readDataToEndOfFile()
-        if let output = String(data: data, encoding: .utf8) {
-            return output.contains("System Integrity Protection status: disabled")
-        }
-    } catch {
-        return false
-    }
-    return false
-}
-
-public func hasFullDiskAccess() -> Bool {
-    let protectedPath = "/Library/Application Support/com.apple.TCC/"
-    let fileManager = FileManager.default
-
-    do {
-        // Attempt to get contents of a directory requiring FDA
-        _ = try fileManager.contentsOfDirectory(atPath: protectedPath)
-        
-        // If SIP is disabled, the above would allow access even if xLights doesn't have full disk access
-        // We'll check if SIP is disabled and return false to avoid the semi-false possitive
-        if isSIPDisabled() {
-            return false
-        }
-        return true // If no error, FDA is likely granted
-    } catch let error as NSError {
-        // Check for specific error code indicating permission denied
-        if error.code == NSFileReadNoPermissionError {
-            return false // FDA not granted
-        } else {
-            // Handle other potential errors, or assume FDA not granted for simplicity
-            return false
-        }
-    }
-}
