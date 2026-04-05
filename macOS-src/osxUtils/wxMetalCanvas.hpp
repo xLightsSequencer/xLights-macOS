@@ -3,6 +3,7 @@
 #endif
 #include <wx/window.h>
 
+#include "MetalDeviceManager.h"
 
 #ifdef __OBJC__
 #import <Foundation/Foundation.h>
