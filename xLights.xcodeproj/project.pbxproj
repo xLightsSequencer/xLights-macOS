@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14BE3A5DBB4294EAC74CC824 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 508754EE92C352178126B474 /* AVFoundation.framework */; };
 		67061FD32746D5330020519D /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67061FD22746D5330020519D /* MetalPerformanceShaders.framework */; };
 		670F8DCA27652F5E002F0CD6 /* ModelIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 670F8DC927652F5E002F0CD6 /* ModelIO.framework */; };
 		6716512F25D7CE700041BB9A /* VendorMusicHelpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164BED25D7CE6D0041BB9A /* VendorMusicHelpers.cpp */; };
@@ -145,13 +146,6 @@
 				"    echo \"    Did not create $tn.  Skipping.\"",
 				"fi",
 				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
 			);
 		};
 /* End PBXBuildRule section */
@@ -195,6 +189,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		508754EE92C352178126B474 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		67061FD22746D5330020519D /* MetalPerformanceShaders.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalPerformanceShaders.framework; path = System/Library/Frameworks/MetalPerformanceShaders.framework; sourceTree = SDKROOT; };
 		670F8DC927652F5E002F0CD6 /* ModelIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ModelIO.framework; path = System/Library/Frameworks/ModelIO.framework; sourceTree = SDKROOT; };
 		670F8DCB27652F8F002F0CD6 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
@@ -465,6 +460,13 @@
 			);
 			target = 678577AD272C735000E6E249 /* EffectComputeFunctions */;
 		};
+		CE50A6381B33E5CBB03031FB /* Exceptions for "../dependencies/midifile/src-library" folder in "xLights" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Options.cpp,
+			);
+			target = 67E7086C17B51AB400A22034 /* xLights */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
@@ -483,6 +485,11 @@
 /* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		06EF3BCE70F04F8EDD75B8A2 /* media */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = media;
+			sourceTree = "<group>";
+		};
 		67000F2E2F6DA72E00BA900E /* ui */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = ui;
@@ -506,9 +513,12 @@
 			path = outputs;
 			sourceTree = "<group>";
 		};
-		6762A5FD2F7C5D9000F33C18 /* MIDI */ = {
+		6762A5FD2F7C5D9000F33C18 /* ../dependencies/midifile/src-library */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = MIDI;
+			exceptions = (
+				CE50A6381B33E5CBB03031FB /* Exceptions for "../dependencies/midifile/src-library" folder in "xLights" target */,
+			);
+			path = "../dependencies/midifile/src-library";
 			sourceTree = "<group>";
 		};
 		6782DE332F82E61600D5BFBB /* macOS-src */ = {
@@ -549,11 +559,6 @@
 		67DE1F802F72BDC50010AE7E /* controllers */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = controllers;
-			sourceTree = "<group>";
-		};
-		67DE1FB52F72BDFE0010AE7E /* support */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = support;
 			sourceTree = "<group>";
 		};
 		67DE25B12F72BECB0010AE7E /* include */ = {
@@ -619,6 +624,7 @@
 				67D9B0A81D42A9BA005367DB /* Cocoa.framework in Frameworks */,
 				67C7E283215E596000AE0775 /* CoreAudio.framework in Frameworks */,
 				674D3D241C207BD7000D632B /* AudioToolbox.framework in Frameworks */,
+				14BE3A5DBB4294EAC74CC824 /* AVFoundation.framework in Frameworks */,
 				670F8DCA27652F5E002F0CD6 /* ModelIO.framework in Frameworks */,
 				672F447626387B59005B795A /* QuartzCore.framework in Frameworks */,
 				6729000D2553047600C83C71 /* libbz2.tbd in Frameworks */,
@@ -672,7 +678,7 @@
 				67D534682F7BFDB2008AAC0A /* graphics */,
 				67164E4325D7CE6E0041BB9A /* Images_png.h */,
 				AA000001IMEX000000000001 /* import_export */,
-				6762A5FD2F7C5D9000F33C18 /* MIDI */,
+				6762A5FD2F7C5D9000F33C18 /* ../dependencies/midifile/src-library */,
 				67DE1F092F72BD800010AE7E /* models */,
 				67164C8925D7CE6D0041BB9A /* MusicXML.h */,
 				67164C1425D7CE6D0041BB9A /* MusicXML.cpp */,
@@ -680,9 +686,9 @@
 				67164F7425D7CE6E0041BB9A /* PhonemeDictionary.h */,
 				67164F3025D7CE6E0041BB9A /* PhonemeDictionary.cpp */,
 				AA000001RENDER000000000001 /* render */,
-				67DE1FB52F72BDFE0010AE7E /* support */,
 				67000F2E2F6DA72E00BA900E /* ui */,
 				670CA87F2F756E2800FE629F /* utils */,
+				06EF3BCE70F04F8EDD75B8A2 /* media */,
 				67164BEE25D7CE6D0041BB9A /* VendorMusicHelpers.h */,
 				67164BED25D7CE6D0041BB9A /* VendorMusicHelpers.cpp */,
 				67164C4F25D7CE6D0041BB9A /* wininet.h */,
@@ -777,8 +783,8 @@
 				6716557C25D825410041BB9A /* Window.h */,
 			);
 			name = "vamp-hostsdk";
-			path = "../xLights/vamp-hostsdk";
-			sourceTree = "<group>";
+			path = "../dependencies/vamp-hostsdk";
+			sourceTree = SOURCE_ROOT;
 		};
 		671655BD25D827650041BB9A /* kiss_fft */ = {
 			isa = PBXGroup;
@@ -957,6 +963,7 @@
 				672BD4F21C207D2E008F8B36 /* libwx_osx_cocoau_media-3.3.dylib */,
 				674D3D251C207C25000D632B /* libpthread.tbd */,
 				674D3D231C207BD7000D632B /* AudioToolbox.framework */,
+				508754EE92C352178126B474 /* AVFoundation.framework */,
 				674D3D211C207BCC000D632B /* IOKit.framework */,
 				674D3D1C1C207B9F000D632B /* OpenGL.framework */,
 				674E27A41B5B37B000274B20 /* GLUT.framework */,
@@ -1072,17 +1079,17 @@
 				67A88A4926164CD700BFCEC0 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
+				06EF3BCE70F04F8EDD75B8A2 /* media */,
 				67000F2E2F6DA72E00BA900E /* ui */,
 				67000F3A2F6DA77200BA900E /* automation */,
 				670CA87F2F756E2800FE629F /* utils */,
-				6762A5FD2F7C5D9000F33C18 /* MIDI */,
+				6762A5FD2F7C5D9000F33C18 /* ../dependencies/midifile/src-library */,
 				678570EF2F72C4C300F50F9F /* effects */,
 				67CE0D3A2F7F006F00818F6E /* discovery */,
 				67D534682F7BFDB2008AAC0A /* graphics */,
 				67DE1F092F72BD800010AE7E /* models */,
 				67DE1F592F72BDC50010AE7E /* cad */,
 				67DE1F802F72BDC50010AE7E /* controllers */,
-				67DE1FB52F72BDFE0010AE7E /* support */,
 				67F7DB8A2D582A9D00921286 /* ai */,
 				AA000001IMEX000000000001 /* import_export */,
 				AA000001RENDER000000000001 /* render */,
@@ -1605,6 +1612,8 @@
 					"macOS-src",
 					../dependencies,
 					../dependencies/pugixml/src,
+					../dependencies/liquidfun/liquidfun/Box2D,
+					../dependencies/midifile/include,
 					../dependencies/spdlog/include,
 					"$(DERIVED_SOURCES_DIR)",
 				);
@@ -1729,6 +1738,8 @@
 					"macOS-src",
 					../dependencies,
 					../dependencies/pugixml/src,
+					../dependencies/liquidfun/liquidfun/Box2D,
+					../dependencies/midifile/include,
 					../dependencies/spdlog/include,
 					"$(DERIVED_SOURCES_DIR)",
 				);
@@ -1829,6 +1840,8 @@
 					"macOS-src",
 					../dependencies,
 					../dependencies/pugixml/src,
+					../dependencies/liquidfun/liquidfun/Box2D,
+					../dependencies/midifile/include,
 					../dependencies/spdlog/include,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Assets/xLights/Info.plist";
@@ -1900,6 +1913,8 @@
 					"macOS-src",
 					../dependencies,
 					../dependencies/pugixml/src,
+					../dependencies/liquidfun/liquidfun/Box2D,
+					../dependencies/midifile/include,
 					../dependencies/spdlog/include,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Assets/xLights/Info.plist";
@@ -2003,6 +2018,8 @@
 					"macOS-src",
 					../dependencies,
 					../dependencies/pugixml/src,
+					../dependencies/liquidfun/liquidfun/Box2D,
+					../dependencies/midifile/include,
 					../dependencies/spdlog/include,
 					"$(DERIVED_SOURCES_DIR)",
 				);
@@ -2105,6 +2122,8 @@
 					"macOS-src",
 					../dependencies,
 					../dependencies/pugixml/src,
+					../dependencies/liquidfun/liquidfun/Box2D,
+					../dependencies/midifile/include,
 					../dependencies/spdlog/include,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Assets/xLights/Info.plist";

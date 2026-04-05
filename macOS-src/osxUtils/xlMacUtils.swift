@@ -293,49 +293,8 @@ public func disableSleepModes() {
 
 
 // MARK: - Audio Device Management
-@_extern(c, "AudioDeviceChangedCallback")
-func AudioDeviceChangedCallback() -> Void
-
-
-private func deviceListChanged(objectID: AudioObjectID, numAddresses: UInt32, addresses: UnsafePointer<AudioObjectPropertyAddress>, userData: UnsafeMutableRawPointer?) -> OSStatus {
-    AudioDeviceChangedCallback()
-    return noErr
-}
-
-
-public func addAudioDeviceChangeListener() {
-    var devListAddress = AudioObjectPropertyAddress(
-        mSelector: kAudioHardwarePropertyDevices,
-        mScope: kAudioObjectPropertyScopeGlobal,
-        mElement: kAudioObjectPropertyElementMaster
-    )
-
-    var defaultDevAddress = AudioObjectPropertyAddress(
-        mSelector: kAudioHardwarePropertyDefaultOutputDevice,
-        mScope: kAudioObjectPropertyScopeGlobal,
-        mElement: kAudioObjectPropertyElementMain
-    )
-
-    AudioObjectAddPropertyListener(AudioObjectID(kAudioObjectSystemObject), &devListAddress, deviceListChanged, nil)
-    AudioObjectAddPropertyListener(AudioObjectID(kAudioObjectSystemObject), &defaultDevAddress, deviceListChanged, nil)
-}
-
-public func removeAudioDeviceChangeListener() {
-    var devListAddress = AudioObjectPropertyAddress(
-        mSelector: kAudioHardwarePropertyDevices,
-        mScope: kAudioObjectPropertyScopeGlobal,
-        mElement: kAudioObjectPropertyElementMaster
-    )
-
-    var defaultDevAddress = AudioObjectPropertyAddress(
-        mSelector: kAudioHardwarePropertyDefaultOutputDevice,
-        mScope: kAudioObjectPropertyScopeGlobal,
-        mElement: kAudioObjectPropertyElementMain
-    )
-
-    AudioObjectRemovePropertyListener(AudioObjectID(kAudioObjectSystemObject), &devListAddress, deviceListChanged, nil)
-    AudioObjectRemovePropertyListener(AudioObjectID(kAudioObjectSystemObject), &defaultDevAddress, deviceListChanged, nil)
-}
+// Audio device change listeners removed — AVAudioEngine handles device
+// routing changes automatically.
 
 @xLightsUtilsActor private func isFromAppStoreInternal() -> Bool {
     if xLightsUtilsState.shared.osxStatus == -1 {

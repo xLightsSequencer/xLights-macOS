@@ -47,8 +47,10 @@ inline void DisableSleepModes() {
     xLights_macOSLib::disableSleepModes();
 }
 
-void AddAudioDeviceChangeListener(std::function<void()> &&callback);
-void RemoveAudioDeviceChangeListener();
+// Audio device change listeners are no longer needed — AVAudioEngine
+// handles device routing changes automatically.
+#define AddAudioDeviceChangeListener(a)
+#define RemoveAudioDeviceChangeListener()
 
 inline bool IsFromAppStore() {
     return xLights_macOSLib::isFromAppStore();

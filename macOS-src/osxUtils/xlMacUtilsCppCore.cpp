@@ -72,26 +72,6 @@ std::list<std::string> GetFileRevisions(const std::string &path) {
 }
 
 
-extern "C" {
-void AudioDeviceChangedCallback();
-}
-
-static std::function<void()> AUDIO_CALLBACK;
-void AudioDeviceChangedCallback() {
-    if (AUDIO_CALLBACK) {
-        AUDIO_CALLBACK();
-    }
-}
-
-void AddAudioDeviceChangeListener(std::function<void()> &&cb) {
-    AUDIO_CALLBACK = cb;
-    xLights_macOSLib::addAudioDeviceChangeListener();
-}
-void RemoveAudioDeviceChangeListener() {
-    xLights_macOSLib::removeAudioDeviceChangeListener();
-    AUDIO_CALLBACK = {};
-}
-
 void SetThreadQOS(int i) {
     if (i) {
         pthread_set_qos_class_self_np(QOS_CLASS_USER_INITIATED, 0);
