@@ -146,6 +146,7 @@
 				"    echo \"    Did not create $tn.  Skipping.\"",
 				"fi",
 				"",
+				"",
 			);
 		};
 /* End PBXBuildRule section */
@@ -419,6 +420,9 @@
 			membershipExceptions = (
 				ispc/BarsFunctions.ispc,
 				ispc/ButterflyFunctions.ispc,
+				ispc/ColorWashFunctions.ispc,
+				ispc/FanFunctions.ispc,
+				ispc/KaleidoscopeFunctions.ispc,
 				ispc/LayerBlendingFunctions.ispc,
 				ispc/PinwheelFunctions.ispc,
 				ispc/PlasmaFunctions.ispc,
@@ -476,6 +480,9 @@
 			membershipExceptions = (
 				ispc/BarsFunctions.ispc,
 				ispc/ButterflyFunctions.ispc,
+				ispc/ColorWashFunctions.ispc,
+				ispc/FanFunctions.ispc,
+				ispc/KaleidoscopeFunctions.ispc,
 				ispc/LayerBlendingFunctions.ispc,
 				ispc/PinwheelFunctions.ispc,
 				ispc/PlasmaFunctions.ispc,
