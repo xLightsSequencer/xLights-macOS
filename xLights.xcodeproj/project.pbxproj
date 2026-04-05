@@ -97,6 +97,11 @@
 		AA0001022F900000000000A2 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = AA0001042F900000000000A2 /* unzip.c */; settings = {COMPILER_FLAGS = "-std=gnu11 -w"; }; };
 		AA0001072F900000000000A5 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = AA0001082F900000000000A5 /* zip.c */; settings = {COMPILER_FLAGS = "-std=gnu11 -w"; }; };
 		C40BF5522BC6217800D701CF /* mhpresets in Resources */ = {isa = PBXBuildFile; fileRef = C40BF5512BC6217800D701CF /* mhpresets */; };
+		CE50A63AMIDI000000000001 /* Binasc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE50A639MIDI000000000001 /* Binasc.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		CE50A63AMIDI000000000002 /* MidiEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE50A639MIDI000000000002 /* MidiEvent.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		CE50A63AMIDI000000000003 /* MidiEventList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE50A639MIDI000000000003 /* MidiEventList.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		CE50A63AMIDI000000000004 /* MidiFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE50A639MIDI000000000004 /* MidiFile.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		CE50A63AMIDI000000000005 /* MidiMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE50A639MIDI000000000005 /* MidiMessage.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -145,6 +150,8 @@
 				"else",
 				"    echo \"    Did not create $tn.  Skipping.\"",
 				"fi",
+				"",
+				"",
 				"",
 				"",
 			);
@@ -375,6 +382,11 @@
 		AA0001082F900000000000A5 /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = zip.c; path = ../dependencies/libxlsxwriter/third_party/minizip/zip.c; sourceTree = "<group>"; };
 		AA0001092F900000000000A6 /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zip.h; path = ../dependencies/libxlsxwriter/third_party/minizip/zip.h; sourceTree = "<group>"; };
 		C40BF5512BC6217800D701CF /* mhpresets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = mhpresets; path = ../mhpresets; sourceTree = "<group>"; };
+		CE50A639MIDI000000000001 /* Binasc.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Binasc.cpp; sourceTree = "<group>"; };
+		CE50A639MIDI000000000002 /* MidiEvent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MidiEvent.cpp; sourceTree = "<group>"; };
+		CE50A639MIDI000000000003 /* MidiEventList.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MidiEventList.cpp; sourceTree = "<group>"; };
+		CE50A639MIDI000000000004 /* MidiFile.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MidiFile.cpp; sourceTree = "<group>"; };
+		CE50A639MIDI000000000005 /* MidiMessage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MidiMessage.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -464,13 +476,6 @@
 			);
 			target = 678577AD272C735000E6E249 /* EffectComputeFunctions */;
 		};
-		CE50A6381B33E5CBB03031FB /* Exceptions for "../dependencies/midifile/src-library" folder in "xLights" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Options.cpp,
-			);
-			target = 67E7086C17B51AB400A22034 /* xLights */;
-		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
@@ -518,14 +523,6 @@
 				6762A5ED2F7C5D0B00F33C18 /* Exceptions for "outputs" folder in "xLights" target */,
 			);
 			path = outputs;
-			sourceTree = "<group>";
-		};
-		6762A5FD2F7C5D9000F33C18 /* ../dependencies/midifile/src-library */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				CE50A6381B33E5CBB03031FB /* Exceptions for "../dependencies/midifile/src-library" folder in "xLights" target */,
-			);
-			path = "../dependencies/midifile/src-library";
 			sourceTree = "<group>";
 		};
 		6782DE332F82E61600D5BFBB /* macOS-src */ = {
@@ -685,7 +682,7 @@
 				67D534682F7BFDB2008AAC0A /* graphics */,
 				67164E4325D7CE6E0041BB9A /* Images_png.h */,
 				AA000001IMEX000000000001 /* import_export */,
-				6762A5FD2F7C5D9000F33C18 /* ../dependencies/midifile/src-library */,
+				6762A5FD2F7C5D9000F33C18 /* midifile */,
 				67DE1F092F72BD800010AE7E /* models */,
 				67164C8925D7CE6D0041BB9A /* MusicXML.h */,
 				67164C1425D7CE6D0041BB9A /* MusicXML.cpp */,
@@ -819,6 +816,19 @@
 				671655CA25D827650041BB9A /* kiss_fftndr.h */,
 			);
 			path = tools;
+			sourceTree = "<group>";
+		};
+		6762A5FD2F7C5D9000F33C18 /* midifile */ = {
+			isa = PBXGroup;
+			children = (
+				CE50A639MIDI000000000001 /* Binasc.cpp */,
+				CE50A639MIDI000000000002 /* MidiEvent.cpp */,
+				CE50A639MIDI000000000003 /* MidiEventList.cpp */,
+				CE50A639MIDI000000000004 /* MidiFile.cpp */,
+				CE50A639MIDI000000000005 /* MidiMessage.cpp */,
+			);
+			name = midifile;
+			path = ../dependencies/midifile/src;
 			sourceTree = "<group>";
 		};
 		6762DB282F7C675900F33C18 /* common */ = {
@@ -1090,7 +1100,6 @@
 				67000F2E2F6DA72E00BA900E /* ui */,
 				67000F3A2F6DA77200BA900E /* automation */,
 				670CA87F2F756E2800FE629F /* utils */,
-				6762A5FD2F7C5D9000F33C18 /* ../dependencies/midifile/src-library */,
 				678570EF2F72C4C300F50F9F /* effects */,
 				67CE0D3A2F7F006F00818F6E /* discovery */,
 				67D534682F7BFDB2008AAC0A /* graphics */,
@@ -1318,6 +1327,11 @@
 				6716514825D7CE700041BB9A /* xLightsApp.cpp in Sources */,
 				67D142B9275803100018A831 /* connection.cpp in Sources */,
 				6716555D25D8249D0041BB9A /* wxLED.cpp in Sources */,
+				CE50A63AMIDI000000000001 /* Binasc.cpp in Sources */,
+				CE50A63AMIDI000000000002 /* MidiEvent.cpp in Sources */,
+				CE50A63AMIDI000000000003 /* MidiEventList.cpp in Sources */,
+				CE50A63AMIDI000000000004 /* MidiFile.cpp in Sources */,
+				CE50A63AMIDI000000000005 /* MidiMessage.cpp in Sources */,
 			);
 		};
 /* End PBXSourcesBuildPhase section */
