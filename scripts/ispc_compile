@@ -1,0 +1,34 @@
+#!/bin/bash
+
+#env
+if [[ "$CONFIGURATION" == "Debug" ]]; then
+ISPCFLAG="-g -O0"
+else
+ISPCFLAG=-O3
+fi
+
+mkdir -p ${PER_ARCH_OBJECT_FILE_DIR}
+if [[ "$CURRENT_ARCH" == "arm64" ]]; then
+${SRCROOT}/dependencies/bin/ispc ${ISPCFLAG} --darwin-version-min=11.0 --target-os=macos --target=neon-i32x8 --arch=aarch64 -o ${PER_ARCH_OBJECT_FILE_DIR}/${INPUT_FILE_BASE}.o $SCRIPT_INPUT_FILE
+fi
+if [[ "$CURRENT_ARCH" == "x86_64" ]]; then
+${SRCROOT}/dependencies/bin/ispc ${ISPCFLAG} --darwin-version-min=11.0 --target-os=macos --target=avx2-i32x16 --target=avx1-i32x16  --target=sse4.2-i32x8 --target=sse2-i32x8 --arch=x86_64 --pic -o ${PER_ARCH_OBJECT_FILE_DIR}/${INPUT_FILE_BASE}.o $SCRIPT_INPUT_FILE
+fi
+
+bn=$(basename "$SCRIPT_INPUT_FILE")
+dn=$(dirname "$SCRIPT_INPUT_FILE")
+tn="${dn}/.new${CURRENT_ARCH}${bn}.h"
+echo "Output new header to ${tn}"
+
+${SRCROOT}/dependencies/bin/ispc --target-os=macos --target=avx2-i32x16 --target=avx1-i32x16 --arch=x86_64 -h "${tn}" "$SCRIPT_INPUT_FILE"
+if [ -f "$tn" ]; then
+    sed -i '' '/.ispc.h/d' "${tn}"
+
+    if ! diff -q "${tn}" "$SCRIPT_INPUT_FILE.h" >/dev/null; then
+      mv -f "${tn}"  "$SCRIPT_INPUT_FILE.h"
+    else
+      rm -f "${tn}"
+    fi
+else
+    echo "    Did not create $tn.  Skipping."
+fi
