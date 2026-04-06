@@ -60,6 +60,7 @@
 		674D3D261C207C25000D632B /* libpthread.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D251C207C25000D632B /* libpthread.tbd */; };
 		675EDD3D2789D87C00D40FEA /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675EDD3C2789D87C00D40FEA /* liblua.a */; };
 		675FD840204C3C0B003D280F /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B227204BA69B00E90AC7 /* CoreImage.framework */; };
+		675FD841204C3C0C003D280F /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675FD842204C3C0C003D280F /* Accelerate.framework */; };
 		6762DB302F7C67C800F33C18 /* xlBaseApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6762DB2E2F7C67C800F33C18 /* xlBaseApp.cpp */; };
 		6781D632234C24BD00408604 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B4C92117B53D960006B951 /* CoreVideo.framework */; };
 		678571702F72C71F00F50F9F /* libISPCEffectComputeFunctions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6785716B2F72C6E100F50F9F /* libISPCEffectComputeFunctions.a */; };
@@ -109,7 +110,8 @@
 				"$(PER_ARCH_OBJECT_FILE_DIR)/$(INPUT_FILE_BASE).o",
 			);
 			script = (
-				"${SRCROOT}/scripts/ispc_compile"
+				"${SRCROOT}/scripts/ispc_compile",
+				"",
 			);
 		};
 /* End PBXBuildRule section */
@@ -256,6 +258,7 @@
 		674E27A41B5B37B000274B20 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		674E9C631C9106D600D12F0D /* libwx_osx_cocoau_propgrid-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_propgrid-3.3.dylib"; path = "../../../../opt/local/libdbg/libwx_osx_cocoau_propgrid-3.3.dylib"; sourceTree = "<group>"; };
 		675EDD3C2789D87C00D40FEA /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblua.a; path = /opt/local/lib/liblua.a; sourceTree = "<group>"; };
+		675FD842204C3C0C003D280F /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		6762DB2D2F7C67C800F33C18 /* xlBaseApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = xlBaseApp.h; path = ../common/xlBaseApp.h; sourceTree = SOURCE_ROOT; };
 		6762DB2E2F7C67C800F33C18 /* xlBaseApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = xlBaseApp.cpp; path = ../common/xlBaseApp.cpp; sourceTree = SOURCE_ROOT; };
 		6762DB2F2F7C67C800F33C18 /* xlStackWalker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = xlStackWalker.h; path = ../common/xlStackWalker.h; sourceTree = SOURCE_ROOT; };
@@ -281,6 +284,7 @@
 		67B6F3422040FBB600B847E0 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		67BE0DF82727C0AB00558A3A /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		67BE0DF92727C0AB00558A3A /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
+		67C0097B2F83DDDB00BA2C6A /* xLightsVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xLightsVersion.h; sourceTree = "<group>"; };
 		67D142AD275803100018A831 /* pages.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pages.cpp; path = ../dependencies/wxHTTPServer/pages.cpp; sourceTree = "<group>"; };
 		67D142AE275803100018A831 /* connection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = connection.cpp; path = ../dependencies/wxHTTPServer/connection.cpp; sourceTree = "<group>"; };
 		67D142AF275803100018A831 /* sha1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sha1.cpp; path = ../dependencies/wxHTTPServer/sha1.cpp; sourceTree = "<group>"; };
@@ -579,6 +583,7 @@
 				6729FFFD2553039000C83C71 /* libswresample.a in Frameworks */,
 				67A14C7E20DD324D006EFCFA /* libiconv.tbd in Frameworks */,
 				675FD840204C3C0B003D280F /* CoreImage.framework in Frameworks */,
+				675FD841204C3C0C003D280F /* Accelerate.framework in Frameworks */,
 				67A14C7A20DD31D6006EFCFA /* WebKit.framework in Frameworks */,
 				67A14C8020DD328A006EFCFA /* ImageIO.framework in Frameworks */,
 				67A14C8420DD336E006EFCFA /* libz.tbd in Frameworks */,
@@ -623,17 +628,18 @@
 				678570EF2F72C4C300F50F9F /* effects */,
 				67D534682F7BFDB2008AAC0A /* graphics */,
 				AA000001IMEX000000000001 /* import_export */,
+				06EF3BCE70F04F8EDD75B8A2 /* media */,
 				6762A5FD2F7C5D9000F33C18 /* midifile */,
 				67DE1F092F72BD800010AE7E /* models */,
 				6762A5CD2F7C5D0A00F33C18 /* outputs */,
 				AA000001RENDER000000000001 /* render */,
 				67000F2E2F6DA72E00BA900E /* ui */,
 				670CA87F2F756E2800FE629F /* utils */,
-				06EF3BCE70F04F8EDD75B8A2 /* media */,
 				67164BC725D7CE6D0041BB9A /* xLightsApp.h */,
 				67164C1D25D7CE6D0041BB9A /* xLightsApp.cpp */,
 				67164C0625D7CE6D0041BB9A /* xLightsMain.h */,
 				67164D0125D7CE6D0041BB9A /* xLightsMain.cpp */,
+				67C0097B2F83DDDB00BA2C6A /* xLightsVersion.h */,
 				C471E0212F1ED95A0063881B /* XmlSerializer */,
 			);
 			name = xLights;
@@ -885,6 +891,7 @@
 				67A14C7720DD313D006EFCFA /* Carbon.framework */,
 				6771B229204BA6AF00E90AC7 /* QuartzCore.framework */,
 				6771B227204BA69B00E90AC7 /* CoreImage.framework */,
+				675FD842204C3C0C003D280F /* Accelerate.framework */,
 				67B6F3422040FBB600B847E0 /* CoreAudio.framework */,
 				67B6F3402040FB7800B847E0 /* CoreMIDI.framework */,
 				67F23F6A1E329DDC00F8B985 /* libwx_baseu_net-3.3.dylib */,
