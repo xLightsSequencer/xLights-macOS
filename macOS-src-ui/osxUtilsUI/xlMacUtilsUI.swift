@@ -3,7 +3,7 @@
 //  xLights
 //
 //  UI-specific macOS utilities.  Depends on AppKit (NSApp, NSScreen, etc.)
-//  Core-safe utilities live in xlMacUtils.swift.
+//  Core-safe utilities live in xlAppleUtils.swift.
 //
 
 import Foundation

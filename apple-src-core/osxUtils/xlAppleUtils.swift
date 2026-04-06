@@ -1,9 +1,9 @@
 //
-//  xlMacUtils.swift
-//  xLights
+//  xlAppleUtils.swift
+//  xLights-Apple-core
 //
-//  Core-safe macOS utilities.  No AppKit UI types (NSApp, NSScreen, etc.)
-//  UI-specific utilities live in xlMacUtilsUI.swift.
+//  Core-safe Apple platform utilities.  No AppKit UI types (NSApp, NSScreen, etc.)
+//  Shared by macOS and iOS.  UI-specific utilities live in xlMacUtilsUI.swift.
 //
 
 import Foundation

@@ -1,10 +1,11 @@
 #pragma once
 
-// Core-safe macOS hooks.  No wxWidgets types in the interface.
-// UI-specific hooks live in ExternalHooksMacOSUI.h.
+// Core-safe Apple platform hooks.  No wxWidgets types in the interface.
+// Shared by macOS and iOS via the xLights-Apple-core target.
+// UI-specific hooks live in ExternalHooksMacOSUI.h (macOS-only).
 //
-// Implementations live in ExternalHooksMacOSCore.mm (compiled in the
-// xLights-macOSLib-core target, which has access to the generated Swift
+// Implementations live in ExternalHooksAppleCore.mm (compiled in the
+// xLights-Apple-core target, which has access to the generated Swift
 // interop header).  This header is pure C++ — no Swift or ObjC includes.
 
 #include <functional>

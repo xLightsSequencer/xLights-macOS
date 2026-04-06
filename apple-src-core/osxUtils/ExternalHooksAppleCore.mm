@@ -1,6 +1,6 @@
 
-#include "ExternalHooksMacOS.h"
-#include "xLights_macOSLib_core-Swift.h"
+#include "ExternalHooksApple.h"
+#include "xLights_Apple_core-Swift.h"
 
 #include <functional>
 
@@ -11,25 +11,25 @@ void RunInAutoReleasePool(std::function<void()> &&f) {
 }
 
 bool FileExists(const std::string &s, bool waitForDownload) {
-    return xLights_macOSLib_core::fileExists(s, waitForDownload);
+    return xLights_Apple_core::fileExists(s, waitForDownload);
 }
 
 void MarkNewFileRevision(const std::string &path, int retainMax) {
-    xLights_macOSLib_core::markNewFileRevision(path, retainMax);
+    xLights_Apple_core::markNewFileRevision(path, retainMax);
 }
 
 std::string GetURLForRevision(const std::string &path, const std::string &rev) {
-    return xLights_macOSLib_core::getURLForRevision(path, rev);
+    return xLights_Apple_core::getURLForRevision(path, rev);
 }
 
 void EnableSleepModes() {
-    xLights_macOSLib_core::enableSleepModes();
+    xLights_Apple_core::enableSleepModes();
 }
 
 void DisableSleepModes() {
-    xLights_macOSLib_core::disableSleepModes();
+    xLights_Apple_core::disableSleepModes();
 }
 
 bool IsFromAppStore() {
-    return xLights_macOSLib_core::isFromAppStore();
+    return xLights_Apple_core::isFromAppStore();
 }

@@ -47,7 +47,7 @@
 		6729FFFF255303AF00C83C71 /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFFE255303A300C83C71 /* libswscale.a */; };
 		672B5690278A72DF0011F216 /* scripts in Resources */ = {isa = PBXBuildFile; fileRef = 672B568F278A72DF0011F216 /* scripts */; };
 		672F447626387B59005B795A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B229204BA6AF00E90AC7 /* QuartzCore.framework */; };
-		6732E1272F8412FC00747CF8 /* libxLights-macOSLib-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB00000100000000000C0002 /* libxLights-macOSLib-core.a */; };
+		6732E1272F8412FC00747CF8 /* libxLights-Apple-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB00000100000000000C0002 /* libxLights-Apple-core.a */; };
 		6732E1282F8412FC00747CF8 /* libxLights-macOSLib-UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB00000100000000000U0002 /* libxLights-macOSLib-UI.a */; };
 		673B3D4E223BF203000F1D7E /* libcurl.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 671E47FC2231CEC900049DC9 /* libcurl.tbd */; };
 		674D3D221C207BCC000D632B /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D211C207BCC000D632B /* IOKit.framework */; };
@@ -115,7 +115,7 @@
 			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = BB00000100000000000C0001;
-			remoteInfo = "xLights-macOSLib-core";
+			remoteInfo = "xLights-Apple-core";
 		};
 		6732E1042F84107200747CF8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -129,21 +129,21 @@
 			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = BB00000100000000000C0001;
-			remoteInfo = "xLights-macOSLib-core";
+			remoteInfo = "xLights-Apple-core";
 		};
 		6732E1062F84109C00747CF8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = BB00000100000000000C0001;
-			remoteInfo = "xLights-macOSLib-core";
+			remoteInfo = "xLights-Apple-core";
 		};
 		6732E1082F8410A900747CF8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = BB00000100000000000C0001;
-			remoteInfo = "xLights-macOSLib-core";
+			remoteInfo = "xLights-Apple-core";
 		};
 		678571712F72C78300F50F9F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -322,7 +322,7 @@
 		AA0001062F900000000000A4 /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = unzip.h; path = ../dependencies/libxlsxwriter/third_party/minizip/unzip.h; sourceTree = "<group>"; };
 		AA0001082F900000000000A5 /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = zip.c; path = ../dependencies/libxlsxwriter/third_party/minizip/zip.c; sourceTree = "<group>"; };
 		AA0001092F900000000000A6 /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zip.h; path = ../dependencies/libxlsxwriter/third_party/minizip/zip.h; sourceTree = "<group>"; };
-		BB00000100000000000C0002 /* libxLights-macOSLib-core.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libxLights-macOSLib-core.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB00000100000000000C0002 /* libxLights-Apple-core.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libxLights-Apple-core.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB00000100000000000U0002 /* libxLights-macOSLib-UI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libxLights-macOSLib-UI.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB0000030000000000MIDI01 /* Binasc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Binasc.cpp; path = ../dependencies/midifile/src/Binasc.cpp; sourceTree = "<group>"; };
 		BB0000030000000000MIDI02 /* MidiEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MidiEvent.cpp; path = ../dependencies/midifile/src/MidiEvent.cpp; sourceTree = "<group>"; };
@@ -334,12 +334,12 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		BB00000100000000000C000E /* Exceptions for "macOS-src-core" folder in "xLights-macOSLib-core" target */ = {
+		BB00000100000000000C000E /* Exceptions for "apple-src-core" folder in "xLights-Apple-core" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Shaders/MetalShaders.metal,
 			);
-			target = BB00000100000000000C0001 /* xLights-macOSLib-core */;
+			target = BB00000100000000000C0001 /* xLights-Apple-core */;
 		};
 		CC00000100000000000X000D /* Exceptions for "src-core" folder in "xLights-core" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
@@ -403,19 +403,19 @@
 			path = "../src-ui-wx";
 			sourceTree = SOURCE_ROOT;
 		};
-		673D41762F841B7B00EBE7FD /* macOS-src-core */ = {
+		673D41762F841B7B00EBE7FD /* apple-src-core */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				BB00000100000000000C000E /* Exceptions for "macOS-src-core" folder in "xLights-macOSLib-core" target */,
+				BB00000100000000000C000E /* Exceptions for "apple-src-core" folder in "xLights-Apple-core" target */,
 			);
-			name = "macOS-src-core";
-			path = "macOS-src/macOS-src-core";
+			name = "apple-src-core";
+			path = "apple-src-core";
 			sourceTree = "<group>";
 		};
 		673D41A92F841BC400EBE7FD /* macOS-src-ui */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			name = "macOS-src-ui";
-			path = "macOS-src/macOS-src-ui";
+			path = "macOS-src-ui";
 			sourceTree = "<group>";
 		};
 		67DE25B12F72BECB0010AE7E /* include */ = {
@@ -443,7 +443,7 @@
 			files = (
 				CC00000100000000000X0003 /* libxLights-core.a in Frameworks */,
 				678571702F72C71F00F50F9F /* libISPCEffectComputeFunctions.a in Frameworks */,
-				6732E1272F8412FC00747CF8 /* libxLights-macOSLib-core.a in Frameworks */,
+				6732E1272F8412FC00747CF8 /* libxLights-Apple-core.a in Frameworks */,
 				6732E1282F8412FC00747CF8 /* libxLights-macOSLib-UI.a in Frameworks */,
 				675EDD3D2789D87C00D40FEA /* liblua.a in Frameworks */,
 				673B3D4E223BF203000F1D7E /* libcurl.tbd in Frameworks */,
@@ -663,7 +663,7 @@
 				67AAF8F31B63782F00585431 /* Resources */,
 				6732E3A12F84156F00747CF8 /* src-core */,
 				6732E8492F84158C00747CF8 /* src-ui-wx */,
-				673D41762F841B7B00EBE7FD /* macOS-src-core */,
+				673D41762F841B7B00EBE7FD /* apple-src-core */,
 				673D41A92F841BC400EBE7FD /* macOS-src-ui */,
 				DD00000100000000000B0001 /* common */,
 			);
@@ -674,7 +674,7 @@
 			children = (
 				67E7086D17B51AB400A22034 /* xLights.app */,
 				CC00000100000000000X0002 /* libxLights-core.a */,
-				BB00000100000000000C0002 /* libxLights-macOSLib-core.a */,
+				BB00000100000000000C0002 /* libxLights-Apple-core.a */,
 				BB00000100000000000U0002 /* libxLights-macOSLib-UI.a */,
 				6785716B2F72C6E100F50F9F /* libISPCEffectComputeFunctions.a */,
 			);
@@ -866,9 +866,9 @@
 			productReference = 67E7086D17B51AB400A22034 /* xLights.app */;
 			productType = "com.apple.product-type.application";
 		};
-		BB00000100000000000C0001 /* xLights-macOSLib-core */ = {
+		BB00000100000000000C0001 /* xLights-Apple-core */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BB00000100000000000C0006 /* Build configuration list for PBXNativeTarget "xLights-macOSLib-core" */;
+			buildConfigurationList = BB00000100000000000C0006 /* Build configuration list for PBXNativeTarget "xLights-Apple-core" */;
 			buildPhases = (
 				BB00000100000000000C000D /* ShellScript */,
 				BB00000100000000000C0004 /* Sources */,
@@ -877,11 +877,11 @@
 			buildRules = (
 			);
 			fileSystemSynchronizedGroups = (
-				673D41762F841B7B00EBE7FD /* macOS-src-core */,
+				673D41762F841B7B00EBE7FD /* apple-src-core */,
 			);
-			name = "xLights-macOSLib-core";
-			productName = "xLights-macOSLib-core";
-			productReference = BB00000100000000000C0002 /* libxLights-macOSLib-core.a */;
+			name = "xLights-Apple-core";
+			productName = "xLights-Apple-core";
+			productReference = BB00000100000000000C0002 /* libxLights-Apple-core.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		BB00000100000000000U0001 /* xLights-macOSLib-UI */ = {
@@ -986,7 +986,7 @@
 				CC00000100000000000X0001 /* xLights-core */,
 				678577AD272C735000E6E249 /* EffectComputeFunctions */,
 				6785716A2F72C6E100F50F9F /* ISPCEffectComputeFunctions */,
-				BB00000100000000000C0001 /* xLights-macOSLib-core */,
+				BB00000100000000000C0001 /* xLights-Apple-core */,
 				BB00000100000000000U0001 /* xLights-macOSLib-UI */,
 			);
 		};
@@ -1150,12 +1150,12 @@
 /* Begin PBXTargetDependency section */
 		6732E1072F84109C00747CF8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = BB00000100000000000C0001 /* xLights-macOSLib-core */;
+			target = BB00000100000000000C0001 /* xLights-Apple-core */;
 			targetProxy = 6732E1062F84109C00747CF8 /* PBXContainerItemProxy */;
 		};
 		6732E1092F8410A900747CF8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = BB00000100000000000C0001 /* xLights-macOSLib-core */;
+			target = BB00000100000000000C0001 /* xLights-Apple-core */;
 			targetProxy = 6732E1082F8410A900747CF8 /* PBXContainerItemProxy */;
 		};
 		678571722F72C78300F50F9F /* PBXTargetDependency */ = {
@@ -1170,7 +1170,7 @@
 		};
 		BB00000100000000000C000B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = BB00000100000000000C0001 /* xLights-macOSLib-core */;
+			target = BB00000100000000000C0001 /* xLights-Apple-core */;
 			targetProxy = 6732E1032F84107200747CF8 /* PBXContainerItemProxy */;
 		};
 		BB00000100000000000U000B /* PBXTargetDependency */ = {
@@ -1180,7 +1180,7 @@
 		};
 		BB00000100000000000U000D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = BB00000100000000000C0001 /* xLights-macOSLib-core */;
+			target = BB00000100000000000C0001 /* xLights-Apple-core */;
 			targetProxy = 6732E1052F84107200747CF8 /* PBXContainerItemProxy */;
 		};
 		CC00000100000000000X000B /* PBXTargetDependency */ = {
@@ -1383,8 +1383,8 @@
 					../include,
 					"../include/ffmpeg-6/include/",
 					dependencies/include,
-					"macOS-src/macOS-src-core",
-					"macOS-src/macOS-src-ui",
+					"apple-src-core",
+					"macOS-src-ui",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/liquidfun/liquidfun/Box2D,
@@ -1512,8 +1512,8 @@
 					../include,
 					"../include/ffmpeg-6/include/",
 					dependencies/include,
-					"macOS-src/macOS-src-core",
-					"macOS-src/macOS-src-ui",
+					"apple-src-core",
+					"macOS-src-ui",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/liquidfun/liquidfun/Box2D,
@@ -1618,8 +1618,8 @@
 					"../include/ffmpeg-6/include/",
 					"../include/sol2-3.5.0",
 					dependencies/include,
-					"macOS-src/macOS-src-core",
-					"macOS-src/macOS-src-ui",
+					"apple-src-core",
+					"macOS-src-ui",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/liquidfun/liquidfun/Box2D,
@@ -1694,8 +1694,8 @@
 					"../include/ffmpeg-6/include/",
 					"../include/sol2-3.5.0",
 					dependencies/include,
-					"macOS-src/macOS-src-core",
-					"macOS-src/macOS-src-ui",
+					"apple-src-core",
+					"macOS-src-ui",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/liquidfun/liquidfun/Box2D,
@@ -1802,8 +1802,8 @@
 					../include,
 					"../include/ffmpeg-6/include/",
 					dependencies/include,
-					"macOS-src/macOS-src-core",
-					"macOS-src/macOS-src-ui",
+					"apple-src-core",
+					"macOS-src-ui",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/liquidfun/liquidfun/Box2D,
@@ -1910,8 +1910,8 @@
 					"../include/ffmpeg-6/include/",
 					"../include/sol2-3.5.0",
 					dependencies/include,
-					"macOS-src/macOS-src-core",
-					"macOS-src/macOS-src-ui",
+					"apple-src-core",
+					"macOS-src-ui",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/liquidfun/liquidfun/Box2D,
@@ -1950,7 +1950,7 @@
 			};
 			name = Archive;
 		};
-		BB00000100000000000C0007 /* Debug configuration for PBXNativeTarget "xLights-macOSLib-core" */ = {
+		BB00000100000000000C0007 /* Debug configuration for PBXNativeTarget "xLights-Apple-core" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1961,7 +1961,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CODE_SIGN_STYLE = Automatic;
 				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "macOS-src/macOS-src-core/Prefix.pch";
+				GCC_PREFIX_HEADER = "apple-src-core/Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(DERIVED_SOURCES_DIR)",
 					"../src-core/render",
@@ -1970,7 +1970,7 @@
 					../include,
 					"../include/ffmpeg-6/include/",
 					dependencies/include,
-					"macOS-src/macOS-src-core",
+					"apple-src-core",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/spdlog/include,
@@ -1985,7 +1985,7 @@
 			};
 			name = Debug;
 		};
-		BB00000100000000000C0008 /* Release configuration for PBXNativeTarget "xLights-macOSLib-core" */ = {
+		BB00000100000000000C0008 /* Release configuration for PBXNativeTarget "xLights-Apple-core" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1997,7 +1997,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_NS_ASSERTIONS = NO;
 				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "macOS-src/macOS-src-core/Prefix.pch";
+				GCC_PREFIX_HEADER = "apple-src-core/Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(DERIVED_SOURCES_DIR)",
 					"../src-core/render",
@@ -2006,7 +2006,7 @@
 					../include,
 					"../include/ffmpeg-6/include/",
 					dependencies/include,
-					"macOS-src/macOS-src-core",
+					"apple-src-core",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/spdlog/include,
@@ -2020,7 +2020,7 @@
 			};
 			name = Release;
 		};
-		BB00000100000000000C0009 /* Archive configuration for PBXNativeTarget "xLights-macOSLib-core" */ = {
+		BB00000100000000000C0009 /* Archive configuration for PBXNativeTarget "xLights-Apple-core" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
@@ -2032,7 +2032,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_NS_ASSERTIONS = NO;
 				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "macOS-src/macOS-src-core/Prefix.pch";
+				GCC_PREFIX_HEADER = "apple-src-core/Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(DERIVED_SOURCES_DIR)",
 					"../src-core/render",
@@ -2041,7 +2041,7 @@
 					../include,
 					"../include/ffmpeg-6/include/",
 					dependencies/include,
-					"macOS-src/macOS-src-core",
+					"apple-src-core",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/spdlog/include,
@@ -2066,7 +2066,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CODE_SIGN_STYLE = Automatic;
 				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "macOS-src/macOS-src-ui/Prefix.pch";
+				GCC_PREFIX_HEADER = "macOS-src-ui/Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(DERIVED_SOURCES_DIR)",
 					"../src-core/render",
@@ -2076,8 +2076,8 @@
 					../include,
 					"../include/ffmpeg-6/include/",
 					dependencies/include,
-					"macOS-src/macOS-src-core",
-					"macOS-src/macOS-src-ui",
+					"apple-src-core",
+					"macOS-src-ui",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/spdlog/include,
@@ -2105,7 +2105,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_NS_ASSERTIONS = NO;
 				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "macOS-src/macOS-src-ui/Prefix.pch";
+				GCC_PREFIX_HEADER = "macOS-src-ui/Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(DERIVED_SOURCES_DIR)",
 					"../src-core/render",
@@ -2115,8 +2115,8 @@
 					../include,
 					"../include/ffmpeg-6/include/",
 					dependencies/include,
-					"macOS-src/macOS-src-core",
-					"macOS-src/macOS-src-ui",
+					"apple-src-core",
+					"macOS-src-ui",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/spdlog/include,
@@ -2142,7 +2142,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_NS_ASSERTIONS = NO;
 				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "macOS-src/macOS-src-ui/Prefix.pch";
+				GCC_PREFIX_HEADER = "macOS-src-ui/Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(DERIVED_SOURCES_DIR)",
 					"../src-core/render",
@@ -2152,8 +2152,8 @@
 					../include,
 					"../include/ffmpeg-6/include/",
 					dependencies/include,
-					"macOS-src/macOS-src-core",
-					"macOS-src/macOS-src-ui",
+					"apple-src-core",
+					"macOS-src-ui",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/spdlog/include,
@@ -2183,7 +2183,7 @@
 					../include,
 					"../include/ffmpeg-6/include/",
 					dependencies/include,
-					"macOS-src/macOS-src-core",
+					"apple-src-core",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/liquidfun/liquidfun/Box2D,
@@ -2218,7 +2218,7 @@
 					../include,
 					"../include/ffmpeg-6/include/",
 					dependencies/include,
-					"macOS-src/macOS-src-core",
+					"apple-src-core",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/liquidfun/liquidfun/Box2D,
@@ -2253,7 +2253,7 @@
 					../include,
 					"../include/ffmpeg-6/include/",
 					dependencies/include,
-					"macOS-src/macOS-src-core",
+					"apple-src-core",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/liquidfun/liquidfun/Box2D,
@@ -2311,12 +2311,12 @@
 			);
 			defaultConfigurationName = Release;
 		};
-		BB00000100000000000C0006 /* Build configuration list for PBXNativeTarget "xLights-macOSLib-core" */ = {
+		BB00000100000000000C0006 /* Build configuration list for PBXNativeTarget "xLights-Apple-core" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				BB00000100000000000C0007 /* Debug configuration for PBXNativeTarget "xLights-macOSLib-core" */,
-				BB00000100000000000C0008 /* Release configuration for PBXNativeTarget "xLights-macOSLib-core" */,
-				BB00000100000000000C0009 /* Archive configuration for PBXNativeTarget "xLights-macOSLib-core" */,
+				BB00000100000000000C0007 /* Debug configuration for PBXNativeTarget "xLights-Apple-core" */,
+				BB00000100000000000C0008 /* Release configuration for PBXNativeTarget "xLights-Apple-core" */,
+				BB00000100000000000C0009 /* Archive configuration for PBXNativeTarget "xLights-Apple-core" */,
 			);
 			defaultConfigurationName = Release;
 		};
