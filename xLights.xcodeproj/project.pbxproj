@@ -10,13 +10,8 @@
 		14BE3A5DBB4294EAC74CC824 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 508754EE92C352178126B474 /* AVFoundation.framework */; };
 		67061FD32746D5330020519D /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67061FD22746D5330020519D /* MetalPerformanceShaders.framework */; };
 		670F8DCA27652F5E002F0CD6 /* ModelIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 670F8DC927652F5E002F0CD6 /* ModelIO.framework */; };
-		6716512F25D7CE700041BB9A /* VendorMusicHelpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164BED25D7CE6D0041BB9A /* VendorMusicHelpers.cpp */; };
-		6716514325D7CE700041BB9A /* MusicXML.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C1425D7CE6D0041BB9A /* MusicXML.cpp */; };
 		6716514825D7CE700041BB9A /* xLightsApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C1D25D7CE6D0041BB9A /* xLightsApp.cpp */; };
 		671651BD25D7CE700041BB9A /* xLightsMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164D0125D7CE6D0041BB9A /* xLightsMain.cpp */; };
-		671652CC25D7CE710041BB9A /* PhonemeDictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164F3025D7CE6E0041BB9A /* PhonemeDictionary.cpp */; };
-		6716538325D7CE720041BB9A /* CopyFormat1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650A725D7CE6F0041BB9A /* CopyFormat1.cpp */; };
-		671653AB25D7CE720041BB9A /* xLightsVersion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671650F625D7CE6F0041BB9A /* xLightsVersion.cpp */; };
 		6716555D25D8249D0041BB9A /* wxLED.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716555C25D8249D0041BB9A /* wxLED.cpp */; };
 		6716556425D824F80041BB9A /* md5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716556225D824F80041BB9A /* md5.cpp */; };
 		6716559525D825410041BB9A /* PluginWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716556C25D825410041BB9A /* PluginWrapper.cpp */; };
@@ -154,6 +149,7 @@
 				"",
 				"",
 				"",
+				"",
 			);
 		};
 /* End PBXBuildRule section */
@@ -207,21 +203,9 @@
 		67164BB825D7CD190041BB9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		67164BB925D7CD190041BB9A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		67164BC725D7CE6D0041BB9A /* xLightsApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xLightsApp.h; sourceTree = "<group>"; };
-		67164BED25D7CE6D0041BB9A /* VendorMusicHelpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VendorMusicHelpers.cpp; sourceTree = "<group>"; };
-		67164BEE25D7CE6D0041BB9A /* VendorMusicHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VendorMusicHelpers.h; sourceTree = "<group>"; };
 		67164C0625D7CE6D0041BB9A /* xLightsMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xLightsMain.h; sourceTree = "<group>"; };
-		67164C1425D7CE6D0041BB9A /* MusicXML.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MusicXML.cpp; sourceTree = "<group>"; };
 		67164C1D25D7CE6D0041BB9A /* xLightsApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xLightsApp.cpp; sourceTree = "<group>"; };
-		67164C4F25D7CE6D0041BB9A /* wininet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wininet.h; sourceTree = "<group>"; };
-		67164C5B25D7CE6D0041BB9A /* xLightsVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xLightsVersion.h; sourceTree = "<group>"; };
-		67164C8925D7CE6D0041BB9A /* MusicXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicXML.h; sourceTree = "<group>"; };
 		67164D0125D7CE6D0041BB9A /* xLightsMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xLightsMain.cpp; sourceTree = "<group>"; };
-		67164DF925D7CE6D0041BB9A /* CopyFormat1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CopyFormat1.h; sourceTree = "<group>"; };
-		67164E4325D7CE6E0041BB9A /* Images_png.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Images_png.h; sourceTree = "<group>"; };
-		67164F3025D7CE6E0041BB9A /* PhonemeDictionary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PhonemeDictionary.cpp; sourceTree = "<group>"; };
-		67164F7425D7CE6E0041BB9A /* PhonemeDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhonemeDictionary.h; sourceTree = "<group>"; };
-		671650A725D7CE6F0041BB9A /* CopyFormat1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CopyFormat1.cpp; sourceTree = "<group>"; };
-		671650F625D7CE6F0041BB9A /* xLightsVersion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xLightsVersion.cpp; sourceTree = "<group>"; };
 		6716555B25D8249D0041BB9A /* wxLED.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wxLED.h; path = ../dependencies/wxLED/wxLED.h; sourceTree = "<group>"; };
 		6716555C25D8249D0041BB9A /* wxLED.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wxLED.cpp; path = ../dependencies/wxLED/wxLED.cpp; sourceTree = "<group>"; };
 		6716556225D824F80041BB9A /* md5.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md5.cpp; path = ../dependencies/md5/md5.cpp; sourceTree = "<group>"; };
@@ -675,33 +659,21 @@
 				67DE1F592F72BDC50010AE7E /* cad */,
 				6762DB282F7C675900F33C18 /* common */,
 				67DE1F802F72BDC50010AE7E /* controllers */,
-				67164DF925D7CE6D0041BB9A /* CopyFormat1.h */,
-				671650A725D7CE6F0041BB9A /* CopyFormat1.cpp */,
 				67CE0D3A2F7F006F00818F6E /* discovery */,
 				678570EF2F72C4C300F50F9F /* effects */,
 				67D534682F7BFDB2008AAC0A /* graphics */,
-				67164E4325D7CE6E0041BB9A /* Images_png.h */,
 				AA000001IMEX000000000001 /* import_export */,
 				6762A5FD2F7C5D9000F33C18 /* midifile */,
 				67DE1F092F72BD800010AE7E /* models */,
-				67164C8925D7CE6D0041BB9A /* MusicXML.h */,
-				67164C1425D7CE6D0041BB9A /* MusicXML.cpp */,
 				6762A5CD2F7C5D0A00F33C18 /* outputs */,
-				67164F7425D7CE6E0041BB9A /* PhonemeDictionary.h */,
-				67164F3025D7CE6E0041BB9A /* PhonemeDictionary.cpp */,
 				AA000001RENDER000000000001 /* render */,
 				67000F2E2F6DA72E00BA900E /* ui */,
 				670CA87F2F756E2800FE629F /* utils */,
 				06EF3BCE70F04F8EDD75B8A2 /* media */,
-				67164BEE25D7CE6D0041BB9A /* VendorMusicHelpers.h */,
-				67164BED25D7CE6D0041BB9A /* VendorMusicHelpers.cpp */,
-				67164C4F25D7CE6D0041BB9A /* wininet.h */,
 				67164BC725D7CE6D0041BB9A /* xLightsApp.h */,
 				67164C1D25D7CE6D0041BB9A /* xLightsApp.cpp */,
 				67164C0625D7CE6D0041BB9A /* xLightsMain.h */,
 				67164D0125D7CE6D0041BB9A /* xLightsMain.cpp */,
-				67164C5B25D7CE6D0041BB9A /* xLightsVersion.h */,
-				671650F625D7CE6F0041BB9A /* xLightsVersion.cpp */,
 				C471E0212F1ED95A0063881B /* XmlSerializer */,
 			);
 			name = xLights;
@@ -1301,15 +1273,11 @@
 				67DA60672F7FF15300A41238 /* pugixml.cpp in Sources */,
 				671655D325D827650041BB9A /* kiss_fftnd.c in Sources */,
 				6716559F25D825410041BB9A /* host-c.cpp in Sources */,
-				6716538325D7CE720041BB9A /* CopyFormat1.cpp in Sources */,
 				6716559E25D825410041BB9A /* Files.cpp in Sources */,
 				67D142BF275803100018A831 /* message.cpp in Sources */,
-				671653AB25D7CE720041BB9A /* xLightsVersion.cpp in Sources */,
 				671655D025D827650041BB9A /* kiss_fftr.c in Sources */,
 				671655A125D825410041BB9A /* PluginHostAdapter.cpp in Sources */,
 				671655CE25D827650041BB9A /* kiss_fft.c in Sources */,
-				6716512F25D7CE700041BB9A /* VendorMusicHelpers.cpp in Sources */,
-				671652CC25D7CE710041BB9A /* PhonemeDictionary.cpp in Sources */,
 				671655B925D827100041BB9A /* PluginBufferingAdapter.cpp in Sources */,
 				67D142BD275803100018A831 /* status.cpp in Sources */,
 				67D142BB275803100018A831 /* server.cpp in Sources */,
@@ -1322,7 +1290,6 @@
 				67D142B8275803100018A831 /* pages.cpp in Sources */,
 				671651BD25D7CE700041BB9A /* xLightsMain.cpp in Sources */,
 				671655A325D825410041BB9A /* PluginSummarisingAdapter.cpp in Sources */,
-				6716514325D7CE700041BB9A /* MusicXML.cpp in Sources */,
 				6716559D25D825410041BB9A /* PluginLoader.cpp in Sources */,
 				6716514825D7CE700041BB9A /* xLightsApp.cpp in Sources */,
 				67D142B9275803100018A831 /* connection.cpp in Sources */,
