@@ -24,16 +24,6 @@
 		671655A125D825410041BB9A /* PluginHostAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716559125D825410041BB9A /* PluginHostAdapter.cpp */; };
 		671655A325D825410041BB9A /* PluginSummarisingAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716559325D825410041BB9A /* PluginSummarisingAdapter.cpp */; };
 		671655B925D827100041BB9A /* PluginBufferingAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671655B725D827100041BB9A /* PluginBufferingAdapter.cpp */; };
-		6716567025D829140041BB9A /* palettes in Resources */ = {isa = PBXBuildFile; fileRef = 6716566F25D829140041BB9A /* palettes */; };
-		6716567825D829270041BB9A /* valuecurves in Resources */ = {isa = PBXBuildFile; fileRef = 6716567425D829270041BB9A /* valuecurves */; };
-		6716567925D829270041BB9A /* controllers in Resources */ = {isa = PBXBuildFile; fileRef = 6716567525D829270041BB9A /* controllers */; };
-		6716567A25D829270041BB9A /* meshobjects in Resources */ = {isa = PBXBuildFile; fileRef = 6716567625D829270041BB9A /* meshobjects */; };
-		6716567B25D829270041BB9A /* colorcurves in Resources */ = {isa = PBXBuildFile; fileRef = 6716567725D829270041BB9A /* colorcurves */; };
-		6716568225D829790041BB9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6716568025D829790041BB9A /* Images.xcassets */; };
-		6716568A25D829B90041BB9A /* extended_dictionary in Resources */ = {isa = PBXBuildFile; fileRef = 6716568625D829B90041BB9A /* extended_dictionary */; };
-		6716568B25D829B90041BB9A /* standard_dictionary in Resources */ = {isa = PBXBuildFile; fileRef = 6716568725D829B90041BB9A /* standard_dictionary */; };
-		6716568C25D829B90041BB9A /* phoneme_mapping in Resources */ = {isa = PBXBuildFile; fileRef = 6716568825D829B90041BB9A /* phoneme_mapping */; };
-		6716568D25D829BA0041BB9A /* user_dictionary in Resources */ = {isa = PBXBuildFile; fileRef = 6716568925D829B90041BB9A /* user_dictionary */; };
 		67290004255303D500C83C71 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67290003255303D500C83C71 /* VideoToolbox.framework */; };
 		672900082553040000C83C71 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B4C91F17B53D960006B951 /* CoreMedia.framework */; };
 		6729000D2553047600C83C71 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729000C2553046400C83C71 /* libbz2.tbd */; };
@@ -45,7 +35,6 @@
 		6729FFFB2553036F00C83C71 /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFF42553031900C83C71 /* libavcodec.a */; };
 		6729FFFD2553039000C83C71 /* libswresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFFC2553037E00C83C71 /* libswresample.a */; };
 		6729FFFF255303AF00C83C71 /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFFE255303A300C83C71 /* libswscale.a */; };
-		672B5690278A72DF0011F216 /* scripts in Resources */ = {isa = PBXBuildFile; fileRef = 672B568F278A72DF0011F216 /* scripts */; };
 		672F447626387B59005B795A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B229204BA6AF00E90AC7 /* QuartzCore.framework */; };
 		6732E1272F8412FC00747CF8 /* libxLights-Apple-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB00000100000000000C0002 /* libxLights-Apple-core.a */; };
 		6732E1282F8412FC00747CF8 /* libxLights-macOSLib-UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB00000100000000000U0002 /* libxLights-macOSLib-UI.a */; };
@@ -56,9 +45,19 @@
 		675EDD3D2789D87C00D40FEA /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675EDD3C2789D87C00D40FEA /* liblua.a */; };
 		675FD840204C3C0B003D280F /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B227204BA69B00E90AC7 /* CoreImage.framework */; };
 		675FD841204C3C0C003D280F /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675FD842204C3C0C003D280F /* Accelerate.framework */; };
+		67712A012F844D5500C44F57 /* colorcurves in Resources */ = {isa = PBXBuildFile; fileRef = 67712B012F844D5500C44F57 /* colorcurves */; };
+		67712A022F844D5500C44F57 /* controllers in Resources */ = {isa = PBXBuildFile; fileRef = 67712B022F844D5500C44F57 /* controllers */; };
+		67712A032F844D5500C44F57 /* dictionaries in Resources */ = {isa = PBXBuildFile; fileRef = 67712B032F844D5500C44F57 /* dictionaries */; };
+		67712A042F844D5500C44F57 /* html in Resources */ = {isa = PBXBuildFile; fileRef = 67712B042F844D5500C44F57 /* html */; };
+		67712A052F844D5500C44F57 /* images in Resources */ = {isa = PBXBuildFile; fileRef = 67712B052F844D5500C44F57 /* images */; };
+		67712A062F844D5500C44F57 /* meshobjects in Resources */ = {isa = PBXBuildFile; fileRef = 67712B062F844D5500C44F57 /* meshobjects */; };
+		67712A072F844D5500C44F57 /* mhpresets in Resources */ = {isa = PBXBuildFile; fileRef = 67712B072F844D5500C44F57 /* mhpresets */; };
+		67712A082F844D5500C44F57 /* palettes in Resources */ = {isa = PBXBuildFile; fileRef = 67712B082F844D5500C44F57 /* palettes */; };
+		67712A092F844D5500C44F57 /* prompts in Resources */ = {isa = PBXBuildFile; fileRef = 67712B092F844D5500C44F57 /* prompts */; };
+		67712A0A2F844D5500C44F57 /* scripts in Resources */ = {isa = PBXBuildFile; fileRef = 67712B0A2F844D5500C44F57 /* scripts */; };
+		67712A0B2F844D5500C44F57 /* valuecurves in Resources */ = {isa = PBXBuildFile; fileRef = 67712B0B2F844D5500C44F57 /* valuecurves */; };
 		6781D632234C24BD00408604 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B4C92117B53D960006B951 /* CoreVideo.framework */; };
 		678571702F72C71F00F50F9F /* libISPCEffectComputeFunctions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6785716B2F72C6E100F50F9F /* libISPCEffectComputeFunctions.a */; };
-		678AAF4026C40B6300467B3C /* model_vendor_mapping.json in Resources */ = {isa = PBXBuildFile; fileRef = 678AAF3F26C40B6300467B3C /* model_vendor_mapping.json */; };
 		67A14C7820DD313D006EFCFA /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7720DD313D006EFCFA /* Carbon.framework */; };
 		67A14C7A20DD31D6006EFCFA /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7920DD31D6006EFCFA /* WebKit.framework */; };
 		67A14C7E20DD324D006EFCFA /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7D20DD324D006EFCFA /* libiconv.tbd */; };
@@ -79,8 +78,6 @@
 		67D142C0275803100018A831 /* response.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67D142B7275803100018A831 /* response.cpp */; };
 		67D9B0A81D42A9BA005367DB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67E7087017B51AB400A22034 /* Cocoa.framework */; };
 		67DA60672F7FF15300A41238 /* pugixml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67DA60662F7FF15300A41238 /* pugixml.cpp */; };
-		67F7DB852D58291B00921286 /* prompts in Resources */ = {isa = PBXBuildFile; fileRef = 67F7DB842D58291B00921286 /* prompts */; };
-		67FD63542D588527004547FF /* resources in Resources */ = {isa = PBXBuildFile; fileRef = 67FD63532D588527004547FF /* resources */; };
 		67FDC38C27CA77890009A3C7 /* libhidapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67FDC38B27CA77610009A3C7 /* libhidapi.a */; };
 		AA0001012F900000000000A1 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = AA0001032F900000000000A1 /* ioapi.c */; settings = {COMPILER_FLAGS = "-std=gnu11 -w"; }; };
 		AA0001022F900000000000A2 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = AA0001042F900000000000A2 /* unzip.c */; settings = {COMPILER_FLAGS = "-std=gnu11 -w"; }; };
@@ -90,7 +87,6 @@
 		BB0000020000000000MIDI03 /* MidiEventList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB0000030000000000MIDI03 /* MidiEventList.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
 		BB0000020000000000MIDI04 /* MidiFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB0000030000000000MIDI04 /* MidiFile.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
 		BB0000020000000000MIDI05 /* MidiMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB0000030000000000MIDI05 /* MidiMessage.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
-		C40BF5522BC6217800D701CF /* mhpresets in Resources */ = {isa = PBXBuildFile; fileRef = C40BF5512BC6217800D701CF /* mhpresets */; };
 		CC00000100000000000X0003 /* libxLights-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC00000100000000000X0002 /* libxLights-core.a */; };
 /* End PBXBuildFile section */
 
@@ -105,6 +101,8 @@
 			);
 			script = (
 				"${SRCROOT}/scripts/ispc_compile",
+				"",
+				"",
 			);
 		};
 /* End PBXBuildRule section */
@@ -216,16 +214,6 @@
 		6716559325D825410041BB9A /* PluginSummarisingAdapter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PluginSummarisingAdapter.cpp; sourceTree = "<group>"; };
 		671655B725D827100041BB9A /* PluginBufferingAdapter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PluginBufferingAdapter.cpp; sourceTree = "<group>"; };
 		671655B825D827100041BB9A /* PluginBufferingAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluginBufferingAdapter.h; sourceTree = "<group>"; };
-		6716566F25D829140041BB9A /* palettes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = palettes; path = ../palettes; sourceTree = "<group>"; };
-		6716567425D829270041BB9A /* valuecurves */ = {isa = PBXFileReference; lastKnownFileType = folder; name = valuecurves; path = ../valuecurves; sourceTree = "<group>"; };
-		6716567525D829270041BB9A /* controllers */ = {isa = PBXFileReference; lastKnownFileType = folder; name = controllers; path = ../controllers; sourceTree = "<group>"; };
-		6716567625D829270041BB9A /* meshobjects */ = {isa = PBXFileReference; lastKnownFileType = folder; name = meshobjects; path = ../meshobjects; sourceTree = "<group>"; };
-		6716567725D829270041BB9A /* colorcurves */ = {isa = PBXFileReference; lastKnownFileType = folder; name = colorcurves; path = ../colorcurves; sourceTree = "<group>"; };
-		6716568025D829790041BB9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Assets/xLights/Images.xcassets; sourceTree = "<group>"; };
-		6716568625D829B90041BB9A /* extended_dictionary */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = extended_dictionary; path = ../bin/extended_dictionary; sourceTree = "<group>"; };
-		6716568725D829B90041BB9A /* standard_dictionary */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = standard_dictionary; path = ../bin/standard_dictionary; sourceTree = "<group>"; };
-		6716568825D829B90041BB9A /* phoneme_mapping */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = phoneme_mapping; path = ../bin/phoneme_mapping; sourceTree = "<group>"; };
-		6716568925D829B90041BB9A /* user_dictionary */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = user_dictionary; path = ../bin/user_dictionary; sourceTree = "<group>"; };
 		671C0BCC1C245E230098A48D /* libwx_osx_cocoau_qa-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_qa-3.3.dylib"; path = "/opt/local/libdbg/libwx_osx_cocoau_qa-3.3.dylib"; sourceTree = "<group>"; };
 		671E47FC2231CEC900049DC9 /* libcurl.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcurl.tbd; path = usr/lib/libcurl.tbd; sourceTree = SDKROOT; };
 		67290003255303D500C83C71 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
@@ -238,7 +226,6 @@
 		6729FFF92553033E00C83C71 /* libavformat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavformat.a; path = ../../../../opt/local/lib/libavformat.a; sourceTree = "<group>"; };
 		6729FFFC2553037E00C83C71 /* libswresample.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libswresample.a; path = ../../../../opt/local/lib/libswresample.a; sourceTree = "<group>"; };
 		6729FFFE255303A300C83C71 /* libswscale.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libswscale.a; path = ../../../../opt/local/lib/libswscale.a; sourceTree = "<group>"; };
-		672B568F278A72DF0011F216 /* scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = scripts; path = ../scripts; sourceTree = "<group>"; };
 		672BD4E41C207D2E008F8B36 /* libwx_baseu_xml-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_baseu_xml-3.3.dylib"; path = "/opt/local/libdbg/libwx_baseu_xml-3.3.dylib"; sourceTree = "<group>"; };
 		672BD4E51C207D2E008F8B36 /* libwx_osx_cocoau_aui-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_aui-3.3.dylib"; path = "/opt/local/libdbg/libwx_osx_cocoau_aui-3.3.dylib"; sourceTree = "<group>"; };
 		672BD4E61C207D2E008F8B36 /* libwx_osx_cocoau_gl-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_gl-3.3.dylib"; path = "/opt/local/libdbg/libwx_osx_cocoau_gl-3.3.dylib"; sourceTree = "<group>"; };
@@ -259,10 +246,20 @@
 		675FD842204C3C0C003D280F /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		67710581267BBAC5001DA926 /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
 		67710582267BBAC5001DA926 /* CoreAudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioKit.framework; path = System/Library/Frameworks/CoreAudioKit.framework; sourceTree = SDKROOT; };
+		67712B012F844D5500C44F57 /* colorcurves */ = {isa = PBXFileReference; lastKnownFileType = folder; name = colorcurves; path = ../resources/colorcurves; sourceTree = SOURCE_ROOT; };
+		67712B022F844D5500C44F57 /* controllers */ = {isa = PBXFileReference; lastKnownFileType = folder; name = controllers; path = ../resources/controllers; sourceTree = SOURCE_ROOT; };
+		67712B032F844D5500C44F57 /* dictionaries */ = {isa = PBXFileReference; lastKnownFileType = folder; name = dictionaries; path = ../resources/dictionaries; sourceTree = SOURCE_ROOT; };
+		67712B042F844D5500C44F57 /* html */ = {isa = PBXFileReference; lastKnownFileType = folder; name = html; path = ../resources/html; sourceTree = SOURCE_ROOT; };
+		67712B052F844D5500C44F57 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; name = images; path = ../resources/images; sourceTree = SOURCE_ROOT; };
+		67712B062F844D5500C44F57 /* meshobjects */ = {isa = PBXFileReference; lastKnownFileType = folder; name = meshobjects; path = ../resources/meshobjects; sourceTree = SOURCE_ROOT; };
+		67712B072F844D5500C44F57 /* mhpresets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = mhpresets; path = ../resources/mhpresets; sourceTree = SOURCE_ROOT; };
+		67712B082F844D5500C44F57 /* palettes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = palettes; path = ../resources/palettes; sourceTree = SOURCE_ROOT; };
+		67712B092F844D5500C44F57 /* prompts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = prompts; path = ../resources/prompts; sourceTree = SOURCE_ROOT; };
+		67712B0A2F844D5500C44F57 /* scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = scripts; path = ../resources/scripts; sourceTree = SOURCE_ROOT; };
+		67712B0B2F844D5500C44F57 /* valuecurves */ = {isa = PBXFileReference; lastKnownFileType = folder; name = valuecurves; path = ../resources/valuecurves; sourceTree = SOURCE_ROOT; };
 		6771B227204BA69B00E90AC7 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		6771B229204BA6AF00E90AC7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6785716B2F72C6E100F50F9F /* libISPCEffectComputeFunctions.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libISPCEffectComputeFunctions.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		678AAF3F26C40B6300467B3C /* model_vendor_mapping.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = model_vendor_mapping.json; path = ../download/model_vendor_mapping.json; sourceTree = "<group>"; };
 		67A14C7720DD313D006EFCFA /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		67A14C7920DD31D6006EFCFA /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		67A14C7B20DD31E3006EFCFA /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = System/Library/Frameworks/AGL.framework; sourceTree = SDKROOT; };
@@ -313,8 +310,6 @@
 		67F23F721E329DDC00F8B985 /* libwx_osx_cocoau_media-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_media-3.3.dylib"; path = "../../../../opt/local/libdbg/libwx_osx_cocoau_media-3.3.dylib"; sourceTree = "<group>"; };
 		67F23F731E329DDC00F8B985 /* libwx_osx_cocoau_propgrid-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_propgrid-3.3.dylib"; path = "../../../../opt/local/libdbg/libwx_osx_cocoau_propgrid-3.3.dylib"; sourceTree = "<group>"; };
 		67F23F741E329DDC00F8B985 /* libwx_osx_cocoau_qa-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_qa-3.3.dylib"; path = "../../../../opt/local/libdbg/libwx_osx_cocoau_qa-3.3.dylib"; sourceTree = "<group>"; };
-		67F7DB842D58291B00921286 /* prompts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = prompts; path = ../prompts; sourceTree = "<group>"; };
-		67FD63532D588527004547FF /* resources */ = {isa = PBXFileReference; lastKnownFileType = folder; name = resources; path = ../resources; sourceTree = "<group>"; };
 		67FDC38B27CA77610009A3C7 /* libhidapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libhidapi.a; path = ../../../../../opt/local/libdbg/libhidapi.a; sourceTree = "<group>"; };
 		AA0001032F900000000000A1 /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ioapi.c; path = ../dependencies/libxlsxwriter/third_party/minizip/ioapi.c; sourceTree = "<group>"; };
 		AA0001042F900000000000A2 /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = unzip.c; path = ../dependencies/libxlsxwriter/third_party/minizip/unzip.c; sourceTree = "<group>"; };
@@ -329,12 +324,11 @@
 		BB0000030000000000MIDI03 /* MidiEventList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MidiEventList.cpp; path = ../dependencies/midifile/src/MidiEventList.cpp; sourceTree = "<group>"; };
 		BB0000030000000000MIDI04 /* MidiFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MidiFile.cpp; path = ../dependencies/midifile/src/MidiFile.cpp; sourceTree = "<group>"; };
 		BB0000030000000000MIDI05 /* MidiMessage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MidiMessage.cpp; path = ../dependencies/midifile/src/MidiMessage.cpp; sourceTree = "<group>"; };
-		C40BF5512BC6217800D701CF /* mhpresets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = mhpresets; path = ../mhpresets; sourceTree = "<group>"; };
 		CC00000100000000000X0002 /* libxLights-core.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libxLights-core.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		BB00000100000000000C000E /* Exceptions for "apple-src-core" folder in "xLights-Apple-core" target */ = {
+		BB00000100000000000C000E /* Exceptions for "src-apple-core" folder in "xLights-Apple-core" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Shaders/MetalShaders.metal,
@@ -403,19 +397,17 @@
 			path = "../src-ui-wx";
 			sourceTree = SOURCE_ROOT;
 		};
-		673D41762F841B7B00EBE7FD /* apple-src-core */ = {
+		673D41762F841B7B00EBE7FD /* src-apple-core */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				BB00000100000000000C000E /* Exceptions for "apple-src-core" folder in "xLights-Apple-core" target */,
+				BB00000100000000000C000E /* Exceptions for "src-apple-core" folder in "xLights-Apple-core" target */,
 			);
-			name = "apple-src-core";
-			path = "apple-src-core";
+			path = "src-apple-core";
 			sourceTree = "<group>";
 		};
-		673D41A92F841BC400EBE7FD /* macOS-src-ui */ = {
+		673D41A92F841BC400EBE7FD /* src-mac-ui */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			name = "macOS-src-ui";
-			path = "macOS-src-ui";
+			path = "src-mac-ui";
 			sourceTree = "<group>";
 		};
 		67DE25B12F72BECB0010AE7E /* include */ = {
@@ -601,27 +593,24 @@
 			path = "../dependencies/vamp-hostsdk";
 			sourceTree = SOURCE_ROOT;
 		};
-		67AAF8F31B63782F00585431 /* Resources */ = {
+		6771294D2F844D5500C44F57 /* resources */ = {
 			isa = PBXGroup;
 			children = (
-				67FD63532D588527004547FF /* resources */,
-				67F7DB842D58291B00921286 /* prompts */,
-				C40BF5512BC6217800D701CF /* mhpresets */,
-				6716567725D829270041BB9A /* colorcurves */,
-				6716567525D829270041BB9A /* controllers */,
-				6716568625D829B90041BB9A /* extended_dictionary */,
-				6716568025D829790041BB9A /* Images.xcassets */,
-				6716567625D829270041BB9A /* meshobjects */,
-				678AAF3F26C40B6300467B3C /* model_vendor_mapping.json */,
-				6716566F25D829140041BB9A /* palettes */,
-				6716568825D829B90041BB9A /* phoneme_mapping */,
-				672B568F278A72DF0011F216 /* scripts */,
-				6716568725D829B90041BB9A /* standard_dictionary */,
-				6716568925D829B90041BB9A /* user_dictionary */,
-				6716567425D829270041BB9A /* valuecurves */,
+				67712B012F844D5500C44F57 /* colorcurves */,
+				67712B022F844D5500C44F57 /* controllers */,
+				67712B032F844D5500C44F57 /* dictionaries */,
+				67712B042F844D5500C44F57 /* html */,
+				67712B052F844D5500C44F57 /* images */,
+				67712B062F844D5500C44F57 /* meshobjects */,
+				67712B072F844D5500C44F57 /* mhpresets */,
+				67712B082F844D5500C44F57 /* palettes */,
+				67712B092F844D5500C44F57 /* prompts */,
+				67712B0A2F844D5500C44F57 /* scripts */,
+				67712B0B2F844D5500C44F57 /* valuecurves */,
 			);
-			name = Resources;
-			sourceTree = "<group>";
+			name = resources;
+			path = ../resources;
+			sourceTree = SOURCE_ROOT;
 		};
 		67D142AC275802F50018A831 /* wxHTTPServer */ = {
 			isa = PBXGroup;
@@ -660,12 +649,12 @@
 				67DE25B12F72BECB0010AE7E /* include */,
 				671653D125D7CF4E0041BB9A /* Libraries */,
 				67E7086E17B51AB400A22034 /* Products */,
-				67AAF8F31B63782F00585431 /* Resources */,
 				6732E3A12F84156F00747CF8 /* src-core */,
 				6732E8492F84158C00747CF8 /* src-ui-wx */,
-				673D41762F841B7B00EBE7FD /* apple-src-core */,
-				673D41A92F841BC400EBE7FD /* macOS-src-ui */,
+				673D41762F841B7B00EBE7FD /* src-apple-core */,
+				673D41A92F841BC400EBE7FD /* src-mac-ui */,
 				DD00000100000000000B0001 /* common */,
+				6771294D2F844D5500C44F57 /* resources */,
 			);
 			sourceTree = "<group>";
 		};
@@ -877,7 +866,7 @@
 			buildRules = (
 			);
 			fileSystemSynchronizedGroups = (
-				673D41762F841B7B00EBE7FD /* apple-src-core */,
+				673D41762F841B7B00EBE7FD /* src-apple-core */,
 			);
 			name = "xLights-Apple-core";
 			productName = "xLights-Apple-core";
@@ -897,7 +886,7 @@
 				BB00000100000000000U000D /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				673D41A92F841BC400EBE7FD /* macOS-src-ui */,
+				673D41A92F841BC400EBE7FD /* src-mac-ui */,
 			);
 			name = "xLights-macOSLib-UI";
 			productName = "xLights-macOSLib-UI";
@@ -996,21 +985,17 @@
 		67E7086B17B51AB400A22034 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
-				67FD63542D588527004547FF /* resources in Resources */,
-				67F7DB852D58291B00921286 /* prompts in Resources */,
-				6716567925D829270041BB9A /* controllers in Resources */,
-				6716568D25D829BA0041BB9A /* user_dictionary in Resources */,
-				6716568A25D829B90041BB9A /* extended_dictionary in Resources */,
-				6716568C25D829B90041BB9A /* phoneme_mapping in Resources */,
-				6716568225D829790041BB9A /* Images.xcassets in Resources */,
-				6716567B25D829270041BB9A /* colorcurves in Resources */,
-				6716567825D829270041BB9A /* valuecurves in Resources */,
-				672B5690278A72DF0011F216 /* scripts in Resources */,
-				6716567A25D829270041BB9A /* meshobjects in Resources */,
-				6716567025D829140041BB9A /* palettes in Resources */,
-				678AAF4026C40B6300467B3C /* model_vendor_mapping.json in Resources */,
-				C40BF5522BC6217800D701CF /* mhpresets in Resources */,
-				6716568B25D829B90041BB9A /* standard_dictionary in Resources */,
+				67712A012F844D5500C44F57 /* colorcurves in Resources */,
+				67712A022F844D5500C44F57 /* controllers in Resources */,
+				67712A032F844D5500C44F57 /* dictionaries in Resources */,
+				67712A042F844D5500C44F57 /* html in Resources */,
+				67712A052F844D5500C44F57 /* images in Resources */,
+				67712A062F844D5500C44F57 /* meshobjects in Resources */,
+				67712A072F844D5500C44F57 /* mhpresets in Resources */,
+				67712A082F844D5500C44F57 /* palettes in Resources */,
+				67712A092F844D5500C44F57 /* prompts in Resources */,
+				67712A0A2F844D5500C44F57 /* scripts in Resources */,
+				67712A0B2F844D5500C44F57 /* valuecurves in Resources */,
 			);
 		};
 /* End PBXResourcesBuildPhase section */
@@ -1383,8 +1368,8 @@
 					../include,
 					"../include/ffmpeg-6/include/",
 					dependencies/include,
-					"apple-src-core",
-					"macOS-src-ui",
+					"src-apple-core",
+					"src-mac-ui",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/liquidfun/liquidfun/Box2D,
@@ -1512,8 +1497,8 @@
 					../include,
 					"../include/ffmpeg-6/include/",
 					dependencies/include,
-					"apple-src-core",
-					"macOS-src-ui",
+					"src-apple-core",
+					"src-mac-ui",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/liquidfun/liquidfun/Box2D,
@@ -1618,8 +1603,8 @@
 					"../include/ffmpeg-6/include/",
 					"../include/sol2-3.5.0",
 					dependencies/include,
-					"apple-src-core",
-					"macOS-src-ui",
+					"src-apple-core",
+					"src-mac-ui",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/liquidfun/liquidfun/Box2D,
@@ -1694,8 +1679,8 @@
 					"../include/ffmpeg-6/include/",
 					"../include/sol2-3.5.0",
 					dependencies/include,
-					"apple-src-core",
-					"macOS-src-ui",
+					"src-apple-core",
+					"src-mac-ui",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/liquidfun/liquidfun/Box2D,
@@ -1802,8 +1787,8 @@
 					../include,
 					"../include/ffmpeg-6/include/",
 					dependencies/include,
-					"apple-src-core",
-					"macOS-src-ui",
+					"src-apple-core",
+					"src-mac-ui",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/liquidfun/liquidfun/Box2D,
@@ -1910,8 +1895,8 @@
 					"../include/ffmpeg-6/include/",
 					"../include/sol2-3.5.0",
 					dependencies/include,
-					"apple-src-core",
-					"macOS-src-ui",
+					"src-apple-core",
+					"src-mac-ui",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/liquidfun/liquidfun/Box2D,
@@ -1961,7 +1946,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CODE_SIGN_STYLE = Automatic;
 				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "apple-src-core/Prefix.pch";
+				GCC_PREFIX_HEADER = "src-apple-core/Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(DERIVED_SOURCES_DIR)",
 					"../src-core/render",
@@ -1970,7 +1955,7 @@
 					../include,
 					"../include/ffmpeg-6/include/",
 					dependencies/include,
-					"apple-src-core",
+					"src-apple-core",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/spdlog/include,
@@ -1997,7 +1982,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_NS_ASSERTIONS = NO;
 				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "apple-src-core/Prefix.pch";
+				GCC_PREFIX_HEADER = "src-apple-core/Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(DERIVED_SOURCES_DIR)",
 					"../src-core/render",
@@ -2006,7 +1991,7 @@
 					../include,
 					"../include/ffmpeg-6/include/",
 					dependencies/include,
-					"apple-src-core",
+					"src-apple-core",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/spdlog/include,
@@ -2032,7 +2017,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_NS_ASSERTIONS = NO;
 				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "apple-src-core/Prefix.pch";
+				GCC_PREFIX_HEADER = "src-apple-core/Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(DERIVED_SOURCES_DIR)",
 					"../src-core/render",
@@ -2041,7 +2026,7 @@
 					../include,
 					"../include/ffmpeg-6/include/",
 					dependencies/include,
-					"apple-src-core",
+					"src-apple-core",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/spdlog/include,
@@ -2066,7 +2051,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CODE_SIGN_STYLE = Automatic;
 				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "macOS-src-ui/Prefix.pch";
+				GCC_PREFIX_HEADER = "src-mac-ui/Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(DERIVED_SOURCES_DIR)",
 					"../src-core/render",
@@ -2076,8 +2061,8 @@
 					../include,
 					"../include/ffmpeg-6/include/",
 					dependencies/include,
-					"apple-src-core",
-					"macOS-src-ui",
+					"src-apple-core",
+					"src-mac-ui",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/spdlog/include,
@@ -2105,7 +2090,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_NS_ASSERTIONS = NO;
 				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "macOS-src-ui/Prefix.pch";
+				GCC_PREFIX_HEADER = "src-mac-ui/Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(DERIVED_SOURCES_DIR)",
 					"../src-core/render",
@@ -2115,8 +2100,8 @@
 					../include,
 					"../include/ffmpeg-6/include/",
 					dependencies/include,
-					"apple-src-core",
-					"macOS-src-ui",
+					"src-apple-core",
+					"src-mac-ui",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/spdlog/include,
@@ -2142,7 +2127,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_NS_ASSERTIONS = NO;
 				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "macOS-src-ui/Prefix.pch";
+				GCC_PREFIX_HEADER = "src-mac-ui/Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(DERIVED_SOURCES_DIR)",
 					"../src-core/render",
@@ -2152,8 +2137,8 @@
 					../include,
 					"../include/ffmpeg-6/include/",
 					dependencies/include,
-					"apple-src-core",
-					"macOS-src-ui",
+					"src-apple-core",
+					"src-mac-ui",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/spdlog/include,
@@ -2183,7 +2168,7 @@
 					../include,
 					"../include/ffmpeg-6/include/",
 					dependencies/include,
-					"apple-src-core",
+					"src-apple-core",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/liquidfun/liquidfun/Box2D,
@@ -2218,7 +2203,7 @@
 					../include,
 					"../include/ffmpeg-6/include/",
 					dependencies/include,
-					"apple-src-core",
+					"src-apple-core",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/liquidfun/liquidfun/Box2D,
@@ -2253,7 +2238,7 @@
 					../include,
 					"../include/ffmpeg-6/include/",
 					dependencies/include,
-					"apple-src-core",
+					"src-apple-core",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/liquidfun/liquidfun/Box2D,
