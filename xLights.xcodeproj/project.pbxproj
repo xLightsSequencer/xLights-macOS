@@ -10,8 +10,6 @@
 		14BE3A5DBB4294EAC74CC824 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 508754EE92C352178126B474 /* AVFoundation.framework */; };
 		67061FD32746D5330020519D /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67061FD22746D5330020519D /* MetalPerformanceShaders.framework */; };
 		670F8DCA27652F5E002F0CD6 /* ModelIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 670F8DC927652F5E002F0CD6 /* ModelIO.framework */; };
-		6716514825D7CE700041BB9A /* xLightsApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164C1D25D7CE6D0041BB9A /* xLightsApp.cpp */; };
-		671651BD25D7CE700041BB9A /* xLightsMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67164D0125D7CE6D0041BB9A /* xLightsMain.cpp */; };
 		6716555D25D8249D0041BB9A /* wxLED.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716555C25D8249D0041BB9A /* wxLED.cpp */; };
 		6716556425D824F80041BB9A /* md5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716556225D824F80041BB9A /* md5.cpp */; };
 		6716559525D825410041BB9A /* PluginWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716556C25D825410041BB9A /* PluginWrapper.cpp */; };
@@ -26,11 +24,6 @@
 		671655A125D825410041BB9A /* PluginHostAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716559125D825410041BB9A /* PluginHostAdapter.cpp */; };
 		671655A325D825410041BB9A /* PluginSummarisingAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716559325D825410041BB9A /* PluginSummarisingAdapter.cpp */; };
 		671655B925D827100041BB9A /* PluginBufferingAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671655B725D827100041BB9A /* PluginBufferingAdapter.cpp */; };
-		671655CE25D827650041BB9A /* kiss_fft.c in Sources */ = {isa = PBXBuildFile; fileRef = 671655BE25D827650041BB9A /* kiss_fft.c */; };
-		671655D025D827650041BB9A /* kiss_fftr.c in Sources */ = {isa = PBXBuildFile; fileRef = 671655C325D827650041BB9A /* kiss_fftr.c */; };
-		671655D125D827650041BB9A /* kiss_fftndr.c in Sources */ = {isa = PBXBuildFile; fileRef = 671655C425D827650041BB9A /* kiss_fftndr.c */; };
-		671655D225D827650041BB9A /* kfc.c in Sources */ = {isa = PBXBuildFile; fileRef = 671655C525D827650041BB9A /* kfc.c */; };
-		671655D325D827650041BB9A /* kiss_fftnd.c in Sources */ = {isa = PBXBuildFile; fileRef = 671655C625D827650041BB9A /* kiss_fftnd.c */; };
 		6716567025D829140041BB9A /* palettes in Resources */ = {isa = PBXBuildFile; fileRef = 6716566F25D829140041BB9A /* palettes */; };
 		6716567825D829270041BB9A /* valuecurves in Resources */ = {isa = PBXBuildFile; fileRef = 6716567425D829270041BB9A /* valuecurves */; };
 		6716567925D829270041BB9A /* controllers in Resources */ = {isa = PBXBuildFile; fileRef = 6716567525D829270041BB9A /* controllers */; };
@@ -54,6 +47,8 @@
 		6729FFFF255303AF00C83C71 /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFFE255303A300C83C71 /* libswscale.a */; };
 		672B5690278A72DF0011F216 /* scripts in Resources */ = {isa = PBXBuildFile; fileRef = 672B568F278A72DF0011F216 /* scripts */; };
 		672F447626387B59005B795A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B229204BA6AF00E90AC7 /* QuartzCore.framework */; };
+		6732E1272F8412FC00747CF8 /* libxLights-macOSLib-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB00000100000000000C0002 /* libxLights-macOSLib-core.a */; };
+		6732E1282F8412FC00747CF8 /* libxLights-macOSLib-UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB00000100000000000U0002 /* libxLights-macOSLib-UI.a */; };
 		673B3D4E223BF203000F1D7E /* libcurl.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 671E47FC2231CEC900049DC9 /* libcurl.tbd */; };
 		674D3D221C207BCC000D632B /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D211C207BCC000D632B /* IOKit.framework */; };
 		674D3D241C207BD7000D632B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D231C207BD7000D632B /* AudioToolbox.framework */; };
@@ -61,7 +56,6 @@
 		675EDD3D2789D87C00D40FEA /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675EDD3C2789D87C00D40FEA /* liblua.a */; };
 		675FD840204C3C0B003D280F /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B227204BA69B00E90AC7 /* CoreImage.framework */; };
 		675FD841204C3C0C003D280F /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675FD842204C3C0C003D280F /* Accelerate.framework */; };
-		6762DB302F7C67C800F33C18 /* xlBaseApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6762DB2E2F7C67C800F33C18 /* xlBaseApp.cpp */; };
 		6781D632234C24BD00408604 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B4C92117B53D960006B951 /* CoreVideo.framework */; };
 		678571702F72C71F00F50F9F /* libISPCEffectComputeFunctions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6785716B2F72C6E100F50F9F /* libISPCEffectComputeFunctions.a */; };
 		678AAF4026C40B6300467B3C /* model_vendor_mapping.json in Resources */ = {isa = PBXBuildFile; fileRef = 678AAF3F26C40B6300467B3C /* model_vendor_mapping.json */; };
@@ -71,7 +65,6 @@
 		67A14C8020DD328A006EFCFA /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7F20DD3289006EFCFA /* ImageIO.framework */; };
 		67A14C8420DD336E006EFCFA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C8320DD336E006EFCFA /* libz.tbd */; };
 		67A14C8620DD337E006EFCFA /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C8520DD337E006EFCFA /* Security.framework */; };
-		67A88A4726164CD600BFCEC0 /* libxLights-macOSLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A88A2726164C9B00BFCEC0 /* libxLights-macOSLib.a */; };
 		67BE0DFA2727C0AB00558A3A /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BE0DF82727C0AB00558A3A /* MetalKit.framework */; };
 		67BE0DFB2727C0AB00558A3A /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BE0DF92727C0AB00558A3A /* Metal.framework */; };
 		67C7E283215E596000AE0775 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B6F3422040FBB600B847E0 /* CoreAudio.framework */; };
@@ -92,12 +85,13 @@
 		AA0001012F900000000000A1 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = AA0001032F900000000000A1 /* ioapi.c */; settings = {COMPILER_FLAGS = "-std=gnu11 -w"; }; };
 		AA0001022F900000000000A2 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = AA0001042F900000000000A2 /* unzip.c */; settings = {COMPILER_FLAGS = "-std=gnu11 -w"; }; };
 		AA0001072F900000000000A5 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = AA0001082F900000000000A5 /* zip.c */; settings = {COMPILER_FLAGS = "-std=gnu11 -w"; }; };
+		BB0000020000000000MIDI01 /* Binasc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB0000030000000000MIDI01 /* Binasc.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		BB0000020000000000MIDI02 /* MidiEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB0000030000000000MIDI02 /* MidiEvent.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		BB0000020000000000MIDI03 /* MidiEventList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB0000030000000000MIDI03 /* MidiEventList.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		BB0000020000000000MIDI04 /* MidiFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB0000030000000000MIDI04 /* MidiFile.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		BB0000020000000000MIDI05 /* MidiMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB0000030000000000MIDI05 /* MidiMessage.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
 		C40BF5522BC6217800D701CF /* mhpresets in Resources */ = {isa = PBXBuildFile; fileRef = C40BF5512BC6217800D701CF /* mhpresets */; };
-		CE50A63AMIDI000000000001 /* Binasc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE50A639MIDI000000000001 /* Binasc.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
-		CE50A63AMIDI000000000002 /* MidiEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE50A639MIDI000000000002 /* MidiEvent.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
-		CE50A63AMIDI000000000003 /* MidiEventList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE50A639MIDI000000000003 /* MidiEventList.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
-		CE50A63AMIDI000000000004 /* MidiFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE50A639MIDI000000000004 /* MidiFile.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
-		CE50A63AMIDI000000000005 /* MidiMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE50A639MIDI000000000005 /* MidiMessage.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
+		CC00000100000000000X0003 /* libxLights-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC00000100000000000X0002 /* libxLights-core.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -111,18 +105,45 @@
 			);
 			script = (
 				"${SRCROOT}/scripts/ispc_compile",
-				"",
 			);
 		};
 /* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
-		671013292F391C0300E6B8EC /* PBXContainerItemProxy */ = {
+		6732E1032F84107200747CF8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 67A88A2626164C9B00BFCEC0;
-			remoteInfo = "xLights-macOSLib";
+			remoteGlobalIDString = BB00000100000000000C0001;
+			remoteInfo = "xLights-macOSLib-core";
+		};
+		6732E1042F84107200747CF8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BB00000100000000000U0001;
+			remoteInfo = "xLights-macOSLib-UI";
+		};
+		6732E1052F84107200747CF8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BB00000100000000000C0001;
+			remoteInfo = "xLights-macOSLib-core";
+		};
+		6732E1062F84109C00747CF8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BB00000100000000000C0001;
+			remoteInfo = "xLights-macOSLib-core";
+		};
+		6732E1082F8410A900747CF8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BB00000100000000000C0001;
+			remoteInfo = "xLights-macOSLib-core";
 		};
 		678571712F72C78300F50F9F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -131,13 +152,6 @@
 			remoteGlobalIDString = 6785716A2F72C6E100F50F9F;
 			remoteInfo = ISPCEffectComputeFunctions;
 		};
-		6785717A2F72CE4200F50F9F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 67A88A2626164C9B00BFCEC0;
-			remoteInfo = "xLights-macOSLib";
-		};
 		678577B7272C756100E6E249 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
@@ -145,12 +159,12 @@
 			remoteGlobalIDString = 678577AD272C735000E6E249;
 			remoteInfo = EffectComputeFunctions;
 		};
-		67A88A4826164CD700BFCEC0 /* PBXContainerItemProxy */ = {
+		CC00000100000000000X000C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 67A88A2626164C9B00BFCEC0;
-			remoteInfo = "xLights-macOSLib";
+			remoteGlobalIDString = CC00000100000000000X0001;
+			remoteInfo = "xLights-core";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -164,10 +178,6 @@
 		67164BB725D7CD190041BB9A /* xLightsDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = xLightsDebug.entitlements; sourceTree = "<group>"; };
 		67164BB825D7CD190041BB9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		67164BB925D7CD190041BB9A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		67164BC725D7CE6D0041BB9A /* xLightsApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xLightsApp.h; sourceTree = "<group>"; };
-		67164C0625D7CE6D0041BB9A /* xLightsMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xLightsMain.h; sourceTree = "<group>"; };
-		67164C1D25D7CE6D0041BB9A /* xLightsApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xLightsApp.cpp; sourceTree = "<group>"; };
-		67164D0125D7CE6D0041BB9A /* xLightsMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xLightsMain.cpp; sourceTree = "<group>"; };
 		6716555B25D8249D0041BB9A /* wxLED.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wxLED.h; path = ../dependencies/wxLED/wxLED.h; sourceTree = "<group>"; };
 		6716555C25D8249D0041BB9A /* wxLED.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wxLED.cpp; path = ../dependencies/wxLED/wxLED.cpp; sourceTree = "<group>"; };
 		6716556225D824F80041BB9A /* md5.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md5.cpp; path = ../dependencies/md5/md5.cpp; sourceTree = "<group>"; };
@@ -206,18 +216,6 @@
 		6716559325D825410041BB9A /* PluginSummarisingAdapter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PluginSummarisingAdapter.cpp; sourceTree = "<group>"; };
 		671655B725D827100041BB9A /* PluginBufferingAdapter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PluginBufferingAdapter.cpp; sourceTree = "<group>"; };
 		671655B825D827100041BB9A /* PluginBufferingAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluginBufferingAdapter.h; sourceTree = "<group>"; };
-		671655BE25D827650041BB9A /* kiss_fft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = kiss_fft.c; sourceTree = "<group>"; };
-		671655C125D827650041BB9A /* kfc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kfc.h; sourceTree = "<group>"; };
-		671655C225D827650041BB9A /* kiss_fftnd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kiss_fftnd.h; sourceTree = "<group>"; };
-		671655C325D827650041BB9A /* kiss_fftr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = kiss_fftr.c; sourceTree = "<group>"; };
-		671655C425D827650041BB9A /* kiss_fftndr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = kiss_fftndr.c; sourceTree = "<group>"; };
-		671655C525D827650041BB9A /* kfc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = kfc.c; sourceTree = "<group>"; };
-		671655C625D827650041BB9A /* kiss_fftnd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = kiss_fftnd.c; sourceTree = "<group>"; };
-		671655C825D827650041BB9A /* kiss_fftr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kiss_fftr.h; sourceTree = "<group>"; };
-		671655CA25D827650041BB9A /* kiss_fftndr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kiss_fftndr.h; sourceTree = "<group>"; };
-		671655CB25D827650041BB9A /* _kiss_fft_guts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _kiss_fft_guts.h; sourceTree = "<group>"; };
-		671655CC25D827650041BB9A /* kiss_fft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kiss_fft.h; sourceTree = "<group>"; };
-		671655CD25D827650041BB9A /* kissfft.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = kissfft.hh; sourceTree = "<group>"; };
 		6716566F25D829140041BB9A /* palettes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = palettes; path = ../palettes; sourceTree = "<group>"; };
 		6716567425D829270041BB9A /* valuecurves */ = {isa = PBXFileReference; lastKnownFileType = folder; name = valuecurves; path = ../valuecurves; sourceTree = "<group>"; };
 		6716567525D829270041BB9A /* controllers */ = {isa = PBXFileReference; lastKnownFileType = folder; name = controllers; path = ../controllers; sourceTree = "<group>"; };
@@ -259,9 +257,6 @@
 		674E9C631C9106D600D12F0D /* libwx_osx_cocoau_propgrid-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_propgrid-3.3.dylib"; path = "../../../../opt/local/libdbg/libwx_osx_cocoau_propgrid-3.3.dylib"; sourceTree = "<group>"; };
 		675EDD3C2789D87C00D40FEA /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblua.a; path = /opt/local/lib/liblua.a; sourceTree = "<group>"; };
 		675FD842204C3C0C003D280F /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
-		6762DB2D2F7C67C800F33C18 /* xlBaseApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = xlBaseApp.h; path = ../common/xlBaseApp.h; sourceTree = SOURCE_ROOT; };
-		6762DB2E2F7C67C800F33C18 /* xlBaseApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = xlBaseApp.cpp; path = ../common/xlBaseApp.cpp; sourceTree = SOURCE_ROOT; };
-		6762DB2F2F7C67C800F33C18 /* xlStackWalker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = xlStackWalker.h; path = ../common/xlStackWalker.h; sourceTree = SOURCE_ROOT; };
 		67710581267BBAC5001DA926 /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
 		67710582267BBAC5001DA926 /* CoreAudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioKit.framework; path = System/Library/Frameworks/CoreAudioKit.framework; sourceTree = SDKROOT; };
 		6771B227204BA69B00E90AC7 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
@@ -276,7 +271,6 @@
 		67A14C8120DD3345006EFCFA /* libSystem.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libSystem.tbd; path = usr/lib/libSystem.tbd; sourceTree = SDKROOT; };
 		67A14C8320DD336E006EFCFA /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		67A14C8520DD337E006EFCFA /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		67A88A2726164C9B00BFCEC0 /* libxLights-macOSLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libxLights-macOSLib.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		67B4C91F17B53D960006B951 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		67B4C92017B53D960006B951 /* CoreMediaIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMediaIO.framework; path = System/Library/Frameworks/CoreMediaIO.framework; sourceTree = SDKROOT; };
 		67B4C92117B53D960006B951 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -284,7 +278,6 @@
 		67B6F3422040FBB600B847E0 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		67BE0DF82727C0AB00558A3A /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		67BE0DF92727C0AB00558A3A /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
-		67C0097B2F83DDDB00BA2C6A /* xLightsVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xLightsVersion.h; sourceTree = "<group>"; };
 		67D142AD275803100018A831 /* pages.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pages.cpp; path = ../dependencies/wxHTTPServer/pages.cpp; sourceTree = "<group>"; };
 		67D142AE275803100018A831 /* connection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = connection.cpp; path = ../dependencies/wxHTTPServer/connection.cpp; sourceTree = "<group>"; };
 		67D142AF275803100018A831 /* sha1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sha1.cpp; path = ../dependencies/wxHTTPServer/sha1.cpp; sourceTree = "<group>"; };
@@ -329,188 +322,100 @@
 		AA0001062F900000000000A4 /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = unzip.h; path = ../dependencies/libxlsxwriter/third_party/minizip/unzip.h; sourceTree = "<group>"; };
 		AA0001082F900000000000A5 /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = zip.c; path = ../dependencies/libxlsxwriter/third_party/minizip/zip.c; sourceTree = "<group>"; };
 		AA0001092F900000000000A6 /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zip.h; path = ../dependencies/libxlsxwriter/third_party/minizip/zip.h; sourceTree = "<group>"; };
+		BB00000100000000000C0002 /* libxLights-macOSLib-core.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libxLights-macOSLib-core.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB00000100000000000U0002 /* libxLights-macOSLib-UI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libxLights-macOSLib-UI.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB0000030000000000MIDI01 /* Binasc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Binasc.cpp; path = ../dependencies/midifile/src/Binasc.cpp; sourceTree = "<group>"; };
+		BB0000030000000000MIDI02 /* MidiEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MidiEvent.cpp; path = ../dependencies/midifile/src/MidiEvent.cpp; sourceTree = "<group>"; };
+		BB0000030000000000MIDI03 /* MidiEventList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MidiEventList.cpp; path = ../dependencies/midifile/src/MidiEventList.cpp; sourceTree = "<group>"; };
+		BB0000030000000000MIDI04 /* MidiFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MidiFile.cpp; path = ../dependencies/midifile/src/MidiFile.cpp; sourceTree = "<group>"; };
+		BB0000030000000000MIDI05 /* MidiMessage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MidiMessage.cpp; path = ../dependencies/midifile/src/MidiMessage.cpp; sourceTree = "<group>"; };
 		C40BF5512BC6217800D701CF /* mhpresets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = mhpresets; path = ../mhpresets; sourceTree = "<group>"; };
-		CE50A639MIDI000000000001 /* Binasc.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Binasc.cpp; sourceTree = "<group>"; };
-		CE50A639MIDI000000000002 /* MidiEvent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MidiEvent.cpp; sourceTree = "<group>"; };
-		CE50A639MIDI000000000003 /* MidiEventList.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MidiEventList.cpp; sourceTree = "<group>"; };
-		CE50A639MIDI000000000004 /* MidiFile.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MidiFile.cpp; sourceTree = "<group>"; };
-		CE50A639MIDI000000000005 /* MidiMessage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MidiMessage.cpp; sourceTree = "<group>"; };
+		CC00000100000000000X0002 /* libxLights-core.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libxLights-core.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		6762A5ED2F7C5D0B00F33C18 /* Exceptions for "outputs" folder in "xLights" target */ = {
+		BB00000100000000000C000E /* Exceptions for "macOS-src-core" folder in "xLights-macOSLib-core" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				ArtNetOutput.cpp,
-				Controller.cpp,
-				ControllerEthernet.cpp,
-				ControllerNull.cpp,
-				ControllerSerial.cpp,
-				DDPOutput.cpp,
-				DMXOutput.cpp,
-				E131Output.cpp,
-				GenericSerialOutput.cpp,
-				IPOutput.cpp,
-				KinetOutput.cpp,
-				LorController.cpp,
-				LorControllers.cpp,
-				LOROptimisedOutput.cpp,
-				LOROutput.cpp,
-				NullOutput.cpp,
-				OPCOutput.cpp,
-				OpenDMXOutput.cpp,
-				OpenPixelNetOutput.cpp,
-				Output.cpp,
-				OutputManager.cpp,
-				PixelNetOutput.cpp,
-				RenardOutput.cpp,
-				serial_osx.cpp,
-				serial.cpp,
-				SerialOutput.cpp,
-				TestPreset.cpp,
-				TwinklyOutput.cpp,
-				xxxEthernetOutput.cpp,
-				xxxSerialOutput.cpp,
-				ZCPPOutput.cpp,
+				Shaders/MetalShaders.metal,
 			);
-			target = 67E7086C17B51AB400A22034 /* xLights */;
+			target = BB00000100000000000C0001 /* xLights-macOSLib-core */;
 		};
-		678571502F72C4D200F50F9F /* Exceptions for "effects" folder in "xLights" target */ = {
+		CC00000100000000000X000D /* Exceptions for "src-core" folder in "xLights-core" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				ispc/BarsFunctions.ispc,
-				ispc/ButterflyFunctions.ispc,
-				ispc/ColorWashFunctions.ispc,
-				ispc/FanFunctions.ispc,
-				ispc/KaleidoscopeFunctions.ispc,
-				ispc/LayerBlendingFunctions.ispc,
-				ispc/PinwheelFunctions.ispc,
-				ispc/PlasmaFunctions.ispc,
-				ispc/VideoFunctions.ispc,
-				metal/BarsFunctions.metal,
-				metal/ButterflyFunctions.metal,
-				metal/CirclesFunctions.metal,
-				metal/ColorWashFunctions.metal,
-				metal/FanFunctions.metal,
-				metal/KaleidoscopeFunctions.metal,
-				metal/LayerBlendingFunctions.metal,
-				metal/PinwheelFunctions.metal,
-				metal/PlasmaFunctions.metal,
-				metal/RotoZoomFunctions.metal,
-				metal/ShockwaveFunctions.metal,
-				metal/SpiralsFunctions.metal,
-				metal/TransitionFunctions.metal,
-				metal/WarpFunctions.metal,
+				effects/metal/BarsFunctions.metal,
+				effects/metal/ButterflyFunctions.metal,
+				effects/metal/CirclesFunctions.metal,
+				effects/metal/ColorWashFunctions.metal,
+				effects/metal/FanFunctions.metal,
+				effects/metal/KaleidoscopeFunctions.metal,
+				effects/metal/LayerBlendingFunctions.metal,
+				effects/metal/PinwheelFunctions.metal,
+				effects/metal/PlasmaFunctions.metal,
+				effects/metal/RotoZoomFunctions.metal,
+				effects/metal/ShockwaveFunctions.metal,
+				effects/metal/SpiralsFunctions.metal,
+				effects/metal/TransitionFunctions.metal,
+				effects/metal/WarpFunctions.metal,
+				media/WindowsHardwareVideoReader.cpp,
+				outputs/serial_osx.cpp,
+				outputs/serial_posix.cpp,
+				outputs/serial_win32.cpp,
+				outputs/uDMXOutput.cpp,
 			);
-			target = 67E7086C17B51AB400A22034 /* xLights */;
-		};
-		6785715F2F72C4D800F50F9F /* Exceptions for "effects" folder in "EffectComputeFunctions" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				metal/BarsFunctions.metal,
-				metal/ButterflyFunctions.metal,
-				metal/CirclesFunctions.metal,
-				metal/ColorWashFunctions.metal,
-				metal/FanFunctions.metal,
-				metal/KaleidoscopeFunctions.metal,
-				metal/LayerBlendingFunctions.metal,
-				metal/PinwheelFunctions.metal,
-				metal/PlasmaFunctions.metal,
-				metal/RotoZoomFunctions.metal,
-				metal/ShockwaveFunctions.metal,
-				metal/SpiralsFunctions.metal,
-				metal/TransitionFunctions.metal,
-				metal/WarpFunctions.metal,
-			);
-			target = 678577AD272C735000E6E249 /* EffectComputeFunctions */;
+			target = CC00000100000000000X0001 /* xLights-core */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		678571792F72C81E00F50F9F /* Exceptions for "effects" folder in "Compile Sources" phase from "ISPCEffectComputeFunctions" target */ = {
+		673D41BA2F841C5700EBE7FD /* Exceptions for "src-core" folder in "Compile Sources" phase from "ISPCEffectComputeFunctions" target */ = {
 			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
 			buildPhase = 678571682F72C6E100F50F9F /* Sources */;
 			membershipExceptions = (
-				ispc/BarsFunctions.ispc,
-				ispc/ButterflyFunctions.ispc,
-				ispc/ColorWashFunctions.ispc,
-				ispc/FanFunctions.ispc,
-				ispc/KaleidoscopeFunctions.ispc,
-				ispc/LayerBlendingFunctions.ispc,
-				ispc/PinwheelFunctions.ispc,
-				ispc/PlasmaFunctions.ispc,
-				ispc/VideoFunctions.ispc,
+				effects/ispc/BarsFunctions.ispc,
+				effects/ispc/ButterflyFunctions.ispc,
+				effects/ispc/ColorWashFunctions.ispc,
+				effects/ispc/FanFunctions.ispc,
+				effects/ispc/KaleidoscopeFunctions.ispc,
+				effects/ispc/LayerBlendingFunctions.ispc,
+				effects/ispc/PinwheelFunctions.ispc,
+				effects/ispc/PlasmaFunctions.ispc,
+				effects/ispc/VideoFunctions.ispc,
 			);
 		};
 /* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		06EF3BCE70F04F8EDD75B8A2 /* media */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = media;
-			sourceTree = "<group>";
-		};
-		67000F2E2F6DA72E00BA900E /* ui */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = ui;
-			sourceTree = "<group>";
-		};
-		67000F3A2F6DA77200BA900E /* automation */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = automation;
-			sourceTree = "<group>";
-		};
-		670CA87F2F756E2800FE629F /* utils */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = utils;
-			sourceTree = "<group>";
-		};
-		6762A5CD2F7C5D0A00F33C18 /* outputs */ = {
+		6732E3A12F84156F00747CF8 /* src-core */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				6762A5ED2F7C5D0B00F33C18 /* Exceptions for "outputs" folder in "xLights" target */,
+				CC00000100000000000X000D /* Exceptions for "src-core" folder in "xLights-core" target */,
+				673D41BA2F841C5700EBE7FD /* Exceptions for "src-core" folder in "Compile Sources" phase from "ISPCEffectComputeFunctions" target */,
 			);
-			path = outputs;
-			sourceTree = "<group>";
+			name = "src-core";
+			path = "../src-core";
+			sourceTree = SOURCE_ROOT;
 		};
-		6782DE332F82E61600D5BFBB /* macOS-src */ = {
+		6732E8492F84158C00747CF8 /* src-ui-wx */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "macOS-src";
-			sourceTree = "<group>";
+			name = "src-ui-wx";
+			path = "../src-ui-wx";
+			sourceTree = SOURCE_ROOT;
 		};
-		678570EF2F72C4C300F50F9F /* effects */ = {
+		673D41762F841B7B00EBE7FD /* macOS-src-core */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				678571502F72C4D200F50F9F /* Exceptions for "effects" folder in "xLights" target */,
-				6785715F2F72C4D800F50F9F /* Exceptions for "effects" folder in "EffectComputeFunctions" target */,
-				678571792F72C81E00F50F9F /* Exceptions for "effects" folder in "Compile Sources" phase from "ISPCEffectComputeFunctions" target */,
+				BB00000100000000000C000E /* Exceptions for "macOS-src-core" folder in "xLights-macOSLib-core" target */,
 			);
-			path = effects;
+			name = "macOS-src-core";
+			path = "macOS-src/macOS-src-core";
 			sourceTree = "<group>";
 		};
-		67CE0D3A2F7F006F00818F6E /* discovery */ = {
+		673D41A92F841BC400EBE7FD /* macOS-src-ui */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = discovery;
-			sourceTree = "<group>";
-		};
-		67D534682F7BFDB2008AAC0A /* graphics */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = graphics;
-			sourceTree = "<group>";
-		};
-		67DE1F092F72BD800010AE7E /* models */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = models;
-			sourceTree = "<group>";
-		};
-		67DE1F592F72BDC50010AE7E /* cad */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = cad;
-			sourceTree = "<group>";
-		};
-		67DE1F802F72BDC50010AE7E /* controllers */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = controllers;
+			name = "macOS-src-ui";
+			path = "macOS-src/macOS-src-ui";
 			sourceTree = "<group>";
 		};
 		67DE25B12F72BECB0010AE7E /* include */ = {
@@ -519,25 +424,11 @@
 			path = ../include;
 			sourceTree = SOURCE_ROOT;
 		};
-		67F7DB8A2D582A9D00921286 /* ai */ = {
+		DD00000100000000000B0001 /* common */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = ai;
-			sourceTree = "<group>";
-		};
-		AA000001IMEX000000000001 /* import_export */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = import_export;
-			sourceTree = "<group>";
-		};
-		AA000001RENDER000000000001 /* render */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = render;
-			sourceTree = "<group>";
-		};
-		C471E0212F1ED95A0063881B /* XmlSerializer */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = XmlSerializer;
-			sourceTree = "<group>";
+			name = common;
+			path = ../common;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -547,18 +438,15 @@
 			files = (
 			);
 		};
-		67A88A2526164C9B00BFCEC0 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			files = (
-			);
-		};
 		67E7086A17B51AB400A22034 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
+				CC00000100000000000X0003 /* libxLights-core.a in Frameworks */,
 				678571702F72C71F00F50F9F /* libISPCEffectComputeFunctions.a in Frameworks */,
+				6732E1272F8412FC00747CF8 /* libxLights-macOSLib-core.a in Frameworks */,
+				6732E1282F8412FC00747CF8 /* libxLights-macOSLib-UI.a in Frameworks */,
 				675EDD3D2789D87C00D40FEA /* liblua.a in Frameworks */,
 				673B3D4E223BF203000F1D7E /* libcurl.tbd in Frameworks */,
-				67A88A4726164CD600BFCEC0 /* libxLights-macOSLib.a in Frameworks */,
 				6729FFFA2553035100C83C71 /* libavformat.a in Frameworks */,
 				6729FFFF255303AF00C83C71 /* libswscale.a in Frameworks */,
 				672900082553040000C83C71 /* CoreMedia.framework in Frameworks */,
@@ -593,6 +481,21 @@
 				67A14C8620DD337E006EFCFA /* Security.framework in Frameworks */,
 			);
 		};
+		BB00000100000000000C0005 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+		BB00000100000000000U0005 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+		CC00000100000000000X0005 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -616,44 +519,14 @@
 			path = xLights;
 			sourceTree = "<group>";
 		};
-		67164BC525D7CE6D0041BB9A /* xLights */ = {
-			isa = PBXGroup;
-			children = (
-				67F7DB8A2D582A9D00921286 /* ai */,
-				67000F3A2F6DA77200BA900E /* automation */,
-				67DE1F592F72BDC50010AE7E /* cad */,
-				6762DB282F7C675900F33C18 /* common */,
-				67DE1F802F72BDC50010AE7E /* controllers */,
-				67CE0D3A2F7F006F00818F6E /* discovery */,
-				678570EF2F72C4C300F50F9F /* effects */,
-				67D534682F7BFDB2008AAC0A /* graphics */,
-				AA000001IMEX000000000001 /* import_export */,
-				06EF3BCE70F04F8EDD75B8A2 /* media */,
-				6762A5FD2F7C5D9000F33C18 /* midifile */,
-				67DE1F092F72BD800010AE7E /* models */,
-				6762A5CD2F7C5D0A00F33C18 /* outputs */,
-				AA000001RENDER000000000001 /* render */,
-				67000F2E2F6DA72E00BA900E /* ui */,
-				670CA87F2F756E2800FE629F /* utils */,
-				67164BC725D7CE6D0041BB9A /* xLightsApp.h */,
-				67164C1D25D7CE6D0041BB9A /* xLightsApp.cpp */,
-				67164C0625D7CE6D0041BB9A /* xLightsMain.h */,
-				67164D0125D7CE6D0041BB9A /* xLightsMain.cpp */,
-				67C0097B2F83DDDB00BA2C6A /* xLightsVersion.h */,
-				C471E0212F1ED95A0063881B /* XmlSerializer */,
-			);
-			name = xLights;
-			path = ../xLights;
-			sourceTree = "<group>";
-		};
 		671653D125D7CF4E0041BB9A /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
 				67DA60632F7FF12F00A41238 /* pugixml */,
 				67D142AC275802F50018A831 /* wxHTTPServer */,
-				671655BD25D827650041BB9A /* kiss_fft */,
 				6716556825D8251D0041BB9A /* vamp */,
 				6716556125D824E50041BB9A /* MD5 */,
+				BB0000040000000000MIDI00 /* midifile */,
 				AA0001002F900000000000A0 /* minizip */,
 				6716555A25D824890041BB9A /* wxLED */,
 			);
@@ -728,57 +601,6 @@
 			path = "../dependencies/vamp-hostsdk";
 			sourceTree = SOURCE_ROOT;
 		};
-		671655BD25D827650041BB9A /* kiss_fft */ = {
-			isa = PBXGroup;
-			children = (
-				671655BE25D827650041BB9A /* kiss_fft.c */,
-				671655BF25D827650041BB9A /* tools */,
-				671655CB25D827650041BB9A /* _kiss_fft_guts.h */,
-				671655CC25D827650041BB9A /* kiss_fft.h */,
-				671655CD25D827650041BB9A /* kissfft.hh */,
-			);
-			name = kiss_fft;
-			path = ../xLights/kiss_fft;
-			sourceTree = "<group>";
-		};
-		671655BF25D827650041BB9A /* tools */ = {
-			isa = PBXGroup;
-			children = (
-				671655C125D827650041BB9A /* kfc.h */,
-				671655C225D827650041BB9A /* kiss_fftnd.h */,
-				671655C325D827650041BB9A /* kiss_fftr.c */,
-				671655C425D827650041BB9A /* kiss_fftndr.c */,
-				671655C525D827650041BB9A /* kfc.c */,
-				671655C625D827650041BB9A /* kiss_fftnd.c */,
-				671655C825D827650041BB9A /* kiss_fftr.h */,
-				671655CA25D827650041BB9A /* kiss_fftndr.h */,
-			);
-			path = tools;
-			sourceTree = "<group>";
-		};
-		6762A5FD2F7C5D9000F33C18 /* midifile */ = {
-			isa = PBXGroup;
-			children = (
-				CE50A639MIDI000000000001 /* Binasc.cpp */,
-				CE50A639MIDI000000000002 /* MidiEvent.cpp */,
-				CE50A639MIDI000000000003 /* MidiEventList.cpp */,
-				CE50A639MIDI000000000004 /* MidiFile.cpp */,
-				CE50A639MIDI000000000005 /* MidiMessage.cpp */,
-			);
-			name = midifile;
-			path = ../dependencies/midifile/src;
-			sourceTree = "<group>";
-		};
-		6762DB282F7C675900F33C18 /* common */ = {
-			isa = PBXGroup;
-			children = (
-				6762DB2D2F7C67C800F33C18 /* xlBaseApp.h */,
-				6762DB2E2F7C67C800F33C18 /* xlBaseApp.cpp */,
-				6762DB2F2F7C67C800F33C18 /* xlStackWalker.h */,
-			);
-			path = common;
-			sourceTree = "<group>";
-		};
 		67AAF8F31B63782F00585431 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -832,15 +654,18 @@
 		67E7086417B51AB400A22034 = {
 			isa = PBXGroup;
 			children = (
-				67D39A182F5C145C00CEB465 /* CLAUDE.md */,
 				67164BB125D7CD190041BB9A /* Assets */,
+				67D39A182F5C145C00CEB465 /* CLAUDE.md */,
 				67E7086F17B51AB400A22034 /* Frameworks */,
+				67DE25B12F72BECB0010AE7E /* include */,
 				671653D125D7CF4E0041BB9A /* Libraries */,
 				67E7086E17B51AB400A22034 /* Products */,
 				67AAF8F31B63782F00585431 /* Resources */,
-				6782DE332F82E61600D5BFBB /* macOS-src */,
-				67DE25B12F72BECB0010AE7E /* include */,
-				67164BC525D7CE6D0041BB9A /* xLights */,
+				6732E3A12F84156F00747CF8 /* src-core */,
+				6732E8492F84158C00747CF8 /* src-ui-wx */,
+				673D41762F841B7B00EBE7FD /* macOS-src-core */,
+				673D41A92F841BC400EBE7FD /* macOS-src-ui */,
+				DD00000100000000000B0001 /* common */,
 			);
 			sourceTree = "<group>";
 		};
@@ -848,7 +673,9 @@
 			isa = PBXGroup;
 			children = (
 				67E7086D17B51AB400A22034 /* xLights.app */,
-				67A88A2726164C9B00BFCEC0 /* libxLights-macOSLib.a */,
+				CC00000100000000000X0002 /* libxLights-core.a */,
+				BB00000100000000000C0002 /* libxLights-macOSLib-core.a */,
+				BB00000100000000000U0002 /* libxLights-macOSLib-UI.a */,
 				6785716B2F72C6E100F50F9F /* libISPCEffectComputeFunctions.a */,
 			);
 			name = Products;
@@ -955,6 +782,18 @@
 			name = minizip;
 			sourceTree = "<group>";
 		};
+		BB0000040000000000MIDI00 /* midifile */ = {
+			isa = PBXGroup;
+			children = (
+				BB0000030000000000MIDI01 /* Binasc.cpp */,
+				BB0000030000000000MIDI02 /* MidiEvent.cpp */,
+				BB0000030000000000MIDI03 /* MidiEventList.cpp */,
+				BB0000030000000000MIDI04 /* MidiFile.cpp */,
+				BB0000030000000000MIDI05 /* MidiMessage.cpp */,
+			);
+			name = midifile;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -978,7 +817,7 @@
 				678571732F72C7C800F50F9F /* PBXBuildRule */,
 			);
 			dependencies = (
-				6785717B2F72CE4200F50F9F /* PBXTargetDependency */,
+				6732E1072F84109C00747CF8 /* PBXTargetDependency */,
 			);
 			name = ISPCEffectComputeFunctions;
 			productName = ISPCEffectComputeFunctions;
@@ -994,29 +833,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				6710132A2F391C0300E6B8EC /* PBXTargetDependency */,
+				6732E1092F8410A900747CF8 /* PBXTargetDependency */,
 			);
 			name = EffectComputeFunctions;
 			productName = EffectComputeFunctions;
 			productType = "com.apple.product-type.metal-library";
-		};
-		67A88A2626164C9B00BFCEC0 /* xLights-macOSLib */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 67A88A2D26164C9C00BFCEC0 /* Build configuration list for PBXNativeTarget "xLights-macOSLib" */;
-			buildPhases = (
-				67A892BC2B408A4B00B1D094 /* ShellScript */,
-				67A88A2426164C9B00BFCEC0 /* Sources */,
-				67A88A2526164C9B00BFCEC0 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			fileSystemSynchronizedGroups = (
-				6782DE332F82E61600D5BFBB /* macOS-src */,
-			);
-			name = "xLights-macOSLib";
-			productName = "xLights-macOSLib";
-			productReference = 67A88A2726164C9B00BFCEC0 /* libxLights-macOSLib.a */;
-			productType = "com.apple.product-type.library.static";
 		};
 		67E7086C17B51AB400A22034 /* xLights */ = {
 			isa = PBXNativeTarget;
@@ -1032,28 +853,73 @@
 			dependencies = (
 				678571722F72C78300F50F9F /* PBXTargetDependency */,
 				678577B8272C756100E6E249 /* PBXTargetDependency */,
-				67A88A4926164CD700BFCEC0 /* PBXTargetDependency */,
+				CC00000100000000000X000B /* PBXTargetDependency */,
+				BB00000100000000000C000B /* PBXTargetDependency */,
+				BB00000100000000000U000B /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				06EF3BCE70F04F8EDD75B8A2 /* media */,
-				67000F2E2F6DA72E00BA900E /* ui */,
-				67000F3A2F6DA77200BA900E /* automation */,
-				670CA87F2F756E2800FE629F /* utils */,
-				678570EF2F72C4C300F50F9F /* effects */,
-				67CE0D3A2F7F006F00818F6E /* discovery */,
-				67D534682F7BFDB2008AAC0A /* graphics */,
-				67DE1F092F72BD800010AE7E /* models */,
-				67DE1F592F72BDC50010AE7E /* cad */,
-				67DE1F802F72BDC50010AE7E /* controllers */,
-				67F7DB8A2D582A9D00921286 /* ai */,
-				AA000001IMEX000000000001 /* import_export */,
-				AA000001RENDER000000000001 /* render */,
-				C471E0212F1ED95A0063881B /* XmlSerializer */,
+				6732E8492F84158C00747CF8 /* src-ui-wx */,
+				DD00000100000000000B0001 /* common */,
 			);
 			name = xLights;
 			productName = xLights;
 			productReference = 67E7086D17B51AB400A22034 /* xLights.app */;
 			productType = "com.apple.product-type.application";
+		};
+		BB00000100000000000C0001 /* xLights-macOSLib-core */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BB00000100000000000C0006 /* Build configuration list for PBXNativeTarget "xLights-macOSLib-core" */;
+			buildPhases = (
+				BB00000100000000000C000D /* ShellScript */,
+				BB00000100000000000C0004 /* Sources */,
+				BB00000100000000000C0005 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			fileSystemSynchronizedGroups = (
+				673D41762F841B7B00EBE7FD /* macOS-src-core */,
+			);
+			name = "xLights-macOSLib-core";
+			productName = "xLights-macOSLib-core";
+			productReference = BB00000100000000000C0002 /* libxLights-macOSLib-core.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		BB00000100000000000U0001 /* xLights-macOSLib-UI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BB00000100000000000U0006 /* Build configuration list for PBXNativeTarget "xLights-macOSLib-UI" */;
+			buildPhases = (
+				BB00000100000000000U0004 /* Sources */,
+				BB00000100000000000U0005 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BB00000100000000000U000D /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				673D41A92F841BC400EBE7FD /* macOS-src-ui */,
+			);
+			name = "xLights-macOSLib-UI";
+			productName = "xLights-macOSLib-UI";
+			productReference = BB00000100000000000U0002 /* libxLights-macOSLib-UI.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		CC00000100000000000X0001 /* xLights-core */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC00000100000000000X0006 /* Build configuration list for PBXNativeTarget "xLights-core" */;
+			buildPhases = (
+				CC00000100000000000X0004 /* Sources */,
+				CC00000100000000000X0005 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			fileSystemSynchronizedGroups = (
+				6732E3A12F84156F00747CF8 /* src-core */,
+			);
+			name = "xLights-core";
+			productName = "xLights-core";
+			productReference = CC00000100000000000X0002 /* libxLights-core.a */;
+			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
@@ -1072,10 +938,6 @@
 					678577AD272C735000E6E249 = {
 						CreatedOnToolsVersion = 13.1;
 					};
-					67A88A2626164C9B00BFCEC0 = {
-						CreatedOnToolsVersion = 12.4;
-						LastSwiftMigration = 1640;
-					};
 					67E7086C17B51AB400A22034 = {
 						LastSwiftMigration = 1640;
 						SystemCapabilities = {
@@ -1092,6 +954,17 @@
 								enabled = 0;
 							};
 						};
+					};
+					BB00000100000000000C0001 = {
+						CreatedOnToolsVersion = 26.3;
+						LastSwiftMigration = 1640;
+					};
+					BB00000100000000000U0001 = {
+						CreatedOnToolsVersion = 26.3;
+						LastSwiftMigration = 1640;
+					};
+					CC00000100000000000X0001 = {
+						CreatedOnToolsVersion = 26.3;
 					};
 				};
 			};
@@ -1110,9 +983,11 @@
 			projectRoot = "";
 			targets = (
 				67E7086C17B51AB400A22034 /* xLights */,
-				67A88A2626164C9B00BFCEC0 /* xLights-macOSLib */,
+				CC00000100000000000X0001 /* xLights-core */,
 				678577AD272C735000E6E249 /* EffectComputeFunctions */,
 				6785716A2F72C6E100F50F9F /* ISPCEffectComputeFunctions */,
+				BB00000100000000000C0001 /* xLights-macOSLib-core */,
+				BB00000100000000000U0001 /* xLights-macOSLib-UI */,
 			);
 		};
 /* End PBXProject section */
@@ -1151,7 +1026,7 @@
 			);
 			showEnvVarsInLog = 0;
 		};
-		67A892BC2B408A4B00B1D094 /* ShellScript */ = {
+		BB00000100000000000C000D /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			shellPath = /bin/bash;
@@ -1218,19 +1093,12 @@
 			files = (
 			);
 		};
-		67A88A2426164C9B00BFCEC0 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			files = (
-			);
-		};
 		67E7086917B51AB400A22034 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			files = (
 				67D142BE275803100018A831 /* request.cpp in Sources */,
 				6716559925D825410041BB9A /* RealTime.cpp in Sources */,
-				6762DB302F7C67C800F33C18 /* xlBaseApp.cpp in Sources */,
 				67D142BC275803100018A831 /* context.cpp in Sources */,
-				671655D225D827650041BB9A /* kfc.c in Sources */,
 				6716559B25D825410041BB9A /* acsymbols.c in Sources */,
 				6716559525D825410041BB9A /* PluginWrapper.cpp in Sources */,
 				671655A025D825410041BB9A /* PluginChannelAdapter.cpp in Sources */,
@@ -1238,13 +1106,10 @@
 				6716559A25D825410041BB9A /* PluginAdapter.cpp in Sources */,
 				67D142C0275803100018A831 /* response.cpp in Sources */,
 				67DA60672F7FF15300A41238 /* pugixml.cpp in Sources */,
-				671655D325D827650041BB9A /* kiss_fftnd.c in Sources */,
 				6716559F25D825410041BB9A /* host-c.cpp in Sources */,
 				6716559E25D825410041BB9A /* Files.cpp in Sources */,
 				67D142BF275803100018A831 /* message.cpp in Sources */,
-				671655D025D827650041BB9A /* kiss_fftr.c in Sources */,
 				671655A125D825410041BB9A /* PluginHostAdapter.cpp in Sources */,
-				671655CE25D827650041BB9A /* kiss_fft.c in Sources */,
 				671655B925D827100041BB9A /* PluginBufferingAdapter.cpp in Sources */,
 				67D142BD275803100018A831 /* status.cpp in Sources */,
 				67D142BB275803100018A831 /* server.cpp in Sources */,
@@ -1253,48 +1118,75 @@
 				AA0001012F900000000000A1 /* ioapi.c in Sources */,
 				AA0001022F900000000000A2 /* unzip.c in Sources */,
 				AA0001072F900000000000A5 /* zip.c in Sources */,
-				671655D125D827650041BB9A /* kiss_fftndr.c in Sources */,
+				BB0000020000000000MIDI01 /* Binasc.cpp in Sources */,
+				BB0000020000000000MIDI02 /* MidiEvent.cpp in Sources */,
+				BB0000020000000000MIDI03 /* MidiEventList.cpp in Sources */,
+				BB0000020000000000MIDI04 /* MidiFile.cpp in Sources */,
+				BB0000020000000000MIDI05 /* MidiMessage.cpp in Sources */,
 				67D142B8275803100018A831 /* pages.cpp in Sources */,
-				671651BD25D7CE700041BB9A /* xLightsMain.cpp in Sources */,
 				671655A325D825410041BB9A /* PluginSummarisingAdapter.cpp in Sources */,
 				6716559D25D825410041BB9A /* PluginLoader.cpp in Sources */,
-				6716514825D7CE700041BB9A /* xLightsApp.cpp in Sources */,
 				67D142B9275803100018A831 /* connection.cpp in Sources */,
 				6716555D25D8249D0041BB9A /* wxLED.cpp in Sources */,
-				CE50A63AMIDI000000000001 /* Binasc.cpp in Sources */,
-				CE50A63AMIDI000000000002 /* MidiEvent.cpp in Sources */,
-				CE50A63AMIDI000000000003 /* MidiEventList.cpp in Sources */,
-				CE50A63AMIDI000000000004 /* MidiFile.cpp in Sources */,
-				CE50A63AMIDI000000000005 /* MidiMessage.cpp in Sources */,
+			);
+		};
+		BB00000100000000000C0004 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
+		BB00000100000000000U0004 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
+		CC00000100000000000X0004 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
 			);
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		6710132A2F391C0300E6B8EC /* PBXTargetDependency */ = {
+		6732E1072F84109C00747CF8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 67A88A2626164C9B00BFCEC0 /* xLights-macOSLib */;
-			targetProxy = 671013292F391C0300E6B8EC /* PBXContainerItemProxy */;
+			target = BB00000100000000000C0001 /* xLights-macOSLib-core */;
+			targetProxy = 6732E1062F84109C00747CF8 /* PBXContainerItemProxy */;
+		};
+		6732E1092F8410A900747CF8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BB00000100000000000C0001 /* xLights-macOSLib-core */;
+			targetProxy = 6732E1082F8410A900747CF8 /* PBXContainerItemProxy */;
 		};
 		678571722F72C78300F50F9F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 6785716A2F72C6E100F50F9F /* ISPCEffectComputeFunctions */;
 			targetProxy = 678571712F72C78300F50F9F /* PBXContainerItemProxy */;
 		};
-		6785717B2F72CE4200F50F9F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 67A88A2626164C9B00BFCEC0 /* xLights-macOSLib */;
-			targetProxy = 6785717A2F72CE4200F50F9F /* PBXContainerItemProxy */;
-		};
 		678577B8272C756100E6E249 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 678577AD272C735000E6E249 /* EffectComputeFunctions */;
 			targetProxy = 678577B7272C756100E6E249 /* PBXContainerItemProxy */;
 		};
-		67A88A4926164CD700BFCEC0 /* PBXTargetDependency */ = {
+		BB00000100000000000C000B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 67A88A2626164C9B00BFCEC0 /* xLights-macOSLib */;
-			targetProxy = 67A88A4826164CD700BFCEC0 /* PBXContainerItemProxy */;
+			target = BB00000100000000000C0001 /* xLights-macOSLib-core */;
+			targetProxy = 6732E1032F84107200747CF8 /* PBXContainerItemProxy */;
+		};
+		BB00000100000000000U000B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BB00000100000000000U0001 /* xLights-macOSLib-UI */;
+			targetProxy = 6732E1042F84107200747CF8 /* PBXContainerItemProxy */;
+		};
+		BB00000100000000000U000D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BB00000100000000000C0001 /* xLights-macOSLib-core */;
+			targetProxy = 6732E1052F84107200747CF8 /* PBXContainerItemProxy */;
+		};
+		CC00000100000000000X000B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CC00000100000000000X0001 /* xLights-core */;
+			targetProxy = CC00000100000000000X000C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1320,7 +1212,6 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 26.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1350,7 +1241,6 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 26.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1380,7 +1270,6 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 26.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1393,7 +1282,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1405,7 +1293,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1417,79 +1304,9 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Archive;
-		};
-		67A88A2E26164C9C00BFCEC0 /* Debug configuration for PBXNativeTarget "xLights-macOSLib" */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CODE_SIGN_STYLE = Automatic;
-				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "macOS-src/Prefix.pch";
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				OTHER_SWIFT_FLAGS = "-enable-experimental-feature Extern";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 6.0;
-			};
-			name = Debug;
-		};
-		67A88A2F26164C9C00BFCEC0 /* Release configuration for PBXNativeTarget "xLights-macOSLib" */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CODE_SIGN_STYLE = Automatic;
-				ENABLE_NS_ASSERTIONS = NO;
-				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "macOS-src/Prefix.pch";
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				OTHER_SWIFT_FLAGS = "-enable-experimental-feature Extern";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 6.0;
-			};
-			name = Release;
-		};
-		67A88A3026164C9C00BFCEC0 /* Archive configuration for PBXNativeTarget "xLights-macOSLib" */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CODE_SIGN_STYLE = Automatic;
-				ENABLE_NS_ASSERTIONS = NO;
-				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "macOS-src/Prefix.pch";
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				OTHER_SWIFT_FLAGS = "-enable-experimental-feature Extern";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 6.0;
 			};
 			name = Archive;
 		};
@@ -1558,13 +1375,16 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = (
-					../xLights/render,
-					../xLights/utils,
-					../xLights,
+					"../src-core/render",
+					"../src-core/utils",
+					"../src-core",
+					"../src-ui-wx",
+					..,
 					../include,
 					"../include/ffmpeg-6/include/",
 					dependencies/include,
-					"macOS-src",
+					"macOS-src/macOS-src-core",
+					"macOS-src/macOS-src-ui",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/liquidfun/liquidfun/Box2D,
@@ -1684,13 +1504,16 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = (
-					../xLights/render,
-					../xLights/utils,
-					../xLights,
+					"../src-core/render",
+					"../src-core/utils",
+					"../src-core",
+					"../src-ui-wx",
+					..,
 					../include,
 					"../include/ffmpeg-6/include/",
 					dependencies/include,
-					"macOS-src",
+					"macOS-src/macOS-src-core",
+					"macOS-src/macOS-src-ui",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/liquidfun/liquidfun/Box2D,
@@ -1704,6 +1527,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 11.5;
 				MTL_LANGUAGE_REVISION = Metal23;
 				MTL_TREAT_WARNINGS_AS_ERRORS = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"-ffast-math",
 					"-fno-common",
@@ -1782,17 +1606,20 @@
 				ENABLE_RESOURCE_ACCESS_PRINTING = YES;
 				ENABLE_RESOURCE_ACCESS_USB = YES;
 				ENABLE_USER_SELECTED_FILES = readwrite;
-				GCC_PREFIX_HEADER = ../xLights/xlPrefix.pch;
+				GCC_PREFIX_HEADER = "../src-ui-wx/xlPrefix.pch";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					../xLights/render,
-					../xLights/utils,
-					../xLights,
+					"../src-core/render",
+					"../src-core/utils",
+					"../src-core",
+					"../src-ui-wx",
+					..,
 					../include,
 					"../include/ffmpeg-6/include/",
 					"../include/sol2-3.5.0",
 					dependencies/include,
-					"macOS-src",
+					"macOS-src/macOS-src-core",
+					"macOS-src/macOS-src-ui",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/liquidfun/liquidfun/Box2D,
@@ -1800,12 +1627,12 @@
 					../dependencies/spdlog/include,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Assets/xLights/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = xLights;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					dependencies/libdbg,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 2026.00.0;
 				OTHER_CFLAGS = (
 					"$(inherited)",
@@ -1855,17 +1682,20 @@
 				ENABLE_RESOURCE_ACCESS_PRINTING = YES;
 				ENABLE_RESOURCE_ACCESS_USB = YES;
 				ENABLE_USER_SELECTED_FILES = readwrite;
-				GCC_PREFIX_HEADER = ../xLights/xlPrefix.pch;
+				GCC_PREFIX_HEADER = "../src-ui-wx/xlPrefix.pch";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					../xLights/render,
-					../xLights/utils,
-					../xLights,
+					"../src-core/render",
+					"../src-core/utils",
+					"../src-core",
+					"../src-ui-wx",
+					..,
 					../include,
 					"../include/ffmpeg-6/include/",
 					"../include/sol2-3.5.0",
 					dependencies/include,
-					"macOS-src",
+					"macOS-src/macOS-src-core",
+					"macOS-src/macOS-src-ui",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/liquidfun/liquidfun/Box2D,
@@ -1873,13 +1703,13 @@
 					../dependencies/spdlog/include,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Assets/xLights/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = xLights;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					dependencies/lib,
 					dependencies/libdbg,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 2026.00.0;
 				OTHER_CFLAGS = (
 					"$(inherited)",
@@ -1964,13 +1794,16 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = (
-					../xLights/render,
-					../xLights/utils,
-					../xLights,
+					"../src-core/render",
+					"../src-core/utils",
+					"../src-core",
+					"../src-ui-wx",
+					..,
 					../include,
 					"../include/ffmpeg-6/include/",
 					dependencies/include,
-					"macOS-src",
+					"macOS-src/macOS-src-core",
+					"macOS-src/macOS-src-ui",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/liquidfun/liquidfun/Box2D,
@@ -1987,6 +1820,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 11.5;
 				MTL_LANGUAGE_REVISION = Metal23;
 				MTL_TREAT_WARNINGS_AS_ERRORS = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"-ffast-math",
 					"-fno-common",
@@ -2064,17 +1898,20 @@
 				ENABLE_RESOURCE_ACCESS_PRINTING = YES;
 				ENABLE_RESOURCE_ACCESS_USB = YES;
 				ENABLE_USER_SELECTED_FILES = readwrite;
-				GCC_PREFIX_HEADER = ../xLights/xlPrefix.pch;
+				GCC_PREFIX_HEADER = "../src-ui-wx/xlPrefix.pch";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					../xLights/render,
-					../xLights/utils,
-					../xLights,
+					"../src-core/render",
+					"../src-core/utils",
+					"../src-core",
+					"../src-ui-wx",
+					..,
 					../include,
 					"../include/ffmpeg-6/include/",
 					"../include/sol2-3.5.0",
 					dependencies/include,
-					"macOS-src",
+					"macOS-src/macOS-src-core",
+					"macOS-src/macOS-src-ui",
 					../dependencies,
 					../dependencies/pugixml/src,
 					../dependencies/liquidfun/liquidfun/Box2D,
@@ -2082,13 +1919,13 @@
 					../dependencies/spdlog/include,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Assets/xLights/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = xLights;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					dependencies/lib,
 					dependencies/libdbg,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 2026.00.0;
 				OTHER_CFLAGS = (
 					"$(inherited)",
@@ -2113,6 +1950,328 @@
 			};
 			name = Archive;
 		};
+		BB00000100000000000C0007 /* Debug configuration for PBXNativeTarget "xLights-macOSLib-core" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CODE_SIGN_STYLE = Automatic;
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREFIX_HEADER = "macOS-src/macOS-src-core/Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(DERIVED_SOURCES_DIR)",
+					"../src-core/render",
+					"../src-core/utils",
+					"../src-core",
+					../include,
+					"../include/ffmpeg-6/include/",
+					dependencies/include,
+					"macOS-src/macOS-src-core",
+					../dependencies,
+					../dependencies/pugixml/src,
+					../dependencies/spdlog/include,
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "-enable-experimental-feature Extern";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		BB00000100000000000C0008 /* Release configuration for PBXNativeTarget "xLights-macOSLib-core" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_NS_ASSERTIONS = NO;
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREFIX_HEADER = "macOS-src/macOS-src-core/Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(DERIVED_SOURCES_DIR)",
+					"../src-core/render",
+					"../src-core/utils",
+					"../src-core",
+					../include,
+					"../include/ffmpeg-6/include/",
+					dependencies/include,
+					"macOS-src/macOS-src-core",
+					../dependencies,
+					../dependencies/pugixml/src,
+					../dependencies/spdlog/include,
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "-enable-experimental-feature Extern";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		BB00000100000000000C0009 /* Archive configuration for PBXNativeTarget "xLights-macOSLib-core" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_NS_ASSERTIONS = NO;
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREFIX_HEADER = "macOS-src/macOS-src-core/Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(DERIVED_SOURCES_DIR)",
+					"../src-core/render",
+					"../src-core/utils",
+					"../src-core",
+					../include,
+					"../include/ffmpeg-6/include/",
+					dependencies/include,
+					"macOS-src/macOS-src-core",
+					../dependencies,
+					../dependencies/pugixml/src,
+					../dependencies/spdlog/include,
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "-enable-experimental-feature Extern";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Archive;
+		};
+		BB00000100000000000U0007 /* Debug configuration for PBXNativeTarget "xLights-macOSLib-UI" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CODE_SIGN_STYLE = Automatic;
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREFIX_HEADER = "macOS-src/macOS-src-ui/Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(DERIVED_SOURCES_DIR)",
+					"../src-core/render",
+					"../src-core/utils",
+					"../src-core",
+					"../src-ui-wx",
+					../include,
+					"../include/ffmpeg-6/include/",
+					dependencies/include,
+					"macOS-src/macOS-src-core",
+					"macOS-src/macOS-src-ui",
+					../dependencies,
+					../dependencies/pugixml/src,
+					../dependencies/spdlog/include,
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "-enable-experimental-feature Extern";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		BB00000100000000000U0008 /* Release configuration for PBXNativeTarget "xLights-macOSLib-UI" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_NS_ASSERTIONS = NO;
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREFIX_HEADER = "macOS-src/macOS-src-ui/Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(DERIVED_SOURCES_DIR)",
+					"../src-core/render",
+					"../src-core/utils",
+					"../src-core",
+					"../src-ui-wx",
+					../include,
+					"../include/ffmpeg-6/include/",
+					dependencies/include,
+					"macOS-src/macOS-src-core",
+					"macOS-src/macOS-src-ui",
+					../dependencies,
+					../dependencies/pugixml/src,
+					../dependencies/spdlog/include,
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "-enable-experimental-feature Extern";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		BB00000100000000000U0009 /* Archive configuration for PBXNativeTarget "xLights-macOSLib-UI" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_NS_ASSERTIONS = NO;
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREFIX_HEADER = "macOS-src/macOS-src-ui/Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(DERIVED_SOURCES_DIR)",
+					"../src-core/render",
+					"../src-core/utils",
+					"../src-core",
+					"../src-ui-wx",
+					../include,
+					"../include/ffmpeg-6/include/",
+					dependencies/include,
+					"macOS-src/macOS-src-core",
+					"macOS-src/macOS-src-ui",
+					../dependencies,
+					../dependencies/pugixml/src,
+					../dependencies/spdlog/include,
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "-enable-experimental-feature Extern";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Archive;
+		};
+		CC00000100000000000X0007 /* Debug configuration for PBXNativeTarget "xLights-core" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				EXECUTABLE_PREFIX = lib;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREFIX_HEADER = "../src-core/Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"../src-core/render",
+					"../src-core/utils",
+					"../src-core",
+					..,
+					../include,
+					"../include/ffmpeg-6/include/",
+					dependencies/include,
+					"macOS-src/macOS-src-core",
+					../dependencies,
+					../dependencies/pugixml/src,
+					../dependencies/liquidfun/liquidfun/Box2D,
+					../dependencies/midifile/include,
+					../dependencies/spdlog/include,
+					../dependencies/md5,
+				);
+				OTHER_CFLAGS = (
+					"-fno-common",
+					"-D_FILE_OFFSET_BITS=64",
+					"-D_LIBCPP_DISABLE_AVAILABILITY",
+					"-Wno-nan-infinity-disabled",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		CC00000100000000000X0008 /* Release configuration for PBXNativeTarget "xLights-core" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_NS_ASSERTIONS = NO;
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREFIX_HEADER = "../src-core/Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"../src-core/render",
+					"../src-core/utils",
+					"../src-core",
+					..,
+					../include,
+					"../include/ffmpeg-6/include/",
+					dependencies/include,
+					"macOS-src/macOS-src-core",
+					../dependencies,
+					../dependencies/pugixml/src,
+					../dependencies/liquidfun/liquidfun/Box2D,
+					../dependencies/midifile/include,
+					../dependencies/spdlog/include,
+					../dependencies/md5,
+				);
+				OTHER_CFLAGS = (
+					"-fno-common",
+					"-D_FILE_OFFSET_BITS=64",
+					"-D_LIBCPP_DISABLE_AVAILABILITY",
+					"-Wno-nan-infinity-disabled",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		CC00000100000000000X0009 /* Archive configuration for PBXNativeTarget "xLights-core" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_NS_ASSERTIONS = NO;
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREFIX_HEADER = "../src-core/Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"../src-core/render",
+					"../src-core/utils",
+					"../src-core",
+					..,
+					../include,
+					"../include/ffmpeg-6/include/",
+					dependencies/include,
+					"macOS-src/macOS-src-core",
+					../dependencies,
+					../dependencies/pugixml/src,
+					../dependencies/liquidfun/liquidfun/Box2D,
+					../dependencies/midifile/include,
+					../dependencies/spdlog/include,
+					../dependencies/md5,
+				);
+				OTHER_CFLAGS = (
+					"-fno-common",
+					"-D_FILE_OFFSET_BITS=64",
+					"-D_LIBCPP_DISABLE_AVAILABILITY",
+					"-Wno-nan-infinity-disabled",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Archive;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2134,15 +2293,6 @@
 			);
 			defaultConfigurationName = Release;
 		};
-		67A88A2D26164C9C00BFCEC0 /* Build configuration list for PBXNativeTarget "xLights-macOSLib" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				67A88A2E26164C9C00BFCEC0 /* Debug configuration for PBXNativeTarget "xLights-macOSLib" */,
-				67A88A2F26164C9C00BFCEC0 /* Release configuration for PBXNativeTarget "xLights-macOSLib" */,
-				67A88A3026164C9C00BFCEC0 /* Archive configuration for PBXNativeTarget "xLights-macOSLib" */,
-			);
-			defaultConfigurationName = Release;
-		};
 		67E7086817B51AB400A22034 /* Build configuration list for PBXProject "xLights" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -2158,6 +2308,33 @@
 				67E7088B17B51AB400A22034 /* Debug configuration for PBXNativeTarget "xLights" */,
 				67E7088C17B51AB400A22034 /* Release configuration for PBXNativeTarget "xLights" */,
 				67F5E4BB24A0E6DC00DE0FF0 /* Archive configuration for PBXNativeTarget "xLights" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		BB00000100000000000C0006 /* Build configuration list for PBXNativeTarget "xLights-macOSLib-core" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BB00000100000000000C0007 /* Debug configuration for PBXNativeTarget "xLights-macOSLib-core" */,
+				BB00000100000000000C0008 /* Release configuration for PBXNativeTarget "xLights-macOSLib-core" */,
+				BB00000100000000000C0009 /* Archive configuration for PBXNativeTarget "xLights-macOSLib-core" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		BB00000100000000000U0006 /* Build configuration list for PBXNativeTarget "xLights-macOSLib-UI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BB00000100000000000U0007 /* Debug configuration for PBXNativeTarget "xLights-macOSLib-UI" */,
+				BB00000100000000000U0008 /* Release configuration for PBXNativeTarget "xLights-macOSLib-UI" */,
+				BB00000100000000000U0009 /* Archive configuration for PBXNativeTarget "xLights-macOSLib-UI" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		CC00000100000000000X0006 /* Build configuration list for PBXNativeTarget "xLights-core" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC00000100000000000X0007 /* Debug configuration for PBXNativeTarget "xLights-core" */,
+				CC00000100000000000X0008 /* Release configuration for PBXNativeTarget "xLights-core" */,
+				CC00000100000000000X0009 /* Archive configuration for PBXNativeTarget "xLights-core" */,
 			);
 			defaultConfigurationName = Release;
 		};

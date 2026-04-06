@@ -27,26 +27,23 @@ public func xlOSGetMainScreenContentScaleFactor() -> Double {
 // MARK: - Color Adjustment
 
 private func adjustColorToDeviceColorspaceInternal(_ color: NSColor) -> (red: UInt8, green: UInt8, blue: UInt8, alpha: UInt8) {
-    let formerAppearance : NSAppearance =  NSAppearance.current;
+    var result: (red: UInt8, green: UInt8, blue: UInt8, alpha: UInt8) = (0, 0, 0, 255)
     MainActor.assumeIsolated {
-        NSAppearance.current = NSApp.effectiveAppearance
+        NSApp.effectiveAppearance.performAsCurrentDrawingAppearance {
+            if let deviceColor = color.usingColorSpace(.deviceRGB) {
+                result = (UInt8(deviceColor.redComponent * 255),
+                          UInt8(deviceColor.greenComponent * 255),
+                          UInt8(deviceColor.blueComponent * 255),
+                          UInt8(deviceColor.alphaComponent * 255))
+            } else {
+                result = (UInt8(color.redComponent * 255),
+                          UInt8(color.greenComponent * 255),
+                          UInt8(color.blueComponent * 255),
+                          UInt8(color.alphaComponent * 255))
+            }
+        }
     }
-
-    defer { NSAppearance.current = formerAppearance }
-    if let deviceColor = color.usingColorSpace(.deviceRGB) {
-        let r = UInt8(deviceColor.redComponent * 255)
-        let g = UInt8(deviceColor.greenComponent * 255)
-        let b = UInt8(deviceColor.blueComponent * 255)
-        let a = UInt8(deviceColor.alphaComponent * 255)
-        return (r, g, b, a)
-    } else {
-        // Fallback to original color components
-        let r = UInt8(color.redComponent * 255)
-        let g = UInt8(color.greenComponent * 255)
-        let b = UInt8(color.blueComponent * 255)
-        let a = UInt8(color.alphaComponent * 255)
-        return (r, g, b, a)
-    }
+    return result
 }
 public func adjustColorToDeviceColorspace(_ color: NSColor) -> UInt32{
     let result = adjustColorToDeviceColorspaceInternal(color);

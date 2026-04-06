@@ -14,8 +14,8 @@
 #include <wx/button.h>
 #include <wx/window.h>
 
-#include "../../xLights-macOSLib.build/DerivedSources/xLights_macOSLib-Swift.h"
-#include "ExternalHooksMacOS.h"
+#include "ExternalHooksMacOSUI.h"
+#include "xLights_macOSLib_UI-Swift.h"
 
 bool FileExists(const wxFileName &fn, bool waitForDownload) {
     return FileExists(fn.GetFullPath().ToStdString(), waitForDownload);
@@ -25,7 +25,7 @@ bool FileExists(const wxString &s, bool waitForDownload) {
 }
 
 wxString GetOSFormattedClipboardData() {
-    std::string s = xLights_macOSLib::getOSFormattedClipboardData();
+    std::string s = xLights_macOSLib_UI::getOSFormattedClipboardData();
     return wxString(s);
 }
 

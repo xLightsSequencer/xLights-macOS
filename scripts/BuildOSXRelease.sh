@@ -11,8 +11,8 @@ fi
 VER=$1
 
 echo "Building $VER"
-echo "static const std::string xlights_version_string  = \"${VER}\";" > ../xLights/xlights_build_version.h
-touch ../xLights/xLightsVersion.h
+echo "static const std::string xlights_version_string  = \"${VER}\";" > ../src-core/xlights_build_version.h
+touch ../src-core/xLightsVersion.h
 
 if [ -f ~/.apple-notarize-info ]; then
     #Load the stored signing info

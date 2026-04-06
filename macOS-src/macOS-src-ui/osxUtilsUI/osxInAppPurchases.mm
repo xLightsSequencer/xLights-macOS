@@ -6,6 +6,10 @@
 //  Copyright © 2020 Daniel Kulp. All rights reserved.
 
 #import <Foundation/Foundation.h>
+// StoreKit 1 APIs deprecated in macOS 15; StoreKit 2 replacement requires macOS 12+.
+// Suppress until minimum deployment target is raised to macOS 12.
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 #import <StoreKit/StoreKit.h>
 
 typedef void (^RequestProductsCompletionHandler)(BOOL success, NSArray * products);
@@ -275,3 +279,4 @@ bool DoInAppPurchases(wxWindow *w) {
         return false;
     }
 }
+#pragma clang diagnostic pop

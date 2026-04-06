@@ -10,8 +10,8 @@
 #include <mutex>
 #include <string>
 
-#include "../../xLights-macOSLib.build/DerivedSources/xLights_macOSLib-Swift.h"
 #include "ExternalHooksMacOS.h"
+#include "xLights_macOSLib_core-Swift.h"
 
 // ---------------------------------------------------------------------------
 // Legacy bookmark migration — parse the wxConfig INI file without wxWidgets.
@@ -41,7 +41,7 @@ static void loadLegacyBookmarks() {
             std::string key = line.substr(0, eq);
             std::string value = line.substr(eq + 1);
             std::string fullPath = "/" + currentGroup + "/" + key;
-            xLights_macOSLib::addAccessibleURL(fullPath, value);
+            xLights_macOSLib_core::addAccessibleURL(fullPath, value);
         }
     }
 }
@@ -56,12 +56,12 @@ bool ObtainAccessToURL(const std::string &path, bool enforceWritable) {
         }
         oldPrefsChecked = true;
     }
-    return xLights_macOSLib::obtainAccessToURL(path, enforceWritable);
+    return xLights_macOSLib_core::obtainAccessToURL(path, enforceWritable);
 }
 
 
 std::list<std::string> GetFileRevisions(const std::string &path) {
-    swift::Array<swift::String> a = xLights_macOSLib::getFileRevisions(path);
+    swift::Array<swift::String> a = xLights_macOSLib_core::getFileRevisions(path);
     std::list<std::string> ret;
     for (int x = a.getStartIndex(); x < a.getEndIndex(); x++) {
         swift::String s = a[x];

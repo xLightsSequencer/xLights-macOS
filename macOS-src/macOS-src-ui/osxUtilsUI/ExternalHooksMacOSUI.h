@@ -5,22 +5,16 @@
 //
 // Functions like FileExists(wxString), GetAllFilesInDir, SetButtonBackground,
 // AdjustColorToDeviceColorspace are declared in ui/wxUtilities.h (cross-platform)
-// and implemented in xlMacUtilsCppUI.cpp / ExternalHooksMacOS.mm on macOS.
+// and implemented in xlMacUtilsCppUI.cpp / ExternalHooksMacOSUI.mm on macOS.
 // They are NOT re-declared here to avoid duplicate-default-argument errors.
+//
+// Implementations live in ExternalHooksMacOSUI.mm (compiled in the
+// xLights-macOSLib-UI target).
 
 #include "ExternalHooksMacOS.h"
 
-inline bool IsMouseEventFromTouchpad() {
-    return xLights_macOSLib::isMouseEventFromTouchpad();
-}
-
-inline bool hasFullDiskAccess() {
-    return xLights_macOSLib::hasFullDiskAccess();
-}
-
-inline double xlOSGetMainScreenContentScaleFactor() {
-    return xLights_macOSLib::xlOSGetMainScreenContentScaleFactor();
-}
-
+bool IsMouseEventFromTouchpad();
+bool hasFullDiskAccess();
+double xlOSGetMainScreenContentScaleFactor();
 
 #define __XL_EXTERNAL_HOOKS_UI__

@@ -128,7 +128,7 @@ id<MTLRenderPipelineState> MetalDeviceManager::getPipelineState(const std::strin
                 [desc setDepthAttachmentPixelFormat:MTLPixelFormatDepth32Float];
             }
             if (msaa) {
-                [desc setSampleCount:sampleCount];
+                desc.rasterSampleCount = sampleCount;
             }
             NSString* nsVName = [[[NSString alloc] initWithUTF8String:vShader] autorelease];
             NSString* nsFName = [[[NSString alloc] initWithUTF8String:fShader] autorelease];

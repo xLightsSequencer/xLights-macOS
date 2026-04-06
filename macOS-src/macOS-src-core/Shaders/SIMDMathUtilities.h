@@ -5,6 +5,7 @@ Abstract:
 Header for vector, matrix, and quaternion math utility functions useful for 3D graphics rendering.
 */
 
+#include <cstdlib>
 #include <simd/simd.h>
 
 // Because these are common methods, allow other libraries to overload their implementation.
