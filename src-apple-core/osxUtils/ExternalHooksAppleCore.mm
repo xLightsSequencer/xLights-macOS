@@ -33,3 +33,24 @@ void DisableSleepModes() {
 bool IsFromAppStore() {
     return xLights_Apple_core::isFromAppStore();
 }
+
+#import <Metal/Metal.h>
+
+uint64_t GetMetalComputeDeviceRegistryID() {
+    // Return the registry ID of the GPU that Metal compute effects use.
+    // MetalComputeUtilities prefers eGPU, falls back to system default —
+    // mirror that logic here so ANGLE lands on the same device.
+    NSArray<id<MTLDevice>> *devices = MTLCopyAllDevices();
+    for (id<MTLDevice> d in devices) {
+        if ([d isRemovable]) {
+            uint64_t regID = d.registryID;
+            [devices release];
+            return regID;
+        }
+    }
+    [devices release];
+    id<MTLDevice> dev = MTLCreateSystemDefaultDevice();
+    uint64_t regID = dev ? dev.registryID : 0;
+    [dev release];
+    return regID;
+}
