@@ -43,6 +43,7 @@
 		674D3D221C207BCC000D632B /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D211C207BCC000D632B /* IOKit.framework */; };
 		674D3D241C207BD7000D632B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D231C207BD7000D632B /* AudioToolbox.framework */; };
 		674D3D261C207C25000D632B /* libpthread.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D251C207C25000D632B /* libpthread.tbd */; };
+		67595F222F852813009E2066 /* ANGLE.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 67595F212F852813009E2066 /* ANGLE.xcconfig */; };
 		675EDD3D2789D87C00D40FEA /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675EDD3C2789D87C00D40FEA /* liblua.a */; };
 		675FD840204C3C0B003D280F /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B227204BA69B00E90AC7 /* CoreImage.framework */; };
 		675FD841204C3C0C003D280F /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675FD842204C3C0C003D280F /* Accelerate.framework */; };
@@ -102,8 +103,6 @@
 			);
 			script = (
 				"${SRCROOT}/scripts/ispc_compile",
-				"",
-				"",
 				"",
 			);
 		};
@@ -251,6 +250,7 @@
 		674D3D251C207C25000D632B /* libpthread.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libpthread.tbd; path = usr/lib/libpthread.tbd; sourceTree = SDKROOT; };
 		674E27A41B5B37B000274B20 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		674E9C631C9106D600D12F0D /* libwx_osx_cocoau_propgrid-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_propgrid-3.3.dylib"; path = "../../../../opt/local/libdbg/libwx_osx_cocoau_propgrid-3.3.dylib"; sourceTree = "<group>"; };
+		67595F212F852813009E2066 /* ANGLE.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ANGLE.xcconfig; sourceTree = "<group>"; };
 		675EDD3C2789D87C00D40FEA /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblua.a; path = /opt/local/lib/liblua.a; sourceTree = "<group>"; };
 		675FD842204C3C0C003D280F /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		67710581267BBAC5001DA926 /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
@@ -664,6 +664,7 @@
 				673D41A92F841BC400EBE7FD /* src-mac-ui */,
 				DD00000100000000000B0001 /* common */,
 				6771294D2F844D5500C44F57 /* resources */,
+				67595F212F852813009E2066 /* ANGLE.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -840,23 +841,6 @@
 			productName = EffectComputeFunctions;
 			productType = "com.apple.product-type.metal-library";
 		};
-		DD000UMS2F900001000000A1 /* UIMetalShaders */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DD000UMS2F900001000000A5 /* Build configuration list for PBXNativeTarget "UIMetalShaders" */;
-			buildPhases = (
-				DD000UMS2F900001000000A0 /* Sources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				673D41762F841B7B00EBE7FD /* src-apple-core */,
-			);
-			name = UIMetalShaders;
-			productName = UIMetalShaders;
-			productType = "com.apple.product-type.metal-library";
-		};
 		67E7086C17B51AB400A22034 /* xLights */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 67E7088A17B51AB400A22034 /* Build configuration list for PBXNativeTarget "xLights" */;
@@ -939,6 +923,21 @@
 			productName = "xLights-core";
 			productReference = CC00000100000000000X0002 /* libxLights-core.a */;
 			productType = "com.apple.product-type.library.static";
+		};
+		DD000UMS2F900001000000A1 /* UIMetalShaders */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DD000UMS2F900001000000A5 /* Build configuration list for PBXNativeTarget "UIMetalShaders" */;
+			buildPhases = (
+				DD000UMS2F900001000000A0 /* Sources */,
+			);
+			buildRules = (
+			);
+			fileSystemSynchronizedGroups = (
+				673D41762F841B7B00EBE7FD /* src-apple-core */,
+			);
+			name = UIMetalShaders;
+			productName = UIMetalShaders;
+			productType = "com.apple.product-type.metal-library";
 		};
 /* End PBXNativeTarget section */
 
@@ -1024,6 +1023,7 @@
 				67712A052F844D5500C44F57 /* images in Resources */,
 				67712A062F844D5500C44F57 /* meshobjects in Resources */,
 				67712A072F844D5500C44F57 /* mhpresets in Resources */,
+				67595F222F852813009E2066 /* ANGLE.xcconfig in Resources */,
 				67712A082F844D5500C44F57 /* palettes in Resources */,
 				67712A092F844D5500C44F57 /* prompts in Resources */,
 				67712A0A2F844D5500C44F57 /* scripts in Resources */,
@@ -1110,11 +1110,6 @@
 			files = (
 			);
 		};
-		DD000UMS2F900001000000A0 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			files = (
-			);
-		};
 		67E7086917B51AB400A22034 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			files = (
@@ -1167,6 +1162,11 @@
 			files = (
 			);
 		};
+		DD000UMS2F900001000000A0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1190,11 +1190,6 @@
 			target = 678577AD272C735000E6E249 /* EffectComputeFunctions */;
 			targetProxy = 678577B7272C756100E6E249 /* PBXContainerItemProxy */;
 		};
-		DD000UMS2F900001000000A6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DD000UMS2F900001000000A1 /* UIMetalShaders */;
-			targetProxy = DD000UMS2F900001000000A7 /* PBXContainerItemProxy */;
-		};
 		BB00000100000000000C000B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = BB00000100000000000C0001 /* xLights-Apple-core */;
@@ -1214,6 +1209,11 @@
 			isa = PBXTargetDependency;
 			target = CC00000100000000000X0001 /* xLights-core */;
 			targetProxy = CC00000100000000000X000C /* PBXContainerItemProxy */;
+		};
+		DD000UMS2F900001000000A6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DD000UMS2F900001000000A1 /* UIMetalShaders */;
+			targetProxy = DD000UMS2F900001000000A7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1337,39 +1337,6 @@
 			};
 			name = Archive;
 		};
-		DD000UMS2F900001000000A2 /* Debug configuration for PBXNativeTarget "UIMetalShaders" */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_STYLE = Automatic;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		DD000UMS2F900001000000A3 /* Release configuration for PBXNativeTarget "UIMetalShaders" */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_STYLE = Automatic;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		DD000UMS2F900001000000A4 /* Archive configuration for PBXNativeTarget "UIMetalShaders" */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_STYLE = Automatic;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Archive;
-		};
 		67E7088817B51AB400A22034 /* Debug configuration for PBXProject "xLights" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1477,6 +1444,7 @@
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
+					"$(inherited)",
 					"-Wl,-no_compact_unwind",
 					"-headerpad_max_install_names",
 					"-lwx_baseu-3.3",
@@ -1606,6 +1574,7 @@
 				"OTHER_CODE_SIGN_FLAGS[sdk=*]" = "--timestamp";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
+					"$(inherited)",
 					"-Wl,-force_load,$(SDKROOT)/usr/lib/libc++abi.tbd",
 					"-headerpad_max_install_names",
 					"-lwx_baseu-3.3",
@@ -1901,6 +1870,7 @@
 				"OTHER_CODE_SIGN_FLAGS[sdk=*]" = "--timestamp";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
+					"$(inherited)",
 					"-Wl,-force_load,$(SDKROOT)/usr/lib/libc++abi.tbd",
 					"-headerpad_max_install_names",
 					"-lwx_baseu-3.3",
@@ -2335,6 +2305,39 @@
 			};
 			name = Archive;
 		};
+		DD000UMS2F900001000000A2 /* Debug configuration for PBXNativeTarget "UIMetalShaders" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		DD000UMS2F900001000000A3 /* Release configuration for PBXNativeTarget "UIMetalShaders" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		DD000UMS2F900001000000A4 /* Archive configuration for PBXNativeTarget "UIMetalShaders" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Archive;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2353,15 +2356,6 @@
 				678577B2272C735000E6E249 /* Debug configuration for PBXNativeTarget "EffectComputeFunctions" */,
 				678577B3272C735000E6E249 /* Release configuration for PBXNativeTarget "EffectComputeFunctions" */,
 				678577B4272C735000E6E249 /* Archive configuration for PBXNativeTarget "EffectComputeFunctions" */,
-			);
-			defaultConfigurationName = Release;
-		};
-		DD000UMS2F900001000000A5 /* Build configuration list for PBXNativeTarget "UIMetalShaders" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DD000UMS2F900001000000A2 /* Debug configuration for PBXNativeTarget "UIMetalShaders" */,
-				DD000UMS2F900001000000A3 /* Release configuration for PBXNativeTarget "UIMetalShaders" */,
-				DD000UMS2F900001000000A4 /* Archive configuration for PBXNativeTarget "UIMetalShaders" */,
 			);
 			defaultConfigurationName = Release;
 		};
@@ -2407,6 +2401,15 @@
 				CC00000100000000000X0007 /* Debug configuration for PBXNativeTarget "xLights-core" */,
 				CC00000100000000000X0008 /* Release configuration for PBXNativeTarget "xLights-core" */,
 				CC00000100000000000X0009 /* Archive configuration for PBXNativeTarget "xLights-core" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		DD000UMS2F900001000000A5 /* Build configuration list for PBXNativeTarget "UIMetalShaders" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD000UMS2F900001000000A2 /* Debug configuration for PBXNativeTarget "UIMetalShaders" */,
+				DD000UMS2F900001000000A3 /* Release configuration for PBXNativeTarget "UIMetalShaders" */,
+				DD000UMS2F900001000000A4 /* Archive configuration for PBXNativeTarget "UIMetalShaders" */,
 			);
 			defaultConfigurationName = Release;
 		};

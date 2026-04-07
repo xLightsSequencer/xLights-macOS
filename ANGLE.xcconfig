@@ -1,0 +1,12 @@
+// ANGLE.xcconfig — Enable OpenGL ES via ANGLE (Metal backend)
+//
+// To enable ANGLE/GLES for ShaderEffect:
+// 1. Install ANGLE: cd /opt/xLights-macOS-dependencies/submodules && ./build_angle.sh
+// 2. Set this xcconfig in Xcode:
+//    Project > Info > Configurations > set this file for Debug/Release/Archive
+//
+// To revert to desktop OpenGL: remove the xcconfig from the project configurations.
+// The mac_fix_dylibs script auto-detects ANGLE linkage and embeds the dylibs.
+
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) USE_GLES=1
+OTHER_LDFLAGS = $(inherited) -lEGL -lGLESv2

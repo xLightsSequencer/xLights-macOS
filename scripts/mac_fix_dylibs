@@ -82,15 +82,45 @@ if [ -f "$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/xLights.debug.dylib"
     fix_wx_dylib_rpaths "$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/xLights.debug.dylib"
 fi
 
+# --- ANGLE dylibs (OpenGL ES via Metal) ---
+# When USE_GLES is defined, the app links against libEGL.dylib and libGLESv2.dylib.
+# These must be copied into the Frameworks folder so @rpath resolution works at runtime.
+embed_angle_dylibs() {
+    local FRAMEWORKS_DIR="$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Frameworks"
+    local LIBDIR
 
+    # Pick the right library directory based on build configuration
+    if [ "$CONFIGURATION" == "Debug" ]; then
+        LIBDIR="${PROJECT_DIR}/dependencies/libdbg"
+    else
+        LIBDIR="${PROJECT_DIR}/dependencies/lib"
+    fi
 
-#if [ -z "${CODE_SIGN_IDENTITY}" ] ; then
-#    exit 0
-#fi
+    # Only embed if ANGLE dylibs exist in the dependencies
+    if [ ! -f "$LIBDIR/libEGL.dylib" ]; then
+        return
+    fi
 
-#if [ "$CONFIGURATION" != "Debug" ]; then
-#    cd $TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Frameworks
-#    ls -1 *.dylib | xargs -n 1  /usr/bin/codesign  -f -v -s "$EXPANDED_CODE_SIGN_IDENTITY"
-#fi
+    # Check if the binary actually links against ANGLE
+    if ! otool -L "$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/$PRODUCT_NAME" | grep -q "libEGL\|libGLESv2"; then
+        return
+    fi
 
+    echo "Embedding ANGLE dylibs from $LIBDIR"
+    mkdir -p "$FRAMEWORKS_DIR"
+    cp "$LIBDIR/libEGL.dylib" "$FRAMEWORKS_DIR/"
+    cp "$LIBDIR/libGLESv2.dylib" "$FRAMEWORKS_DIR/"
+
+    # Ad-hoc sign for Debug, use the build's signing identity for Release/Archive
+    local SIGN_IDENTITY
+    if [ -n "$EXPANDED_CODE_SIGN_IDENTITY" ] && [ "$EXPANDED_CODE_SIGN_IDENTITY" != "-" ]; then
+        SIGN_IDENTITY="$EXPANDED_CODE_SIGN_IDENTITY"
+    else
+        SIGN_IDENTITY="-"
+    fi
+    /usr/bin/codesign --force --sign "$SIGN_IDENTITY" "$FRAMEWORKS_DIR/libEGL.dylib"
+    /usr/bin/codesign --force --sign "$SIGN_IDENTITY" "$FRAMEWORKS_DIR/libGLESv2.dylib"
+}
+
+embed_angle_dylibs
 
