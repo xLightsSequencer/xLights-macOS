@@ -112,7 +112,19 @@ id<MTLRenderPipelineState> MetalDeviceManager::getPipelineState(const std::strin
                    : (blending ? blendedPipelineStates2D[name] : pipelineStates2D[name]);
     if (a.state == nil) {
         if (defaultLibrary == nil) {
-            defaultLibrary = [device newDefaultLibrary];
+            NSString *libraryFile = [[NSBundle mainBundle] pathForResource:@"UIMetalShaders" ofType:@"metallib"];
+            if (libraryFile) {
+                NSError *error = nil;
+                NSURL *libraryURL = [NSURL fileURLWithPath:libraryFile];
+                defaultLibrary = [device newLibraryWithURL:libraryURL error:&error];
+                if (error) {
+                    spdlog::error("Could not load UIMetalShaders.metallib: {}", [[error localizedDescription] UTF8String]);
+                }
+            }
+            if (defaultLibrary == nil) {
+                spdlog::error("UIMetalShaders.metallib not found in app bundle, falling back to default library");
+                defaultLibrary = [device newDefaultLibrary];
+            }
         }
         @autoreleasepool {
             MTLRenderPipelineDescriptor* desc = [MTLRenderPipelineDescriptor new];
