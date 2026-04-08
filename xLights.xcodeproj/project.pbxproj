@@ -104,7 +104,6 @@
 			script = (
 				"${SRCROOT}/scripts/ispc_compile",
 				"",
-				"",
 			);
 		};
 /* End PBXBuildRule section */
@@ -379,13 +378,17 @@
 			membershipExceptions = (
 				effects/ispc/BarsFunctions.ispc,
 				effects/ispc/ButterflyFunctions.ispc,
+				effects/ispc/CirclesFunctions.ispc,
 				effects/ispc/ColorWashFunctions.ispc,
 				effects/ispc/FanFunctions.ispc,
 				effects/ispc/KaleidoscopeFunctions.ispc,
 				effects/ispc/LayerBlendingFunctions.ispc,
 				effects/ispc/PinwheelFunctions.ispc,
 				effects/ispc/PlasmaFunctions.ispc,
+				effects/ispc/ShockwaveFunctions.ispc,
+				effects/ispc/SpiralsFunctions.ispc,
 				effects/ispc/VideoFunctions.ispc,
+				effects/ispc/WarpFunctions.ispc,
 			);
 		};
 /* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
