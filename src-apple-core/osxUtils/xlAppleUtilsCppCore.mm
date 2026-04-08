@@ -53,6 +53,7 @@ bool ObtainAccessToURL(const std::string &path, bool enforceWritable) {
         std::unique_lock<std::mutex> lock(oldLock);
         if (!oldPrefsChecked) {
             loadLegacyBookmarks();
+            xLights_Apple_core::purgeTemporaryBookmarksSync();
         }
         oldPrefsChecked = true;
     }

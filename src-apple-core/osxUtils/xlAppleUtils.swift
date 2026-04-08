@@ -37,6 +37,28 @@ class xLightsUtilsState {
 };
 
 // MARK: - Utility Functions
+
+/// Returns true if the path is inside the app container's temporary directory.
+/// Bookmarks for such paths are unnecessary (the sandbox already grants access)
+/// and waste space in UserDefaults.
+private func isInTemporaryDirectory(_ path: String) -> Bool {
+    let tmpDir = NSTemporaryDirectory()
+    return path.hasPrefix(tmpDir)
+}
+
+/// Removes all stored bookmarks whose keys point into the container tmp directory.
+/// Called once at startup to reclaim space from previously-stored tmp bookmarks.
+@xLightsUtilsActor
+private func purgeTemporaryBookmarks() {
+    let tmpDir = NSTemporaryDirectory()
+    let dict = xLightsUtilsState.shared.config.dictionaryRepresentation()
+    for key in dict.keys {
+        if key.hasPrefix(tmpDir) {
+            xLightsUtilsState.shared.config.removeObject(forKey: key)
+        }
+    }
+}
+
 @xLightsUtilsActor
 private func isDirAccessible(_ path: String, enforceWritable: Bool) -> Bool {
     if FileManager.default.fileExists(atPath: path) && enforceWritable {
@@ -89,8 +111,8 @@ private func obtainAccessToURLInternal(_ path: String, enforceWritable: Bool) ->
                                               relativeTo: nil)
         let base64String = bookmarkData.base64EncodedString()
 
-        var shouldSave = true
-        if url.hasDirectoryPath {
+        var shouldSave = !isInTemporaryDirectory(path)
+        if shouldSave && url.hasDirectoryPath {
             let pathToCheck = path.hasSuffix("/") ? path : path + "/"
             shouldSave = FileManager.default.isWritableFile(atPath: pathToCheck)
         }
@@ -113,6 +135,15 @@ class AsyncBoolResult: @unchecked Sendable {
 }
 
 // MARK: - Public Functions
+public func purgeTemporaryBookmarksSync() {
+    let semaphore = DispatchSemaphore(value: 0)
+    Task {
+        defer { semaphore.signal() }
+        await purgeTemporaryBookmarks()
+    }
+    semaphore.wait()
+}
+
 public func obtainAccessToURL(_ path: String, enforceWritable: Bool)  -> Bool {
     let semaphore = DispatchSemaphore(value: 0)
     let result: AsyncBoolResult = .init()
