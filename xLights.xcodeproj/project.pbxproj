@@ -90,6 +90,7 @@
 		BB0000020000000000MIDI04 /* MidiFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB0000030000000000MIDI04 /* MidiFile.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
 		BB0000020000000000MIDI05 /* MidiMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB0000030000000000MIDI05 /* MidiMessage.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
 		CC00000100000000000X0003 /* libxLights-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC00000100000000000X0002 /* libxLights-core.a */; };
+		CC00EFM200000000000A0002 /* effectmetadata in Resources */ = {isa = PBXBuildFile; fileRef = CC00EFM200000000000A0003 /* effectmetadata */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -103,7 +104,6 @@
 			);
 			script = (
 				"${SRCROOT}/scripts/ispc_compile",
-				"",
 			);
 		};
 /* End PBXBuildRule section */
@@ -334,6 +334,7 @@
 		BB0000030000000000MIDI04 /* MidiFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MidiFile.cpp; path = ../dependencies/midifile/src/MidiFile.cpp; sourceTree = "<group>"; };
 		BB0000030000000000MIDI05 /* MidiMessage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MidiMessage.cpp; path = ../dependencies/midifile/src/MidiMessage.cpp; sourceTree = "<group>"; };
 		CC00000100000000000X0002 /* libxLights-core.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libxLights-core.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC00EFM200000000000A0003 /* effectmetadata */ = {isa = PBXFileReference; lastKnownFileType = folder; name = effectmetadata; path = ../resources/effectmetadata; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -620,6 +621,7 @@
 				67712B092F844D5500C44F57 /* prompts */,
 				67712B0A2F844D5500C44F57 /* scripts */,
 				67712B0B2F844D5500C44F57 /* valuecurves */,
+				CC00EFM200000000000A0003 /* effectmetadata */,
 			);
 			name = resources;
 			path = ../resources;
@@ -1032,6 +1034,7 @@
 				67712A092F844D5500C44F57 /* prompts in Resources */,
 				67712A0A2F844D5500C44F57 /* scripts in Resources */,
 				67712A0B2F844D5500C44F57 /* valuecurves in Resources */,
+				CC00EFM200000000000A0002 /* effectmetadata in Resources */,
 			);
 		};
 /* End PBXResourcesBuildPhase section */
