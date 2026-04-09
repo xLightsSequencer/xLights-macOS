@@ -20,7 +20,7 @@ ALTERNATIVE METHOD:
 Instead of building all the third partly libs listed below, if you are using the
 EXACT same version of Xcode as the Xcode Cloud nightlies are using (Xcode 26),
 you can make sure /opt/local/include/lualib.h does NOT exist and then run the
-build normally.   Xcode will detect that the dependencies are not avialable locally
+build normally.   Xcode will detect that the dependencies are not available locally
 and will download the required dependencies.
 
 
@@ -85,10 +85,10 @@ For debug builds:
   export OBJCXXFLAGS=""
   export CPPFLAGS="-g"
   export LDFLAGS=""
-  export CXX=clang++ 
-  export CXXCPP="clang++ -E" 
-  export CC=clang 
-  export CPP="clang -E" 
+  export CXX=clang++
+  export CXXCPP="clang++ -E"
+  export CC=clang
+  export CPP="clang -E"
   export CFLAGS="-g"
   ../configure  --prefix=/opt/local --libdir=/opt/local/libdbg \
                 --enable-debug --enable-debug_info --disable-optimise --enable-universal_binary=${BINARY_PLATFORMS} \
