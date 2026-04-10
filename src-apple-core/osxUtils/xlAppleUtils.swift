@@ -7,7 +7,9 @@
 //
 
 import Foundation
+#if canImport(CoreAudio)
 import CoreAudio
+#endif
 import CoreServices
 import Security
 
@@ -82,10 +84,17 @@ private func obtainAccessToURLInternal(_ path: String, enforceWritable: Bool) ->
         let bookmarkData = Data(base64Encoded: val!)
         var isStale = false
         do {
+#if os(iOS)
+             let resolvedURL = try URL(resolvingBookmarkData: bookmarkData!,
+                                     options: [],
+                                     relativeTo: nil,
+                                     bookmarkDataIsStale: &isStale)
+#else
              let resolvedURL = try URL(resolvingBookmarkData: bookmarkData!,
                                      options: [.withoutUI, .withSecurityScope],
                                      relativeTo: nil,
                                      bookmarkDataIsStale: &isStale)
+#endif
 
              if !resolvedURL.startAccessingSecurityScopedResource() {
                  xLightsUtilsState.shared.config.removeObject(forKey: path);
@@ -106,9 +115,15 @@ private func obtainAccessToURLInternal(_ path: String, enforceWritable: Bool) ->
     let url = URL(fileURLWithPath: path)
     // Create new bookmark
     do {
+#if os(iOS)
+        let bookmarkData = try url.bookmarkData(options: [],
+                                              includingResourceValuesForKeys: nil,
+                                              relativeTo: nil)
+#else
         let bookmarkData = try url.bookmarkData(options: .withSecurityScope,
                                               includingResourceValuesForKeys: nil,
                                               relativeTo: nil)
+#endif
         let base64String = bookmarkData.base64EncodedString()
 
         var shouldSave = !isInTemporaryDirectory(path)
@@ -218,6 +233,7 @@ public func fileExists(_ path: String, waitForDownload: Bool) -> Bool {
 public func markNewFileRevision(_ path: String, retainMax: Int) {
     if path.isEmpty { return }
 
+#if !os(iOS)
     autoreleasepool {
         let url = URL(fileURLWithPath: path)
         do {
@@ -234,6 +250,7 @@ public func markNewFileRevision(_ path: String, retainMax: Int) {
             // Handle error if needed
         }
     }
+#endif
 }
 
 public func getFileRevisions(_ path: String) -> [String] {
@@ -323,10 +340,7 @@ public func disableSleepModes() {
 }
 
 
-// MARK: - Audio Device Management
-// Audio device change listeners removed — AVAudioEngine handles device
-// routing changes automatically.
-
+#if !os(iOS)
 @xLightsUtilsActor private func isFromAppStoreInternal() -> Bool {
     if xLightsUtilsState.shared.osxStatus == -1 {
         xLightsUtilsState.shared.osxStatus = 0
@@ -365,7 +379,12 @@ public func disableSleepModes() {
 
     return xLightsUtilsState.shared.osxStatus == 1
 }
+#endif
 public func isFromAppStore() -> Bool {
+#if os(iOS)
+    // iOS apps are always from the AppStore
+    return true
+#else
     let semaphore = DispatchSemaphore(value: 0)
     let result: AsyncBoolResult = .init();
     Task {
@@ -376,5 +395,6 @@ public func isFromAppStore() -> Bool {
     }
     semaphore.wait()
     return result.result;
+#endif
 }
 

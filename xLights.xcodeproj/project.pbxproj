@@ -92,6 +92,43 @@
 		BB0000020000000000MIDI05 /* MidiMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB0000030000000000MIDI05 /* MidiMessage.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
 		CC00000100000000000X0003 /* libxLights-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC00000100000000000X0002 /* libxLights-core.a */; };
 		CC00EFM200000000000A0002 /* effectmetadata in Resources */ = {isa = PBXBuildFile; fileRef = CC00EFM200000000000A0003 /* effectmetadata */; };
+		DD00000100000000RES00001 /* colorcurves in Resources */ = {isa = PBXBuildFile; fileRef = 67712B012F844D5500C44F57 /* colorcurves */; };
+		DD00000100000000RES00002 /* controllers in Resources */ = {isa = PBXBuildFile; fileRef = 67712B022F844D5500C44F57 /* controllers */; };
+		DD00000100000000RES00003 /* dictionaries in Resources */ = {isa = PBXBuildFile; fileRef = 67712B032F844D5500C44F57 /* dictionaries */; };
+		DD00000100000000RES00004 /* html in Resources */ = {isa = PBXBuildFile; fileRef = 67712B042F844D5500C44F57 /* html */; };
+		DD00000100000000RES00005 /* images in Resources */ = {isa = PBXBuildFile; fileRef = 67712B052F844D5500C44F57 /* images */; };
+		DD00000100000000RES00006 /* meshobjects in Resources */ = {isa = PBXBuildFile; fileRef = 67712B062F844D5500C44F57 /* meshobjects */; };
+		DD00000100000000RES00007 /* mhpresets in Resources */ = {isa = PBXBuildFile; fileRef = 67712B072F844D5500C44F57 /* mhpresets */; };
+		DD00000100000000RES00008 /* palettes in Resources */ = {isa = PBXBuildFile; fileRef = 67712B082F844D5500C44F57 /* palettes */; };
+		DD00000100000000RES00009 /* prompts in Resources */ = {isa = PBXBuildFile; fileRef = 67712B092F844D5500C44F57 /* prompts */; };
+		DD00000100000000RES0000A /* scripts in Resources */ = {isa = PBXBuildFile; fileRef = 67712B0A2F844D5500C44F57 /* scripts */; };
+		DD00000100000000RES0000B /* valuecurves in Resources */ = {isa = PBXBuildFile; fileRef = 67712B0B2F844D5500C44F57 /* valuecurves */; };
+		DD00000100000000RES0000C /* effectmetadata in Resources */ = {isa = PBXBuildFile; fileRef = CC00EFM200000000000A0003 /* effectmetadata */; };
+		DD00000200000000000I0001 /* libxLights-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC00000100000000000X0002 /* libxLights-core.a */; };
+		DD00000200000000000I0002 /* libxLights-Apple-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB00000100000000000C0002 /* libxLights-Apple-core.a */; };
+		DD00000200000000000I0003 /* libxLights-iPadLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD00000100000000000I0002 /* libxLights-iPadLib.a */; };
+		DD00000200000000000I0004 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BE0DF92727C0AB00558A3A /* Metal.framework */; };
+		DD00000200000000000I0005 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BE0DF82727C0AB00558A3A /* MetalKit.framework */; };
+		DD00000200000000000I0006 /* libISPCEffectComputeFunctions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6785716B2F72C6E100F50F9F /* libISPCEffectComputeFunctions.a */; };
+		DD00000200000000000I0008 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 508754EE92C352178126B474 /* AVFoundation.framework */; };
+		DD00000200000000000I0009 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D231C207BD7000D632B /* AudioToolbox.framework */; };
+		DD00000200000000000I000A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B4C91F17B53D960006B951 /* CoreMedia.framework */; };
+		DD00000200000000000I000B /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B4C92117B53D960006B951 /* CoreVideo.framework */; };
+		DD00000200000000000I000C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C8520DD337E006EFCFA /* Security.framework */; };
+		DD00000200000000000I000D /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B6F3422040FBB600B847E0 /* CoreAudio.framework */; };
+		DD00000200000000000I000E /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67061FD22746D5330020519D /* MetalPerformanceShaders.framework */; };
+		DD00000200000000000I000F /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67290003255303D500C83C71 /* VideoToolbox.framework */; };
+		DD00000200000000000I0010 /* ModelIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 670F8DC927652F5E002F0CD6 /* ModelIO.framework */; };
+		DD00000200000000000P0014 /* pugixml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67DA60662F7FF15300A41238 /* pugixml.cpp */; };
+		DD00000200000000000P0015 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C8320DD336E006EFCFA /* libz.tbd */; };
+		DD00000200000000000P0016 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675FD842204C3C0C003D280F /* Accelerate.framework */; };
+		DD00000200000000000P0017 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = AA0001032F900000000000A1 /* ioapi.c */; settings = {COMPILER_FLAGS = "-std=gnu11 -w"; }; };
+		DD00000200000000000P0018 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = AA0001042F900000000000A2 /* unzip.c */; settings = {COMPILER_FLAGS = "-std=gnu11 -w"; }; };
+		DD00000200000000000P0019 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = AA0001082F900000000000A5 /* zip.c */; settings = {COMPILER_FLAGS = "-std=gnu11 -w"; }; };
+		DD00000200000000ANGLE001 /* libEGL.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD00000100000000ANGLE001 /* libEGL.xcframework */; };
+		DD00000200000000ANGLE002 /* libGLESv2.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD00000100000000ANGLE002 /* libGLESv2.xcframework */; };
+		DD00000200000000ANGLE003 /* libEGL.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DD00000100000000ANGLE001 /* libEGL.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DD00000200000000ANGLE004 /* libGLESv2.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DD00000100000000ANGLE002 /* libGLESv2.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -166,6 +203,62 @@
 			remoteGlobalIDString = CC00000100000000000X0001;
 			remoteInfo = "xLights-core";
 		};
+		DD00000100000000000I000A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CC00000100000000000X0001;
+			remoteInfo = "xLights-core";
+		};
+		DD00000100000000000I000B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BB00000100000000000C0001;
+			remoteInfo = "xLights-Apple-core";
+		};
+		DD00000100000000000P000A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CC00000100000000000X0001;
+			remoteInfo = "xLights-core";
+		};
+		DD00000100000000000P000B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BB00000100000000000C0001;
+			remoteInfo = "xLights-Apple-core";
+		};
+		DD00000100000000000P000C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DD00000100000000000I0001;
+			remoteInfo = "xLights-iPadLib";
+		};
+		DD00000100000000000P000D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6785716A2F72C6E100F50F9F;
+			remoteInfo = ISPCEffectComputeFunctions;
+		};
+		DD00000100000000000P000E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 678577AD272C735000E6E249;
+			remoteInfo = EffectComputeFunctions;
+		};
+		DD00000100000000000P0020 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DD000UMS2F900001000000A1;
+			remoteInfo = UIMetalShaders;
+		};
 		DD000UMS2F900001000000A7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
@@ -174,6 +267,19 @@
 			remoteInfo = UIMetalShaders;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DD00000100000000ANGLE005 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			dstPath = "";
+			dstSubfolder = Frameworks;
+			files = (
+				DD00000200000000ANGLE003 /* libEGL.xcframework in Embed Frameworks */,
+				DD00000200000000ANGLE004 /* libGLESv2.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		508754EE92C352178126B474 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -305,6 +411,7 @@
 		67DA60652F7FF15300A41238 /* pugixml.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = pugixml.hpp; path = ../dependencies/pugixml/src/pugixml.hpp; sourceTree = SOURCE_ROOT; };
 		67DA60662F7FF15300A41238 /* pugixml.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = pugixml.cpp; path = ../dependencies/pugixml/src/pugixml.cpp; sourceTree = SOURCE_ROOT; };
 		67E00443256D6FA900E12C81 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		67E523912F89358D00650460 /* xLights-iPad.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "xLights-iPad.entitlements"; sourceTree = "<group>"; };
 		67E7086D17B51AB400A22034 /* xLights.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = xLights.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67E7087017B51AB400A22034 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		67E7087317B51AB400A22034 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -337,6 +444,10 @@
 		BB0000030000000000MIDI05 /* MidiMessage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MidiMessage.cpp; path = ../dependencies/midifile/src/MidiMessage.cpp; sourceTree = "<group>"; };
 		CC00000100000000000X0002 /* libxLights-core.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libxLights-core.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC00EFM200000000000A0003 /* effectmetadata */ = {isa = PBXFileReference; lastKnownFileType = folder; name = effectmetadata; path = ../resources/effectmetadata; sourceTree = SOURCE_ROOT; };
+		DD00000100000000000I0002 /* libxLights-iPadLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libxLights-iPadLib.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD00000100000000000P0002 /* xLights.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = xLights.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD00000100000000ANGLE001 /* libEGL.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = libEGL.xcframework; path = "dependencies/lib-ios/libEGL.xcframework"; sourceTree = SOURCE_ROOT; };
+		DD00000100000000ANGLE002 /* libGLESv2.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = libGLESv2.xcframework; path = "dependencies/lib-ios/libGLESv2.xcframework"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -573,6 +684,12 @@
 			path = ../common;
 			sourceTree = SOURCE_ROOT;
 		};
+		DD00000100000000000I0009 /* src-iPad */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			name = "src-iPad";
+			path = "../src-iPad";
+			sourceTree = SOURCE_ROOT;
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -639,6 +756,35 @@
 			files = (
 			);
 		};
+		DD00000100000000000I0004 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+		DD00000100000000000P0004 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+				DD00000200000000000I0001 /* libxLights-core.a in Frameworks */,
+				DD00000200000000000I0002 /* libxLights-Apple-core.a in Frameworks */,
+				DD00000200000000000I0003 /* libxLights-iPadLib.a in Frameworks */,
+				DD00000200000000000I0004 /* Metal.framework in Frameworks */,
+				DD00000200000000000I0005 /* MetalKit.framework in Frameworks */,
+				DD00000200000000000I0006 /* libISPCEffectComputeFunctions.a in Frameworks */,
+				DD00000200000000000I0008 /* AVFoundation.framework in Frameworks */,
+				DD00000200000000000I0009 /* AudioToolbox.framework in Frameworks */,
+				DD00000200000000000I000A /* CoreMedia.framework in Frameworks */,
+				DD00000200000000000I000B /* CoreVideo.framework in Frameworks */,
+				DD00000200000000000I000C /* Security.framework in Frameworks */,
+				DD00000200000000000I000D /* CoreAudio.framework in Frameworks */,
+				DD00000200000000000I000E /* MetalPerformanceShaders.framework in Frameworks */,
+				DD00000200000000000I000F /* VideoToolbox.framework in Frameworks */,
+				DD00000200000000000I0010 /* ModelIO.framework in Frameworks */,
+				DD00000200000000000P0015 /* libz.tbd in Frameworks */,
+				DD00000200000000000P0016 /* Accelerate.framework in Frameworks */,
+				DD00000200000000ANGLE001 /* libEGL.xcframework in Frameworks */,
+				DD00000200000000ANGLE002 /* libGLESv2.xcframework in Frameworks */,
+			);
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -646,6 +792,7 @@
 			isa = PBXGroup;
 			children = (
 				67164BB425D7CD190041BB9A /* xLights */,
+				67E523902F89358D00650460 /* xLights-iPad */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -792,6 +939,14 @@
 			path = pugixml;
 			sourceTree = "<group>";
 		};
+		67E523902F89358D00650460 /* xLights-iPad */ = {
+			isa = PBXGroup;
+			children = (
+				67E523912F89358D00650460 /* xLights-iPad.entitlements */,
+			);
+			path = "xLights-iPad";
+			sourceTree = "<group>";
+		};
 		67E7086417B51AB400A22034 = {
 			isa = PBXGroup;
 			children = (
@@ -806,6 +961,8 @@
 				673D41762F841B7B00EBE7FD /* src-apple-core */,
 				673D41A92F841BC400EBE7FD /* src-mac-ui */,
 				DD00000100000000000B0001 /* common */,
+				DD00000100000000000I0009 /* src-iPad */,
+				DD00000100000000ANGLE099 /* ANGLE */,
 				6771294D2F844D5500C44F57 /* resources */,
 				67595F212F852813009E2066 /* ANGLE.xcconfig */,
 				6735D40E2F8CC50E00E972AB /* ccache.xcconfig */,
@@ -820,6 +977,8 @@
 				BB00000100000000000C0002 /* libxLights-Apple-core.a */,
 				BB00000100000000000U0002 /* libxLights-macOSLib-UI.a */,
 				6785716B2F72C6E100F50F9F /* libISPCEffectComputeFunctions.a */,
+				DD00000100000000000I0002 /* libxLights-iPadLib.a */,
+				DD00000100000000000P0002 /* xLights.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -935,6 +1094,15 @@
 				BB0000030000000000MIDI05 /* MidiMessage.cpp */,
 			);
 			name = midifile;
+			sourceTree = "<group>";
+		};
+		DD00000100000000ANGLE099 /* ANGLE */ = {
+			isa = PBXGroup;
+			children = (
+				DD00000100000000ANGLE001 /* libEGL.xcframework */,
+				DD00000100000000ANGLE002 /* libGLESv2.xcframework */,
+			);
+			name = ANGLE;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1068,6 +1236,55 @@
 			productReference = CC00000100000000000X0002 /* libxLights-core.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		DD00000100000000000I0001 /* xLights-iPadLib */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DD00000100000000000I0005 /* Build configuration list for PBXNativeTarget "xLights-iPadLib" */;
+			buildPhases = (
+				DD00000100000000000I0003 /* Sources */,
+				DD00000100000000000I0004 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DD00000100000000000I000C /* PBXTargetDependency */,
+				DD00000100000000000I000D /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				DD00000100000000000I0009 /* src-iPad */,
+			);
+			name = "xLights-iPadLib";
+			productName = "xLights-iPadLib";
+			productReference = DD00000100000000000I0002 /* libxLights-iPadLib.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		DD00000100000000000P0001 /* xLights-iPad */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DD00000100000000000P0006 /* Build configuration list for PBXNativeTarget "xLights-iPad" */;
+			buildPhases = (
+				DD00000100000000000P0003 /* Sources */,
+				DD00000100000000000P0004 /* Frameworks */,
+				DD00000100000000000P0005 /* Resources */,
+				DD00000100000000ANGLE005 /* Embed Frameworks */,
+				DD00000100000000000P0022 /* Copy Metal Libraries */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DD00000100000000000P000F /* PBXTargetDependency */,
+				DD00000100000000000P0010 /* PBXTargetDependency */,
+				DD00000100000000000P0011 /* PBXTargetDependency */,
+				DD00000100000000000P0012 /* PBXTargetDependency */,
+				DD00000100000000000P0013 /* PBXTargetDependency */,
+				DD00000100000000000P0021 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				DD00000100000000000I0009 /* src-iPad */,
+			);
+			name = "xLights-iPad";
+			productName = "xLights-iPad";
+			productReference = DD00000100000000000P0002 /* xLights.app */;
+			productType = "com.apple.product-type.application";
+		};
 		DD000UMS2F900001000000A1 /* UIMetalShaders */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DD000UMS2F900001000000A5 /* Build configuration list for PBXNativeTarget "UIMetalShaders" */;
@@ -1128,6 +1345,13 @@
 					CC00000100000000000X0001 = {
 						CreatedOnToolsVersion = 26.3;
 					};
+					DD00000100000000000I0001 = {
+						CreatedOnToolsVersion = 26.3;
+					};
+					DD00000100000000000P0001 = {
+						CreatedOnToolsVersion = 26.3;
+						LastSwiftMigration = 1640;
+					};
 				};
 			};
 			buildConfigurationList = 67E7086817B51AB400A22034 /* Build configuration list for PBXProject "xLights" */;
@@ -1151,6 +1375,8 @@
 				6785716A2F72C6E100F50F9F /* ISPCEffectComputeFunctions */,
 				BB00000100000000000C0001 /* xLights-Apple-core */,
 				BB00000100000000000U0001 /* xLights-macOSLib-UI */,
+				DD00000100000000000I0001 /* xLights-iPadLib */,
+				DD00000100000000000P0001 /* xLights-iPad */,
 			);
 		};
 /* End PBXProject section */
@@ -1174,6 +1400,23 @@
 				67712A0B2F844D5500C44F57 /* valuecurves in Resources */,
 				CC00EFM200000000000A0002 /* effectmetadata in Resources */,
 				6735D40F2F8CC50E00E972AB /* ccache.xcconfig in Resources */,
+			);
+		};
+		DD00000100000000000P0005 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+				DD00000100000000RES00001 /* colorcurves in Resources */,
+				DD00000100000000RES00002 /* controllers in Resources */,
+				DD00000100000000RES00003 /* dictionaries in Resources */,
+				DD00000100000000RES00004 /* html in Resources */,
+				DD00000100000000RES00005 /* images in Resources */,
+				DD00000100000000RES00006 /* meshobjects in Resources */,
+				DD00000100000000RES00007 /* mhpresets in Resources */,
+				DD00000100000000RES00008 /* palettes in Resources */,
+				DD00000100000000RES00009 /* prompts in Resources */,
+				DD00000100000000RES0000A /* scripts in Resources */,
+				DD00000100000000RES0000B /* valuecurves in Resources */,
+				DD00000100000000RES0000C /* effectmetadata in Resources */,
 			);
 		};
 /* End PBXResourcesBuildPhase section */
@@ -1243,6 +1486,24 @@
 			);
 			showEnvVarsInLog = 0;
 		};
+		DD00000100000000000P0022 /* Copy Metal Libraries */ = {
+			isa = PBXShellScriptBuildPhase;
+			inputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/UIMetalShaders.metallib",
+				"$(BUILT_PRODUCTS_DIR)/EffectComputeFunctions.metallib",
+			);
+			name = "Copy Metal Libraries";
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/UIMetalShaders.metallib",
+				"$(BUILT_PRODUCTS_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/EffectComputeFunctions.metallib",
+			);
+			shellPath = /bin/sh;
+			shellScript = (
+				"cp -f \"${BUILT_PRODUCTS_DIR}/UIMetalShaders.metallib\" \"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\"",
+				"cp -f \"${BUILT_PRODUCTS_DIR}/EffectComputeFunctions.metallib\" \"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\"",
+				"",
+			);
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1308,6 +1569,20 @@
 			files = (
 			);
 		};
+		DD00000100000000000I0003 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
+		DD00000100000000000P0003 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				DD00000200000000000P0014 /* pugixml.cpp in Sources */,
+				DD00000200000000000P0017 /* ioapi.c in Sources */,
+				DD00000200000000000P0018 /* unzip.c in Sources */,
+				DD00000200000000000P0019 /* zip.c in Sources */,
+			);
+		};
 		DD000UMS2F900001000000A0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			files = (
@@ -1356,6 +1631,46 @@
 			target = CC00000100000000000X0001 /* xLights-core */;
 			targetProxy = CC00000100000000000X000C /* PBXContainerItemProxy */;
 		};
+		DD00000100000000000I000C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CC00000100000000000X0001 /* xLights-core */;
+			targetProxy = DD00000100000000000I000A /* PBXContainerItemProxy */;
+		};
+		DD00000100000000000I000D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BB00000100000000000C0001 /* xLights-Apple-core */;
+			targetProxy = DD00000100000000000I000B /* PBXContainerItemProxy */;
+		};
+		DD00000100000000000P000F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CC00000100000000000X0001 /* xLights-core */;
+			targetProxy = DD00000100000000000P000A /* PBXContainerItemProxy */;
+		};
+		DD00000100000000000P0010 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BB00000100000000000C0001 /* xLights-Apple-core */;
+			targetProxy = DD00000100000000000P000B /* PBXContainerItemProxy */;
+		};
+		DD00000100000000000P0011 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DD00000100000000000I0001 /* xLights-iPadLib */;
+			targetProxy = DD00000100000000000P000C /* PBXContainerItemProxy */;
+		};
+		DD00000100000000000P0012 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6785716A2F72C6E100F50F9F /* ISPCEffectComputeFunctions */;
+			targetProxy = DD00000100000000000P000D /* PBXContainerItemProxy */;
+		};
+		DD00000100000000000P0013 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 678577AD272C735000E6E249 /* EffectComputeFunctions */;
+			targetProxy = DD00000100000000000P000E /* PBXContainerItemProxy */;
+		};
+		DD00000100000000000P0021 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DD000UMS2F900001000000A1 /* UIMetalShaders */;
+			targetProxy = DD00000100000000000P0020 /* PBXContainerItemProxy */;
+		};
 		DD000UMS2F900001000000A6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DD000UMS2F900001000000A1 /* UIMetalShaders */;
@@ -1389,6 +1704,8 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 			};
 			name = Debug;
 		};
@@ -1418,6 +1735,8 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 			};
 			name = Release;
 		};
@@ -1447,6 +1766,8 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 			};
 			name = Archive;
 		};
@@ -1458,6 +1779,8 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 			};
 			name = Debug;
 		};
@@ -1469,6 +1792,8 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 			};
 			name = Release;
 		};
@@ -1480,6 +1805,8 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 			};
 			name = Archive;
 		};
@@ -1563,6 +1890,7 @@
 					../dependencies/spdlog/include,
 					"$(DERIVED_SOURCES_DIR)",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				"LIBRARY_SEARCH_PATHS[arch=*]" = (
 					/usr/lib,
@@ -1692,6 +2020,7 @@
 					../dependencies/spdlog/include,
 					"$(DERIVED_SOURCES_DIR)",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				"LIBRARY_SEARCH_PATHS[arch=*]" = /usr/lib;
 				LLVM_LTO = YES_THIN;
@@ -1982,6 +2311,7 @@
 					../dependencies/spdlog/include,
 					"$(DERIVED_SOURCES_DIR)",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				"LIBRARY_SEARCH_PATHS[arch=*]" = (
 					/usr/lib,
@@ -2131,6 +2461,8 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CODE_SIGN_STYLE = Automatic;
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = xlVideoToolboxUtils.mm;
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = xlVideoToolboxUtils.mm;
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREFIX_HEADER = "src-apple-core/Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -2151,6 +2483,8 @@
 				OTHER_SWIFT_FLAGS = "-enable-experimental-feature Extern";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 6.0;
 			};
@@ -2166,6 +2500,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_NS_ASSERTIONS = NO;
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = xlVideoToolboxUtils.mm;
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = xlVideoToolboxUtils.mm;
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREFIX_HEADER = "src-apple-core/Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -2186,6 +2522,8 @@
 				OTHER_SWIFT_FLAGS = "-enable-experimental-feature Extern";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 6.0;
 			};
 			name = Release;
@@ -2200,6 +2538,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_NS_ASSERTIONS = NO;
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = xlVideoToolboxUtils.mm;
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = xlVideoToolboxUtils.mm;
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREFIX_HEADER = "src-apple-core/Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -2220,6 +2560,8 @@
 				OTHER_SWIFT_FLAGS = "-enable-experimental-feature Extern";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 6.0;
 			};
 			name = Archive;
@@ -2338,9 +2680,23 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = (
+					AudioLoader.cpp,
+					FFmpegAudioDecoder.cpp,
+					FFmpegVideoReader.cpp,
+					SDLAudioOutput.cpp,
+				);
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = (
+					AudioLoader.cpp,
+					FFmpegAudioDecoder.cpp,
+					FFmpegVideoReader.cpp,
+					SDLAudioOutput.cpp,
+				);
 				EXECUTABLE_PREFIX = lib;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREFIX_HEADER = "../src-core/Prefix.pch";
+				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphoneos*]" = "USE_GLES=1";
+				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphonesimulator*]" = "USE_GLES=1";
 				HEADER_SEARCH_PATHS = (
 					"../src-core/render",
 					"../src-core/utils",
@@ -2364,6 +2720,8 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 			};
 			name = Debug;
 		};
@@ -2373,8 +2731,22 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_NS_ASSERTIONS = NO;
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = (
+					AudioLoader.cpp,
+					FFmpegAudioDecoder.cpp,
+					FFmpegVideoReader.cpp,
+					SDLAudioOutput.cpp,
+				);
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = (
+					AudioLoader.cpp,
+					FFmpegAudioDecoder.cpp,
+					FFmpegVideoReader.cpp,
+					SDLAudioOutput.cpp,
+				);
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREFIX_HEADER = "../src-core/Prefix.pch";
+				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphoneos*]" = "USE_GLES=1";
+				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphonesimulator*]" = "USE_GLES=1";
 				HEADER_SEARCH_PATHS = (
 					"../src-core/render",
 					"../src-core/utils",
@@ -2398,6 +2770,8 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 			};
 			name = Release;
 		};
@@ -2407,8 +2781,22 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_NS_ASSERTIONS = NO;
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = (
+					AudioLoader.cpp,
+					FFmpegAudioDecoder.cpp,
+					FFmpegVideoReader.cpp,
+					SDLAudioOutput.cpp,
+				);
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = (
+					AudioLoader.cpp,
+					FFmpegAudioDecoder.cpp,
+					FFmpegVideoReader.cpp,
+					SDLAudioOutput.cpp,
+				);
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREFIX_HEADER = "../src-core/Prefix.pch";
+				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphoneos*]" = "USE_GLES=1";
+				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphonesimulator*]" = "USE_GLES=1";
 				HEADER_SEARCH_PATHS = (
 					"../src-core/render",
 					"../src-core/utils",
@@ -2432,6 +2820,307 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+			};
+			name = Archive;
+		};
+		DD00000100000000000I0006 /* Debug configuration for PBXNativeTarget "xLights-iPadLib" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				EXECUTABLE_PREFIX = lib;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphoneos*]" = "USE_GLES=1";
+				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphonesimulator*]" = "USE_GLES=1";
+				HEADER_SEARCH_PATHS = (
+					"../src-core/render",
+					"../src-core/utils",
+					"../src-core",
+					..,
+					../include,
+					dependencies/include,
+					"src-apple-core",
+					../dependencies,
+					../dependencies/pugixml/src,
+					../dependencies/spdlog/include,
+				);
+				OTHER_CFLAGS = (
+					"-fno-common",
+					"-D_FILE_OFFSET_BITS=64",
+					"-Wno-nan-infinity-disabled",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "../src-iPad/iPad-Bridging-Header.h";
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		DD00000100000000000I0007 /* Release configuration for PBXNativeTarget "xLights-iPadLib" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_NS_ASSERTIONS = NO;
+				EXECUTABLE_PREFIX = lib;
+				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphoneos*]" = "USE_GLES=1";
+				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphonesimulator*]" = "USE_GLES=1";
+				HEADER_SEARCH_PATHS = (
+					"../src-core/render",
+					"../src-core/utils",
+					"../src-core",
+					..,
+					../include,
+					dependencies/include,
+					"src-apple-core",
+					../dependencies,
+					../dependencies/pugixml/src,
+					../dependencies/spdlog/include,
+				);
+				OTHER_CFLAGS = (
+					"-fno-common",
+					"-D_FILE_OFFSET_BITS=64",
+					"-Wno-nan-infinity-disabled",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "../src-iPad/iPad-Bridging-Header.h";
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		DD00000100000000000I0008 /* Archive configuration for PBXNativeTarget "xLights-iPadLib" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_NS_ASSERTIONS = NO;
+				EXECUTABLE_PREFIX = lib;
+				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphoneos*]" = "USE_GLES=1";
+				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphonesimulator*]" = "USE_GLES=1";
+				HEADER_SEARCH_PATHS = (
+					"../src-core/render",
+					"../src-core/utils",
+					"../src-core",
+					..,
+					../include,
+					dependencies/include,
+					"src-apple-core",
+					../dependencies,
+					../dependencies/pugixml/src,
+					../dependencies/spdlog/include,
+				);
+				OTHER_CFLAGS = (
+					"-fno-common",
+					"-D_FILE_OFFSET_BITS=64",
+					"-Wno-nan-infinity-disabled",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "../src-iPad/iPad-Bridging-Header.h";
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Archive;
+		};
+		DD00000100000000000P0007 /* Debug configuration for PBXNativeTarget "xLights-iPad" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = "Assets/xLights-iPad/xLights-iPad.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 100;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphoneos*]" = "USE_GLES=1";
+				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphonesimulator*]" = "USE_GLES=1";
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"../src-core/render",
+					"../src-core/utils",
+					"../src-core",
+					..,
+					../include,
+					dependencies/include,
+					"src-apple-core",
+					../dependencies,
+					../dependencies/pugixml/src,
+					../dependencies/liquidfun/liquidfun/Box2D,
+					../dependencies/midifile/include,
+					../dependencies/spdlog/include,
+				);
+				INFOPLIST_KEY_CFBundleDisplayName = xLights;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = "dependencies/libdbg-ios";
+				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = "dependencies/libdbg-ios-sim";
+				MARKETING_VERSION = 260000;
+				OTHER_CFLAGS = (
+					"-fno-common",
+					"-D_FILE_OFFSET_BITS=64",
+					"-Wno-nan-infinity-disabled",
+				);
+				OTHER_LDFLAGS = (
+					"-lzstd",
+					"-llua",
+					"-lliquidfun",
+					"-lcurl",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.xlights;
+				PRODUCT_NAME = xLights;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "../src-iPad/iPad-Bridging-Header.h";
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		DD00000100000000000P0008 /* Release configuration for PBXNativeTarget "xLights-iPad" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = "Assets/xLights-iPad/xLights-iPad.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 100;
+				ENABLE_NS_ASSERTIONS = NO;
+				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphoneos*]" = "USE_GLES=1";
+				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphonesimulator*]" = "USE_GLES=1";
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"../src-core/render",
+					"../src-core/utils",
+					"../src-core",
+					..,
+					../include,
+					dependencies/include,
+					"src-apple-core",
+					../dependencies,
+					../dependencies/pugixml/src,
+					../dependencies/liquidfun/liquidfun/Box2D,
+					../dependencies/midifile/include,
+					../dependencies/spdlog/include,
+				);
+				INFOPLIST_KEY_CFBundleDisplayName = xLights;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = "dependencies/lib-ios";
+				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = "dependencies/lib-ios-sim";
+				MARKETING_VERSION = 260000;
+				OTHER_CFLAGS = (
+					"-fno-common",
+					"-D_FILE_OFFSET_BITS=64",
+					"-Wno-nan-infinity-disabled",
+				);
+				OTHER_LDFLAGS = (
+					"-lzstd",
+					"-llua",
+					"-lliquidfun",
+					"-lcurl",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.xlights;
+				PRODUCT_NAME = xLights;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "../src-iPad/iPad-Bridging-Header.h";
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Release;
+		};
+		DD00000100000000000P0009 /* Archive configuration for PBXNativeTarget "xLights-iPad" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = "Assets/xLights-iPad/xLights-iPad.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 100;
+				ENABLE_NS_ASSERTIONS = NO;
+				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphoneos*]" = "USE_GLES=1";
+				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphonesimulator*]" = "USE_GLES=1";
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"../src-core/render",
+					"../src-core/utils",
+					"../src-core",
+					..,
+					../include,
+					dependencies/include,
+					"src-apple-core",
+					../dependencies,
+					../dependencies/pugixml/src,
+					../dependencies/liquidfun/liquidfun/Box2D,
+					../dependencies/midifile/include,
+					../dependencies/spdlog/include,
+				);
+				INFOPLIST_KEY_CFBundleDisplayName = xLights;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = "dependencies/lib-ios";
+				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = "dependencies/lib-ios-sim";
+				MARKETING_VERSION = 260000;
+				OTHER_CFLAGS = (
+					"-fno-common",
+					"-D_FILE_OFFSET_BITS=64",
+					"-Wno-nan-infinity-disabled",
+				);
+				OTHER_LDFLAGS = (
+					"-lzstd",
+					"-llua",
+					"-lliquidfun",
+					"-lcurl",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.xlights;
+				PRODUCT_NAME = xLights;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "../src-iPad/iPad-Bridging-Header.h";
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Archive;
 		};
@@ -2443,6 +3132,8 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 			};
 			name = Debug;
 		};
@@ -2454,6 +3145,8 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 			};
 			name = Release;
 		};
@@ -2465,6 +3158,8 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 			};
 			name = Archive;
 		};
@@ -2531,6 +3226,24 @@
 				CC00000100000000000X0007 /* Debug configuration for PBXNativeTarget "xLights-core" */,
 				CC00000100000000000X0008 /* Release configuration for PBXNativeTarget "xLights-core" */,
 				CC00000100000000000X0009 /* Archive configuration for PBXNativeTarget "xLights-core" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		DD00000100000000000I0005 /* Build configuration list for PBXNativeTarget "xLights-iPadLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD00000100000000000I0006 /* Debug configuration for PBXNativeTarget "xLights-iPadLib" */,
+				DD00000100000000000I0007 /* Release configuration for PBXNativeTarget "xLights-iPadLib" */,
+				DD00000100000000000I0008 /* Archive configuration for PBXNativeTarget "xLights-iPadLib" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		DD00000100000000000P0006 /* Build configuration list for PBXNativeTarget "xLights-iPad" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD00000100000000000P0007 /* Debug configuration for PBXNativeTarget "xLights-iPad" */,
+				DD00000100000000000P0008 /* Release configuration for PBXNativeTarget "xLights-iPad" */,
+				DD00000100000000000P0009 /* Archive configuration for PBXNativeTarget "xLights-iPad" */,
 			);
 			defaultConfigurationName = Release;
 		};

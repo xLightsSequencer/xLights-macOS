@@ -8,11 +8,28 @@ ISPCFLAG=-O3
 fi
 
 mkdir -p ${PER_ARCH_OBJECT_FILE_DIR}
+
+# Detect target platform
+if [[ "$PLATFORM_NAME" == "iphoneos" || "$PLATFORM_NAME" == "iphonesimulator" ]]; then
+    TARGET_OS="ios"
+else
+    TARGET_OS="macos"
+fi
+
 if [[ "$CURRENT_ARCH" == "arm64" ]]; then
-${SRCROOT}/dependencies/bin/ispc ${ISPCFLAG} --darwin-version-min=11.0 --target-os=macos --target=neon-i32x8 --arch=aarch64 -o ${PER_ARCH_OBJECT_FILE_DIR}/${INPUT_FILE_BASE}.o $SCRIPT_INPUT_FILE
+${SRCROOT}/dependencies/bin/ispc ${ISPCFLAG} --darwin-version-min=17.0 --target-os=${TARGET_OS} --target=neon-i32x8 --arch=aarch64 -o ${PER_ARCH_OBJECT_FILE_DIR}/${INPUT_FILE_BASE}.o $SCRIPT_INPUT_FILE
 fi
 if [[ "$CURRENT_ARCH" == "x86_64" ]]; then
-${SRCROOT}/dependencies/bin/ispc ${ISPCFLAG} --darwin-version-min=11.0 --target-os=macos --target=avx2-i32x16 --target=avx1-i32x16  --target=sse4.2-i32x8 --target=sse2-i32x8 --arch=x86_64 --pic -o ${PER_ARCH_OBJECT_FILE_DIR}/${INPUT_FILE_BASE}.o $SCRIPT_INPUT_FILE
+${SRCROOT}/dependencies/bin/ispc ${ISPCFLAG} --darwin-version-min=17.0 --target-os=${TARGET_OS} --target=avx2-i32x16 --target=avx1-i32x16  --target=sse4.2-i32x8 --target=sse2-i32x8 --arch=x86_64 --pic -o ${PER_ARCH_OBJECT_FILE_DIR}/${INPUT_FILE_BASE}.o $SCRIPT_INPUT_FILE
+fi
+
+# ispc only supports --target-os=ios, so its output is always tagged as iOS
+# device. When building for the iOS Simulator, strip the LC_BUILD_VERSION so
+# the final linker treats the object as platform-agnostic and assigns it to
+# the simulator target from its own -platform_version flag.
+if [[ "$PLATFORM_NAME" == "iphonesimulator" ]]; then
+    OBJ="${PER_ARCH_OBJECT_FILE_DIR}/${INPUT_FILE_BASE}.o"
+    vtool -remove-build-version ios -output "${OBJ}" "${OBJ}"
 fi
 
 bn=$(basename "$SCRIPT_INPUT_FILE")
