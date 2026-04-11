@@ -104,6 +104,7 @@
 			);
 			script = (
 				"${SRCROOT}/scripts/ispc_compile",
+				"",
 			);
 		};
 /* End PBXBuildRule section */
@@ -1432,17 +1433,17 @@
 					dependencies/libdbg,
 				);
 				LLVM_LTO = NO;
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
 				MTL_LANGUAGE_REVISION = Metal32;
 				MTL_TREAT_WARNINGS_AS_ERRORS = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
 					"-fno-common",
 					"-D_FILE_OFFSET_BITS=64",
+					"-Wno-nan-infinity-disabled",
 					"-D__WXOSX__",
 					"-D__WXMAC__",
 					"-D__WXOSX_COCOA__",
-					"-D_LIBCPP_DISABLE_AVAILABILITY",
 					"-ferror-limit=0",
 					"-Idependencies/libdbg/wx/include/osx_cocoa-unicode-3.3",
 					"-Idependencies/include/wx-3.3",
@@ -1567,9 +1568,9 @@
 					"-ffast-math",
 					"-fno-common",
 					"-D_FILE_OFFSET_BITS=64",
+					"-Wno-nan-infinity-disabled",
 					"-D__WXOSX__",
 					"-D__WXMAC__",
-					"-D_LIBCPP_DISABLE_AVAILABILITY",
 					"-D__WXOSX_COCOA__",
 					"-ferror-limit=0",
 					"-Idependencies/lib/wx/include/osx_cocoa-unicode-static-3.3",
@@ -1863,9 +1864,9 @@
 					"-ffast-math",
 					"-fno-common",
 					"-D_FILE_OFFSET_BITS=64",
+					"-Wno-nan-infinity-disabled",
 					"-D__WXOSX__",
 					"-D__WXMAC__",
-					"-D_LIBCPP_DISABLE_AVAILABILITY",
 					"-D__WXOSX_COCOA__",
 					"-ferror-limit=0",
 					"-Idependencies/lib/wx/include/osx_cocoa-unicode-static-3.3",
@@ -2234,7 +2235,6 @@
 				OTHER_CFLAGS = (
 					"-fno-common",
 					"-D_FILE_OFFSET_BITS=64",
-					"-D_LIBCPP_DISABLE_AVAILABILITY",
 					"-Wno-nan-infinity-disabled",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2269,7 +2269,6 @@
 				OTHER_CFLAGS = (
 					"-fno-common",
 					"-D_FILE_OFFSET_BITS=64",
-					"-D_LIBCPP_DISABLE_AVAILABILITY",
 					"-Wno-nan-infinity-disabled",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2304,7 +2303,6 @@
 				OTHER_CFLAGS = (
 					"-fno-common",
 					"-D_FILE_OFFSET_BITS=64",
-					"-D_LIBCPP_DISABLE_AVAILABILITY",
 					"-Wno-nan-infinity-disabled",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
