@@ -1193,7 +1193,7 @@
 				"# if the local artifacts are available, use them",
 				"# env",
 				"",
-				"export TAG=$(cat README.macOS | grep recurse-submodules | cut -d \"_\" -f 2 | cut -d \" \"  -f 1)",
+				"export TAG=$(grep 'Current dependency version: xlights_' README.macOS | sed 's/.*xlights_//')",
 				"export OLDTAG=$(cat .CURTAG)",
 				"",
 				"echo \"Tag:  $TAG\"",

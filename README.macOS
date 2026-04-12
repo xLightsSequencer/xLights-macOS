@@ -12,367 +12,39 @@ Xcode can be downloaded from the Apple developer web site or the App Store. Make
 sure you install the version of Xcode that matches your version of
 macOS. For example, I use macOS Tahoe (26), so I installed Xcode 26.
 
-The latest wxWidgets release will not work as we need some API's that have
-been added since then as well as patches for xLights specific issues/requirements.
 
+Dependencies
+============
 
-ALTERNATIVE METHOD:
-Instead of building all the third partly libs listed below, if you are using the
-EXACT same version of Xcode as the Xcode Cloud nightlies are using (Xcode 26),
-you can make sure /opt/local/include/lualib.h does NOT exist and then run the
-build normally.   Xcode will detect that the dependencies are not avialable locally
-and will download the required dependencies.
+Third-party libraries (wxWidgets, ffmpeg, SDL2, lua, zstd, etc.) are built
+separately via the scripts in the xLights-macOS-dependencies repository:
+https://github.com/xLightsSequencer/xLights-macOS-dependencies
 
+Current dependency version: xlights_2026.06
 
-IMPORTANT NOTE:
-Some of the third party libraries that need to be built below will NOT build if
-any directory in the path contains a space.   Make sure the directory that is
-used does not contain any spaces.  Also, the builds will be quite "large" and thus
-doing the builds in a directory that is synced to the cloud will consume a lot
-of cloud space. Make sure your cloud provider/plan has plenty of free space.
-Alternatively, use a directory that is not synced to the cloud.  Since all of this
-is easily recovered (just by rebuilding), there isn't much need for it to be
-cloud backed up.
+There are two ways to set up the dependencies:
 
+Option 1: Automatic download (recommended)
+-------------------------------------------
+If /opt/local does NOT exist (or does not contain the dependencies), Xcode will
+automatically download the pre-built dependencies when you build. This requires
+no manual setup -- just open the project and build. The downloaded dependencies
+are cached locally and will be re-downloaded only when the dependency version
+changes.
 
-To get the latest code that we've tested, do:
-git clone  --recurse-submodules -b xlights_2026.04 https://github.com/xLightsSequencer/wxWidgets
+Option 2: Build dependencies yourself
+--------------------------------------
+Clone the xLights-macOS-dependencies repository and run build.sh to compile all
+dependencies locally:
 
+  git clone https://github.com/xLightsSequencer/xLights-macOS-dependencies
+  cd xLights-macOS-dependencies
+  ./build.sh
 
-First, setup the target directories:
-sudo mkdir -p /opt/local/lib
-sudo mkdir -p /opt/local/libdbg
-sudo mkdir -p /opt/local/bin
+Then either:
+  - Symlink /opt/local to the build output:
+      sudo ln -sf /path/to/xLights-macOS-dependencies /opt/local
+  - Or install directly to /opt/local (see the repository README for details)
 
-#setup permissions on /opt/local
-sudo chgrp -R staff /opt/local*
-sudo chmod -R g+w /opt/local*
-
-
-If you are planning on being able to build Release builds, you will need to a release build
-wxWidgets first.  If not doing release builds, this can be skipped.
-  cd <wxMac base dir>
-  cd build
-  export BINARY_PLATFORMS="x86_64,arm64"
-  export CXXFLAGS=""
-  export OBJCXXFLAGS=""
-  export CPPFLAGS="-g -flto=thin"
-  export LDFLAGS="-g -flto=thin"
-  export CXX=clang++
-  export CXXCPP="clang++ -E"
-  export CC=clang
-  export CPP="clang -E"
-  export CFLAGS="-g"
-  ../configure  --disable-debug_flag --enable-debug_info --enable-optimise --prefix=/opt/local --enable-universal_binary=${BINARY_PLATFORMS} \
-                --with-osx_cocoa --with-macosx-version-min=11.0 --disable-dependency-tracking \
-                --disable-compat30  --enable-mimetype --enable-aui --with-opengl \
-                --enable-webview --enable-webviewwebkit --disable-mdi --disable-mdidoc --disable-loggui \
-                --disable-xrc --disable-stc --disable-ribbon --disable-htmlhelp --disable-mediactrl \
-                --with-cxx=17 --enable-cxx11 --enable-std_containers --enable-std_string_conv_in_wxstring \
-                --without-liblzma  --with-expat=builtin --with-zlib=builtin --with-libjpeg=builtin  --without-libtiff \
-                --disable-sys-libs \
-                --enable-backtrace --enable-exceptions --disable-shared
-  make -j 12
-  make install
-  make clean
-
-
-For debug builds:
-  cd <wxMac base dir>
-  cd build
-  export BINARY_PLATFORMS="x86_64,arm64"
-  export CXXFLAGS=""
-  export OBJCXXFLAGS=""
-  export CPPFLAGS="-g"
-  export LDFLAGS=""
-  export CXX=clang++ 
-  export CXXCPP="clang++ -E" 
-  export CC=clang 
-  export CPP="clang -E" 
-  export CFLAGS="-g"
-  ../configure  --prefix=/opt/local --libdir=/opt/local/libdbg \
-                --enable-debug --enable-debug_info --disable-optimise --enable-universal_binary=${BINARY_PLATFORMS} \
-                --with-osx_cocoa --with-macosx-version-min=11.0 --disable-dependency-tracking \
-                --disable-compat30  --enable-mimetype --enable-aui --with-opengl \
-                --enable-webview --enable-webviewwebkit --disable-mdi --disable-mdidoc --disable-loggui \
-                --disable-xrc --disable-stc --disable-ribbon --disable-htmlhelp --disable-mediactrl \
-                --with-cxx=17 --enable-cxx11 --enable-std_containers --enable-std_string_conv_in_wxstring \
-                --without-liblzma  --with-expat=builtin --with-zlib=builtin --with-libjpeg=builtin  --without-libtiff \
-                --disable-sys-libs \
-                --enable-backtrace --enable-exceptions
-  make -j 12
-  rm -rf /opt/local/libdbg/libwx*.dylib
-  make install
-
-To create the packaged used by the cloud build scripts:
-cd /opt
-tar  --exclude-vcs -c xLights-macOS-dependencies | zstd -18 -T0 -f -o ~/xLights-macOS-dependencies.tar.zst
-
-
-Next, you will use Xcode to compile xLights. Most of the steps are listed here:
-
-  http://wiki.wxwidgets.org/Creating_Xcode_projects_for_wxWidgets_applications
-
-However, if you have the XCode command line tools installed, you should just be able to run "xcodebuild" and it should build and compile xLights automatically.
-
-
-
-Other library notes:
-Note:  These instructions now assume Xcode 12 with support for Arm64.
-You must set the env variables at the top first to setup the architecture and version targets
-
-
-export MACOSX_DEPLOYMENT_TARGET=11.0
-export OSX_VERSION_MIN="-mmacosx-version-min=${MACOSX_DEPLOYMENT_TARGET}"
-export ARM64_TARGETS="-target arm64-apple-macos11.0 -arch arm64"
-export X86_64_TARGETS="-target x86_64-apple-macos11.0 -arch x86_64"
-
-#need ONE of these lines
-export XL_TARGETS="${X86_64_TARGETS} ${ARM64_TARGETS}"
-# export XL_TARGETS="${X86_64_TARGETS}"
-# export XL_TARGETS="${ARM64_TARGETS}"
-
-# need ONE of these
-# export BUILD_HOST=x86_64
-export BUILD_HOST=arm
-
-Note: Some libraries require Homebrew Tools, to install Homebrew:
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-Autotools and LibTool are required from Homebrew:
-brew install automake libtool cmake nasm
-
-libzstd:
-git clone https://github.com/facebook/zstd
-cd zstd
-git checkout v1.5.7
-export CFLAGS="-g -flto=thin  ${OSX_VERSION_MIN} ${XL_TARGETS}"
-export LDFLAGS="-flto=thin  ${OSX_VERSION_MIN} ${XL_TARGETS} "
-make clean
-make -j 8 HAVE_LZMA=0 HAVE_LZ4=0 lib-mt
-cp lib/libzstd.a /opt/local/lib
-export CFLAGS="-g  ${OSX_VERSION_MIN} ${XL_TARGETS}"
-export LDFLAGS=" ${OSX_VERSION_MIN} ${XL_TARGETS}"
-make clean
-make -j 8 HAVE_LZMA=0 HAVE_LZ4=0 lib-mt
-cp lib/libzstd.a /opt/local/libdbg
-unset CFLAGS
-unset LDFLAGS
-
-
-
-liquidfun:
-# requires cmake to be installed, most likely need to have
-# homebrew installed and then "brew install cmake"
-# aternatively, install CMAKE for OSX from https://cmake.org/download/
-# and add the full path to cmake to PATH
-# PATH=$PATH:/Applications/CMake.app/Contents/bin/
-git clone https://github.com/google/liquidfun
-cd liquidfun/liquidfun/Box2D
-git status --ignored -s | colrm 1 2 | xargs rm -rf
-export CXX=clang++
-export CXXFLAGS="-g -O3 -flto=thin  ${XL_TARGETS} ${OSX_VERSION_MIN} "
-cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DBOX2D_BUILD_EXAMPLES=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5
-echo "CXX_FLAGS += -Wno-unused-but-set-variable -Wno-error " >> ./Box2D/CMakeFiles/Box2D.dir/flags.make
-make clean
-make -j 8
-cp ./Box2D/Release/libliquidfun.a /opt/local/lib
-git status --ignored -s | colrm 1 2 | xargs rm -rf
-export CXXFLAGS="-g ${XL_TARGETS} ${OSX_VERSION_MIN} "
-cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DBOX2D_BUILD_EXAMPLES=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5
-echo "CXX_FLAGS += -Wno-unused-but-set-variable -Wno-error " >> ./Box2D/CMakeFiles/Box2D.dir/flags.make
-make clean
-make -j 8
-cp ./Box2D/Release/libliquidfun.a /opt/local/libdbg
-unset CXXFLAGS
-unset CXX
-
-
-SDL2:  currently using 2.32.10
-git clone https://github.com/libsdl-org/SDL
-cd SDL
-git reset --hard
-git checkout release-2.32.10
-export CXXFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN} "
-export CFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN} "
-export LDFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN} "
-./configure --disable-shared --enable-static --disable-render-metal --disable-video-metal --disable-video-dummy  --disable-video-x11 --disable-video-opengles --disable-video-opengles2 --disable-video-vulkan --disable-haptic --disable-joystick --prefix=/opt/local
-make clean
-make -j 8
-cp ./build/.libs/libSDL2.a /opt/local/lib
-export CXXFLAGS="-g ${XL_TARGETS} ${OSX_VERSION_MIN} "
-export CFLAGS="-g ${XL_TARGETS} ${OSX_VERSION_MIN} "
-export LDFLAGS="-g ${XL_TARGETS} ${OSX_VERSION_MIN} "
-./configure --disable-shared --enable-static --disable-render-metal --disable-video-metal --disable-video-dummy  --disable-video-x11 --disable-video-opengles --disable-video-opengles2 --disable-video-vulkan --disable-haptic --disable-joystick --prefix=/opt/local
-make clean
-make -j 8
-cp ./build/.libs/libSDL2.a /opt/local/libdbg
-unset CXXFLAGS
-unset CFLAGS
-unset LDFLAGS
-
-
-ffmpeg:   currently using 6.1.4
-# Note: requires nasm to be install.   Easiest option is via "brew install nasm"
-git clone https://git.ffmpeg.org/ffmpeg.git
-cd ffmpeg
-git checkout n6.1.4
-make clean
-rm -rf x86_64
-git status --ignored -s | colrm 1 2 | xargs rm -rf
-./configure --disable-inline-asm --enable-static --disable-shared --disable-securetransport --extra-cflags="${OSX_VERSION_MIN}" --disable-indev=lavfi --disable-libx264 --disable-lzma --enable-gpl --enable-opengl --disable-programs --arch=x86_64
-sed -i -e "s/^CFLAGS=/CFLAGS=-g ${X86_64_TARGETS} ${OSX_VERSION_MIN} -DGL_SILENCE_DEPRECATION=1 -Wno-incompatible-function-pointer-types -fno-common /" ffbuild/config.mak
-sed -i -e "s/^CXXFLAGS=/CXXFLAGS=-g ${X86_64_TARGETS} ${OSX_VERSION_MIN} -DGL_SILENCE_DEPRECATION=1 -fno-common /" ffbuild/config.mak
-sed -i -e "s/^LDFLAGS=/LDFLAGS=-g ${X86_64_TARGETS} ${OSX_VERSION_MIN} -fno-common /" ffbuild/config.mak
-make -j 12 ; make
-mkdir ./x86_64
-find . -name "*.a" -exec cp -f {} ./x86_64 \;
-make clean
-git status --ignored -s | colrm 1 2  | grep -v x86_64 | xargs rm -rf
-./configure --enable-static --disable-shared --disable-securetransport --extra-cflags="${OSX_VERSION_MIN}" --disable-indev=lavfi --disable-libx264 --disable-lzma --enable-gpl --enable-opengl --disable-programs --arch=arm64
-sed -i -e "s/^CFLAGS=/CFLAGS=-g ${ARM64_TARGETS} ${OSX_VERSION_MIN} -DGL_SILENCE_DEPRECATION=1 -Wno-incompatible-function-pointer-types -fno-common /" ffbuild/config.mak
-sed -i -e "s/^CXXFLAGS=/CXXFLAGS=-g ${ARM64_TARGETS} ${OSX_VERSION_MIN} -DGL_SILENCE_DEPRECATION=1 -fno-common /" ffbuild/config.mak
-sed -i -e "s/^LDFLAGS=/LDFLAGS=-g ${ARM64_TARGETS} ${OSX_VERSION_MIN} -fno-common /" ffbuild/config.mak
-make -j 12 ; make
-lipo -create -output /opt/local/lib/libavutil.a ./libavutil/libavutil.a ./x86_64/libavutil.a
-lipo -create -output /opt/local/lib/libavfilter.a ./libavfilter/libavfilter.a ./x86_64/libavfilter.a
-lipo -create -output /opt/local/lib/libavcodec.a ./libavcodec/libavcodec.a ./x86_64/libavcodec.a
-lipo -create -output /opt/local/lib/libpostproc.a ./libpostproc/libpostproc.a ./x86_64/libpostproc.a
-lipo -create -output /opt/local/lib/libavformat.a ./libavformat/libavformat.a ./x86_64/libavformat.a
-lipo -create -output /opt/local/lib/libavdevice.a ./libavdevice/libavdevice.a ./x86_64/libavdevice.a
-lipo -create -output /opt/local/lib/libswresample.a ./libswresample/libswresample.a ./x86_64/libswresample.a
-lipo -create -output /opt/local/lib/libswscale.a ./libswscale/libswscale.a ./x86_64/libswscale.a
-make clean
-git status --ignored -s  | colrm 1 2 | xargs rm  -rf
-./configure --disable-asm --disable-x86asm --enable-static --disable-shared --disable-securetransport --extra-cflags="${OSX_VERSION_MIN}" --disable-indev=lavfi --disable-libx264 --disable-lzma --enable-gpl --enable-opengl --disable-programs --disable-optimizations
-sed -i -e "s/^CFLAGS=/CFLAGS=-g ${XL_TARGETS} ${OSX_VERSION_MIN} -DGL_SILENCE_DEPRECATION=1 -Wno-incompatible-function-pointer-types -fno-common /" ffbuild/config.mak
-sed -i -e "s/^CXXFLAGS=/CXXFLAGS=-g ${XL_TARGETS} ${OSX_VERSION_MIN} -DGL_SILENCE_DEPRECATION=1 -fno-common /" ffbuild/config.mak
-sed -i -e "s/^LDFLAGS=/LDFLAGS=-g ${XL_TARGETS} ${OSX_VERSION_MIN} -fno-common /" ffbuild/config.mak
-make -j 12 ; make
-find . -name "*.a" -exec cp {} /opt/local/libdbg/ \;
-
-
-libxslwriter:
-git clone https://github.com/jmcnamara/libxlsxwriter.git
-cd libxlsxwriter
-git checkout v1.2.3
-export CXXFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN} "
-export CFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN} "
-export LDFLAGS="-g -O3 -flto=thin ${XL_TARGETS} ${OSX_VERSION_MIN} "
-cmake -DCMAKE_OSX_ARCHITECTURES="x86_64;arm64"
-make
-cp libxlsxwriter.a /opt/local/lib/
-make clean
-git status --ignored -s | colrm 1 3 | xargs rm -rf
-export CXXFLAGS="-g ${XL_TARGETS} ${OSX_VERSION_MIN} "
-export CFLAGS="-g ${XL_TARGETS} ${OSX_VERSION_MIN} "
-export LDFLAGS="-g ${XL_TARGETS} ${OSX_VERSION_MIN} "
-cmake -DCMAKE_OSX_ARCHITECTURES="x86_64;arm64"
-make
-cp libxlsxwriter.a /opt/local/libdbg/
-cp -a include/* /opt/local/include
-make  clean
-git status --ignored -s | colrm 1 3 | xargs rm -rf
-unset CXXFLAGS
-unset CFLAGS
-unset LDFLAGS
-
-
-
-liblua: (currently using v5.4.8)
-git clone https://github.com/lua/lua
-cd lua
-git checkout v5.4.8
-make clean
-export CFLAGS="-g -O3 -flto=thin -Wall -fno-stack-protector -fno-common ${XL_TARGETS} ${OSX_VERSION_MIN} "
-make -j4 all CFLAGS="$CFLAGS" MYLDFLAGS="$CFLAGS"
-cp liblua.a /opt/local/lib
-cp lua.h luaconf.h lualib.h lauxlib.h /opt/local/include
-make clean
-export CFLAGS="-g ${XL_TARGETS} ${OSX_VERSION_MIN} "
-make -j4 all CFLAGS="$CFLAGS" MYLDFLAGS="$CFLAGS"
-cp liblua.a /opt/local/libdbg
-unset CFLAGS
-
-libhidapi: (currently using 0.15.0)
-git clone https://github.com/libusb/hidapi
-cd hidapi
-git checkout hidapi-0.15.0
-export CFLAGS="-g -O3 -flto=thin -Wall -fno-stack-protector -fno-common ${XL_TARGETS} ${OSX_VERSION_MIN} "
-./bootstrap
-./configure --prefix=/opt/local
-make clean
-make
-cp ./mac/.libs/libhidapi.a /opt/local/lib
-make clean
-export CFLAGS="-g -Wall -fno-stack-protector -fno-common ${XL_TARGETS} ${OSX_VERSION_MIN} "
-./configure --prefix=/opt/local
-make
-rm -f /opt/local/libdbg/libhidapi*
-cp ./mac/.libs/libhidapi.a /opt/local/libdbg
-make clean
-unset CFLAGS
-
-
-# ISPC is needed to compile the SIMD kernels used for various effect rendering.   We cannot
-# use the version in homebrew as that will only allow generating the kernels for the architecture it is running
-# and thus release mode builds will fail.  Thus, we have to grab the "universal" version.
-# We only need the binary from the package.
-ispc:
-wget https://github.com/ispc/ispc/releases/download/v1.30.0/ispc-v1.30.0-macOS.universal.tar.gz
-tar -xzf ispc-v1.30.0-macOS.universal.tar.gz
-cp ispc-v1.30.0-macOS.universal/bin/ispc /opt/local/bin
-rm -rf ispc-v1.30.0-macOS.universal*
-
-
-
-CodeBlocks:
-Suggest download a nightly from
-https://drive.google.com/drive/folders/1-r9cbW1I8ZkaCt6iYDhcXH981n5FJTpV
-
-
-wxWidgets git hash history:
-Feb 28, 2016 - cbb799b1ae3f309c99beb0d287e9bb3b62ea405c Update to 3.1.0 release from 3.0.x
-Nov 23, 2016 - b28dd88994ec144c2235721ef8e1133b3651e790 Newer version fixing various bugs, also for 10.12 sdk support
-Jun  1, 2017 - ff447038714f853a0bae1720e3e8d6f8da279c51 to be able to compile with 10.13 sdk
-Aug 30, 2017 - 4a71ba820f085a3d5a7233e9fd0e23ae4e45af58 attempt to see if fixes #884
-Sept 17, 2017 - a8b33bf08ed582a241071ff7fa876dec1911ed7a fix popup menus on dialogs
-Jan 12, 2018 - 6bd8cb964bd625d7f974621cc9883ba52b58600a Start testing/preparing for wxWidgets 3.1.1/3.2, update to minver 10.10
-Jan 24, 2018 - d8b3fc84c2239effb1824e7094c7bf24db45a7ba Fixes sorting in TreeListCtrl, also changed compile flags to
-             --enable-std_containers  --enable-std_string_conv_in_wxstring
-Feb 26, 2018 - switch to 3.1.1 release tar.bz2
-June 17, 2018 - add notes about wxWidgets for OSX Mojave
-July 16, 2018 - 85c2877a6c660c3b59c7a5400bab224374e3324a Fixes the native wxDataViewCtrl drag/drop
-Aug  1, 2018 - c83f3b39424fd0d6690a64ba05277c77c077b861 Fixes sRGB <-> RGB color space issues
-Oct 30, 2018 - move to dkulp/wxWidgets xlights_fixes branch to grab atomic ref counting, Mojave fixes, color fixes, etc...
-Jan 6, 2019 - 81de073d3b06d61ed8959d417692e27d49ec17eb  Move to c++17, fixes for multitouch on OpenGL
-Jun 30, 2019 - 51bce4ec0b2f1d6e38e1d5ae75e0ad1cec9bae13 Contains fixes for opengl window resizing
-July 21, 2019 - 9ede90257fa5813bbb6c32f949b8d69619e14c03 add --enable-mimetype
-July 27, 2019 - d50b91554ada145c8031db4540008b0f641bed28 fixes for some openGL issues, wxGrid crashes
-Nov 17, 2019 - 099a4c8b77ccca16870d8761ba724be4e4d13643 Update to wxWidget 3.1.3
-July 9, 2020 - tag: xlights_2020.28 - Update to prepare for moving to wxWidgets 3.1.4, start preparing for ARM builds
-July 16, 2020 - tag: xlights_2020.29 - Update to prepare for moving to wxWidgets 3.1.4, start preparing for ARM builds, fixes socket issues
-Oct  6, 2020 - tag: xlights_2020.41 - Fixes some Big Sur issues with fonts, colors
-Dec 18, 2020 - tag: xlights_2020.56 - Fixes some make install things in wxwidgets, some osx graphics memory leaks, font handle leaks, various colors
-Dec 21, 2020 - tag: xlights_2020.56b - Fixes potential crash when calling append/insert on wxCheckListBox
-Mar 18, 2021 - tag: xlights_2020.09 - close to wxWidgets 3.1.5
-Mar 18, 2021 - Move to macOS 10.12 as minimum
-Apr 2, 2021 - Move wxWidgets fork to xLightsSequencer organization
-Apr 20, 2021 - Move to xlights_2020.13 - wxWidgets 3.1.5 + patches
-July 29, 2021 - Move to ffmpeg 4.4, zstd 1.5.0
-Jan 6, 2022 - macOS 10.14 required, zstd 1.5.1
-Jan 8, 2022 - added lua libs
-Feb 3, 2022 - Update ffmpeg to 5.0
-Mar 21, 2022 - zstd to 1.5.2
-April 28, 2022 - Update to wxWidgets 3.1.6+, ffmpeg to 5.0.1, SDL to 2.0.22
-June 8, 2022 - Update wxWidgets to 3.1.7+
-Aug 25, 2022 - Update to wxWidgets 3.3, SDL to 2.0.24, ffmpeg to 5.1
-Jan 5, 2023 - Update wxWidgets to include dark  mode for windows changes (work in progress, likely more updates to come)
-Mar 2, 2023 - Update ffmpeg to 6.0, zstd to 1.5.4, sdl to 2.26.0, hidapi to 0.13.1
-May 16, 2023 - zstd to 1.5.5, sdl to 2.26.5
-Sep 19, 2023 - sdl to 2.28.3, lua to 5.4.6, hidapi to 0.14.0
-Sep 27, 2023 - updates to be able to use Xcode 15
-Dec 17, 2023 - update ffmpeg to 6.1, SDL to 2.28.5, remove workaround for clipping problem in wxWidgets on Sonoma (xlights_2023.23 includes fix)
-Mar 6, 2024 - SDL -> 2.30.1, ffmpeg -> 6.1.1, wxWidgets -> xlights_2024.05, remove sonoma workaround hacks
-Sep 17, 2024 - SDL -> 2.30.7, ffmpeg -> 6.1.2, zstd -> 1.5.6, xlswriter -> v1.1.8, lua -> 5.4.7
-Dec 11, 2024 - ffmpeg -> 6.1.4
+When /opt/local/include/lualib.h exists, Xcode will use the local dependencies
+instead of downloading them.
