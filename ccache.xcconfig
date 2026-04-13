@@ -31,3 +31,12 @@ CXX_     =
 CC_TRUE  = $(SRCROOT)/scripts/ccache-clang
 CXX_TRUE = $(SRCROOT)/scripts/ccache-clang++
 
+// Clang embeds the source Prefix.pch mtime into the compiled .gch and
+// rejects the PCH on reuse if the source mtime changed. ccache's content
+// hashing already guarantees correctness, and each Xcode Cloud build
+// checks out the source fresh (new mtime), so disable the timestamp check.
+OTHER_CFLAGS         = $(inherited) $(CCACHE_CFLAGS_$(CI))
+OTHER_CPLUSPLUSFLAGS = $(inherited) $(CCACHE_CFLAGS_$(CI))
+CCACHE_CFLAGS_       =
+CCACHE_CFLAGS_TRUE   = -Xclang -fno-pch-timestamp
+
