@@ -31,18 +31,17 @@ CXX_     =
 CC_TRUE  = $(SRCROOT)/scripts/ccache-clang
 CXX_TRUE = $(SRCROOT)/scripts/ccache-clang++
 
-// PCH + ccache is fragile: clang embeds the source mtime into the .gch
-// and rejects it on reuse if the source changed. -fno-pch-timestamp helps
-// some of the time but the PCH generator doesn't always honor it. The
-// cleanest fix is to disable PCH entirely on CI — ccache caches each TU's
-// .o so the PCH optimization isn't buying much when ccache is hot anyway.
-// The NO_PCH define matches what CLAUDE.md documents for full verification
-// builds.
+// Disable PCH precompilation on CI. The prefix header is still #include'd
+// in every TU (same content processed), just not precompiled into a shared
+// .gch. That avoids the mtime races between cached .gch and freshly-checked-
+// out source files. ccache caches each TU's .o directly anyway, so losing
+// PCH doesn't hurt warm-cache performance.
+//
+// We deliberately do NOT also define NO_PCH: that's a stricter verification
+// mode (per CLAUDE.md) that elides PCH content entirely and requires every
+// TU to include-what-it-uses. It would likely break the build until sources
+// are audited.
 GCC_PRECOMPILE_PREFIX_HEADER          = $(GCC_PRECOMPILE_PREFIX_HEADER_$(CI))
 GCC_PRECOMPILE_PREFIX_HEADER_         = YES
 GCC_PRECOMPILE_PREFIX_HEADER_TRUE     = NO
-
-GCC_PREPROCESSOR_DEFINITIONS          = $(inherited) $(CCACHE_DEFINES_$(CI))
-CCACHE_DEFINES_                       =
-CCACHE_DEFINES_TRUE                   = NO_PCH=1
 
