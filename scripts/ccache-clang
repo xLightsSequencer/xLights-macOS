@@ -1,0 +1,23 @@
+#!/bin/sh
+# ccache wrapper for clang. Pointed at by CC in ccache.xcconfig when CI=TRUE.
+# Locates ccache via CCACHE_EXEC, PATH lookup, or common Homebrew locations.
+# Locates the active Xcode toolchain's clang via xcrun so it tracks whichever
+# Xcode is selected.
+
+set -e
+
+if [ -n "$CCACHE_EXEC" ] && [ -x "$CCACHE_EXEC" ]; then
+    CCACHE="$CCACHE_EXEC"
+elif command -v ccache >/dev/null 2>&1; then
+    CCACHE="$(command -v ccache)"
+elif [ -x /opt/homebrew/bin/ccache ]; then
+    CCACHE=/opt/homebrew/bin/ccache
+elif [ -x /usr/local/bin/ccache ]; then
+    CCACHE=/usr/local/bin/ccache
+else
+    echo "ccache-clang: ccache not found; set CCACHE_EXEC or install ccache" >&2
+    exit 1
+fi
+
+CLANG="$(xcrun --find clang)"
+exec "$CCACHE" "$CLANG" "$@"

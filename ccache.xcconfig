@@ -1,0 +1,33 @@
+// ccache.xcconfig — routes clang through ccache when CI=TRUE.
+//
+// Activation: the `CI` build setting (or env var) must be set to TRUE.
+//   - Xcode Cloud sets CI=TRUE automatically.
+//   - Local testing:
+//       CI=TRUE xcodebuild -configuration Debug
+//     or
+//       xcodebuild -configuration Debug CI=TRUE
+//
+// Requires ccache on disk at CCACHE_EXEC. Default assumes Intel Homebrew
+// (matches Xcode Cloud). Override for Apple Silicon locally with:
+//   xcodebuild CCACHE_EXEC=/opt/homebrew/bin/ccache CI=TRUE ...
+//
+// To enable in the project: Xcode → xLights project → Info →
+// Configurations → set "ccache" as the xcconfig for Debug / Release /
+// Archive (or whichever configurations you want routed through ccache).
+//
+// Remote backend is configured separately via ~/.config/ccache/ccache.conf
+// (see ci_scripts/ci_pre_xcodebuild.sh).
+
+// Xcode's CC build setting takes a single executable path (not argv[0] +
+// args), so we route through wrapper scripts that prepend ccache to the
+// toolchain clang. The wrappers auto-locate ccache (homebrew Intel or ARM);
+// override the path with CCACHE_EXEC in the environment if needed.
+
+CC  = $(CC_$(CI))
+CXX = $(CXX_$(CI))
+
+CC_      =
+CXX_     =
+CC_TRUE  = $(SRCROOT)/scripts/ccache-clang
+CXX_TRUE = $(SRCROOT)/scripts/ccache-clang++
+
