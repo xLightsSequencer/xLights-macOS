@@ -31,12 +31,18 @@ CXX_     =
 CC_TRUE  = $(SRCROOT)/scripts/ccache-clang
 CXX_TRUE = $(SRCROOT)/scripts/ccache-clang++
 
-// Clang embeds the source Prefix.pch mtime into the compiled .gch and
-// rejects the PCH on reuse if the source mtime changed. ccache's content
-// hashing already guarantees correctness, and each Xcode Cloud build
-// checks out the source fresh (new mtime), so disable the timestamp check.
-OTHER_CFLAGS         = $(inherited) $(CCACHE_CFLAGS_$(CI))
-OTHER_CPLUSPLUSFLAGS = $(inherited) $(CCACHE_CFLAGS_$(CI))
-CCACHE_CFLAGS_       =
-CCACHE_CFLAGS_TRUE   = -Xclang -fno-pch-timestamp
+// PCH + ccache is fragile: clang embeds the source mtime into the .gch
+// and rejects it on reuse if the source changed. -fno-pch-timestamp helps
+// some of the time but the PCH generator doesn't always honor it. The
+// cleanest fix is to disable PCH entirely on CI — ccache caches each TU's
+// .o so the PCH optimization isn't buying much when ccache is hot anyway.
+// The NO_PCH define matches what CLAUDE.md documents for full verification
+// builds.
+GCC_PRECOMPILE_PREFIX_HEADER          = $(GCC_PRECOMPILE_PREFIX_HEADER_$(CI))
+GCC_PRECOMPILE_PREFIX_HEADER_         = YES
+GCC_PRECOMPILE_PREFIX_HEADER_TRUE     = NO
+
+GCC_PREPROCESSOR_DEFINITIONS          = $(inherited) $(CCACHE_DEFINES_$(CI))
+CCACHE_DEFINES_                       =
+CCACHE_DEFINES_TRUE                   = NO_PCH=1
 
