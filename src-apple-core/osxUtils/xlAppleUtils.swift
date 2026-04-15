@@ -61,6 +61,55 @@ private func purgeTemporaryBookmarks() {
     }
 }
 
+/// Returns true if any ancestor directory of `path` already has a stored
+/// bookmark. When it does, the ancestor's security scope already covers this
+/// path, so we don't need a separate bookmark — saving one would just waste
+/// space in the (size-limited) UserDefaults plist.
+@xLightsUtilsActor
+private func findAncestorBookmark(_ path: String) -> String? {
+    let config = xLightsUtilsState.shared.config
+    var parent = (path as NSString).deletingLastPathComponent
+    while !parent.isEmpty && parent != "/" {
+        if config.string(forKey: parent) != nil {
+            return parent
+        }
+        let next = (parent as NSString).deletingLastPathComponent
+        if next == parent { break }
+        parent = next
+    }
+    return nil
+}
+
+/// Removes any stored bookmark whose path is already covered by an ancestor
+/// directory bookmark. Called once at startup to reclaim space from previous
+/// versions that bookmarked every file inside the show/media folders.
+@xLightsUtilsActor
+private func purgeRedundantBookmarks() {
+    let config = xLightsUtilsState.shared.config
+    let dict = config.dictionaryRepresentation()
+    // Sort shortest-first so ancestors are decided before their descendants.
+    let keys = dict.keys.sorted { $0.count < $1.count }
+    var keep = Set<String>()
+    for key in keys {
+        var covered = false
+        var parent = (key as NSString).deletingLastPathComponent
+        while !parent.isEmpty && parent != "/" {
+            if keep.contains(parent) {
+                covered = true
+                break
+            }
+            let next = (parent as NSString).deletingLastPathComponent
+            if next == parent { break }
+            parent = next
+        }
+        if covered {
+            config.removeObject(forKey: key)
+        } else {
+            keep.insert(key)
+        }
+    }
+}
+
 @xLightsUtilsActor
 private func isDirAccessible(_ path: String, enforceWritable: Bool) -> Bool {
     if FileManager.default.fileExists(atPath: path) && enforceWritable {
@@ -78,6 +127,21 @@ private func isDirAccessible(_ path: String, enforceWritable: Bool) -> Bool {
 private func obtainAccessToURLInternal(_ path: String, enforceWritable: Bool) -> Bool {
     if path.isEmpty {
         return true
+    }
+    // If an ancestor directory already has a stored bookmark, its security
+    // scope covers this path. Resolve+activate the ancestor (so its scope is
+    // started in this process) and skip creating a redundant bookmark for the
+    // child — UserDefaults is size-limited and bookmarking every file inside
+    // a bookmarked folder blew past that limit.
+    if let ancestor = findAncestorBookmark(path) {
+        let ancestorOK = obtainAccessToURLInternal(ancestor, enforceWritable: enforceWritable)
+        if xLightsUtilsState.shared.config.string(forKey: path) != nil {
+            xLightsUtilsState.shared.config.removeObject(forKey: path)
+        }
+        if !ancestorOK {
+            return false
+        }
+        return isDirAccessible(path, enforceWritable: enforceWritable)
     }
     let val = xLightsUtilsState.shared.config.string(forKey: path);
     if val != nil {
@@ -155,6 +219,15 @@ public func purgeTemporaryBookmarksSync() {
     Task {
         defer { semaphore.signal() }
         await purgeTemporaryBookmarks()
+    }
+    semaphore.wait()
+}
+
+public func purgeRedundantBookmarksSync() {
+    let semaphore = DispatchSemaphore(value: 0)
+    Task {
+        defer { semaphore.signal() }
+        await purgeRedundantBookmarks()
     }
     semaphore.wait()
 }

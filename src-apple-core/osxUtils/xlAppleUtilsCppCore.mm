@@ -54,6 +54,7 @@ bool ObtainAccessToURL(const std::string &path, bool enforceWritable) {
         if (!oldPrefsChecked) {
             loadLegacyBookmarks();
             xLights_Apple_core::purgeTemporaryBookmarksSync();
+            xLights_Apple_core::purgeRedundantBookmarksSync();
         }
         oldPrefsChecked = true;
     }
