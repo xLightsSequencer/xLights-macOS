@@ -3,6 +3,7 @@
 #include <wx/event.h>
 #include <wx/colour.h>
 #include <wx/bitmap.h>
+#include <wx/bmpbndl.h>
 #include <string>
 #include <vector>
 
