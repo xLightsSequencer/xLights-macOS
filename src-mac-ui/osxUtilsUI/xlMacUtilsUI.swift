@@ -29,7 +29,21 @@ public func xlOSGetMainScreenContentScaleFactor() -> Double {
 private func adjustColorToDeviceColorspaceInternal(_ color: NSColor) -> (red: UInt8, green: UInt8, blue: UInt8, alpha: UInt8) {
     var result: (red: UInt8, green: UInt8, blue: UInt8, alpha: UInt8) = (0, 0, 0, 255)
     MainActor.assumeIsolated {
-        NSApp.effectiveAppearance.performAsCurrentDrawingAppearance {
+        if #available(macOS 11.0, *) {
+            NSApp.effectiveAppearance.performAsCurrentDrawingAppearance {
+                if let deviceColor = color.usingColorSpace(.deviceRGB) {
+                    result = (UInt8(deviceColor.redComponent * 255),
+                              UInt8(deviceColor.greenComponent * 255),
+                              UInt8(deviceColor.blueComponent * 255),
+                              UInt8(deviceColor.alphaComponent * 255))
+                } else {
+                    result = (UInt8(color.redComponent * 255),
+                              UInt8(color.greenComponent * 255),
+                              UInt8(color.blueComponent * 255),
+                              UInt8(color.alphaComponent * 255))
+                }
+            }
+        } else {
             if let deviceColor = color.usingColorSpace(.deviceRGB) {
                 result = (UInt8(deviceColor.redComponent * 255),
                           UInt8(deviceColor.greenComponent * 255),
