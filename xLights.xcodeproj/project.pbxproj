@@ -84,6 +84,8 @@
 		67D9B0A81D42A9BA005367DB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67E7087017B51AB400A22034 /* Cocoa.framework */; };
 		67DA60672F7FF15300A41238 /* pugixml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67DA60662F7FF15300A41238 /* pugixml.cpp */; };
 		67FDC38C27CA77890009A3C7 /* libhidapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67FDC38B27CA77610009A3C7 /* libhidapi.a */; };
+		A7A700000000000100A70001 /* SoundAnalysis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A700000000000200A70001 /* SoundAnalysis.framework */; };
+		A7A700000000000300A70001 /* SoundAnalysis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A700000000000200A70001 /* SoundAnalysis.framework */; };
 		AA0001012F900000000000A1 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = AA0001032F900000000000A1 /* ioapi.c */; settings = {COMPILER_FLAGS = "-std=gnu11 -w"; }; };
 		AA0001022F900000000000A2 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = AA0001042F900000000000A2 /* unzip.c */; settings = {COMPILER_FLAGS = "-std=gnu11 -w"; }; };
 		AA0001072F900000000000A5 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = AA0001082F900000000000A5 /* zip.c */; settings = {COMPILER_FLAGS = "-std=gnu11 -w"; }; };
@@ -433,6 +435,7 @@
 		67F23F731E329DDC00F8B985 /* libwx_osx_cocoau_propgrid-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_propgrid-3.3.dylib"; path = "../../../../opt/local/libdbg/libwx_osx_cocoau_propgrid-3.3.dylib"; sourceTree = "<group>"; };
 		67F23F741E329DDC00F8B985 /* libwx_osx_cocoau_qa-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_qa-3.3.dylib"; path = "../../../../opt/local/libdbg/libwx_osx_cocoau_qa-3.3.dylib"; sourceTree = "<group>"; };
 		67FDC38B27CA77610009A3C7 /* libhidapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libhidapi.a; path = ../../../../../opt/local/libdbg/libhidapi.a; sourceTree = "<group>"; };
+		A7A700000000000200A70001 /* SoundAnalysis.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SoundAnalysis.framework; path = System/Library/Frameworks/SoundAnalysis.framework; sourceTree = SDKROOT; };
 		AA0001032F900000000000A1 /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ioapi.c; path = ../dependencies/libxlsxwriter/third_party/minizip/ioapi.c; sourceTree = "<group>"; };
 		AA0001042F900000000000A2 /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = unzip.c; path = ../dependencies/libxlsxwriter/third_party/minizip/unzip.c; sourceTree = "<group>"; };
 		AA0001052F900000000000A3 /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ioapi.h; path = ../dependencies/libxlsxwriter/third_party/minizip/ioapi.h; sourceTree = "<group>"; };
@@ -731,6 +734,7 @@
 				67C7E283215E596000AE0775 /* CoreAudio.framework in Frameworks */,
 				674D3D241C207BD7000D632B /* AudioToolbox.framework in Frameworks */,
 				14BE3A5DBB4294EAC74CC824 /* AVFoundation.framework in Frameworks */,
+				A7A700000000000100A70001 /* SoundAnalysis.framework in Frameworks */,
 				670F8DCA27652F5E002F0CD6 /* ModelIO.framework in Frameworks */,
 				672F447626387B59005B795A /* QuartzCore.framework in Frameworks */,
 				6729000D2553047600C83C71 /* libbz2.tbd in Frameworks */,
@@ -777,6 +781,7 @@
 				DD00000200000000000I0005 /* MetalKit.framework in Frameworks */,
 				DD00000200000000000I0006 /* libISPCEffectComputeFunctions.a in Frameworks */,
 				DD00000200000000000I0008 /* AVFoundation.framework in Frameworks */,
+				A7A700000000000300A70001 /* SoundAnalysis.framework in Frameworks */,
 				DD00000200000000000I0009 /* AudioToolbox.framework in Frameworks */,
 				DD00000200000000000I000A /* CoreMedia.framework in Frameworks */,
 				DD00000200000000000I000B /* CoreVideo.framework in Frameworks */,
@@ -1057,6 +1062,7 @@
 				674D3D251C207C25000D632B /* libpthread.tbd */,
 				674D3D231C207BD7000D632B /* AudioToolbox.framework */,
 				508754EE92C352178126B474 /* AVFoundation.framework */,
+				A7A700000000000200A70001 /* SoundAnalysis.framework */,
 				674D3D211C207BCC000D632B /* IOKit.framework */,
 				674D3D1C1C207B9F000D632B /* OpenGL.framework */,
 				674E27A41B5B37B000274B20 /* GLUT.framework */,
