@@ -2978,6 +2978,7 @@
 					../dependencies/midifile/include,
 					../dependencies/spdlog/include,
 				);
+				INFOPLIST_FILE = "Assets/xLights-iPad/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = xLights;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -3041,6 +3042,7 @@
 					../dependencies/midifile/include,
 					../dependencies/spdlog/include,
 				);
+				INFOPLIST_FILE = "Assets/xLights-iPad/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = xLights;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -3103,6 +3105,7 @@
 					../dependencies/midifile/include,
 					../dependencies/spdlog/include,
 				);
+				INFOPLIST_FILE = "Assets/xLights-iPad/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = xLights;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

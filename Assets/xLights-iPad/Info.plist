@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Partial Info.plist for the xLights-iPad target.
+
+  The target keeps GENERATE_INFOPLIST_FILE = YES so Xcode auto-fills
+  the standard CFBundle*, UIApplicationSceneManifest, UISupportedInterface*
+  keys. This file contributes only the pieces Xcode build settings
+  can't express: the .xsq document-type declaration. Xcode merges
+  the generated keys on top of these.
+
+  G-3 — registering .xsq makes the Files app offer "Open in xLights"
+  when the user taps a sequence, and tells iPadOS that xLights owns
+  the org.xlights.sequence UTI.
+
+  `.xsqz` (compressed sequence package) is intentionally NOT
+  registered here — `src-core/render/SequencePackage.cpp` extracts
+  `.xsqz` / `.zip` / `.piz` containers on desktop and routes to the
+  inner `.xsq`, but that logic isn't wired into the iPad bridge.
+  Advertising `.xsqz` support would route taps into xLights that
+  we can't actually fulfil. Revisit when SequencePackage is
+  integrated on iPad.
+-->
+<plist version="1.0">
+<dict>
+  <key>CFBundleDocumentTypes</key>
+  <array>
+    <dict>
+      <key>CFBundleTypeName</key>
+      <string>xLights Sequence</string>
+      <key>CFBundleTypeRole</key>
+      <string>Editor</string>
+      <key>LSHandlerRank</key>
+      <string>Owner</string>
+      <key>LSItemContentTypes</key>
+      <array>
+        <string>org.xlights.sequence</string>
+      </array>
+    </dict>
+  </array>
+
+  <key>UTExportedTypeDeclarations</key>
+  <array>
+    <dict>
+      <key>UTTypeIdentifier</key>
+      <string>org.xlights.sequence</string>
+      <key>UTTypeDescription</key>
+      <string>xLights Sequence</string>
+      <key>UTTypeConformsTo</key>
+      <array>
+        <string>public.xml</string>
+        <string>public.data</string>
+      </array>
+      <key>UTTypeTagSpecification</key>
+      <dict>
+        <key>public.filename-extension</key>
+        <array>
+          <string>xsq</string>
+        </array>
+      </dict>
+    </dict>
+  </array>
+</dict>
+</plist>
