@@ -36,6 +36,8 @@
 		6729FFFB2553036F00C83C71 /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFF42553031900C83C71 /* libavcodec.a */; };
 		6729FFFD2553039000C83C71 /* libswresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFFC2553037E00C83C71 /* libswresample.a */; };
 		6729FFFF255303AF00C83C71 /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFFE255303A300C83C71 /* libswscale.a */; };
+		6729FA012553000100C83C71 /* libavfilter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FA002553000100C83C71 /* libavfilter.a */; };
+		6729FA032553000200C83C71 /* libpostproc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FA022553000200C83C71 /* libpostproc.a */; };
 		672F447626387B59005B795A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B229204BA6AF00E90AC7 /* QuartzCore.framework */; };
 		6732E1272F8412FC00747CF8 /* libxLights-Apple-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB00000100000000000C0002 /* libxLights-Apple-core.a */; };
 		6732E1282F8412FC00747CF8 /* libxLights-macOSLib-UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB00000100000000000U0002 /* libxLights-macOSLib-UI.a */; };
@@ -341,6 +343,8 @@
 		6729FFF92553033E00C83C71 /* libavformat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavformat.a; path = ../../../../opt/local/lib/libavformat.a; sourceTree = "<group>"; };
 		6729FFFC2553037E00C83C71 /* libswresample.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libswresample.a; path = ../../../../opt/local/lib/libswresample.a; sourceTree = "<group>"; };
 		6729FFFE255303A300C83C71 /* libswscale.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libswscale.a; path = ../../../../opt/local/lib/libswscale.a; sourceTree = "<group>"; };
+		6729FA002553000100C83C71 /* libavfilter.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavfilter.a; path = ../../../../opt/local/lib/libavfilter.a; sourceTree = "<group>"; };
+		6729FA022553000200C83C71 /* libpostproc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpostproc.a; path = ../../../../opt/local/lib/libpostproc.a; sourceTree = "<group>"; };
 		672BD4E41C207D2E008F8B36 /* libwx_baseu_xml-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_baseu_xml-3.3.dylib"; path = "/opt/local/libdbg/libwx_baseu_xml-3.3.dylib"; sourceTree = "<group>"; };
 		672BD4E51C207D2E008F8B36 /* libwx_osx_cocoau_aui-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_aui-3.3.dylib"; path = "/opt/local/libdbg/libwx_osx_cocoau_aui-3.3.dylib"; sourceTree = "<group>"; };
 		672BD4E61C207D2E008F8B36 /* libwx_osx_cocoau_gl-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_gl-3.3.dylib"; path = "/opt/local/libdbg/libwx_osx_cocoau_gl-3.3.dylib"; sourceTree = "<group>"; };
@@ -708,6 +712,8 @@
 				675EDD3D2789D87C00D40FEA /* liblua.a in Frameworks */,
 				673B3D4E223BF203000F1D7E /* libcurl.tbd in Frameworks */,
 				6729FFFA2553035100C83C71 /* libavformat.a in Frameworks */,
+				6729FA012553000100C83C71 /* libavfilter.a in Frameworks */,
+				6729FA032553000200C83C71 /* libpostproc.a in Frameworks */,
 				6729FFFF255303AF00C83C71 /* libswscale.a in Frameworks */,
 				672900082553040000C83C71 /* CoreMedia.framework in Frameworks */,
 				6729FFE42552EEF300C83C71 /* libzstd.a in Frameworks */,
@@ -1003,6 +1009,8 @@
 				67290003255303D500C83C71 /* VideoToolbox.framework */,
 				6729FFFE255303A300C83C71 /* libswscale.a */,
 				6729FFFC2553037E00C83C71 /* libswresample.a */,
+				6729FA002553000100C83C71 /* libavfilter.a */,
+				6729FA022553000200C83C71 /* libpostproc.a */,
 				6729FFF92553033E00C83C71 /* libavformat.a */,
 				6729FFF42553031900C83C71 /* libavcodec.a */,
 				6729FFF32553031800C83C71 /* libavutil.a */,
