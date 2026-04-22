@@ -68,9 +68,42 @@ if [ -f /opt/local/include/lualib.h ]; then
 fi
 
 rm -f dependencies
-curl -L https://github.com/xLightsSequencer/xLights-macOS-dependencies/releases/download/xlights_${TAG}/xLights-macOS-dependencies.tar.zst --output xLights-macOS-dependencies.tar.zst
 PATH=$PATH:/opt/homebrew/bin
-tar -xzf xLights-macOS-dependencies.tar.zst
+
+# GitHub release downloads occasionally fail mid-transfer or arrive with a
+# truncated/corrupt body that curl reports success on but tar rejects.
+# curl's own --retry handles TCP-level hiccups; the outer loop handles the
+# "download completed but tar failed" case by re-fetching from scratch.
+DEPS_URL="https://github.com/xLightsSequencer/xLights-macOS-dependencies/releases/download/xlights_${TAG}/xLights-macOS-dependencies.tar.zst"
+MAX_ATTEMPTS=3
+attempt=1
+while [ $attempt -le $MAX_ATTEMPTS ]; do
+    echo "Fetching dependencies (attempt $attempt of $MAX_ATTEMPTS)..."
+    rm -f xLights-macOS-dependencies.tar.zst
+    rm -rf xLights-macOS-dependencies xLights-macOS-dependencies-${TAG}
+
+    if ! curl -L --fail --retry 3 --retry-delay 5 "${DEPS_URL}" --output xLights-macOS-dependencies.tar.zst; then
+        echo "  curl failed on attempt $attempt"
+    elif ! tar -xzf xLights-macOS-dependencies.tar.zst; then
+        echo "  tar failed on attempt $attempt (likely corrupt/truncated download)"
+    elif [ ! -d xLights-macOS-dependencies ]; then
+        echo "  tarball did not produce xLights-macOS-dependencies/ on attempt $attempt"
+    else
+        # Success
+        break
+    fi
+
+    attempt=$((attempt + 1))
+    if [ $attempt -le $MAX_ATTEMPTS ]; then
+        sleep 10
+    fi
+done
+
+if [ ! -d xLights-macOS-dependencies ]; then
+    echo "download_deps: failed to fetch and extract dependencies after $MAX_ATTEMPTS attempts" >&2
+    exit 1
+fi
+
 mv xLights-macOS-dependencies xLights-macOS-dependencies-${TAG}
 
 # ANGLE's prebuilt libEGL.xcframework and libGLESv2.xcframework ship with
