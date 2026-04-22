@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  H-2 — iPad app privacy manifest.
+
+  Apple requires `PrivacyInfo.xcprivacy` declaring:
+    * tracking state (NSPrivacyTracking)
+    * any tracking domains (NSPrivacyTrackingDomains)
+    * collected user data types (NSPrivacyCollectedDataTypes)
+    * required-reason API usage (NSPrivacyAccessedAPITypes)
+
+  iPad xLights:
+    * does NOT track users
+    * does NOT collect any user data — show folders + sequences
+      stay on device / iCloud Drive at the user's discretion
+    * uses three required-reason API categories:
+
+      1. FileTimestamp (C617.1) — autosave recovery compares
+         `.xbkp` vs `.xsq` mtimes (`SequencerViewModel.swift:692-696`),
+         and the media cache's `HasFileChanged()` check uses
+         `std::filesystem::last_write_time` on show-folder files.
+         Reason C617.1 covers "files inside the app container, app
+         group container, or the app's CloudKit container."
+
+      2. UserDefaults (CA92.1) — SwiftUI `@AppStorage` is
+         UserDefaults-backed: preview pane height, docked preview
+         selection, inspector tab, F-5 detach state flags, etc.
+         All app-internal; CA92.1 matches.
+
+      3. SystemBootTime (35F9.1) — `CACurrentMediaTime` for the
+         auto-follow-playhead grace window
+         (`TimelineState.swift:33`) and `CFAbsoluteTimeGetCurrent`
+         for the playback-timer wall-clock reference
+         (`SequencerViewModel.swift:904`). 35F9.1 matches "measure
+         elapsed time between events within the app."
+
+  Keep this list trimmed to what we actually use. Adding a
+  reason we don't exercise can trip App Review's automated checks.
+-->
+<plist version="1.0">
+<dict>
+  <key>NSPrivacyTracking</key>
+  <false/>
+  <key>NSPrivacyTrackingDomains</key>
+  <array/>
+  <key>NSPrivacyCollectedDataTypes</key>
+  <array/>
+  <key>NSPrivacyAccessedAPITypes</key>
+  <array>
+    <dict>
+      <key>NSPrivacyAccessedAPIType</key>
+      <string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
+      <key>NSPrivacyAccessedAPITypeReasons</key>
+      <array>
+        <string>C617.1</string>
+      </array>
+    </dict>
+    <dict>
+      <key>NSPrivacyAccessedAPIType</key>
+      <string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+      <key>NSPrivacyAccessedAPITypeReasons</key>
+      <array>
+        <string>CA92.1</string>
+      </array>
+    </dict>
+    <dict>
+      <key>NSPrivacyAccessedAPIType</key>
+      <string>NSPrivacyAccessedAPICategorySystemBootTime</string>
+      <key>NSPrivacyAccessedAPITypeReasons</key>
+      <array>
+        <string>35F9.1</string>
+      </array>
+    </dict>
+  </array>
+</dict>
+</plist>
