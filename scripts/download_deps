@@ -1,0 +1,77 @@
+#!/bin/bash
+#
+# download_deps — fetch and link the prebuilt xLights macOS/iOS dependencies
+# (libEGL / libGLESv2 XCFrameworks, lua, FFmpeg, wxWidgets, etc.) that the
+# Xcode project expects under macOS/dependencies/.
+#
+# This is invoked from two places:
+#
+#   1. The `xLights-Apple-core` target's shell-script build phase
+#      (`project.pbxproj`) — so local developers building in Xcode get the
+#      deps fetched automatically on first build.
+#
+#   2. `ci_scripts/ci_pre_xcodebuild.sh` — so Xcode Cloud has the
+#      XCFrameworks on disk before `xcodebuild` creates its build
+#      description. Target-phase scripts run too late: Xcode validates
+#      XCFramework references during CreateBuildDescription, which is
+#      before any target's build phases execute, so a cold-slate CI VM
+#      would fail with "There is no XCFramework found at ..." before
+#      reaching the download phase.
+#
+# The script is idempotent — subsequent runs are no-ops when the current
+# tag's `dependencies/include/lualib.h` is already present.
+#
+# Must be run from the macOS/ directory. Both callers cd there first.
+
+set -e
+
+if [ ! -f README.macOS ]; then
+    echo "download_deps: must be run from macOS/ (README.macOS not found in $(pwd))" >&2
+    exit 1
+fi
+
+# if the local artifacts are available, use them
+# env
+
+export TAG=$(grep 'Current dependency version: xlights_' README.macOS | sed 's/.*xlights_//')
+export OLDTAG=$(cat .CURTAG 2>/dev/null || true)
+
+echo "Tag:  $TAG"
+echo "Old Tag:  $OLDTAG"
+
+if [ "x$OLDTAG" == "x" ]; then
+    OLDTAG="xxxxx"
+fi
+if [ "$OLDTAG" == "LOCAL" ]; then
+    rm -rf xLights-macOS-dependencies*
+    if [ -f dependencies/include/lualib.h ]; then
+        #link is already good
+        exit 0
+    fi
+fi
+if [ $TAG != $OLDTAG ]; then
+    rm -f dependencies
+    rm -rf xLights-macOS-dependencies*
+    rm -f .CURTAG
+fi
+
+if [ -f dependencies/include/lualib.h ]; then
+    #link is already good
+    exit 0
+fi
+
+if [ -f /opt/local/include/lualib.h ]; then
+    rm -f dependencies
+    ln -sf /opt/local dependencies
+    echo "LOCAL" > .CURTAG
+    exit 0
+fi
+
+rm -f dependencies
+curl -L https://github.com/xLightsSequencer/xLights-macOS-dependencies/releases/download/xlights_${TAG}/xLights-macOS-dependencies.tar.zst --output xLights-macOS-dependencies.tar.zst
+PATH=$PATH:/opt/homebrew/bin
+tar -xzf xLights-macOS-dependencies.tar.zst
+mv xLights-macOS-dependencies xLights-macOS-dependencies-${TAG}
+ln -sf xLights-macOS-dependencies-${TAG} dependencies
+rm -f xLights-macOS-dependencies.tar.zst
+echo $TAG > .CURTAG

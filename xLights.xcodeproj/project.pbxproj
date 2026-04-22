@@ -150,7 +150,6 @@
 			);
 			script = (
 				"${SRCROOT}/scripts/ispc_compile",
-				"",
 			);
 		};
 /* End PBXBuildRule section */
@@ -1473,52 +1472,7 @@
 			alwaysOutOfDate = 1;
 			shellPath = /bin/bash;
 			shellScript = (
-				"# if the local artifacts are available, use them",
-				"# env",
-				"",
-				"export TAG=$(grep 'Current dependency version: xlights_' README.macOS | sed 's/.*xlights_//')",
-				"export OLDTAG=$(cat .CURTAG)",
-				"",
-				"echo \"Tag:  $TAG\"",
-				"echo \"Old Tag:  $OLDTAG\"",
-				"",
-				"if [ \"x$OLDTAG\" == \"x\" ]; then",
-				"    OLDTAG=\"xxxxx\"",
-				"fi",
-				"if [ \"$OLDTAG\" == \"LOCAL\" ]; then",
-				"    rm -rf xLights-macOS-dependencies*    ",
-				"    if [ -f dependencies/include/lualib.h ]; then ",
-				"        #link is already good",
-				"        exit 0",
-				"    fi",
-				"fi",
-				"if [ $TAG != $OLDTAG ]; then",
-				"    rm -f dependencies",
-				"    rm -rf xLights-macOS-dependencies*    ",
-				"    rm -f .CURTAG",
-				"fi",
-				"",
-				"if [ -f dependencies/include/lualib.h ]; then ",
-				"    #link is already good",
-				"    exit 0",
-				"fi",
-				"",
-				"if [ -f /opt/local/include/lualib.h ]; then",
-				"    rm -f dependencies",
-				"    ln -sf /opt/local dependencies",
-				"    echo \"LOCAL\" > .CURTAG",
-				"    exit 0",
-				"fi",
-				"",
-				"rm -f dependencies",
-				"curl -L https://github.com/xLightsSequencer/xLights-macOS-dependencies/releases/download/xlights_${TAG}/xLights-macOS-dependencies.tar.zst --output xLights-macOS-dependencies.tar.zst",
-				"PATH=$PATH:/opt/homebrew/bin",
-				"tar -xzf xLights-macOS-dependencies.tar.zst",
-				"mv xLights-macOS-dependencies xLights-macOS-dependencies-${TAG}",
-				"ln -sf xLights-macOS-dependencies-${TAG} dependencies",
-				"rm -f xLights-macOS-dependencies.tar.zst",
-				"echo $TAG > .CURTAG",
-				"",
+				"scripts/download_deps",
 			);
 			showEnvVarsInLog = 0;
 		};
