@@ -23,6 +23,27 @@
 -->
 <plist version="1.0">
 <dict>
+  <!--
+    G-3 follow-up: these two flags are what separates "shows up in
+    the share sheet" (UTI registration alone does that) from
+    "shows up in Files' long-press Open With menu and opens files
+    in place." Without them, iPadOS classifies us as a receive-
+    via-share target but not a direct-open target.
+
+    LSSupportsOpeningDocumentsInPlace — we can read/write the file
+      at its existing location (via the security-scoped bookmark
+      `ObtainAccessToURL` mints in `.onOpenURL`) without needing a
+      copy into our sandbox.
+    UIFileSharingEnabled — exposes our `Documents/` directory in
+      Files so users can also navigate into it from outside; not
+      strictly required for Open With but the conventional
+      companion flag.
+  -->
+  <key>LSSupportsOpeningDocumentsInPlace</key>
+  <true/>
+  <key>UIFileSharingEnabled</key>
+  <true/>
+
   <key>CFBundleDocumentTypes</key>
   <array>
     <dict>
