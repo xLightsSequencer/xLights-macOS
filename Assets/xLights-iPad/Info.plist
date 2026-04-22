@@ -24,6 +24,23 @@
 <plist version="1.0">
 <dict>
   <!--
+    H-4 — export compliance. Without this, every TestFlight upload
+    blocks at App Store Connect asking whether the build uses
+    encryption. xLights only uses Apple-provided HTTPS/TLS (via
+    NSURLSession and Bonjour) which is exempt from export reporting.
+    `ITSAppUsesNonExemptEncryption = false` is Apple's standard
+    "yes but it's all exempt" declaration; once set, TestFlight
+    stops prompting per build.
+
+    If we ever ship a feature that does custom crypto (signing an
+    upload with a non-standard algorithm, bundled OpenSSL, etc.)
+    this needs to flip to `true` and we'd also need to file the
+    annual self-classification report with BIS.
+  -->
+  <key>ITSAppUsesNonExemptEncryption</key>
+  <false/>
+
+  <!--
     G-3 follow-up: these two flags are what separates "shows up in
     the share sheet" (UTI registration alone does that) from
     "shows up in Files' long-press Open With menu and opens files
