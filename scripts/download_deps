@@ -72,6 +72,21 @@ curl -L https://github.com/xLightsSequencer/xLights-macOS-dependencies/releases/
 PATH=$PATH:/opt/homebrew/bin
 tar -xzf xLights-macOS-dependencies.tar.zst
 mv xLights-macOS-dependencies xLights-macOS-dependencies-${TAG}
+
+# ANGLE's prebuilt libEGL.xcframework and libGLESv2.xcframework ship with
+# Info.plists that omit CFBundleShortVersionString, which App Store Connect
+# rejects with "ITMS-90057: missing required key CFBundleShortVersionString".
+# Patch both framework slices (device + simulator) in place. The framework's
+# existing CFBundleVersion is 1.0, so we mirror that for the short string.
+for fw_plist in xLights-macOS-dependencies-${TAG}/lib-ios/libEGL.xcframework/*/libEGL.framework/Info.plist \
+                xLights-macOS-dependencies-${TAG}/lib-ios/libGLESv2.xcframework/*/libGLESv2.framework/Info.plist; do
+    if [ -f "$fw_plist" ]; then
+        plutil -remove CFBundleShortVersionString "$fw_plist" 2>/dev/null || true
+        plutil -insert CFBundleShortVersionString -string "1.0" "$fw_plist"
+        echo "Patched CFBundleShortVersionString into $fw_plist"
+    fi
+done
+
 ln -sf xLights-macOS-dependencies-${TAG} dependencies
 rm -f xLights-macOS-dependencies.tar.zst
 echo $TAG > .CURTAG
