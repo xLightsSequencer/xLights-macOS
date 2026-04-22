@@ -1300,6 +1300,7 @@
 				DD00000100000000000P0005 /* Resources */,
 				DD00000100000000ANGLE005 /* Embed Frameworks */,
 				DD00000100000000000P0022 /* Copy Metal Libraries */,
+				DD00000100000000VERPAD01 /* Set Bundle Version */,
 			);
 			buildRules = (
 			);
@@ -1493,6 +1494,16 @@
 				"cp -f \"${BUILT_PRODUCTS_DIR}/EffectComputeFunctions.metallib\" \"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\"",
 				"",
 			);
+		};
+		DD00000100000000VERPAD01 /* Set Bundle Version */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			name = "Set Bundle Version";
+			shellPath = /bin/bash;
+			shellScript = (
+				"scripts/set_bundle_version",
+			);
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 

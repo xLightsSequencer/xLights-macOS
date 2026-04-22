@@ -1,33 +1,20 @@
 #!/bin/bash
 
-# This script primarily grabs the version number from xLightsVersion.h or xlights_build_version.h
-# and uses that to set the CFBundleVersion strings that are needed for the app store upload.
-# This really just prevents having to adjust the xcodeproject version numbers every build
+# Mac-specific build-phase script: embed metallibs, stamp bundle versions
+# (via the shared set_bundle_version script), rewrite wx dylib rpaths, and
+# embed ANGLE dylibs when the app links against them.
+#
+# The version stamping lives in scripts/set_bundle_version so the iPad
+# target can reuse the same logic — see that script's header for the
+# numbering scheme.
 
 
 SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-if [ -f "${SCRIPTDIR}/../../xLights/xlights_build_version.h" ]; then
-    XLVERSION=$(grep xlights_version_string ${SCRIPTDIR}/../../src-core/xlights_build_version.h | tr "\"" "\n" | grep 20)
-else
-    XLVERSION=$(grep xlights_version_string ${SCRIPTDIR}/../../src-core/xLightsVersion.h | tr "\"" "\n" | grep 20)
-fi
-
-# iff need to manually force a version number
-#XLVERSION=2024.01.3
-#That will create build number of 2401003
-
-
-SHORTVER="${XLVERSION//./0}"
-SHORTVERPFX="${SHORTVER:2:2}${SHORTVER:5:2}"
-SHORTVERPO=${SHORTVER:8}
-printf -v SHORTVERPO "%03d" $SHORTVERPO
-SHORTVER="${SHORTVERPFX}${SHORTVERPO}"
 
 cp $TARGET_BUILD_DIR/*.metallib $TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources
 cp $PROJECT_TEMP_ROOT/UninstalledProducts/macosx/*.metallib $TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources
 
-/usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $XLVERSION" "${TARGET_BUILD_DIR}/${INFOPLIST_PATH}"
-/usr/libexec/PlistBuddy -c "Set :CFBundleVersion $SHORTVER" "${TARGET_BUILD_DIR}/${INFOPLIST_PATH}"
+"${SCRIPTDIR}/set_bundle_version"
 
 
 PROCESSED_DYLIBS=""

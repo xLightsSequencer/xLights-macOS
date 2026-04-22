@@ -1,0 +1,40 @@
+#!/bin/bash
+#
+# set_bundle_version — write CFBundleShortVersionString and CFBundleVersion
+# into the current target's built Info.plist.
+#
+# Reads the canonical version string from src-core/xLightsVersion.h (or
+# xlights_build_version.h when present), then computes an App-Store-legal
+# numeric CFBundleVersion from it:
+#
+#   xLightsVersion.h -> xlights_version_string = "2026.06"  (or "2026.06.1", etc.)
+#   CFBundleShortVersionString = "2026.06"
+#   CFBundleVersion            = "2606000"  (YYMMBBB, where BBB is 3-digit patch)
+#
+# Called from build-phase scripts on both the Mac and iPad targets so the
+# two binaries stay in lockstep with each release. Xcode sets the
+# TARGET_BUILD_DIR + INFOPLIST_PATH variables automatically during a build.
+
+set -e
+
+SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+if [ -f "${SCRIPTDIR}/../../src-core/xlights_build_version.h" ]; then
+    XLVERSION=$(grep xlights_version_string ${SCRIPTDIR}/../../src-core/xlights_build_version.h | tr "\"" "\n" | grep 20)
+else
+    XLVERSION=$(grep xlights_version_string ${SCRIPTDIR}/../../src-core/xLightsVersion.h | tr "\"" "\n" | grep 20)
+fi
+
+# iff need to manually force a version number
+#XLVERSION=2024.01.3
+#That will create build number of 2401003
+
+SHORTVER="${XLVERSION//./0}"
+SHORTVERPFX="${SHORTVER:2:2}${SHORTVER:5:2}"
+SHORTVERPO=${SHORTVER:8}
+printf -v SHORTVERPO "%03d" $SHORTVERPO
+SHORTVER="${SHORTVERPFX}${SHORTVERPO}"
+
+/usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $XLVERSION" "${TARGET_BUILD_DIR}/${INFOPLIST_PATH}"
+/usr/libexec/PlistBuddy -c "Set :CFBundleVersion $SHORTVER" "${TARGET_BUILD_DIR}/${INFOPLIST_PATH}"
+
+echo "set_bundle_version: CFBundleShortVersionString=$XLVERSION CFBundleVersion=$SHORTVER"
