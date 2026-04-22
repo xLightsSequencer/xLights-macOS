@@ -98,6 +98,7 @@
 		BB0000020000000000MIDI05 /* MidiMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB0000030000000000MIDI05 /* MidiMessage.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
 		CC00000100000000000X0003 /* libxLights-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC00000100000000000X0002 /* libxLights-core.a */; };
 		CC00001000000000000MD501 /* md5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716556225D824F80041BB9A /* md5.cpp */; };
+		CC00001000000000PRIV0001 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = CC00001000000000PRIV0002 /* PrivacyInfo.xcprivacy */; };
 		CC00EFM200000000000A0002 /* effectmetadata in Resources */ = {isa = PBXBuildFile; fileRef = CC00EFM200000000000A0003 /* effectmetadata */; };
 		DD00000100000000RES00001 /* colorcurves in Resources */ = {isa = PBXBuildFile; fileRef = 67712B012F844D5500C44F57 /* colorcurves */; };
 		DD00000100000000RES00002 /* controllers in Resources */ = {isa = PBXBuildFile; fileRef = 67712B022F844D5500C44F57 /* controllers */; };
@@ -111,7 +112,6 @@
 		DD00000100000000RES0000A /* scripts in Resources */ = {isa = PBXBuildFile; fileRef = 67712B0A2F844D5500C44F57 /* scripts */; };
 		DD00000100000000RES0000B /* valuecurves in Resources */ = {isa = PBXBuildFile; fileRef = 67712B0B2F844D5500C44F57 /* valuecurves */; };
 		DD00000100000000RES0000C /* effectmetadata in Resources */ = {isa = PBXBuildFile; fileRef = CC00EFM200000000000A0003 /* effectmetadata */; };
-		CC00001000000000PRIV0001 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = CC00001000000000PRIV0002 /* PrivacyInfo.xcprivacy */; };
 		DD00000200000000000I0001 /* libxLights-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC00000100000000000X0002 /* libxLights-core.a */; };
 		DD00000200000000000I0002 /* libxLights-Apple-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB00000100000000000C0002 /* libxLights-Apple-core.a */; };
 		DD00000200000000000I0003 /* libxLights-iPadLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD00000100000000000I0002 /* libxLights-iPadLib.a */; };
@@ -150,6 +150,7 @@
 			);
 			script = (
 				"${SRCROOT}/scripts/ispc_compile",
+				"",
 			);
 		};
 /* End PBXBuildRule section */
@@ -210,6 +211,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = CC00000100000000000X0001;
 			remoteInfo = "xLights-core";
+		};
+		CC00001000000000DEP0001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BB00000100000000000C0001;
+			remoteInfo = "xLights-Apple-core";
 		};
 		DD00000100000000000I000A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -422,7 +430,6 @@
 		67DA60662F7FF15300A41238 /* pugixml.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = pugixml.cpp; path = ../dependencies/pugixml/src/pugixml.cpp; sourceTree = SOURCE_ROOT; };
 		67E00443256D6FA900E12C81 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		67E523912F89358D00650460 /* xLights-iPad.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "xLights-iPad.entitlements"; sourceTree = "<group>"; };
-		CC00001000000000PRIV0002 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		67E7086D17B51AB400A22034 /* xLights.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = xLights.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67E7087017B51AB400A22034 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		67E7087317B51AB400A22034 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -456,6 +463,7 @@
 		BB0000030000000000MIDI04 /* MidiFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MidiFile.cpp; path = ../dependencies/midifile/src/MidiFile.cpp; sourceTree = "<group>"; };
 		BB0000030000000000MIDI05 /* MidiMessage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MidiMessage.cpp; path = ../dependencies/midifile/src/MidiMessage.cpp; sourceTree = "<group>"; };
 		CC00000100000000000X0002 /* libxLights-core.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libxLights-core.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC00001000000000PRIV0002 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		CC00EFM200000000000A0003 /* effectmetadata */ = {isa = PBXFileReference; lastKnownFileType = folder; name = effectmetadata; path = ../resources/effectmetadata; sourceTree = SOURCE_ROOT; };
 		DD00000100000000000I0002 /* libxLights-iPadLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libxLights-iPadLib.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD00000100000000000P0002 /* xLights.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = xLights.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1252,6 +1260,9 @@
 			);
 			buildRules = (
 			);
+			dependencies = (
+				CC00001000000000DEP0002 /* PBXTargetDependency */,
+			);
 			fileSystemSynchronizedGroups = (
 				6732E3A12F84156F00747CF8 /* src-core */,
 			);
@@ -1656,6 +1667,11 @@
 			isa = PBXTargetDependency;
 			target = CC00000100000000000X0001 /* xLights-core */;
 			targetProxy = CC00000100000000000X000C /* PBXContainerItemProxy */;
+		};
+		CC00001000000000DEP0002 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BB00000100000000000C0001 /* xLights-Apple-core */;
+			targetProxy = CC00001000000000DEP0001 /* PBXContainerItemProxy */;
 		};
 		DD00000100000000000I000C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
