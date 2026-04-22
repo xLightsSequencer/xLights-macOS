@@ -13,6 +13,7 @@
 		67164BBA25D7CD1A0041BB9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67164BB825D7CD190041BB9A /* Images.xcassets */; };
 		6716555D25D8249D0041BB9A /* wxLED.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716555C25D8249D0041BB9A /* wxLED.cpp */; };
 		6716556425D824F80041BB9A /* md5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716556225D824F80041BB9A /* md5.cpp */; };
+		CC00001000000000000MD501 /* md5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716556225D824F80041BB9A /* md5.cpp */; };
 		6716559525D825410041BB9A /* PluginWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716556C25D825410041BB9A /* PluginWrapper.cpp */; };
 		6716559925D825410041BB9A /* RealTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716557D25D825410041BB9A /* RealTime.cpp */; };
 		6716559A25D825410041BB9A /* PluginAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716557F25D825410041BB9A /* PluginAdapter.cpp */; };
@@ -1587,6 +1588,7 @@
 		CC00000100000000000X0004 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			files = (
+				CC00001000000000000MD501 /* md5.cpp in Sources */,
 			);
 		};
 		DD00000100000000000I0003 /* Sources */ = {
