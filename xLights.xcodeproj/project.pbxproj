@@ -13,7 +13,6 @@
 		67164BBA25D7CD1A0041BB9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67164BB825D7CD190041BB9A /* Images.xcassets */; };
 		6716555D25D8249D0041BB9A /* wxLED.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716555C25D8249D0041BB9A /* wxLED.cpp */; };
 		6716556425D824F80041BB9A /* md5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716556225D824F80041BB9A /* md5.cpp */; };
-		CC00001000000000000MD501 /* md5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716556225D824F80041BB9A /* md5.cpp */; };
 		6716559525D825410041BB9A /* PluginWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716556C25D825410041BB9A /* PluginWrapper.cpp */; };
 		6716559925D825410041BB9A /* RealTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716557D25D825410041BB9A /* RealTime.cpp */; };
 		6716559A25D825410041BB9A /* PluginAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716557F25D825410041BB9A /* PluginAdapter.cpp */; };
@@ -98,6 +97,7 @@
 		BB0000020000000000MIDI04 /* MidiFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB0000030000000000MIDI04 /* MidiFile.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
 		BB0000020000000000MIDI05 /* MidiMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB0000030000000000MIDI05 /* MidiMessage.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
 		CC00000100000000000X0003 /* libxLights-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC00000100000000000X0002 /* libxLights-core.a */; };
+		CC00001000000000000MD501 /* md5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716556225D824F80041BB9A /* md5.cpp */; };
 		CC00EFM200000000000A0002 /* effectmetadata in Resources */ = {isa = PBXBuildFile; fileRef = CC00EFM200000000000A0003 /* effectmetadata */; };
 		DD00000100000000RES00001 /* colorcurves in Resources */ = {isa = PBXBuildFile; fileRef = 67712B012F844D5500C44F57 /* colorcurves */; };
 		DD00000100000000RES00002 /* controllers in Resources */ = {isa = PBXBuildFile; fileRef = 67712B022F844D5500C44F57 /* controllers */; };
