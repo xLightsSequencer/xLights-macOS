@@ -13,13 +13,18 @@
   when the user taps a sequence, and tells iPadOS that xLights owns
   the org.xlights.sequence UTI.
 
-  `.xsqz` (compressed sequence package) is intentionally NOT
-  registered here — `src-core/render/SequencePackage.cpp` extracts
-  `.xsqz` / `.zip` / `.piz` containers on desktop and routes to the
-  inner `.xsq`, but that logic isn't wired into the iPad bridge.
-  Advertising `.xsqz` support would route taps into xLights that
-  we can't actually fulfil. Revisit when SequencePackage is
-  integrated on iPad.
+  `.xsqz` (compressed sequence package) is also registered below
+  as `org.xlights.sequence-package`. The iPad bridge extracts the
+  package into a temp dir on open (via `SequencePackage::Extract`)
+  and re-packs on save (via `SequencePackage::Repack`) so the user
+  can tap an `.xsqz` in Files, edit it, and save back in place.
+  The temp dir is cleaned up when the sequence closes. This is the
+  primary self-service flow for App Store reviewers: download an
+  `.xsqz`, tap it, the app opens end-to-end without any show-folder
+  setup. `.zip` and `.piz` are not registered here — those are
+  desktop-authored archive forms we handle in-core if a user
+  picks one explicitly, but we don't want Files to route every
+  arbitrary `.zip` tap into xLights.
 -->
 <plist version="1.0">
 <dict>
@@ -125,6 +130,18 @@
         <string>org.xlights.sequence</string>
       </array>
     </dict>
+    <dict>
+      <key>CFBundleTypeName</key>
+      <string>xLights Sequence Package</string>
+      <key>CFBundleTypeRole</key>
+      <string>Editor</string>
+      <key>LSHandlerRank</key>
+      <string>Owner</string>
+      <key>LSItemContentTypes</key>
+      <array>
+        <string>org.xlights.sequence-package</string>
+      </array>
+    </dict>
   </array>
 
   <key>UTExportedTypeDeclarations</key>
@@ -144,6 +161,24 @@
         <key>public.filename-extension</key>
         <array>
           <string>xsq</string>
+        </array>
+      </dict>
+    </dict>
+    <dict>
+      <key>UTTypeIdentifier</key>
+      <string>org.xlights.sequence-package</string>
+      <key>UTTypeDescription</key>
+      <string>xLights Sequence Package</string>
+      <key>UTTypeConformsTo</key>
+      <array>
+        <string>public.zip-archive</string>
+        <string>public.data</string>
+      </array>
+      <key>UTTypeTagSpecification</key>
+      <dict>
+        <key>public.filename-extension</key>
+        <array>
+          <string>xsqz</string>
         </array>
       </dict>
     </dict>
