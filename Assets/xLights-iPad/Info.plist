@@ -98,8 +98,12 @@
     resolve against `src-iPad/Assets.xcassets/`. LaunchBackground has
     explicit light (white) and dark (#1A1A1A) appearance variants so
     the launch matches the user's iPad appearance mode. LaunchLogo is
-    the xLights horizontal logo as a single @2x PNG (1200×460 →
-    600×230 pt on-screen); iOS centers it automatically.
+    a composite @2x PNG (1200×804 → 600×402 pt on-screen) with the
+    xLights wordmark on top and the KulpLights wordmark centred
+    underneath as a presented-by credit; iOS centers the full image
+    automatically. UILaunchScreen only supports a single UIImageName,
+    so the two wordmarks have to be combined into one PNG rather than
+    layered at runtime.
 
     The `INFOPLIST_KEY_UILaunchScreen_Generation = YES` build setting
     that was previously on this target is removed — it emits an empty
