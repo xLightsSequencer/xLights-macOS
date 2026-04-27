@@ -627,6 +627,7 @@
 				effects/metal/SpiralsFunctions.metal,
 				effects/metal/TransitionFunctions.metal,
 				effects/metal/WarpFunctions.metal,
+				media/StemSeparator.cpp,
 				media/WindowsHardwareVideoReader.cpp,
 				outputs/serial_osx.cpp,
 				outputs/serial_posix.cpp,
@@ -1474,6 +1475,7 @@
 			shellPath = /bin/bash;
 			shellScript = (
 				"scripts/download_deps",
+				"",
 			);
 			showEnvVarsInLog = 0;
 		};
@@ -1502,6 +1504,7 @@
 			shellPath = /bin/bash;
 			shellScript = (
 				"scripts/set_bundle_version",
+				"",
 			);
 			showEnvVarsInLog = 0;
 		};
