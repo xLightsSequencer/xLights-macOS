@@ -69,6 +69,26 @@
 		67A14C8020DD328A006EFCFA /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7F20DD3289006EFCFA /* ImageIO.framework */; };
 		67A14C8420DD336E006EFCFA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C8320DD336E006EFCFA /* libz.tbd */; };
 		67A14C8620DD337E006EFCFA /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C8520DD337E006EFCFA /* Security.framework */; };
+		67AB020000000000000AUB01 /* cvec.c in Sources */ = {isa = PBXBuildFile; fileRef = 67AB010000000000000AUB01 /* cvec.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		67AB020000000000000AUB02 /* fmat.c in Sources */ = {isa = PBXBuildFile; fileRef = 67AB010000000000000AUB02 /* fmat.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		67AB020000000000000AUB03 /* fvec.c in Sources */ = {isa = PBXBuildFile; fileRef = 67AB010000000000000AUB03 /* fvec.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		67AB020000000000000AUB04 /* lvec.c in Sources */ = {isa = PBXBuildFile; fileRef = 67AB010000000000000AUB04 /* lvec.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		67AB020000000000000AUB05 /* mathutils.c in Sources */ = {isa = PBXBuildFile; fileRef = 67AB010000000000000AUB05 /* mathutils.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		67AB020000000000000AUB06 /* musicutils.c in Sources */ = {isa = PBXBuildFile; fileRef = 67AB010000000000000AUB06 /* musicutils.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		67AB020000000000000AUB07 /* vecutils.c in Sources */ = {isa = PBXBuildFile; fileRef = 67AB010000000000000AUB07 /* vecutils.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		67AB020000000000000AUB08 /* onset.c in Sources */ = {isa = PBXBuildFile; fileRef = 67AB010000000000000AUB08 /* onset.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		67AB020000000000000AUB09 /* peakpicker.c in Sources */ = {isa = PBXBuildFile; fileRef = 67AB010000000000000AUB09 /* peakpicker.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		67AB020000000000000AUB0A /* awhitening.c in Sources */ = {isa = PBXBuildFile; fileRef = 67AB010000000000000AUB0A /* awhitening.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		67AB020000000000000AUB0B /* fft.c in Sources */ = {isa = PBXBuildFile; fileRef = 67AB010000000000000AUB0B /* fft.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		67AB020000000000000AUB0C /* ooura_fft8g.c in Sources */ = {isa = PBXBuildFile; fileRef = 67AB010000000000000AUB0C /* ooura_fft8g.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		67AB020000000000000AUB0D /* phasevoc.c in Sources */ = {isa = PBXBuildFile; fileRef = 67AB010000000000000AUB0D /* phasevoc.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		67AB020000000000000AUB0E /* specdesc.c in Sources */ = {isa = PBXBuildFile; fileRef = 67AB010000000000000AUB0E /* specdesc.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		67AB020000000000000AUB0F /* statistics.c in Sources */ = {isa = PBXBuildFile; fileRef = 67AB010000000000000AUB0F /* statistics.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		67AB020000000000000AUB10 /* biquad.c in Sources */ = {isa = PBXBuildFile; fileRef = 67AB010000000000000AUB10 /* biquad.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		67AB020000000000000AUB11 /* filter.c in Sources */ = {isa = PBXBuildFile; fileRef = 67AB010000000000000AUB11 /* filter.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		67AB020000000000000AUB12 /* hist.c in Sources */ = {isa = PBXBuildFile; fileRef = 67AB010000000000000AUB12 /* hist.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		67AB020000000000000AUB13 /* log.c in Sources */ = {isa = PBXBuildFile; fileRef = 67AB010000000000000AUB13 /* log.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		67AB020000000000000AUB14 /* scale.c in Sources */ = {isa = PBXBuildFile; fileRef = 67AB010000000000000AUB14 /* scale.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		67BE0DFA2727C0AB00558A3A /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BE0DF82727C0AB00558A3A /* MetalKit.framework */; };
 		67BE0DFB2727C0AB00558A3A /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BE0DF92727C0AB00558A3A /* Metal.framework */; };
 		67C7E283215E596000AE0775 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B6F3422040FBB600B847E0 /* CoreAudio.framework */; };
@@ -403,6 +423,26 @@
 		67A14C8120DD3345006EFCFA /* libSystem.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libSystem.tbd; path = usr/lib/libSystem.tbd; sourceTree = SDKROOT; };
 		67A14C8320DD336E006EFCFA /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		67A14C8520DD337E006EFCFA /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		67AB010000000000000AUB01 /* cvec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = cvec.c; path = src/cvec.c; sourceTree = "<group>"; };
+		67AB010000000000000AUB02 /* fmat.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = fmat.c; path = src/fmat.c; sourceTree = "<group>"; };
+		67AB010000000000000AUB03 /* fvec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = fvec.c; path = src/fvec.c; sourceTree = "<group>"; };
+		67AB010000000000000AUB04 /* lvec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = lvec.c; path = src/lvec.c; sourceTree = "<group>"; };
+		67AB010000000000000AUB05 /* mathutils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = mathutils.c; path = src/mathutils.c; sourceTree = "<group>"; };
+		67AB010000000000000AUB06 /* musicutils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = musicutils.c; path = src/musicutils.c; sourceTree = "<group>"; };
+		67AB010000000000000AUB07 /* vecutils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = vecutils.c; path = src/vecutils.c; sourceTree = "<group>"; };
+		67AB010000000000000AUB08 /* onset.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = onset.c; path = src/onset/onset.c; sourceTree = "<group>"; };
+		67AB010000000000000AUB09 /* peakpicker.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = peakpicker.c; path = src/onset/peakpicker.c; sourceTree = "<group>"; };
+		67AB010000000000000AUB0A /* awhitening.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = awhitening.c; path = src/spectral/awhitening.c; sourceTree = "<group>"; };
+		67AB010000000000000AUB0B /* fft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = fft.c; path = src/spectral/fft.c; sourceTree = "<group>"; };
+		67AB010000000000000AUB0C /* ooura_fft8g.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ooura_fft8g.c; path = src/spectral/ooura_fft8g.c; sourceTree = "<group>"; };
+		67AB010000000000000AUB0D /* phasevoc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = phasevoc.c; path = src/spectral/phasevoc.c; sourceTree = "<group>"; };
+		67AB010000000000000AUB0E /* specdesc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = specdesc.c; path = src/spectral/specdesc.c; sourceTree = "<group>"; };
+		67AB010000000000000AUB0F /* statistics.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = statistics.c; path = src/spectral/statistics.c; sourceTree = "<group>"; };
+		67AB010000000000000AUB10 /* biquad.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = biquad.c; path = src/temporal/biquad.c; sourceTree = "<group>"; };
+		67AB010000000000000AUB11 /* filter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = filter.c; path = src/temporal/filter.c; sourceTree = "<group>"; };
+		67AB010000000000000AUB12 /* hist.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = hist.c; path = src/utils/hist.c; sourceTree = "<group>"; };
+		67AB010000000000000AUB13 /* log.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = log.c; path = src/utils/log.c; sourceTree = "<group>"; };
+		67AB010000000000000AUB14 /* scale.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = scale.c; path = src/utils/scale.c; sourceTree = "<group>"; };
 		67B4C91F17B53D960006B951 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		67B4C92017B53D960006B951 /* CoreMediaIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMediaIO.framework; path = System/Library/Frameworks/CoreMediaIO.framework; sourceTree = SDKROOT; };
 		67B4C92117B53D960006B951 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -840,6 +880,7 @@
 		671653D125D7CF4E0041BB9A /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				67AB030000000000000AUB00 /* aubio */,
 				67DA60632F7FF12F00A41238 /* pugixml */,
 				67D142AC275802F50018A831 /* wxHTTPServer */,
 				6716556825D8251D0041BB9A /* vamp */,
@@ -938,6 +979,74 @@
 			name = resources;
 			path = ../resources;
 			sourceTree = SOURCE_ROOT;
+		};
+		67AB030000000000000AUB00 /* aubio */ = {
+			isa = PBXGroup;
+			children = (
+				67AB030000000000000AUB01 /* src */,
+			);
+			name = aubio;
+			path = ../dependencies/aubio;
+			sourceTree = "<group>";
+		};
+		67AB030000000000000AUB01 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				67AB010000000000000AUB01 /* cvec.c */,
+				67AB010000000000000AUB02 /* fmat.c */,
+				67AB010000000000000AUB03 /* fvec.c */,
+				67AB010000000000000AUB04 /* lvec.c */,
+				67AB010000000000000AUB05 /* mathutils.c */,
+				67AB010000000000000AUB06 /* musicutils.c */,
+				67AB010000000000000AUB07 /* vecutils.c */,
+				67AB030000000000000AUB02 /* onset */,
+				67AB030000000000000AUB03 /* spectral */,
+				67AB030000000000000AUB04 /* temporal */,
+				67AB030000000000000AUB05 /* utils */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+		67AB030000000000000AUB02 /* onset */ = {
+			isa = PBXGroup;
+			children = (
+				67AB010000000000000AUB08 /* onset.c */,
+				67AB010000000000000AUB09 /* peakpicker.c */,
+			);
+			name = onset;
+			sourceTree = "<group>";
+		};
+		67AB030000000000000AUB03 /* spectral */ = {
+			isa = PBXGroup;
+			children = (
+				67AB010000000000000AUB0A /* awhitening.c */,
+				67AB010000000000000AUB0B /* fft.c */,
+				67AB010000000000000AUB0C /* ooura_fft8g.c */,
+				67AB010000000000000AUB0D /* phasevoc.c */,
+				67AB010000000000000AUB0E /* specdesc.c */,
+				67AB010000000000000AUB0F /* statistics.c */,
+			);
+			name = spectral;
+			sourceTree = "<group>";
+		};
+		67AB030000000000000AUB04 /* temporal */ = {
+			isa = PBXGroup;
+			children = (
+				67AB010000000000000AUB10 /* biquad.c */,
+				67AB010000000000000AUB11 /* filter.c */,
+			);
+			name = temporal;
+			sourceTree = "<group>";
+		};
+		67AB030000000000000AUB05 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				67AB010000000000000AUB12 /* hist.c */,
+				67AB010000000000000AUB13 /* log.c */,
+				67AB010000000000000AUB14 /* scale.c */,
+			);
+			name = utils;
+			sourceTree = "<group>";
 		};
 		67D142AC275802F50018A831 /* wxHTTPServer */ = {
 			isa = PBXGroup;
@@ -1525,6 +1634,26 @@
 		67E7086917B51AB400A22034 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			files = (
+				67AB020000000000000AUB01 /* cvec.c in Sources */,
+				67AB020000000000000AUB02 /* fmat.c in Sources */,
+				67AB020000000000000AUB03 /* fvec.c in Sources */,
+				67AB020000000000000AUB04 /* lvec.c in Sources */,
+				67AB020000000000000AUB05 /* mathutils.c in Sources */,
+				67AB020000000000000AUB06 /* musicutils.c in Sources */,
+				67AB020000000000000AUB07 /* vecutils.c in Sources */,
+				67AB020000000000000AUB08 /* onset.c in Sources */,
+				67AB020000000000000AUB09 /* peakpicker.c in Sources */,
+				67AB020000000000000AUB0A /* awhitening.c in Sources */,
+				67AB020000000000000AUB0B /* fft.c in Sources */,
+				67AB020000000000000AUB0C /* ooura_fft8g.c in Sources */,
+				67AB020000000000000AUB0D /* phasevoc.c in Sources */,
+				67AB020000000000000AUB0E /* specdesc.c in Sources */,
+				67AB020000000000000AUB0F /* statistics.c in Sources */,
+				67AB020000000000000AUB10 /* biquad.c in Sources */,
+				67AB020000000000000AUB11 /* filter.c in Sources */,
+				67AB020000000000000AUB12 /* hist.c in Sources */,
+				67AB020000000000000AUB13 /* log.c in Sources */,
+				67AB020000000000000AUB14 /* scale.c in Sources */,
 				67D142BE275803100018A831 /* request.cpp in Sources */,
 				6716559925D825410041BB9A /* RealTime.cpp in Sources */,
 				67D142BC275803100018A831 /* context.cpp in Sources */,
@@ -1896,6 +2025,7 @@
 					"src-mac-ui",
 					../dependencies,
 					../dependencies/pugixml/src,
+					../dependencies/aubio/src,
 					../dependencies/liquidfun/liquidfun/Box2D,
 					../dependencies/midifile/include,
 					../dependencies/spdlog/include,
@@ -2026,6 +2156,7 @@
 					"src-mac-ui",
 					../dependencies,
 					../dependencies/pugixml/src,
+					../dependencies/aubio/src,
 					../dependencies/liquidfun/liquidfun/Box2D,
 					../dependencies/midifile/include,
 					../dependencies/spdlog/include,
@@ -2134,6 +2265,7 @@
 					"src-mac-ui",
 					../dependencies,
 					../dependencies/pugixml/src,
+					../dependencies/aubio/src,
 					../dependencies/liquidfun/liquidfun/Box2D,
 					../dependencies/midifile/include,
 					../dependencies/spdlog/include,
@@ -2210,6 +2342,7 @@
 					"src-mac-ui",
 					../dependencies,
 					../dependencies/pugixml/src,
+					../dependencies/aubio/src,
 					../dependencies/liquidfun/liquidfun/Box2D,
 					../dependencies/midifile/include,
 					../dependencies/spdlog/include,
@@ -2317,6 +2450,7 @@
 					"src-mac-ui",
 					../dependencies,
 					../dependencies/pugixml/src,
+					../dependencies/aubio/src,
 					../dependencies/liquidfun/liquidfun/Box2D,
 					../dependencies/midifile/include,
 					../dependencies/spdlog/include,
@@ -2427,6 +2561,7 @@
 					"src-mac-ui",
 					../dependencies,
 					../dependencies/pugixml/src,
+					../dependencies/aubio/src,
 					../dependencies/liquidfun/liquidfun/Box2D,
 					../dependencies/midifile/include,
 					../dependencies/spdlog/include,
@@ -2487,6 +2622,7 @@
 					"src-apple-core",
 					../dependencies,
 					../dependencies/pugixml/src,
+					../dependencies/aubio/src,
 					../dependencies/spdlog/include,
 				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -2526,6 +2662,7 @@
 					"src-apple-core",
 					../dependencies,
 					../dependencies/pugixml/src,
+					../dependencies/aubio/src,
 					../dependencies/spdlog/include,
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -2564,6 +2701,7 @@
 					"src-apple-core",
 					../dependencies,
 					../dependencies/pugixml/src,
+					../dependencies/aubio/src,
 					../dependencies/spdlog/include,
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -2601,6 +2739,7 @@
 					"src-mac-ui",
 					../dependencies,
 					../dependencies/pugixml/src,
+					../dependencies/aubio/src,
 					../dependencies/spdlog/include,
 				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -2639,6 +2778,7 @@
 					"src-mac-ui",
 					../dependencies,
 					../dependencies/pugixml/src,
+					../dependencies/aubio/src,
 					../dependencies/spdlog/include,
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -2675,6 +2815,7 @@
 					"src-mac-ui",
 					../dependencies,
 					../dependencies/pugixml/src,
+					../dependencies/aubio/src,
 					../dependencies/spdlog/include,
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -2719,6 +2860,7 @@
 					"src-apple-core",
 					../dependencies,
 					../dependencies/pugixml/src,
+					../dependencies/aubio/src,
 					../dependencies/liquidfun/liquidfun/Box2D,
 					../dependencies/midifile/include,
 					../dependencies/spdlog/include,
@@ -2769,6 +2911,7 @@
 					"src-apple-core",
 					../dependencies,
 					../dependencies/pugixml/src,
+					../dependencies/aubio/src,
 					../dependencies/liquidfun/liquidfun/Box2D,
 					../dependencies/midifile/include,
 					../dependencies/spdlog/include,
@@ -2819,6 +2962,7 @@
 					"src-apple-core",
 					../dependencies,
 					../dependencies/pugixml/src,
+					../dependencies/aubio/src,
 					../dependencies/liquidfun/liquidfun/Box2D,
 					../dependencies/midifile/include,
 					../dependencies/spdlog/include,
