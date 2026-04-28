@@ -133,6 +133,10 @@
       <array>
         <string>org.xlights.sequence</string>
       </array>
+      <key>CFBundleTypeIconFiles</key>
+      <array>
+        <string>DocumentXSQ</string>
+      </array>
     </dict>
     <dict>
       <key>CFBundleTypeName</key>
@@ -144,6 +148,10 @@
       <key>LSItemContentTypes</key>
       <array>
         <string>org.xlights.sequence-package</string>
+      </array>
+      <key>CFBundleTypeIconFiles</key>
+      <array>
+        <string>DocumentXSQZ</string>
       </array>
     </dict>
   </array>
@@ -160,6 +168,8 @@
         <string>public.xml</string>
         <string>public.data</string>
       </array>
+      <key>UTTypeIconFile</key>
+      <string>DocumentXSQ</string>
       <key>UTTypeTagSpecification</key>
       <dict>
         <key>public.filename-extension</key>
@@ -178,6 +188,8 @@
         <string>public.zip-archive</string>
         <string>public.data</string>
       </array>
+      <key>UTTypeIconFile</key>
+      <string>DocumentXSQZ</string>
       <key>UTTypeTagSpecification</key>
       <dict>
         <key>public.filename-extension</key>
