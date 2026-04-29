@@ -275,9 +275,8 @@ public func fileExists(_ path: String, waitForDownload: Bool) -> Bool {
 
             if isUbiquitous != nil {
                 exists = true
+                try fileManager.startDownloadingUbiquitousItem(at: url)
                 if waitForDownload {
-                    try fileManager.startDownloadingUbiquitousItem(at: url)
-
                     var downloadStatus: URLUbiquitousItemDownloadingStatus?
                     var count = 0
 
