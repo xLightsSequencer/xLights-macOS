@@ -137,6 +137,8 @@
 		DD00000200000000ANGLE002 /* libGLESv2.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD00000100000000ANGLE002 /* libGLESv2.xcframework */; };
 		DD00000200000000ANGLE003 /* libEGL.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DD00000100000000ANGLE001 /* libEGL.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DD00000200000000ANGLE004 /* libGLESv2.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DD00000100000000ANGLE002 /* libGLESv2.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		MK7700000000000100MK0001 /* MetricKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = MK7700000000000200MK0001 /* MetricKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		MK7700000000000300MK0001 /* MetricKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = MK7700000000000200MK0001 /* MetricKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -468,6 +470,7 @@
 		DD00000100000000000P0002 /* xLights.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = xLights.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD00000100000000ANGLE001 /* libEGL.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = libEGL.xcframework; path = "dependencies/lib-ios/libEGL.xcframework"; sourceTree = SOURCE_ROOT; };
 		DD00000100000000ANGLE002 /* libGLESv2.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = libGLESv2.xcframework; path = "dependencies/lib-ios/libGLESv2.xcframework"; sourceTree = SOURCE_ROOT; };
+		MK7700000000000200MK0001 /* MetricKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetricKit.framework; path = System/Library/Frameworks/MetricKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -750,6 +753,7 @@
 				14BE3A5DBB4294EAC74CC824 /* AVFoundation.framework in Frameworks */,
 				A7A700000000000100A70001 /* SoundAnalysis.framework in Frameworks */,
 				A8A800000000000100A80001 /* CoreML.framework in Frameworks */,
+				MK7700000000000100MK0001 /* MetricKit.framework in Frameworks */,
 				670F8DCA27652F5E002F0CD6 /* ModelIO.framework in Frameworks */,
 				672F447626387B59005B795A /* QuartzCore.framework in Frameworks */,
 				6729000D2553047600C83C71 /* libbz2.tbd in Frameworks */,
@@ -798,6 +802,7 @@
 				DD00000200000000000I0008 /* AVFoundation.framework in Frameworks */,
 				A7A700000000000300A70001 /* SoundAnalysis.framework in Frameworks */,
 				A8A800000000000300A80001 /* CoreML.framework in Frameworks */,
+				MK7700000000000300MK0001 /* MetricKit.framework in Frameworks */,
 				DD00000200000000000I0009 /* AudioToolbox.framework in Frameworks */,
 				DD00000200000000000I000A /* CoreMedia.framework in Frameworks */,
 				DD00000200000000000I000B /* CoreVideo.framework in Frameworks */,
@@ -1081,6 +1086,7 @@
 				508754EE92C352178126B474 /* AVFoundation.framework */,
 				A7A700000000000200A70001 /* SoundAnalysis.framework */,
 				A8A800000000000200A80001 /* CoreML.framework */,
+				MK7700000000000200MK0001 /* MetricKit.framework */,
 				674D3D211C207BCC000D632B /* IOKit.framework */,
 				674D3D1C1C207B9F000D632B /* OpenGL.framework */,
 				674E27A41B5B37B000274B20 /* GLUT.framework */,
