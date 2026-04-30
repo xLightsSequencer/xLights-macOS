@@ -99,6 +99,7 @@
 		CC00000100000000000X0003 /* libxLights-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC00000100000000000X0002 /* libxLights-core.a */; };
 		CC00001000000000000MD501 /* md5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716556225D824F80041BB9A /* md5.cpp */; };
 		CC00001000000000PRIV0001 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = CC00001000000000PRIV0002 /* PrivacyInfo.xcprivacy */; };
+		SB7700000000000100SB0001 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = SB7700000000000200SB0001 /* Settings.bundle */; };
 		CC00EFM200000000000A0002 /* effectmetadata in Resources */ = {isa = PBXBuildFile; fileRef = CC00EFM200000000000A0003 /* effectmetadata */; };
 		DD00000100000000RES00001 /* colorcurves in Resources */ = {isa = PBXBuildFile; fileRef = 67712B012F844D5500C44F57 /* colorcurves */; };
 		DD00000100000000RES00002 /* controllers in Resources */ = {isa = PBXBuildFile; fileRef = 67712B022F844D5500C44F57 /* controllers */; };
@@ -465,6 +466,7 @@
 		BB0000030000000000MIDI05 /* MidiMessage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MidiMessage.cpp; path = ../dependencies/midifile/src/MidiMessage.cpp; sourceTree = "<group>"; };
 		CC00000100000000000X0002 /* libxLights-core.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libxLights-core.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC00001000000000PRIV0002 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		SB7700000000000200SB0001 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = wrapper.plug-in; path = Settings.bundle; sourceTree = "<group>"; };
 		CC00EFM200000000000A0003 /* effectmetadata */ = {isa = PBXFileReference; lastKnownFileType = folder; name = effectmetadata; path = ../resources/effectmetadata; sourceTree = SOURCE_ROOT; };
 		DD00000100000000000I0002 /* libxLights-iPadLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libxLights-iPadLib.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD00000100000000000P0002 /* xLights.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = xLights.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -976,6 +978,7 @@
 			children = (
 				67E523912F89358D00650460 /* xLights-iPad.entitlements */,
 				CC00001000000000PRIV0002 /* PrivacyInfo.xcprivacy */,
+				SB7700000000000200SB0001 /* Settings.bundle */,
 			);
 			path = "xLights-iPad";
 			sourceTree = "<group>";
@@ -1460,6 +1463,7 @@
 				DD00000100000000RES0000B /* valuecurves in Resources */,
 				DD00000100000000RES0000C /* effectmetadata in Resources */,
 				CC00001000000000PRIV0001 /* PrivacyInfo.xcprivacy in Resources */,
+				SB7700000000000100SB0001 /* Settings.bundle in Resources */,
 			);
 		};
 /* End PBXResourcesBuildPhase section */

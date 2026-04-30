@@ -30,6 +30,13 @@ API_AVAILABLE(macos(12.0), ios(13.0))
                           stamp, kind, (unsigned long)idx];
     NSString* path = [self.diagnosticsDir stringByAppendingPathComponent:filename];
     [json writeToFile:path atomically:YES];
+
+    // iPad observers (the diagnostic uploader) listen for this and
+    // bundle the JSON into a PendingUpload/ zip. On macOS nothing
+    // listens — the wx debug-report path picks up the JSON files
+    // directly out of Diagnostics/ next time it builds a zip.
+    [[NSNotificationCenter defaultCenter]
+        postNotificationName:@"XLMetricKitDidReceivePayloads" object:nil];
 }
 
 - (void)didReceiveMetricPayloads:(NSArray<MXMetricPayload*>*)payloads {
