@@ -2743,6 +2743,7 @@
 					../dependencies/md5,
 				);
 				OTHER_CFLAGS = (
+					"$(inherited)",
 					"-fno-common",
 					"-D_FILE_OFFSET_BITS=64",
 					"-Wno-nan-infinity-disabled",
@@ -2793,6 +2794,7 @@
 					../dependencies/md5,
 				);
 				OTHER_CFLAGS = (
+					"$(inherited)",
 					"-fno-common",
 					"-D_FILE_OFFSET_BITS=64",
 					"-Wno-nan-infinity-disabled",
@@ -2843,6 +2845,7 @@
 					../dependencies/md5,
 				);
 				OTHER_CFLAGS = (
+					"$(inherited)",
 					"-fno-common",
 					"-D_FILE_OFFSET_BITS=64",
 					"-Wno-nan-infinity-disabled",
@@ -2876,6 +2879,7 @@
 					../dependencies/spdlog/include,
 				);
 				OTHER_CFLAGS = (
+					"$(inherited)",
 					"-fno-common",
 					"-D_FILE_OFFSET_BITS=64",
 					"-Wno-nan-infinity-disabled",
@@ -2914,6 +2918,7 @@
 					../dependencies/spdlog/include,
 				);
 				OTHER_CFLAGS = (
+					"$(inherited)",
 					"-fno-common",
 					"-D_FILE_OFFSET_BITS=64",
 					"-Wno-nan-infinity-disabled",
@@ -2951,6 +2956,7 @@
 					../dependencies/spdlog/include,
 				);
 				OTHER_CFLAGS = (
+					"$(inherited)",
 					"-fno-common",
 					"-D_FILE_OFFSET_BITS=64",
 					"-Wno-nan-infinity-disabled",
@@ -3006,6 +3012,7 @@
 				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = "dependencies/libdbg-ios-sim";
 				MARKETING_VERSION = 260000;
 				OTHER_CFLAGS = (
+					"$(inherited)",
 					"-fno-common",
 					"-D_FILE_OFFSET_BITS=64",
 					"-Wno-nan-infinity-disabled",
@@ -3069,6 +3076,7 @@
 				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = "dependencies/lib-ios-sim";
 				MARKETING_VERSION = 260000;
 				OTHER_CFLAGS = (
+					"$(inherited)",
 					"-fno-common",
 					"-D_FILE_OFFSET_BITS=64",
 					"-Wno-nan-infinity-disabled",
@@ -3131,6 +3139,7 @@
 				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = "dependencies/lib-ios-sim";
 				MARKETING_VERSION = 260000;
 				OTHER_CFLAGS = (
+					"$(inherited)",
 					"-fno-common",
 					"-D_FILE_OFFSET_BITS=64",
 					"-Wno-nan-infinity-disabled",
