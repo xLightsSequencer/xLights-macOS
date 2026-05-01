@@ -77,6 +77,8 @@
 	<string>NSApplication</string>
 	<key>NSRemovableVolumesUsageDescription</key>
 	<string>The "FPP Connect" feature in xLights can save sequences, media, and configuration to FPP storage drives mounted as removable media.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>xLights can use on-device speech recognition to transcribe vocals from your sequence's audio into a lyric timing track. Audio stays on your Mac.</string>
 	<key>NSSupportsAutomaticGraphicsSwitching</key>
 	<true/>
 	<key>UTExportedTypeDeclarations</key>

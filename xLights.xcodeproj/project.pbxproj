@@ -140,6 +140,8 @@
 		MK7700000000000100MK0001 /* MetricKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = MK7700000000000200MK0001 /* MetricKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		MK7700000000000300MK0001 /* MetricKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = MK7700000000000200MK0001 /* MetricKit.framework */; };
 		SB7700000000000100SB0001 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = SB7700000000000200SB0001 /* Settings.bundle */; };
+		SP7700000000000100SP0001 /* Speech.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = SP7700000000000000SP0001 /* Speech.framework */; };
+		SP7700000000000300SP0001 /* Speech.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = SP7700000000000000SP0001 /* Speech.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -473,6 +475,7 @@
 		DD00000100000000ANGLE002 /* libGLESv2.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = libGLESv2.xcframework; path = "dependencies/lib-ios/libGLESv2.xcframework"; sourceTree = SOURCE_ROOT; };
 		MK7700000000000200MK0001 /* MetricKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetricKit.framework; path = System/Library/Frameworks/MetricKit.framework; sourceTree = SDKROOT; };
 		SB7700000000000200SB0001 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		SP7700000000000000SP0001 /* Speech.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Speech.framework; path = System/Library/Frameworks/Speech.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -753,6 +756,7 @@
 				67C7E283215E596000AE0775 /* CoreAudio.framework in Frameworks */,
 				674D3D241C207BD7000D632B /* AudioToolbox.framework in Frameworks */,
 				14BE3A5DBB4294EAC74CC824 /* AVFoundation.framework in Frameworks */,
+				SP7700000000000100SP0001 /* Speech.framework in Frameworks */,
 				A7A700000000000100A70001 /* SoundAnalysis.framework in Frameworks */,
 				A8A800000000000100A80001 /* CoreML.framework in Frameworks */,
 				MK7700000000000100MK0001 /* MetricKit.framework in Frameworks */,
@@ -802,6 +806,7 @@
 				DD00000200000000000I0005 /* MetalKit.framework in Frameworks */,
 				DD00000200000000000I0006 /* libISPCEffectComputeFunctions.a in Frameworks */,
 				DD00000200000000000I0008 /* AVFoundation.framework in Frameworks */,
+				SP7700000000000300SP0001 /* Speech.framework in Frameworks */,
 				A7A700000000000300A70001 /* SoundAnalysis.framework in Frameworks */,
 				A8A800000000000300A80001 /* CoreML.framework in Frameworks */,
 				MK7700000000000300MK0001 /* MetricKit.framework in Frameworks */,
@@ -1087,6 +1092,7 @@
 				674D3D251C207C25000D632B /* libpthread.tbd */,
 				674D3D231C207BD7000D632B /* AudioToolbox.framework */,
 				508754EE92C352178126B474 /* AVFoundation.framework */,
+				SP7700000000000000SP0001 /* Speech.framework */,
 				A7A700000000000200A70001 /* SoundAnalysis.framework */,
 				A8A800000000000200A80001 /* CoreML.framework */,
 				MK7700000000000200MK0001 /* MetricKit.framework */,

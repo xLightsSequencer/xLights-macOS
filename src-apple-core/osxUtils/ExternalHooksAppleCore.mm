@@ -1,4 +1,11 @@
 
+// CoreGraphics types (CGImageRef etc) are referenced in the
+// auto-generated `xLights_Apple_core-Swift.h` because Swift sources
+// expose @objc methods with CGImage parameters (see
+// AppleIntelligenceUtils.ImagesAsyncCaller). Import the framework
+// here so the generated header parses cleanly.
+#import <CoreGraphics/CoreGraphics.h>
+
 #include "ExternalHooksApple.h"
 #include "xLights_Apple_core-Swift.h"
 

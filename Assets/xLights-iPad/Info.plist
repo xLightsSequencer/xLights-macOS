@@ -89,6 +89,14 @@
   <array>
     <string>_fppd._udp</string>
   </array>
+  <!--
+    Apple Intelligence's SPEECH2TEXT capability (SFSpeechRecognizer)
+    transcribes the loaded sequence's audio (or its isolated vocals
+    stem when available) into a lyric timing track. Forced to
+    on-device recognition — no audio leaves the iPad.
+  -->
+  <key>NSSpeechRecognitionUsageDescription</key>
+  <string>xLights can use on-device speech recognition to transcribe vocals from your sequence's audio into a lyric timing track. Audio stays on your iPad.</string>
 
   <!--
     H-1 — launch screen. iPadOS 14+ requires a UILaunchScreen dict
