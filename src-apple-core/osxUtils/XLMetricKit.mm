@@ -46,10 +46,32 @@ API_AVAILABLE(macos(12.0), ios(13.0))
     }
 }
 
+// On iPad, SequenceData is always MAP_SHARED of an unlinked tmpfile (jetsam
+// budget). Every dirtied page eventually flushes to that backing file, so
+// MetricKit always reports large diskWriteException payloads — they aren't
+// signal, they're a consequence of the design. Skip them on iOS unless the
+// payload also carries something we actually want to see.
+- (BOOL)payloadIsIPadDiskWriteNoise:(MXDiagnosticPayload*)payload
+    API_AVAILABLE(macos(12.0), ios(14.0)) {
+#if TARGET_OS_IOS
+    if (payload.diskWriteExceptionDiagnostics.count == 0) return NO;
+    if (payload.crashDiagnostics.count > 0) return NO;
+    if (payload.hangDiagnostics.count > 0) return NO;
+    if (payload.cpuExceptionDiagnostics.count > 0) return NO;
+    if (@available(iOS 16.0, *)) {
+        if (payload.appLaunchDiagnostics.count > 0) return NO;
+    }
+    return YES;
+#else
+    return NO;
+#endif
+}
+
 - (void)didReceiveDiagnosticPayloads:(NSArray<MXDiagnosticPayload*>*)payloads
     API_AVAILABLE(macos(12.0), ios(14.0)) {
     NSUInteger idx = 0;
     for (MXDiagnosticPayload* payload in payloads) {
+        if ([self payloadIsIPadDiskWriteNoise:payload]) continue;
         [self writeJSON:[payload JSONRepresentation] kind:@"diagnostics" index:idx++];
     }
 }
