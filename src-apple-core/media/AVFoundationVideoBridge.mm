@@ -842,7 +842,7 @@ void Seek(VideoReaderHandle* h, int timestampMS, bool readFrame) {
 
     h->curPos = -1000;
     if (readFrame) {
-        GetNextFrame(h, timestampMS, 0);
+        (void)GetNextFrame(h, timestampMS, 0);
     }
 }
 
