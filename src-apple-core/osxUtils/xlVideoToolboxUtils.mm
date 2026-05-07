@@ -1,7 +1,17 @@
 //
-//  xlVideoToolboxUtils.m
+//  xlVideoToolboxUtils.mm
 //  xLights
+//
+// Mixed bag: the FFmpeg-side helpers (Init / Setup / Cleanup /
+// IsAccelerated / Scale) live in the `AppleVideoToolboxBridge`
+// namespace and are called from `src-core/media/FFmpegVideoReader.cpp`
+// via the `media/VideoToolboxBridge.h` header. The Metal-side helpers
+// (`VideoToolboxCreateFrame`, `VideoToolboxCopyToTexture`) stay as
+// bare `extern` because their signatures use Apple-only types
+// (`CIImage*`, `id<MTLTexture>`, etc.) and they're called only from
+// Apple-only `.mm` files.
 
+#include "media/VideoToolboxBridge.h"
 
 #include "CoreImage/CIImage.h"
 #include "CoreImage/CIContext.h"
@@ -35,6 +45,27 @@ static AVPixelFormat negotiate_pixel_format(AVCodecContext *s, const AVPixelForm
     return s->pix_fmt;
 }
 
+// Used internally by VideoToolboxScaleImage to swap R↔B channels via a
+// CIColorKernel. Defined here at file scope so the @implementation is
+// not nested inside a C++ namespace (ObjC class registration is global
+// regardless, but lifting it out keeps the source structure clearer).
+@interface CIRBFlipFilter: CIFilter {
+    @public CIImage *inputImage;
+}
+@end
+
+@implementation CIRBFlipFilter
+
+
+- (CIImage *)outputImage
+{
+    CIImage *ci = inputImage;
+    return [rbFlipKernel applyWithExtent:ci.extent arguments:@[ci] ];
+}
+@end
+
+
+namespace AppleVideoToolboxBridge {
 
 bool SetupVideoToolboxAcceleration(AVCodecContext *s, bool enabled) {
     if (enabled) {
@@ -50,11 +81,11 @@ public:
     CVPixelBufferRef scaledBuf = nullptr;
     int width = 0;
     int height = 0;
-    
+
     ~VideoToolboxDataCache() {
         release();
     }
-    
+
     void release() {
         width = 0;
         height = 0;
@@ -112,22 +143,6 @@ bool IsVideoToolboxAcceleratedFrame(AVFrame *frame) {
     }
     return frame->data[3] != nullptr;
 }
-
-@interface CIRBFlipFilter: CIFilter {
-    @public CIImage *inputImage;
-}
-@end
-
-@implementation CIRBFlipFilter
-
-
-- (CIImage *)outputImage
-{
-    CIImage *ci = inputImage;
-    return [rbFlipKernel applyWithExtent:ci.extent arguments:@[ci] ];
-}
-@end
-
 
 bool VideoToolboxScaleImage(AVCodecContext *codecContext, AVFrame *frame, AVFrame *dstFrame, void *&cache, int scaleAlgorithm) {
     CVPixelBufferRef pixbuf = (CVPixelBufferRef)frame->data[3];
@@ -271,6 +286,14 @@ bool VideoToolboxScaleImage(AVCodecContext *codecContext, AVFrame *frame, AVFram
     av_frame_copy_props(dstFrame, frame);
     return true;
 }
+
+} // namespace AppleVideoToolboxBridge
+
+// ----------------------------------------------------------------------
+// Metal-side helpers — bare `extern` because their signatures use
+// Apple-only types (`CIImage*`, `id<MTLTexture>`, `id<MTLDevice>`,
+// `id<MTLCommandBuffer>`). Called only from `.mm` files in
+// `graphics/metal/` which declare them with matching `extern`.
 
 void VideoToolboxCreateFrame(CIImage *image, AVFrame *f, id<MTLDevice> device) {
     CVPixelBufferRef scaledBuf = (CVPixelBufferRef)f->data[3];

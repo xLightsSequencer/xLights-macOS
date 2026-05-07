@@ -635,7 +635,6 @@
 				effects/metal/SpiralsFunctions.metal,
 				effects/metal/TransitionFunctions.metal,
 				effects/metal/WarpFunctions.metal,
-				media/StemSeparator.cpp,
 				media/WindowsHardwareVideoReader.cpp,
 				outputs/serial_osx.cpp,
 				outputs/serial_posix.cpp,
