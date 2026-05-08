@@ -17,8 +17,34 @@
 
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
+#import <CoreMedia/CoreMedia.h>
 
 #include <string>
+
+namespace {
+// AVFoundation's QuickTime decoder accepts rawvideo MOV (codec_tag='raw ')
+// but only decodes it when the row stride is a multiple of 8 bytes — for
+// rgb24 that means the width must be a multiple of 8. Otherwise
+// AVAssetReader silently produces zero samples (no error). Detect this so
+// MediaCompatibility::CheckVideoFile can flag the file for re-encoding
+// instead of letting the user think the file is fine until playback.
+bool IsRawvideoUnalignedStride(AVAssetTrack* track) {
+    if (!track) return false;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    NSArray* formatDescs = track.formatDescriptions;
+#pragma clang diagnostic pop
+    if (formatDescs.count == 0) return false;
+    CMVideoFormatDescriptionRef fd = (__bridge CMVideoFormatDescriptionRef)formatDescs[0];
+    FourCharCode codec = CMFormatDescriptionGetMediaSubType((CMFormatDescriptionRef)fd);
+    constexpr FourCharCode kRawTag = ('r' << 24) | ('a' << 16) | ('w' << 8) | ' ';
+    if (codec != kRawTag) return false;
+    CMVideoDimensions dims = CMVideoFormatDescriptionGetDimensions(fd);
+    // Assume rgb24 (3 bpp); xLights only ever produced rawvideo MOV in this
+    // layout. Other rawvideo flavors aren't handled here.
+    return (dims.width * 3) % 8 != 0;
+}
+} // namespace
 
 namespace AppleMediaCompatibility {
 
@@ -43,6 +69,10 @@ std::string CheckVideoFile(const std::string& filePath) {
 #pragma clang diagnostic pop
         if (videoTracks.count == 0) {
             return "No video tracks found";
+        }
+
+        if (IsRawvideoUnalignedStride(videoTracks[0])) {
+            return "rawvideo .mov with row stride not a multiple of 8 — AVFoundation cannot decode";
         }
 
         NSError* error = nil;
@@ -75,10 +105,17 @@ std::string CheckVideoFile(const std::string& filePath) {
             if (sample) {
                 CFRelease(sample);
             } else {
+                // No sample on the first call after startReading is the
+                // signature of AVFoundation's silent-fail decode (e.g. the
+                // explicit rawvideo-unaligned-stride case is caught earlier,
+                // but other edge cases land here). Surface as a decode
+                // failure so the file gets routed through the conversion
+                // dialog instead of looking fine until playback.
                 if (reader.status == AVAssetReaderStatusFailed) {
                     return std::string("Decode failed: ") +
                            (reader.error ? [[reader.error localizedDescription] UTF8String] : "unknown");
                 }
+                return "Decoder produced no frames (file may be unreadable on this platform)";
             }
         } @catch (NSException* e) {
             return std::string("Decode error: ") + [[e reason] UTF8String];

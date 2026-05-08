@@ -73,6 +73,28 @@ bool probeHardwareDecoderSupport(AVAssetTrack* track) {
     return status == noErr;
 }
 
+// AVFoundation's QuickTime decoder accepts rawvideo MOV with codec_tag='raw '
+// but only decodes it when the row stride is a multiple of 8 bytes. For rgb24
+// (3 bpp) that means width must be a multiple of 8. Otherwise AVAssetReader
+// silently produces zero samples (no error). Detect this so the caller can
+// route around AVFoundation — on desktop the FFmpeg fallback in
+// VideoReader.cpp handles rawvideo natively; on iPad the caller will surface
+// "video unreadable" which is honest about the platform constraint.
+bool isRawvideoUnalignedStride(AVAssetTrack* track) {
+    if (!track) return false;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    NSArray* formatDescs = track.formatDescriptions;
+#pragma clang diagnostic pop
+    if (formatDescs.count == 0) return false;
+    CMVideoFormatDescriptionRef fd = (__bridge CMVideoFormatDescriptionRef)formatDescs[0];
+    FourCharCode codec = CMFormatDescriptionGetMediaSubType((CMFormatDescriptionRef)fd);
+    constexpr FourCharCode kRawTag = ('r' << 24) | ('a' << 16) | ('w' << 8) | ' ';
+    if (codec != kRawTag) return false;
+    CMVideoDimensions dims = CMVideoFormatDescriptionGetDimensions(fd);
+    return (dims.width * 3) % 8 != 0;
+}
+
 } // namespace
 
 namespace AppleAVFoundationVideoBridge {
@@ -682,6 +704,20 @@ VideoReaderHandle* CreateReader(const std::string& filename, int maxwidth, int m
             return h;
         }
         h->videoTrack = tracks[0];
+
+        // rawvideo MOV with row stride not a multiple of 8 bytes: AVFoundation's
+        // QuickTime decoder silently produces zero samples for these. Bail out
+        // here so VideoReader.cpp falls back to FFmpeg (desktop). On iPad
+        // there's no fallback and the caller will report the file as
+        // unreadable — which is honest, since AVFoundation literally can't
+        // decode it.
+        if (isRawvideoUnalignedStride(h->videoTrack)) {
+            spdlog::info("AVFoundationVideoBridge: rawvideo MOV with unaligned row stride for {}; "
+                         "AVFoundation cannot decode — invalidating reader (desktop will fall back to FFmpeg)",
+                         filename);
+            h->failed = true;
+            return h;
+        }
 
         // Files that fail HW probe — typically H.264 High@L1.0 with B-frames at
         // very small resolutions — cause AVAssetReader's HW decoder to silently
