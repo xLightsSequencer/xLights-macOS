@@ -48,6 +48,9 @@ class AsyncStringResult: @unchecked Sendable {
 
 public func RunAppleIntelligencePrompt(_ prompt: String) -> String {
     if #available(macOS 26.0, *) {
+        if let reason = appleIntelligenceUnavailableReason() {
+            return reason
+        }
         let semaphore = DispatchSemaphore(value: 0)
         let result: AsyncStringResult = .init()
         Task {
@@ -59,8 +62,7 @@ public func RunAppleIntelligencePrompt(_ prompt: String) -> String {
                 let response = try await session.respond(to: prompt)
                 result.result = response.content
             } catch {
-                // You may want to log this error or surface it to callers in the future
-                print("exception!  \(error)\n");
+                result.result = "Apple Intelligence error: \(error)"
             }
         }
         semaphore.wait()
@@ -70,9 +72,32 @@ public func RunAppleIntelligencePrompt(_ prompt: String) -> String {
     }
 }
 
+@available(macOS 26.0, *)
+private func appleIntelligenceUnavailableReason() -> String? {
+    // FoundationModels will crash (EXC_BAD_ACCESS) inside respond(to:) if
+    // the system model isn't actually ready. Gate on availability so we
+    // can return a clean message instead of a nil deref the catch can't
+    // see.
+    switch SystemLanguageModel.default.availability {
+    case .available:
+        return nil
+    case .unavailable(.appleIntelligenceNotEnabled):
+        return "Apple Intelligence is not enabled. Enable it in System Settings > Apple Intelligence & Siri."
+    case .unavailable(.modelNotReady):
+        return "Apple Intelligence model is not ready yet. It may still be downloading."
+    case .unavailable(.deviceNotEligible):
+        return "This device does not support Apple Intelligence."
+    case .unavailable(let other):
+        return "Apple Intelligence is unavailable: \(String(describing: other))"
+    }
+}
+
 public func RunAppleIntelligenceGeneratePalette(_ prompt: String) -> String {
     let fullprompt = "xlights color palettes are 8 unique colors. Can you create a color palette that would represent the moods and imagery " + prompt + ". Avoid dark, near black colors."
     if #available(macOS 26.0, *) {
+        if let reason = appleIntelligenceUnavailableReason() {
+            return "{\"error\": \"\(reason)\"}"
+        }
         let semaphore = DispatchSemaphore(value: 0)
         let result: AsyncStringResult = .init()
         Task {
