@@ -90,6 +90,25 @@
     <string>_fppd._udp</string>
   </array>
   <!--
+    J-4 (vendor catalog) — App Transport Security exception. The
+    vendor catalog at xlights.org links to dozens of independent
+    vendor servers (Boscoyo, Gilbert Engineering, EFL, Mattos,
+    Build A Light Show, Twinkle Forge, …). Some still serve
+    their model XML / image files over cleartext HTTP, and we
+    have no control over their TLS configuration. Without this
+    exception, ATS blocks every cleartext fetch and the catalog
+    shows half-empty vendor lists.
+    Scope is narrowed to GET fetches via NSURLSession — the
+    catalog never uploads anything. Per-domain exception lists
+    are impractical because the catalog grows; a blanket allow
+    is the smallest workable shape.
+  -->
+  <key>NSAppTransportSecurity</key>
+  <dict>
+    <key>NSAllowsArbitraryLoads</key>
+    <true/>
+  </dict>
+  <!--
     Apple Intelligence's SPEECH2TEXT capability (SFSpeechRecognizer)
     transcribes the loaded sequence's audio (or its isolated vocals
     stem when available) into a lyric timing track. Forced to
