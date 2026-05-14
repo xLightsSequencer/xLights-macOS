@@ -153,7 +153,18 @@ bool RunChunk(ModelHandle* m,
             return false;
         }
 
-        id<MLFeatureProvider> output = [m->model predictionFromFeatures:input error:&err];
+        // CoreML can raise an NSException from internal Metal/MPS layers on
+        // specific input shapes or compute-unit fallback failures (the public
+        // `error:` parameter doesn't always catch them). Letting it unwind
+        // through C++ frames hits std::terminate — see crash report from
+        // 2026.08 where this thread aborted at this exact call site.
+        id<MLFeatureProvider> output = nil;
+        @try {
+            output = [m->model predictionFromFeatures:input error:&err];
+        } @catch (NSException* e) {
+            NSLog(@"StemSeparatorBridge: prediction raised %@: %@", e.name, e.reason);
+            return false;
+        }
         if (!output || err) {
             NSLog(@"StemSeparatorBridge: inference failed: %@", err);
             return false;
@@ -165,8 +176,14 @@ bool RunChunk(ModelHandle* m,
             return false;
         }
         MLMultiArray* timeArr = timeValue.multiArrayValue;
-        if (timeArr.shape.count < 3 || timeArr.shape[1].longValue != kOutputChannels) {
-            NSLog(@"StemSeparatorBridge: unexpected output shape %@", timeArr.shape);
+        // Need shape[0..2] AND strides[0..2]; checking shape.count alone
+        // doesn't guarantee strides has the same dimensionality on every
+        // CoreML build. Reading strides[1] below would throw NSRangeException
+        // otherwise.
+        if (timeArr.shape.count < 3 || timeArr.strides.count < 3 ||
+            timeArr.shape[1].longValue != kOutputChannels) {
+            NSLog(@"StemSeparatorBridge: unexpected output shape %@ strides %@",
+                  timeArr.shape, timeArr.strides);
             return false;
         }
 
