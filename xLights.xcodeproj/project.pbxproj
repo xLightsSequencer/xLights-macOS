@@ -131,10 +131,11 @@
 		DD00000200000000000P0017 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = AA0001032F900000000000A1 /* ioapi.c */; settings = {COMPILER_FLAGS = "-std=gnu11 -w"; }; };
 		DD00000200000000000P0018 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = AA0001042F900000000000A2 /* unzip.c */; settings = {COMPILER_FLAGS = "-std=gnu11 -w"; }; };
 		DD00000200000000000P0019 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = AA0001082F900000000000A5 /* zip.c */; settings = {COMPILER_FLAGS = "-std=gnu11 -w"; }; };
-		DD00000200000000ANGLE001 /* libEGL.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD00000100000000ANGLE001 /* libEGL.xcframework */; };
-		DD00000200000000ANGLE002 /* libGLESv2.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD00000100000000ANGLE002 /* libGLESv2.xcframework */; };
-		DD00000200000000ANGLE003 /* libEGL.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DD00000100000000ANGLE001 /* libEGL.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DD00000200000000ANGLE004 /* libGLESv2.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DD00000100000000ANGLE002 /* libGLESv2.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DD00000500000000PKGANG01 /* ANGLE in Frameworks */ = {isa = PBXBuildFile; productRef = DD00000400000000PKGANG01 /* ANGLE */; };
+		DD00000500000000PKGKLM01 /* KLightMapper in Frameworks */ = {isa = PBXBuildFile; productRef = DD00000400000000PKGKLM01 /* KLightMapper */; };
+		DD00000500000000PKGKLM02 /* KLightMapper in Frameworks */ = {isa = PBXBuildFile; productRef = DD00000400000000PKGKLM02 /* KLightMapper */; };
+		DD00000500000000PKGKLM03 /* KLightMapper in Frameworks */ = {isa = PBXBuildFile; productRef = DD00000400000000PKGKLM03 /* KLightMapper */; };
+		DD00000500000000PKGKLM04 /* KLightMapper in Frameworks */ = {isa = PBXBuildFile; productRef = DD00000400000000PKGKLM04 /* KLightMapper */; };
 		MK7700000000000100MK0001 /* MetricKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = MK7700000000000200MK0001 /* MetricKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		MK7700000000000300MK0001 /* MetricKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = MK7700000000000200MK0001 /* MetricKit.framework */; };
 		SB7700000000000100SB0001 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = SB7700000000000200SB0001 /* Settings.bundle */; };
@@ -153,6 +154,7 @@
 			);
 			script = (
 				"${SRCROOT}/scripts/ispc_compile",
+				"",
 			);
 		};
 /* End PBXBuildRule section */
@@ -287,13 +289,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		DD00000100000000ANGLE005 /* Embed Frameworks */ = {
+		DD00000100000000KLM00099 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			dstPath = "";
 			dstSubfolder = Frameworks;
 			files = (
-				DD00000200000000ANGLE003 /* libEGL.xcframework in Embed Frameworks */,
-				DD00000200000000ANGLE004 /* libGLESv2.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 		};
@@ -469,8 +469,6 @@
 		CC00EFM200000000000A0003 /* effectmetadata */ = {isa = PBXFileReference; lastKnownFileType = folder; name = effectmetadata; path = ../resources/effectmetadata; sourceTree = SOURCE_ROOT; };
 		DD00000100000000000I0002 /* libxLights-iPadLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libxLights-iPadLib.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD00000100000000000P0002 /* xLights.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = xLights.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		DD00000100000000ANGLE001 /* libEGL.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = libEGL.xcframework; path = "dependencies/lib-ios/libEGL.xcframework"; sourceTree = SOURCE_ROOT; };
-		DD00000100000000ANGLE002 /* libGLESv2.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = libGLESv2.xcframework; path = "dependencies/lib-ios/libGLESv2.xcframework"; sourceTree = SOURCE_ROOT; };
 		MK7700000000000200MK0001 /* MetricKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetricKit.framework; path = System/Library/Frameworks/MetricKit.framework; sourceTree = SDKROOT; };
 		SB7700000000000200SB0001 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		SP7700000000000000SP0001 /* Speech.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Speech.framework; path = System/Library/Frameworks/Speech.framework; sourceTree = SDKROOT; };
@@ -727,6 +725,7 @@
 		67E7086A17B51AB400A22034 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
+				DD00000500000000PKGKLM01 /* KLightMapper in Frameworks */,
 				CC00000100000000000X0003 /* libxLights-core.a in Frameworks */,
 				678571702F72C71F00F50F9F /* libISPCEffectComputeFunctions.a in Frameworks */,
 				6732E1272F8412FC00747CF8 /* libxLights-Apple-core.a in Frameworks */,
@@ -776,6 +775,7 @@
 		BB00000100000000000C0005 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
+				DD00000500000000PKGKLM02 /* KLightMapper in Frameworks */,
 			);
 		};
 		BB00000100000000000U0005 /* Frameworks */ = {
@@ -791,6 +791,7 @@
 		DD00000100000000000I0004 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
+				DD00000500000000PKGKLM03 /* KLightMapper in Frameworks */,
 			);
 		};
 		DD00000100000000000P0004 /* Frameworks */ = {
@@ -817,8 +818,8 @@
 				DD00000200000000000I0010 /* ModelIO.framework in Frameworks */,
 				DD00000200000000000P0015 /* libz.tbd in Frameworks */,
 				DD00000200000000000P0016 /* Accelerate.framework in Frameworks */,
-				DD00000200000000ANGLE001 /* libEGL.xcframework in Frameworks */,
-				DD00000200000000ANGLE002 /* libGLESv2.xcframework in Frameworks */,
+				DD00000500000000PKGANG01 /* ANGLE in Frameworks */,
+				DD00000500000000PKGKLM04 /* KLightMapper in Frameworks */,
 			);
 		};
 /* End PBXFrameworksBuildPhase section */
@@ -1000,7 +1001,6 @@
 				673D41A92F841BC400EBE7FD /* src-mac-ui */,
 				DD00000100000000000B0001 /* common */,
 				DD00000100000000000I0009 /* src-iPad */,
-				DD00000100000000ANGLE099 /* ANGLE */,
 				6771294D2F844D5500C44F57 /* resources */,
 				67595F212F852813009E2066 /* ANGLE.xcconfig */,
 				6735D40E2F8CC50E00E972AB /* ccache.xcconfig */,
@@ -1140,15 +1140,6 @@
 			name = midifile;
 			sourceTree = "<group>";
 		};
-		DD00000100000000ANGLE099 /* ANGLE */ = {
-			isa = PBXGroup;
-			children = (
-				DD00000100000000ANGLE001 /* libEGL.xcframework */,
-				DD00000100000000ANGLE002 /* libGLESv2.xcframework */,
-			);
-			name = ANGLE;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1204,6 +1195,7 @@
 				67E7086917B51AB400A22034 /* Sources */,
 				67E7086A17B51AB400A22034 /* Frameworks */,
 				67E7086B17B51AB400A22034 /* Resources */,
+				DD00000100000000KLM00099 /* Embed Frameworks */,
 				674298661C1FC3CC00B11478 /* ShellScript */,
 			);
 			buildRules = (
@@ -1221,6 +1213,9 @@
 				DD00000100000000000B0001 /* common */,
 			);
 			name = xLights;
+			packageProductDependencies = (
+				DD00000400000000PKGKLM01 /* KLightMapper */,
+			);
 			productName = xLights;
 			productReference = 67E7086D17B51AB400A22034 /* xLights.app */;
 			productType = "com.apple.product-type.application";
@@ -1239,6 +1234,9 @@
 				673D41762F841B7B00EBE7FD /* src-apple-core */,
 			);
 			name = "xLights-Apple-core";
+			packageProductDependencies = (
+				DD00000400000000PKGKLM02 /* KLightMapper */,
+			);
 			productName = "xLights-Apple-core";
 			productReference = BB00000100000000000C0002 /* libxLights-Apple-core.a */;
 			productType = "com.apple.product-type.library.static";
@@ -1300,6 +1298,9 @@
 				DD00000100000000000I0009 /* src-iPad */,
 			);
 			name = "xLights-iPadLib";
+			packageProductDependencies = (
+				DD00000400000000PKGKLM03 /* KLightMapper */,
+			);
 			productName = "xLights-iPadLib";
 			productReference = DD00000100000000000I0002 /* libxLights-iPadLib.a */;
 			productType = "com.apple.product-type.library.static";
@@ -1311,7 +1312,6 @@
 				DD00000100000000000P0003 /* Sources */,
 				DD00000100000000000P0004 /* Frameworks */,
 				DD00000100000000000P0005 /* Resources */,
-				DD00000100000000ANGLE005 /* Embed Frameworks */,
 				DD00000100000000000P0022 /* Copy Metal Libraries */,
 				DD00000100000000VERPAD01 /* Set Bundle Version */,
 			);
@@ -1329,6 +1329,10 @@
 				DD00000100000000000I0009 /* src-iPad */,
 			);
 			name = "xLights-iPad";
+			packageProductDependencies = (
+				DD00000400000000PKGKLM04 /* KLightMapper */,
+				DD00000400000000PKGANG01 /* ANGLE */,
+			);
 			productName = "xLights-iPad";
 			productReference = DD00000100000000000P0002 /* xLights.app */;
 			productType = "com.apple.product-type.application";
@@ -1411,6 +1415,10 @@
 			);
 			mainGroup = 67E7086417B51AB400A22034;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				DD00000300000000PKGKLM01 /* XCRemoteSwiftPackageReference "KLightMapper" */,
+				DD00000300000000PKGANG01 /* XCRemoteSwiftPackageReference "xLights-spm" */,
+			);
 			preferredProjectObjectVersion = 90;
 			productRefGroup = 67E7086E17B51AB400A22034 /* Products */;
 			projectDirPath = "";
@@ -2522,6 +2530,10 @@
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = xlVideoToolboxUtils.mm;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = xlVideoToolboxUtils.mm;
 				EXECUTABLE_PREFIX = lib;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/dependencies/libdbg",
+				);
 				GCC_PREFIX_HEADER = "src-apple-core/Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(DERIVED_SOURCES_DIR)",
@@ -2562,6 +2574,10 @@
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = xlVideoToolboxUtils.mm;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = xlVideoToolboxUtils.mm;
 				EXECUTABLE_PREFIX = lib;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/dependencies/lib",
+				);
 				GCC_PREFIX_HEADER = "src-apple-core/Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(DERIVED_SOURCES_DIR)",
@@ -2601,6 +2617,10 @@
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = xlVideoToolboxUtils.mm;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = xlVideoToolboxUtils.mm;
 				EXECUTABLE_PREFIX = lib;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/dependencies/lib",
+				);
 				GCC_PREFIX_HEADER = "src-apple-core/Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(DERIVED_SOURCES_DIR)",
@@ -2901,6 +2921,10 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_STYLE = Automatic;
 				EXECUTABLE_PREFIX = lib;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/dependencies/libdbg-ios",
+				);
 				GCC_OPTIMIZATION_LEVEL = 0;
 				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphoneos*]" = "USE_GLES=1";
 				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphonesimulator*]" = "USE_GLES=1";
@@ -2942,6 +2966,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_NS_ASSERTIONS = NO;
 				EXECUTABLE_PREFIX = lib;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/dependencies/lib-ios",
+				);
 				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphoneos*]" = "USE_GLES=1";
 				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphonesimulator*]" = "USE_GLES=1";
 				HEADER_SEARCH_PATHS = (
@@ -2981,6 +3009,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_NS_ASSERTIONS = NO;
 				EXECUTABLE_PREFIX = lib;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/dependencies/lib-ios",
+				);
 				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphoneos*]" = "USE_GLES=1";
 				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphonesimulator*]" = "USE_GLES=1";
 				HEADER_SEARCH_PATHS = (
@@ -3022,6 +3054,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 100;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/dependencies/libdbg-ios",
+				);
 				GCC_OPTIMIZATION_LEVEL = 0;
 				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphoneos*]" = "USE_GLES=1";
 				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphonesimulator*]" = "USE_GLES=1";
@@ -3088,6 +3124,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 100;
 				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/dependencies/lib-ios",
+				);
 				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphoneos*]" = "USE_GLES=1";
 				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphonesimulator*]" = "USE_GLES=1";
 				GENERATE_INFOPLIST_FILE = YES;
@@ -3152,6 +3192,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 100;
 				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/dependencies/lib-ios",
+				);
 				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphoneos*]" = "USE_GLES=1";
 				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphonesimulator*]" = "USE_GLES=1";
 				GENERATE_INFOPLIST_FILE = YES;
@@ -3338,6 +3382,53 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DD00000300000000PKGANG01 /* XCRemoteSwiftPackageReference "xLights-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/xLightsSequencer/xLights-spm";
+			requirement = {
+				kind = exactVersion;
+				version = 2026.10.0;
+			};
+		};
+		DD00000300000000PKGKLM01 /* XCRemoteSwiftPackageReference "KLightMapper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/KulpLights/KLightMapper";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DD00000400000000PKGANG01 /* ANGLE */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DD00000300000000PKGANG01 /* XCRemoteSwiftPackageReference "xLights-spm" */;
+			productName = ANGLE;
+		};
+		DD00000400000000PKGKLM01 /* KLightMapper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DD00000300000000PKGKLM01 /* XCRemoteSwiftPackageReference "KLightMapper" */;
+			productName = KLightMapper;
+		};
+		DD00000400000000PKGKLM02 /* KLightMapper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DD00000300000000PKGKLM01 /* XCRemoteSwiftPackageReference "KLightMapper" */;
+			productName = KLightMapper;
+		};
+		DD00000400000000PKGKLM03 /* KLightMapper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DD00000300000000PKGKLM01 /* XCRemoteSwiftPackageReference "KLightMapper" */;
+			productName = KLightMapper;
+		};
+		DD00000400000000PKGKLM04 /* KLightMapper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DD00000300000000PKGKLM01 /* XCRemoteSwiftPackageReference "KLightMapper" */;
+			productName = KLightMapper;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 67E7086517B51AB400A22034 /* Project object */;
 }

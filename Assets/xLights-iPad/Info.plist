@@ -118,6 +118,16 @@
   <string>xLights can use on-device speech recognition to transcribe vocals from your sequence's audio into a lyric timing track. Audio stays on your iPad.</string>
 
   <!--
+    Camera access is used when configuring a new physical lighting
+    model: xLights captures a short sequence of frames while the
+    lights cycle through test patterns, then analyzes the frames
+    on-device to compute pixel positions. Images are processed
+    locally and not transmitted.
+  -->
+  <key>NSCameraUsageDescription</key>
+  <string>xLights uses the camera to analyze your physical lights and compute pixel positions when creating a new model. Images are processed on your iPad and not sent anywhere.</string>
+
+  <!--
     H-1 — launch screen. iPadOS 14+ requires a UILaunchScreen dict
     (static LaunchImage catalogs are disallowed for new submissions).
 

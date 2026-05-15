@@ -63,6 +63,8 @@
 	<string>${MACOSX_DEPLOYMENT_TARGET}</string>
 	<key>NSCameraUsageDescription</key>
 	<string>xLights can use the Camera to aid in the creation of custom models.</string>
+	<key>NSCameraUseContinuityCameraDeviceType</key>
+	<true/>
 	<key>NSDownloadsFolderUsageDescription</key>
 	<string>When using select features in xLights such as "Download Sequences/Lyrics", files may be downloaded to the Download folder and accessed from there.</string>
 	<key>NSHumanReadableCopyright</key>

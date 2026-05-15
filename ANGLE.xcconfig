@@ -1,12 +1,21 @@
-// ANGLE.xcconfig — Enable OpenGL ES via ANGLE (Metal backend)
+// ANGLE.xcconfig — Enable OpenGL ES via ANGLE (Metal backend) on macOS desktop
 //
-// To enable ANGLE/GLES for ShaderEffect:
-// 1. Install ANGLE: cd /opt/xLights-macOS-dependencies/submodules && ./build_angle.sh
+// ANGLE now ships through the `xLights-spm` Swift package (product "ANGLE"),
+// which is already registered on this project. The iPad target links it
+// unconditionally; the desktop build keeps it opt-in via this xcconfig.
+//
+// To enable ANGLE/GLES for ShaderEffect on the desktop xLights target:
+// 1. Add the "ANGLE" package product to the xLights target:
+//    xLights target > General > Frameworks, Libraries, and Embedded Content >
+//    + > ANGLE (from the xLights-spm package).
 // 2. Set this xcconfig in Xcode:
-//    Project > Info > Configurations > set this file for Debug/Release/Archive
+//    Project > Info > Configurations > set this file for Debug/Release/Archive.
 //
-// To revert to desktop OpenGL: remove the xcconfig from the project configurations.
-// The mac_fix_dylibs script auto-detects ANGLE linkage and embeds the dylibs.
+// To revert to desktop OpenGL: remove the xcconfig from the project
+// configurations and remove the ANGLE product from the xLights target.
+//
+// The SPM macOS binary targets keep their @rpath/<name>.dylib id, so Xcode
+// links and embeds them automatically — no build_angle.sh and no manual
+// mac_fix_dylibs embedding step are needed anymore.
 
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) USE_GLES=1
-OTHER_LDFLAGS = $(inherited) -lEGL -lGLESv2
