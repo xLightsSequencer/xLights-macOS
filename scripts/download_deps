@@ -68,7 +68,26 @@ if [ -f /opt/local/include/lualib.h ]; then
 fi
 
 rm -f dependencies
-PATH=$PATH:/opt/homebrew/bin
+PATH=$PATH:/opt/homebrew/bin:/usr/local/bin
+
+# The tarball is zstd-compressed; bsdtar auto-detects the format and shells
+# out to the zstd binary. If zstd isn't on PATH the extract fails with a
+# misleading "unable to run program zstd -d -qq" and the retry loop below
+# can't recover (it only re-downloads). Install it once up front if missing.
+if ! command -v zstd >/dev/null 2>&1; then
+    echo "zstd not found on PATH; attempting to install via Homebrew"
+    if command -v brew >/dev/null 2>&1; then
+        for i in 1 2 3; do
+            brew install zstd && break
+            echo "  brew install zstd failed (attempt $i); retrying after 15s..."
+            sleep 15
+        done
+    fi
+    if ! command -v zstd >/dev/null 2>&1; then
+        echo "download_deps: zstd is required to extract the dependency tarball but is not installed" >&2
+        exit 1
+    fi
+fi
 
 # GitHub release downloads occasionally fail mid-transfer or arrive with a
 # truncated/corrupt body that curl reports success on but tar rejects.
