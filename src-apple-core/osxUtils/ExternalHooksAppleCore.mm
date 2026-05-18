@@ -9,14 +9,6 @@
 #include "ExternalHooksApple.h"
 #include "xLights_Apple_core-Swift.h"
 
-#include <functional>
-
-void RunInAutoReleasePool(std::function<void()> &&f) {
-    @autoreleasepool {
-        f();
-    }
-}
-
 bool FileExists(const std::string &s, bool waitForDownload) {
     return xLights_Apple_core::fileExists(s, waitForDownload);
 }

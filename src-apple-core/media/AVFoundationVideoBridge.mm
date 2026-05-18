@@ -12,6 +12,28 @@
 // backs `src-core/media/AVFoundationVideoReader.cpp`. All Apple SDK
 // dependencies are isolated here so src-core stays
 // Apple-framework-free.
+//
+// Concurrency design: VideoEffect's "Per Model" render style on a group
+// causes one VideoReader per child model. Before this layer, each
+// reader held its own AVAssetReader + VTDecompressionSession for the
+// lifetime of the effect — a group of 50 models meant 50 decoder
+// sessions held simultaneously, which exhausts macOS's VideoToolbox
+// session budget and stalls the render. We collapse that here:
+//   * One `SharedDecoder` per resolved file path, refcounted across
+//     all `VideoReaderHandle` clients that reference the same file.
+//   * SharedDecoder owns a small pool of "lanes" (AVAssetReader +
+//     optional VTDecompressionSession). Default 2 per file; LRU-evicted
+//     when all lanes are positioned far from a new request.
+//   * SharedDecoder maintains a small LRU cache of decoded frames at
+//     native resolution (BGRA CVPixelBuffer). PerModel siblings at the
+//     same timeline frame all want the same source frame — first
+//     client decodes, the rest hit cache.
+//   * VideoReaderHandle is now a thin per-client shell: it holds the
+//     scale-target size, per-client output buffer, and a per-client
+//     scaler (VTPixelTransferSession or CIContext). The handle pulls a
+//     native-resolution frame from SharedDecoder and scales/converts
+//     it into the requested output format. Scaling is done outside the
+//     SharedDecoder mutex so per-client work runs in parallel.
 
 #include "AVFoundationVideoBridge.h"
 
@@ -22,10 +44,14 @@
 #import <Accelerate/Accelerate.h>
 
 #include <algorithm>
+#include <array>
+#include <climits>
 #include <cstdlib>
 #include <cstring>
+#include <memory>
 #include <mutex>
 #include <queue>
+#include <unordered_map>
 #include <vector>
 
 #include <log.h>
@@ -99,53 +125,857 @@ bool isRawvideoUnalignedStride(AVAssetTrack* track) {
 
 namespace AppleAVFoundationVideoBridge {
 
-// __strong is explicit so ARC retains ObjC objects stored in this C++ struct.
-struct VideoReaderHandle {
+namespace {
+
+// Lane budget per file. Two lanes lets two effects on the same file at
+// different timeline positions coexist without thrashing AVAssetReader;
+// for the common PerModel case (N clients at the same timestamp) one
+// lane is enough and the second stays inactive.
+constexpr int kLanesPerFile = 2;
+
+// Native-resolution frame cache capacity per file. With a single video
+// being shared by PerModel siblings, the cache typically holds
+// (current frame + read-ahead) — a few frames is plenty. Bigger caches
+// just trade memory for tolerance to wider playhead spread.
+constexpr int kCacheCapacity = 8;
+
+// After serving the requested frame we opportunistically decode K more
+// frames into the cache so the next forward request becomes a cache hit
+// rather than triggering a fresh `copyNextSampleBuffer` cycle.
+constexpr int kReadAheadFrames = 4;
+
+// AVAssetReader is forward-only. If a new request is more than this far
+// ahead of an active lane, recreating the reader at the target is
+// cheaper than decoding-and-discarding everything in between. Matches
+// the legacy GetNextFrame threshold.
+constexpr int kForwardSkipMS = 1000;
+
+// Match the legacy max-B-frame-delay assumption: VT can hold up to this
+// many out-of-order frames before we can pop the next in PTS order.
+constexpr int kMaxBFrameDelay = 2;
+
+class SharedDecoder {
+public:
+    static std::shared_ptr<SharedDecoder> acquire(const std::string& filename);
+
+    ~SharedDecoder();
+
+    bool isValid() const { return valid && !openFailed; }
+
+    int getNativeWidth() const { return nativeWidth; }
+    int getNativeHeight() const { return nativeHeight; }
+    double getLengthMS() const { return lengthMS; }
+    long getFrameCount() const { return frames; }
+    int getFrameMS() const { return frameMS; }
+    float getNominalFrameRate() const { return nominalFrameRate; }
+    const std::string& getFilename() const { return filename; }
+
+    // Returns the frame at or just before timestampMS as a retained
+    // CVPixelBufferRef at native resolution. Caller owns the retain and
+    // must CVBufferRelease when done. Writes the frame's actual ptsMs
+    // and the file's firstFramePos (-1 until known) on success. Sets
+    // outAtEnd when no more frames are available.
+    CVPixelBufferRef obtainFrame(int timestampMS, int gracetimeMS,
+                                 int& outPtsMs, int& outFirstFramePos,
+                                 bool& outAtEnd);
+
+private:
+    SharedDecoder() = default;
+    SharedDecoder(const SharedDecoder&) = delete;
+    SharedDecoder& operator=(const SharedDecoder&) = delete;
+
+    bool open(const std::string& filename);
+
+    struct Lane {
+        __strong AVAssetReader* reader = nil;
+        __strong AVAssetReaderTrackOutput* trackOutput = nil;
+        VTDecompressionSessionRef vtSession = nullptr;
+        CMVideoFormatDescriptionRef cachedFormatDesc = nullptr;
+
+        struct DecodedEntry {
+            CVImageBufferRef image; // retained
+            int64_t ptsMs;
+            bool operator<(const DecodedEntry& o) const { return ptsMs > o.ptsMs; }
+        };
+        std::priority_queue<DecodedEntry, std::vector<DecodedEntry>> ptsQueue;
+        std::mutex queueMutex;
+
+        bool demuxAtEnd = false;
+        bool active = false;
+        int curPos = -1000;
+        int64_t lastUsedTick = 0;
+
+        ~Lane() { close(); }
+
+        void close();
+        bool openAt(SharedDecoder* dec, int timestampMS);
+
+        // Returns retained CVPixelBufferRef + ptsMs of the next frame in
+        // pts order. Returns nullptr when no more frames (sets
+        // demuxAtEnd or leaves it false on transient failures).
+        CVPixelBufferRef decodeNext(SharedDecoder* dec, int& outPtsMs);
+
+    private:
+        CVPixelBufferRef decodeNextHW(SharedDecoder* dec, int& outPtsMs);
+        CVPixelBufferRef decodeNextSW(SharedDecoder* dec, int& outPtsMs);
+
+        bool ensureVTSession(CMVideoFormatDescriptionRef formatDesc);
+
+        static void vtOutputCallback(void* refCon, void* sourceFrameRefCon,
+                                     OSStatus status, VTDecodeInfoFlags infoFlags,
+                                     CVImageBufferRef imageBuffer,
+                                     CMTime pts, CMTime duration);
+
+        int queueSize() {
+            std::lock_guard<std::mutex> lk(queueMutex);
+            return (int)ptsQueue.size();
+        }
+    };
+
+    Lane* selectLane(int targetMS, int gracetimeMS);
+
+    // Cache lookup: return retained pixel buffer (and its pts) for the
+    // frame whose [pts, pts+frameMS) interval contains targetMS, or
+    // nullptr on miss. Touches LRU tick on hit.
+    CVPixelBufferRef cacheLookup(int targetMS, int& outPtsMs);
+
+    // Insert into cache, retaining. Evicts LRU when at capacity.
+    void cacheInsert(int64_t ptsMs, CVPixelBufferRef pixelBuffer);
+
+    std::mutex mutex;
+
     __strong AVAsset* asset = nil;
     __strong AVAssetTrack* videoTrack = nil;
-    __strong AVAssetReader* reader = nil;
-    __strong AVAssetReaderTrackOutput* trackOutput = nil;
-    VTPixelTransferSessionRef transferSession = nullptr;
-    __strong CIContext* ciContext = nil;
-
-    // Software-decode path: AVAssetReader is used for demux only (raw H.264
-    // sample buffers), and we run our own VTDecompressionSession with HW
-    // disabled. Used for streams that fail probeHardwareDecoderSupport().
-    bool useSoftwareDecode = false;
-    VTDecompressionSessionRef vtSession = nullptr;
-    CMVideoFormatDescriptionRef cachedFormatDesc = nullptr; // retained
-    int maxBFrameDelay = 2;                                  // queue depth = this + 1
-    bool demuxAtEnd = false;
-    std::mutex queueMutex;
-    struct DecodedEntry {
-        CVImageBufferRef image; // retained
-        int64_t ptsMs;
-        bool operator<(const DecodedEntry& o) const { return ptsMs > o.ptsMs; } // min-heap
-    };
-    std::priority_queue<DecodedEntry, std::vector<DecodedEntry>> ptsQueue;
 
     std::string filename;
     bool valid = false;
-    bool atEnd = false;
-    bool failed = false;
-    bool wantAlpha = false;
-    bool bgr = false;
-    bool wantsHWType = false;
-    ScaleAlgorithm scaleAlgorithm = ScaleAlgorithm::Default;
+    bool openFailed = false;
+    bool useSoftwareDecode = false;
 
-    int width = 0;          // output width
-    int height = 0;         // output height
-    int nativeWidth = 0;    // source width
-    int nativeHeight = 0;   // source height
+    int nativeWidth = 0;
+    int nativeHeight = 0;
     double lengthMS = 0;
     long frames = 0;
     int frameMS = 50;
-    int curPos = -1000;
+    float nominalFrameRate = 0;
     int firstFramePos = -1;
 
+    std::array<Lane, kLanesPerFile> lanes;
+    int64_t laneTick = 0;
+
+    struct CacheEntry {
+        int64_t ptsMs = -1;
+        CVPixelBufferRef pixelBuffer = nullptr; // retained
+        int64_t lastAccessTick = 0;
+    };
+    std::vector<CacheEntry> cache;
+    int64_t cacheTick = 0;
+};
+
+// Global path → SharedDecoder weak registry. Refcounted via shared_ptr
+// held by every VideoReaderHandle that uses the file; the last release
+// drops the decoder and its lanes/sessions.
+std::mutex g_decodersMutex;
+std::unordered_map<std::string, std::weak_ptr<SharedDecoder>> g_decoders;
+
+std::shared_ptr<SharedDecoder> SharedDecoder::acquire(const std::string& filename) {
+    std::lock_guard<std::mutex> lk(g_decodersMutex);
+    auto it = g_decoders.find(filename);
+    if (it != g_decoders.end()) {
+        if (auto sp = it->second.lock()) {
+            return sp;
+        }
+        g_decoders.erase(it);
+    }
+    auto sp = std::shared_ptr<SharedDecoder>(new SharedDecoder());
+    if (!sp->open(filename)) {
+        // Don't cache failures — let the next attempt re-probe in case
+        // the file becomes readable.
+        return sp;
+    }
+    g_decoders[filename] = sp;
+    return sp;
+}
+
+SharedDecoder::~SharedDecoder() {
+    // Lanes destruct in array destruction; each calls close() which
+    // releases its reader, VT session, format desc, and any queued
+    // decoded frames.
+    for (auto& e : cache) {
+        if (e.pixelBuffer) {
+            CVBufferRelease(e.pixelBuffer);
+            e.pixelBuffer = nullptr;
+        }
+    }
+    cache.clear();
+
+    // Remove ourselves from the registry. The weak_ptr would expire
+    // naturally on the next lookup but cleaning up keeps the table
+    // small for long-running sessions.
+    std::lock_guard<std::mutex> lk(g_decodersMutex);
+    auto it = g_decoders.find(filename);
+    if (it != g_decoders.end() && it->second.expired()) {
+        g_decoders.erase(it);
+    }
+}
+
+bool SharedDecoder::open(const std::string& fname) {
+    filename = fname;
+
+    @autoreleasepool {
+        NSURL* url = [NSURL fileURLWithPath:[NSString stringWithUTF8String:fname.c_str()]];
+        AVURLAsset* urlAsset = [AVURLAsset URLAssetWithURL:url options:nil];
+        asset = urlAsset;
+        if (!asset) {
+            spdlog::error("AVFoundationVideoBridge: Failed to create AVAsset for {}", fname);
+            openFailed = true;
+            return false;
+        }
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+        NSArray<AVAssetTrack*>* tracks = [asset tracksWithMediaType:AVMediaTypeVideo];
+#pragma clang diagnostic pop
+        if (tracks.count == 0) {
+            spdlog::error("AVFoundationVideoBridge: No video tracks in {}", fname);
+            openFailed = true;
+            return false;
+        }
+        videoTrack = tracks[0];
+
+        if (isRawvideoUnalignedStride(videoTrack)) {
+            spdlog::info("AVFoundationVideoBridge: rawvideo MOV with unaligned row stride for {}; "
+                         "AVFoundation cannot decode — invalidating reader (desktop will fall back to FFmpeg)",
+                         fname);
+            openFailed = true;
+            return false;
+        }
+
+        useSoftwareDecode = !probeHardwareDecoderSupport(videoTrack);
+        if (useSoftwareDecode) {
+            spdlog::info("AVFoundationVideoBridge: HW decode unsupported for {}; using software VTDecompressionSession path", fname);
+        }
+
+        CGSize naturalSize = videoTrack.naturalSize;
+        CGAffineTransform transform = videoTrack.preferredTransform;
+        CGSize transformedSize = CGSizeApplyAffineTransform(naturalSize, transform);
+        nativeWidth = (int)fabs(transformedSize.width);
+        nativeHeight = (int)fabs(transformedSize.height);
+
+        if (nativeWidth == 0 || nativeHeight == 0) {
+            spdlog::error("AVFoundationVideoBridge: Invalid video dimensions for {}", fname);
+            openFailed = true;
+            return false;
+        }
+
+        CMTime duration = asset.duration;
+        lengthMS = CMTimeGetSeconds(duration) * 1000.0;
+
+        nominalFrameRate = videoTrack.nominalFrameRate;
+        if (nominalFrameRate > 0) {
+            frames = (long)((lengthMS / 1000.0) * nominalFrameRate);
+            frameMS = (int)(1000.0 / nominalFrameRate);
+        } else {
+            CMTime minFrameDuration = videoTrack.minFrameDuration;
+            if (CMTIME_IS_VALID(minFrameDuration) && CMTimeGetSeconds(minFrameDuration) > 0) {
+                double fps = 1.0 / CMTimeGetSeconds(minFrameDuration);
+                frames = (long)((lengthMS / 1000.0) * fps);
+                frameMS = (int)(CMTimeGetSeconds(minFrameDuration) * 1000.0);
+            } else {
+                frames = (long)(lengthMS / 50.0);
+                frameMS = 50;
+            }
+        }
+
+        if (lengthMS <= 0 || frames <= 0) {
+            spdlog::warn("AVFoundationVideoBridge: Could not determine video length for {}", fname);
+            openFailed = true;
+            return false;
+        }
+
+        cache.reserve(kCacheCapacity);
+
+        valid = true;
+
+        spdlog::info("AVFoundationVideoBridge: Loaded {}", fname);
+        spdlog::info("      Length MS: {}", lengthMS);
+        spdlog::info("      Source size: {}x{}", nativeWidth, nativeHeight);
+        spdlog::info("      Frames: {} @ {}fps", frames, nominalFrameRate);
+        spdlog::info("      Frame ms: {}", frameMS);
+
+        // Eagerly open lane 0 at timestamp 0. AVAssetReader retains
+        // AVAsset's internal CoreMedia (FigAsset) state for its
+        // lifetime; without at least one live reader, AVFoundation
+        // invalidates that state in the gap between AVAsset
+        // construction and first use, and the next AVAssetReader init
+        // crashes in objc_retain on the stale internal pointer. The
+        // legacy per-handle code happened to avoid this by opening
+        // its reader during construction and never letting it lapse;
+        // we restore the same invariant here at the SharedDecoder
+        // level so PerModel siblings (and any later-arriving handle)
+        // find a warm asset.
+        if (!lanes[0].openAt(this, 0)) {
+            spdlog::error("AVFoundationVideoBridge: Failed to open initial AVAssetReader for {}", fname);
+            openFailed = true;
+            valid = false;
+            return false;
+        }
+    }
+
+    return true;
+}
+
+void SharedDecoder::Lane::close() {
+    if (vtSession) {
+        VTDecompressionSessionInvalidate(vtSession);
+        CFRelease(vtSession);
+        vtSession = nullptr;
+    }
+    if (cachedFormatDesc) {
+        CFRelease(cachedFormatDesc);
+        cachedFormatDesc = nullptr;
+    }
+    {
+        std::lock_guard<std::mutex> lk(queueMutex);
+        while (!ptsQueue.empty()) {
+            CVBufferRelease(ptsQueue.top().image);
+            ptsQueue.pop();
+        }
+    }
+    if (reader) {
+        [reader cancelReading];
+        reader = nil;
+    }
+    trackOutput = nil;
+    demuxAtEnd = false;
+    active = false;
+    curPos = -1000;
+}
+
+bool SharedDecoder::Lane::openAt(SharedDecoder* dec, int timestampMS) {
+    close();
+
+    // [AVAssetReader addOutput:] starts internal KVO observers that
+    // autorelease NSStrings via -[NSString initWithFormat:]. Drain those
+    // locally instead of letting them pile up on the render thread's
+    // job-scoped pool, which only flushes when the whole render finishes.
+    @autoreleasepool {
+        // Pin the SharedDecoder's asset / video track into local strong
+        // references for the duration of this call. The members are
+        // already __strong on the SharedDecoder, but capturing them
+        // locally (a) keeps them alive across the AVAssetReader init
+        // path even if something elsewhere were to clear the member,
+        // and (b) crashes here at the load — with a clean stack — if
+        // the underlying object is already dangling.
+        AVAsset* localAsset = dec->asset;
+        AVAssetTrack* localTrack = dec->videoTrack;
+        if (!localAsset || !localTrack) {
+            spdlog::error("AVFoundationVideoBridge: openAt called with asset={} track={} for {}",
+                         fmt::ptr((__bridge void*)localAsset), fmt::ptr((__bridge void*)localTrack), dec->filename);
+            return false;
+        }
+
+        NSError* error = nil;
+        reader = [[AVAssetReader alloc] initWithAsset:localAsset error:&error];
+        if (!reader || error) {
+            spdlog::error("AVFoundationVideoBridge: Failed to create AVAssetReader: {}",
+                         error ? [[error localizedDescription] UTF8String] : "unknown error");
+            reader = nil;
+            return false;
+        }
+
+        // HW path: ask AVAssetReader to deliver decoded BGRA pixel
+        // buffers at the track's native resolution. SW path: nil
+        // outputSettings makes AVAssetReader a pure demuxer; we run our
+        // own VTDecompressionSession with HW disabled.
+        NSDictionary* outputSettings = nil;
+        if (!dec->useSoftwareDecode) {
+            outputSettings = @{
+                (NSString*)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA)
+            };
+        }
+        trackOutput = [[AVAssetReaderTrackOutput alloc] initWithTrack:localTrack
+                                                       outputSettings:outputSettings];
+        // Caching pixel buffers across render cycles means each one
+        // outlives the CMSampleBuffer that originally referenced it.
+        // With `alwaysCopiesSampleData = NO`, AVAssetReader hands us a
+        // thin wrapper around a buffer-pool IOSurface; even with our
+        // CVBufferRetain, the pool can decode a later frame back into
+        // that surface — producing the "leftover blotches" artifact
+        // where stale pixels from a previous frame bleed into what
+        // should be a freshly-decoded one. Forcing copies here gives
+        // us an independent buffer per decode that the pool can't
+        // reuse. (The legacy per-handle code got away with `= NO`
+        // because it only used the buffer transiently within the same
+        // decode call and never retained it.)
+        trackOutput.alwaysCopiesSampleData = YES;
+
+        if (![reader canAddOutput:trackOutput]) {
+            spdlog::error("AVFoundationVideoBridge: Cannot add track output to reader");
+            reader = nil;
+            trackOutput = nil;
+            return false;
+        }
+        [reader addOutput:trackOutput];
+
+        CMTime startTime = CMTimeMakeWithSeconds(timestampMS / 1000.0, 600);
+        CMTime duration = dec->asset.duration;
+        CMTime rangeEnd = CMTimeSubtract(duration, startTime);
+        if (CMTimeCompare(rangeEnd, kCMTimeZero) <= 0) {
+            rangeEnd = kCMTimeZero;
+        }
+        reader.timeRange = CMTimeRangeMake(startTime, rangeEnd);
+
+        if (![reader startReading]) {
+            spdlog::error("AVFoundationVideoBridge: Failed to start reading: {}",
+                         reader.error ? [[reader.error localizedDescription] UTF8String] : "unknown");
+            reader = nil;
+            trackOutput = nil;
+            return false;
+        }
+
+        demuxAtEnd = false;
+        active = true;
+        // curPos isn't known until the first decoded frame's pts arrives;
+        // store the seek target as a lower-bound placeholder so lane
+        // selection treats this lane as "near targetMS" rather than at 0.
+        curPos = timestampMS - 1;
+        return true;
+    }
+}
+
+void SharedDecoder::Lane::vtOutputCallback(void* refCon, void* /*sourceFrameRefCon*/,
+                                            OSStatus status, VTDecodeInfoFlags /*infoFlags*/,
+                                            CVImageBufferRef imageBuffer,
+                                            CMTime pts, CMTime /*duration*/) {
+    if (status != noErr || imageBuffer == nullptr) return;
+    Lane* self = static_cast<Lane*>(refCon);
+    DecodedEntry entry;
+    entry.image = (CVImageBufferRef)CVBufferRetain(imageBuffer);
+    entry.ptsMs = CMTIME_IS_VALID(pts) ? (int64_t)(CMTimeGetSeconds(pts) * 1000.0) : 0;
+    std::lock_guard<std::mutex> lk(self->queueMutex);
+    self->ptsQueue.push(entry);
+}
+
+bool SharedDecoder::Lane::ensureVTSession(CMVideoFormatDescriptionRef formatDesc) {
+    if (!formatDesc) return false;
+    if (vtSession && cachedFormatDesc &&
+        CMFormatDescriptionEqual((CMFormatDescriptionRef)cachedFormatDesc,
+                                 (CMFormatDescriptionRef)formatDesc)) {
+        return true;
+    }
+
+    if (vtSession) {
+        VTDecompressionSessionInvalidate(vtSession);
+        CFRelease(vtSession);
+        vtSession = nullptr;
+    }
+    if (cachedFormatDesc) {
+        CFRelease(cachedFormatDesc);
+        cachedFormatDesc = nullptr;
+    }
+    cachedFormatDesc = (CMVideoFormatDescriptionRef)CFRetain(formatDesc);
+
+    NSDictionary* spec = @{
+        (NSString*)kVTVideoDecoderSpecification_EnableHardwareAcceleratedVideoDecoder: @NO,
+        (NSString*)kVTVideoDecoderSpecification_RequireHardwareAcceleratedVideoDecoder: @NO
+    };
+    NSDictionary* dstAttrs = @{
+        (NSString*)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA),
+        (NSString*)kCVPixelBufferIOSurfacePropertiesKey: @{}
+    };
+
+    VTDecompressionOutputCallbackRecord cb = {
+        .decompressionOutputCallback = &Lane::vtOutputCallback,
+        .decompressionOutputRefCon = this
+    };
+
+    OSStatus status = VTDecompressionSessionCreate(
+        kCFAllocatorDefault,
+        cachedFormatDesc,
+        (__bridge CFDictionaryRef)spec,
+        (__bridge CFDictionaryRef)dstAttrs,
+        &cb,
+        &vtSession);
+
+    if (status != noErr) {
+        spdlog::error("AVFoundationVideoBridge: VTDecompressionSessionCreate (SW) failed: {}", (int)status);
+        vtSession = nullptr;
+        return false;
+    }
+    return true;
+}
+
+CVPixelBufferRef SharedDecoder::Lane::decodeNext(SharedDecoder* dec, int& outPtsMs) {
+    if (!reader) {
+        return nullptr;
+    }
+    if (!dec->useSoftwareDecode) {
+        AVAssetReaderStatus readerStatus = reader.status;
+        if (readerStatus != AVAssetReaderStatusReading) {
+            if (readerStatus == AVAssetReaderStatusFailed) {
+                spdlog::error("AVFoundationVideoBridge: Reader failed: {}",
+                             reader.error ? [[reader.error localizedDescription] UTF8String] : "unknown");
+            }
+            demuxAtEnd = true;
+            return nullptr;
+        }
+        return decodeNextHW(dec, outPtsMs);
+    }
+    return decodeNextSW(dec, outPtsMs);
+}
+
+CVPixelBufferRef SharedDecoder::Lane::decodeNextHW(SharedDecoder* /*dec*/, int& outPtsMs) {
+    @autoreleasepool {
+        CMSampleBufferRef sampleBuffer = nullptr;
+
+        @try {
+            sampleBuffer = [trackOutput copyNextSampleBuffer];
+        } @catch (NSException* exception) {
+            spdlog::error("AVFoundationVideoBridge: Exception in copyNextSampleBuffer: {} - {}",
+                         [[exception name] UTF8String], [[exception reason] UTF8String]);
+            demuxAtEnd = true;
+            return nullptr;
+        }
+
+        if (!sampleBuffer) {
+            if (reader.status != AVAssetReaderStatusReading) {
+                demuxAtEnd = true;
+            }
+            return nullptr;
+        }
+
+        if (!CMSampleBufferIsValid(sampleBuffer)) {
+            spdlog::warn("AVFoundationVideoBridge: Invalid sample buffer received");
+            CFRelease(sampleBuffer);
+            return nullptr;
+        }
+
+        CMTime pts = CMSampleBufferGetPresentationTimeStamp(sampleBuffer);
+        int ptsMs = CMTIME_IS_VALID(pts) ? (int)(CMTimeGetSeconds(pts) * 1000.0) : 0;
+
+        CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
+        if (!imageBuffer) {
+            CFRelease(sampleBuffer);
+            return nullptr;
+        }
+        CVBufferRetain(imageBuffer);
+        CFRelease(sampleBuffer);
+        outPtsMs = ptsMs;
+        return imageBuffer;
+    }
+}
+
+CVPixelBufferRef SharedDecoder::Lane::decodeNextSW(SharedDecoder* /*dec*/, int& outPtsMs) {
+    const int threshold = kMaxBFrameDelay + 1;
+
+    while (!demuxAtEnd && queueSize() < threshold) {
+        if (reader.status != AVAssetReaderStatusReading) {
+            demuxAtEnd = true;
+            break;
+        }
+        @autoreleasepool {
+            CMSampleBufferRef sample = nullptr;
+            @try {
+                sample = [trackOutput copyNextSampleBuffer];
+            } @catch (NSException* exception) {
+                spdlog::error("AVFoundationVideoBridge: Exception in copyNextSampleBuffer (SW): {} - {}",
+                             [[exception name] UTF8String], [[exception reason] UTF8String]);
+                demuxAtEnd = true;
+                return nullptr;
+            }
+            if (!sample) {
+                demuxAtEnd = true;
+                break;
+            }
+
+            CMVideoFormatDescriptionRef sampleFormat =
+                (CMVideoFormatDescriptionRef)CMSampleBufferGetFormatDescription(sample);
+            if (!sampleFormat) {
+                spdlog::debug("AVFoundationVideoBridge: SW sample with no format description, skipping");
+                CFRelease(sample);
+                continue;
+            }
+            if (!ensureVTSession(sampleFormat)) {
+                spdlog::error("AVFoundationVideoBridge: ensureVTSession failed (sample format desc {}); aborting SW lane",
+                             (void*)sampleFormat);
+                CFRelease(sample);
+                demuxAtEnd = true;
+                return nullptr;
+            }
+
+            VTDecodeFrameFlags flags = 0;
+            VTDecodeInfoFlags info = 0;
+            OSStatus status = VTDecompressionSessionDecodeFrame(vtSession, sample, flags, nullptr, &info);
+            CFRelease(sample);
+            if (status != noErr) {
+                spdlog::warn("AVFoundationVideoBridge: VTDecompressionSessionDecodeFrame failed: {}", (int)status);
+            }
+        }
+    }
+
+    // At end-of-stream, drain anything VT still has buffered for B-frame
+    // reordering before declaring the queue authoritative.
+    if (demuxAtEnd && vtSession && queueSize() < threshold) {
+        VTDecompressionSessionFinishDelayedFrames(vtSession);
+        VTDecompressionSessionWaitForAsynchronousFrames(vtSession);
+    }
+
+    DecodedEntry entry{};
+    bool got = false;
+    {
+        std::lock_guard<std::mutex> lk(queueMutex);
+        if (!ptsQueue.empty()) {
+            entry = ptsQueue.top();
+            ptsQueue.pop();
+            got = true;
+        }
+    }
+    if (!got) {
+        return nullptr;
+    }
+
+    outPtsMs = (int)entry.ptsMs;
+    // Pass ownership of the retained CVImageBufferRef to caller.
+    return entry.image;
+}
+
+SharedDecoder::Lane* SharedDecoder::selectLane(int targetMS, int gracetimeMS) {
+    Lane* best = nullptr;
+    int bestGap = INT_MAX;
+    Lane* oldestActive = nullptr;
+    int64_t oldestTick = INT64_MAX;
+    Lane* firstInactive = nullptr;
+
+    // Lane 0 is the anchor: opened eagerly at construction time so
+    // AVAsset's internal CoreMedia state stays pinned by at least one
+    // live AVAssetReader for the SharedDecoder's lifetime. It can be
+    // *used* for decode (and advanced forward) like any other lane,
+    // but never closed-and-reopened for an LRU recreate — that would
+    // open a gap where no AVAssetReader exists and AVFoundation can
+    // invalidate the asset, causing later AVAssetReader inits to
+    // crash. Pick a non-anchor lane for eviction instead.
+    for (size_t i = 0; i < lanes.size(); ++i) {
+        auto& lane = lanes[i];
+        if (!lane.active) {
+            if (!firstInactive) firstInactive = &lane;
+            continue;
+        }
+        if (!lane.demuxAtEnd && lane.curPos <= targetMS) {
+            int gap = targetMS - lane.curPos;
+            if (gap <= kForwardSkipMS + gracetimeMS) {
+                if (gap < bestGap) {
+                    bestGap = gap;
+                    best = &lane;
+                }
+            }
+        }
+        if (i != 0 && lane.lastUsedTick < oldestTick) {
+            oldestTick = lane.lastUsedTick;
+            oldestActive = &lane;
+        }
+    }
+
+    if (best) {
+        best->lastUsedTick = ++laneTick;
+        return best;
+    }
+
+    Lane* lane = firstInactive ? firstInactive : oldestActive;
+    if (!lane) return nullptr;
+
+    int openAt = std::max(0, targetMS - frameMS);
+    if (!lane->openAt(this, openAt)) {
+        return nullptr;
+    }
+    lane->lastUsedTick = ++laneTick;
+    return lane;
+}
+
+CVPixelBufferRef SharedDecoder::cacheLookup(int targetMS, int& outPtsMs) {
+    int64_t bestPts = -1;
+    size_t bestIdx = (size_t)-1;
+    for (size_t i = 0; i < cache.size(); ++i) {
+        const auto& e = cache[i];
+        if (!e.pixelBuffer) continue;
+        if (e.ptsMs <= targetMS && targetMS < e.ptsMs + frameMS) {
+            if (e.ptsMs > bestPts) {
+                bestPts = e.ptsMs;
+                bestIdx = i;
+            }
+        }
+    }
+    if (bestIdx == (size_t)-1) return nullptr;
+    cache[bestIdx].lastAccessTick = ++cacheTick;
+    outPtsMs = (int)bestPts;
+    CVBufferRetain(cache[bestIdx].pixelBuffer);
+    return cache[bestIdx].pixelBuffer;
+}
+
+void SharedDecoder::cacheInsert(int64_t ptsMs, CVPixelBufferRef pixelBuffer) {
+    // Dedupe — same pts replaces existing entry.
+    for (auto& e : cache) {
+        if (e.ptsMs == ptsMs && e.pixelBuffer) {
+            if (e.pixelBuffer != pixelBuffer) {
+                CVBufferRelease(e.pixelBuffer);
+                CVBufferRetain(pixelBuffer);
+                e.pixelBuffer = pixelBuffer;
+            }
+            e.lastAccessTick = ++cacheTick;
+            return;
+        }
+    }
+
+    if ((int)cache.size() >= kCacheCapacity) {
+        // Evict LRU entry.
+        size_t evictIdx = 0;
+        int64_t evictTick = cache[0].lastAccessTick;
+        for (size_t i = 1; i < cache.size(); ++i) {
+            if (cache[i].lastAccessTick < evictTick) {
+                evictTick = cache[i].lastAccessTick;
+                evictIdx = i;
+            }
+        }
+        if (cache[evictIdx].pixelBuffer) {
+            CVBufferRelease(cache[evictIdx].pixelBuffer);
+        }
+        cache[evictIdx].ptsMs = ptsMs;
+        cache[evictIdx].pixelBuffer = (CVPixelBufferRef)CVBufferRetain(pixelBuffer);
+        cache[evictIdx].lastAccessTick = ++cacheTick;
+        return;
+    }
+
+    CacheEntry e;
+    e.ptsMs = ptsMs;
+    e.pixelBuffer = (CVPixelBufferRef)CVBufferRetain(pixelBuffer);
+    e.lastAccessTick = ++cacheTick;
+    cache.push_back(e);
+}
+
+CVPixelBufferRef SharedDecoder::obtainFrame(int timestampMS, int gracetimeMS,
+                                             int& outPtsMs, int& outFirstFramePos,
+                                             bool& outAtEnd) {
+    std::lock_guard<std::mutex> lk(mutex);
+    outAtEnd = false;
+    outFirstFramePos = firstFramePos;
+    outPtsMs = 0;
+
+    if (!valid || openFailed) {
+        outAtEnd = true;
+        return nullptr;
+    }
+    if (timestampMS > lengthMS) {
+        outAtEnd = true;
+        return nullptr;
+    }
+
+    int targetMS = timestampMS;
+    if (firstFramePos >= 0 && targetMS < firstFramePos) {
+        targetMS = firstFramePos;
+    }
+
+    // Fast path: serve from cache.
+    if (CVPixelBufferRef hit = cacheLookup(targetMS, outPtsMs)) {
+        outFirstFramePos = firstFramePos;
+        return hit;
+    }
+
+    Lane* lane = selectLane(targetMS, gracetimeMS);
+    if (!lane) {
+        outAtEnd = true;
+        return nullptr;
+    }
+
+    // Decode forward until we cross the target frame boundary.
+    CVPixelBufferRef result = nullptr;
+    int resultPts = -1;
+
+    // Bound the inner loop so a pathological file can't wedge the
+    // decoder. The lane only advances by one source frame per decode;
+    // 100k frames is well past any sane forward-decode distance.
+    int safety = 100000;
+    while (safety-- > 0) {
+        int pts = 0;
+        CVPixelBufferRef pb = lane->decodeNext(this, pts);
+        if (!pb) {
+            if (lane->demuxAtEnd) {
+                outAtEnd = true;
+            }
+            break;
+        }
+        lane->curPos = pts;
+        if (firstFramePos < 0) {
+            firstFramePos = pts;
+        }
+        cacheInsert(pts, pb);
+        if (pts + (frameMS / 2) >= targetMS) {
+            result = pb; // hand off the retain to caller
+            resultPts = pts;
+            break;
+        }
+        CVBufferRelease(pb);
+    }
+
+    if (!result) {
+        outFirstFramePos = firstFramePos;
+        return nullptr;
+    }
+
+    // Read ahead a few frames so the next forward request becomes a
+    // cache hit.
+    for (int i = 0; i < kReadAheadFrames; ++i) {
+        int aheadPts = 0;
+        CVPixelBufferRef aheadPb = lane->decodeNext(this, aheadPts);
+        if (!aheadPb) break;
+        lane->curPos = aheadPts;
+        cacheInsert(aheadPts, aheadPb);
+        CVBufferRelease(aheadPb);
+    }
+
+    outPtsMs = resultPts;
+    outFirstFramePos = firstFramePos;
+    return result;
+}
+
+} // anonymous namespace inside AppleAVFoundationVideoBridge
+
+// Per-client handle. Each VideoReader instance in src-core/ maps to one
+// of these. Holds the per-client scale target (output width/height,
+// alpha/bgr selection, scaling algorithm) plus a double-buffered output
+// (current + previous frame, ready-to-consume in the requested pixel
+// format) so adjacent same-frame requests don't re-scale. The actual
+// source decode is delegated to a SharedDecoder shared across all
+// handles for the same file.
+struct VideoReaderHandle {
+    std::shared_ptr<SharedDecoder> decoder;
+
+    std::string filename;
+    bool wantAlpha = false;
+    bool bgr = false;
+    bool wantsHWType = false;
+    bool atEnd = false;
+    bool failed = false;
+    ScaleAlgorithm scaleAlgorithm = ScaleAlgorithm::Default;
     PixelFormat outputFormat = PixelFormat::RGB24;
 
-    // Double-buffered output frames (current + previous)
+    int width = 0;       // output width
+    int height = 0;      // output height
+    int nativeWidth = 0;
+    int nativeHeight = 0;
+    double lengthMS = 0;
+    long frames = 0;
+    int frameMS = 50;
+
+    // The pts of the frame currently in `currentBuffer()`. -1000 means
+    // "no decoded frame yet" so the first GetNextFrame always falls
+    // through to the SharedDecoder.
+    int curPos = -1000;
+    int prevPos = -1000;
+    int firstFramePos = -1;
+
+    // Per-client double-buffered output frames in the requested pixel
+    // format. Adjacent same-frame requests return without consulting
+    // SharedDecoder at all.
     uint8_t* frameBuffer1 = nullptr;
     uint8_t* frameBuffer2 = nullptr;
     int frameBufferSize = 0;
@@ -154,6 +984,11 @@ struct VideoReaderHandle {
     FrameView frameView2;
     bool frame1IsCurrent = true;
 
+    // Per-client scaler. The cached native-resolution frame goes
+    // through this (or memcpy if no scaling needed) into scaledPixelBuffer,
+    // then gets format-converted into the current frame buffer.
+    VTPixelTransferSessionRef transferSession = nullptr;
+    __strong CIContext* ciContext = nil;
     CVPixelBufferRef scaledPixelBuffer = nullptr;
 
     FrameView& currentFrame() { return frame1IsCurrent ? frameView1 : frameView2; }
@@ -162,7 +997,6 @@ struct VideoReaderHandle {
     void swapFrames() { frame1IsCurrent = !frame1IsCurrent; }
 
     ~VideoReaderHandle() {
-        closeReader();
         if (transferSession) {
             VTPixelTransferSessionInvalidate(transferSession);
             CFRelease(transferSession);
@@ -172,163 +1006,11 @@ struct VideoReaderHandle {
             CVPixelBufferRelease(scaledPixelBuffer);
             scaledPixelBuffer = nullptr;
         }
-        if (cachedFormatDesc) {
-            CFRelease(cachedFormatDesc);
-            cachedFormatDesc = nullptr;
-        }
         if (frameBuffer1) { free(frameBuffer1); frameBuffer1 = nullptr; }
         if (frameBuffer2) { free(frameBuffer2); frameBuffer2 = nullptr; }
-        // ARC handles ObjC objects.
-    }
-
-    void closeReader() {
-        closeVTSession();
-        if (reader) {
-            [reader cancelReading];
-            reader = nil;
-        }
-        trackOutput = nil;
-        demuxAtEnd = false;
-    }
-
-    void closeVTSession() {
-        if (vtSession) {
-            VTDecompressionSessionInvalidate(vtSession);
-            CFRelease(vtSession);
-            vtSession = nullptr;
-        }
-        std::lock_guard<std::mutex> lk(queueMutex);
-        while (!ptsQueue.empty()) {
-            CVBufferRelease(ptsQueue.top().image);
-            ptsQueue.pop();
-        }
-    }
-
-    static void vtOutputCallback(void* refCon, void* /*sourceFrameRefCon*/,
-                                 OSStatus status, VTDecodeInfoFlags /*infoFlags*/,
-                                 CVImageBufferRef imageBuffer,
-                                 CMTime pts, CMTime /*duration*/) {
-        if (status != noErr || imageBuffer == nullptr) return;
-        VideoReaderHandle* self = static_cast<VideoReaderHandle*>(refCon);
-        DecodedEntry entry;
-        entry.image = (CVImageBufferRef)CVBufferRetain(imageBuffer);
-        entry.ptsMs = CMTIME_IS_VALID(pts) ? (int64_t)(CMTimeGetSeconds(pts) * 1000.0) : 0;
-        std::lock_guard<std::mutex> lk(self->queueMutex);
-        self->ptsQueue.push(entry);
-    }
-
-    bool openReader(CMTime startTime) {
-        closeReader();
-
-        // [AVAssetReader addOutput:] starts internal KVO observers that
-        // autorelease NSStrings via -[NSString initWithFormat:]. Drain
-        // those locally instead of letting them pile up on the render
-        // thread's job-scoped pool, which only flushes when the whole
-        // render finishes.
-        @autoreleasepool {
-            NSError* error = nil;
-            reader = [[AVAssetReader alloc] initWithAsset:asset error:&error];
-            if (!reader || error) {
-                spdlog::error("AVFoundationVideoBridge: Failed to create AVAssetReader: {}",
-                             error ? [[error localizedDescription] UTF8String] : "unknown error");
-                return false;
-            }
-
-            // HW path: ask AVAssetReader to deliver decoded BGRA pixel buffers.
-            // SW path: pass nil outputSettings so AVAssetReader becomes a pure
-            // demuxer; we run our own VTDecompressionSession with HW disabled
-            // for streams that fail the HW probe.
-            NSDictionary* outputSettings = nil;
-            if (!useSoftwareDecode) {
-                outputSettings = @{
-                    (NSString*)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA)
-                };
-            }
-            trackOutput = [[AVAssetReaderTrackOutput alloc] initWithTrack:videoTrack
-                                                           outputSettings:outputSettings];
-            trackOutput.alwaysCopiesSampleData = NO;
-
-            if (![reader canAddOutput:trackOutput]) {
-                spdlog::error("AVFoundationVideoBridge: Cannot add track output to reader");
-                reader = nil;
-                trackOutput = nil;
-                return false;
-            }
-            [reader addOutput:trackOutput];
-
-            CMTime duration = asset.duration;
-            CMTime rangeStart = startTime;
-            CMTime rangeEnd = CMTimeSubtract(duration, startTime);
-            if (CMTimeCompare(rangeEnd, kCMTimeZero) <= 0) {
-                rangeEnd = kCMTimeZero;
-            }
-            reader.timeRange = CMTimeRangeMake(rangeStart, rangeEnd);
-
-            if (![reader startReading]) {
-                spdlog::error("AVFoundationVideoBridge: Failed to start reading: {}",
-                             reader.error ? [[reader.error localizedDescription] UTF8String] : "unknown");
-                reader = nil;
-                trackOutput = nil;
-                return false;
-            }
-
-            return true;
-        }
-    }
-
-    // Build a fresh software-mode VTDecompressionSession bound to the given
-    // format description. AVAssetReader can deliver samples whose format
-    // description differs from the track's published one (or there can be
-    // multiple in a track); the only way to be sure the session matches is
-    // to construct it from the sample's own format description on first use,
-    // and rebuild if it ever changes.
-    bool ensureVTSession(CMVideoFormatDescriptionRef formatDesc) {
-        if (!formatDesc) return false;
-        if (vtSession && cachedFormatDesc &&
-            CMFormatDescriptionEqual((CMFormatDescriptionRef)cachedFormatDesc,
-                                     (CMFormatDescriptionRef)formatDesc)) {
-            return true;
-        }
-
-        if (vtSession) {
-            VTDecompressionSessionInvalidate(vtSession);
-            CFRelease(vtSession);
-            vtSession = nullptr;
-        }
-        if (cachedFormatDesc) {
-            CFRelease(cachedFormatDesc);
-            cachedFormatDesc = nullptr;
-        }
-        cachedFormatDesc = (CMVideoFormatDescriptionRef)CFRetain(formatDesc);
-
-        NSDictionary* spec = @{
-            (NSString*)kVTVideoDecoderSpecification_EnableHardwareAcceleratedVideoDecoder: @NO,
-            (NSString*)kVTVideoDecoderSpecification_RequireHardwareAcceleratedVideoDecoder: @NO
-        };
-        NSDictionary* dstAttrs = @{
-            (NSString*)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA),
-            (NSString*)kCVPixelBufferIOSurfacePropertiesKey: @{}
-        };
-
-        VTDecompressionOutputCallbackRecord cb = {
-            .decompressionOutputCallback = &VideoReaderHandle::vtOutputCallback,
-            .decompressionOutputRefCon = this
-        };
-
-        OSStatus status = VTDecompressionSessionCreate(
-            kCFAllocatorDefault,
-            cachedFormatDesc,
-            (__bridge CFDictionaryRef)spec,
-            (__bridge CFDictionaryRef)dstAttrs,
-            &cb,
-            &vtSession);
-
-        if (status != noErr) {
-            spdlog::error("AVFoundationVideoBridge: VTDecompressionSessionCreate (SW) failed: {}", (int)status);
-            vtSession = nullptr;
-            return false;
-        }
-        return true;
+        // ARC handles ObjC objects. The shared_ptr decrements the
+        // SharedDecoder refcount; last release tears down the file's
+        // lanes and frame cache.
     }
 
     bool ensureTransferSession() {
@@ -423,6 +1105,27 @@ struct VideoReaderHandle {
 
         CVPixelBufferUnlockBaseAddress(pixelBuffer, kCVPixelBufferLock_ReadOnly);
 
+        // Snap uniformly-near-black pixels to exact (0,0,0). H.264
+        // compression artifacts in dark source regions show up as
+        // pixels like (2,0,2) — sum = 4, just one over a typical
+        // TransparentBlack threshold of 3. FFmpeg's swscale bicubic
+        // happens to clip those during scaling (bicubic overshoot
+        // clamped to 0) but vImage's Lanczos preserves them. Without
+        // this snap, those pixels render as faint visible blotches in
+        // areas the user expects to be cleanly transparent. We only
+        // snap when *all three* channels are <= 4, which leaves
+        // intentionally-dark single-channel content (e.g. RGB(0,0,10)
+        // dark blue) untouched.
+        for (int y = 0; y < copyHeight; y++) {
+            uint8_t* row = dst + y * dstStride;
+            for (int x = 0; x < copyWidth; x++) {
+                uint8_t* px = row + x * channels;
+                if (px[0] <= 4 && px[1] <= 4 && px[2] <= 4) {
+                    px[0] = px[1] = px[2] = 0;
+                }
+            }
+        }
+
         FrameView& vf = currentFrame();
         vf.data = dst;
         vf.linesize = dstStride;
@@ -487,184 +1190,92 @@ struct VideoReaderHandle {
             [ciContext render:scaled toCVPixelBuffer:scaledPixelBuffer];
         }
 
-        swapFrames();
         copyPixelBufferToFrame(scaledPixelBuffer);
         return true;
     }
 
+    // Scale via vImage's high-quality resampler. Stays in encoded
+    // sRGB byte space (no gamma round-trip) which matches FFmpeg's
+    // swscale behavior — the prior CIContext and VTPixelTransferSession
+    // paths scaled in linear-light, brightening non-black source pixels
+    // by ~10% and shifting near-black source values away from RGB=0.
+    // For xLights's VideoEffect "TransparentBlack" rendering (which
+    // treats R+G+B > threshold as opaque content) that brightening
+    // turned near-transparent pixels into visible dark blotches.
+    bool vImageScale(CVPixelBufferRef src) {
+        if (!ensureScaledPixelBuffer()) return false;
+
+        CVPixelBufferLockBaseAddress(src, kCVPixelBufferLock_ReadOnly);
+        CVPixelBufferLockBaseAddress(scaledPixelBuffer, 0);
+
+        vImage_Buffer srcBuf;
+        srcBuf.data = CVPixelBufferGetBaseAddress(src);
+        srcBuf.width = CVPixelBufferGetWidth(src);
+        srcBuf.height = CVPixelBufferGetHeight(src);
+        srcBuf.rowBytes = CVPixelBufferGetBytesPerRow(src);
+
+        vImage_Buffer dstBuf;
+        dstBuf.data = CVPixelBufferGetBaseAddress(scaledPixelBuffer);
+        dstBuf.width = (vImagePixelCount)width;
+        dstBuf.height = (vImagePixelCount)height;
+        dstBuf.rowBytes = CVPixelBufferGetBytesPerRow(scaledPixelBuffer);
+
+        vImage_Error err = vImageScale_ARGB8888(&srcBuf, &dstBuf, NULL,
+                                                kvImageNoFlags);
+
+        CVPixelBufferUnlockBaseAddress(scaledPixelBuffer, 0);
+        CVPixelBufferUnlockBaseAddress(src, kCVPixelBufferLock_ReadOnly);
+
+        if (err != kvImageNoError) {
+            spdlog::warn("AVFoundationVideoBridge: vImageScale_ARGB8888 failed: {}", (int)err);
+            return false;
+        }
+        return true;
+    }
+
+    // Take a native-resolution BGRA CVPixelBufferRef from SharedDecoder,
+    // scale + convert into the per-client current frame buffer. The
+    // input pixel buffer is borrowed (caller retains ownership).
     void emitDecodedImage(CVImageBufferRef imageBuffer) {
+        swapFrames();
+
         bool needsScale = ((int)CVPixelBufferGetWidth(imageBuffer) != width ||
                            (int)CVPixelBufferGetHeight(imageBuffer) != height);
 
         if (needsScale) {
-            if (scaleAlgorithm != ScaleAlgorithm::Default) {
-                if (ciFilterScale(imageBuffer)) return;
+            // Default path: vImage's encoded-space scaling, which
+            // matches FFmpeg's swscale output byte-for-byte on flat
+            // regions and avoids the linear-light brightening that
+            // CIContext / VTPixelTransferSession introduce.
+            if (scaleAlgorithm == ScaleAlgorithm::Default) {
+                if (vImageScale(imageBuffer)) {
+                    copyPixelBufferToFrame(scaledPixelBuffer);
+                    return;
+                }
             } else {
-                if (ensureTransferSession() && ensureScaledPixelBuffer()) {
-                    OSStatus xferStatus = VTPixelTransferSessionTransferImage(transferSession,
-                                                                              imageBuffer,
-                                                                              scaledPixelBuffer);
-                    if (xferStatus == noErr) {
-                        swapFrames();
-                        copyPixelBufferToFrame(scaledPixelBuffer);
-                        return;
-                    } else {
-                        spdlog::warn("AVFoundationVideoBridge: VTPixelTransferSession failed ({}), falling back to unscaled", (int)xferStatus);
-                    }
+                // Non-Default algorithms (Bicubic/Lanczos/Area/Point)
+                // go through Core Image so the user-selectable filter
+                // names map onto their CIFilter counterparts.
+                if (ciFilterScale(imageBuffer)) return;
+            }
+
+            // Fallback: VTPixelTransferSession. Keeps the user moving
+            // (with slight near-black brightening) rather than dropping
+            // to the unscaled-crop fallback below.
+            if (ensureTransferSession() && ensureScaledPixelBuffer()) {
+                OSStatus xferStatus = VTPixelTransferSessionTransferImage(transferSession,
+                                                                          imageBuffer,
+                                                                          scaledPixelBuffer);
+                if (xferStatus == noErr) {
+                    copyPixelBufferToFrame(scaledPixelBuffer);
+                    return;
+                } else {
+                    spdlog::warn("AVFoundationVideoBridge: VTPixelTransferSession failed ({}), falling back to unscaled", (int)xferStatus);
                 }
             }
         }
 
-        swapFrames();
         copyPixelBufferToFrame(imageBuffer);
-    }
-
-    bool decodeNextFrameHW() {
-        @autoreleasepool {
-            CMSampleBufferRef sampleBuffer = nullptr;
-
-            @try {
-                sampleBuffer = [trackOutput copyNextSampleBuffer];
-            } @catch (NSException* exception) {
-                spdlog::error("AVFoundationVideoBridge: Exception in copyNextSampleBuffer: {} - {}",
-                             [[exception name] UTF8String], [[exception reason] UTF8String]);
-                failed = true;
-                return false;
-            }
-
-            if (!sampleBuffer) {
-                if (reader.status != AVAssetReaderStatusReading) {
-                    atEnd = true;
-                }
-                return false;
-            }
-
-            if (!CMSampleBufferIsValid(sampleBuffer)) {
-                spdlog::warn("AVFoundationVideoBridge: Invalid sample buffer received");
-                CFRelease(sampleBuffer);
-                return false;
-            }
-
-            CMTime pts = CMSampleBufferGetPresentationTimeStamp(sampleBuffer);
-            if (CMTIME_IS_VALID(pts)) {
-                curPos = (int)(CMTimeGetSeconds(pts) * 1000.0);
-            }
-            if (firstFramePos == -1) {
-                firstFramePos = curPos;
-            }
-
-            CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
-            if (!imageBuffer) {
-                CFRelease(sampleBuffer);
-                return false;
-            }
-
-            emitDecodedImage(imageBuffer);
-            CFRelease(sampleBuffer);
-            return true;
-        }
-    }
-
-    bool decodeNextFrameSW() {
-        const int threshold = maxBFrameDelay + 1;
-
-        while (!demuxAtEnd && queueSize() < threshold) {
-            if (reader.status != AVAssetReaderStatusReading) {
-                demuxAtEnd = true;
-                break;
-            }
-            @autoreleasepool {
-                CMSampleBufferRef sample = nullptr;
-                @try {
-                    sample = [trackOutput copyNextSampleBuffer];
-                } @catch (NSException* exception) {
-                    spdlog::error("AVFoundationVideoBridge: Exception in copyNextSampleBuffer (SW): {} - {}",
-                                 [[exception name] UTF8String], [[exception reason] UTF8String]);
-                    failed = true;
-                    return false;
-                }
-                if (!sample) {
-                    demuxAtEnd = true;
-                    break;
-                }
-
-                CMVideoFormatDescriptionRef sampleFormat =
-                    (CMVideoFormatDescriptionRef)CMSampleBufferGetFormatDescription(sample);
-                if (!sampleFormat) {
-                    spdlog::debug("AVFoundationVideoBridge: SW sample with no format description, skipping");
-                    CFRelease(sample);
-                    continue;
-                }
-                if (!ensureVTSession(sampleFormat)) {
-                    spdlog::error("AVFoundationVideoBridge: ensureVTSession failed for {} (sample format desc {}); aborting SW reader",
-                                 filename, (void*)sampleFormat);
-                    CFRelease(sample);
-                    failed = true;
-                    return false;
-                }
-
-                VTDecodeFrameFlags flags = 0;
-                VTDecodeInfoFlags info = 0;
-                OSStatus status = VTDecompressionSessionDecodeFrame(vtSession, sample, flags, nullptr, &info);
-                CFRelease(sample);
-                if (status != noErr) {
-                    spdlog::warn("AVFoundationVideoBridge: VTDecompressionSessionDecodeFrame failed: {}", (int)status);
-                }
-            }
-        }
-
-        // At end-of-stream, drain anything VT still has buffered for B-frame
-        // reordering before declaring the queue authoritative.
-        if (demuxAtEnd && vtSession && queueSize() < threshold) {
-            VTDecompressionSessionFinishDelayedFrames(vtSession);
-            VTDecompressionSessionWaitForAsynchronousFrames(vtSession);
-        }
-
-        DecodedEntry entry{};
-        bool got = false;
-        {
-            std::lock_guard<std::mutex> lk(queueMutex);
-            if (!ptsQueue.empty()) {
-                entry = ptsQueue.top();
-                ptsQueue.pop();
-                got = true;
-            }
-        }
-        if (!got) {
-            atEnd = true;
-            return false;
-        }
-
-        curPos = (int)entry.ptsMs;
-        if (firstFramePos == -1) firstFramePos = curPos;
-
-        emitDecodedImage(entry.image);
-        CVBufferRelease(entry.image);
-        return true;
-    }
-
-    int queueSize() {
-        std::lock_guard<std::mutex> lk(queueMutex);
-        return (int)ptsQueue.size();
-    }
-
-    bool decodeNextFrame() {
-        if (!reader) {
-            return false;
-        }
-        if (!useSoftwareDecode) {
-            AVAssetReaderStatus readerStatus = reader.status;
-            if (readerStatus != AVAssetReaderStatusReading) {
-                if (readerStatus == AVAssetReaderStatusFailed) {
-                    spdlog::error("AVFoundationVideoBridge: Reader failed: {}",
-                                 reader.error ? [[reader.error localizedDescription] UTF8String] : "unknown");
-                }
-                atEnd = true;
-                return false;
-            }
-            return decodeNextFrameHW();
-        }
-        return decodeNextFrameSW();
     }
 };
 
@@ -683,126 +1294,43 @@ VideoReaderHandle* CreateReader(const std::string& filename, int maxwidth, int m
         h->outputFormat = bgr ? PixelFormat::BGR24 : PixelFormat::RGB24;
     }
 
-    // [AVURLAsset URLAssetWithURL:] internally autoreleases NSArrays/NSStrings
-    // via AVCMNotificationDispatcher when registering FigAsset notification
-    // listeners. Drain locally so they don't accumulate on the render-job pool.
-    @autoreleasepool {
-        NSURL* url = [NSURL fileURLWithPath:[NSString stringWithUTF8String:filename.c_str()]];
-        AVURLAsset* urlAsset = [AVURLAsset URLAssetWithURL:url options:nil];
-        h->asset = urlAsset;
-        if (!h->asset) {
-            spdlog::error("AVFoundationVideoBridge: Failed to create AVAsset for {}", filename);
-            return h;
-        }
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        NSArray<AVAssetTrack*>* tracks = [h->asset tracksWithMediaType:AVMediaTypeVideo];
-#pragma clang diagnostic pop
-        if (tracks.count == 0) {
-            spdlog::error("AVFoundationVideoBridge: No video tracks in {}", filename);
-            return h;
-        }
-        h->videoTrack = tracks[0];
-
-        // rawvideo MOV with row stride not a multiple of 8 bytes: AVFoundation's
-        // QuickTime decoder silently produces zero samples for these. Bail out
-        // here so VideoReader.cpp falls back to FFmpeg (desktop). On iPad
-        // there's no fallback and the caller will report the file as
-        // unreadable — which is honest, since AVFoundation literally can't
-        // decode it.
-        if (isRawvideoUnalignedStride(h->videoTrack)) {
-            spdlog::info("AVFoundationVideoBridge: rawvideo MOV with unaligned row stride for {}; "
-                         "AVFoundation cannot decode — invalidating reader (desktop will fall back to FFmpeg)",
-                         filename);
-            h->failed = true;
-            return h;
-        }
-
-        // Files that fail HW probe — typically H.264 High@L1.0 with B-frames at
-        // very small resolutions — cause AVAssetReader's HW decoder to silently
-        // wedge mid-stream. Route them through a manual VTDecompressionSession
-        // with HW disabled instead.
-        h->useSoftwareDecode = !probeHardwareDecoderSupport(h->videoTrack);
-        if (h->useSoftwareDecode) {
-            spdlog::info("AVFoundationVideoBridge: HW decode unsupported for {}; using software VTDecompressionSession path", filename);
-        }
-
-        CGSize naturalSize = h->videoTrack.naturalSize;
-
-        // Apply rotation transform to get correct dimensions.
-        CGAffineTransform transform = h->videoTrack.preferredTransform;
-        CGSize transformedSize = CGSizeApplyAffineTransform(naturalSize, transform);
-        h->nativeWidth = (int)fabs(transformedSize.width);
-        h->nativeHeight = (int)fabs(transformedSize.height);
-
-        if (h->nativeWidth == 0 || h->nativeHeight == 0) {
-            spdlog::error("AVFoundationVideoBridge: Invalid video dimensions for {}", filename);
-            return h;
-        }
-
-        if (usenativeresolution) {
-            h->width = h->nativeWidth;
-            h->height = h->nativeHeight;
-        } else if (keepaspectratio) {
-            float shrink = std::min((float)maxwidth / (float)h->nativeWidth,
-                                    (float)maxheight / (float)h->nativeHeight);
-            h->width = (int)((float)h->nativeWidth * shrink);
-            h->height = (int)((float)h->nativeHeight * shrink);
-        } else {
-            h->width = maxwidth;
-            h->height = maxheight;
-        }
-
-        CMTime duration = h->asset.duration;
-        h->lengthMS = CMTimeGetSeconds(duration) * 1000.0;
-
-        float nominalFrameRate = h->videoTrack.nominalFrameRate;
-        if (nominalFrameRate > 0) {
-            h->frames = (long)((h->lengthMS / 1000.0) * nominalFrameRate);
-            h->frameMS = (int)(1000.0 / nominalFrameRate);
-        } else {
-            CMTime minFrameDuration = h->videoTrack.minFrameDuration;
-            if (CMTIME_IS_VALID(minFrameDuration) && CMTimeGetSeconds(minFrameDuration) > 0) {
-                double fps = 1.0 / CMTimeGetSeconds(minFrameDuration);
-                h->frames = (long)((h->lengthMS / 1000.0) * fps);
-                h->frameMS = (int)(CMTimeGetSeconds(minFrameDuration) * 1000.0);
-            } else {
-                h->frames = (long)(h->lengthMS / 50.0); // assume 20 fps
-                h->frameMS = 50;
-            }
-        }
-
-        if (h->lengthMS <= 0 || h->frames <= 0) {
-            spdlog::warn("AVFoundationVideoBridge: Could not determine video length for {}", filename);
-            return h;
-        }
-
-        int channels = wantAlpha ? 4 : 3;
-        h->frameBufferSize = h->width * h->height * channels;
-        h->frameBuffer1 = (uint8_t*)calloc(1, h->frameBufferSize);
-        h->frameBuffer2 = (uint8_t*)calloc(1, h->frameBufferSize);
-
-        int stride = h->width * channels;
-        h->frameView1 = { h->frameBuffer1, stride, h->width, h->height, h->outputFormat };
-        h->frameView2 = { h->frameBuffer2, stride, h->width, h->height, h->outputFormat };
-
-        if (!h->openReader(kCMTimeZero)) {
-            return h;
-        }
-
-        h->valid = true;
-
-        spdlog::info("AVFoundationVideoBridge: Loaded {}", filename);
-        spdlog::info("      Length MS: {}", h->lengthMS);
-        spdlog::info("      Source size: {}x{}", h->nativeWidth, h->nativeHeight);
-        spdlog::info("      Output size: {}x{}", h->width, h->height);
-        spdlog::info("      Frames: {} @ {}fps", h->frames, nominalFrameRate);
-        spdlog::info("      Frame ms: {}", h->frameMS);
-        if (wantAlpha) spdlog::info("      Alpha: TRUE");
-
-        h->decodeNextFrame();
+    h->decoder = SharedDecoder::acquire(filename);
+    if (!h->decoder || !h->decoder->isValid()) {
+        h->failed = true;
+        return h;
     }
+
+    h->nativeWidth = h->decoder->getNativeWidth();
+    h->nativeHeight = h->decoder->getNativeHeight();
+    h->lengthMS = h->decoder->getLengthMS();
+    h->frames = h->decoder->getFrameCount();
+    h->frameMS = h->decoder->getFrameMS();
+
+    if (usenativeresolution) {
+        h->width = h->nativeWidth;
+        h->height = h->nativeHeight;
+    } else if (keepaspectratio) {
+        float shrink = std::min((float)maxwidth / (float)h->nativeWidth,
+                                (float)maxheight / (float)h->nativeHeight);
+        h->width = (int)((float)h->nativeWidth * shrink);
+        h->height = (int)((float)h->nativeHeight * shrink);
+    } else {
+        h->width = maxwidth;
+        h->height = maxheight;
+    }
+
+    int channels = wantAlpha ? 4 : 3;
+    h->frameBufferSize = h->width * h->height * channels;
+    h->frameBuffer1 = (uint8_t*)calloc(1, h->frameBufferSize);
+    h->frameBuffer2 = (uint8_t*)calloc(1, h->frameBufferSize);
+
+    int stride = h->width * channels;
+    h->frameView1 = { h->frameBuffer1, stride, h->width, h->height, h->outputFormat };
+    h->frameView2 = { h->frameBuffer2, stride, h->width, h->height, h->outputFormat };
+
+    spdlog::info("AVFoundationVideoBridge: Reader created for {}", filename);
+    spdlog::info("      Output size: {}x{}", h->width, h->height);
+    if (wantAlpha) spdlog::info("      Alpha: TRUE");
 
     return h;
 }
@@ -811,7 +1339,7 @@ void DestroyReader(VideoReaderHandle* h) {
     delete h;
 }
 
-bool IsValid(VideoReaderHandle* h) { return h && h->valid && !h->failed; }
+bool IsValid(VideoReaderHandle* h) { return h && h->decoder && h->decoder->isValid() && !h->failed; }
 int GetLengthMS(VideoReaderHandle* h) { return h ? (int)h->lengthMS : 0; }
 int GetWidth(VideoReaderHandle* h) { return h ? h->width : 0; }
 int GetHeight(VideoReaderHandle* h) { return h ? h->height : 0; }
@@ -824,7 +1352,7 @@ void SetScaleAlgorithm(VideoReaderHandle* h, ScaleAlgorithm algorithm) {
 }
 
 bool Resize(VideoReaderHandle* h, int width, int height) {
-    if (!h || !h->valid) return false;
+    if (!h || !IsValid(h)) return false;
     if (width <= 0 || height <= 0) return false;
     if (h->width == width && h->height == height) return true;
 
@@ -845,22 +1373,23 @@ bool Resize(VideoReaderHandle* h, int width, int height) {
     h->frameView1 = { h->frameBuffer1, stride, width, height, h->outputFormat };
     h->frameView2 = { h->frameBuffer2, stride, width, height, h->outputFormat };
 
-    // The cached scaled pixel buffer is sized to the old dimensions;
-    // ensureScaledPixelBuffer() will lazily reallocate on the next decode.
+    // Per-client scaler sized to the old dimensions; lazily reallocate.
     if (h->scaledPixelBuffer) {
         CVPixelBufferRelease(h->scaledPixelBuffer);
         h->scaledPixelBuffer = nullptr;
     }
 
-    // Force the next GetNextFrame() to actually decode rather than returning
-    // current/prev (whose backing storage is freshly-allocated zeroed buffers).
+    // Force the next GetNextFrame() to re-pull from SharedDecoder rather
+    // than returning a frame whose backing storage is freshly-allocated
+    // zeroed buffers.
     h->curPos = -1000;
+    h->prevPos = -1000;
 
     return true;
 }
 
 void Seek(VideoReaderHandle* h, int timestampMS, bool readFrame) {
-    if (!h || !h->valid) return;
+    if (!h || !IsValid(h)) return;
 
     if (timestampMS >= h->lengthMS) {
         h->atEnd = true;
@@ -868,22 +1397,20 @@ void Seek(VideoReaderHandle* h, int timestampMS, bool readFrame) {
     }
 
     h->atEnd = false;
-
-    // AVAssetReader is forward-only; recreate at the new position.
-    CMTime seekTime = CMTimeMakeWithSeconds(timestampMS / 1000.0, 600);
-    if (!h->openReader(seekTime)) {
-        spdlog::error("AVFoundationVideoBridge: Seek to {} failed", timestampMS);
-        return;
-    }
-
+    // Invalidate per-client double buffer — caller will re-pull through
+    // SharedDecoder. SharedDecoder lanes are managed lazily, so an
+    // explicit "seek the underlying reader" is unnecessary here; the
+    // next obtainFrame() with the new timestamp drives lane selection.
     h->curPos = -1000;
+    h->prevPos = -1000;
+
     if (readFrame) {
         (void)GetNextFrame(h, timestampMS, 0);
     }
 }
 
 const FrameView* GetNextFrame(VideoReaderHandle* h, int timestampMS, int gracetime) {
-    if (!h || !h->valid || h->frames == 0) {
+    if (!h || !IsValid(h) || h->frames == 0) {
         return nullptr;
     }
 
@@ -894,49 +1421,43 @@ const FrameView* GetNextFrame(VideoReaderHandle* h, int timestampMS, int graceti
 
     int currenttime = h->curPos;
     int timeOfNextFrame = currenttime + h->frameMS;
-    int timeOfPrevFrame = currenttime - h->frameMS;
+    int prevtime = h->prevPos;
 
-    if (h->firstFramePos >= timestampMS) {
+    if (h->firstFramePos >= 0 && h->firstFramePos >= timestampMS) {
         timestampMS = h->firstFramePos;
     }
 
-    if (timestampMS >= currenttime && timestampMS < timeOfNextFrame) {
+    // Per-client double-buffer hit: avoid re-pulling and re-scaling for
+    // adjacent same-frame requests.
+    if (currenttime != -1000 && timestampMS >= currenttime && timestampMS < timeOfNextFrame) {
         return &h->currentFrame();
     }
-    if (timestampMS >= timeOfPrevFrame - 1 && timestampMS < currenttime) {
+    if (prevtime != -1000 && timestampMS >= prevtime - 1 && timestampMS < currenttime) {
         return &h->prevFrame();
     }
 
-    if (currenttime > timestampMS + gracetime || timestampMS - currenttime > 1000) {
-        Seek(h, timestampMS, false);
-        currenttime = h->curPos;
+    int pts = 0;
+    int firstFramePos = h->firstFramePos;
+    bool atEnd = false;
+    CVPixelBufferRef pb = h->decoder->obtainFrame(timestampMS, gracetime, pts, firstFramePos, atEnd);
+
+    if (h->firstFramePos < 0 && firstFramePos >= 0) {
+        h->firstFramePos = firstFramePos;
     }
 
-    if (timestampMS <= h->lengthMS) {
-        bool firstframe = (currenttime <= 0 && timestampMS == 0);
-
-        while (firstframe || ((currenttime + (h->frameMS / 2.0)) < timestampMS)) {
-            if (!h->decodeNextFrame()) {
-                break;
-            }
-            firstframe = false;
-            currenttime = h->curPos;
-            if (currenttime > h->lengthMS) break;
-        }
-    } else {
-        h->atEnd = true;
+    if (!pb) {
+        if (atEnd) h->atEnd = true;
         return nullptr;
     }
 
-    if (h->currentFrame().data == nullptr || currenttime > h->lengthMS) {
-        h->atEnd = true;
-        return nullptr;
-    }
+    // Take the native-resolution frame and scale + convert it into the
+    // per-client buffer. This runs outside the SharedDecoder mutex.
+    h->prevPos = h->curPos;
+    h->curPos = pts;
+    h->emitDecodedImage(pb);
+    CVBufferRelease(pb);
 
-    if (timestampMS >= h->curPos) {
-        return &h->currentFrame();
-    }
-    return &h->prevFrame();
+    return &h->currentFrame();
 }
 
 long GetVideoLengthStatic(const std::string& filename) {

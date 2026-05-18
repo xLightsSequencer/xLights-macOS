@@ -9,7 +9,6 @@
 // interop header).  This header is pure C++ — no Swift or ObjC includes.
 
 #include <cstdint>
-#include <functional>
 #include <string>
 #include <list>
 
@@ -22,7 +21,6 @@ void EnableSleepModes();
 void DisableSleepModes();
 bool IsFromAppStore();
 
-void RunInAutoReleasePool(std::function<void()> &&f);
 void SetThreadQOS(int i);
 
 // Returns the Metal device registry ID used by the compute effects pipeline.
