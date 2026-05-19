@@ -122,7 +122,6 @@ bool wxMetalCanvas::Create(wxWindow *parent,
 
     NSRect r = wxOSXGetFrameForControl(this, pos , size);
     wxCustomMTKView* v = [[wxCustomMTKView alloc] initWithFrame:r device:mgr().getMTLDevice()];
-    [v retain];
     [v setPaused:true];
     [v setEnableSetNeedsDisplay:true];
     [v setColorPixelFormat:MTLPixelFormatBGRA8Unorm ];

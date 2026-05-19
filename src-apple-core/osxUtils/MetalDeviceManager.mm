@@ -193,8 +193,8 @@ id<MTLRenderPipelineState> MetalDeviceManager::getPipelineState(const std::strin
                 desc.vertexDescriptor = mtlVertexDescriptor;
             }
 
-            NSError* nserror;
-            a.state = [[device newRenderPipelineStateWithDescriptor:desc error:&nserror] retain];
+            NSError* nserror = nil;
+            a.state = [device newRenderPipelineStateWithDescriptor:desc error:&nserror];
             [desc release];
             if (mtlVertexDescriptor != nil) {
                 [mtlVertexDescriptor release];
@@ -202,7 +202,6 @@ id<MTLRenderPipelineState> MetalDeviceManager::getPipelineState(const std::strin
             if (nserror) {
                 NSString* err = [NSString stringWithFormat:@"%@", nserror];
                 spdlog::info("Could not create render pipeline for {}:  {}", name, [err UTF8String]);
-                [nserror release];
             }
         }
     }

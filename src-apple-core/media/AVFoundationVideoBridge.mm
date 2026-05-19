@@ -187,8 +187,8 @@ private:
     bool open(const std::string& filename);
 
     struct Lane {
-        __strong AVAssetReader* reader = nil;
-        __strong AVAssetReaderTrackOutput* trackOutput = nil;
+        AVAssetReader* reader = nil;
+        AVAssetReaderTrackOutput* trackOutput = nil;
         VTDecompressionSessionRef vtSession = nullptr;
         CMVideoFormatDescriptionRef cachedFormatDesc = nullptr;
 
@@ -244,8 +244,8 @@ private:
 
     std::mutex mutex;
 
-    __strong AVAsset* asset = nil;
-    __strong AVAssetTrack* videoTrack = nil;
+    AVAsset* asset = nil;
+    AVAssetTrack* videoTrack = nil;
 
     std::string filename;
     bool valid = false;
@@ -309,6 +309,11 @@ SharedDecoder::~SharedDecoder() {
     }
     cache.clear();
 
+    [videoTrack release];
+    videoTrack = nil;
+    [asset release];
+    asset = nil;
+
     // Remove ourselves from the registry. The weak_ptr would expire
     // naturally on the next lookup but cleaning up keeps the table
     // small for long-running sessions.
@@ -325,7 +330,7 @@ bool SharedDecoder::open(const std::string& fname) {
     @autoreleasepool {
         NSURL* url = [NSURL fileURLWithPath:[NSString stringWithUTF8String:fname.c_str()]];
         AVURLAsset* urlAsset = [AVURLAsset URLAssetWithURL:url options:nil];
-        asset = urlAsset;
+        asset = [urlAsset retain];
         if (!asset) {
             spdlog::error("AVFoundationVideoBridge: Failed to create AVAsset for {}", fname);
             openFailed = true;
@@ -341,7 +346,7 @@ bool SharedDecoder::open(const std::string& fname) {
             openFailed = true;
             return false;
         }
-        videoTrack = tracks[0];
+        videoTrack = [tracks[0] retain];
 
         if (isRawvideoUnalignedStride(videoTrack)) {
             spdlog::info("AVFoundationVideoBridge: rawvideo MOV with unaligned row stride for {}; "
@@ -444,8 +449,10 @@ void SharedDecoder::Lane::close() {
     }
     if (reader) {
         [reader cancelReading];
+        [reader release];
         reader = nil;
     }
+    [trackOutput release];
     trackOutput = nil;
     demuxAtEnd = false;
     active = false;
@@ -480,6 +487,7 @@ bool SharedDecoder::Lane::openAt(SharedDecoder* dec, int timestampMS) {
         if (!reader || error) {
             spdlog::error("AVFoundationVideoBridge: Failed to create AVAssetReader: {}",
                          error ? [[error localizedDescription] UTF8String] : "unknown error");
+            [reader release];
             reader = nil;
             return false;
         }
@@ -512,7 +520,9 @@ bool SharedDecoder::Lane::openAt(SharedDecoder* dec, int timestampMS) {
 
         if (![reader canAddOutput:trackOutput]) {
             spdlog::error("AVFoundationVideoBridge: Cannot add track output to reader");
+            [reader release];
             reader = nil;
+            [trackOutput release];
             trackOutput = nil;
             return false;
         }
@@ -529,7 +539,9 @@ bool SharedDecoder::Lane::openAt(SharedDecoder* dec, int timestampMS) {
         if (![reader startReading]) {
             spdlog::error("AVFoundationVideoBridge: Failed to start reading: {}",
                          reader.error ? [[reader.error localizedDescription] UTF8String] : "unknown");
+            [reader release];
             reader = nil;
+            [trackOutput release];
             trackOutput = nil;
             return false;
         }
@@ -988,7 +1000,7 @@ struct VideoReaderHandle {
     // through this (or memcpy if no scaling needed) into scaledPixelBuffer,
     // then gets format-converted into the current frame buffer.
     VTPixelTransferSessionRef transferSession = nullptr;
-    __strong CIContext* ciContext = nil;
+    CIContext* ciContext = nil;
     CVPixelBufferRef scaledPixelBuffer = nullptr;
 
     FrameView& currentFrame() { return frame1IsCurrent ? frameView1 : frameView2; }
@@ -1008,9 +1020,10 @@ struct VideoReaderHandle {
         }
         if (frameBuffer1) { free(frameBuffer1); frameBuffer1 = nullptr; }
         if (frameBuffer2) { free(frameBuffer2); frameBuffer2 = nullptr; }
-        // ARC handles ObjC objects. The shared_ptr decrements the
-        // SharedDecoder refcount; last release tears down the file's
-        // lanes and frame cache.
+        [ciContext release];
+        ciContext = nil;
+        // shared_ptr decrements the SharedDecoder refcount; last
+        // release tears down the file's lanes and frame cache.
     }
 
     bool ensureTransferSession() {

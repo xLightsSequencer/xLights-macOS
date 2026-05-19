@@ -31,10 +31,14 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _buckets = [NSMutableDictionary dictionary];
+        _buckets = [[NSMutableDictionary alloc] init];
         _didError = NO;
     }
     return self;
+}
+- (void)dealloc {
+    [_buckets release];
+    [super dealloc];
 }
 - (void)request:(id<SNRequest>)request didProduceResult:(id<SNResult>)result {
     if (![result isKindOfClass:[SNClassificationResult class]]) return;
@@ -61,12 +65,12 @@ namespace {
 // Copy `frames` samples into a fresh AVAudioPCMBuffer at `sampleRate`.
 // The analyzer accepts mono float32 buffers.
 AVAudioPCMBuffer* MakeMonoFloatBuffer(const float* samples, long startFrame, long frames, double sampleRate) {
-    AVAudioFormat* fmt = [[AVAudioFormat alloc]
+    AVAudioFormat* fmt = [[[AVAudioFormat alloc]
         initStandardFormatWithSampleRate:sampleRate
-                                channels:1];
-    AVAudioPCMBuffer* buf = [[AVAudioPCMBuffer alloc]
+                                channels:1] autorelease];
+    AVAudioPCMBuffer* buf = [[[AVAudioPCMBuffer alloc]
         initWithPCMFormat:fmt
-           frameCapacity:(AVAudioFrameCount)frames];
+           frameCapacity:(AVAudioFrameCount)frames] autorelease];
     if (!buf) return nil;
     buf.frameLength = (AVAudioFrameCount)frames;
     float* dst = buf.floatChannelData[0];
@@ -93,9 +97,9 @@ ClassifyResult ClassifyMono(const float* samples,
         NSError* err = nil;
         SNClassifySoundRequest* request = nil;
         if (@available(iOS 15.0, macOS 12.0, *)) {
-            request = [[SNClassifySoundRequest alloc]
+            request = [[[SNClassifySoundRequest alloc]
                 initWithClassifierIdentifier:SNClassifierIdentifierVersion1
-                                       error:&err];
+                                       error:&err] autorelease];
         }
         if (!request || err) {
             out.didError = true;
@@ -107,16 +111,16 @@ ClassifyResult ClassifyMono(const float* samples,
             }
         }
 
-        AVAudioFormat* fmt = [[AVAudioFormat alloc]
+        AVAudioFormat* fmt = [[[AVAudioFormat alloc]
             initStandardFormatWithSampleRate:sampleRate
-                                    channels:1];
-        SNAudioStreamAnalyzer* analyzer = [[SNAudioStreamAnalyzer alloc] initWithFormat:fmt];
+                                    channels:1] autorelease];
+        SNAudioStreamAnalyzer* analyzer = [[[SNAudioStreamAnalyzer alloc] initWithFormat:fmt] autorelease];
         if (!analyzer) {
             out.didError = true;
             return out;
         }
 
-        XLSoundClassifierObserver* observer = [[XLSoundClassifierObserver alloc] init];
+        XLSoundClassifierObserver* observer = [[[XLSoundClassifierObserver alloc] init] autorelease];
         if (![analyzer addRequest:request withObserver:observer error:&err]) {
             out.didError = true;
             return out;
