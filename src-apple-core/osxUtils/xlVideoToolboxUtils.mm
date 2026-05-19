@@ -103,7 +103,7 @@ void CleanupVideoToolbox(AVCodecContext *s, void *cache) {
     }
 }
 void InitVideoToolboxAcceleration() {
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     [dict setObject:@NO forKey:kCIContextUseSoftwareRenderer];
     [dict setObject:@NO forKey:kCIContextOutputPremultiplied];
     [dict setObject:@YES forKey:kCIContextHighQualityDownsample];
@@ -122,17 +122,12 @@ void InitVideoToolboxAcceleration() {
     if (ciContext == nullptr) {
         spdlog::info("Could not create context for scaling.");
     } else {
-        [ciContext retain];
-
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
         // This can be changed to metal when we go MacOS 12+
         rbFlipKernel = [CIColorKernel kernelWithString: @"kernel vec4 swapRedAndGreenAmount(__sample s) { return s.bgra; }" ];
 #pragma clang diagnostic pop
-
-        [rbFlipKernel retain];
     }
-    [dict release];
     spdlog::info("Hardware decoder initialized.");
 }
 
@@ -228,7 +223,6 @@ bool VideoToolboxScaleImage(AVCodecContext *codecContext, AVFrame *frame, AVFram
             filter->inputImage = scaledimage;
             swappedImage =  [filter outputImage];
             filter->inputImage = nil;
-            [filter release];
             if (swappedImage == nullptr) {
                 return false;
             }
@@ -314,7 +308,6 @@ void VideoToolboxCreateFrame(CIImage *image, AVFrame *f, id<MTLDevice> device) {
     }
     if (ciEncContext == nullptr) {
         ciEncContext = [CIContext contextWithMTLDevice:device];
-        [ciEncContext retain];
     }
     [ciEncContext render:image toCVPixelBuffer:scaledBuf];
 }

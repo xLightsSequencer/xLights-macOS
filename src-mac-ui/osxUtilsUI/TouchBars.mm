@@ -52,7 +52,7 @@ extern WXImage wxOSXGetImageFromBundle(const wxBitmapBundle& bundle);
 
 @interface ColorPickerPasser : NSObject
 @property ColorPickerItem *button;
-@property (assign) NSColorPickerTouchBarItem *item;
+@property (unsafe_unretained) NSColorPickerTouchBarItem *item;
 @end
 
 @implementation ColorPickerPasser
@@ -66,7 +66,7 @@ extern WXImage wxOSXGetImageFromBundle(const wxBitmapBundle& bundle);
 
 @interface SliderPasser : NSObject
 @property SliderItem *button;
-@property (assign) NSSliderTouchBarItem *item;
+@property (unsafe_unretained) NSSliderTouchBarItem *item;
 @end
 
 @implementation SliderPasser
@@ -85,9 +85,10 @@ public:
     ColorPickerPasser* colorPasser = nullptr;
     SegmentPasser* segmentPasser = nullptr;
 
-
     ButtonPasser* buttonPasser = nullptr;
-    NSButton* button = nullptr;
+    // AppKit's NSCustomTouchBarItem.view owns the NSButton; we just keep a
+    // borrowed reference so we never need to retain or release it here.
+    __unsafe_unretained NSButton* button = nullptr;
 };
 
 
@@ -152,7 +153,7 @@ public:
         NSCustomTouchBarItem *ret = [[NSCustomTouchBarItem alloc] initWithIdentifier:identifier];
         NSString *nm = [NSString stringWithUTF8String:label.c_str()];
         
-        ButtonPasser *bp = [ButtonPasser alloc];
+        ButtonPasser *bp = [[ButtonPasser alloc] init];
         bp.button = item;
         
         NSButton* theButton;
@@ -202,7 +203,7 @@ public:
         ret.showsAlpha = false;
         
         NSString *nm = [NSString stringWithUTF8String:cpi->GetName().c_str()];
-        ColorPickerPasser *bp = [ColorPickerPasser alloc];
+        ColorPickerPasser *bp = [[ColorPickerPasser alloc] init];
         bp.button = cpi;
         bp.item = ret;
         
@@ -226,7 +227,7 @@ public:
         ret.slider.maxValue = slider->GetMax();
         ret.slider.intValue = slider->GetValue();
         
-        SliderPasser *bp = [SliderPasser alloc];
+        SliderPasser *bp = [[SliderPasser alloc] init];
         bp.button = slider;
         bp.item = ret;
         [ret setTarget:bp];
@@ -245,7 +246,7 @@ public:
             [bi addObject:(wxOSXGetImageFromBundle(it2->GetBitmap()))];
         }
         
-        SegmentPasser *bp = [SegmentPasser alloc];
+        SegmentPasser *bp = [[SegmentPasser alloc] init];
         bp.item = group;
 
         NSSegmentedControl *segmentedControl = [NSSegmentedControl segmentedControlWithImages: bi

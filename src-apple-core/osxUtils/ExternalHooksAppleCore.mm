@@ -43,15 +43,10 @@ uint64_t GetMetalComputeDeviceRegistryID() {
     NSArray<id<MTLDevice>> *devices = MTLCopyAllDevices();
     for (id<MTLDevice> d in devices) {
         if ([d isRemovable]) {
-            uint64_t regID = d.registryID;
-            [devices release];
-            return regID;
+            return d.registryID;
         }
     }
-    [devices release];
 #endif
     id<MTLDevice> dev = MTLCreateSystemDefaultDevice();
-    uint64_t regID = dev ? dev.registryID : 0;
-    [dev release];
-    return regID;
+    return dev ? dev.registryID : 0;
 }

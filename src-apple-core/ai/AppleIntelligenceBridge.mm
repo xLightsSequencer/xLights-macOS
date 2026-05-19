@@ -130,7 +130,6 @@ void GenerateImage(const std::string& prompt,
             }
         }
         if (callback) callback(std::move(r));
-        [caller release];
     }];
 }
 

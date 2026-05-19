@@ -56,11 +56,11 @@ ModelHandle* LoadModel(const std::string& modelPath) {
                 return nullptr;
             }
         }
-        MLModelConfiguration* cfg = [[[MLModelConfiguration alloc] init] autorelease];
+        MLModelConfiguration* cfg = [[MLModelConfiguration alloc] init];
         cfg.computeUnits = MLComputeUnitsAll;
-        h->model = [[MLModel modelWithContentsOfURL:compiledURL
-                                      configuration:cfg
-                                              error:&err] retain];
+        h->model = [MLModel modelWithContentsOfURL:compiledURL
+                                     configuration:cfg
+                                             error:&err];
         if (!h->model || err) {
             NSLog(@"StemSeparatorBridge: model load failed: %@", err);
             delete h;
@@ -72,7 +72,6 @@ ModelHandle* LoadModel(const std::string& modelPath) {
 
 void DestroyModel(ModelHandle* m) {
     if (!m) return;
-    [m->model release];
     m->model = nil;
     delete m;
 }
@@ -116,18 +115,18 @@ bool RunChunk(ModelHandle* m,
         MLMultiArray* waveformArr = nil;
         MLMultiArray* spectralArr = nil;
         if (@available(macOS 12.0, iOS 15.0, *)) {
-            waveformArr = [[[MLMultiArray alloc]
+            waveformArr = [[MLMultiArray alloc]
                 initWithShape:@[@1, @(kWaveformChannels), @(chunkFrames)]
                      dataType:MLMultiArrayDataTypeFloat16
-                        error:&err] autorelease];
+                        error:&err];
             if (!waveformArr || err) {
                 NSLog(@"StemSeparatorBridge: waveform alloc failed: %@", err);
                 return false;
             }
-            spectralArr = [[[MLMultiArray alloc]
+            spectralArr = [[MLMultiArray alloc]
                 initWithShape:@[@1, @(kSpectralChannels), @(kSpectralBins), @(kSpectralFrames)]
                      dataType:MLMultiArrayDataTypeFloat16
-                        error:&err] autorelease];
+                        error:&err];
             if (!spectralArr || err) {
                 NSLog(@"StemSeparatorBridge: spectral alloc failed: %@", err);
                 return false;
@@ -147,10 +146,10 @@ bool RunChunk(ModelHandle* m,
         }
 
         MLDictionaryFeatureProvider* input =
-            [[[MLDictionaryFeatureProvider alloc]
+            [[MLDictionaryFeatureProvider alloc]
                 initWithDictionary:@{@"audio_waveform": waveformArr,
                                      @"spectral_magnitude": spectralArr}
-                              error:&err] autorelease];
+                              error:&err];
         if (!input || err) {
             NSLog(@"StemSeparatorBridge: input provider failed: %@", err);
             return false;

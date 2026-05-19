@@ -91,13 +91,13 @@ bool DecodeWithAVAssetReader(const std::string& path,
         };
 
         NSError* error = nil;
-        AVAssetReader* reader = [[[AVAssetReader alloc] initWithAsset:asset error:&error] autorelease];
+        AVAssetReader* reader = [[AVAssetReader alloc] initWithAsset:asset error:&error];
         if (error || !reader) {
             spdlog::error("AudioToolboxBridge: AVAssetReader failed: {}", error ? error.localizedDescription.UTF8String : "unknown");
             return false;
         }
 
-        AVAssetReaderTrackOutput* output = [[[AVAssetReaderTrackOutput alloc] initWithTrack:audioTrack outputSettings:outputSettings] autorelease];
+        AVAssetReaderTrackOutput* output = [[AVAssetReaderTrackOutput alloc] initWithTrack:audioTrack outputSettings:outputSettings];
         [reader addOutput:output];
 
         if (![reader startReading]) {

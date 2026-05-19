@@ -76,7 +76,7 @@ std::string CheckVideoFile(const std::string& filePath) {
         }
 
         NSError* error = nil;
-        AVAssetReader* reader = [[[AVAssetReader alloc] initWithAsset:asset error:&error] autorelease];
+        AVAssetReader* reader = [[AVAssetReader alloc] initWithAsset:asset error:&error];
         if (!reader || error) {
             return std::string("Cannot create decoder: ") +
                    (error ? [[error localizedDescription] UTF8String] : "unknown error");
@@ -86,8 +86,8 @@ std::string CheckVideoFile(const std::string& filePath) {
             (NSString*)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA)
         };
         AVAssetReaderTrackOutput* output =
-            [[[AVAssetReaderTrackOutput alloc] initWithTrack:videoTracks[0]
-                                            outputSettings:outputSettings] autorelease];
+            [[AVAssetReaderTrackOutput alloc] initWithTrack:videoTracks[0]
+                                             outputSettings:outputSettings];
 
         if (![reader canAddOutput:output]) {
             return "Video codec not supported for decoding";

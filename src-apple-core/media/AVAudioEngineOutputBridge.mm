@@ -68,15 +68,12 @@ struct OutputHandle {
         for (auto& [id, track] : tracks) {
             if (track->playerNode) {
                 [track->playerNode stop];
-                [track->playerNode release];
                 track->playerNode = nil;
             }
             delete track;
         }
         tracks.clear();
-        [timePitch release];
         timePitch = nil;
-        [engine release];
         engine = nil;
     }
 
@@ -138,7 +135,6 @@ struct OutputHandle {
             [engine disconnectNodeOutput:timePitch];
             [engine detachNode:timePitch];
             usingTimePitch = false;
-            [timePitch release];
             timePitch = [[AVAudioUnitTimePitch alloc] init];
             timePitch.rate = playbackRate;
         }
@@ -151,7 +147,6 @@ struct OutputHandle {
                     channels:2
                     interleaved:NO];
                 [engine connect:track->playerNode to:playerTarget() format:nodeFormat];
-                [nodeFormat release];
             }
         }
 
@@ -192,7 +187,6 @@ struct OutputHandle {
 
         AVAudioPCMBuffer* pcmBuf = [[AVAudioPCMBuffer alloc] initWithPCMFormat:trackFormat
                                                                  frameCapacity:(AVAudioFrameCount)frameCount];
-        [trackFormat release];
         pcmBuf.frameLength = (AVAudioFrameCount)frameCount;
 
         // Int16 interleaved -> Float32 non-interleaved.
@@ -205,7 +199,7 @@ struct OutputHandle {
             rightDst[i] = (float)src[i * 2 + 1] / 32768.0f;
         }
 
-        return [pcmBuf autorelease];
+        return pcmBuf;
     }
 
     void scheduleTrack(AudioTrack* track, long frameOffset, long frameCount) {
@@ -259,7 +253,6 @@ int AddAudio(OutputHandle* h, long len, uint8_t* buffer,
         channels:2
         interleaved:NO];
     [h->engine connect:track->playerNode to:h->playerTarget() format:nodeFormat];
-    [nodeFormat release];
 
     track->playerNode.volume = h->effectiveVolume(volume);
 
@@ -278,7 +271,6 @@ void RemoveAudio(OutputHandle* h, int id) {
     if (track->playerNode) {
         [track->playerNode stop];
         [h->engine detachNode:track->playerNode];
-        [track->playerNode release];
         track->playerNode = nil;
     }
     h->tracks.erase(it);

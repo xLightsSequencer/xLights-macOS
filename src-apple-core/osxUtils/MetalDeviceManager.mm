@@ -38,13 +38,11 @@ void MetalDeviceManager::initResources() {
     depthDescriptor.depthCompareFunction = MTLCompareFunctionLessEqual;
     depthDescriptor.depthWriteEnabled = YES;
     depthStencilStateLE = [device newDepthStencilStateWithDescriptor:depthDescriptor];
-    [depthDescriptor release];
 
     depthDescriptor = [MTLDepthStencilDescriptor new];
     depthDescriptor.depthCompareFunction = MTLCompareFunctionLess;
     depthDescriptor.depthWriteEnabled = YES;
     depthStencilStateL = [device newDepthStencilStateWithDescriptor:depthDescriptor];
-    [depthDescriptor release];
 
     if ([device supportsTextureSampleCount:2]) {
         sampleCount = 2;
@@ -58,7 +56,6 @@ void MetalDeviceManager::initResources() {
 void MetalDeviceManager::teardownResources() {
     auto clearPipelineMap = [](std::map<std::string, PipelineInfo>& m) {
         for (auto& a : m) {
-            [a.second.state release];
             a.second.state = nil;
         }
         m.clear();
@@ -69,30 +66,12 @@ void MetalDeviceManager::teardownResources() {
     clearPipelineMap(pipelineStates3D);
     clearPipelineMap(blendedPipelineStates3D);
 
-    if (depthStencilStateLE) {
-        [depthStencilStateLE release];
-        depthStencilStateLE = nil;
-    }
-    if (depthStencilStateL) {
-        [depthStencilStateL release];
-        depthStencilStateL = nil;
-    }
-    if (commandQueue) {
-        [commandQueue release];
-        commandQueue = nil;
-    }
-    if (bltCommandQueue) {
-        [bltCommandQueue release];
-        bltCommandQueue = nil;
-    }
-    if (defaultLibrary) {
-        [defaultLibrary release];
-        defaultLibrary = nil;
-    }
-    if (device) {
-        [device release];
-        device = nil;
-    }
+    depthStencilStateLE = nil;
+    depthStencilStateL = nil;
+    commandQueue = nil;
+    bltCommandQueue = nil;
+    defaultLibrary = nil;
+    device = nil;
 
     sampleCount = 1;
 }
@@ -142,11 +121,11 @@ id<MTLRenderPipelineState> MetalDeviceManager::getPipelineState(const std::strin
             if (msaa) {
                 desc.rasterSampleCount = sampleCount;
             }
-            NSString* nsVName = [[[NSString alloc] initWithUTF8String:vShader] autorelease];
-            NSString* nsFName = [[[NSString alloc] initWithUTF8String:fShader] autorelease];
+            NSString* nsVName = [[NSString alloc] initWithUTF8String:vShader];
+            NSString* nsFName = [[NSString alloc] initWithUTF8String:fShader];
 
-            desc.vertexFunction = [[defaultLibrary newFunctionWithName:nsVName] autorelease];
-            desc.fragmentFunction = [[defaultLibrary newFunctionWithName:nsFName] autorelease];
+            desc.vertexFunction = [defaultLibrary newFunctionWithName:nsVName];
+            desc.fragmentFunction = [defaultLibrary newFunctionWithName:nsFName];
 
             MTLVertexDescriptor* mtlVertexDescriptor = nil;
             if (n == "meshSolidProgram" || n == "meshTextureProgram" || n == "meshWireframeProgram") {
@@ -195,10 +174,6 @@ id<MTLRenderPipelineState> MetalDeviceManager::getPipelineState(const std::strin
 
             NSError* nserror = nil;
             a.state = [device newRenderPipelineStateWithDescriptor:desc error:&nserror];
-            [desc release];
-            if (mtlVertexDescriptor != nil) {
-                [mtlVertexDescriptor release];
-            }
             if (nserror) {
                 NSString* err = [NSString stringWithFormat:@"%@", nserror];
                 spdlog::info("Could not create render pipeline for {}:  {}", name, [err UTF8String]);

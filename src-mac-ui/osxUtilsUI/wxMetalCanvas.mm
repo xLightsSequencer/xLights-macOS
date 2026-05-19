@@ -122,6 +122,13 @@ bool wxMetalCanvas::Create(wxWindow *parent,
 
     NSRect r = wxOSXGetFrameForControl(this, pos , size);
     wxCustomMTKView* v = [[wxCustomMTKView alloc] initWithFrame:r device:mgr().getMTLDevice()];
+    // wxWidgetCocoaImpl follows MRC convention: it expects the caller to hand
+    // it a +1-owned NSView and balances with [release] in its destructor. Under
+    // ARC, the __strong local `v` would consume the +1 from alloc/init and
+    // auto-release at end of scope, leaving wx with a dangling pointer to free.
+    // Add an extra retain via CFBridgingRetain (discard the CFTypeRef; ARC
+    // doesn't auto-release it) so wx's destructor release is balanced.
+    CFBridgingRetain(v);
     [v setPaused:true];
     [v setEnableSetNeedsDisplay:true];
     [v setColorPixelFormat:MTLPixelFormatBGRA8Unorm ];
