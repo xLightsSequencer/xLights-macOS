@@ -47,7 +47,7 @@ public:
     id<MTLRenderPipelineState> getPipelineState(const std::string &name, const char *vShader, const char *fShader,
                                                 bool blending);
 
-    void addToSyncPoint(__unsafe_unretained id<MTLCommandBuffer> &buffer, __unsafe_unretained id<CAMetalDrawable> &drawable);
+    void addToSyncPoint(id<MTLCommandBuffer> buffer, id<CAMetalDrawable> drawable);
 #endif
 
     bool usesMSAA() { return usesMsaa; }
