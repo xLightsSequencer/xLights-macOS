@@ -49,17 +49,15 @@ static AVPixelFormat negotiate_pixel_format(AVCodecContext *s, const AVPixelForm
 // CIColorKernel. Defined here at file scope so the @implementation is
 // not nested inside a C++ namespace (ObjC class registration is global
 // regardless, but lifting it out keeps the source structure clearer).
-@interface CIRBFlipFilter: CIFilter {
-    @public CIImage *inputImage;
-}
+@interface CIRBFlipFilter: CIFilter
+@property (nonatomic, strong) CIImage *inputImage;
 @end
 
 @implementation CIRBFlipFilter
 
-
 - (CIImage *)outputImage
 {
-    CIImage *ci = inputImage;
+    CIImage *ci = self.inputImage;
     return [rbFlipKernel applyWithExtent:ci.extent arguments:@[ci] ];
 }
 @end
@@ -220,9 +218,9 @@ bool VideoToolboxScaleImage(AVCodecContext *codecContext, AVFrame *frame, AVFram
         CIImage *swappedImage = scaledimage;
         if (dstFrame->format != AV_PIX_FMT_BGRA && dstFrame->format != AV_PIX_FMT_BGR24) {
             CIRBFlipFilter *filter = [[CIRBFlipFilter alloc] init];
-            filter->inputImage = scaledimage;
+            filter.inputImage = scaledimage;
             swappedImage =  [filter outputImage];
-            filter->inputImage = nil;
+            filter.inputImage = nil;
             if (swappedImage == nullptr) {
                 return false;
             }

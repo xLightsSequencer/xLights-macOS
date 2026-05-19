@@ -1851,13 +1851,15 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_INTERFACE_IVARS = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES_AGGRESSIVE;
-				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = NO;
+				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1931,8 +1933,10 @@
 					"-D__WXMAC__",
 					"-D__WXOSX_COCOA__",
 					"-ferror-limit=0",
-					"-Idependencies/libdbg/wx/include/osx_cocoa-unicode-3.3",
-					"-Idependencies/include/wx-3.3",
+					"-isystem",
+					"dependencies/libdbg/wx/include/osx_cocoa-unicode-3.3",
+					"-isystem",
+					"dependencies/include/wx-3.3",
 					"-DwxDEBUG_LEVEL=1",
 					"-Iinclude",
 				);
@@ -1987,13 +1991,15 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_INTERFACE_IVARS = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES_AGGRESSIVE;
-				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = NO;
+				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -2060,8 +2066,10 @@
 					"-D__WXMAC__",
 					"-D__WXOSX_COCOA__",
 					"-ferror-limit=0",
-					"-Idependencies/lib/wx/include/osx_cocoa-unicode-static-3.3",
-					"-Idependencies/include/wx-3.3",
+					"-isystem",
+					"dependencies/lib/wx/include/osx_cocoa-unicode-static-3.3",
+					"-isystem",
+					"dependencies/include/wx-3.3",
 					"-DNDEBUG",
 					"-DwxDEBUG_LEVEL=0",
 					"-Iinclude",
@@ -2293,13 +2301,15 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_INTERFACE_IVARS = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES_AGGRESSIVE;
-				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = NO;
+				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -2369,8 +2379,10 @@
 					"-D__WXMAC__",
 					"-D__WXOSX_COCOA__",
 					"-ferror-limit=0",
-					"-Idependencies/lib/wx/include/osx_cocoa-unicode-static-3.3",
-					"-Idependencies/include/wx-3.3",
+					"-isystem",
+					"dependencies/lib/wx/include/osx_cocoa-unicode-static-3.3",
+					"-isystem",
+					"dependencies/include/wx-3.3",
 					"-DNDEBUG",
 					"-DwxDEBUG_LEVEL=0",
 					"-Iinclude",
