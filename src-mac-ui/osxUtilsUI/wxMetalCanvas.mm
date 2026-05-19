@@ -150,7 +150,7 @@ id<MTLRenderPipelineState> wxMetalCanvas::getPipelineState(const std::string &n,
 }
 
  
-void wxMetalCanvas::addToSyncPoint(id<MTLCommandBuffer> &buffer, id<CAMetalDrawable> &drawable) {
+void wxMetalCanvas::addToSyncPoint(__unsafe_unretained id<MTLCommandBuffer> &buffer, __unsafe_unretained id<CAMetalDrawable> &drawable) {
     if (!isUsingPresentTime) {
         [buffer presentDrawable:drawable];
         [buffer commit];
