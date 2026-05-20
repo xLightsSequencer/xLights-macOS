@@ -15,6 +15,18 @@ API_AVAILABLE(macos(12.0), ios(13.0))
 - (void)writeJSON:(NSData*)json kind:(NSString*)kind index:(NSUInteger)idx {
     if (!self.diagnosticsDir || json.length == 0) return;
 
+#if TARGET_OS_IOS
+    // iPad exposes an explicit opt-out toggle (Settings.bundle key
+    // XLSendCrashReports). When the user has turned it off, the
+    // auto-upload pipeline that normally drains these JSONs is also
+    // gated off — without this guard they accumulate forever.
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults objectForKey:@"XLSendCrashReports"] != nil &&
+        ![defaults boolForKey:@"XLSendCrashReports"]) {
+        return;
+    }
+#endif
+
     NSFileManager* fm = [NSFileManager defaultManager];
     [fm createDirectoryAtPath:self.diagnosticsDir
   withIntermediateDirectories:YES
@@ -85,6 +97,27 @@ API_AVAILABLE(macos(12.0), ios(13.0))
 static id sSubscriber = nil;
 #endif // __has_include(<MetricKit/MetricKit.h>)
 
+#if __has_include(<MetricKit/MetricKit.h>)
+// Drop any JSON payloads older than the cutoff. Without this, daily
+// metric deliveries accumulate forever on machines that never crash
+// (and so never get swept into a crash zip). 14 days keeps enough
+// recent history to give a future crash report useful context, while
+// bounding worst-case disk use.
+static void PruneStaleMetricKitJSONs(NSString* diagnosticsDir) {
+    NSFileManager* fm = [NSFileManager defaultManager];
+    NSArray<NSString*>* names = [fm contentsOfDirectoryAtPath:diagnosticsDir error:nil];
+    NSDate* cutoff = [NSDate dateWithTimeIntervalSinceNow:-14 * 24 * 60 * 60];
+    for (NSString* name in names) {
+        if (![name.pathExtension.lowercaseString isEqualToString:@"json"]) continue;
+        NSString* full = [diagnosticsDir stringByAppendingPathComponent:name];
+        NSDictionary* attrs = [fm attributesOfItemAtPath:full error:nil];
+        NSDate* mtime = attrs[NSFileModificationDate];
+        if (!mtime || [mtime compare:cutoff] != NSOrderedAscending) continue;
+        [fm removeItemAtPath:full error:nil];
+    }
+}
+#endif
+
 void StartMetricKitCollection(const std::string& diagnosticsDir) {
 #if __has_include(<MetricKit/MetricKit.h>)
     if (@available(macOS 12.0, iOS 13.0, *)) {
@@ -96,6 +129,8 @@ void StartMetricKitCollection(const std::string& diagnosticsDir) {
                                   withIntermediateDirectories:YES
                                                    attributes:nil
                                                         error:nil];
+
+        PruneStaleMetricKitJSONs(dir);
 
         XLMetricKitSubscriber* sub = [[XLMetricKitSubscriber alloc] init];
         sub.diagnosticsDir = dir;
