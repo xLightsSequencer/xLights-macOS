@@ -65,8 +65,18 @@ fix_wx_dylib_rpaths() {
     done
 }
 
-if [ -f "$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/xLights.debug.dylib" ]; then
-    fix_wx_dylib_rpaths "$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/xLights.debug.dylib"
+# Xcode IDE builds (ENABLE_DEBUG_DYLIB=YES) put all the wx references in
+# xLights.debug.dylib and leave the .app/Contents/MacOS/xLights launcher as a
+# tiny shim. CLI `xcodebuild` does not produce the debug dylib, so the wx refs
+# live in the monolithic executable instead. Rewrite whichever one exists.
+if [ "$CONFIGURATION" == "Debug" ]; then
+    TARGET_BIN="$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/xLights.debug.dylib"
+    if [ ! -f "$TARGET_BIN" ]; then
+        TARGET_BIN="$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/$PRODUCT_NAME"
+    fi
+    if [ -f "$TARGET_BIN" ]; then
+        fix_wx_dylib_rpaths "$TARGET_BIN"
+    fi
 fi
 
 # --- ANGLE dylibs (OpenGL ES via Metal) ---

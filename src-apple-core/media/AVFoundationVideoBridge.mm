@@ -121,6 +121,165 @@ bool isRawvideoUnalignedStride(AVAssetTrack* track) {
     return (dims.width * 3) % 8 != 0;
 }
 
+// Rawvideo support: rather than route through AVFoundation's QuickTime
+// decoder or VTDecompressionSession (neither of which reliably handle
+// `raw `-style codecs), we treat AVAssetReader as a pure demuxer
+// (outputSettings = nil) and convert the sample bytes to BGRA ourselves.
+// Works for any stride and on iPad (no FFmpeg fallback there).
+enum class RawPixelLayout {
+    None,
+    RGB24,   // FFmpeg pix_fmt rgb24 → MOV FourCC 'raw ', depth=24
+    BGR24,   // FFmpeg pix_fmt bgr24 → MOV FourCC '24BG'
+    RGBA,    // FFmpeg pix_fmt rgba  → MOV FourCC 'RGBA'
+    BGRA,    // FFmpeg pix_fmt bgra  → MOV FourCC 'BGRA'
+    ARGB,    // FFmpeg pix_fmt argb  → MOV FourCC 'raw ', depth=32
+    ABGR,    // FFmpeg pix_fmt abgr  → MOV FourCC 'ABGR'
+};
+
+const char* rawPixelLayoutName(RawPixelLayout l) {
+    switch (l) {
+    case RawPixelLayout::RGB24: return "RGB24";
+    case RawPixelLayout::BGR24: return "BGR24";
+    case RawPixelLayout::RGBA:  return "RGBA";
+    case RawPixelLayout::BGRA:  return "BGRA";
+    case RawPixelLayout::ARGB:  return "ARGB";
+    case RawPixelLayout::ABGR:  return "ABGR";
+    case RawPixelLayout::None:  return "none";
+    }
+    return "?";
+}
+
+int rawPixelBytesPerPixel(RawPixelLayout l) {
+    switch (l) {
+    case RawPixelLayout::RGB24:
+    case RawPixelLayout::BGR24:
+        return 3;
+    case RawPixelLayout::RGBA:
+    case RawPixelLayout::BGRA:
+    case RawPixelLayout::ARGB:
+    case RawPixelLayout::ABGR:
+        return 4;
+    case RawPixelLayout::None:
+        return 0;
+    }
+    return 0;
+}
+
+RawPixelLayout detectRawPixelLayout(AVAssetTrack* track) {
+    if (!track) return RawPixelLayout::None;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    NSArray* formatDescs = track.formatDescriptions;
+#pragma clang diagnostic pop
+    if (formatDescs.count == 0) return RawPixelLayout::None;
+    CMVideoFormatDescriptionRef fd = (__bridge CMVideoFormatDescriptionRef)formatDescs[0];
+    FourCharCode codec = CMFormatDescriptionGetMediaSubType((CMFormatDescriptionRef)fd);
+
+    // AVFoundation normalizes MOV rawvideo codec tags to CoreVideo
+    // pixel-format types: 'raw '+depth=24 surfaces as
+    // kCVPixelFormatType_24RGB (0x00000018), 'raw '+depth=32 as
+    // kCVPixelFormatType_32ARGB (0x00000020). The other layouts come
+    // through with FourCC-valued kCVPixelFormatType_* constants
+    // ('24BG', 'BGRA', 'RGBA', 'ABGR'), so the same switch handles both.
+    switch (codec) {
+    case kCVPixelFormatType_24RGB:  return RawPixelLayout::RGB24;
+    case kCVPixelFormatType_24BGR:  return RawPixelLayout::BGR24;
+    case kCVPixelFormatType_32RGBA: return RawPixelLayout::RGBA;
+    case kCVPixelFormatType_32BGRA: return RawPixelLayout::BGRA;
+    case kCVPixelFormatType_32ARGB: return RawPixelLayout::ARGB;
+    case kCVPixelFormatType_32ABGR: return RawPixelLayout::ABGR;
+    default:
+        break;
+    }
+    
+    // fallback if avfoudation decides to return the proper fourcc
+    auto fcc = [](char a, char b, char c, char d) -> FourCharCode {
+        return ((FourCharCode)(unsigned char)a << 24) |
+               ((FourCharCode)(unsigned char)b << 16) |
+               ((FourCharCode)(unsigned char)c << 8)  |
+               ((FourCharCode)(unsigned char)d);
+    };
+    char tag[5] = { (char)((codec >> 24) & 0xff), (char)((codec >> 16) & 0xff),
+                    (char)((codec >> 8) & 0xff),  (char)(codec & 0xff), 0 };
+    spdlog::info("AVFoundationVideoBridge: track codec FourCC = '{}' (0x{:08x})", tag, codec);
+
+    if (codec == fcc('2','4','B','G')) return RawPixelLayout::BGR24;
+    if (codec == fcc('R','G','B','A')) return RawPixelLayout::RGBA;
+    if (codec == fcc('B','G','R','A')) return RawPixelLayout::BGRA;
+    if (codec == fcc('A','B','G','R')) return RawPixelLayout::ABGR;
+    if (codec == fcc('r','a','w',' ')) {
+        int depth = 0;
+        CFNumberRef depthRef = (CFNumberRef)CMFormatDescriptionGetExtension(
+            (CMFormatDescriptionRef)fd, kCMFormatDescriptionExtension_Depth);
+        if (depthRef) CFNumberGetValue(depthRef, kCFNumberIntType, &depth);
+        return (depth == 32) ? RawPixelLayout::ARGB : RawPixelLayout::RGB24;
+    }
+    return RawPixelLayout::None;
+}
+
+// Convert one frame from any supported rawvideo layout into BGRA.
+// Source and destination strides are independent; both must be at least
+// width * bytesPerPixel and width * 4 respectively.
+void convertRawFrameToBGRA(RawPixelLayout layout,
+                           const uint8_t* src, size_t srcStride,
+                           uint8_t* dst, size_t dstStride,
+                           int w, int h) {
+    switch (layout) {
+    case RawPixelLayout::RGB24:
+        for (int y = 0; y < h; y++) {
+            const uint8_t* s = src + y * srcStride;
+            uint8_t* d = dst + y * dstStride;
+            for (int x = 0; x < w; x++) {
+                d[0] = s[2]; d[1] = s[1]; d[2] = s[0]; d[3] = 255;
+                s += 3; d += 4;
+            }
+        }
+        break;
+    case RawPixelLayout::BGR24:
+        for (int y = 0; y < h; y++) {
+            const uint8_t* s = src + y * srcStride;
+            uint8_t* d = dst + y * dstStride;
+            for (int x = 0; x < w; x++) {
+                d[0] = s[0]; d[1] = s[1]; d[2] = s[2]; d[3] = 255;
+                s += 3; d += 4;
+            }
+        }
+        break;
+    case RawPixelLayout::RGBA: {
+        vImage_Buffer s = { (void*)src, (vImagePixelCount)h, (vImagePixelCount)w, srcStride };
+        vImage_Buffer d = { dst, (vImagePixelCount)h, (vImagePixelCount)w, dstStride };
+        const uint8_t map[4] = { 2, 1, 0, 3 };
+        vImagePermuteChannels_ARGB8888(&s, &d, map, kvImageNoFlags);
+        break;
+    }
+    case RawPixelLayout::BGRA:
+        if (srcStride == dstStride) {
+            memcpy(dst, src, (size_t)dstStride * h);
+        } else {
+            for (int y = 0; y < h; y++) {
+                memcpy(dst + y * dstStride, src + y * srcStride, (size_t)w * 4);
+            }
+        }
+        break;
+    case RawPixelLayout::ARGB: {
+        vImage_Buffer s = { (void*)src, (vImagePixelCount)h, (vImagePixelCount)w, srcStride };
+        vImage_Buffer d = { dst, (vImagePixelCount)h, (vImagePixelCount)w, dstStride };
+        const uint8_t map[4] = { 3, 2, 1, 0 };
+        vImagePermuteChannels_ARGB8888(&s, &d, map, kvImageNoFlags);
+        break;
+    }
+    case RawPixelLayout::ABGR: {
+        vImage_Buffer s = { (void*)src, (vImagePixelCount)h, (vImagePixelCount)w, srcStride };
+        vImage_Buffer d = { dst, (vImagePixelCount)h, (vImagePixelCount)w, dstStride };
+        const uint8_t map[4] = { 1, 2, 3, 0 };
+        vImagePermuteChannels_ARGB8888(&s, &d, map, kvImageNoFlags);
+        break;
+    }
+    case RawPixelLayout::None:
+        break;
+    }
+}
+
 } // namespace
 
 namespace AppleAVFoundationVideoBridge {
@@ -218,6 +377,7 @@ private:
     private:
         CVPixelBufferRef decodeNextHW(SharedDecoder* dec, int& outPtsMs);
         CVPixelBufferRef decodeNextSW(SharedDecoder* dec, int& outPtsMs);
+        CVPixelBufferRef decodeNextRaw(SharedDecoder* dec, int& outPtsMs);
 
         bool ensureVTSession(CMVideoFormatDescriptionRef formatDesc);
 
@@ -251,6 +411,9 @@ private:
     bool valid = false;
     bool openFailed = false;
     bool useSoftwareDecode = false;
+    bool useRawDecode = false;
+    RawPixelLayout rawLayout = RawPixelLayout::None;
+    int rawBytesPerPixel = 0;
 
     int nativeWidth = 0;
     int nativeHeight = 0;
@@ -346,17 +509,26 @@ bool SharedDecoder::open(const std::string& fname) {
         }
         videoTrack = tracks[0];
 
-        if (isRawvideoUnalignedStride(videoTrack)) {
+        rawLayout = detectRawPixelLayout(videoTrack);
+        if (rawLayout != RawPixelLayout::None) {
+            useRawDecode = true;
+            rawBytesPerPixel = rawPixelBytesPerPixel(rawLayout);
+            spdlog::info("AVFoundationVideoBridge: rawvideo ({}) for {}; using direct demux + manual BGRA conversion",
+                         rawPixelLayoutName(rawLayout), fname);
+        } else if (isRawvideoUnalignedStride(videoTrack)) {
+            // Defensive: detectRawPixelLayout already covers 'raw ' codec,
+            // so this branch should be unreachable. Kept as a backstop in
+            // case a future codec tag escapes the detector.
             spdlog::info("AVFoundationVideoBridge: rawvideo MOV with unaligned row stride for {}; "
                          "AVFoundation cannot decode — invalidating reader (desktop will fall back to FFmpeg)",
                          fname);
             openFailed = true;
             return false;
-        }
-
-        useSoftwareDecode = !probeHardwareDecoderSupport(videoTrack);
-        if (useSoftwareDecode) {
-            spdlog::info("AVFoundationVideoBridge: HW decode unsupported for {}; using software VTDecompressionSession path", fname);
+        } else {
+            useSoftwareDecode = !probeHardwareDecoderSupport(videoTrack);
+            if (useSoftwareDecode) {
+                spdlog::info("AVFoundationVideoBridge: HW decode unsupported for {}; using software VTDecompressionSession path", fname);
+            }
         }
 
         CGSize naturalSize = videoTrack.naturalSize;
@@ -488,11 +660,12 @@ bool SharedDecoder::Lane::openAt(SharedDecoder* dec, int timestampMS) {
         }
 
         // HW path: ask AVAssetReader to deliver decoded BGRA pixel
-        // buffers at the track's native resolution. SW path: nil
-        // outputSettings makes AVAssetReader a pure demuxer; we run our
-        // own VTDecompressionSession with HW disabled.
+        // buffers at the track's native resolution. SW path and raw
+        // path: nil outputSettings makes AVAssetReader a pure demuxer;
+        // SW runs its own VTDecompressionSession, raw converts the
+        // bytes to BGRA directly.
         NSDictionary* outputSettings = nil;
-        if (!dec->useSoftwareDecode) {
+        if (!dec->useSoftwareDecode && !dec->useRawDecode) {
             outputSettings = @{
                 (NSString*)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA)
             };
@@ -612,6 +785,18 @@ bool SharedDecoder::Lane::ensureVTSession(CMVideoFormatDescriptionRef formatDesc
 CVPixelBufferRef SharedDecoder::Lane::decodeNext(SharedDecoder* dec, int& outPtsMs) {
     if (!reader) {
         return nullptr;
+    }
+    if (dec->useRawDecode) {
+        AVAssetReaderStatus readerStatus = reader.status;
+        if (readerStatus != AVAssetReaderStatusReading) {
+            if (readerStatus == AVAssetReaderStatusFailed) {
+                spdlog::error("AVFoundationVideoBridge: Reader failed (raw): {}",
+                             reader.error ? [[reader.error localizedDescription] UTF8String] : "unknown");
+            }
+            demuxAtEnd = true;
+            return nullptr;
+        }
+        return decodeNextRaw(dec, outPtsMs);
     }
     if (!dec->useSoftwareDecode) {
         AVAssetReaderStatus readerStatus = reader.status;
@@ -741,6 +926,87 @@ CVPixelBufferRef SharedDecoder::Lane::decodeNextSW(SharedDecoder* /*dec*/, int& 
     outPtsMs = (int)entry.ptsMs;
     // Pass ownership of the retained CVImageBufferRef to caller.
     return entry.image;
+}
+
+CVPixelBufferRef SharedDecoder::Lane::decodeNextRaw(SharedDecoder* dec, int& outPtsMs) {
+    @autoreleasepool {
+        CMSampleBufferRef sample = nullptr;
+        @try {
+            sample = [trackOutput copyNextSampleBuffer];
+        } @catch (NSException* exception) {
+            spdlog::error("AVFoundationVideoBridge: Exception in copyNextSampleBuffer (raw): {} - {}",
+                         [[exception name] UTF8String], [[exception reason] UTF8String]);
+            demuxAtEnd = true;
+            return nullptr;
+        }
+        if (!sample) {
+            if (reader.status != AVAssetReaderStatusReading) {
+                demuxAtEnd = true;
+            }
+            return nullptr;
+        }
+        if (!CMSampleBufferIsValid(sample)) {
+            CFRelease(sample);
+            return nullptr;
+        }
+
+        CMTime pts = CMSampleBufferGetPresentationTimeStamp(sample);
+        int ptsMs = CMTIME_IS_VALID(pts) ? (int)(CMTimeGetSeconds(pts) * 1000.0) : 0;
+
+        // For uncompressed (rawvideo) tracks AVAssetReader hands us the
+        // frame as a CVPixelBufferRef on the sample's image buffer, not
+        // as a CMBlockBuffer. Empty preface samples (image buffer == nil)
+        // do show up occasionally on lane open — skip them; the caller
+        // will retry.
+        CVImageBufferRef srcImage = CMSampleBufferGetImageBuffer(sample);
+        if (!srcImage) {
+            CFRelease(sample);
+            return nullptr;
+        }
+        CVPixelBufferRetain(srcImage);
+        CFRelease(sample);
+
+        // Fast path: if AVAssetReader already gave us BGRA, hand it back
+        // directly (no manual conversion needed).
+        OSType srcFmt = CVPixelBufferGetPixelFormatType(srcImage);
+        if (srcFmt == kCVPixelFormatType_32BGRA) {
+            outPtsMs = ptsMs;
+            return srcImage;
+        }
+
+        const int w = (int)CVPixelBufferGetWidth(srcImage);
+        const int h = (int)CVPixelBufferGetHeight(srcImage);
+
+        CVPixelBufferRef bgra = nullptr;
+        NSDictionary* attrs = @{
+            (NSString*)kCVPixelBufferIOSurfacePropertiesKey: @{}
+        };
+        CVReturn r = CVPixelBufferCreate(kCFAllocatorDefault, w, h,
+                                          kCVPixelFormatType_32BGRA,
+                                          (__bridge CFDictionaryRef)attrs, &bgra);
+        if (r != kCVReturnSuccess || !bgra) {
+            spdlog::error("AVFoundationVideoBridge: CVPixelBufferCreate (raw) failed: {}", (int)r);
+            CVPixelBufferRelease(srcImage);
+            return nullptr;
+        }
+
+        CVPixelBufferLockBaseAddress(srcImage, kCVPixelBufferLock_ReadOnly);
+        CVPixelBufferLockBaseAddress(bgra, 0);
+
+        const uint8_t* srcBytes = (const uint8_t*)CVPixelBufferGetBaseAddress(srcImage);
+        const size_t srcStride = CVPixelBufferGetBytesPerRow(srcImage);
+        uint8_t* dst = (uint8_t*)CVPixelBufferGetBaseAddress(bgra);
+        const size_t dstStride = CVPixelBufferGetBytesPerRow(bgra);
+
+        convertRawFrameToBGRA(dec->rawLayout, srcBytes, srcStride, dst, dstStride, w, h);
+
+        CVPixelBufferUnlockBaseAddress(bgra, 0);
+        CVPixelBufferUnlockBaseAddress(srcImage, kCVPixelBufferLock_ReadOnly);
+        CVPixelBufferRelease(srcImage);
+
+        outPtsMs = ptsMs;
+        return bgra;
+    }
 }
 
 SharedDecoder::Lane* SharedDecoder::selectLane(int targetMS, int gracetimeMS) {
