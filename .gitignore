@@ -1,7 +1,10 @@
 build
 *.bak
 xcuserdata
-xLights.xcodeproj/project.xcworkspace/xcshareddata
+xLights.xcodeproj/project.xcworkspace/xcshareddata/*
+!xLights.xcodeproj/project.xcworkspace/xcshareddata/swiftpm
+xLights.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/*
+!xLights.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
 .DS_Store
 ._*
 dependencies

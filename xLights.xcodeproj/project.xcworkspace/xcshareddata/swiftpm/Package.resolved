@@ -1,0 +1,24 @@
+{
+  "originHash" : "065a25a8ca10a1f8bf4c0cd0cc0e6b452574f85f5f45aa8a2bde09db174124f8",
+  "pins" : [
+    {
+      "identity" : "klightmapper",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/KulpLights/KLightMapper",
+      "state" : {
+        "revision" : "14065f5275e83789dced472e92d857d6cb679e80",
+        "version" : "1.2.0"
+      }
+    },
+    {
+      "identity" : "xlights-spm",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/xLightsSequencer/xLights-spm",
+      "state" : {
+        "revision" : "bd9ccae1527f118c552ec0f6a17ecf4ee56a92ea",
+        "version" : "2026.10.0"
+      }
+    }
+  ],
+  "version" : 3
+}
