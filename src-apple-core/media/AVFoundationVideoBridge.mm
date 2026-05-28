@@ -790,12 +790,15 @@ bool SharedDecoder::open(const std::string& fname) {
         // downstream reads on the CPU via vImage/Lock+BaseAddress.
         //
         // Minimum buffer count: pool keeps released buffers around for
-        // recycling, but only up to this floor. With kCacheCapacity-sized
-        // cache + per-handle private caches, the natural high-water mark
-        // is well above 4 (the old default); bumping the floor to
-        // kCacheCapacity avoids deallocate/realloc churn when the cache
-        // briefly drops below capacity (seeks, end-of-render) and ramps
-        // back up. The pool grows past this floor on demand.
+        // recycling, but only up to this floor. The pool grows past this
+        // floor on demand and shrinks back to the floor when entries are
+        // released — so picking the floor is purely a memory/recycling
+        // tradeoff. kReadAheadFrames * 2 covers the steady-state
+        // read-ahead batch + the previously-emitted frame still held by a
+        // consumer; higher floors held ~kCacheCapacity * frame-bytes
+        // (~512 MB for a 1080p rawvideo file with no benefit, since the
+        // shared cache + per-handle caches hold their own retains and
+        // don't return buffers to the pool until they roll over).
         if (useRawDecode) {
             NSDictionary* pbAttrs = @{
                 (NSString*)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA),
@@ -803,7 +806,7 @@ bool SharedDecoder::open(const std::string& fname) {
                 (NSString*)kCVPixelBufferHeightKey: @(nativeHeight),
             };
             NSDictionary* poolAttrs = @{
-                (NSString*)kCVPixelBufferPoolMinimumBufferCountKey: @(kCacheCapacity),
+                (NSString*)kCVPixelBufferPoolMinimumBufferCountKey: @(kReadAheadFrames * 2),
             };
             CVReturn pr = CVPixelBufferPoolCreate(kCFAllocatorDefault,
                                                    (__bridge CFDictionaryRef)poolAttrs,
@@ -1972,7 +1975,26 @@ struct VideoReaderHandle {
         return true;
     }
 
-    // BGRA → target format conversion using Accelerate.framework.
+    // BGRA → target format conversion. Snaps uniformly-near-black pixels
+    // (all three RGB channels <= 4) to exact (0,0,0) in the same pass.
+    //
+    // The snap is necessary because H.264 compression artifacts in dark
+    // source regions show up as pixels like (2,0,2) — sum = 4, just one
+    // over a typical TransparentBlack threshold of 3. FFmpeg's swscale
+    // bicubic happens to clip those during scaling (bicubic overshoot
+    // clamped to 0) but vImage's Lanczos preserves them. Without the
+    // snap, those pixels render as faint visible blotches in areas the
+    // user expects to be cleanly transparent — and create reveal halos
+    // in "1 reveals 2" / "2 reveals 1" composite modes. We only snap
+    // when *all three* channels are <= 4, which leaves intentionally-
+    // dark single-channel content (e.g. RGB(0,0,10) dark blue) alone.
+    //
+    // NEON path: single fused pass — vld4q_u8 deinterleaves BGRA into
+    // four channel registers, we apply the snap mask and (optionally)
+    // swap R↔B in-register, then vst4q_u8 / vst3q_u8 writes the target
+    // layout. This replaces the previous vImagePermute + vImageConvert
+    // + separate snap (3 passes for the no-alpha case, 2 for alpha)
+    // with one read + one write through memory.
     void copyPixelBufferToFrame(CVPixelBufferRef pixelBuffer) {
         CVPixelBufferLockBaseAddress(pixelBuffer, kCVPixelBufferLock_ReadOnly);
 
@@ -1988,25 +2010,127 @@ struct VideoReaderHandle {
         int copyWidth = std::min((int)srcWidth, width);
         int copyHeight = std::min((int)srcHeight, height);
 
-        vImage_Buffer srcBuf = { src, (vImagePixelCount)copyHeight, (vImagePixelCount)copyWidth, srcStride };
-        vImage_Buffer dstBuf = { dst, (vImagePixelCount)copyHeight, (vImagePixelCount)copyWidth, (size_t)dstStride };
-
+#if XL_HAS_NEON
+        const uint8x16_t threshold = vdupq_n_u8(4);
         if (wantAlpha) {
             if (bgr) {
-                // BGRA → BGRA: direct copy
+                // BGRA → BGRA + snap. Source layout matches destination,
+                // so channel registers go back out in the same slots.
+                for (int y = 0; y < copyHeight; y++) {
+                    const uint8_t* srcRow = src + y * srcStride;
+                    uint8_t* dstRow = dst + y * dstStride;
+                    int x = 0;
+                    for (; x + 16 <= copyWidth; x += 16) {
+                        uint8x16x4_t p = vld4q_u8(srcRow + x * 4);
+                        uint8x16_t mx = vmaxq_u8(vmaxq_u8(p.val[0], p.val[1]), p.val[2]);
+                        uint8x16_t snap = vcleq_u8(mx, threshold);
+                        p.val[0] = vbicq_u8(p.val[0], snap);
+                        p.val[1] = vbicq_u8(p.val[1], snap);
+                        p.val[2] = vbicq_u8(p.val[2], snap);
+                        vst4q_u8(dstRow + x * 4, p);
+                    }
+                    for (; x < copyWidth; x++) {
+                        const uint8_t* sp = srcRow + x * 4;
+                        uint8_t* dp = dstRow + x * 4;
+                        uint8_t b = sp[0], g = sp[1], r = sp[2];
+                        if (b <= 4 && g <= 4 && r <= 4) b = g = r = 0;
+                        dp[0] = b; dp[1] = g; dp[2] = r; dp[3] = sp[3];
+                    }
+                }
+            } else {
+                // BGRA → RGBA + snap. Swap channel registers 0 and 2.
+                for (int y = 0; y < copyHeight; y++) {
+                    const uint8_t* srcRow = src + y * srcStride;
+                    uint8_t* dstRow = dst + y * dstStride;
+                    int x = 0;
+                    for (; x + 16 <= copyWidth; x += 16) {
+                        uint8x16x4_t p = vld4q_u8(srcRow + x * 4);
+                        uint8x16_t mx = vmaxq_u8(vmaxq_u8(p.val[0], p.val[1]), p.val[2]);
+                        uint8x16_t snap = vcleq_u8(mx, threshold);
+                        uint8x16x4_t out;
+                        out.val[0] = vbicq_u8(p.val[2], snap); // R
+                        out.val[1] = vbicq_u8(p.val[1], snap); // G
+                        out.val[2] = vbicq_u8(p.val[0], snap); // B
+                        out.val[3] = p.val[3];                  // A untouched
+                        vst4q_u8(dstRow + x * 4, out);
+                    }
+                    for (; x < copyWidth; x++) {
+                        const uint8_t* sp = srcRow + x * 4;
+                        uint8_t* dp = dstRow + x * 4;
+                        uint8_t b = sp[0], g = sp[1], r = sp[2];
+                        if (b <= 4 && g <= 4 && r <= 4) b = g = r = 0;
+                        dp[0] = r; dp[1] = g; dp[2] = b; dp[3] = sp[3];
+                    }
+                }
+            }
+        } else {
+            if (bgr) {
+                // BGRA → BGR24 + snap. vst3q_u8 drops alpha.
+                for (int y = 0; y < copyHeight; y++) {
+                    const uint8_t* srcRow = src + y * srcStride;
+                    uint8_t* dstRow = dst + y * dstStride;
+                    int x = 0;
+                    for (; x + 16 <= copyWidth; x += 16) {
+                        uint8x16x4_t p = vld4q_u8(srcRow + x * 4);
+                        uint8x16_t mx = vmaxq_u8(vmaxq_u8(p.val[0], p.val[1]), p.val[2]);
+                        uint8x16_t snap = vcleq_u8(mx, threshold);
+                        uint8x16x3_t out;
+                        out.val[0] = vbicq_u8(p.val[0], snap); // B
+                        out.val[1] = vbicq_u8(p.val[1], snap); // G
+                        out.val[2] = vbicq_u8(p.val[2], snap); // R
+                        vst3q_u8(dstRow + x * 3, out);
+                    }
+                    for (; x < copyWidth; x++) {
+                        const uint8_t* sp = srcRow + x * 4;
+                        uint8_t* dp = dstRow + x * 3;
+                        uint8_t b = sp[0], g = sp[1], r = sp[2];
+                        if (b <= 4 && g <= 4 && r <= 4) b = g = r = 0;
+                        dp[0] = b; dp[1] = g; dp[2] = r;
+                    }
+                }
+            } else {
+                // BGRA → RGB24 + snap. Swap channel registers 0 and 2.
+                for (int y = 0; y < copyHeight; y++) {
+                    const uint8_t* srcRow = src + y * srcStride;
+                    uint8_t* dstRow = dst + y * dstStride;
+                    int x = 0;
+                    for (; x + 16 <= copyWidth; x += 16) {
+                        uint8x16x4_t p = vld4q_u8(srcRow + x * 4);
+                        uint8x16_t mx = vmaxq_u8(vmaxq_u8(p.val[0], p.val[1]), p.val[2]);
+                        uint8x16_t snap = vcleq_u8(mx, threshold);
+                        uint8x16x3_t out;
+                        out.val[0] = vbicq_u8(p.val[2], snap); // R
+                        out.val[1] = vbicq_u8(p.val[1], snap); // G
+                        out.val[2] = vbicq_u8(p.val[0], snap); // B
+                        vst3q_u8(dstRow + x * 3, out);
+                    }
+                    for (; x < copyWidth; x++) {
+                        const uint8_t* sp = srcRow + x * 4;
+                        uint8_t* dp = dstRow + x * 3;
+                        uint8_t b = sp[0], g = sp[1], r = sp[2];
+                        if (b <= 4 && g <= 4 && r <= 4) b = g = r = 0;
+                        dp[0] = r; dp[1] = g; dp[2] = b;
+                    }
+                }
+            }
+        }
+#else
+        // Non-NEON path (Intel x86_64). We keep the two-pass vImage
+        // approach + scalar snap as the fallback — there's no fused
+        // SSE permute+gather equivalent of NEON's vld4q/vst3q, so the
+        // intermediate XBGR/XRGB buffer is still the cleanest route.
+        vImage_Buffer srcBuf = { src, (vImagePixelCount)copyHeight, (vImagePixelCount)copyWidth, srcStride };
+        vImage_Buffer dstBuf = { dst, (vImagePixelCount)copyHeight, (vImagePixelCount)copyWidth, (size_t)dstStride };
+        if (wantAlpha) {
+            if (bgr) {
                 for (int y = 0; y < copyHeight; y++) {
                     memcpy(dst + y * dstStride, src + y * srcStride, copyWidth * 4);
                 }
             } else {
-                // BGRA → RGBA: permute via NEON-accelerated vImage
                 const uint8_t permuteMap[4] = { 2, 1, 0, 3 };
                 vImagePermuteChannels_ARGB8888(&srcBuf, &dstBuf, permuteMap, kvImageNoFlags);
             }
         } else {
-            // BGRA → BGR24/RGB24: permute into an XRGB/XBGR intermediate,
-            // then drop the leading byte. The intermediate buffer is held
-            // on the handle and reused across frames; for 1080p that's
-            // an ~8 MB allocation we'd otherwise pay per decoded frame.
             size_t tmpStride = copyWidth * 4;
             size_t tmpSize = tmpStride * copyHeight;
             uint8_t* tmpData = ensureRgbTmpBuf(tmpSize);
@@ -2016,73 +2140,6 @@ struct VideoReaderHandle {
             vImagePermuteChannels_ARGB8888(&srcBuf, &tmpBuf, bgr ? bgrMap : rgbMap, kvImageNoFlags);
             vImageConvert_ARGB8888toRGB888(&tmpBuf, &dstBuf, kvImageNoFlags);
         }
-
-        CVPixelBufferUnlockBaseAddress(pixelBuffer, kCVPixelBufferLock_ReadOnly);
-
-        // Snap uniformly-near-black pixels to exact (0,0,0). H.264
-        // compression artifacts in dark source regions show up as
-        // pixels like (2,0,2) — sum = 4, just one over a typical
-        // TransparentBlack threshold of 3. FFmpeg's swscale bicubic
-        // happens to clip those during scaling (bicubic overshoot
-        // clamped to 0) but vImage's Lanczos preserves them. Without
-        // this snap, those pixels render as faint visible blotches in
-        // areas the user expects to be cleanly transparent. We only
-        // snap when *all three* channels are <= 4, which leaves
-        // intentionally-dark single-channel content (e.g. RGB(0,0,10)
-        // dark blue) untouched.
-        //
-        // Also needed for "1 reveals 2" / "2 reveals 1" video effect
-        // composite modes where one stream masks another — the same
-        // artifact pixels create faint reveal halos. The snap can't
-        // be elided based on caller intent, so it runs unconditionally;
-        // NEON brings it down to ~0.5ms for 1080p versus ~3-5ms scalar.
-#if XL_HAS_NEON
-        {
-            const uint8x16_t threshold = vdupq_n_u8(4);
-            if (channels == 3) {
-                for (int y = 0; y < copyHeight; y++) {
-                    uint8_t* row = dst + y * dstStride;
-                    int x = 0;
-                    for (; x + 16 <= copyWidth; x += 16) {
-                        uint8x16x3_t rgb = vld3q_u8(row + x * 3);
-                        uint8x16_t mx = vmaxq_u8(vmaxq_u8(rgb.val[0], rgb.val[1]), rgb.val[2]);
-                        uint8x16_t snapMask = vcleq_u8(mx, threshold);
-                        rgb.val[0] = vbicq_u8(rgb.val[0], snapMask);
-                        rgb.val[1] = vbicq_u8(rgb.val[1], snapMask);
-                        rgb.val[2] = vbicq_u8(rgb.val[2], snapMask);
-                        vst3q_u8(row + x * 3, rgb);
-                    }
-                    for (; x < copyWidth; x++) {
-                        uint8_t* px = row + x * 3;
-                        if (px[0] <= 4 && px[1] <= 4 && px[2] <= 4) {
-                            px[0] = px[1] = px[2] = 0;
-                        }
-                    }
-                }
-            } else {
-                for (int y = 0; y < copyHeight; y++) {
-                    uint8_t* row = dst + y * dstStride;
-                    int x = 0;
-                    for (; x + 16 <= copyWidth; x += 16) {
-                        uint8x16x4_t rgba = vld4q_u8(row + x * 4);
-                        uint8x16_t mx = vmaxq_u8(vmaxq_u8(rgba.val[0], rgba.val[1]), rgba.val[2]);
-                        uint8x16_t snapMask = vcleq_u8(mx, threshold);
-                        rgba.val[0] = vbicq_u8(rgba.val[0], snapMask);
-                        rgba.val[1] = vbicq_u8(rgba.val[1], snapMask);
-                        rgba.val[2] = vbicq_u8(rgba.val[2], snapMask);
-                        // Alpha (val[3]) intentionally untouched.
-                        vst4q_u8(row + x * 4, rgba);
-                    }
-                    for (; x < copyWidth; x++) {
-                        uint8_t* px = row + x * 4;
-                        if (px[0] <= 4 && px[1] <= 4 && px[2] <= 4) {
-                            px[0] = px[1] = px[2] = 0;
-                        }
-                    }
-                }
-            }
-        }
-#else
         for (int y = 0; y < copyHeight; y++) {
             uint8_t* row = dst + y * dstStride;
             for (int x = 0; x < copyWidth; x++) {
@@ -2093,6 +2150,8 @@ struct VideoReaderHandle {
             }
         }
 #endif
+
+        CVPixelBufferUnlockBaseAddress(pixelBuffer, kCVPixelBufferLock_ReadOnly);
 
         FrameView& vf = currentFrame();
         vf.data = dst;
