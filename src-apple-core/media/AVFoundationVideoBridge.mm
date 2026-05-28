@@ -48,6 +48,7 @@
 #include <climits>
 #include <cstdlib>
 #include <cstring>
+#include <map>
 #include <memory>
 #include <mutex>
 #include <queue>
@@ -296,12 +297,15 @@ constexpr int kLanesPerFile = 2;
 // being shared by PerModel siblings, the cache typically holds
 // (current frame + read-ahead) — a few frames is plenty. Bigger caches
 // just trade memory for tolerance to wider playhead spread.
-constexpr int kCacheCapacity = 8;
+constexpr int kCacheCapacity = 64;
 
 // After serving the requested frame we opportunistically decode K more
-// frames into the cache so the next forward request becomes a cache hit
-// rather than triggering a fresh `copyNextSampleBuffer` cycle.
-constexpr int kReadAheadFrames = 4;
+// frames so the next forward request becomes a cache hit rather than
+// triggering a fresh `copyNextSampleBuffer` cycle. With per-handle private
+// caches in front of the shared cache, this also defines how many frames
+// each consumer can pre-load on a single SharedDecoder mutex acquisition;
+// bigger value = more work per acquisition but fewer acquisitions overall.
+constexpr int kReadAheadFrames = 8;
 
 // AVAssetReader is forward-only. If a new request is more than this far
 // ahead of an active lane, recreating the reader at the target is
@@ -333,10 +337,29 @@ public:
     // CVPixelBufferRef at native resolution. Caller owns the retain and
     // must CVBufferRelease when done. Writes the frame's actual ptsMs
     // and the file's firstFramePos (-1 until known) on success. Sets
-    // outAtEnd when no more frames are available.
+    // outAtEnd when no more frames are available. `consumer` is the
+    // calling client's identity (treated as opaque pointer); used to
+    // record this client's current playback position for cache-eviction
+    // accounting. Pass nullptr if there's no stable consumer identity.
+    //
+    // `outReadAhead` is populated with the read-ahead frames decoded as
+    // a side effect of satisfying this call (retained; caller owns and
+    // must CVBufferRelease each entry). The caller is expected to stash
+    // these in its own private cache so subsequent forward calls don't
+    // need to take the SharedDecoder mutex at all.
+    struct ReadAheadFrame {
+        int64_t ptsMs;
+        CVPixelBufferRef pixelBuffer; // retained
+    };
     CVPixelBufferRef obtainFrame(int timestampMS, int gracetimeMS,
                                  int& outPtsMs, int& outFirstFramePos,
-                                 bool& outAtEnd);
+                                 bool& outAtEnd, void* consumer,
+                                 std::vector<ReadAheadFrame>& outReadAhead);
+
+    // Remove a consumer from the position-tracking map. Called from
+    // VideoReaderHandle destructor so we don't keep "ghost" consumers
+    // pinning cache regions after they're gone.
+    void forgetConsumer(void* consumer);
 
 private:
     SharedDecoder() = default;
@@ -399,8 +422,22 @@ private:
     // nullptr on miss. Touches LRU tick on hit.
     CVPixelBufferRef cacheLookup(int targetMS, int& outPtsMs);
 
-    // Insert into cache, retaining. Evicts LRU when at capacity.
-    void cacheInsert(int64_t ptsMs, CVPixelBufferRef pixelBuffer);
+    // Insert into cache, retaining. Evicts farthest-from-anchors when at
+    // capacity. `anchors` is the precomputed set of "positions worth
+    // keeping frames near" — every active consumer's tracked position
+    // plus other lanes' curPos. The current insert's own ptsMs is added
+    // implicitly so freshly inserted frames stay clustered.
+    void cacheInsert(int64_t ptsMs, CVPixelBufferRef pixelBuffer,
+                     const std::vector<int64_t>& anchors);
+
+    // Walk cache forward from afterPtsMs, appending up to kReadAheadFrames
+    // entries (retained) to out in pts order. Stops at the first gap
+    // larger than 2 * frameMS or when entries get farther ahead than
+    // 2 * kReadAheadFrames * frameMS — both bounds prevent stashing
+    // far-future frames in the consumer's small private cache where they
+    // would just consume slots without being requested soon.
+    void populateReadAheadFromCache(int64_t afterPtsMs,
+                                    std::vector<ReadAheadFrame>& out);
 
     std::mutex mutex;
 
@@ -415,6 +452,14 @@ private:
     RawPixelLayout rawLayout = RawPixelLayout::None;
     int rawBytesPerPixel = 0;
 
+    // Pool of BGRA destination buffers for the rawvideo decode path.
+    // Created once per SharedDecoder at known dimensions; reused across
+    // frames so we don't pay CVPixelBufferCreate cost per frame.
+    // No IOSurface backing: the buffer is read on the CPU by the
+    // scaler/consumer; IOSurface allocation is ~24us/frame on macOS
+    // for these small frame sizes.
+    CVPixelBufferPoolRef rawBgraPool = nullptr;
+
     int nativeWidth = 0;
     int nativeHeight = 0;
     double lengthMS = 0;
@@ -427,12 +472,24 @@ private:
     int64_t laneTick = 0;
 
     struct CacheEntry {
-        int64_t ptsMs = -1;
         CVPixelBufferRef pixelBuffer = nullptr; // retained
         int64_t lastAccessTick = 0;
     };
-    std::vector<CacheEntry> cache;
+    // Keyed on pts (milliseconds). Ordered map so cacheLookup is an
+    // upper_bound walk and populateReadAheadFromCache iterates forward
+    // from a single binary-search seek — both O(log n) regardless of
+    // capacity. Eviction is still O(n × anchors), unaffected by the
+    // container choice.
+    std::map<int64_t, CacheEntry> cache;
     int64_t cacheTick = 0;
+
+    // Map of active consumers (VideoReaderHandle*) to their most-recently
+    // requested timestamp. The cache eviction policy uses these positions
+    // to keep cached frames near every active consumer's playhead, not
+    // just near the two lanes. Without this, when N>=3 consumers diverge
+    // in playback speed, the cache thrashes as LRU evicts one consumer's
+    // active frames in favor of read-ahead for another.
+    std::unordered_map<void*, int64_t> consumerPositions;
 };
 
 // Global path → SharedDecoder weak registry. Refcounted via shared_ptr
@@ -442,6 +499,12 @@ std::mutex g_decodersMutex;
 std::unordered_map<std::string, std::weak_ptr<SharedDecoder>> g_decoders;
 
 std::shared_ptr<SharedDecoder> SharedDecoder::acquire(const std::string& filename) {
+    if ([NSThread isMainThread]) {
+        // On the main thread, create a dedicated decoder to not interfere with the render threads
+        auto sp = std::shared_ptr<SharedDecoder>(new SharedDecoder());
+        sp->open(filename);
+        return sp;
+    }
     std::lock_guard<std::mutex> lk(g_decodersMutex);
     auto it = g_decoders.find(filename);
     if (it != g_decoders.end()) {
@@ -460,17 +523,28 @@ std::shared_ptr<SharedDecoder> SharedDecoder::acquire(const std::string& filenam
     return sp;
 }
 
+void SharedDecoder::forgetConsumer(void* consumer) {
+    if (!consumer) return;
+    std::lock_guard<std::mutex> lk(mutex);
+    consumerPositions.erase(consumer);
+}
+
 SharedDecoder::~SharedDecoder() {
     // Lanes destruct in array destruction; each calls close() which
     // releases its reader, VT session, format desc, and any queued
     // decoded frames.
-    for (auto& e : cache) {
+    for (auto& [_, e] : cache) {
         if (e.pixelBuffer) {
             CVBufferRelease(e.pixelBuffer);
             e.pixelBuffer = nullptr;
         }
     }
     cache.clear();
+
+    if (rawBgraPool) {
+        CVPixelBufferPoolRelease(rawBgraPool);
+        rawBgraPool = nullptr;
+    }
 
     videoTrack = nil;
     asset = nil;
@@ -568,7 +642,30 @@ bool SharedDecoder::open(const std::string& fname) {
             return false;
         }
 
-        cache.reserve(kCacheCapacity);
+        // For rawvideo we own the BGRA buffer; build a no-IOSurface pool
+        // so per-frame allocation is just a refcount bump for buffers that
+        // have already cycled out of the cache. IOSurface backing would
+        // add ~24us per frame on these small frame sizes for no benefit —
+        // downstream reads on the CPU via vImage/Lock+BaseAddress.
+        if (useRawDecode) {
+            NSDictionary* pbAttrs = @{
+                (NSString*)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA),
+                (NSString*)kCVPixelBufferWidthKey: @(nativeWidth),
+                (NSString*)kCVPixelBufferHeightKey: @(nativeHeight),
+            };
+            NSDictionary* poolAttrs = @{
+                (NSString*)kCVPixelBufferPoolMinimumBufferCountKey: @(4),
+            };
+            CVReturn pr = CVPixelBufferPoolCreate(kCFAllocatorDefault,
+                                                   (__bridge CFDictionaryRef)poolAttrs,
+                                                   (__bridge CFDictionaryRef)pbAttrs,
+                                                   &rawBgraPool);
+            if (pr != kCVReturnSuccess) {
+                spdlog::warn("AVFoundationVideoBridge: rawvideo BGRA pool create failed ({}); will fall back to CVPixelBufferCreate per frame",
+                             (int)pr);
+                rawBgraPool = nullptr;
+            }
+        }
 
         valid = true;
 
@@ -684,7 +781,14 @@ bool SharedDecoder::Lane::openAt(SharedDecoder* dec, int timestampMS) {
         // reuse. (The legacy per-handle code got away with `= NO`
         // because it only used the buffer transiently within the same
         // decode call and never retained it.)
-        trackOutput.alwaysCopiesSampleData = YES;
+        //
+        // Exception: the rawvideo decode path immediately copies the
+        // sample bytes into its own pooled BGRA CVPixelBuffer (see
+        // decodeNextRaw) and releases the source sample before the next
+        // copyNextSampleBuffer call — so the pool-reuse hazard doesn't
+        // apply and the per-frame copy is wasted work (~30us/frame on
+        // these small frames). Skip the copy in that case.
+        trackOutput.alwaysCopiesSampleData = dec->useRawDecode ? NO : YES;
 
         if (![reader canAddOutput:trackOutput]) {
             spdlog::error("AVFoundationVideoBridge: Cannot add track output to reader");
@@ -978,16 +1082,28 @@ CVPixelBufferRef SharedDecoder::Lane::decodeNextRaw(SharedDecoder* dec, int& out
         const int h = (int)CVPixelBufferGetHeight(srcImage);
 
         CVPixelBufferRef bgra = nullptr;
-        NSDictionary* attrs = @{
-            (NSString*)kCVPixelBufferIOSurfacePropertiesKey: @{}
-        };
-        CVReturn r = CVPixelBufferCreate(kCFAllocatorDefault, w, h,
-                                          kCVPixelFormatType_32BGRA,
-                                          (__bridge CFDictionaryRef)attrs, &bgra);
-        if (r != kCVReturnSuccess || !bgra) {
-            spdlog::error("AVFoundationVideoBridge: CVPixelBufferCreate (raw) failed: {}", (int)r);
-            CVPixelBufferRelease(srcImage);
-            return nullptr;
+        // Fast path: pull a recycled buffer from the SharedDecoder pool.
+        // The pool is sized so cycled-out cache entries refill it
+        // without an actual allocation per frame.
+        if (dec->rawBgraPool) {
+            CVReturn pr = CVPixelBufferPoolCreatePixelBuffer(kCFAllocatorDefault,
+                                                              dec->rawBgraPool, &bgra);
+            if (pr != kCVReturnSuccess) {
+                spdlog::warn("AVFoundationVideoBridge: rawvideo pool exhausted ({}); falling back to direct create",
+                             (int)pr);
+                bgra = nullptr;
+            }
+        }
+        if (!bgra) {
+            // Fallback: direct create, no IOSurface (downstream reads on CPU).
+            CVReturn r = CVPixelBufferCreate(kCFAllocatorDefault, w, h,
+                                              kCVPixelFormatType_32BGRA,
+                                              nullptr, &bgra);
+            if (r != kCVReturnSuccess || !bgra) {
+                spdlog::error("AVFoundationVideoBridge: CVPixelBufferCreate (raw) failed: {}", (int)r);
+                CVPixelBufferRelease(srcImage);
+                return nullptr;
+            }
         }
 
         CVPixelBufferLockBaseAddress(srcImage, kCVPixelBufferLock_ReadOnly);
@@ -1062,72 +1178,117 @@ SharedDecoder::Lane* SharedDecoder::selectLane(int targetMS, int gracetimeMS) {
 }
 
 CVPixelBufferRef SharedDecoder::cacheLookup(int targetMS, int& outPtsMs) {
-    int64_t bestPts = -1;
-    size_t bestIdx = (size_t)-1;
-    for (size_t i = 0; i < cache.size(); ++i) {
-        const auto& e = cache[i];
-        if (!e.pixelBuffer) continue;
-        if (e.ptsMs <= targetMS && targetMS < e.ptsMs + frameMS) {
-            if (e.ptsMs > bestPts) {
-                bestPts = e.ptsMs;
-                bestIdx = i;
-            }
-        }
-    }
-    if (bestIdx == (size_t)-1) return nullptr;
-    cache[bestIdx].lastAccessTick = ++cacheTick;
-    outPtsMs = (int)bestPts;
-    CVBufferRetain(cache[bestIdx].pixelBuffer);
-    return cache[bestIdx].pixelBuffer;
+    // upper_bound returns the first entry with pts > targetMS; step back
+    // to the candidate whose [pts, pts+frameMS) interval may contain it.
+    auto it = cache.upper_bound((int64_t)targetMS);
+    if (it == cache.begin()) return nullptr;
+    --it;
+    if ((int64_t)targetMS >= it->first + frameMS) return nullptr;
+    if (!it->second.pixelBuffer) return nullptr;
+    it->second.lastAccessTick = ++cacheTick;
+    outPtsMs = (int)it->first;
+    CVBufferRetain(it->second.pixelBuffer);
+    return it->second.pixelBuffer;
 }
 
-void SharedDecoder::cacheInsert(int64_t ptsMs, CVPixelBufferRef pixelBuffer) {
+void SharedDecoder::cacheInsert(int64_t ptsMs, CVPixelBufferRef pixelBuffer,
+                                 const std::vector<int64_t>& anchors) {
     // Dedupe — same pts replaces existing entry.
-    for (auto& e : cache) {
-        if (e.ptsMs == ptsMs && e.pixelBuffer) {
-            if (e.pixelBuffer != pixelBuffer) {
-                CVBufferRelease(e.pixelBuffer);
-                CVBufferRetain(pixelBuffer);
-                e.pixelBuffer = pixelBuffer;
-            }
-            e.lastAccessTick = ++cacheTick;
-            return;
+    auto existing = cache.find(ptsMs);
+    if (existing != cache.end() && existing->second.pixelBuffer) {
+        if (existing->second.pixelBuffer != pixelBuffer) {
+            CVBufferRelease(existing->second.pixelBuffer);
+            CVBufferRetain(pixelBuffer);
+            existing->second.pixelBuffer = pixelBuffer;
         }
-    }
-
-    if ((int)cache.size() >= kCacheCapacity) {
-        // Evict LRU entry.
-        size_t evictIdx = 0;
-        int64_t evictTick = cache[0].lastAccessTick;
-        for (size_t i = 1; i < cache.size(); ++i) {
-            if (cache[i].lastAccessTick < evictTick) {
-                evictTick = cache[i].lastAccessTick;
-                evictIdx = i;
-            }
-        }
-        if (cache[evictIdx].pixelBuffer) {
-            CVBufferRelease(cache[evictIdx].pixelBuffer);
-        }
-        cache[evictIdx].ptsMs = ptsMs;
-        cache[evictIdx].pixelBuffer = (CVPixelBufferRef)CVBufferRetain(pixelBuffer);
-        cache[evictIdx].lastAccessTick = ++cacheTick;
+        existing->second.lastAccessTick = ++cacheTick;
         return;
     }
 
+    if ((int)cache.size() >= kCacheCapacity) {
+        // Pick the eviction victim: the entry whose pts is farthest from
+        // every anchor (active consumers' tracked positions + other lanes'
+        // curPos + this insert's own pts). With multiple consumers reading
+        // the same file at different positions, pure LRU evicts still-
+        // needed frames in one consumer's region to make room for read-
+        // ahead in another's — even though re-decoding those evicted
+        // frames is far more expensive than the few KB we'd keep. Anchor-
+        // distance eviction protects the union of "near-active-position"
+        // corridors instead.
+        auto victim = cache.end();
+        int64_t bestMaxMinDist = INT64_MIN;
+        for (auto it = cache.begin(); it != cache.end(); ++it) {
+            int64_t minDist = std::abs(it->first - ptsMs);
+            for (int64_t a : anchors) {
+                int64_t d = std::abs(it->first - a);
+                if (d < minDist) minDist = d;
+            }
+            if (minDist > bestMaxMinDist) {
+                bestMaxMinDist = minDist;
+                victim = it;
+            }
+        }
+        if (victim != cache.end()) {
+            if (victim->second.pixelBuffer) {
+                CVBufferRelease(victim->second.pixelBuffer);
+            }
+            cache.erase(victim);
+        }
+    }
+
     CacheEntry e;
-    e.ptsMs = ptsMs;
     e.pixelBuffer = (CVPixelBufferRef)CVBufferRetain(pixelBuffer);
     e.lastAccessTick = ++cacheTick;
-    cache.push_back(e);
+    cache.emplace(ptsMs, e);
+}
+
+void SharedDecoder::populateReadAheadFromCache(int64_t afterPtsMs,
+                                                std::vector<ReadAheadFrame>& out) {
+    // Hard cap on how far ahead we will reach into the cache. Past this
+    // the consumer's small private cache wastes slots on frames it will
+    // not request soon — they would just rotate out before being read.
+    const int64_t maxPts = afterPtsMs + (int64_t)kReadAheadFrames * frameMS * 2;
+    // Stop at the first gap larger than ~2 frames. Past a gap the
+    // consumer has to re-enter obtainFrame to fill it anyway, so cached
+    // frames beyond the gap don't avoid mutex acquisitions; they would
+    // just consume privCache slots.
+    const int64_t maxGap = (int64_t)frameMS * 2;
+
+    out.reserve(out.size() + kReadAheadFrames);
+    int64_t prevPts = afterPtsMs;
+    int n = 0;
+    for (auto it = cache.upper_bound(afterPtsMs);
+         it != cache.end() && n < kReadAheadFrames;
+         ++it) {
+        if (it->first > maxPts) break;
+        if (it->first - prevPts > maxGap) break;
+        if (!it->second.pixelBuffer) continue;
+        it->second.lastAccessTick = ++cacheTick;
+        CVBufferRetain(it->second.pixelBuffer);
+        out.push_back({it->first, it->second.pixelBuffer});
+        prevPts = it->first;
+        ++n;
+    }
 }
 
 CVPixelBufferRef SharedDecoder::obtainFrame(int timestampMS, int gracetimeMS,
                                              int& outPtsMs, int& outFirstFramePos,
-                                             bool& outAtEnd) {
+                                             bool& outAtEnd, void* consumer,
+                                             std::vector<ReadAheadFrame>& outReadAhead) {
     std::lock_guard<std::mutex> lk(mutex);
     outAtEnd = false;
     outFirstFramePos = firstFramePos;
     outPtsMs = 0;
+    outReadAhead.clear();
+    if (consumer) {
+        // Initial pin — updated below on success to (last pts handed back
+        // + frameMS), i.e. the next pts the consumer will request from
+        // shared cache. Anchoring eviction on that, rather than on
+        // timestampMS, protects the *next* frames the consumer will need
+        // from the shared cache; the frames it just received already live
+        // in its private cache and won't re-enter obtainFrame.
+        consumerPositions[consumer] = timestampMS;
+    }
 
     if (!valid || openFailed) {
         outAtEnd = true;
@@ -1146,6 +1307,16 @@ CVPixelBufferRef SharedDecoder::obtainFrame(int timestampMS, int gracetimeMS,
     // Fast path: serve from cache.
     if (CVPixelBufferRef hit = cacheLookup(targetMS, outPtsMs)) {
         outFirstFramePos = firstFramePos;
+        populateReadAheadFromCache(outPtsMs, outReadAhead);
+        if (consumer) {
+            // The consumer now holds [outPtsMs, ..., outReadAhead.back().ptsMs]
+            // in its private cache; the next shared-cache request will be
+            // for the frame after that, so anchor eviction on that pts.
+            int64_t lastHeld = outReadAhead.empty()
+                ? (int64_t)outPtsMs
+                : outReadAhead.back().ptsMs;
+            consumerPositions[consumer] = lastHeld + frameMS;
+        }
         return hit;
     }
 
@@ -1153,6 +1324,24 @@ CVPixelBufferRef SharedDecoder::obtainFrame(int timestampMS, int gracetimeMS,
     if (!lane) {
         outAtEnd = true;
         return nullptr;
+    }
+
+    // Precompute the static anchor set used by cacheInsert's eviction
+    // policy. These don't change across the catch-up + read-ahead inserts
+    // within a single obtainFrame: consumerPositions is updated only at
+    // the very end, and other lanes' curPos is only advanced by their own
+    // obtainFrame calls (which are serialized behind our mutex). The
+    // active lane's moving curPos is added implicitly by cacheInsert via
+    // the per-insert ptsMs anchor (lane->curPos == pts at each insert).
+    std::vector<int64_t> evAnchors;
+    evAnchors.reserve(1 + consumerPositions.size());
+    for (auto& l : lanes) {
+        if (&l != lane && l.active && !l.demuxAtEnd) {
+            evAnchors.push_back(l.curPos);
+        }
+    }
+    for (auto& [_, pos] : consumerPositions) {
+        evAnchors.push_back(pos);
     }
 
     // Decode forward until we cross the target frame boundary.
@@ -1176,7 +1365,7 @@ CVPixelBufferRef SharedDecoder::obtainFrame(int timestampMS, int gracetimeMS,
         if (firstFramePos < 0) {
             firstFramePos = pts;
         }
-        cacheInsert(pts, pb);
+        cacheInsert(pts, pb, evAnchors);
         if (pts + (frameMS / 2) >= targetMS) {
             result = pb; // hand off the retain to caller
             resultPts = pts;
@@ -1190,15 +1379,28 @@ CVPixelBufferRef SharedDecoder::obtainFrame(int timestampMS, int gracetimeMS,
         return nullptr;
     }
 
-    // Read ahead a few frames so the next forward request becomes a
-    // cache hit.
+    // Read ahead so the next forward requests become cache hits. We also
+    // hand each read-ahead frame back to the caller (retained) so it can
+    // populate its own private lock-free cache; this is the primary
+    // mechanism for keeping the SharedDecoder mutex from serializing
+    // multiple consumers stepping through the same file.
+    outReadAhead.reserve(kReadAheadFrames);
     for (int i = 0; i < kReadAheadFrames; ++i) {
         int aheadPts = 0;
         CVPixelBufferRef aheadPb = lane->decodeNext(this, aheadPts);
         if (!aheadPb) break;
         lane->curPos = aheadPts;
-        cacheInsert(aheadPts, aheadPb);
-        CVBufferRelease(aheadPb);
+        // cacheInsert adds its own retain; the caller takes ownership of
+        // the +1 retain `decodeNext` gave us.
+        cacheInsert(aheadPts, aheadPb, evAnchors);
+        outReadAhead.push_back({aheadPts, aheadPb});
+    }
+
+    if (consumer) {
+        int64_t lastHeld = outReadAhead.empty()
+            ? (int64_t)resultPts
+            : outReadAhead.back().ptsMs;
+        consumerPositions[consumer] = lastHeld + frameMS;
     }
 
     outPtsMs = resultPts;
@@ -1260,12 +1462,39 @@ struct VideoReaderHandle {
     CIContext* ciContext = nil;
     CVPixelBufferRef scaledPixelBuffer = nullptr;
 
+    // Per-client private look-ahead cache. Each obtainFrame call returns
+    // the requested frame *and* up to kPerHandleReadAhead extra read-ahead
+    // frames (decoded as a side effect on the shared lane). The extras
+    // are deposited here so subsequent GetNextFrame calls for forward
+    // timestamps hit the private cache without taking the SharedDecoder
+    // mutex. This is the primary contention-reduction lever for the
+    // multi-reader-per-file render scenario: when N consumers diverge in
+    // playback speed, each one's near-future frames live in its own
+    // cache and can't be evicted by the others.
+    static constexpr int kPerHandleCacheSize = 16;
+    struct PrivateCacheEntry {
+        int64_t ptsMs = -1;
+        CVPixelBufferRef pixelBuffer = nullptr; // retained
+    };
+    std::array<PrivateCacheEntry, kPerHandleCacheSize> privCache{};
+    int privCacheNextSlot = 0; // round-robin replacement
+
     FrameView& currentFrame() { return frame1IsCurrent ? frameView1 : frameView2; }
     FrameView& prevFrame() { return frame1IsCurrent ? frameView2 : frameView1; }
     uint8_t* currentBuffer() { return frame1IsCurrent ? frameBuffer1 : frameBuffer2; }
     void swapFrames() { frame1IsCurrent = !frame1IsCurrent; }
 
     ~VideoReaderHandle() {
+        // Forget this handle's tracked position before the shared_ptr
+        // drops — otherwise an evict-anchor entry persists for a dead
+        // consumer and skews future eviction decisions until the
+        // SharedDecoder itself goes away.
+        if (decoder) decoder->forgetConsumer(this);
+
+        for (auto& e : privCache) {
+            if (e.pixelBuffer) CVBufferRelease(e.pixelBuffer);
+        }
+
         if (transferSession) {
             VTPixelTransferSessionInvalidate(transferSession);
             CFRelease(transferSession);
@@ -1672,6 +1901,13 @@ void Seek(VideoReaderHandle* h, int timestampMS, bool readFrame) {
     // next obtainFrame() with the new timestamp drives lane selection.
     h->curPos = -1000;
     h->prevPos = -1000;
+    // Drop the private cache: a backward seek would otherwise return
+    // a still-cached future frame from before the seek.
+    for (auto& e : h->privCache) {
+        if (e.pixelBuffer) { CVBufferRelease(e.pixelBuffer); e.pixelBuffer = nullptr; }
+        e.ptsMs = -1;
+    }
+    h->privCacheNextSlot = 0;
 
     if (readFrame) {
         (void)GetNextFrame(h, timestampMS, 0);
@@ -1705,18 +1941,51 @@ const FrameView* GetNextFrame(VideoReaderHandle* h, int timestampMS, int graceti
         return &h->prevFrame();
     }
 
+    // Per-handle private cache hit: serve the frame without taking the
+    // SharedDecoder mutex at all. Populated by previous obtainFrame
+    // calls' read-ahead. This is the contention-busting fast path for
+    // multi-reader scenarios — when several VideoReaders pull from the
+    // same file in parallel, each one ploughs through its own private
+    // 16-frame buffer between mutex acquisitions, so the shared decoder
+    // mutex serializes a 16x lower rate than per-call.
     int pts = 0;
-    int firstFramePos = h->firstFramePos;
-    bool atEnd = false;
-    CVPixelBufferRef pb = h->decoder->obtainFrame(timestampMS, gracetime, pts, firstFramePos, atEnd);
-
-    if (h->firstFramePos < 0 && firstFramePos >= 0) {
-        h->firstFramePos = firstFramePos;
+    CVPixelBufferRef pb = nullptr;
+    for (auto& e : h->privCache) {
+        if (e.pixelBuffer && e.ptsMs <= timestampMS && timestampMS < e.ptsMs + h->frameMS) {
+            pts = (int)e.ptsMs;
+            pb = (CVPixelBufferRef)CVBufferRetain(e.pixelBuffer);
+            break;
+        }
     }
 
     if (!pb) {
-        if (atEnd) h->atEnd = true;
-        return nullptr;
+        int firstFramePos = h->firstFramePos;
+        bool atEnd = false;
+        std::vector<SharedDecoder::ReadAheadFrame> readAhead;
+        pb = h->decoder->obtainFrame(timestampMS, gracetime, pts, firstFramePos,
+                                      atEnd, h, readAhead);
+
+        if (h->firstFramePos < 0 && firstFramePos >= 0) {
+            h->firstFramePos = firstFramePos;
+        }
+        if (!pb) {
+            // We took ownership of any returned read-ahead frames; release.
+            for (auto& f : readAhead) if (f.pixelBuffer) CVBufferRelease(f.pixelBuffer);
+            if (atEnd) h->atEnd = true;
+            return nullptr;
+        }
+
+        // Stash the read-ahead frames in the private cache. Round-robin
+        // replacement keeps the cache fresh; older entries (consumed or
+        // skipped over) get overwritten by the next batch's results.
+        for (auto& f : readAhead) {
+            auto& slot = h->privCache[h->privCacheNextSlot];
+            h->privCacheNextSlot = (h->privCacheNextSlot + 1) %
+                                    VideoReaderHandle::kPerHandleCacheSize;
+            if (slot.pixelBuffer) CVBufferRelease(slot.pixelBuffer);
+            slot.ptsMs = f.ptsMs;
+            slot.pixelBuffer = f.pixelBuffer; // ownership transferred
+        }
     }
 
     // Take the native-resolution frame and scale + convert it into the
