@@ -317,57 +317,86 @@ constexpr int kForwardSkipMS = 1000;
 // many out-of-order frames before we can pop the next in PTS order.
 constexpr int kMaxBFrameDelay = 2;
 
-class SharedDecoder {
+// Internal decoder interface that VideoReaderHandle calls through. Two
+// concrete implementations:
+//   * SharedDecoder — multi-lane AVAssetReader pipeline used by the render
+//     threads. One instance per file, shared across N consumers, with
+//     read-ahead caching to keep mutex contention low.
+//   * AVPlayerDecoder — AVPlayer + AVPlayerItemVideoOutput used by the
+//     main-thread preview panel. Uses one VTDecompressionSession (vs the
+//     SharedDecoder's two lanes) so it doesn't eat extra hardware decode
+//     slots that the render path needs. Pays a per-frame seek cost but
+//     stays well within the "live playback" perf budget the preview
+//     window needs.
+class IDecoder {
 public:
-    static std::shared_ptr<SharedDecoder> acquire(const std::string& filename);
-
-    ~SharedDecoder();
-
-    bool isValid() const { return valid && !openFailed; }
-
-    int getNativeWidth() const { return nativeWidth; }
-    int getNativeHeight() const { return nativeHeight; }
-    double getLengthMS() const { return lengthMS; }
-    long getFrameCount() const { return frames; }
-    int getFrameMS() const { return frameMS; }
-    float getNominalFrameRate() const { return nominalFrameRate; }
-    const std::string& getFilename() const { return filename; }
-
-    // Returns the frame at or just before timestampMS as a retained
-    // CVPixelBufferRef at native resolution. Caller owns the retain and
-    // must CVBufferRelease when done. Writes the frame's actual ptsMs
-    // and the file's firstFramePos (-1 until known) on success. Sets
-    // outAtEnd when no more frames are available. `consumer` is the
-    // calling client's identity (treated as opaque pointer); used to
-    // record this client's current playback position for cache-eviction
-    // accounting. Pass nullptr if there's no stable consumer identity.
-    //
-    // `outReadAhead` is populated with the read-ahead frames decoded as
-    // a side effect of satisfying this call (retained; caller owns and
-    // must CVBufferRelease each entry). The caller is expected to stash
-    // these in its own private cache so subsequent forward calls don't
-    // need to take the SharedDecoder mutex at all.
+    // Read-ahead frames returned alongside an obtainFrame result. The
+    // VideoReaderHandle stashes these in its private (lock-free) cache so
+    // forward-stepping callers don't reacquire the SharedDecoder mutex on
+    // every frame. AVPlayerDecoder always returns an empty vector — it
+    // serves a single consumer and doesn't pre-decode.
     struct ReadAheadFrame {
         int64_t ptsMs;
         CVPixelBufferRef pixelBuffer; // retained
     };
-    CVPixelBufferRef obtainFrame(int timestampMS, int gracetimeMS,
-                                 int& outPtsMs, int& outFirstFramePos,
-                                 bool& outAtEnd, void* consumer,
-                                 std::vector<ReadAheadFrame>& outReadAhead);
+
+    virtual ~IDecoder() = default;
+    virtual bool isValid() const = 0;
+    virtual int getNativeWidth() const = 0;
+    virtual int getNativeHeight() const = 0;
+    virtual double getLengthMS() const = 0;
+    virtual long getFrameCount() const = 0;
+    virtual int getFrameMS() const = 0;
+    virtual float getNominalFrameRate() const = 0;
+    virtual const std::string& getFilename() const = 0;
+
+    // Returns the frame at or just before timestampMS as a retained
+    // CVPixelBufferRef at native resolution. Caller owns the retain and
+    // must CVBufferRelease when done. Writes the frame's actual ptsMs and
+    // the file's firstFramePos (-1 until known) on success. Sets outAtEnd
+    // when no more frames are available. `consumer` is the calling
+    // client's identity (treated as opaque pointer); SharedDecoder uses it
+    // to track per-consumer playback positions for cache-eviction
+    // accounting. AVPlayerDecoder ignores it. Pass nullptr if there's no
+    // stable consumer identity.
+    virtual CVPixelBufferRef obtainFrame(int timestampMS, int gracetimeMS,
+                                          int& outPtsMs, int& outFirstFramePos,
+                                          bool& outAtEnd, void* consumer,
+                                          std::vector<ReadAheadFrame>& outReadAhead) = 0;
 
     // Remove a consumer from the position-tracking map. Called from
     // VideoReaderHandle destructor so we don't keep "ghost" consumers
-    // pinning cache regions after they're gone.
-    void forgetConsumer(void* consumer);
+    // pinning cache regions after they're gone. AVPlayerDecoder ignores.
+    virtual void forgetConsumer(void* consumer) = 0;
+};
 
-private:
+class SharedDecoder : public IDecoder {
+public:
     SharedDecoder() = default;
     SharedDecoder(const SharedDecoder&) = delete;
     SharedDecoder& operator=(const SharedDecoder&) = delete;
+    ~SharedDecoder() override;
 
     bool open(const std::string& filename);
 
+    bool isValid() const override { return valid && !openFailed; }
+
+    int getNativeWidth() const override { return nativeWidth; }
+    int getNativeHeight() const override { return nativeHeight; }
+    double getLengthMS() const override { return lengthMS; }
+    long getFrameCount() const override { return frames; }
+    int getFrameMS() const override { return frameMS; }
+    float getNominalFrameRate() const override { return nominalFrameRate; }
+    const std::string& getFilename() const override { return filename; }
+
+    CVPixelBufferRef obtainFrame(int timestampMS, int gracetimeMS,
+                                  int& outPtsMs, int& outFirstFramePos,
+                                  bool& outAtEnd, void* consumer,
+                                  std::vector<ReadAheadFrame>& outReadAhead) override;
+
+    void forgetConsumer(void* consumer) override;
+
+private:
     struct Lane {
         AVAssetReader* reader = nil;
         AVAssetReaderTrackOutput* trackOutput = nil;
@@ -423,12 +452,19 @@ private:
     CVPixelBufferRef cacheLookup(int targetMS, int& outPtsMs);
 
     // Insert into cache, retaining. Evicts farthest-from-anchors when at
-    // capacity. `anchors` is the precomputed set of "positions worth
-    // keeping frames near" — every active consumer's tracked position
-    // plus other lanes' curPos. The current insert's own ptsMs is added
-    // implicitly so freshly inserted frames stay clustered.
+    // capacity. `sortedAnchors` is the precomputed set of "positions
+    // worth keeping frames near" — every active consumer's tracked
+    // position plus other lanes' curPos — **sorted and deduplicated**
+    // so the per-entry nearest-anchor lookup is a binary search. The
+    // current insert's own ptsMs is added implicitly so freshly
+    // inserted frames stay clustered.
     void cacheInsert(int64_t ptsMs, CVPixelBufferRef pixelBuffer,
-                     const std::vector<int64_t>& anchors);
+                     const std::vector<int64_t>& sortedAnchors);
+
+    // Distance from x to the nearest value in a sorted, unique anchor
+    // vector. Returns INT64_MAX for empty input.
+    static int64_t nearestAnchorDist(const std::vector<int64_t>& sortedAnchors,
+                                     int64_t x);
 
     // Walk cache forward from afterPtsMs, appending up to kReadAheadFrames
     // entries (retained) to out in pts order. Stops at the first gap
@@ -492,16 +528,94 @@ private:
     std::unordered_map<void*, int64_t> consumerPositions;
 };
 
+// AVPlayer-backed IDecoder for the main-thread preview path. Uses one
+// hardware decode session (vs the SharedDecoder's two lanes) so the
+// preview window doesn't compete with the render path for VT budget.
+// Seek-per-frame is enough — the preview is display-rate bound, not
+// throughput bound, and per-frame seek (~12ms on HD H.264) leaves plenty
+// of headroom inside the ~33ms 30fps tick.
+class AVPlayerDecoder : public IDecoder {
+public:
+    AVPlayerDecoder() = default;
+    AVPlayerDecoder(const AVPlayerDecoder&) = delete;
+    AVPlayerDecoder& operator=(const AVPlayerDecoder&) = delete;
+
+    ~AVPlayerDecoder() override {
+        if (cachedFrame) {
+            CVBufferRelease(cachedFrame);
+            cachedFrame = nullptr;
+        }
+        if (videoOutput && playerItem) {
+            [playerItem removeOutput:videoOutput];
+        }
+        // ARC releases player / playerItem / videoOutput / asset.
+    }
+
+    bool open(const std::string& fname);
+
+    bool isValid() const override { return valid; }
+    int getNativeWidth() const override { return nativeWidth; }
+    int getNativeHeight() const override { return nativeHeight; }
+    double getLengthMS() const override { return lengthMS; }
+    long getFrameCount() const override { return frames; }
+    int getFrameMS() const override { return frameMS; }
+    float getNominalFrameRate() const override { return nominalFrameRate; }
+    const std::string& getFilename() const override { return filename; }
+
+    CVPixelBufferRef obtainFrame(int timestampMS, int gracetimeMS,
+                                  int& outPtsMs, int& outFirstFramePos,
+                                  bool& outAtEnd, void* consumer,
+                                  std::vector<ReadAheadFrame>& outReadAhead) override;
+
+    // Single-consumer path; nothing to forget.
+    void forgetConsumer(void* /*consumer*/) override {}
+
+private:
+    std::string filename;
+    bool valid = false;
+
+    int nativeWidth = 0;
+    int nativeHeight = 0;
+    double lengthMS = 0;
+    long frames = 0;
+    int frameMS = 50;
+    float nominalFrameRate = 0;
+
+    AVURLAsset* asset = nil;
+    AVPlayer* player = nil;
+    AVPlayerItem* playerItem = nil;
+    AVPlayerItemVideoOutput* videoOutput = nil;
+
+    // Most recent timestamp we issued a seek for. Lets us skip redundant
+    // seekToTime: calls when the caller asks for the same frame twice.
+    int lastSeekMS = -1;
+
+    // Last frame we successfully returned. Used as a fallback to keep
+    // the preview window from blanking while a seek is in flight — the
+    // panel ticks on a timer, and a single tick of slightly-stale image
+    // is much friendlier than a single tick of black.
+    CVPixelBufferRef cachedFrame = nullptr;
+    int cachedFrameMS = -1;
+};
+
 // Global path → SharedDecoder weak registry. Refcounted via shared_ptr
 // held by every VideoReaderHandle that uses the file; the last release
 // drops the decoder and its lanes/sessions.
 std::mutex g_decodersMutex;
 std::unordered_map<std::string, std::weak_ptr<SharedDecoder>> g_decoders;
 
-std::shared_ptr<SharedDecoder> SharedDecoder::acquire(const std::string& filename) {
+// Factory for an IDecoder. On the main thread (the SequenceVideoPanel
+// preview case) returns an AVPlayer-backed decoder, which holds only one
+// VTDecompressionSession; the SharedDecoder pool stays untouched. On a
+// background thread (render workers) returns a SharedDecoder, sharing one
+// per file across consumers via the global registry.
+std::shared_ptr<IDecoder> acquireDecoder(const std::string& filename) {
     if ([NSThread isMainThread]) {
-        // On the main thread, create a dedicated decoder to not interfere with the render threads
-        auto sp = std::shared_ptr<SharedDecoder>(new SharedDecoder());
+        // Dedicated AVPlayerDecoder — never registered in g_decoders, so
+        // its lifetime is tied to the single VideoReaderHandle that owns
+        // it. This was previously a dedicated SharedDecoder which still
+        // burned two HW decode lanes; the AVPlayer path burns one.
+        auto sp = std::make_shared<AVPlayerDecoder>();
         sp->open(filename);
         return sp;
     }
@@ -1191,8 +1305,23 @@ CVPixelBufferRef SharedDecoder::cacheLookup(int targetMS, int& outPtsMs) {
     return it->second.pixelBuffer;
 }
 
+int64_t SharedDecoder::nearestAnchorDist(const std::vector<int64_t>& sortedAnchors,
+                                          int64_t x) {
+    if (sortedAnchors.empty()) return INT64_MAX;
+    auto it = std::lower_bound(sortedAnchors.begin(), sortedAnchors.end(), x);
+    int64_t best = INT64_MAX;
+    if (it != sortedAnchors.end()) {
+        best = *it - x; // non-negative since *it >= x
+    }
+    if (it != sortedAnchors.begin()) {
+        int64_t d = x - *(it - 1); // non-negative since *(it-1) < x
+        if (d < best) best = d;
+    }
+    return best;
+}
+
 void SharedDecoder::cacheInsert(int64_t ptsMs, CVPixelBufferRef pixelBuffer,
-                                 const std::vector<int64_t>& anchors) {
+                                 const std::vector<int64_t>& sortedAnchors) {
     // Dedupe — same pts replaces existing entry.
     auto existing = cache.find(ptsMs);
     if (existing != cache.end() && existing->second.pixelBuffer) {
@@ -1215,14 +1344,17 @@ void SharedDecoder::cacheInsert(int64_t ptsMs, CVPixelBufferRef pixelBuffer,
         // frames is far more expensive than the few KB we'd keep. Anchor-
         // distance eviction protects the union of "near-active-position"
         // corridors instead.
+        //
+        // sortedAnchors is sorted+deduped by the caller, so per-entry
+        // nearest-anchor lookup is a binary search (O(log A)) instead of
+        // scanning all anchors. For PerModel siblings clustered at the
+        // same pts, the dedupe collapses N consumers into ~1 anchor.
         auto victim = cache.end();
         int64_t bestMaxMinDist = INT64_MIN;
         for (auto it = cache.begin(); it != cache.end(); ++it) {
             int64_t minDist = std::abs(it->first - ptsMs);
-            for (int64_t a : anchors) {
-                int64_t d = std::abs(it->first - a);
-                if (d < minDist) minDist = d;
-            }
+            int64_t da = nearestAnchorDist(sortedAnchors, it->first);
+            if (da < minDist) minDist = da;
             if (minDist > bestMaxMinDist) {
                 bestMaxMinDist = minDist;
                 victim = it;
@@ -1333,6 +1465,12 @@ CVPixelBufferRef SharedDecoder::obtainFrame(int timestampMS, int gracetimeMS,
     // obtainFrame calls (which are serialized behind our mutex). The
     // active lane's moving curPos is added implicitly by cacheInsert via
     // the per-insert ptsMs anchor (lane->curPos == pts at each insert).
+    //
+    // Sort + dedupe so cacheInsert's per-entry nearest-anchor lookup is a
+    // binary search. The PerModel render style spawns N siblings at the
+    // same timeline position, all of whom register the same anchor pts
+    // — dedupe collapses that to one entry, dropping cacheInsert's
+    // inner loop from O(N) to O(log N) per cache entry.
     std::vector<int64_t> evAnchors;
     evAnchors.reserve(1 + consumerPositions.size());
     for (auto& l : lanes) {
@@ -1343,6 +1481,8 @@ CVPixelBufferRef SharedDecoder::obtainFrame(int timestampMS, int gracetimeMS,
     for (auto& [_, pos] : consumerPositions) {
         evAnchors.push_back(pos);
     }
+    std::sort(evAnchors.begin(), evAnchors.end());
+    evAnchors.erase(std::unique(evAnchors.begin(), evAnchors.end()), evAnchors.end());
 
     // Decode forward until we cross the target frame boundary.
     CVPixelBufferRef result = nullptr;
@@ -1408,6 +1548,166 @@ CVPixelBufferRef SharedDecoder::obtainFrame(int timestampMS, int gracetimeMS,
     return result;
 }
 
+// ---- AVPlayerDecoder implementation -----------------------------------
+
+bool AVPlayerDecoder::open(const std::string& fname) {
+    filename = fname;
+
+    @autoreleasepool {
+        NSURL* url = [NSURL fileURLWithPath:[NSString stringWithUTF8String:fname.c_str()]];
+        asset = [AVURLAsset URLAssetWithURL:url options:nil];
+        if (!asset) {
+            spdlog::error("AVPlayerDecoder: Failed to create AVAsset for {}", fname);
+            return false;
+        }
+
+        // Wait synchronously for the AVAsset to load its tracks/duration.
+        // The completion handler runs on a private dispatch queue, so the
+        // semaphore wait is safe from the main thread (no deadlock).
+        dispatch_semaphore_t sem = dispatch_semaphore_create(0);
+        [asset loadValuesAsynchronouslyForKeys:@[@"tracks", @"duration", @"playable"]
+                             completionHandler:^{
+            dispatch_semaphore_signal(sem);
+        }];
+        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+
+        NSError* err = nil;
+        if ([asset statusOfValueForKey:@"tracks" error:&err] != AVKeyValueStatusLoaded) {
+            spdlog::error("AVPlayerDecoder: failed to load tracks for {}: {}", fname,
+                          err ? [[err localizedDescription] UTF8String] : "unknown");
+            return false;
+        }
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+        NSArray<AVAssetTrack*>* tracks = [asset tracksWithMediaType:AVMediaTypeVideo];
+#pragma clang diagnostic pop
+        if (tracks.count == 0) {
+            spdlog::error("AVPlayerDecoder: No video tracks in {}", fname);
+            return false;
+        }
+        AVAssetTrack* track = tracks[0];
+
+        CGSize naturalSize = track.naturalSize;
+        CGAffineTransform transform = track.preferredTransform;
+        CGSize transformedSize = CGSizeApplyAffineTransform(naturalSize, transform);
+        nativeWidth = (int)fabs(transformedSize.width);
+        nativeHeight = (int)fabs(transformedSize.height);
+        if (nativeWidth == 0 || nativeHeight == 0) {
+            spdlog::error("AVPlayerDecoder: Invalid video dimensions for {}", fname);
+            return false;
+        }
+
+        lengthMS = CMTimeGetSeconds(asset.duration) * 1000.0;
+        nominalFrameRate = track.nominalFrameRate;
+        if (nominalFrameRate > 0) {
+            frames = (long)((lengthMS / 1000.0) * nominalFrameRate);
+            frameMS = (int)(1000.0 / nominalFrameRate);
+        } else {
+            CMTime minFrameDuration = track.minFrameDuration;
+            if (CMTIME_IS_VALID(minFrameDuration) && CMTimeGetSeconds(minFrameDuration) > 0) {
+                double fps = 1.0 / CMTimeGetSeconds(minFrameDuration);
+                frames = (long)((lengthMS / 1000.0) * fps);
+                frameMS = (int)(CMTimeGetSeconds(minFrameDuration) * 1000.0);
+            } else {
+                frames = (long)(lengthMS / 50.0);
+                frameMS = 50;
+            }
+        }
+        if (lengthMS <= 0 || frames <= 0) {
+            spdlog::warn("AVPlayerDecoder: Could not determine video length for {}", fname);
+            return false;
+        }
+
+        // Stand up the player + output. We deliberately do NOT block here
+        // waiting for AVPlayerItemStatusReadyToPlay: that status transition
+        // is delivered via KVO on the main queue, and this open() is most
+        // often called from the main thread (the SequenceVideoPanel use
+        // case). Blocking the main thread on a KVO change posted to the
+        // main queue would deadlock. Instead the first few obtainFrame()
+        // calls may return our cached-frame fallback (nil initially) until
+        // the player drains its setup; the panel's timer-driven UpdateVideo
+        // will retry on the next tick.
+        playerItem = [AVPlayerItem playerItemWithAsset:asset];
+        videoOutput = [[AVPlayerItemVideoOutput alloc]
+            initWithPixelBufferAttributes:@{
+                (NSString*)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA),
+            }];
+        // No AVPlayerLayer is hooked up; tell AVPlayer not to spin its
+        // own rendering pipeline (which we'd never consume).
+        videoOutput.suppressesPlayerRendering = YES;
+        [playerItem addOutput:videoOutput];
+
+        player = [AVPlayer playerWithPlayerItem:playerItem];
+        player.automaticallyWaitsToMinimizeStalling = NO;
+        player.rate = 0.0; // we drive frame production via explicit seeks
+
+        valid = true;
+
+        spdlog::info("AVPlayerDecoder: Loaded {}", fname);
+        spdlog::info("      Length MS: {}", lengthMS);
+        spdlog::info("      Source size: {}x{}", nativeWidth, nativeHeight);
+        spdlog::info("      Frames: {} @ {}fps", frames, nominalFrameRate);
+        spdlog::info("      Frame ms: {}", frameMS);
+    }
+    return true;
+}
+
+CVPixelBufferRef AVPlayerDecoder::obtainFrame(int timestampMS, int /*gracetimeMS*/,
+                                               int& outPtsMs, int& outFirstFramePos,
+                                               bool& outAtEnd, void* /*consumer*/,
+                                               std::vector<ReadAheadFrame>& outReadAhead) {
+    outAtEnd = false;
+    outFirstFramePos = 0;
+    outPtsMs = 0;
+    outReadAhead.clear();
+
+    if (!valid || !player) {
+        outAtEnd = true;
+        return nullptr;
+    }
+    if (timestampMS > lengthMS) {
+        outAtEnd = true;
+        return nullptr;
+    }
+
+    CMTime target = CMTimeMakeWithSeconds(timestampMS / 1000.0, 600);
+
+    // Async seek, no completion handler — non-blocking, no main-queue
+    // deadlock risk. AVPlayer coalesces back-to-back seeks; the latest
+    // wins, so it's fine for the panel to issue them per UI tick.
+    if (lastSeekMS != timestampMS) {
+        [player seekToTime:target
+            toleranceBefore:kCMTimeZero
+             toleranceAfter:kCMTimeZero];
+        lastSeekMS = timestampMS;
+    }
+
+    // Try to pull the freshly-decoded frame at the target time. The output
+    // may return nil if the seek hasn't yet produced a frame for that pts
+    // (item not yet Ready, or seek still in flight).
+    CVPixelBufferRef pb = [videoOutput copyPixelBufferForItemTime:target itemTimeForDisplay:nil];
+
+    if (pb) {
+        // Stash as fallback for the next call's seek-in-flight window.
+        if (cachedFrame) CVBufferRelease(cachedFrame);
+        cachedFrame = (CVPixelBufferRef)CVBufferRetain(pb);
+        cachedFrameMS = timestampMS;
+        outPtsMs = timestampMS;
+        return pb;
+    }
+
+    // No fresh frame yet — fall back to the most recent good one. The
+    // preview shows a slightly-stale frame for one tick, then catches
+    // up on the next call.
+    if (cachedFrame) {
+        outPtsMs = cachedFrameMS;
+        return (CVPixelBufferRef)CVBufferRetain(cachedFrame);
+    }
+
+    return nullptr;
+}
+
 } // anonymous namespace inside AppleAVFoundationVideoBridge
 
 // Per-client handle. Each VideoReader instance in src-core/ maps to one
@@ -1418,7 +1718,7 @@ CVPixelBufferRef SharedDecoder::obtainFrame(int timestampMS, int gracetimeMS,
 // source decode is delegated to a SharedDecoder shared across all
 // handles for the same file.
 struct VideoReaderHandle {
-    std::shared_ptr<SharedDecoder> decoder;
+    std::shared_ptr<IDecoder> decoder;
 
     std::string filename;
     bool wantAlpha = false;
@@ -1461,6 +1761,13 @@ struct VideoReaderHandle {
     VTPixelTransferSessionRef transferSession = nullptr;
     CIContext* ciContext = nil;
     CVPixelBufferRef scaledPixelBuffer = nullptr;
+
+    // Reusable intermediate buffer for the 2-pass BGRA → RGB24/BGR24
+    // permute-then-pack conversion in copyPixelBufferToFrame. Sized to
+    // width*height*4; grown on demand and reused across frames so we
+    // don't malloc/free a multi-MB buffer per decoded frame.
+    uint8_t* rgbTmpBuf = nullptr;
+    size_t rgbTmpCapacity = 0;
 
     // Per-client private look-ahead cache. Each obtainFrame call returns
     // the requested frame *and* up to kPerHandleReadAhead extra read-ahead
@@ -1506,6 +1813,7 @@ struct VideoReaderHandle {
         }
         if (frameBuffer1) { free(frameBuffer1); frameBuffer1 = nullptr; }
         if (frameBuffer2) { free(frameBuffer2); frameBuffer2 = nullptr; }
+        if (rgbTmpBuf) { free(rgbTmpBuf); rgbTmpBuf = nullptr; rgbTmpCapacity = 0; }
         ciContext = nil;
         // shared_ptr decrements the SharedDecoder refcount; last
         // release tears down the file's lanes and frame cache.
@@ -1519,6 +1827,15 @@ struct VideoReaderHandle {
             return false;
         }
         return true;
+    }
+
+    uint8_t* ensureRgbTmpBuf(size_t bytes) {
+        if (rgbTmpCapacity < bytes) {
+            free(rgbTmpBuf);
+            rgbTmpBuf = (uint8_t*)malloc(bytes);
+            rgbTmpCapacity = rgbTmpBuf ? bytes : 0;
+        }
+        return rgbTmpBuf;
     }
 
     bool ensureScaledPixelBuffer() {
@@ -1576,29 +1893,18 @@ struct VideoReaderHandle {
                 vImagePermuteChannels_ARGB8888(&srcBuf, &dstBuf, permuteMap, kvImageNoFlags);
             }
         } else {
-            if (bgr) {
-                // BGRA → BGR24: permute BGRA → XBGR, then drop X.
-                size_t tmpStride = copyWidth * 4;
-                size_t tmpSize = tmpStride * copyHeight;
-                uint8_t stackBuf[64 * 1024];
-                uint8_t* tmpData = (tmpSize <= sizeof(stackBuf)) ? stackBuf : (uint8_t*)malloc(tmpSize);
-                vImage_Buffer tmpBuf = { tmpData, (vImagePixelCount)copyHeight, (vImagePixelCount)copyWidth, tmpStride };
-                const uint8_t permuteMap[4] = { 3, 0, 1, 2 };
-                vImagePermuteChannels_ARGB8888(&srcBuf, &tmpBuf, permuteMap, kvImageNoFlags);
-                vImageConvert_ARGB8888toRGB888(&tmpBuf, &dstBuf, kvImageNoFlags);
-                if (tmpData != stackBuf) free(tmpData);
-            } else {
-                // BGRA → RGB24: permute BGRA → XRGB, then drop X.
-                size_t tmpStride = copyWidth * 4;
-                size_t tmpSize = tmpStride * copyHeight;
-                uint8_t stackBuf[64 * 1024];
-                uint8_t* tmpData = (tmpSize <= sizeof(stackBuf)) ? stackBuf : (uint8_t*)malloc(tmpSize);
-                vImage_Buffer tmpBuf = { tmpData, (vImagePixelCount)copyHeight, (vImagePixelCount)copyWidth, tmpStride };
-                const uint8_t permuteMap[4] = { 3, 2, 1, 0 };
-                vImagePermuteChannels_ARGB8888(&srcBuf, &tmpBuf, permuteMap, kvImageNoFlags);
-                vImageConvert_ARGB8888toRGB888(&tmpBuf, &dstBuf, kvImageNoFlags);
-                if (tmpData != stackBuf) free(tmpData);
-            }
+            // BGRA → BGR24/RGB24: permute into an XRGB/XBGR intermediate,
+            // then drop the leading byte. The intermediate buffer is held
+            // on the handle and reused across frames; for 1080p that's
+            // an ~8 MB allocation we'd otherwise pay per decoded frame.
+            size_t tmpStride = copyWidth * 4;
+            size_t tmpSize = tmpStride * copyHeight;
+            uint8_t* tmpData = ensureRgbTmpBuf(tmpSize);
+            vImage_Buffer tmpBuf = { tmpData, (vImagePixelCount)copyHeight, (vImagePixelCount)copyWidth, tmpStride };
+            const uint8_t bgrMap[4] = { 3, 0, 1, 2 };  // BGRA → XBGR
+            const uint8_t rgbMap[4] = { 3, 2, 1, 0 };  // BGRA → XRGB
+            vImagePermuteChannels_ARGB8888(&srcBuf, &tmpBuf, bgr ? bgrMap : rgbMap, kvImageNoFlags);
+            vImageConvert_ARGB8888toRGB888(&tmpBuf, &dstBuf, kvImageNoFlags);
         }
 
         CVPixelBufferUnlockBaseAddress(pixelBuffer, kCVPixelBufferLock_ReadOnly);
@@ -1792,7 +2098,7 @@ VideoReaderHandle* CreateReader(const std::string& filename, int maxwidth, int m
         h->outputFormat = bgr ? PixelFormat::BGR24 : PixelFormat::RGB24;
     }
 
-    h->decoder = SharedDecoder::acquire(filename);
+    h->decoder = acquireDecoder(filename);
     if (!h->decoder || !h->decoder->isValid()) {
         h->failed = true;
         return h;
@@ -1961,7 +2267,7 @@ const FrameView* GetNextFrame(VideoReaderHandle* h, int timestampMS, int graceti
     if (!pb) {
         int firstFramePos = h->firstFramePos;
         bool atEnd = false;
-        std::vector<SharedDecoder::ReadAheadFrame> readAhead;
+        std::vector<IDecoder::ReadAheadFrame> readAhead;
         pb = h->decoder->obtainFrame(timestampMS, gracetime, pts, firstFramePos,
                                       atEnd, h, readAhead);
 
