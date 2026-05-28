@@ -519,6 +519,18 @@ private:
     std::array<Lane, kLanesPerFile> lanes;
     int64_t laneTick = 0;
 
+    // "Asset pin" reader. Without at least one live AVAssetReader against
+    // the AVAsset, CoreMedia tears down the asset's internal state and
+    // the next AVAssetReader init crashes (observed empirically; see the
+    // comments in open() and selectLane). The pin reader is a separate
+    // AVAssetReader created at construction with outputSettings=nil — it
+    // never decompresses anything (no VTDecompressionSession allocated,
+    // no HW decode budget consumed), it just exists to keep the asset's
+    // CoreMedia state alive across lane recreate transients. With the pin
+    // reader in place, every Lane in `lanes` is fully recreatable — no
+    // "anchor lane 0" special case needed.
+    AVAssetReader* pinReader = nil;
+
     struct CacheEntry {
         CVPixelBufferRef pixelBuffer = nullptr; // retained
     };
@@ -670,6 +682,11 @@ SharedDecoder::~SharedDecoder() {
         rawBgraPool = nullptr;
     }
 
+    if (pinReader) {
+        [pinReader cancelReading];
+        pinReader = nil;
+    }
+
     videoTrack = nil;
     asset = nil;
 
@@ -771,6 +788,14 @@ bool SharedDecoder::open(const std::string& fname) {
         // have already cycled out of the cache. IOSurface backing would
         // add ~24us per frame on these small frame sizes for no benefit —
         // downstream reads on the CPU via vImage/Lock+BaseAddress.
+        //
+        // Minimum buffer count: pool keeps released buffers around for
+        // recycling, but only up to this floor. With kCacheCapacity-sized
+        // cache + per-handle private caches, the natural high-water mark
+        // is well above 4 (the old default); bumping the floor to
+        // kCacheCapacity avoids deallocate/realloc churn when the cache
+        // briefly drops below capacity (seeks, end-of-render) and ramps
+        // back up. The pool grows past this floor on demand.
         if (useRawDecode) {
             NSDictionary* pbAttrs = @{
                 (NSString*)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA),
@@ -778,7 +803,7 @@ bool SharedDecoder::open(const std::string& fname) {
                 (NSString*)kCVPixelBufferHeightKey: @(nativeHeight),
             };
             NSDictionary* poolAttrs = @{
-                (NSString*)kCVPixelBufferPoolMinimumBufferCountKey: @(4),
+                (NSString*)kCVPixelBufferPoolMinimumBufferCountKey: @(kCacheCapacity),
             };
             CVReturn pr = CVPixelBufferPoolCreate(kCFAllocatorDefault,
                                                    (__bridge CFDictionaryRef)poolAttrs,
@@ -799,21 +824,62 @@ bool SharedDecoder::open(const std::string& fname) {
         spdlog::info("      Frames: {} @ {}fps", frames, nominalFrameRate);
         spdlog::info("      Frame ms: {}", frameMS);
 
-        // Eagerly open lane 0 at timestamp 0. AVAssetReader retains
-        // AVAsset's internal CoreMedia (FigAsset) state for its
-        // lifetime; without at least one live reader, AVFoundation
-        // invalidates that state in the gap between AVAsset
-        // construction and first use, and the next AVAssetReader init
-        // crashes in objc_retain on the stale internal pointer. The
-        // legacy per-handle code happened to avoid this by opening
-        // its reader during construction and never letting it lapse;
-        // we restore the same invariant here at the SharedDecoder
-        // level so PerModel siblings (and any later-arriving handle)
-        // find a warm asset.
+        // Asset pin: AVAssetReader retains AVAsset's internal CoreMedia
+        // (FigAsset) state for its lifetime; without at least one live
+        // reader the asset's state gets invalidated and the next
+        // AVAssetReader init crashes in objc_retain on the stale internal
+        // pointer (observed empirically). Open a dedicated pin reader
+        // with outputSettings=nil — it allocates no VTDecompressionSession
+        // (so it costs zero HW decode budget) and we never call
+        // copyNextSampleBuffer on it. Its sole job is to be alive for the
+        // SharedDecoder's lifetime so every Lane in `lanes` is free to
+        // close-and-reopen for backward seeks.
+        NSError* pinErr = nil;
+        AVAssetReader* pin = [[AVAssetReader alloc] initWithAsset:asset error:&pinErr];
+        if (pin) {
+            AVAssetReaderTrackOutput* pinOut =
+                [[AVAssetReaderTrackOutput alloc] initWithTrack:videoTrack outputSettings:nil];
+            if ([pin canAddOutput:pinOut]) {
+                [pin addOutput:pinOut];
+                // A 1ms range is enough to keep the reader in
+                // AVAssetReaderStatusReading; we never consume samples
+                // from it. A zero-length range would push the reader to
+                // Completed which may release the internal state we're
+                // trying to pin.
+                pin.timeRange = CMTimeRangeMake(kCMTimeZero, CMTimeMake(1, 1000));
+                if ([pin startReading]) {
+                    pinReader = pin;
+                } else {
+                    spdlog::warn("AVFoundationVideoBridge: pin reader startReading failed for {}: {}; "
+                                 "lane 0 will retain anchor role",
+                                 fname,
+                                 pin.error ? [[pin.error localizedDescription] UTF8String] : "unknown");
+                }
+            } else {
+                spdlog::warn("AVFoundationVideoBridge: pin reader canAddOutput=NO for {}; "
+                             "lane 0 will retain anchor role", fname);
+            }
+        } else {
+            spdlog::warn("AVFoundationVideoBridge: pin reader alloc failed for {}: {}; "
+                         "lane 0 will retain anchor role",
+                         fname,
+                         pinErr ? [[pinErr localizedDescription] UTF8String] : "unknown");
+        }
+
+        // Eagerly open lane 0 at timestamp 0 so the first GetNextFrame
+        // doesn't pay the AVAssetReader-init cost on the hot path. Even
+        // with the pin reader handling asset pinning, having a warm lane
+        // is a worthwhile latency win. If the pin reader failed above,
+        // lane 0 also takes on the anchor role (selectLane falls back to
+        // the old "never recreate lane 0" rule when pinReader is nil).
         if (!lanes[0].openAt(this, 0)) {
             spdlog::error("AVFoundationVideoBridge: Failed to open initial AVAssetReader for {}", fname);
             openFailed = true;
             valid = false;
+            if (pinReader) {
+                [pinReader cancelReading];
+                pinReader = nil;
+            }
             return false;
         }
     }
@@ -1256,14 +1322,14 @@ SharedDecoder::Lane* SharedDecoder::selectLane(int targetMS, int gracetimeMS) {
     int64_t oldestTick = INT64_MAX;
     Lane* firstInactive = nullptr;
 
-    // Lane 0 is the anchor: opened eagerly at construction time so
-    // AVAsset's internal CoreMedia state stays pinned by at least one
-    // live AVAssetReader for the SharedDecoder's lifetime. It can be
-    // *used* for decode (and advanced forward) like any other lane,
-    // but never closed-and-reopened for an LRU recreate — that would
-    // open a gap where no AVAssetReader exists and AVFoundation can
-    // invalidate the asset, causing later AVAssetReader inits to
-    // crash. Pick a non-anchor lane for eviction instead.
+    // With the asset pin reader (see open()) holding the AVAsset's
+    // CoreMedia state alive, every lane is fully recreatable for LRU
+    // eviction. If the pin reader couldn't be set up, lane 0 falls back
+    // to its legacy anchor role: opened eagerly at construction so the
+    // asset has at least one live AVAssetReader, never closed-and-
+    // reopened (closing would risk invalidating the asset and crashing
+    // the next AVAssetReader init).
+    const bool laneZeroIsAnchor = (pinReader == nil);
     for (size_t i = 0; i < lanes.size(); ++i) {
         auto& lane = lanes[i];
         if (!lane.active) {
@@ -1279,7 +1345,7 @@ SharedDecoder::Lane* SharedDecoder::selectLane(int targetMS, int gracetimeMS) {
                 }
             }
         }
-        if (i != 0 && lane.lastUsedTick < oldestTick) {
+        if ((!laneZeroIsAnchor || i != 0) && lane.lastUsedTick < oldestTick) {
             oldestTick = lane.lastUsedTick;
             oldestActive = &lane;
         }
