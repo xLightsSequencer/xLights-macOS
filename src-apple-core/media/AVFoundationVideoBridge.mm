@@ -885,6 +885,46 @@ bool SharedDecoder::open(const std::string& fname) {
             }
             return false;
         }
+
+        // Validate that AVFoundation can actually *decode* this stream by
+        // pulling the first frame now, while we can still report failure to
+        // the caller. A reader can open and startReading cleanly yet fail at
+        // decode time — e.g. lossless H.264 carrying the High 4:4:4 profile
+        // at <64px, which VideoToolbox rejects per frame. open() returning
+        // false makes IsValid() false, so the desktop VideoReader falls back
+        // to FFmpeg (which decodes these correctly) instead of grinding
+        // through the whole stream once per frame.
+        int probePts = 0;
+        CVPixelBufferRef probe = nullptr;
+        // decodeNext consumes at least one source sample per call and every
+        // path sets demuxAtEnd once the stream is exhausted (or, for the SW
+        // path, once it gives up); the bound is pure paranoia against a
+        // decoder that returns transient nulls forever.
+        for (int probeSafety = 1024; probeSafety > 0 && !probe && !lanes[0].demuxAtEnd; --probeSafety) {
+            probe = lanes[0].decodeNext(this, probePts);
+        }
+        if (!probe) {
+            spdlog::warn("AVFoundationVideoBridge: no decodable frames for {}; "
+                         "invalidating reader so the caller can fall back to FFmpeg",
+                         fname);
+            openFailed = true;
+            valid = false;
+            lanes[0].close();
+            if (pinReader) {
+                [pinReader cancelReading];
+                pinReader = nil;
+            }
+            return false;
+        }
+        // Keep the probe frame: stash it in the shared cache so the first
+        // GetNextFrame is a hit, and leave lane 0 advanced (warm) for the
+        // forward reads that follow.
+        lanes[0].curPos = probePts;
+        if (firstFramePos < 0) {
+            firstFramePos = probePts;
+        }
+        cacheInsert(probePts, probe, {});
+        CVBufferRelease(probe);
     }
 
     return true;
@@ -1151,8 +1191,19 @@ CVPixelBufferRef SharedDecoder::Lane::decodeNextHW(SharedDecoder* /*dec*/, int& 
     }
 }
 
-CVPixelBufferRef SharedDecoder::Lane::decodeNextSW(SharedDecoder* /*dec*/, int& outPtsMs) {
+CVPixelBufferRef SharedDecoder::Lane::decodeNextSW(SharedDecoder* dec, int& outPtsMs) {
     const int threshold = kMaxBFrameDelay + 1;
+
+    // A stream the software VTDecompressionSession can't handle fails every
+    // frame with -8969 (kVTVideoDecoderBadDataErr) — e.g. lossless H.264
+    // carrying the High 4:4:4 profile at <64px, which VideoToolbox rejects.
+    // Because the failed decodes never enqueue anything, queueSize() stays 0
+    // and this loop would otherwise demux the *entire* file on a single call
+    // (and do so again for every requested timestamp, turning a 20s render
+    // into hours). Give up after a run of consecutive failures with nothing
+    // decoded so the caller can treat the stream as undecodable.
+    constexpr int kMaxConsecutiveDecodeFailures = 64;
+    int consecutiveFailures = 0;
 
     while (!demuxAtEnd && queueSize() < threshold) {
         if (reader.status != AVAssetReaderStatusReading) {
@@ -1195,6 +1246,15 @@ CVPixelBufferRef SharedDecoder::Lane::decodeNextSW(SharedDecoder* /*dec*/, int& 
             CFRelease(sample);
             if (status != noErr) {
                 spdlog::warn("AVFoundationVideoBridge: VTDecompressionSessionDecodeFrame failed: {}", (int)status);
+                if (++consecutiveFailures >= kMaxConsecutiveDecodeFailures && queueSize() == 0) {
+                    spdlog::error("AVFoundationVideoBridge: {} consecutive software decode failures with no decoded output for {}; "
+                                  "treating stream as undecodable by VideoToolbox",
+                                  consecutiveFailures, dec->filename);
+                    demuxAtEnd = true;
+                    break;
+                }
+            } else {
+                consecutiveFailures = 0;
             }
         }
     }
