@@ -1196,6 +1196,7 @@
 				67E7086B17B51AB400A22034 /* Resources */,
 				DD00000100000000KLM00099 /* Embed Frameworks */,
 				674298661C1FC3CC00B11478 /* ShellScript */,
+				DD00000100000000KLMXAT01 /* Mark stray SPM checkout build dirs deletable */,
 			);
 			buildRules = (
 			);
@@ -1514,6 +1515,28 @@
 				"cp -f \"${BUILT_PRODUCTS_DIR}/EffectComputeFunctions.metallib\" \"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\"",
 				"",
 			);
+		};
+		DD00000100000000KLMXAT01 /* Mark stray SPM checkout build dirs deletable */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			name = "Mark stray SPM checkout build dirs deletable";
+			shellPath = /bin/bash;
+			shellScript = (
+				"# Xcode materializes the macOS slice of binary SwiftPM targets (e.g.",
+				"# KLightMapper) into a 'build' dir inside the package checkout. That dir",
+				"# is not stamped CreatedByBuildSystem, so `xcodebuild clean` aborts with",
+				"# \"Could not delete ... not created by the build system\". Stamp it so a",
+				"# later clean can remove it. Best-effort; never fail the build.",
+				"SP=\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts\"",
+				"if [ -d \"$SP\" ]; then",
+				"  for d in \"$SP\"/*/build; do",
+				"    [ -d \"$d\" ] && xattr -rw com.apple.xcode.CreatedByBuildSystem true \"$d\" 2>/dev/null",
+				"  done",
+				"fi",
+				"exit 0",
+				"",
+			);
+			showEnvVarsInLog = 0;
 		};
 		DD00000100000000VERPAD01 /* Set Bundle Version */ = {
 			isa = PBXShellScriptBuildPhase;
