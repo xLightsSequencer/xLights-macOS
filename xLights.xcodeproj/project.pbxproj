@@ -3121,6 +3121,7 @@
 					"-llua",
 					"-lliquidfun",
 					"-lcurl",
+					"-lxlsxwriter",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.xlights;
 				PRODUCT_NAME = xLights;
@@ -3190,6 +3191,7 @@
 					"-llua",
 					"-lliquidfun",
 					"-lcurl",
+					"-lxlsxwriter",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.xlights;
 				PRODUCT_NAME = xLights;
@@ -3258,6 +3260,7 @@
 					"-llua",
 					"-lliquidfun",
 					"-lcurl",
+					"-lxlsxwriter",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.xlights;
 				PRODUCT_NAME = xLights;
