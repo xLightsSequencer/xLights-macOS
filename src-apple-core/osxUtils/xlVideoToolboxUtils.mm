@@ -309,6 +309,19 @@ void VideoToolboxCreateFrame(CIImage *image, AVFrame *f, id<MTLDevice> device) {
     }
     [ciEncContext render:image toCVPixelBuffer:scaledBuf];
 }
+void VideoToolboxRenderToPixelBuffer(CIImage *image, CVPixelBufferRef buf, id<MTLDevice> device) {
+    // Render `image` straight into a caller-provided CVPixelBuffer (vended
+    // by an FFmpeg hw-frames pool or an AVAssetWriter pixel-buffer pool).
+    // Used by the VideoWriter export path so the canvas never has to know
+    // which encoder owns the destination buffer.
+    if (buf == nullptr) {
+        return;
+    }
+    if (ciEncContext == nullptr) {
+        ciEncContext = [CIContext contextWithMTLDevice:device];
+    }
+    [ciEncContext render:image toCVPixelBuffer:buf];
+}
 void VideoToolboxCopyToTexture(CIImage *image, id<MTLTexture> texture, id<MTLCommandBuffer> cmdBuf) {
     CGRect rect;
     rect.origin.x = 0;

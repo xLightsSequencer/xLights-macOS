@@ -2790,12 +2790,14 @@
 					AudioLoader.cpp,
 					FFmpegAudioDecoder.cpp,
 					FFmpegVideoReader.cpp,
+					FFmpegVideoWriter.cpp,
 					SDLAudioOutput.cpp,
 				);
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = (
 					AudioLoader.cpp,
 					FFmpegAudioDecoder.cpp,
 					FFmpegVideoReader.cpp,
+					FFmpegVideoWriter.cpp,
 					SDLAudioOutput.cpp,
 				);
 				EXECUTABLE_PREFIX = lib;
@@ -2843,12 +2845,14 @@
 					AudioLoader.cpp,
 					FFmpegAudioDecoder.cpp,
 					FFmpegVideoReader.cpp,
+					FFmpegVideoWriter.cpp,
 					SDLAudioOutput.cpp,
 				);
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = (
 					AudioLoader.cpp,
 					FFmpegAudioDecoder.cpp,
 					FFmpegVideoReader.cpp,
+					FFmpegVideoWriter.cpp,
 					SDLAudioOutput.cpp,
 				);
 				EXECUTABLE_PREFIX = lib;
@@ -2895,12 +2899,14 @@
 					AudioLoader.cpp,
 					FFmpegAudioDecoder.cpp,
 					FFmpegVideoReader.cpp,
+					FFmpegVideoWriter.cpp,
 					SDLAudioOutput.cpp,
 				);
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = (
 					AudioLoader.cpp,
 					FFmpegAudioDecoder.cpp,
 					FFmpegVideoReader.cpp,
+					FFmpegVideoWriter.cpp,
 					SDLAudioOutput.cpp,
 				);
 				EXECUTABLE_PREFIX = lib;
