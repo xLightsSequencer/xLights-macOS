@@ -38,6 +38,7 @@
 #import <VideoToolbox/VideoToolbox.h>
 
 #include <algorithm>
+#include <chrono>
 #include <condition_variable>
 #include <deque>
 #include <filesystem>
@@ -50,7 +51,11 @@ namespace AppleAVFoundationVideoWriterBridge {
 
 namespace {
 
-constexpr size_t kMaxQueuedItems = 24;        // backpressure bound (per input)
+#ifdef TARGET_OS_IPHONE
+constexpr size_t kMaxQueuedItems = 64;         // video backpressure bound (~0.5 GB at 4K); audio is unbounded
+#else
+constexpr size_t kMaxQueuedItems = 96;         // video backpressure bound (~0.7 GB at 4K); audio is unbounded
+#endif
 constexpr int64_t kFinishTimeoutSecs = 120;   // hard cap so Finish can't hang forever
 
 std::string LowerExt(const std::string& path)
@@ -71,6 +76,11 @@ bool CodecIsHEVC(const std::string& c) { return c.find("H.265") != std::string::
 bool CodecIsH264(const std::string& c) { return c.find("H.264") != std::string::npos; }
 bool CodecIsProRes(const std::string& c) { return c.find("ProRes") != std::string::npos || c.find("prores") != std::string::npos; }
 bool CodecIsRaw(const std::string& c) { return c.find("rawvideo") != std::string::npos; }
+// "Auto" / empty: the user's default Video Export codec. BuildWriter maps it to
+// H.264, so AVFoundation can encode it — treat it as H.264-encodable so the
+// House Preview export (which passes "Auto") uses AVFoundation rather than
+// falling back to the much slower FFmpeg software encoder.
+bool CodecIsAuto(const std::string& c) { return c.empty() || c.find("Auto") != std::string::npos || c.find("auto") != std::string::npos; }
 
 struct VideoItem {
     CVPixelBufferRef pixbuf = nullptr;  // retained
@@ -136,7 +146,8 @@ bool CanExport(const std::string& outPath, const std::string& videoCodec)
     if (CodecIsProRes(videoCodec)) {
         return IsMovExt(ext);  // ProRes belongs in a QuickTime container
     }
-    return CodecIsH264(videoCodec) || CodecIsHEVC(videoCodec);
+    // "Auto" is encodable — CreateWriter maps it to HEVC.
+    return CodecIsH264(videoCodec) || CodecIsHEVC(videoCodec) || CodecIsAuto(videoCodec);
 }
 
 namespace {
@@ -262,26 +273,40 @@ bool BuildWriter(WriterHandle* h)
             }
 
             NSMutableDictionary* compression = [NSMutableDictionary dictionary];
-            const bool useQuality = (h->quality > 0.0) && !CodecIsProRes(h->videoCodec);
+            bool useQuality = (h->quality > 0.0) && !CodecIsProRes(h->videoCodec);
+            auto quality = h->quality;
+            // Auto (no explicit bitrate): default H.264/HEVC to constant-quality
+            // so VideoToolbox picks a content-adaptive bitrate. NOT for ProRes —
+            // it's a fixed-profile codec that takes neither AVVideoQualityKey nor
+            // a bitrate (setting AVVideoQualityKey on it is invalid and can throw).
+            if (!useQuality && h->bitrateKbps <= 0 && !CodecIsProRes(h->videoCodec)) {
+                useQuality = true;
+                quality = 0.80;
+                if (@available(macOS 11.0, iOS 14.0, *)) {
+                    compression[(__bridge NSString*)kVTCompressionPropertyKey_PrioritizeEncodingSpeedOverQuality] = @YES;
+                }
+            }
             if (useQuality) {
                 // Constant-quality mode (AVVideoQualityKey, 0..1) — crisper than
                 // any average-bitrate target for easy content, which VideoToolbox
-                // undershoots. Steer toward quality (no prio-speed bias). An
-                // earlier wedge with this key was the manual readiness poll, not
-                // the key itself — the requestMediaDataWhenReadyOnQueue driver
-                // handles it.
-                compression[AVVideoQualityKey] = @(h->quality > 1.0 ? 1.0 : h->quality);
+                // undershoots.
+                compression[AVVideoQualityKey] = @(quality > 1.0 ? 1.0 : quality);
                 compression[AVVideoExpectedSourceFrameRateKey] = @(h->fps);
             } else if (!CodecIsProRes(h->videoCodec)) {
-                // Average-bitrate mode. When the user didn't pick one, target a
-                // high-quality default comparable to the FFmpeg/VideoToolbox path
-                // (AVAssetWriter's own default is far more conservative).
+                // Average-bitrate mode. When the user didn't pick a bitrate
+                // (Preferences → Video Export Settings, 0 = Auto), target a
+                // sensible quality/size default. The previous defaults were
+                // ~2x too high (HEVC came out larger than a typical H.264).
                 long long bps;
                 if (h->bitrateKbps > 0) {
                     bps = static_cast<long long>(h->bitrateKbps) * 1000;
                 } else {
-                    // bits per pixel per frame; HEVC is ~40% more efficient than H.264.
-                    const double bpp = CodecIsHEVC(h->videoCodec) ? 0.14 : 0.22;
+                    // bits per pixel per frame. HEVC is ~40% more efficient than
+                    // H.264, so it gets the lower bpp; both produce good quality
+                    // for LED/preview content while keeping files reasonable
+                    // (e.g. 3456x2120@40 → ~20 Mbps HEVC). Bump the bitrate in
+                    // preferences for archival-grade output.
+                    const double bpp = CodecIsHEVC(h->videoCodec) ? 0.07 : 0.11;
                     bps = static_cast<long long>(static_cast<double>(h->width) * h->height * h->fps * bpp);
                     if (bps < 2000000) {
                         bps = 2000000;  // floor for tiny / low-fps exports
@@ -295,6 +320,15 @@ bool BuildWriter(WriterHandle* h)
                 }
                 compression[AVVideoExpectedSourceFrameRateKey] = @(h->fps);
             }
+
+            // NOTE: we intentionally do NOT disable frame reordering or cap the
+            // frame-delay count for HEVC. An earlier "encoder hoards ~46 frames
+            // and never becomes ready" stall looked like an unlimited-frame-delay
+            // problem, but the real cause was the desktop export blocking the
+            // main thread (see AppendVideoFrame's run-loop pump) plus audio-queue
+            // backpressure (see AppendAudio). With those fixed, the encoder
+            // streams normally — and leaving B-frames / default lookahead on
+            // gives noticeably better compression for the same quality.
 
             NSMutableDictionary* videoSettings = [NSMutableDictionary dictionary];
             videoSettings[AVVideoCodecKey] = codecKey;
@@ -392,7 +426,14 @@ void InstallVideoRequest(WriterHandle* h)
             bool finish = false;
             {
                 std::unique_lock<std::mutex> lk(h->mtx);
-                h->cv.wait(lk, [h] { return !h->videoItems.empty() || h->ended || h->cancelled; });
+                // Bounded wait — never park this requestMediaData invocation
+                // indefinitely. A multi-input (audio + video) writer only
+                // interleaves/advances while BOTH inputs' blocks keep
+                // returning; the producer is a single thread that may be
+                // backpressured on the OTHER input, so an indefinite park here
+                // deadlocks the writer.
+                h->cv.wait_for(lk, std::chrono::milliseconds(5),
+                               [h] { return !h->videoItems.empty() || h->ended || h->cancelled; });
                 if (h->cancelled) {
                     return;
                 }
@@ -410,25 +451,26 @@ void InstallVideoRequest(WriterHandle* h)
                 InputFinished(h, input);
                 return;
             }
-            if (have) {
-                if (!input.isReadyForMoreMediaData) {
-                    std::lock_guard<std::mutex> lk(h->mtx);
-                    h->videoItems.push_front(item);  // try again on next ready callback
-                    return;
-                }
-                BOOL ok = NO;
-                @try {
-                    ok = [adaptor appendPixelBuffer:item.pixbuf withPresentationTime:item.pts];
-                } @catch (NSException* e) {
-                    spdlog::error("AVFoundationVideoWriter: appendPixelBuffer threw: {}",
-                                  e.reason ? [e.reason UTF8String] : "?");
-                    ok = NO;
-                }
-                CVPixelBufferRelease(item.pixbuf);
-                if (!ok) {
-                    FailWriter(h, "video append failed");
-                    return;
-                }
+            if (!have) {
+                return;  // no data yet — let AVFoundation re-invoke us / service audio
+            }
+            if (!input.isReadyForMoreMediaData) {
+                std::lock_guard<std::mutex> lk(h->mtx);
+                h->videoItems.push_front(item);  // try again on next ready callback
+                return;
+            }
+            BOOL ok = NO;
+            @try {
+                ok = [adaptor appendPixelBuffer:item.pixbuf withPresentationTime:item.pts];
+            } @catch (NSException* e) {
+                spdlog::error("AVFoundationVideoWriter: appendPixelBuffer threw: {}",
+                              e.reason ? [e.reason UTF8String] : "?");
+                ok = NO;
+            }
+            CVPixelBufferRelease(item.pixbuf);
+            if (!ok) {
+                FailWriter(h, "video append failed");
+                return;
             }
         }
     }];
@@ -444,7 +486,10 @@ void InstallAudioRequest(WriterHandle* h)
             bool finish = false;
             {
                 std::unique_lock<std::mutex> lk(h->mtx);
-                h->cv.wait(lk, [h] { return !h->audioItems.empty() || h->ended || h->cancelled; });
+                // Bounded wait — see InstallVideoRequest. Parking here stalls
+                // the multi-input writer.
+                h->cv.wait_for(lk, std::chrono::milliseconds(5),
+                               [h] { return !h->audioItems.empty() || h->ended || h->cancelled; });
                 if (h->cancelled) {
                     return;
                 }
@@ -462,25 +507,26 @@ void InstallAudioRequest(WriterHandle* h)
                 InputFinished(h, input);
                 return;
             }
-            if (have) {
-                if (!input.isReadyForMoreMediaData) {
-                    std::lock_guard<std::mutex> lk(h->mtx);
-                    h->audioItems.push_front(sample);
-                    return;
-                }
-                BOOL ok = NO;
-                @try {
-                    ok = [input appendSampleBuffer:sample];
-                } @catch (NSException* e) {
-                    spdlog::error("AVFoundationVideoWriter: appendSampleBuffer threw: {}",
-                                  e.reason ? [e.reason UTF8String] : "?");
-                    ok = NO;
-                }
-                CFRelease(sample);
-                if (!ok) {
-                    FailWriter(h, "audio append failed");
-                    return;
-                }
+            if (!have) {
+                return;  // no data yet — let AVFoundation re-invoke us / service video
+            }
+            if (!input.isReadyForMoreMediaData) {
+                std::lock_guard<std::mutex> lk(h->mtx);
+                h->audioItems.push_front(sample);
+                return;
+            }
+            BOOL ok = NO;
+            @try {
+                ok = [input appendSampleBuffer:sample];
+            } @catch (NSException* e) {
+                spdlog::error("AVFoundationVideoWriter: appendSampleBuffer threw: {}",
+                              e.reason ? [e.reason UTF8String] : "?");
+                ok = NO;
+            }
+            CFRelease(sample);
+            if (!ok) {
+                FailWriter(h, "audio append failed");
+                return;
             }
         }
     }];
@@ -500,7 +546,11 @@ WriterHandle* CreateWriter(const std::string& outPath,
     }
     WriterHandle* h = new WriterHandle();
     h->path = outPath;
-    h->videoCodec = videoCodec;
+    // "Auto" -> HEVC on Apple: hardware-accelerated, ~40% smaller than H.264 at
+    // equal quality, and the natural default for Mac/iPad export. (HEVC + audio
+    // at large sizes now works after removing the audio-queue backpressure that
+    // was deadlocking the single-threaded producer — see AppendAudio.)
+    h->videoCodec = CodecIsAuto(videoCodec) ? "H.265" : videoCodec;
     h->width = width;
     h->height = height;
     h->fps = fps > 0 ? fps : 30;
@@ -687,7 +737,29 @@ bool AppendVideoFrame(WriterHandle* h, void* pixelBuffer, int frameIndex)
     item.pts = CMTimeMake(frameIndex, h->fps);
 
     std::unique_lock<std::mutex> lk(h->mtx);
-    h->cv.wait(lk, [h] { return h->videoItems.size() < kMaxQueuedItems || h->failed || h->cancelled; });
+    // Video backpressure. CRITICAL: the desktop House Preview export drives this
+    // from the MAIN thread (the live Metal canvas render must run there). If we
+    // *block* the main thread on a full queue, its run loop stops turning and
+    // the encoder pipeline (CoreImage fill completion / CoreVideo / Metal work
+    // serviced on the main thread) stalls — the video input never becomes ready
+    // again and the export deadlocks (verified: videoReady=NO, status=Writing;
+    // a giant queue only hid it by never blocking). So on the main thread we
+    // PUMP the run loop briefly instead of parking — that keeps the encoder
+    // draining, the consumer pops, and the queue clears in a few ms. Off-main
+    // callers (iPad export, which runs on a background queue) wait normally.
+    const bool onMainThread = ([NSThread isMainThread] != NO);
+    while (h->videoItems.size() >= kMaxQueuedItems && !h->failed && !h->cancelled) {
+        if (onMainThread) {
+            lk.unlock();
+            // Service the run loop so GPU/encoder completion work can run;
+            // return as soon as one source is handled (or 4 ms elapses).
+            CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.004, true);
+            lk.lock();
+        } else {
+            h->cv.wait_for(lk, std::chrono::milliseconds(50),
+                           [h] { return h->videoItems.size() < kMaxQueuedItems || h->failed || h->cancelled; });
+        }
+    }
     if (h->failed || h->cancelled) {
         lk.unlock();
         CVPixelBufferRelease(buf);
@@ -765,8 +837,16 @@ bool AppendAudio(WriterHandle* h, const float* left, const float* right,
         return false;
     }
 
+    // NO backpressure on audio. The producer is single-threaded (the
+    // main-thread render loop appends a video frame then its audio). If audio
+    // blocked on a bounded queue, the producer could wedge there while the
+    // video input sat empty and ready — the writer waits for video to interleave
+    // but the producer can't supply it. Verified deadlock: videoQ=0/vinReady=1
+    // while audioQ=24/ainReady=0. Audio packets are tiny (a few KB of PCM) and
+    // bounded by the show length, so an unbounded audio queue is cheap; the
+    // consumer drains it as the writer accepts audio. Video keeps its bound,
+    // since video is the memory-heavy, rate-limiting input.
     std::unique_lock<std::mutex> lk(h->mtx);
-    h->cv.wait(lk, [h] { return h->audioItems.size() < kMaxQueuedItems || h->failed || h->cancelled; });
     if (h->failed || h->cancelled) {
         lk.unlock();
         CFRelease(sampleBuffer);
