@@ -18,11 +18,16 @@
 // handle owned by the Apple-side .mm. Mirrors the shape of
 // `AVFoundationVideoBridge.h` (the reader side).
 
+#include <functional>
 #include <string>
 
 namespace AppleAVFoundationVideoWriterBridge {
 
 struct WriterHandle;
+
+// Fills the (pre-zeroed) left/right buffers with `numSamples` samples per
+// channel. Invoked strictly sequentially from the bridge's audio queue.
+using AudioPullFn = std::function<void(float* left, float* right, int numSamples)>;
 
 // Capability probe — opens nothing. True when AVFoundation can encode
 // `videoCodec` ("H.264" / "H.265" / "ProRes") into the container implied
@@ -66,11 +71,14 @@ void DestroyWriter(WriterHandle* h);
 // Releases `pixelBuffer`'s retain from RequestPixelBuffer.
 [[nodiscard]] bool AppendVideoFrame(WriterHandle* h, void* pixelBuffer, int frameIndex);
 
-// Append one block of stereo audio (planar float L/R, `numSamples` per
-// channel) at presentation time sampleOffset/audioSampleRate. Blocks
-// until the audio input is ready for more data.
-[[nodiscard]] bool AppendAudio(WriterHandle* h, const float* left, const float* right,
-                               int numSamples, long long sampleOffset);
+// Install the pull-driven audio source. REQUIRED — before the first
+// AppendVideoFrame — whenever the writer was created with audio. The bridge
+// pulls samples on its own queue exactly as fast as the writer wants them,
+// so audio supply never depends on the video producer's progress (an
+// audio-starved AVAssetWriter stops accepting video, deadlocking a
+// backpressured producer). The audio input is marked finished once
+// `totalSamples` samples have been pulled.
+void BeginAudio(WriterHandle* h, AudioPullFn pull, long long totalSamples);
 
 // Mark inputs finished and wait (synchronously) for the writer to flush.
 // When `cancel` is true, cancels and removes the partial file.

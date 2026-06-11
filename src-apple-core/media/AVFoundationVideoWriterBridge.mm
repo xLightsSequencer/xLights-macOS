@@ -18,11 +18,20 @@
 // maintains isReadyForMoreMediaData. (Manually polling the flag from the
 // caller's thread is unsupported and leaves it stuck NO, deadlocking the
 // export.) So each input is fed from a block AVFoundation invokes on a
-// dedicated serial queue whenever the input is ready; the block pulls
-// finished samples from a bounded queue that the main-thread render loop
-// fills (RequestPixelBuffer -> render -> AppendVideoFrame/AppendAudio).
-// The bounded queue gives backpressure; rendering stays on the main thread
-// (Metal/GL requirement); the writer never touches the main thread.
+// dedicated serial queue whenever the input is ready. VIDEO frames come from
+// a bounded queue the main-thread render loop fills (RequestPixelBuffer ->
+// render -> AppendVideoFrame); the bound gives backpressure and rendering
+// stays on the main thread (Metal/GL requirement). AUDIO is pull-driven: the
+// request block pulls PCM straight from the caller's AudioPullFn (BeginAudio)
+// so the audio supply never depends on the producer thread — AVAssetWriter
+// interleaves, and it stops accepting video whenever it lacks the matching
+// audio, so audio starvation deadlocks a backpressured producer.
+//
+// Request blocks must NEVER park on their serial queue: they run inside
+// AVAssetWriter's per-input media-data requester, and blocking there wedges
+// the writer's servicing of its other input and its readiness updates
+// (observed: a parked audio block froze the video input's readiness with
+// video frames queued and waiting).
 //
 // All Xcode targets compile with ARC: ObjC pointers held in the C++
 // WriterHandle are __strong. CoreFoundation/CoreMedia types
@@ -52,11 +61,12 @@ namespace AppleAVFoundationVideoWriterBridge {
 namespace {
 
 #ifdef TARGET_OS_IPHONE
-constexpr size_t kMaxQueuedItems = 64;         // video backpressure bound (~0.5 GB at 4K); audio is unbounded
+constexpr size_t kMaxQueuedItems = 8;          // video backpressure bound (~100 MB at 4K); audio is unbounded
 #else
-constexpr size_t kMaxQueuedItems = 96;         // video backpressure bound (~0.7 GB at 4K); audio is unbounded
+constexpr size_t kMaxQueuedItems = 16;         // video backpressure bound (~200 MB at 4K); audio is unbounded
 #endif
 constexpr int64_t kFinishTimeoutSecs = 120;   // hard cap so Finish can't hang forever
+constexpr int kAudioPullChunkSamples = 16384; // ~0.37s at 44.1kHz per pulled sample buffer
 
 std::string LowerExt(const std::string& path)
 {
@@ -119,11 +129,17 @@ struct WriterHandle {
     dispatch_queue_t videoQ = nil;
     dispatch_queue_t audioQ = nil;
 
-    // --- bounded source queues filled by the producer (main thread) ---
+    // --- bounded video source queue filled by the producer (main thread) ---
     std::mutex mtx;
     std::condition_variable cv;
     std::deque<VideoItem> videoItems;
-    std::deque<CMSampleBufferRef> audioItems;  // retained
+
+    // --- pull-driven audio source (BeginAudio; touched only on audioQ after install) ---
+    AudioPullFn audioPull;
+    long long audioTotalSamples = 0;
+    long long audioSamplesPulled = 0;
+    std::vector<float> audioScratchL;
+    std::vector<float> audioScratchR;
 
     bool ended = false;            // producer has handed off all samples
     bool cancelled = false;        // abort requested
@@ -324,11 +340,16 @@ bool BuildWriter(WriterHandle* h)
             // NOTE: we intentionally do NOT disable frame reordering or cap the
             // frame-delay count for HEVC. An earlier "encoder hoards ~46 frames
             // and never becomes ready" stall looked like an unlimited-frame-delay
-            // problem, but the real cause was the desktop export blocking the
-            // main thread (see AppendVideoFrame's run-loop pump) plus audio-queue
-            // backpressure (see AppendAudio). With those fixed, the encoder
-            // streams normally — and leaving B-frames / default lookahead on
-            // gives noticeably better compression for the same quality.
+            // problem, but the real cause was audio starvation: the writer sits
+            // on the encoder's ~46-frame warm-up window and stops accepting
+            // video until it has the audio to interleave, and audio used to be
+            // produced by the same (video-backpressured) thread. Audio is now
+            // pull-driven (see InstallAudioRequest), so the encoder streams
+            // normally — and leaving B-frames / default lookahead on gives
+            // noticeably better compression for the same quality. The lookahead
+            // does pin ~46 source frames inside VideoToolbox; cap
+            // kVTCompressionPropertyKey_MaxFrameDelayCount here if that memory
+            // ever needs to shrink.
 
             NSMutableDictionary* videoSettings = [NSMutableDictionary dictionary];
             videoSettings[AVVideoCodecKey] = codecKey;
@@ -426,12 +447,12 @@ void InstallVideoRequest(WriterHandle* h)
             bool finish = false;
             {
                 std::unique_lock<std::mutex> lk(h->mtx);
-                // Bounded wait — never park this requestMediaData invocation
-                // indefinitely. A multi-input (audio + video) writer only
-                // interleaves/advances while BOTH inputs' blocks keep
-                // returning; the producer is a single thread that may be
-                // backpressured on the OTHER input, so an indefinite park here
-                // deadlocks the writer.
+                // Bounded wait only — NEVER park here. This block runs inside
+                // AVAssetWriter's per-input media-data requester; parking it
+                // wedges the writer's servicing of its other input and its
+                // readiness updates (observed: a parked audio block froze the
+                // video input's readiness while video frames sat queued).
+                // Returning empty-handed is fine; the requester re-invokes.
                 h->cv.wait_for(lk, std::chrono::milliseconds(5),
                                [h] { return !h->videoItems.empty() || h->ended || h->cancelled; });
                 if (h->cancelled) {
@@ -452,7 +473,7 @@ void InstallVideoRequest(WriterHandle* h)
                 return;
             }
             if (!have) {
-                return;  // no data yet — let AVFoundation re-invoke us / service audio
+                return;  // no data yet — the requester will re-invoke us
             }
             if (!input.isReadyForMoreMediaData) {
                 std::lock_guard<std::mutex> lk(h->mtx);
@@ -476,43 +497,106 @@ void InstallVideoRequest(WriterHandle* h)
     }];
 }
 
+// Build a stereo float PCM CMSampleBuffer at presentation time
+// sampleOffset/sampleRate from planar left/right data. Returns +1 (caller
+// releases) or nullptr on failure.
+CMSampleBufferRef MakeAudioSampleBuffer(int sampleRate, const float* left, const float* right,
+                                        int numSamples, long long sampleOffset)
+{
+    const int channels = 2;
+    const size_t bytesPerFrame = channels * sizeof(float);
+    const size_t byteCount = static_cast<size_t>(numSamples) * bytesPerFrame;
+
+    std::vector<float> interleaved(static_cast<size_t>(numSamples) * channels);
+    for (int i = 0; i < numSamples; ++i) {
+        interleaved[2 * i] = left[i];
+        interleaved[2 * i + 1] = right[i];
+    }
+
+    AudioStreamBasicDescription asbd = {};
+    asbd.mSampleRate = sampleRate;
+    asbd.mFormatID = kAudioFormatLinearPCM;
+    asbd.mFormatFlags = kAudioFormatFlagIsFloat | kAudioFormatFlagIsPacked;
+    asbd.mBytesPerPacket = static_cast<UInt32>(bytesPerFrame);
+    asbd.mFramesPerPacket = 1;
+    asbd.mBytesPerFrame = static_cast<UInt32>(bytesPerFrame);
+    asbd.mChannelsPerFrame = channels;
+    asbd.mBitsPerChannel = 32;
+
+    CMAudioFormatDescriptionRef format = nullptr;
+    OSStatus st = CMAudioFormatDescriptionCreate(kCFAllocatorDefault, &asbd, 0, nullptr, 0, nullptr, nullptr, &format);
+    if (st != noErr || format == nullptr) {
+        spdlog::error("AVFoundationVideoWriter: CMAudioFormatDescriptionCreate failed ({})", static_cast<int>(st));
+        return nullptr;
+    }
+
+    CMBlockBufferRef blockBuffer = nullptr;
+    st = CMBlockBufferCreateWithMemoryBlock(kCFAllocatorDefault, nullptr, byteCount, kCFAllocatorDefault,
+                                            nullptr, 0, byteCount, kCMBlockBufferAssureMemoryNowFlag, &blockBuffer);
+    if (st != noErr || blockBuffer == nullptr) {
+        spdlog::error("AVFoundationVideoWriter: CMBlockBufferCreateWithMemoryBlock failed ({})", static_cast<int>(st));
+        CFRelease(format);
+        return nullptr;
+    }
+    st = CMBlockBufferReplaceDataBytes(interleaved.data(), blockBuffer, 0, byteCount);
+    if (st != noErr) {
+        spdlog::error("AVFoundationVideoWriter: CMBlockBufferReplaceDataBytes failed ({})", static_cast<int>(st));
+        CFRelease(blockBuffer);
+        CFRelease(format);
+        return nullptr;
+    }
+
+    CMSampleTimingInfo timing;
+    timing.duration = CMTimeMake(1, sampleRate);
+    timing.presentationTimeStamp = CMTimeMake(sampleOffset, sampleRate);
+    timing.decodeTimeStamp = kCMTimeInvalid;
+    size_t sampleSize = bytesPerFrame;
+
+    CMSampleBufferRef sampleBuffer = nullptr;
+    st = CMSampleBufferCreate(kCFAllocatorDefault, blockBuffer, true, nullptr, nullptr, format,
+                              numSamples, 1, &timing, 1, &sampleSize, &sampleBuffer);
+    CFRelease(blockBuffer);
+    CFRelease(format);
+    if (st != noErr || sampleBuffer == nullptr) {
+        spdlog::error("AVFoundationVideoWriter: CMSampleBufferCreate failed ({})", static_cast<int>(st));
+        return nullptr;
+    }
+    return sampleBuffer;
+}
+
+// Pull-driven audio: whenever the audio input wants data, synthesize the next
+// chunk directly from the caller's pull callback. The audio supply therefore
+// never depends on the (possibly backpressured) producer thread — essential,
+// because AVAssetWriter only keeps accepting video while it has the audio it
+// needs to interleave; starving this input was the sub-48-frame-queue hang.
+// The block always either appends or finishes — it never exits empty while
+// the input is still ready, and it never waits.
 void InstallAudioRequest(WriterHandle* h)
 {
     AVAssetWriterInput* input = h->audioInput;
     [input requestMediaDataWhenReadyOnQueue:h->audioQ usingBlock:^{
         while (input.isReadyForMoreMediaData) {
-            CMSampleBufferRef sample = nullptr;
-            bool have = false;
-            bool finish = false;
             {
-                std::unique_lock<std::mutex> lk(h->mtx);
-                // Bounded wait — see InstallVideoRequest. Parking here stalls
-                // the multi-input writer.
-                h->cv.wait_for(lk, std::chrono::milliseconds(5),
-                               [h] { return !h->audioItems.empty() || h->ended || h->cancelled; });
-                if (h->cancelled) {
+                std::lock_guard<std::mutex> lk(h->mtx);
+                if (h->cancelled || h->failed) {
                     return;
                 }
-                if (!h->audioItems.empty()) {
-                    sample = h->audioItems.front();
-                    h->audioItems.pop_front();
-                    have = true;
-                } else if (h->ended) {
-                    finish = true;
-                }
             }
-            h->cv.notify_all();
-
-            if (finish) {
+            const long long remaining = h->audioTotalSamples - h->audioSamplesPulled;
+            if (remaining <= 0) {
                 InputFinished(h, input);
                 return;
             }
-            if (!have) {
-                return;  // no data yet — let AVFoundation re-invoke us / service video
-            }
-            if (!input.isReadyForMoreMediaData) {
-                std::lock_guard<std::mutex> lk(h->mtx);
-                h->audioItems.push_front(sample);
+            const int chunk = static_cast<int>(std::min<long long>(remaining, kAudioPullChunkSamples));
+            h->audioScratchL.assign(static_cast<size_t>(chunk), 0.0f);
+            h->audioScratchR.assign(static_cast<size_t>(chunk), 0.0f);
+            h->audioPull(h->audioScratchL.data(), h->audioScratchR.data(), chunk);
+
+            CMSampleBufferRef sample = MakeAudioSampleBuffer(h->sampleRate,
+                                                             h->audioScratchL.data(), h->audioScratchR.data(),
+                                                             chunk, h->audioSamplesPulled);
+            if (sample == nullptr) {
+                FailWriter(h, "audio sample creation failed");
                 return;
             }
             BOOL ok = NO;
@@ -528,7 +612,10 @@ void InstallAudioRequest(WriterHandle* h)
                 FailWriter(h, "audio append failed");
                 return;
             }
+            h->audioSamplesPulled += chunk;
         }
+        // Exits only when the input is no longer ready (or finished/failed);
+        // AVFoundation re-invokes on the next ready transition.
     }];
 }
 
@@ -548,8 +635,8 @@ WriterHandle* CreateWriter(const std::string& outPath,
     h->path = outPath;
     // "Auto" -> HEVC on Apple: hardware-accelerated, ~40% smaller than H.264 at
     // equal quality, and the natural default for Mac/iPad export. (HEVC + audio
-    // at large sizes now works after removing the audio-queue backpressure that
-    // was deadlocking the single-threaded producer — see AppendAudio.)
+    // at large sizes now works because audio is pull-driven and can never
+    // starve the interleaving writer — see InstallAudioRequest.)
     h->videoCodec = CodecIsAuto(videoCodec) ? "H.265" : videoCodec;
     h->width = width;
     h->height = height;
@@ -590,17 +677,13 @@ void DestroyWriter(WriterHandle* h)
     if (h->audioQ != nil) {
         dispatch_sync(h->audioQ, ^{});
     }
-    // Drain whatever is left in the queues.
+    // Drain whatever is left in the video queue.
     {
         std::lock_guard<std::mutex> lk(h->mtx);
         for (auto& it : h->videoItems) {
             if (it.pixbuf) CVPixelBufferRelease(it.pixbuf);
         }
         h->videoItems.clear();
-        for (auto* s : h->audioItems) {
-            if (s) CFRelease(s);
-        }
-        h->audioItems.clear();
     }
     if (h->pool != nullptr) {
         CFRelease(h->pool);
@@ -632,10 +715,26 @@ bool Start(WriterHandle* h)
     }
     h->pendingInputs = h->audioInput != nil ? 2 : 1;
     InstallVideoRequest(h);
-    if (h->audioInput != nil) {
-        InstallAudioRequest(h);
-    }
     return true;
+}
+
+void BeginAudio(WriterHandle* h, AudioPullFn pull, long long totalSamples)
+{
+    if (h == nullptr || h->audioInput == nil) {
+        return;
+    }
+    h->audioPull = std::move(pull);
+    h->audioTotalSamples = totalSamples > 0 ? totalSamples : 0;
+    h->audioSamplesPulled = 0;
+    if (h->audioTotalSamples <= 0 || h->audioPull == nullptr) {
+        // Nothing to supply — finish the input so the writer doesn't wait on it.
+        AVAssetWriterInput* input = h->audioInput;
+        dispatch_async(h->audioQ, ^{
+            InputFinished(h, input);
+        });
+        return;
+    }
+    InstallAudioRequest(h);
 }
 
 void* RequestPixelBuffer(WriterHandle* h)
@@ -737,22 +836,26 @@ bool AppendVideoFrame(WriterHandle* h, void* pixelBuffer, int frameIndex)
     item.pts = CMTimeMake(frameIndex, h->fps);
 
     std::unique_lock<std::mutex> lk(h->mtx);
-    // Video backpressure. CRITICAL: the desktop House Preview export drives this
-    // from the MAIN thread (the live Metal canvas render must run there). If we
-    // *block* the main thread on a full queue, its run loop stops turning and
-    // the encoder pipeline (CoreImage fill completion / CoreVideo / Metal work
-    // serviced on the main thread) stalls — the video input never becomes ready
-    // again and the export deadlocks (verified: videoReady=NO, status=Writing;
-    // a giant queue only hid it by never blocking). So on the main thread we
-    // PUMP the run loop briefly instead of parking — that keeps the encoder
-    // draining, the consumer pops, and the queue clears in a few ms. Off-main
+    // Video backpressure. The desktop House Preview export drives this from the
+    // MAIN thread (the live Metal canvas render must run there), so instead of
+    // parking it — which would freeze the progress dialog/UI — pump the run
+    // loop in short slices while waiting for the consumer to drain. Off-main
     // callers (iPad export, which runs on a background queue) wait normally.
+    //
+    // Escape valve: with audio pull-driven (BeginAudio) the writer can always
+    // interleave, so this queue should always drain. If it ever stops draining
+    // for several seconds anyway, exceed the bound rather than hang — worst
+    // case is extra transient memory, never a wedged export.
     const bool onMainThread = ([NSThread isMainThread] != NO);
+    const auto deadline = std::chrono::steady_clock::now() + std::chrono::seconds(5);
     while (h->videoItems.size() >= kMaxQueuedItems && !h->failed && !h->cancelled) {
+        if (std::chrono::steady_clock::now() >= deadline) {
+            break;
+        }
         if (onMainThread) {
             lk.unlock();
-            // Service the run loop so GPU/encoder completion work can run;
-            // return as soon as one source is handled (or 4 ms elapses).
+            // Service the run loop so UI/timer work can run; return as soon
+            // as one source is handled (or 4 ms elapses).
             CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.004, true);
             lk.lock();
         } else {
@@ -766,93 +869,6 @@ bool AppendVideoFrame(WriterHandle* h, void* pixelBuffer, int frameIndex)
         return false;
     }
     h->videoItems.push_back(item);
-    lk.unlock();
-    h->cv.notify_all();
-    return true;
-}
-
-bool AppendAudio(WriterHandle* h, const float* left, const float* right,
-                 int numSamples, long long sampleOffset)
-{
-    if (h == nullptr || !h->hasAudio || h->audioInput == nil || numSamples <= 0) {
-        return true;  // nothing to do (video-only)
-    }
-
-    const int channels = 2;
-    const size_t bytesPerFrame = channels * sizeof(float);
-    const size_t byteCount = static_cast<size_t>(numSamples) * bytesPerFrame;
-
-    std::vector<float> interleaved(static_cast<size_t>(numSamples) * channels);
-    for (int i = 0; i < numSamples; ++i) {
-        interleaved[2 * i] = left[i];
-        interleaved[2 * i + 1] = right[i];
-    }
-
-    AudioStreamBasicDescription asbd = {};
-    asbd.mSampleRate = h->sampleRate;
-    asbd.mFormatID = kAudioFormatLinearPCM;
-    asbd.mFormatFlags = kAudioFormatFlagIsFloat | kAudioFormatFlagIsPacked;
-    asbd.mBytesPerPacket = static_cast<UInt32>(bytesPerFrame);
-    asbd.mFramesPerPacket = 1;
-    asbd.mBytesPerFrame = static_cast<UInt32>(bytesPerFrame);
-    asbd.mChannelsPerFrame = channels;
-    asbd.mBitsPerChannel = 32;
-
-    CMAudioFormatDescriptionRef format = nullptr;
-    OSStatus st = CMAudioFormatDescriptionCreate(kCFAllocatorDefault, &asbd, 0, nullptr, 0, nullptr, nullptr, &format);
-    if (st != noErr || format == nullptr) {
-        spdlog::error("AVFoundationVideoWriter: CMAudioFormatDescriptionCreate failed ({})", static_cast<int>(st));
-        return false;
-    }
-
-    CMBlockBufferRef blockBuffer = nullptr;
-    st = CMBlockBufferCreateWithMemoryBlock(kCFAllocatorDefault, nullptr, byteCount, kCFAllocatorDefault,
-                                            nullptr, 0, byteCount, kCMBlockBufferAssureMemoryNowFlag, &blockBuffer);
-    if (st != noErr || blockBuffer == nullptr) {
-        spdlog::error("AVFoundationVideoWriter: CMBlockBufferCreateWithMemoryBlock failed ({})", static_cast<int>(st));
-        CFRelease(format);
-        return false;
-    }
-    st = CMBlockBufferReplaceDataBytes(interleaved.data(), blockBuffer, 0, byteCount);
-    if (st != noErr) {
-        spdlog::error("AVFoundationVideoWriter: CMBlockBufferReplaceDataBytes failed ({})", static_cast<int>(st));
-        CFRelease(blockBuffer);
-        CFRelease(format);
-        return false;
-    }
-
-    CMSampleTimingInfo timing;
-    timing.duration = CMTimeMake(1, h->sampleRate);
-    timing.presentationTimeStamp = CMTimeMake(sampleOffset, h->sampleRate);
-    timing.decodeTimeStamp = kCMTimeInvalid;
-    size_t sampleSize = bytesPerFrame;
-
-    CMSampleBufferRef sampleBuffer = nullptr;
-    st = CMSampleBufferCreate(kCFAllocatorDefault, blockBuffer, true, nullptr, nullptr, format,
-                              numSamples, 1, &timing, 1, &sampleSize, &sampleBuffer);
-    CFRelease(blockBuffer);
-    CFRelease(format);
-    if (st != noErr || sampleBuffer == nullptr) {
-        spdlog::error("AVFoundationVideoWriter: CMSampleBufferCreate failed ({})", static_cast<int>(st));
-        return false;
-    }
-
-    // NO backpressure on audio. The producer is single-threaded (the
-    // main-thread render loop appends a video frame then its audio). If audio
-    // blocked on a bounded queue, the producer could wedge there while the
-    // video input sat empty and ready — the writer waits for video to interleave
-    // but the producer can't supply it. Verified deadlock: videoQ=0/vinReady=1
-    // while audioQ=24/ainReady=0. Audio packets are tiny (a few KB of PCM) and
-    // bounded by the show length, so an unbounded audio queue is cheap; the
-    // consumer drains it as the writer accepts audio. Video keeps its bound,
-    // since video is the memory-heavy, rate-limiting input.
-    std::unique_lock<std::mutex> lk(h->mtx);
-    if (h->failed || h->cancelled) {
-        lk.unlock();
-        CFRelease(sampleBuffer);
-        return false;
-    }
-    h->audioItems.push_back(sampleBuffer);  // +1; released by the consumer block
     lk.unlock();
     h->cv.notify_all();
     return true;
