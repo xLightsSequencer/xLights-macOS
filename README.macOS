@@ -20,7 +20,9 @@ Third-party libraries (wxWidgets, ffmpeg, SDL2, lua, zstd, etc.) are built
 separately via the scripts in the xLights-macOS-dependencies repository:
 https://github.com/xLightsSequencer/xLights-macOS-dependencies
 
-Current dependency version: xlights_2026.10
+The dependency version is derived automatically from the xLights-spm Swift
+package version pinned in the Xcode project (see scripts/download_deps), so it
+no longer needs to be tracked here.
 
 There are two ways to set up the dependencies:
 

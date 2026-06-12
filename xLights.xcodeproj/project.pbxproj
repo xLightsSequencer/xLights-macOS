@@ -3420,7 +3420,7 @@
 			repositoryURL = "https://github.com/xLightsSequencer/xLights-spm";
 			requirement = {
 				kind = exactVersion;
-				version = 2026.10.0;
+				version = 2026.11.0;
 			};
 		};
 		DD00000300000000PKGKLM01 /* XCRemoteSwiftPackageReference "KLightMapper" */ = {

@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/xLightsSequencer/xLights-spm",
       "state" : {
-        "revision" : "bd9ccae1527f118c552ec0f6a17ecf4ee56a92ea",
-        "version" : "2026.10.0"
+        "revision" : "a0b5a0dd91880f330c1e7d6bf03515c6c5878c76",
+        "version" : "2026.11.0"
       }
     }
   ],
