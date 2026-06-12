@@ -209,6 +209,17 @@
     </dict>
     <dict>
       <key>UTTypeIdentifier</key>
+      <string>com.xlights.layoutmodels</string>
+      <key>UTTypeDescription</key>
+      <string>xLights Layout Models Clipboard Data</string>
+      <key>UTTypeConformsTo</key>
+      <array>
+        <string>public.xml</string>
+        <string>public.data</string>
+      </array>
+    </dict>
+    <dict>
+      <key>UTTypeIdentifier</key>
       <string>org.xlights.sequence</string>
       <key>UTTypeDescription</key>
       <string>xLights Sequence</string>
