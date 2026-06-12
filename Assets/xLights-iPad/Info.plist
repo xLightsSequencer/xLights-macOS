@@ -199,6 +199,16 @@
   <array>
     <dict>
       <key>UTTypeIdentifier</key>
+      <string>com.xlights.effectclip</string>
+      <key>UTTypeDescription</key>
+      <string>xLights Effect Clipboard Data</string>
+      <key>UTTypeConformsTo</key>
+      <array>
+        <string>public.data</string>
+      </array>
+    </dict>
+    <dict>
+      <key>UTTypeIdentifier</key>
       <string>org.xlights.sequence</string>
       <key>UTTypeDescription</key>
       <string>xLights Sequence</string>
