@@ -154,6 +154,7 @@
 			);
 			script = (
 				"${SRCROOT}/scripts/ispc_compile",
+				"",
 			);
 		};
 /* End PBXBuildRule section */
@@ -1360,7 +1361,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				CLASSPREFIX = xl;
-				LastUpgradeCheck = 2650;
+				LastUpgradeCheck = 2660;
 				ORGANIZATIONNAME = "Daniel Kulp";
 				TargetAttributes = {
 					6785716A2F72C6E100F50F9F = {
@@ -3428,7 +3429,7 @@
 			repositoryURL = "https://github.com/KulpLights/KLightMapper";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.0;
+				minimumVersion = 1.3.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
