@@ -621,6 +621,7 @@
 				effects/metal/CirclesFunctions.metal,
 				effects/metal/ColorWashFunctions.metal,
 				effects/metal/FanFunctions.metal,
+				effects/metal/GalaxyFunctions.metal,
 				effects/metal/KaleidoscopeFunctions.metal,
 				effects/metal/LayerBlendingFunctions.metal,
 				effects/metal/PinwheelFunctions.metal,
