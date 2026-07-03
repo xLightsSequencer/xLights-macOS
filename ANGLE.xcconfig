@@ -19,3 +19,15 @@
 // mac_fix_dylibs embedding step are needed anymore.
 
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) USE_GLES=1
+
+// gl* symbol resolution — the macOS analog of the Windows opengl32-shadowing
+// problem.  wx's GL lib pulls in Apple's OpenGL.framework, which exports the
+// same gl* names (glGetString, glDrawArrays, …) as ANGLE's libGLESv2.  In the
+// two-level namespace, each undefined gl* binds to the FIRST linked provider,
+// and the ANGLE SPM product links AFTER -framework OpenGL — so gl* bound to
+// Apple's OpenGL and crashed when called under an ANGLE EGL context (Apple GL
+// has no current CGL context).  Prepending the ANGLE libs into OTHER_LDFLAGS
+// puts them ahead of -framework OpenGL so gl* binds to ANGLE; CGL*/AGL* (only
+// in OpenGL.framework, used by wx's dead-on-Metal GL canvas) still resolve
+// there.  egl* already bind correctly (only ANGLE provides them).
+OTHER_LDFLAGS = -lGLESv2 -lEGL
