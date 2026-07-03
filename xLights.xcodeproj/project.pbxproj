@@ -650,6 +650,7 @@
 				effects/ispc/CirclesFunctions.ispc,
 				effects/ispc/ColorWashFunctions.ispc,
 				effects/ispc/FanFunctions.ispc,
+				effects/ispc/GalaxyFunctions.ispc,
 				effects/ispc/KaleidoscopeFunctions.ispc,
 				effects/ispc/LayerBlendingFunctions.ispc,
 				effects/ispc/PinwheelFunctions.ispc,
