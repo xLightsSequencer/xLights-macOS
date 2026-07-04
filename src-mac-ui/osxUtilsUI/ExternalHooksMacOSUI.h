@@ -17,4 +17,9 @@ bool IsMouseEventFromTouchpad();
 bool hasFullDiskAccess();
 double xlOSGetMainScreenContentScaleFactor();
 
+// Demote the process to a non-activating background app (no Dock icon, no menu
+// bar, can't steal focus). Used by --headless so a background render doesn't
+// disrupt the desktop. GPU/Metal/CGL offscreen rendering is unaffected.
+void SetHeadlessNoDock();
+
 #define __XL_EXTERNAL_HOOKS_UI__
