@@ -49,6 +49,8 @@
 #include <cstdlib>
 #include <cstring>
 #include <map>
+#include <thread>
+#include <chrono>
 #include <memory>
 #include <mutex>
 #include <queue>
@@ -1164,10 +1166,32 @@ CVPixelBufferRef SharedDecoder::Lane::decodeNextHW(SharedDecoder* /*dec*/, int& 
         }
 
         if (!sampleBuffer) {
-            if (reader.status != AVAssetReaderStatusReading) {
-                demuxAtEnd = true;
+            // copyNextSampleBuffer can return nil transiently while the
+            // reader is still in the reading state (demuxer starvation
+            // under load).  Giving up here made GetNextFrame return "no
+            // frame" for random mid-file requests, so the video effect
+            // skipped drawing that frame — different frames every run.
+            // Retry briefly; only a non-reading status is a real end.
+            int retries = 0;
+            while (!sampleBuffer && reader.status == AVAssetReaderStatusReading && retries++ < 100) {
+                std::this_thread::sleep_for(std::chrono::microseconds(500));
+                @try {
+                    sampleBuffer = [trackOutput copyNextSampleBuffer];
+                } @catch (NSException* exception) {
+                    spdlog::error("AVFoundationVideoBridge: Exception in copyNextSampleBuffer retry: {} - {}",
+                                 [[exception name] UTF8String], [[exception reason] UTF8String]);
+                    demuxAtEnd = true;
+                    return nullptr;
+                }
             }
-            return nullptr;
+            if (!sampleBuffer) {
+                if (reader.status != AVAssetReaderStatusReading) {
+                    demuxAtEnd = true;
+                } else {
+                    spdlog::warn("AVFoundationVideoBridge: copyNextSampleBuffer still nil after retries (status=reading)");
+                }
+                return nullptr;
+            }
         }
 
         if (!CMSampleBufferIsValid(sampleBuffer)) {
@@ -1287,41 +1311,53 @@ CVPixelBufferRef SharedDecoder::Lane::decodeNextSW(SharedDecoder* dec, int& outP
 
 CVPixelBufferRef SharedDecoder::Lane::decodeNextRaw(SharedDecoder* dec, int& outPtsMs) {
     @autoreleasepool {
-        CMSampleBufferRef sample = nullptr;
-        @try {
-            sample = [trackOutput copyNextSampleBuffer];
-        } @catch (NSException* exception) {
-            spdlog::error("AVFoundationVideoBridge: Exception in copyNextSampleBuffer (raw): {} - {}",
-                         [[exception name] UTF8String], [[exception reason] UTF8String]);
-            demuxAtEnd = true;
-            return nullptr;
-        }
-        if (!sample) {
-            if (reader.status != AVAssetReaderStatusReading) {
+        // Empty preface samples (image buffer == nil) show up occasionally on
+        // lane open, and copyNextSampleBuffer can return nil transiently while
+        // the reader is still in the reading state.  Both used to bubble up as
+        // "no frame for this timestamp", making the video effect skip drawing
+        // that frame at run-to-run-varying positions.  Consume prefaces and
+        // retry transients here; only a non-reading status is a real end.
+        CVImageBufferRef srcImage = nullptr;
+        int ptsMs = 0;
+        for (int attempts = 0; attempts < 200 && !srcImage; attempts++) {
+            CMSampleBufferRef sample = nullptr;
+            @try {
+                sample = [trackOutput copyNextSampleBuffer];
+            } @catch (NSException* exception) {
+                spdlog::error("AVFoundationVideoBridge: Exception in copyNextSampleBuffer (raw): {} - {}",
+                             [[exception name] UTF8String], [[exception reason] UTF8String]);
                 demuxAtEnd = true;
+                return nullptr;
             }
-            return nullptr;
-        }
-        if (!CMSampleBufferIsValid(sample)) {
+            if (!sample) {
+                if (reader.status != AVAssetReaderStatusReading) {
+                    demuxAtEnd = true;
+                    return nullptr;
+                }
+                std::this_thread::sleep_for(std::chrono::microseconds(500));
+                continue;
+            }
+            if (!CMSampleBufferIsValid(sample)) {
+                CFRelease(sample);
+                continue;
+            }
+
+            CMTime pts = CMSampleBufferGetPresentationTimeStamp(sample);
+            ptsMs = CMTIME_IS_VALID(pts) ? (int)(CMTimeGetSeconds(pts) * 1000.0) : 0;
+
+            // For uncompressed (rawvideo) tracks AVAssetReader hands us the
+            // frame as a CVPixelBufferRef on the sample's image buffer, not
+            // as a CMBlockBuffer.
+            srcImage = CMSampleBufferGetImageBuffer(sample);
+            if (srcImage) {
+                CVPixelBufferRetain(srcImage);
+            }
             CFRelease(sample);
-            return nullptr;
         }
-
-        CMTime pts = CMSampleBufferGetPresentationTimeStamp(sample);
-        int ptsMs = CMTIME_IS_VALID(pts) ? (int)(CMTimeGetSeconds(pts) * 1000.0) : 0;
-
-        // For uncompressed (rawvideo) tracks AVAssetReader hands us the
-        // frame as a CVPixelBufferRef on the sample's image buffer, not
-        // as a CMBlockBuffer. Empty preface samples (image buffer == nil)
-        // do show up occasionally on lane open — skip them; the caller
-        // will retry.
-        CVImageBufferRef srcImage = CMSampleBufferGetImageBuffer(sample);
         if (!srcImage) {
-            CFRelease(sample);
+            spdlog::warn("AVFoundationVideoBridge: no decodable raw sample after retries (status=reading)");
             return nullptr;
         }
-        CVPixelBufferRetain(srcImage);
-        CFRelease(sample);
 
         // Fast path: if AVAssetReader already gave us BGRA, hand it back
         // directly (no manual conversion needed).
@@ -1431,12 +1467,14 @@ SharedDecoder::Lane* SharedDecoder::selectLane(int targetMS, int gracetimeMS) {
 }
 
 CVPixelBufferRef SharedDecoder::cacheLookup(int targetMS, int& outPtsMs) const {
-    // upper_bound returns the first entry with pts > targetMS; step back
-    // to the candidate whose [pts, pts+frameMS) interval may contain it.
-    auto it = cache.upper_bound((int64_t)targetMS);
-    if (it == cache.begin()) return nullptr;
-    --it;
-    if ((int64_t)targetMS >= it->first + frameMS) return nullptr;
+    // Same selection rule as the decode-forward loop (round to nearest):
+    // the served frame is the first one with pts >= target - frameMS/2.
+    // Reject entries a full frame past that point — the decode loop would
+    // have produced an earlier frame the cache doesn't hold.
+    const int64_t lo = (int64_t)targetMS - frameMS / 2;
+    auto it = cache.lower_bound(lo);
+    if (it == cache.end()) return nullptr;
+    if (it->first >= lo + frameMS) return nullptr;
     if (!it->second.pixelBuffer) return nullptr;
     outPtsMs = (int)it->first;
     CVBufferRetain(it->second.pixelBuffer);
@@ -1622,6 +1660,9 @@ CVPixelBufferRef SharedDecoder::obtainFrame(int timestampMS, int gracetimeMS,
     Lane* lane = selectLane(targetMS, gracetimeMS);
     if (!lane) {
         outAtEnd = true;
+        if (getenv("XLDBG_VID") != nullptr) {
+            fprintf(stderr, "VIDN reason=nolane f=%s t=%d\n", filename.c_str(), targetMS);
+        }
         return nullptr;
     }
 
@@ -1666,6 +1707,10 @@ CVPixelBufferRef SharedDecoder::obtainFrame(int timestampMS, int gracetimeMS,
             if (lane->demuxAtEnd) {
                 outAtEnd = true;
             }
+            if (getenv("XLDBG_VID") != nullptr) {
+                fprintf(stderr, "VIDN reason=decode f=%s t=%d demux=%d lanePos=%d\n",
+                        filename.c_str(), targetMS, lane->demuxAtEnd ? 1 : 0, (int)lane->curPos);
+            }
             break;
         }
         lane->curPos = pts;
@@ -1674,8 +1719,25 @@ CVPixelBufferRef SharedDecoder::obtainFrame(int timestampMS, int gracetimeMS,
         }
         cacheInsert(pts, pb, evAnchors);
         if (pts + (frameMS / 2) >= targetMS) {
-            result = pb; // hand off the retain to caller
-            resultPts = pts;
+            // The lane has crossed the target and inserted every frame it
+            // passed, so the pure-rule frame for this target is now in the
+            // cache.  Serve THAT rather than whatever frame the lane happened
+            // to stop on — the stop frame depends on where the shared lane
+            // already was, which varies with cross-consumer history and made
+            // the served frame differ run to run.
+            int cachePts = 0;
+            CVPixelBufferRef cached = cacheLookup(targetMS, cachePts);
+            if (cached && cachePts != pts) {
+                CVBufferRelease(pb);
+                result = cached; // cacheLookup retained for us
+                resultPts = cachePts;
+            } else {
+                if (cached) {
+                    CVBufferRelease(cached);
+                }
+                result = pb; // hand off the retain to caller
+                resultPts = pts;
+            }
             break;
         }
         CVBufferRelease(pb);
@@ -2504,30 +2566,63 @@ void Seek(VideoReaderHandle* h, int timestampMS, bool readFrame) {
     }
 }
 
+// XLDBG_VID=1: log every frame handed to a caller — requested time, the
+// frame's actual pts, and a hash of the exact bytes the caller will consume.
+// Two runs' logs diff to "wrong frame for timestamp" vs "same frame, pixels
+// differ" (decoder variance).
+static bool xldbgVid() {
+    static const bool v = (getenv("XLDBG_VID") != nullptr);
+    return v;
+}
+static void xldbgVidLog(VideoReaderHandle* h, const char* src, int reqMS, int pts, const FrameView& fv) {
+    uint64_t hash = 1469598103934665603ULL;
+    const uint8_t* d = fv.data;
+    size_t n = (size_t)fv.linesize * fv.height;
+    for (size_t i = 0; i < n; i++) { hash ^= d[i]; hash *= 1099511628211ULL; }
+    fprintf(stderr, "VID hp=%p s=%s f=%s req=%d pts=%d h=%016llx\n",
+            (void*)h, src, h->decoder->getFilename().c_str(), reqMS, pts, (unsigned long long)hash);
+}
+
 const FrameView* GetNextFrame(VideoReaderHandle* h, int timestampMS, int gracetime) {
     if (!h || !IsValid(h) || h->frames == 0) {
+        if (xldbgVid() && h) fprintf(stderr, "VID hp=%p s=nil-invalid f=? req=%d pts=-1 h=0\n", (void*)h, timestampMS);
         return nullptr;
     }
 
     if (timestampMS > h->lengthMS) {
         h->atEnd = true;
+        if (xldbgVid()) fprintf(stderr, "VID hp=%p s=nil-pastend f=%s req=%d pts=-1 h=0\n", (void*)h, h->decoder->getFilename().c_str(), timestampMS);
         return nullptr;
     }
 
     int currenttime = h->curPos;
-    int timeOfNextFrame = currenttime + h->frameMS;
     int prevtime = h->prevPos;
 
     if (h->firstFramePos >= 0 && h->firstFramePos >= timestampMS) {
         timestampMS = h->firstFramePos;
     }
 
+    // Every serve path must use the same frame-selection rule as the lane's
+    // decode-forward loop (round to nearest: accept the first frame whose
+    // midpoint is past the target, i.e. pts in [target - frameMS/2,
+    // target + frameMS/2)).  The caches previously used the display-window
+    // rule [pts, pts + frameMS), so a request in the latter half of a frame
+    // returned THIS frame on a cache hit but the NEXT frame on a decode —
+    // which path was hit depended on cross-run cache history, making video
+    // renders differ run to run.
+    const auto servesTarget = [frameMS = h->frameMS](int64_t ptsMs, int targetMS) {
+        int64_t lo = (int64_t)targetMS - frameMS / 2;
+        return ptsMs >= lo && ptsMs < lo + frameMS;
+    };
+
     // Per-client double-buffer hit: avoid re-pulling and re-scaling for
     // adjacent same-frame requests.
-    if (currenttime != -1000 && timestampMS >= currenttime && timestampMS < timeOfNextFrame) {
+    if (currenttime != -1000 && servesTarget(currenttime, timestampMS)) {
+        if (xldbgVid()) xldbgVidLog(h, "cur", timestampMS, currenttime, h->currentFrame());
         return &h->currentFrame();
     }
-    if (prevtime != -1000 && timestampMS >= prevtime - 1 && timestampMS < currenttime) {
+    if (prevtime != -1000 && servesTarget(prevtime, timestampMS) && timestampMS < currenttime) {
+        if (xldbgVid()) xldbgVidLog(h, "prev", timestampMS, prevtime, h->prevFrame());
         return &h->prevFrame();
     }
 
@@ -2547,7 +2642,7 @@ const FrameView* GetNextFrame(VideoReaderHandle* h, int timestampMS, int graceti
     const int lastIdx = h->privCacheLastHitIdx;
     if (lastIdx >= 0 && lastIdx < VideoReaderHandle::kPerHandleCacheSize) {
         auto& e = h->privCache[lastIdx];
-        if (e.pixelBuffer && e.ptsMs <= timestampMS && timestampMS < e.ptsMs + h->frameMS) {
+        if (e.pixelBuffer && servesTarget(e.ptsMs, timestampMS)) {
             pts = (int)e.ptsMs;
             pb = (CVPixelBufferRef)CVBufferRetain(e.pixelBuffer);
         }
@@ -2555,7 +2650,7 @@ const FrameView* GetNextFrame(VideoReaderHandle* h, int timestampMS, int graceti
     if (!pb) {
         for (int i = 0; i < VideoReaderHandle::kPerHandleCacheSize; ++i) {
             auto& e = h->privCache[i];
-            if (e.pixelBuffer && e.ptsMs <= timestampMS && timestampMS < e.ptsMs + h->frameMS) {
+            if (e.pixelBuffer && servesTarget(e.ptsMs, timestampMS)) {
                 pts = (int)e.ptsMs;
                 pb = (CVPixelBufferRef)CVBufferRetain(e.pixelBuffer);
                 h->privCacheLastHitIdx = i;
@@ -2578,6 +2673,7 @@ const FrameView* GetNextFrame(VideoReaderHandle* h, int timestampMS, int graceti
             // We took ownership of any returned read-ahead frames; release.
             for (auto& f : readAhead) if (f.pixelBuffer) CVBufferRelease(f.pixelBuffer);
             if (atEnd) h->atEnd = true;
+            if (xldbgVid()) fprintf(stderr, "VID hp=%p s=nil-decode f=%s req=%d pts=-1 h=0\n", (void*)h, h->decoder->getFilename().c_str(), timestampMS);
             return nullptr;
         }
 
@@ -2613,6 +2709,7 @@ const FrameView* GetNextFrame(VideoReaderHandle* h, int timestampMS, int graceti
     h->emitDecodedImage(pb);
     CVBufferRelease(pb);
 
+    if (xldbgVid()) xldbgVidLog(h, "dec", timestampMS, pts, h->currentFrame());
     return &h->currentFrame();
 }
 
