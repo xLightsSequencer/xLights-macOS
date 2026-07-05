@@ -1154,64 +1154,54 @@ CVPixelBufferRef SharedDecoder::Lane::decodeNext(SharedDecoder* dec, int& outPts
 
 CVPixelBufferRef SharedDecoder::Lane::decodeNextHW(SharedDecoder* /*dec*/, int& outPtsMs) {
     @autoreleasepool {
-        CMSampleBufferRef sampleBuffer = nullptr;
+        // Transient nils (demuxer starvation while the reader is still in
+        // the reading state), invalid sample buffers and samples without an
+        // image buffer all used to bubble up as "no frame for this
+        // timestamp" — the video effect then silently skipped drawing that
+        // frame at run-to-run-varying positions.  Consume/retry them here;
+        // only a non-reading reader status is a real end.
+        for (int attempts = 0; attempts < 200; attempts++) {
+            CMSampleBufferRef sampleBuffer = nullptr;
 
-        @try {
-            sampleBuffer = [trackOutput copyNextSampleBuffer];
-        } @catch (NSException* exception) {
-            spdlog::error("AVFoundationVideoBridge: Exception in copyNextSampleBuffer: {} - {}",
-                         [[exception name] UTF8String], [[exception reason] UTF8String]);
-            demuxAtEnd = true;
-            return nullptr;
-        }
-
-        if (!sampleBuffer) {
-            // copyNextSampleBuffer can return nil transiently while the
-            // reader is still in the reading state (demuxer starvation
-            // under load).  Giving up here made GetNextFrame return "no
-            // frame" for random mid-file requests, so the video effect
-            // skipped drawing that frame — different frames every run.
-            // Retry briefly; only a non-reading status is a real end.
-            int retries = 0;
-            while (!sampleBuffer && reader.status == AVAssetReaderStatusReading && retries++ < 100) {
-                std::this_thread::sleep_for(std::chrono::microseconds(500));
-                @try {
-                    sampleBuffer = [trackOutput copyNextSampleBuffer];
-                } @catch (NSException* exception) {
-                    spdlog::error("AVFoundationVideoBridge: Exception in copyNextSampleBuffer retry: {} - {}",
-                                 [[exception name] UTF8String], [[exception reason] UTF8String]);
-                    demuxAtEnd = true;
-                    return nullptr;
-                }
+            @try {
+                sampleBuffer = [trackOutput copyNextSampleBuffer];
+            } @catch (NSException* exception) {
+                spdlog::error("AVFoundationVideoBridge: Exception in copyNextSampleBuffer: {} - {}",
+                             [[exception name] UTF8String], [[exception reason] UTF8String]);
+                demuxAtEnd = true;
+                return nullptr;
             }
+
             if (!sampleBuffer) {
                 if (reader.status != AVAssetReaderStatusReading) {
                     demuxAtEnd = true;
-                } else {
-                    spdlog::warn("AVFoundationVideoBridge: copyNextSampleBuffer still nil after retries (status=reading)");
+                    return nullptr;
                 }
-                return nullptr;
+                std::this_thread::sleep_for(std::chrono::microseconds(500));
+                continue;
             }
-        }
 
-        if (!CMSampleBufferIsValid(sampleBuffer)) {
-            spdlog::warn("AVFoundationVideoBridge: Invalid sample buffer received");
+            if (!CMSampleBufferIsValid(sampleBuffer)) {
+                spdlog::warn("AVFoundationVideoBridge: Invalid sample buffer received");
+                CFRelease(sampleBuffer);
+                continue;
+            }
+
+            CMTime pts = CMSampleBufferGetPresentationTimeStamp(sampleBuffer);
+            int ptsMs = CMTIME_IS_VALID(pts) ? (int)(CMTimeGetSeconds(pts) * 1000.0) : 0;
+
+            CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
+            if (!imageBuffer) {
+                CFRelease(sampleBuffer);
+                continue;
+            }
+            CVBufferRetain(imageBuffer);
             CFRelease(sampleBuffer);
-            return nullptr;
+            outPtsMs = ptsMs;
+            return imageBuffer;
         }
-
-        CMTime pts = CMSampleBufferGetPresentationTimeStamp(sampleBuffer);
-        int ptsMs = CMTIME_IS_VALID(pts) ? (int)(CMTimeGetSeconds(pts) * 1000.0) : 0;
-
-        CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
-        if (!imageBuffer) {
-            CFRelease(sampleBuffer);
-            return nullptr;
-        }
-        CVBufferRetain(imageBuffer);
-        CFRelease(sampleBuffer);
-        outPtsMs = ptsMs;
-        return imageBuffer;
+        spdlog::warn("AVFoundationVideoBridge: no decodable sample after retries (status=reading)");
+        return nullptr;
     }
 }
 
@@ -1469,13 +1459,25 @@ SharedDecoder::Lane* SharedDecoder::selectLane(int targetMS, int gracetimeMS) {
 CVPixelBufferRef SharedDecoder::cacheLookup(int targetMS, int& outPtsMs) const {
     // Same selection rule as the decode-forward loop (round to nearest):
     // the served frame is the first one with pts >= target - frameMS/2.
-    // Reject entries a full frame past that point — the decode loop would
-    // have produced an earlier frame the cache doesn't hold.
+    // frameMS is a rounded average, so with slightly irregular source pts
+    // more than one cached frame can sit inside the acceptance window —
+    // only trust a hit we can prove is really the FIRST frame at or after
+    // the threshold in the stream: its cached predecessor must sit below
+    // the threshold and be plausibly consecutive (or the hit is the file's
+    // first frame).  Anything else may have an uncached earlier candidate;
+    // treat it as a miss so the decode path establishes the true answer.
     const int64_t lo = (int64_t)targetMS - frameMS / 2;
     auto it = cache.lower_bound(lo);
     if (it == cache.end()) return nullptr;
     if (it->first >= lo + frameMS) return nullptr;
     if (!it->second.pixelBuffer) return nullptr;
+    if (firstFramePos < 0 || it->first != firstFramePos) {
+        if (it == cache.begin()) return nullptr;
+        auto prev = std::prev(it);
+        if (it->first - prev->first > ((int64_t)frameMS * 7) / 4) {
+            return nullptr; // gap before the hit: not provably consecutive
+        }
+    }
     outPtsMs = (int)it->first;
     CVBufferRetain(it->second.pixelBuffer);
     return it->second.pixelBuffer;
@@ -2616,14 +2618,26 @@ const FrameView* GetNextFrame(VideoReaderHandle* h, int timestampMS, int graceti
     };
 
     // Per-client double-buffer hit: avoid re-pulling and re-scaling for
-    // adjacent same-frame requests.
-    if (currenttime != -1000 && servesTarget(currenttime, timestampMS)) {
-        if (xldbgVid()) xldbgVidLog(h, "cur", timestampMS, currenttime, h->currentFrame());
-        return &h->currentFrame();
-    }
-    if (prevtime != -1000 && servesTarget(prevtime, timestampMS) && timestampMS < currenttime) {
+    // adjacent same-frame requests.  frameMS is a rounded average, so with
+    // slightly irregular source pts more than one frame can match the
+    // acceptance window; a hit is only served when it is PROVABLY the
+    // stream's first frame at or past the threshold — its known stream
+    // predecessor sits below the threshold — otherwise fall through to the
+    // shared decoder, which derives the true answer.  (prev's predecessor is
+    // unknown here, so prev is only served when cur proves it's not first.)
+    const int64_t loMS = (int64_t)timestampMS - h->frameMS / 2;
+    if (prevtime != -1000 && servesTarget(prevtime, timestampMS) &&
+        currenttime != -1000 && !servesTarget(currenttime, timestampMS) &&
+        (int64_t)prevtime >= loMS && h->firstFramePos >= 0 && prevtime == h->firstFramePos) {
         if (xldbgVid()) xldbgVidLog(h, "prev", timestampMS, prevtime, h->prevFrame());
         return &h->prevFrame();
+    }
+    if (currenttime != -1000 && servesTarget(currenttime, timestampMS) &&
+        ((h->firstFramePos >= 0 && currenttime == h->firstFramePos) ||
+         (prevtime != -1000 && (int64_t)prevtime < loMS &&
+          currenttime - prevtime < (h->frameMS * 7) / 4))) {
+        if (xldbgVid()) xldbgVidLog(h, "cur", timestampMS, currenttime, h->currentFrame());
+        return &h->currentFrame();
     }
 
     // Per-handle private cache hit: serve the frame without taking the
@@ -2637,24 +2651,40 @@ const FrameView* GetNextFrame(VideoReaderHandle* h, int timestampMS, int graceti
     // Try the last-hit slot first. Steady-state forward playback
     // typically hits the same slot until the read-ahead batch rolls
     // over, so a single compare beats the 16-entry linear scan.
+    // Serve the matching entry with the SMALLEST pts, and only when it is
+    // provably the stream's first frame at or past the threshold: either it
+    // is the file's first frame, or its plausibly-consecutive predecessor is
+    // also cached and sits below the threshold.  Anything weaker can serve a
+    // later frame than a fresh decode would, varying with cache history.
     int pts = 0;
     CVPixelBufferRef pb = nullptr;
-    const int lastIdx = h->privCacheLastHitIdx;
-    if (lastIdx >= 0 && lastIdx < VideoReaderHandle::kPerHandleCacheSize) {
-        auto& e = h->privCache[lastIdx];
-        if (e.pixelBuffer && servesTarget(e.ptsMs, timestampMS)) {
-            pts = (int)e.ptsMs;
-            pb = (CVPixelBufferRef)CVBufferRetain(e.pixelBuffer);
-        }
-    }
-    if (!pb) {
+    {
+        int bestIdx = -1;
+        int64_t bestPts = INT64_MAX;
+        int64_t predPts = -1;
         for (int i = 0; i < VideoReaderHandle::kPerHandleCacheSize; ++i) {
             auto& e = h->privCache[i];
-            if (e.pixelBuffer && servesTarget(e.ptsMs, timestampMS)) {
+            if (!e.pixelBuffer) continue;
+            if (servesTarget(e.ptsMs, timestampMS) && e.ptsMs < bestPts) {
+                bestPts = e.ptsMs;
+                bestIdx = i;
+            }
+        }
+        if (bestIdx >= 0) {
+            for (int i = 0; i < VideoReaderHandle::kPerHandleCacheSize; ++i) {
+                auto& e = h->privCache[i];
+                if (e.pixelBuffer && e.ptsMs < bestPts && e.ptsMs > predPts) {
+                    predPts = e.ptsMs;
+                }
+            }
+            bool proven = (h->firstFramePos >= 0 && bestPts == h->firstFramePos) ||
+                          (predPts >= 0 && predPts < loMS &&
+                           bestPts - predPts < ((int64_t)h->frameMS * 7) / 4);
+            if (proven) {
+                auto& e = h->privCache[bestIdx];
                 pts = (int)e.ptsMs;
                 pb = (CVPixelBufferRef)CVBufferRetain(e.pixelBuffer);
-                h->privCacheLastHitIdx = i;
-                break;
+                h->privCacheLastHitIdx = bestIdx;
             }
         }
     }
