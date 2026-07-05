@@ -360,6 +360,12 @@ public:
     virtual float getNominalFrameRate() const = 0;
     virtual const std::string& getFilename() const = 0;
 
+    // The pts (ms) of the frame that serves targetMS under the
+    // round-to-nearest rule, when the decoder has an authoritative
+    // sample-table index.  -2 = no index (caller uses heuristics);
+    // -1 = past the last frame.
+    virtual int idealFramePts(int /*targetMS*/) const { return -2; }
+
     // Returns the frame at or just before timestampMS as a retained
     // CVPixelBufferRef at native resolution. Caller owns the retain and
     // must CVBufferRelease when done. Writes the frame's actual ptsMs and
@@ -459,6 +465,22 @@ private:
     // Cache lookup: return retained pixel buffer (and its pts) for the
     // frame whose [pts, pts+frameMS) interval contains targetMS, or
     // nullptr on miss. Read-only — safe to call under a shared lock.
+    // The pts (ms, presentation order) of the frame that serves targetMS
+    // under the round-to-nearest rule, from the sample-table index.
+    // -2 = no index available (caller falls back to heuristics);
+    // -1 = no frame serves the target (past the last frame's window).
+    int idealFramePts(int targetMS) const override {
+        if (ptsIndex.empty()) {
+            return -2;
+        }
+        const int lo = targetMS - frameMS / 2;
+        auto it = std::lower_bound(ptsIndex.begin(), ptsIndex.end(), lo);
+        if (it == ptsIndex.end()) {
+            return -1;
+        }
+        return *it;
+    }
+
     CVPixelBufferRef cacheLookup(int targetMS, int& outPtsMs) const;
 
     // Insert into cache, retaining. Evicts farthest-from-anchors when at
@@ -536,6 +558,11 @@ private:
     struct CacheEntry {
         CVPixelBufferRef pixelBuffer = nullptr; // retained
     };
+    // Sorted, deduped presentation timestamps (ms) of every sample in the
+    // track, from AVSampleCursor at open().  Immutable afterwards, so it is
+    // readable without the mutex.
+    std::vector<int> ptsIndex;
+
     // Keyed on pts (milliseconds). Ordered map so cacheLookup is an
     // upper_bound walk and populateReadAheadFromCache iterates forward
     // from a single binary-search seek — both O(log n) regardless of
@@ -783,6 +810,35 @@ bool SharedDecoder::open(const std::string& fname) {
             spdlog::warn("AVFoundationVideoBridge: Could not determine video length for {}", fname);
             openFailed = true;
             return false;
+        }
+
+        // Build the authoritative pts index by walking the sample table
+        // (no decoding).  With it, "the frame that serves timestamp T" is a
+        // pure function of the file — every cache/fast path can verify its
+        // candidate instead of guessing from a rounded average frame
+        // duration, which made the served frame depend on cache history on
+        // streams with irregular pts spacing (e.g. 60fps = 16/17ms).
+        if ([videoTrack canProvideSampleCursors]) {
+            @autoreleasepool {
+                auto sw = std::chrono::steady_clock::now();
+                AVSampleCursor* cur = [videoTrack makeSampleCursorAtFirstSampleInDecodeOrder];
+                long safety = 20000000;
+                while (cur != nil && safety-- > 0) {
+                    CMTime pts = cur.presentationTimeStamp;
+                    if (CMTIME_IS_VALID(pts)) {
+                        ptsIndex.push_back((int)(CMTimeGetSeconds(pts) * 1000.0));
+                    }
+                    if ([cur stepInDecodeOrderByCount:1] != 1) {
+                        break;
+                    }
+                }
+                std::sort(ptsIndex.begin(), ptsIndex.end());
+                ptsIndex.erase(std::unique(ptsIndex.begin(), ptsIndex.end()), ptsIndex.end());
+                auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - sw).count();
+                spdlog::info("AVFoundationVideoBridge: pts index for {}: {} frames in {}ms", fname, ptsIndex.size(), (long)ms);
+            }
+        } else {
+            spdlog::info("AVFoundationVideoBridge: no sample cursors for {}; using heuristic frame selection", fname);
         }
 
         // For rawvideo we own the BGRA buffer; build a no-IOSurface pool
@@ -1466,6 +1522,20 @@ CVPixelBufferRef SharedDecoder::cacheLookup(int targetMS, int& outPtsMs) const {
     // the threshold and be plausibly consecutive (or the hit is the file's
     // first frame).  Anything else may have an uncached earlier candidate;
     // treat it as a miss so the decode path establishes the true answer.
+    const int ideal = idealFramePts(targetMS);
+    if (ideal >= 0) {
+        // Exact: the index names the one frame that serves this target.
+        auto hit = cache.find((int64_t)ideal);
+        if (hit == cache.end() || !hit->second.pixelBuffer) return nullptr;
+        outPtsMs = ideal;
+        CVBufferRetain(hit->second.pixelBuffer);
+        return hit->second.pixelBuffer;
+    }
+    if (ideal == -1) {
+        return nullptr; // past the last frame
+    }
+
+    // No index — heuristic fallback with a contiguity proof.
     const int64_t lo = (int64_t)targetMS - frameMS / 2;
     auto it = cache.lower_bound(lo);
     if (it == cache.end()) return nullptr;
@@ -1659,7 +1729,17 @@ CVPixelBufferRef SharedDecoder::obtainFrame(int timestampMS, int gracetimeMS,
         return hit;
     }
 
-    Lane* lane = selectLane(targetMS, gracetimeMS);
+    // With a sample-table index, aim the lane at the exact frame that
+    // serves the target: a reused forward lane must not already be past
+    // it, or the decode-forward loop can only produce a later frame.
+    const int idealPts = idealFramePts(targetMS);
+    if (idealPts == -1) {
+        outAtEnd = true;
+        return nullptr;
+    }
+    const int decodeTargetMS = (idealPts >= 0) ? idealPts : targetMS;
+
+    Lane* lane = selectLane(decodeTargetMS, gracetimeMS);
     if (!lane) {
         outAtEnd = true;
         if (getenv("XLDBG_VID") != nullptr) {
@@ -1720,7 +1800,7 @@ CVPixelBufferRef SharedDecoder::obtainFrame(int timestampMS, int gracetimeMS,
             firstFramePos = pts;
         }
         cacheInsert(pts, pb, evAnchors);
-        if (pts + (frameMS / 2) >= targetMS) {
+        if ((idealPts >= 0) ? (pts >= idealPts) : (pts + (frameMS / 2) >= targetMS)) {
             // The lane has crossed the target and inserted every frame it
             // passed, so the pure-rule frame for this target is now in the
             // cache.  Serve THAT rather than whatever frame the lane happened
@@ -2618,26 +2698,35 @@ const FrameView* GetNextFrame(VideoReaderHandle* h, int timestampMS, int graceti
     };
 
     // Per-client double-buffer hit: avoid re-pulling and re-scaling for
-    // adjacent same-frame requests.  frameMS is a rounded average, so with
-    // slightly irregular source pts more than one frame can match the
-    // acceptance window; a hit is only served when it is PROVABLY the
-    // stream's first frame at or past the threshold — its known stream
-    // predecessor sits below the threshold — otherwise fall through to the
-    // shared decoder, which derives the true answer.  (prev's predecessor is
-    // unknown here, so prev is only served when cur proves it's not first.)
+    // adjacent same-frame requests.  When the decoder has a sample-table
+    // index the check is exact; otherwise a hit is only served when it is
+    // PROVABLY the stream's first frame at or past the threshold — its
+    // known stream predecessor sits below the threshold.
+    const int idealPts = h->decoder->idealFramePts(timestampMS);
     const int64_t loMS = (int64_t)timestampMS - h->frameMS / 2;
-    if (prevtime != -1000 && servesTarget(prevtime, timestampMS) &&
-        currenttime != -1000 && !servesTarget(currenttime, timestampMS) &&
-        (int64_t)prevtime >= loMS && h->firstFramePos >= 0 && prevtime == h->firstFramePos) {
-        if (xldbgVid()) xldbgVidLog(h, "prev", timestampMS, prevtime, h->prevFrame());
-        return &h->prevFrame();
-    }
-    if (currenttime != -1000 && servesTarget(currenttime, timestampMS) &&
-        ((h->firstFramePos >= 0 && currenttime == h->firstFramePos) ||
-         (prevtime != -1000 && (int64_t)prevtime < loMS &&
-          currenttime - prevtime < (h->frameMS * 7) / 4))) {
-        if (xldbgVid()) xldbgVidLog(h, "cur", timestampMS, currenttime, h->currentFrame());
-        return &h->currentFrame();
+    if (idealPts >= 0) {
+        if (currenttime == idealPts) {
+            if (xldbgVid()) xldbgVidLog(h, "cur", timestampMS, currenttime, h->currentFrame());
+            return &h->currentFrame();
+        }
+        if (prevtime == idealPts) {
+            if (xldbgVid()) xldbgVidLog(h, "prev", timestampMS, prevtime, h->prevFrame());
+            return &h->prevFrame();
+        }
+    } else if (idealPts == -2) {
+        if (prevtime != -1000 && servesTarget(prevtime, timestampMS) &&
+            currenttime != -1000 && !servesTarget(currenttime, timestampMS) &&
+            (int64_t)prevtime >= loMS && h->firstFramePos >= 0 && prevtime == h->firstFramePos) {
+            if (xldbgVid()) xldbgVidLog(h, "prev", timestampMS, prevtime, h->prevFrame());
+            return &h->prevFrame();
+        }
+        if (currenttime != -1000 && servesTarget(currenttime, timestampMS) &&
+            ((h->firstFramePos >= 0 && currenttime == h->firstFramePos) ||
+             (prevtime != -1000 && (int64_t)prevtime < loMS &&
+              currenttime - prevtime < (h->frameMS * 7) / 4))) {
+            if (xldbgVid()) xldbgVidLog(h, "cur", timestampMS, currenttime, h->currentFrame());
+            return &h->currentFrame();
+        }
     }
 
     // Per-handle private cache hit: serve the frame without taking the
@@ -2651,14 +2740,24 @@ const FrameView* GetNextFrame(VideoReaderHandle* h, int timestampMS, int graceti
     // Try the last-hit slot first. Steady-state forward playback
     // typically hits the same slot until the read-ahead batch rolls
     // over, so a single compare beats the 16-entry linear scan.
-    // Serve the matching entry with the SMALLEST pts, and only when it is
+    // With a sample-table index, serve the exact frame if this handle holds
+    // it.  Without one, serve the smallest matching pts only when it is
     // provably the stream's first frame at or past the threshold: either it
     // is the file's first frame, or its plausibly-consecutive predecessor is
-    // also cached and sits below the threshold.  Anything weaker can serve a
-    // later frame than a fresh decode would, varying with cache history.
+    // also cached and sits below the threshold.
     int pts = 0;
     CVPixelBufferRef pb = nullptr;
-    {
+    if (idealPts >= 0) {
+        for (int i = 0; i < VideoReaderHandle::kPerHandleCacheSize; ++i) {
+            auto& e = h->privCache[i];
+            if (e.pixelBuffer && e.ptsMs == idealPts) {
+                pts = idealPts;
+                pb = (CVPixelBufferRef)CVBufferRetain(e.pixelBuffer);
+                h->privCacheLastHitIdx = i;
+                break;
+            }
+        }
+    } else if (idealPts == -2) {
         int bestIdx = -1;
         int64_t bestPts = INT64_MAX;
         int64_t predPts = -1;
