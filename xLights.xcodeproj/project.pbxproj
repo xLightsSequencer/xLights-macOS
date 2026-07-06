@@ -154,6 +154,7 @@
 			);
 			script = (
 				"${SRCROOT}/scripts/ispc_compile",
+				"",
 			);
 		};
 /* End PBXBuildRule section */
@@ -629,7 +630,6 @@
 				effects/metal/LayerBlendingFunctions.metal,
 				effects/metal/LifeFunctions.metal,
 				effects/metal/MeteorsFunctions.metal,
-				effects/metal/TwinkleFunctions.metal,
 				effects/metal/PinwheelFunctions.metal,
 				effects/metal/PlasmaFunctions.metal,
 				effects/metal/RotoZoomFunctions.metal,
@@ -638,6 +638,7 @@
 				effects/metal/SpiralsFunctions.metal,
 				effects/metal/TransitionFunctions.metal,
 				effects/metal/TreeFunctions.metal,
+				effects/metal/TwinkleFunctions.metal,
 				effects/metal/WarpFunctions.metal,
 				effects/metal/WaveFunctions.metal,
 				effects/vulkan/VulkanBarsEffect.cpp,
@@ -657,6 +658,12 @@
 				effects/vulkan/VulkanShockwaveEffect.cpp,
 				effects/vulkan/VulkanSpiralsEffect.cpp,
 				effects/vulkan/VulkanTreeEffect.cpp,
+				effects/vulkan/VulkanFillEffect.cpp,
+				effects/vulkan/VulkanGarlandsEffect.cpp,
+				effects/vulkan/VulkanLifeEffect.cpp,
+				effects/vulkan/VulkanMeteorsEffect.cpp,
+				effects/vulkan/VulkanTwinkleEffect.cpp,
+				effects/vulkan/VulkanWaveEffect.cpp,
 				effects/vulkan/VulkanWarpEffect.cpp,
 				media/WindowsHardwareVideoReader.cpp,
 				outputs/serial_osx.cpp,
@@ -686,13 +693,13 @@
 				effects/ispc/LayerBlendingFunctions.ispc,
 				effects/ispc/LifeFunctions.ispc,
 				effects/ispc/MeteorsFunctions.ispc,
-				effects/ispc/TwinkleFunctions.ispc,
 				effects/ispc/PinwheelFunctions.ispc,
 				effects/ispc/PlasmaFunctions.ispc,
 				effects/ispc/ShimmerFunctions.ispc,
 				effects/ispc/ShockwaveFunctions.ispc,
 				effects/ispc/SpiralsFunctions.ispc,
 				effects/ispc/TreeFunctions.ispc,
+				effects/ispc/TwinkleFunctions.ispc,
 				effects/ispc/VideoFunctions.ispc,
 				effects/ispc/WarpFunctions.ispc,
 				effects/ispc/WaveFunctions.ispc,
