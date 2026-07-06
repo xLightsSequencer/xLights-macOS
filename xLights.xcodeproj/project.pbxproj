@@ -618,6 +618,7 @@
 			membershipExceptions = (
 				effects/metal/BarsFunctions.metal,
 				effects/metal/ButterflyFunctions.metal,
+				effects/metal/CandleFunctions.metal,
 				effects/metal/CirclesFunctions.metal,
 				effects/metal/ColorWashFunctions.metal,
 				effects/metal/FanFunctions.metal,
@@ -627,9 +628,11 @@
 				effects/metal/PinwheelFunctions.metal,
 				effects/metal/PlasmaFunctions.metal,
 				effects/metal/RotoZoomFunctions.metal,
+				effects/metal/ShimmerFunctions.metal,
 				effects/metal/ShockwaveFunctions.metal,
 				effects/metal/SpiralsFunctions.metal,
 				effects/metal/TransitionFunctions.metal,
+				effects/metal/TreeFunctions.metal,
 				effects/metal/WarpFunctions.metal,
 				media/WindowsHardwareVideoReader.cpp,
 				outputs/serial_osx.cpp,
@@ -648,6 +651,7 @@
 			membershipExceptions = (
 				effects/ispc/BarsFunctions.ispc,
 				effects/ispc/ButterflyFunctions.ispc,
+				effects/ispc/CandleFunctions.ispc,
 				effects/ispc/CirclesFunctions.ispc,
 				effects/ispc/ColorWashFunctions.ispc,
 				effects/ispc/FanFunctions.ispc,
@@ -656,8 +660,10 @@
 				effects/ispc/LayerBlendingFunctions.ispc,
 				effects/ispc/PinwheelFunctions.ispc,
 				effects/ispc/PlasmaFunctions.ispc,
+				effects/ispc/ShimmerFunctions.ispc,
 				effects/ispc/ShockwaveFunctions.ispc,
 				effects/ispc/SpiralsFunctions.ispc,
+				effects/ispc/TreeFunctions.ispc,
 				effects/ispc/VideoFunctions.ispc,
 				effects/ispc/WarpFunctions.ispc,
 			);
