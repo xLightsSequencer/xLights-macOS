@@ -622,7 +622,9 @@
 				effects/metal/CirclesFunctions.metal,
 				effects/metal/ColorWashFunctions.metal,
 				effects/metal/FanFunctions.metal,
+				effects/metal/FillFunctions.metal,
 				effects/metal/GalaxyFunctions.metal,
+				effects/metal/GarlandsFunctions.metal,
 				effects/metal/KaleidoscopeFunctions.metal,
 				effects/metal/LayerBlendingFunctions.metal,
 				effects/metal/PinwheelFunctions.metal,
@@ -634,6 +636,7 @@
 				effects/metal/TransitionFunctions.metal,
 				effects/metal/TreeFunctions.metal,
 				effects/metal/WarpFunctions.metal,
+				effects/metal/WaveFunctions.metal,
 				media/WindowsHardwareVideoReader.cpp,
 				outputs/serial_osx.cpp,
 				outputs/serial_posix.cpp,
@@ -655,7 +658,9 @@
 				effects/ispc/CirclesFunctions.ispc,
 				effects/ispc/ColorWashFunctions.ispc,
 				effects/ispc/FanFunctions.ispc,
+				effects/ispc/FillFunctions.ispc,
 				effects/ispc/GalaxyFunctions.ispc,
+				effects/ispc/GarlandsFunctions.ispc,
 				effects/ispc/KaleidoscopeFunctions.ispc,
 				effects/ispc/LayerBlendingFunctions.ispc,
 				effects/ispc/PinwheelFunctions.ispc,
@@ -666,6 +671,7 @@
 				effects/ispc/TreeFunctions.ispc,
 				effects/ispc/VideoFunctions.ispc,
 				effects/ispc/WarpFunctions.ispc,
+				effects/ispc/WaveFunctions.ispc,
 			);
 		};
 /* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
