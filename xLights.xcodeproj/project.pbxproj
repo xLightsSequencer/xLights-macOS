@@ -1571,6 +1571,9 @@
 				"    [ -d \"$d\" ] && xattr -rw com.apple.xcode.CreatedByBuildSystem true \"$d\" 2>/dev/null",
 				"  done",
 				"fi",
+				"# Same for a CLI-created in-repo build dir whose stamp was lost (e.g. a",
+				"# deleted-then-recreated macOS/build): only the top dir needs the mark.",
+				"[ -d \"${SRCROOT}/build\" ] && xattr -w com.apple.xcode.CreatedByBuildSystem true \"${SRCROOT}/build\" 2>/dev/null",
 				"exit 0",
 				"",
 			);
