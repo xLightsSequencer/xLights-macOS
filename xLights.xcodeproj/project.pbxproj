@@ -131,7 +131,6 @@
 		DD00000200000000000P0017 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = AA0001032F900000000000A1 /* ioapi.c */; settings = {COMPILER_FLAGS = "-std=gnu11 -w"; }; };
 		DD00000200000000000P0018 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = AA0001042F900000000000A2 /* unzip.c */; settings = {COMPILER_FLAGS = "-std=gnu11 -w"; }; };
 		DD00000200000000000P0019 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = AA0001082F900000000000A5 /* zip.c */; settings = {COMPILER_FLAGS = "-std=gnu11 -w"; }; };
-		DD00000500000000PKGANG01 /* ANGLE in Frameworks */ = {isa = PBXBuildFile; productRef = DD00000400000000PKGANG01 /* ANGLE */; };
 		DD00000500000000PKGKLM01 /* KLightMapper in Frameworks */ = {isa = PBXBuildFile; productRef = DD00000400000000PKGKLM01 /* KLightMapper */; };
 		DD00000500000000PKGKLM02 /* KLightMapper in Frameworks */ = {isa = PBXBuildFile; productRef = DD00000400000000PKGKLM02 /* KLightMapper */; };
 		DD00000500000000PKGKLM03 /* KLightMapper in Frameworks */ = {isa = PBXBuildFile; productRef = DD00000400000000PKGKLM03 /* KLightMapper */; };
@@ -377,7 +376,6 @@
 		674D3D251C207C25000D632B /* libpthread.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libpthread.tbd; path = usr/lib/libpthread.tbd; sourceTree = SDKROOT; };
 		674E27A41B5B37B000274B20 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		674E9C631C9106D600D12F0D /* libwx_osx_cocoau_propgrid-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_propgrid-3.3.dylib"; path = "../../../../opt/local/libdbg/libwx_osx_cocoau_propgrid-3.3.dylib"; sourceTree = "<group>"; };
-		67595F212F852813009E2066 /* ANGLE.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ANGLE.xcconfig; sourceTree = "<group>"; };
 		675EDD3C2789D87C00D40FEA /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblua.a; path = /opt/local/lib/liblua.a; sourceTree = "<group>"; };
 		675FD842204C3C0C003D280F /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		67710581267BBAC5001DA926 /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
@@ -861,7 +859,6 @@
 				DD00000200000000000I0010 /* ModelIO.framework in Frameworks */,
 				DD00000200000000000P0015 /* libz.tbd in Frameworks */,
 				DD00000200000000000P0016 /* Accelerate.framework in Frameworks */,
-				DD00000500000000PKGANG01 /* ANGLE in Frameworks */,
 				DD00000500000000PKGKLM04 /* KLightMapper in Frameworks */,
 			);
 		};
@@ -1045,7 +1042,6 @@
 				DD00000100000000000B0001 /* common */,
 				DD00000100000000000I0009 /* src-iPad */,
 				6771294D2F844D5500C44F57 /* resources */,
-				67595F212F852813009E2066 /* ANGLE.xcconfig */,
 				6735D40E2F8CC50E00E972AB /* ccache.xcconfig */,
 			);
 			sourceTree = "<group>";
@@ -1375,7 +1371,6 @@
 			name = "xLights-iPad";
 			packageProductDependencies = (
 				DD00000400000000PKGKLM04 /* KLightMapper */,
-				DD00000400000000PKGANG01 /* ANGLE */,
 			);
 			productName = "xLights-iPad";
 			productReference = DD00000100000000000P0002 /* xLights.app */;
@@ -2880,8 +2875,6 @@
 				EXECUTABLE_PREFIX = lib;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREFIX_HEADER = "../src-core/Prefix.pch";
-				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphoneos*]" = "USE_GLES=1";
-				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphonesimulator*]" = "USE_GLES=1";
 				HEADER_SEARCH_PATHS = (
 					"../src-core/render",
 					"../src-core/utils",
@@ -2934,8 +2927,6 @@
 				);
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREFIX_HEADER = "../src-core/Prefix.pch";
-				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphoneos*]" = "USE_GLES=1";
-				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphonesimulator*]" = "USE_GLES=1";
 				HEADER_SEARCH_PATHS = (
 					"../src-core/render",
 					"../src-core/utils",
@@ -2988,8 +2979,6 @@
 				);
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREFIX_HEADER = "../src-core/Prefix.pch";
-				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphoneos*]" = "USE_GLES=1";
-				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphonesimulator*]" = "USE_GLES=1";
 				HEADER_SEARCH_PATHS = (
 					"../src-core/render",
 					"../src-core/utils",
@@ -3031,8 +3020,6 @@
 					"$(SRCROOT)/dependencies/libdbg-ios",
 				);
 				GCC_OPTIMIZATION_LEVEL = 0;
-				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphoneos*]" = "USE_GLES=1";
-				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphonesimulator*]" = "USE_GLES=1";
 				HEADER_SEARCH_PATHS = (
 					"../src-core/render",
 					"../src-core/utils",
@@ -3075,8 +3062,6 @@
 					"$(inherited)",
 					"$(SRCROOT)/dependencies/lib-ios",
 				);
-				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphoneos*]" = "USE_GLES=1";
-				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphonesimulator*]" = "USE_GLES=1";
 				HEADER_SEARCH_PATHS = (
 					"../src-core/render",
 					"../src-core/utils",
@@ -3118,8 +3103,6 @@
 					"$(inherited)",
 					"$(SRCROOT)/dependencies/lib-ios",
 				);
-				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphoneos*]" = "USE_GLES=1";
-				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphonesimulator*]" = "USE_GLES=1";
 				HEADER_SEARCH_PATHS = (
 					"../src-core/render",
 					"../src-core/utils",
@@ -3164,8 +3147,6 @@
 					"$(SRCROOT)/dependencies/libdbg-ios",
 				);
 				GCC_OPTIMIZATION_LEVEL = 0;
-				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphoneos*]" = "USE_GLES=1";
-				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphonesimulator*]" = "USE_GLES=1";
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = (
 					"../src-core/render",
@@ -3245,8 +3226,6 @@
 					"$(inherited)",
 					"$(SRCROOT)/dependencies/lib-ios",
 				);
-				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphoneos*]" = "USE_GLES=1";
-				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphonesimulator*]" = "USE_GLES=1";
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = (
 					"../src-core/render",
@@ -3325,8 +3304,6 @@
 					"$(inherited)",
 					"$(SRCROOT)/dependencies/lib-ios",
 				);
-				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphoneos*]" = "USE_GLES=1";
-				"GCC_PREPROCESSOR_DEFINITIONS[sdk=iphonesimulator*]" = "USE_GLES=1";
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = (
 					"../src-core/render",
@@ -3544,11 +3521,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		DD00000400000000PKGANG01 /* ANGLE */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DD00000300000000PKGANG01 /* XCRemoteSwiftPackageReference "xLights-spm" */;
-			productName = ANGLE;
-		};
 		DD00000400000000PKGKLM01 /* KLightMapper */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DD00000300000000PKGKLM01 /* XCRemoteSwiftPackageReference "KLightMapper" */;
