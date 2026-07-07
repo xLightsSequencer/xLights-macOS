@@ -1456,7 +1456,6 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				DD00000300000000PKGKLM01 /* XCRemoteSwiftPackageReference "KLightMapper" */,
-				DD00000300000000PKGANG01 /* XCRemoteSwiftPackageReference "xLights-spm" */,
 			);
 			preferredProjectObjectVersion = 90;
 			productRefGroup = 67E7086E17B51AB400A22034 /* Products */;
@@ -3502,14 +3501,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		DD00000300000000PKGANG01 /* XCRemoteSwiftPackageReference "xLights-spm" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/xLightsSequencer/xLights-spm";
-			requirement = {
-				kind = exactVersion;
-				version = 2026.11.0;
-			};
-		};
 		DD00000300000000PKGKLM01 /* XCRemoteSwiftPackageReference "KLightMapper" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/KulpLights/KLightMapper";

@@ -1,5 +1,5 @@
 {
-  "originHash" : "065a25a8ca10a1f8bf4c0cd0cc0e6b452574f85f5f45aa8a2bde09db174124f8",
+  "originHash" : "b30c417f4ae33223bc87239d44d74fc409ce5aecd57e872d9d7b40789e52ce50",
   "pins" : [
     {
       "identity" : "klightmapper",
@@ -8,15 +8,6 @@
       "state" : {
         "revision" : "873218d27121ac630685cb96c3b73c9a41e06cf1",
         "version" : "1.3.0"
-      }
-    },
-    {
-      "identity" : "xlights-spm",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/xLightsSequencer/xLights-spm",
-      "state" : {
-        "revision" : "a0b5a0dd91880f330c1e7d6bf03515c6c5878c76",
-        "version" : "2026.11.0"
       }
     }
   ],

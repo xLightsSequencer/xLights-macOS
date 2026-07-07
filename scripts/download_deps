@@ -34,25 +34,14 @@ fi
 # if the local artifacts are available, use them
 # env
 
-# Derive the dependency tag from the xLights-spm Swift package version pinned
-# in the Xcode project, so the version lives in exactly one place. The package
-# uses a three-component SemVer (e.g. 2026.11.0); the dependency release tags
-# drop a trailing ".0" patch (2026.11.0 -> xlights_2026.11) but keep a non-zero
-# patch (2026.11.1 -> xlights_2026.11.1).
-RAW_VERSION=$(awk '
-    /XCRemoteSwiftPackageReference "xLights-spm".*= \{/ {found=1; next}
-    found && /version = / {
-        v=$0
-        sub(/.*version = /, "", v)
-        sub(/;.*/, "", v)
-        gsub(/[ \t]/, "", v)
-        print v
-        exit
-    }
-' "$PBXPROJ")
+# Derive the dependency tag from DEPS_VERSION (next to the xcodeproj), so the
+# version lives in exactly one place. Three-component SemVer; the dependency
+# release tags drop a trailing ".0" patch (2026.11.0 -> xlights_2026.11) but
+# keep a non-zero patch (2026.11.1 -> xlights_2026.11.1).
+RAW_VERSION=$(tr -d '[:space:]' < "$(dirname "$PBXPROJ")/../DEPS_VERSION")
 
 if [ -z "$RAW_VERSION" ]; then
-    echo "download_deps: could not find xLights-spm version in $PBXPROJ" >&2
+    echo "download_deps: could not read DEPS_VERSION" >&2
     exit 1
 fi
 
