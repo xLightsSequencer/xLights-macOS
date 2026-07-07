@@ -23,9 +23,4 @@ bool IsFromAppStore();
 
 void SetThreadQOS(int i);
 
-// Returns the Metal device registry ID used by the compute effects pipeline.
-// Used to force ANGLE onto the same GPU for zero-copy texture sharing.
-// Returns 0 if Metal compute is not available.
-uint64_t GetMetalComputeDeviceRegistryID();
-
 #define __XL_EXTERNAL_HOOKS__

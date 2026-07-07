@@ -33,20 +33,3 @@ bool IsFromAppStore() {
     return xLights_Apple_core::isFromAppStore();
 }
 
-#import <Metal/Metal.h>
-
-uint64_t GetMetalComputeDeviceRegistryID() {
-    // Return the registry ID of the GPU that Metal compute effects use.
-    // MetalComputeUtilities prefers eGPU, falls back to system default —
-    // mirror that logic here so ANGLE lands on the same device.
-#if !TARGET_OS_IPHONE
-    NSArray<id<MTLDevice>> *devices = MTLCopyAllDevices();
-    for (id<MTLDevice> d in devices) {
-        if ([d isRemovable]) {
-            return d.registryID;
-        }
-    }
-#endif
-    id<MTLDevice> dev = MTLCreateSystemDefaultDevice();
-    return dev ? dev.registryID : 0;
-}
