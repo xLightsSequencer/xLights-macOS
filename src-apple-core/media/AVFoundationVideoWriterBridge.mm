@@ -237,6 +237,31 @@ void FailWriter(WriterHandle* h, const char* what)
     TriggerFinish(h, true /*cancel*/);
 }
 
+// Constant-quality encoding is an encoder capability, not a codec one: Apple
+// Silicon's H.264/HEVC encoders take AVVideoQualityKey, the Intel hardware H.264
+// encoder does not and raises NSInvalidArgumentException the moment it's handed
+// one. Ask VideoToolbox what this machine's encoder actually supports rather
+// than inferring it from the codec or the CPU.
+bool EncoderSupportsQuality(CMVideoCodecType codec, int32_t width, int32_t height)
+{
+    CFDictionaryRef props = nullptr;
+    CFStringRef encoderId = nullptr;
+    const OSStatus st = VTCopySupportedPropertyDictionaryForEncoder(width, height, codec,
+                                                                    nullptr, &encoderId, &props);
+    if (encoderId != nullptr) {
+        CFRelease(encoderId);
+    }
+    if (st != noErr || props == nullptr) {
+        if (props != nullptr) {
+            CFRelease(props);
+        }
+        return false;
+    }
+    const bool supported = CFDictionaryContainsKey(props, kVTCompressionPropertyKey_Quality);
+    CFRelease(props);
+    return supported;
+}
+
 bool BuildWriter(WriterHandle* h)
 {
     @autoreleasepool {
@@ -288,14 +313,26 @@ bool BuildWriter(WriterHandle* h)
                 codecKey = AVVideoCodecTypeAppleProRes4444;
             }
 
+            const CMVideoCodecType codecType = CodecIsHEVC(h->videoCodec)   ? kCMVideoCodecType_HEVC
+                                             : CodecIsProRes(h->videoCodec) ? kCMVideoCodecType_AppleProRes4444
+                                                                            : kCMVideoCodecType_H264;
+            // Encoders without a constant-quality mode (notably Intel H.264) throw
+            // rather than ignore AVVideoQualityKey, so they take the average-bitrate
+            // path below instead.
+            const bool canUseQuality = !CodecIsProRes(h->videoCodec)
+                                       && EncoderSupportsQuality(codecType, h->width, h->height);
+            if (h->quality > 0.0 && !canUseQuality && !CodecIsProRes(h->videoCodec)) {
+                spdlog::info("AVFoundationVideoWriter: encoder for codec {} has no constant-quality mode; using average bitrate instead", h->videoCodec);
+            }
+
             NSMutableDictionary* compression = [NSMutableDictionary dictionary];
-            bool useQuality = (h->quality > 0.0) && !CodecIsProRes(h->videoCodec);
+            bool useQuality = (h->quality > 0.0) && canUseQuality;
             auto quality = h->quality;
             // Auto (no explicit bitrate): default H.264/HEVC to constant-quality
             // so VideoToolbox picks a content-adaptive bitrate. NOT for ProRes —
             // it's a fixed-profile codec that takes neither AVVideoQualityKey nor
             // a bitrate (setting AVVideoQualityKey on it is invalid and can throw).
-            if (!useQuality && h->bitrateKbps <= 0 && !CodecIsProRes(h->videoCodec)) {
+            if (!useQuality && h->bitrateKbps <= 0 && canUseQuality) {
                 useQuality = true;
                 quality = 0.80;
                 if (@available(macOS 11.0, iOS 14.0, *)) {
@@ -708,7 +745,20 @@ bool Start(WriterHandle* h)
     }
     __block bool ok = false;
     dispatch_sync(h->videoQ, ^{
-        ok = BuildWriter(h);
+        // AVAssetWriter/AVAssetWriterInput raise NSInvalidArgumentException for
+        // output settings the encoder won't take. An NSException is not a
+        // std::exception, so it would sail straight through the catch in
+        // AVFoundationVideoWriter::initialize and terminate rather than let
+        // VideoWriter::initialize fall back to the FFmpeg writer.
+        @try {
+            ok = BuildWriter(h);
+        } @catch (NSException* exception) {
+            NSString* reason = [exception reason];
+            spdlog::error("AVFoundationVideoWriter: exception building writer: {} - {}",
+                          [[exception name] UTF8String],
+                          reason ? [reason UTF8String] : "?");
+            ok = false;
+        }
     });
     if (!ok) {
         return false;
