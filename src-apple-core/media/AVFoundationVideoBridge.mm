@@ -46,8 +46,10 @@
 #include <algorithm>
 #include <array>
 #include <climits>
+#include <condition_variable>
 #include <cstdlib>
 #include <cstring>
+#include <deque>
 #include <map>
 #include <thread>
 #include <chrono>
@@ -56,6 +58,7 @@
 #include <queue>
 #include <shared_mutex>
 #include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 #if defined(__ARM_NEON) || defined(__ARM_NEON__)
@@ -297,11 +300,13 @@ namespace AppleAVFoundationVideoBridge {
 
 namespace {
 
-// Lane budget per file. Two lanes lets two effects on the same file at
-// different timeline positions coexist without thrashing AVAssetReader;
-// for the common PerModel case (N clients at the same timestamp) one
-// lane is enough and the second stays inactive.
-constexpr int kLanesPerFile = 2;
+// Lane budget per file. Legacy AVAssetReader decoders use only the first
+// TWO (the gate-proven configuration — see selectLane); generator-mode
+// chains may use all four, one per concurrent playback corridor — a
+// corridor without a chain keeps stealing, and every steal re-decodes a
+// GOP prefix. Chains are cheap (a cursor + VT session, no AVAssetReader).
+constexpr int kLanesPerFile = 4;
+constexpr int kLegacyLanesPerFile = 2;
 
 // Native-resolution frame cache capacity per file. With a single video
 // being shared by PerModel siblings, the cache typically holds
@@ -352,6 +357,13 @@ public:
 
     virtual ~IDecoder() = default;
     virtual bool isValid() const = 0;
+    // Rawvideo direct-demux file (see IsFrameIndependent in the header).
+    virtual bool isRawDemux() const { return false; }
+    // Manual software VTDecompressionSession path — its lanes still open
+    // mid-stream (compressed-sample discard can't establish decoder state),
+    // so multi-position access isn't byte-deterministic; excluded from
+    // frame-parallel via IsFrameIndependent.
+    virtual bool isSWDecode() const { return false; }
     virtual int getNativeWidth() const = 0;
     virtual int getNativeHeight() const = 0;
     virtual double getLengthMS() const = 0;
@@ -377,8 +389,18 @@ public:
     // stable consumer identity.
     virtual CVPixelBufferRef obtainFrame(int timestampMS, int gracetimeMS,
                                           int& outPtsMs, int& outFirstFramePos,
-                                          bool& outAtEnd, void* consumer,
+                                          bool& outAtEnd, void* consumer, uint64_t group,
                                           std::vector<ReadAheadFrame>& outReadAhead) = 0;
+
+    // Scaled-output cache (SharedDecoder only): converted per-consumer-format
+    // frames keyed by (dims, format, algorithm, ideal pts). Serves the
+    // repeated-frame hits the per-handle double buffer catches serially but
+    // frame-parallel clones cannot (consecutive repeats land on different
+    // clones). Byte-safe: entries are the exact deterministic pipeline output.
+    virtual bool lookupScaled(int /*w*/, int /*h*/, int /*fmt*/, int /*alg*/, int /*idealPts*/,
+                              void* /*dst*/, size_t /*dstBytes*/) { return false; }
+    virtual void insertScaled(int /*w*/, int /*h*/, int /*fmt*/, int /*alg*/, int /*idealPts*/,
+                              const void* /*src*/, size_t /*bytes*/) {}
 
     // Remove a consumer from the position-tracking map. Called from
     // VideoReaderHandle destructor so we don't keep "ghost" consumers
@@ -396,6 +418,8 @@ public:
     bool open(const std::string& filename);
 
     bool isValid() const override { return valid && !openFailed; }
+    bool isRawDemux() const override { return useRawDecode; }
+    bool isSWDecode() const override { return useSoftwareDecode; }
 
     int getNativeWidth() const override { return nativeWidth; }
     int getNativeHeight() const override { return nativeHeight; }
@@ -407,8 +431,21 @@ public:
 
     CVPixelBufferRef obtainFrame(int timestampMS, int gracetimeMS,
                                   int& outPtsMs, int& outFirstFramePos,
-                                  bool& outAtEnd, void* consumer,
+                                  bool& outAtEnd, void* consumer, uint64_t group,
                                   std::vector<ReadAheadFrame>& outReadAhead) override;
+
+    // Concurrent-slow-path variant for generator-mode decoders: decode runs
+    // with the mutex RELEASED (lane owned via Lane::busy), so cache hits and
+    // other chains proceed during a miss's decode.
+    CVPixelBufferRef obtainFrameGenerator(int timestampMS, int gracetimeMS,
+                                          int& outPtsMs, int& outFirstFramePos,
+                                          bool& outAtEnd, void* consumer, uint64_t group,
+                                          std::vector<ReadAheadFrame>& outReadAhead);
+
+    bool lookupScaled(int w, int h, int fmt, int alg, int idealPts,
+                      void* dst, size_t dstBytes) override;
+    void insertScaled(int w, int h, int fmt, int alg, int idealPts,
+                      const void* src, size_t bytes) override;
 
     void forgetConsumer(void* consumer) override;
 
@@ -426,6 +463,56 @@ private:
         };
         std::priority_queue<DecodedEntry, std::vector<DecodedEntry>> ptsQueue;
         std::mutex queueMutex;
+
+        // Rawvideo only: the first not-discarded sample from openAt's
+        // demux-forward positioning (see openAt). decodeNextRaw consumes it
+        // before pulling from the reader.
+        CMSampleBufferRef pendingSample = nullptr;
+
+        // Canonical-origin generator chain (SharedDecoder::useGenerator):
+        // compressed samples come from AVSampleBufferGenerator via this
+        // cursor (decode order) and are decoded through OUR vtSession. The
+        // chain starts at a container sync sample chosen by computeOrigin,
+        // making every emitted frame's bytes a pure function of (file, pts)
+        // — independent of access pattern (see decodeNextGenerator).
+        AVSampleCursor* cursor = nil;
+        // Copy pool for VT session outputs. Decoded surfaces are copied
+        // INSIDE vtOutputCallback — the only window where the buffer is
+        // guaranteed untouched — because decoder pools have been observed to
+        // rewrite surfaces that external code still holds CVBufferRetains on
+        // (isolated wrong frames under async pipelining; the same "leftover
+        // blotches" class the AVAssetReader path needs alwaysCopies=YES for).
+        CVPixelBufferPoolRef outCopyPool = nullptr;
+        int outCopyW = 0;
+        int outCopyH = 0;
+
+        // Compressed-sample batch from one generator request: each request
+        // is a synchronous Mach IPC to mediaserverd, so fetching per-sample
+        // dominated decode wall (and wedged under contention). Samples are
+        // split out locally for VT.
+        CMSampleBufferRef genBatch = nullptr;
+        CFIndex genBatchCount = 0;
+        CFIndex genBatchNext = 0;
+        int64_t decodeIdx = 0;    // next decode-order sample to feed
+        size_t nextPtsIdx = 0;    // next ptsIndex position expected to emit
+        int originPts = 0;        // chain origin pts; earlier outputs discarded
+        int fedSinceEmit = 0;     // lost-frame guard
+
+        // Concurrent generator chains only: owned by a consumer currently
+        // decoding OUTSIDE the SharedDecoder mutex. Set/cleared under the
+        // mutex; a busy lane is invisible to selectLane and its fields
+        // belong to the owner until released. busyFrom/ToMS is the pts span
+        // the owner's decode will populate — consumers whose target falls
+        // inside it wait for the owner's inserts instead of claiming
+        // another lane.
+        bool busy = false;
+        int busyFromMS = 0;
+        int busyToMS = 0;
+        // Corridor that owns this chain (generator mode). A corridor keeps
+        // its chain across requests; other corridors never steal a chain
+        // whose owner is alive unless no other lane exists — every steal
+        // that repositions re-decodes a GOP prefix.
+        uint64_t ownerGroup = 0;
 
         bool demuxAtEnd = false;
         bool active = false;
@@ -447,7 +534,13 @@ private:
         CVPixelBufferRef decodeNextSW(SharedDecoder* dec, int& outPtsMs);
         CVPixelBufferRef decodeNextRaw(SharedDecoder* dec, int& outPtsMs);
 
-        bool ensureVTSession(CMVideoFormatDescriptionRef formatDesc);
+        bool openAtGenerator(SharedDecoder* dec, int timestampMS);
+        CVPixelBufferRef decodeNextGenerator(SharedDecoder* dec, int& outPtsMs);
+        // Feed one compressed sample from the cursor through vtSession.
+        // Advances cursor/decodeIdx. False = no more samples / hard failure.
+        bool feedGeneratorSample(SharedDecoder* dec);
+
+        bool ensureVTSession(CMVideoFormatDescriptionRef formatDesc, bool allowHW);
 
         static void vtOutputCallback(void* refCon, void* sourceFrameRefCon,
                                      OSStatus status, VTDecodeInfoFlags infoFlags,
@@ -460,7 +553,11 @@ private:
         }
     };
 
-    Lane* selectLane(int targetMS, int gracetimeMS);
+    // Picks (and marks recently-used) a lane for targetMS.
+    // outOpenAtMS = -1 when the lane is positioned and ready; otherwise the
+    // caller must call lane->openAt(this, outOpenAtMS) itself, OUTSIDE the
+    // decoder mutex (a HW/raw reopen decode-discards the prefix from 0).
+    Lane* selectLane(int targetMS, int gracetimeMS, int& outOpenAtMS);
 
     // Cache lookup: return retained pixel buffer (and its pts) for the
     // frame whose [pts, pts+frameMS) interval contains targetMS, or
@@ -509,9 +606,22 @@ private:
                                     std::vector<ReadAheadFrame>& out) const;
 
     // shared_mutex so multiple consumers can run the cache-hit fast path
-    // (cacheLookup + populateReadAheadFromCache) concurrently. The decode
-    // + cacheInsert + lane mutation path takes a unique lock.
+    // (cacheLookup + populateReadAheadFromCache) concurrently. The legacy
+    // reader paths do decode + insert + lane mutation under a unique lock;
+    // generator-mode chains decode OUTSIDE it (obtainFrameGenerator) —
+    // canonical origins make their bytes access-pattern independent, so
+    // only the cache/bookkeeping needs the lock.
     mutable std::shared_mutex mutex;
+
+    // Signalled on generator-path cacheInserts and lane release. Consumers
+    // that miss the cache while every lane is busy wait here; most wake
+    // straight into a cache hit produced by the decoding owner.
+    std::condition_variable_any cacheCv;
+
+    // Serializes AVSampleBufferGenerator requests (demux only — decode is
+    // per-lane); its thread-safety across concurrent requests is not
+    // documented, and sample fetch is cheap relative to decode.
+    std::mutex generatorMutex;
 
     AVAsset* asset = nil;
     AVAssetTrack* videoTrack = nil;
@@ -531,6 +641,7 @@ private:
     // scaler/consumer; IOSurface allocation is ~24us/frame on macOS
     // for these small frame sizes.
     CVPixelBufferPoolRef rawBgraPool = nullptr;
+
 
     int nativeWidth = 0;
     int nativeHeight = 0;
@@ -562,6 +673,77 @@ private:
     // track, from AVSampleCursor at open().  Immutable afterwards, so it is
     // readable without the mutex.
     std::vector<int> ptsIndex;
+
+    // Canonical-origin generator mode (compressed files with sample
+    // cursors): samples are fetched at random access via
+    // AVSampleBufferGenerator and decoded through our own
+    // VTDecompressionSession, with every chain anchored at a container sync
+    // sample chosen by computeOrigin so decoded bytes are a pure function of
+    // (file, pts) whatever the access pattern. All immutable after open().
+    bool useGenerator = false;
+    AVSampleBufferGenerator* sampleGenerator = nil;
+    std::vector<int> decodeOrderPts;         // per-sample pts (ms), decode order
+    std::vector<int64_t> syncDecodeIdxs;     // decode indexes of full-sync samples
+    std::unordered_map<int, int64_t> ptsToDecodeIdx;
+    // Cursor pts live on the track's MEDIA timeline; AVAssetReader emits
+    // MOVIE-timeline pts (edit-list mapped) — off by one frame on files
+    // with the common B-frame priming edit. ptsIndex/decodeOrderPts stay in
+    // the media domain (they drive selection exactly as the gated legacy
+    // behavior did); generator-emitted labels are converted through this
+    // map so cache keys and served pts match the reader's byte-for-byte.
+    std::unordered_map<int, int> mediaToEmitPts;
+    int genEmitShiftMs = 0; // scalar emit-minus-media shift (single segment)
+    int emitPtsFor(int mediaPts) const {
+        auto it = mediaToEmitPts.find(mediaPts);
+        return it != mediaToEmitPts.end() ? it->second : mediaPts;
+    }
+
+    // The canonical chain origin for serving targetPts: the LAST full-sync
+    // sample at decode index <= target's AND pts <= targetPts (the pts
+    // condition routes open-GOP leading pictures to the previous sync, where
+    // their references live). Chains may start at ANY sync at-or-before the
+    // canonical origin and still produce identical bytes for targetPts —
+    // sync samples reset/recover decoder state — which is what makes both
+    // chain reuse and positioning slack legal.
+    bool computeOrigin(int targetPts, int64_t& outDecodeIdx, int& outOriginPts,
+                       size_t& outPresIdx) const {
+        auto dit = ptsToDecodeIdx.find(targetPts);
+        if (dit == ptsToDecodeIdx.end()) {
+            return false;
+        }
+        auto sit = std::upper_bound(syncDecodeIdxs.begin(), syncDecodeIdxs.end(), dit->second);
+        while (sit != syncDecodeIdxs.begin()) {
+            --sit;
+            const int sPts = decodeOrderPts[(size_t)*sit];
+            if (sPts <= targetPts) {
+                outDecodeIdx = *sit;
+                outOriginPts = sPts;
+                outPresIdx = (size_t)(std::lower_bound(ptsIndex.begin(), ptsIndex.end(), sPts) - ptsIndex.begin());
+                return true;
+            }
+        }
+        outDecodeIdx = 0;
+        outOriginPts = ptsIndex.front();
+        outPresIdx = 0;
+        return true;
+    }
+
+    // Scaled-output cache (see IDecoder::lookupScaled). Own mutex — entries
+    // are small (model-sized) and ops are short memcpys; keeping it off the
+    // decoder mutex avoids interacting with the decode paths.
+    struct ScaledKey {
+        int w, h, fmt, alg, pts;
+        bool operator<(const ScaledKey& o) const {
+            if (w != o.w) return w < o.w;
+            if (h != o.h) return h < o.h;
+            if (fmt != o.fmt) return fmt < o.fmt;
+            if (alg != o.alg) return alg < o.alg;
+            return pts < o.pts;
+        }
+    };
+    std::mutex scaledCacheMutex;
+    std::map<ScaledKey, std::vector<uint8_t>> scaledCache;
+    std::deque<ScaledKey> scaledCacheOrder;
 
     // Keyed on pts (milliseconds). Ordered map so cacheLookup is an
     // upper_bound walk and populateReadAheadFromCache iterates forward
@@ -615,7 +797,7 @@ public:
 
     CVPixelBufferRef obtainFrame(int timestampMS, int gracetimeMS,
                                   int& outPtsMs, int& outFirstFramePos,
-                                  bool& outAtEnd, void* consumer,
+                                  bool& outAtEnd, void* consumer, uint64_t group,
                                   std::vector<ReadAheadFrame>& outReadAhead) override;
 
     // Single-consumer path; nothing to forget.
@@ -654,6 +836,33 @@ private:
 // drops the decoder and its lanes/sessions.
 std::mutex g_decodersMutex;
 std::unordered_map<std::string, std::weak_ptr<SharedDecoder>> g_decoders;
+
+// Files that have opened successfully at least once this session (also
+// guarded by g_decodersMutex). A failed re-open of such a file is treated as
+// transient and retried in CreateReader: silently switching a known-good file
+// to the FFmpeg fallback mid-session changes the scaler and therefore the
+// rendered bytes, breaking render determinism.
+std::unordered_set<std::string> g_everValidFiles;
+
+// Per-file cache of VERIFIED-IDR sync decode indexes (guarded by
+// g_decodersMutex). Container stss "sync" samples can be non-IDR I-frames in
+// open-GOP encodes; H.264/HEVC multi-ref lets later frames reference ACROSS
+// those, so decoding from one yields slightly different pixels than the
+// continuous chain. Only true IDRs guarantee canonical bytes, and NAL-type
+// verification costs one generator fetch per sync sample — worth caching
+// across the decoder churn of effect boundaries.
+std::mutex g_idrSyncCacheMutex;
+std::unordered_map<std::string, std::vector<int64_t>> g_idrSyncCache;
+
+bool fileEverValid(const std::string& f) {
+    std::lock_guard<std::mutex> lk(g_decodersMutex);
+    return g_everValidFiles.count(f) > 0;
+}
+
+void noteFileValid(const std::string& f) {
+    std::lock_guard<std::mutex> lk(g_decodersMutex);
+    g_everValidFiles.insert(f);
+}
 
 // Factory for an IDecoder. On the main thread (the SequenceVideoPanel
 // preview case) returns an AVPlayer-backed decoder, which holds only one
@@ -694,10 +903,22 @@ void SharedDecoder::forgetConsumer(void* consumer) {
     consumerPositions.erase(consumer);
 }
 
+
 SharedDecoder::~SharedDecoder() {
-    // Lanes destruct in array destruction; each calls close() which
-    // releases its reader, VT session, format desc, and any queued
-    // decoded frames.
+    // The whole teardown runs under g_decodersMutex — the same lock
+    // acquireDecoder holds while opening. Cancelling this instance's
+    // AVAssetReaders concurrently with a new SharedDecoder opening the SAME
+    // file races inside MediaToolbox's per-URL FigAsset state and makes the
+    // new reader's first copyNextSampleBuffer fail (observed as intermittent
+    // "no decodable frames" → FFmpeg fallback when effects churn decoders).
+    // Lanes are closed explicitly here (not left to member destruction, which
+    // would run after the body — outside the lock).
+    std::lock_guard<std::mutex> lk(g_decodersMutex);
+
+    for (auto& lane : lanes) {
+        lane.close();
+    }
+
     for (auto& [_, e] : cache) {
         if (e.pixelBuffer) {
             CVBufferRelease(e.pixelBuffer);
@@ -722,7 +943,6 @@ SharedDecoder::~SharedDecoder() {
     // Remove ourselves from the registry. The weak_ptr would expire
     // naturally on the next lookup but cleaning up keeps the table
     // small for long-running sessions.
-    std::lock_guard<std::mutex> lk(g_decodersMutex);
     auto it = g_decoders.find(filename);
     if (it != g_decoders.end() && it->second.expired()) {
         g_decoders.erase(it);
@@ -818,6 +1038,23 @@ bool SharedDecoder::open(const std::string& fname) {
         // candidate instead of guessing from a rounded average frame
         // duration, which made the served frame depend on cache history on
         // streams with irregular pts spacing (e.g. 60fps = 16/17ms).
+        // Media→movie edit mapping for generator emit labels (identity when
+        // the track has no edit list). Multi-segment edits are rare and not
+        // worth modelling — those files just keep the reader path.
+        bool multiSegmentEdit = false;
+        CMTime editDelta = kCMTimeZero;
+        {
+            NSArray<AVAssetTrackSegment*>* segs = videoTrack.segments;
+            if (segs.count > 1) {
+                multiSegmentEdit = true;
+            } else if (segs.count == 1) {
+                CMTimeMapping tm = segs[0].timeMapping;
+                if (CMTIME_IS_VALID(tm.source.start) && CMTIME_IS_VALID(tm.target.start)) {
+                    editDelta = CMTimeSubtract(tm.target.start, tm.source.start);
+                }
+            }
+        }
+
         if ([videoTrack canProvideSampleCursors]) {
             @autoreleasepool {
                 auto sw = std::chrono::steady_clock::now();
@@ -826,7 +1063,20 @@ bool SharedDecoder::open(const std::string& fname) {
                 while (cur != nil && safety-- > 0) {
                     CMTime pts = cur.presentationTimeStamp;
                     if (CMTIME_IS_VALID(pts)) {
-                        ptsIndex.push_back((int)(CMTimeGetSeconds(pts) * 1000.0));
+                        const int ptsMs = (int)(CMTimeGetSeconds(pts) * 1000.0);
+                        ptsIndex.push_back(ptsMs);
+                        if (cur.currentSampleSyncInfo.sampleIsFullSync) {
+                            syncDecodeIdxs.push_back((int64_t)decodeOrderPts.size());
+                        }
+                        ptsToDecodeIdx.emplace(ptsMs, (int64_t)decodeOrderPts.size());
+                        decodeOrderPts.push_back(ptsMs);
+                        // Same rational CMTime math AVFoundation applies, so
+                        // the truncation matches the reader's exactly.
+                        const int emitMs = (int)(CMTimeGetSeconds(CMTimeAdd(pts, editDelta)) * 1000.0);
+                        mediaToEmitPts.emplace(ptsMs, emitMs);
+                        if (decodeOrderPts.size() == 1) {
+                            genEmitShiftMs = emitMs - ptsMs;
+                        }
                     }
                     if ([cur stepInDecodeOrderByCount:1] != 1) {
                         break;
@@ -839,6 +1089,120 @@ bool SharedDecoder::open(const std::string& fname) {
             }
         } else {
             spdlog::info("AVFoundationVideoBridge: no sample cursors for {}; using heuristic frame selection", fname);
+        }
+
+        // Canonical-origin generator decode (see the member block above).
+        // Compressed files with a sample table only; rawvideo keeps the
+        // (fixed) reader path for now. XL_VIDEO_GENERATOR=0 falls back to
+        // the AVAssetReader lanes for A/B.
+        static const bool genEnabled = []() {
+            const char* e = getenv("XL_VIDEO_GENERATOR");
+            return e == nullptr || *e != '0';
+        }();
+        if (genEnabled && !useRawDecode && !multiSegmentEdit && !ptsIndex.empty() &&
+            !decodeOrderPts.empty() && !syncDecodeIdxs.empty()) {
+            if (@available(macOS 13.0, iOS 16.0, *)) {
+                sampleGenerator = [[AVSampleBufferGenerator alloc] initWithAsset:asset timebase:NULL];
+                useGenerator = (sampleGenerator != nil);
+            }
+        }
+        // Keep only VERIFIED-IDR syncs as chain origins (see g_idrSyncCache):
+        // non-IDR stss entries in open-GOP encodes are not safe entry points.
+        // An empty verified set is fine — computeOrigin then anchors every
+        // chain at decode index 0 (always correct, repositioning just costs
+        // the prefix).
+        if (useGenerator && !syncDecodeIdxs.empty()) {
+            bool cached = false;
+            {
+                std::lock_guard<std::mutex> clk(g_idrSyncCacheMutex);
+                auto cit = g_idrSyncCache.find(filename);
+                if (cit != g_idrSyncCache.end()) {
+                    syncDecodeIdxs = cit->second;
+                    cached = true;
+                }
+            }
+            if (!cached) {
+                std::vector<int64_t> verified;
+                if (@available(macOS 13.0, iOS 16.0, *)) {
+                    @autoreleasepool {
+                        AVSampleCursor* vc = [videoTrack makeSampleCursorAtFirstSampleInDecodeOrder];
+                        int64_t pos = 0;
+                        for (int64_t sIdx : syncDecodeIdxs) {
+                            if (vc == nil) break;
+                            if (sIdx == 0) {
+                                verified.push_back(sIdx); // stream start is always safe
+                                continue;
+                            }
+                            if (sIdx > pos) {
+                                if ([vc stepInDecodeOrderByCount:(sIdx - pos)] != (sIdx - pos)) {
+                                    break;
+                                }
+                                pos = sIdx;
+                            }
+                            AVSampleBufferRequest* req = [[AVSampleBufferRequest alloc] initWithStartCursor:vc];
+                            req.preferredMinSampleCount = 1;
+                            req.maxSampleCount = 1;
+                            NSError* err = nil;
+                            CMSampleBufferRef sb = [sampleGenerator createSampleBufferForRequest:req error:&err];
+                            if (!sb) continue;
+                            bool isIDR = false;
+                            CMVideoFormatDescriptionRef fmt =
+                                (CMVideoFormatDescriptionRef)CMSampleBufferGetFormatDescription(sb);
+                            CMBlockBufferRef bb = CMSampleBufferGetDataBuffer(sb);
+                            if (fmt && bb) {
+                                const FourCharCode sub = CMFormatDescriptionGetMediaSubType((CMFormatDescriptionRef)fmt);
+                                const bool h264 = (sub == kCMVideoCodecType_H264);
+                                const bool hevc = (sub == kCMVideoCodecType_HEVC);
+                                int nalLen = 4;
+                                if (h264) {
+                                    CMVideoFormatDescriptionGetH264ParameterSetAtIndex(fmt, 0, NULL, NULL, NULL, &nalLen);
+                                } else if (hevc) {
+                                    CMVideoFormatDescriptionGetHEVCParameterSetAtIndex(fmt, 0, NULL, NULL, NULL, &nalLen);
+                                }
+                                if (h264 || hevc) {
+                                    const size_t total = CMBlockBufferGetDataLength(bb);
+                                    size_t off = 0;
+                                    uint8_t hdr[8];
+                                    for (int guard = 0; guard < 256 && off + nalLen + 1 <= total; ++guard) {
+                                        if (CMBlockBufferCopyDataBytes(bb, off, (size_t)nalLen + 1, hdr) != kCMBlockBufferNoErr) {
+                                            break;
+                                        }
+                                        uint64_t len = 0;
+                                        for (int b = 0; b < nalLen; ++b) {
+                                            len = (len << 8) | hdr[b];
+                                        }
+                                        const uint8_t nalHdr = hdr[nalLen];
+                                        const int type = h264 ? (nalHdr & 0x1F) : ((nalHdr >> 1) & 0x3F);
+                                        if ((h264 && type == 5) || (hevc && (type == 19 || type == 20))) {
+                                            isIDR = true;
+                                            break;
+                                        }
+                                        off += (size_t)nalLen + len;
+                                    }
+                                }
+                            }
+                            CFRelease(sb);
+                            if (isIDR) {
+                                verified.push_back(sIdx);
+                            }
+                        }
+                    }
+                }
+                {
+                    std::lock_guard<std::mutex> clk(g_idrSyncCacheMutex);
+                    g_idrSyncCache[filename] = verified;
+                }
+                if (verified.size() != syncDecodeIdxs.size()) {
+                    spdlog::info("AVFoundationVideoBridge: {} of {} container syncs are true IDRs in {}",
+                                 verified.size(), syncDecodeIdxs.size(), fname);
+                }
+                syncDecodeIdxs = verified;
+            }
+        }
+
+        if (useGenerator) {
+            spdlog::info("AVFoundationVideoBridge: canonical-origin generator decode for {} ({} samples, {} IDR origins)",
+                         fname, decodeOrderPts.size(), syncDecodeIdxs.size());
         }
 
         // For rawvideo we own the BGRA buffer; build a no-IOSurface pool
@@ -958,8 +1322,24 @@ bool SharedDecoder::open(const std::string& fname) {
         // path sets demuxAtEnd once the stream is exhausted (or, for the SW
         // path, once it gives up); the bound is pure paranoia against a
         // decoder that returns transient nulls forever.
-        for (int probeSafety = 1024; probeSafety > 0 && !probe && !lanes[0].demuxAtEnd; --probeSafety) {
-            probe = lanes[0].decodeNext(this, probePts);
+        //
+        // The outer retry covers a transient MediaToolbox failure mode: a
+        // freshly-started AVAssetReader can go straight to Failed/Completed
+        // under load (heavy decoder churn on the render pool), which is not a
+        // property of the file. Re-opening the lane recovers; without the
+        // retry the whole file gets misclassified as undecodable and silently
+        // switches to the FFmpeg reader — a different scaler, so the rendered
+        // bytes for the same sequence then vary run to run.
+        for (int attempt = 0; attempt < 3 && !probe; ++attempt) {
+            if (attempt > 0) {
+                std::this_thread::sleep_for(std::chrono::milliseconds(20 * attempt));
+                if (!lanes[0].openAt(this, 0)) {
+                    continue;
+                }
+            }
+            for (int probeSafety = 1024; probeSafety > 0 && !probe && !lanes[0].demuxAtEnd; --probeSafety) {
+                probe = lanes[0].decodeNext(this, probePts);
+            }
         }
         if (!probe) {
             spdlog::warn("AVFoundationVideoBridge: no decodable frames for {}; "
@@ -1005,17 +1385,41 @@ void SharedDecoder::Lane::close() {
             ptsQueue.pop();
         }
     }
+    if (pendingSample) {
+        CFRelease(pendingSample);
+        pendingSample = nullptr;
+    }
+    if (genBatch) {
+        CFRelease(genBatch);
+        genBatch = nullptr;
+    }
+    genBatchCount = 0;
+    genBatchNext = 0;
+    if (outCopyPool) {
+        CVPixelBufferPoolRelease(outCopyPool);
+        outCopyPool = nullptr;
+    }
+    outCopyW = 0;
+    outCopyH = 0;
     if (reader) {
         [reader cancelReading];
         reader = nil;
     }
     trackOutput = nil;
+    cursor = nil;
+    decodeIdx = 0;
+    nextPtsIdx = 0;
+    originPts = 0;
+    fedSinceEmit = 0;
     demuxAtEnd = false;
     active = false;
     curPos = -1000;
 }
 
 bool SharedDecoder::Lane::openAt(SharedDecoder* dec, int timestampMS) {
+    if (dec->useGenerator) {
+        return openAtGenerator(dec, timestampMS);
+    }
     close();
 
     // [AVAssetReader addOutput:] starts internal KVO observers that
@@ -1066,14 +1470,11 @@ bool SharedDecoder::Lane::openAt(SharedDecoder* dec, int timestampMS) {
         // thin wrapper around a buffer-pool IOSurface; even with our
         // CVBufferRetain, the pool can decode a later frame back into
         // that surface — producing the "leftover blotches" artifact
-        // where stale pixels from a previous frame bleed into what
-        // should be a freshly-decoded one. Forcing copies here gives
-        // us an independent buffer per decode that the pool can't
-        // reuse. (The legacy per-handle code got away with `= NO`
-        // because it only used the buffer transiently within the same
-        // decode call and never retained it.)
+        // (2026-07-20: an explicit post-vend copy with `= NO` was tried
+        // and still diverged — the vended buffer can be rewritten in the
+        // window between vend and copy — so AVFoundation's own copy it is).
         //
-        // Exception: the rawvideo decode path immediately copies the
+        // Exception: the rawvideo decode path immediately converts the
         // sample bytes into its own pooled BGRA CVPixelBuffer (see
         // decodeNextRaw) and releases the source sample before the next
         // copyNextSampleBuffer call — so the pool-reuse hazard doesn't
@@ -1089,7 +1490,25 @@ bool SharedDecoder::Lane::openAt(SharedDecoder* dec, int timestampMS) {
         }
         [reader addOutput:trackOutput];
 
-        CMTime startTime = CMTimeMakeWithSeconds(timestampMS / 1000.0, 600);
+        // Rawvideo MOVs (typically FFmpeg-written) pack many samples into a
+        // few giant chunks, and AVAssetReader cannot start a timeRange
+        // mid-chunk: startReading succeeds but the reader completes with ZERO
+        // samples. Serial playback never noticed (one consumer decodes
+        // forward from 0), but any mid-file lane (re)open — backward seeks,
+        // multiple consumers at different positions — silently produced "no
+        // frame". For raw files, always read from 0 and demux-discard forward
+        // to the target below; discarding is cheap (no decode, just chunk
+        // reads).
+        //
+        // (A from-0 restart for the HW path was tried 2026-07-20 to make
+        // every decoded byte continuous-from-0 — mid-stream-seek content was
+        // observed to vary — but decode-discarding whole prefixes under
+        // concurrent readers wedged MediaToolbox outright; reverted. HW
+        // mid-stream starts are deterministic under the big obtainFrame
+        // lock, which is why that lock stays — see obtainFrame.)
+        const bool restartFromZero = dec->useRawDecode && timestampMS > 0;
+        CMTime startTime = restartFromZero ? kCMTimeZero
+                                           : CMTimeMakeWithSeconds(timestampMS / 1000.0, 600);
         CMTime duration = dec->asset.duration;
         CMTime rangeEnd = CMTimeSubtract(duration, startTime);
         if (CMTimeCompare(rangeEnd, kCMTimeZero) <= 0) {
@@ -1105,6 +1524,48 @@ bool SharedDecoder::Lane::openAt(SharedDecoder* dec, int timestampMS) {
             return false;
         }
 
+        if (restartFromZero) {
+            // Discard samples up to the target (demuxed for raw; decoded for
+            // HW); keep the first sample the next decodeNext should serve
+            // (there is no push-back on AVAssetReaderTrackOutput, so it is
+            // stashed on the lane).
+            int nilWhileReading = 0;
+            for (int discardSafety = 20000000; discardSafety > 0; --discardSafety) {
+                CMSampleBufferRef sample = nullptr;
+                @try {
+                    sample = [trackOutput copyNextSampleBuffer];
+                } @catch (NSException* exception) {
+                    spdlog::error("AVFoundationVideoBridge: Exception in positioning demux: {} - {}",
+                                 [[exception name] UTF8String], [[exception reason] UTF8String]);
+                    break;
+                }
+                if (!sample) {
+                    // Bounded: a wedged reader can return nil-while-Reading
+                    // forever; ~5s of retries is far beyond any real
+                    // demuxer hiccup and a truncated positioning just makes
+                    // the caller's decode loop fail into its own retry.
+                    if (reader.status == AVAssetReaderStatusReading && ++nilWhileReading < 10000) {
+                        std::this_thread::sleep_for(std::chrono::microseconds(500));
+                        continue;
+                    }
+                    break; // past the end, or wedged
+                }
+                nilWhileReading = 0;
+                if (!CMSampleBufferIsValid(sample) || !CMSampleBufferGetImageBuffer(sample)) {
+                    CFRelease(sample);
+                    continue;
+                }
+                CMTime pts = CMSampleBufferGetPresentationTimeStamp(sample);
+                int ptsMs = CMTIME_IS_VALID(pts) ? (int)(CMTimeGetSeconds(pts) * 1000.0) : 0;
+                if (ptsMs < timestampMS) {
+                    CFRelease(sample);
+                    continue;
+                }
+                pendingSample = sample; // consumed by the next decodeNextRaw
+                break;
+            }
+        }
+
         demuxAtEnd = false;
         active = true;
         // curPos isn't known until the first decoded frame's pts arrives;
@@ -1115,20 +1576,297 @@ bool SharedDecoder::Lane::openAt(SharedDecoder* dec, int timestampMS) {
     }
 }
 
+bool SharedDecoder::Lane::openAtGenerator(SharedDecoder* dec, int timestampMS) {
+    close();
+    @autoreleasepool {
+        const auto& pi = dec->ptsIndex;
+        // Callers position in the emit (movie) domain; the index is media
+        // domain.
+        const int mediaTarget = timestampMS - dec->genEmitShiftMs;
+        auto it = std::lower_bound(pi.begin(), pi.end(), mediaTarget);
+        if (it == pi.end()) {
+            // Beyond the last frame: anchor at the last frame's origin so the
+            // chain ends quickly and reports demuxAtEnd.
+            it = pi.end() - 1;
+        }
+        int64_t oIdx = 0;
+        int oPts = 0;
+        size_t oPres = 0;
+        if (!dec->computeOrigin(*it, oIdx, oPts, oPres)) {
+            spdlog::error("AVFoundationVideoBridge: no origin for pts {} in {}", *it, dec->filename);
+            return false;
+        }
+        cursor = [dec->videoTrack makeSampleCursorAtFirstSampleInDecodeOrder];
+        if (cursor == nil) {
+            spdlog::error("AVFoundationVideoBridge: cursor creation failed for {}", dec->filename);
+            return false;
+        }
+        if (oIdx > 0 && [cursor stepInDecodeOrderByCount:oIdx] != oIdx) {
+            spdlog::error("AVFoundationVideoBridge: cursor step to {} failed for {}", oIdx, dec->filename);
+            cursor = nil;
+            return false;
+        }
+        decodeIdx = oIdx;
+        nextPtsIdx = oPres;
+        originPts = oPts;
+        fedSinceEmit = 0;
+        demuxAtEnd = false;
+        active = true;
+        // curPos isn't known until the first emitted frame; store the seek
+        // target as a lower-bound placeholder for lane selection.
+        curPos = timestampMS - 1;
+        return true;
+    }
+}
+
+bool SharedDecoder::Lane::feedGeneratorSample(SharedDecoder* dec) {
+    @autoreleasepool {
+        if (genBatch == nullptr || genBatchNext >= genBatchCount) {
+            if (genBatch) {
+                CFRelease(genBatch);
+                genBatch = nullptr;
+            }
+            genBatchCount = 0;
+            genBatchNext = 0;
+            if (@available(macOS 13.0, iOS 16.0, *)) {
+                AVSampleBufferRequest* req = [[AVSampleBufferRequest alloc] initWithStartCursor:cursor];
+                req.preferredMinSampleCount = 1;
+                req.maxSampleCount = 32;
+                NSError* err = nil;
+                {
+                    std::lock_guard<std::mutex> glk(dec->generatorMutex);
+                    genBatch = [dec->sampleGenerator createSampleBufferForRequest:req error:&err];
+                }
+                if (!genBatch) {
+                    spdlog::warn("AVFoundationVideoBridge: sample generator failed at decode idx {} in {}: {}",
+                                 decodeIdx, dec->filename,
+                                 err ? [[err localizedDescription] UTF8String] : "unknown");
+                    return false;
+                }
+                genBatchCount = CMSampleBufferGetNumSamples(genBatch);
+                if (genBatchCount <= 0) {
+                    CFRelease(genBatch);
+                    genBatch = nullptr;
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
+        CMSampleBufferRef one = nullptr;
+        if (genBatchCount == 1) {
+            one = (CMSampleBufferRef)CFRetain(genBatch);
+        } else if (CMSampleBufferCopySampleBufferForRange(kCFAllocatorDefault, genBatch,
+                                                          CFRangeMake(genBatchNext, 1), &one) != noErr) {
+            one = nullptr;
+        }
+        ++genBatchNext;
+
+        if (one) {
+            // Batch integrity check: the split sample must be the decode-order
+            // sample the cursor bookkeeping says it is.
+            const CMTime onePts = CMSampleBufferGetPresentationTimeStamp(one);
+            const int onePtsMs = CMTIME_IS_VALID(onePts) ? (int)(CMTimeGetSeconds(onePts) * 1000.0) : -1;
+            if (decodeIdx < (int64_t)dec->decodeOrderPts.size() &&
+                onePtsMs != dec->decodeOrderPts[(size_t)decodeIdx]) {
+                spdlog::warn("AVFoundationVideoBridge: batch sample pts {} != expected {} at idx {} (batch {}/{}) in {}",
+                             onePtsMs, dec->decodeOrderPts[(size_t)decodeIdx], decodeIdx,
+                             (long)genBatchNext - 1, (long)genBatchCount, dec->filename);
+            }
+            CMVideoFormatDescriptionRef fmt =
+                (CMVideoFormatDescriptionRef)CMSampleBufferGetFormatDescription(one);
+            if (!fmt || !ensureVTSession(fmt, /*allowHW=*/!dec->useSoftwareDecode)) {
+                CFRelease(one);
+                spdlog::error("AVFoundationVideoBridge: VT session unavailable for generator decode of {}", dec->filename);
+                return false;
+            }
+            VTDecodeInfoFlags info = 0;
+            // Async lets VideoToolbox pipeline the decode the way AVAssetReader
+            // does internally. Determinism is unaffected: emission is strictly
+            // sequenced by the expected pts order, not by callback arrival.
+            OSStatus st = VTDecompressionSessionDecodeFrame(
+                vtSession, one, kVTDecodeFrame_EnableAsynchronousDecompression, nullptr, &info);
+            CFRelease(one);
+            if (st != noErr) {
+                // Frame lost — the emit loop's lost-frame guard skips its pts.
+                spdlog::warn("AVFoundationVideoBridge: generator decode failed ({}) at idx {} in {}",
+                             (int)st, decodeIdx, dec->filename);
+            }
+        } else {
+            spdlog::warn("AVFoundationVideoBridge: sample split failed at idx {} in {}", decodeIdx, dec->filename);
+        }
+        [cursor stepInDecodeOrderByCount:1];
+        ++decodeIdx;
+        return true;
+    }
+}
+
+CVPixelBufferRef SharedDecoder::Lane::decodeNextGenerator(SharedDecoder* dec, int& outPtsMs) {
+    if (cursor == nil && !demuxAtEnd) {
+        return nullptr;
+    }
+    const auto& pi = dec->ptsIndex;
+    const int64_t totalSamples = (int64_t)dec->decodeOrderPts.size();
+    // Bounded: each pass either emits, feeds one sample, or skips one lost
+    // pts. 4096 passes is far past any real GOP + reorder depth.
+    for (int guard = 0; guard < 4096; ++guard) {
+        // 1. Emit the next presentation-order frame if it has decoded.
+        {
+            std::lock_guard<std::mutex> lk(queueMutex);
+            while (!ptsQueue.empty() && ptsQueue.top().ptsMs < originPts) {
+                // Leading pictures decoded before the chain origin's pts —
+                // never servable from this chain (computeOrigin routed any
+                // consumer that wants them to an earlier origin); with a
+                // non-IDR sync origin they may be reference-damaged, so they
+                // must not reach the shared cache.
+                CVBufferRelease(ptsQueue.top().image);
+                ptsQueue.pop();
+            }
+            if (!ptsQueue.empty() && nextPtsIdx < pi.size()) {
+                const int64_t top = ptsQueue.top().ptsMs;
+                if (top == (int64_t)pi[nextPtsIdx]) {
+                    CVPixelBufferRef img = (CVPixelBufferRef)ptsQueue.top().image;
+                    outPtsMs = dec->emitPtsFor((int)top);
+                    ptsQueue.pop();
+                    ++nextPtsIdx;
+                    fedSinceEmit = 0;
+                    return img; // retain from vtOutputCallback passes to caller
+                }
+                if (top > (int64_t)pi[nextPtsIdx] && fedSinceEmit > 64) {
+                    // The expected frame's decode failed and can never emit.
+                    spdlog::warn("AVFoundationVideoBridge: skipping lost frame pts {} in {}",
+                                 pi[nextPtsIdx], dec->filename);
+                    ++nextPtsIdx;
+                    continue;
+                }
+            }
+        }
+
+        // 2. Stream exhausted: flush reorder state and drain what remains.
+        if (decodeIdx >= totalSamples) {
+            if (vtSession) {
+                VTDecompressionSessionFinishDelayedFrames(vtSession);
+                VTDecompressionSessionWaitForAsynchronousFrames(vtSession);
+            }
+            std::lock_guard<std::mutex> lk(queueMutex);
+            while (!ptsQueue.empty()) {
+                const int64_t top = ptsQueue.top().ptsMs;
+                if (top < originPts || nextPtsIdx >= pi.size() || top < (int64_t)pi[nextPtsIdx]) {
+                    CVBufferRelease(ptsQueue.top().image);
+                    ptsQueue.pop();
+                    continue;
+                }
+                if (top > (int64_t)pi[nextPtsIdx]) {
+                    ++nextPtsIdx; // expected frame lost at end of stream
+                    continue;
+                }
+                CVPixelBufferRef img = (CVPixelBufferRef)ptsQueue.top().image;
+                outPtsMs = dec->emitPtsFor((int)top);
+                ptsQueue.pop();
+                ++nextPtsIdx;
+                return img;
+            }
+            demuxAtEnd = true;
+            return nullptr;
+        }
+
+        // 3. Feed the next compressed sample. Bound the async pipeline: if
+        // plenty of outputs are queued but the expected frame still isn't
+        // among them, drain the decoder before feeding more.
+        if (queueSize() >= 32 && vtSession) {
+            VTDecompressionSessionWaitForAsynchronousFrames(vtSession);
+        }
+        if (!feedGeneratorSample(dec)) {
+            decodeIdx = totalSamples; // force the drain path next pass
+            continue;
+        }
+        ++fedSinceEmit;
+    }
+    spdlog::error("AVFoundationVideoBridge: generator decode made no progress in {}", dec->filename);
+    return nullptr;
+}
+
 void SharedDecoder::Lane::vtOutputCallback(void* refCon, void* /*sourceFrameRefCon*/,
                                             OSStatus status, VTDecodeInfoFlags /*infoFlags*/,
                                             CVImageBufferRef imageBuffer,
                                             CMTime pts, CMTime /*duration*/) {
     if (status != noErr || imageBuffer == nullptr) return;
     Lane* self = static_cast<Lane*>(refCon);
+
+    // Copy the decoded surface NOW (see outCopyPool). The callback body is
+    // the only interval where the decoder guarantees the surface's pixels.
+    CVImageBufferRef owned = nullptr;
+    const int w = (int)CVPixelBufferGetWidth(imageBuffer);
+    const int h = (int)CVPixelBufferGetHeight(imageBuffer);
+    if (CVPixelBufferGetPixelFormatType(imageBuffer) == kCVPixelFormatType_32BGRA) {
+        if (self->outCopyPool && (self->outCopyW != w || self->outCopyH != h)) {
+            CVPixelBufferPoolRelease(self->outCopyPool);
+            self->outCopyPool = nullptr;
+        }
+        if (!self->outCopyPool) {
+            NSDictionary* pbAttrs = @{
+                (NSString*)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA),
+                (NSString*)kCVPixelBufferWidthKey: @(w),
+                (NSString*)kCVPixelBufferHeightKey: @(h),
+            };
+            NSDictionary* poolAttrs = @{
+                (NSString*)kCVPixelBufferPoolMinimumBufferCountKey: @(kReadAheadFrames * 2),
+            };
+            if (CVPixelBufferPoolCreate(kCFAllocatorDefault,
+                                        (__bridge CFDictionaryRef)poolAttrs,
+                                        (__bridge CFDictionaryRef)pbAttrs,
+                                        &self->outCopyPool) == kCVReturnSuccess) {
+                self->outCopyW = w;
+                self->outCopyH = h;
+            } else {
+                self->outCopyPool = nullptr;
+            }
+        }
+        CVPixelBufferRef dst = nullptr;
+        if (self->outCopyPool) {
+            if (CVPixelBufferPoolCreatePixelBuffer(kCFAllocatorDefault, self->outCopyPool, &dst) != kCVReturnSuccess) {
+                dst = nullptr;
+            }
+        }
+        if (!dst) {
+            if (CVPixelBufferCreate(kCFAllocatorDefault, w, h, kCVPixelFormatType_32BGRA,
+                                    nullptr, &dst) != kCVReturnSuccess) {
+                dst = nullptr;
+            }
+        }
+        if (dst) {
+            CVPixelBufferLockBaseAddress(imageBuffer, kCVPixelBufferLock_ReadOnly);
+            CVPixelBufferLockBaseAddress(dst, 0);
+            const uint8_t* sp = (const uint8_t*)CVPixelBufferGetBaseAddress(imageBuffer);
+            uint8_t* dp = (uint8_t*)CVPixelBufferGetBaseAddress(dst);
+            const size_t ss = CVPixelBufferGetBytesPerRow(imageBuffer);
+            const size_t ds = CVPixelBufferGetBytesPerRow(dst);
+            if (ss == ds) {
+                memcpy(dp, sp, ds * (size_t)h);
+            } else {
+                const size_t row = (size_t)w * 4;
+                for (int y = 0; y < h; y++) {
+                    memcpy(dp + (size_t)y * ds, sp + (size_t)y * ss, row);
+                }
+            }
+            CVPixelBufferUnlockBaseAddress(dst, 0);
+            CVPixelBufferUnlockBaseAddress(imageBuffer, kCVPixelBufferLock_ReadOnly);
+            owned = dst; // +1 from create
+        }
+    }
+    if (!owned) {
+        owned = (CVImageBufferRef)CVBufferRetain(imageBuffer);
+    }
+
     DecodedEntry entry;
-    entry.image = (CVImageBufferRef)CVBufferRetain(imageBuffer);
+    entry.image = owned;
     entry.ptsMs = CMTIME_IS_VALID(pts) ? (int64_t)(CMTimeGetSeconds(pts) * 1000.0) : 0;
     std::lock_guard<std::mutex> lk(self->queueMutex);
     self->ptsQueue.push(entry);
 }
 
-bool SharedDecoder::Lane::ensureVTSession(CMVideoFormatDescriptionRef formatDesc) {
+bool SharedDecoder::Lane::ensureVTSession(CMVideoFormatDescriptionRef formatDesc, bool allowHW) {
     if (!formatDesc) return false;
     if (vtSession && cachedFormatDesc &&
         CMFormatDescriptionEqual((CMFormatDescriptionRef)cachedFormatDesc,
@@ -1147,10 +1885,17 @@ bool SharedDecoder::Lane::ensureVTSession(CMVideoFormatDescriptionRef formatDesc
     }
     cachedFormatDesc = (CMVideoFormatDescriptionRef)CFRetain(formatDesc);
 
-    NSDictionary* spec = @{
-        (NSString*)kVTVideoDecoderSpecification_EnableHardwareAcceleratedVideoDecoder: @NO,
-        (NSString*)kVTVideoDecoderSpecification_RequireHardwareAcceleratedVideoDecoder: @NO
-    };
+    // allowHW: the generator path for ordinary files wants the same
+    // hardware decoder AVAssetReader would use. The probe-detected
+    // software-only files (and the legacy SW lane path) force it off.
+    NSDictionary* spec = allowHW
+        ? @{
+              (NSString*)kVTVideoDecoderSpecification_EnableHardwareAcceleratedVideoDecoder: @YES
+          }
+        : @{
+              (NSString*)kVTVideoDecoderSpecification_EnableHardwareAcceleratedVideoDecoder: @NO,
+              (NSString*)kVTVideoDecoderSpecification_RequireHardwareAcceleratedVideoDecoder: @NO
+          };
     NSDictionary* dstAttrs = @{
         (NSString*)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA),
         (NSString*)kCVPixelBufferIOSurfacePropertiesKey: @{}
@@ -1178,10 +1923,19 @@ bool SharedDecoder::Lane::ensureVTSession(CMVideoFormatDescriptionRef formatDesc
 }
 
 CVPixelBufferRef SharedDecoder::Lane::decodeNext(SharedDecoder* dec, int& outPtsMs) {
+    if (dec->useGenerator) {
+        return decodeNextGenerator(dec, outPtsMs);
+    }
     if (!reader) {
         return nullptr;
     }
     if (dec->useRawDecode) {
+        if (pendingSample) {
+            // A stashed positioning sample is servable regardless of the
+            // reader's current status (it may already be Completed when the
+            // stash is the file's last sample).
+            return decodeNextRaw(dec, outPtsMs);
+        }
         AVAssetReaderStatus readerStatus = reader.status;
         if (readerStatus != AVAssetReaderStatusReading) {
             if (readerStatus == AVAssetReaderStatusFailed) {
@@ -1302,7 +2056,7 @@ CVPixelBufferRef SharedDecoder::Lane::decodeNextSW(SharedDecoder* dec, int& outP
                 CFRelease(sample);
                 continue;
             }
-            if (!ensureVTSession(sampleFormat)) {
+            if (!ensureVTSession(sampleFormat, /*allowHW=*/false)) {
                 spdlog::error("AVFoundationVideoBridge: ensureVTSession failed (sample format desc {}); aborting SW lane",
                              (void*)sampleFormat);
                 CFRelease(sample);
@@ -1365,6 +2119,18 @@ CVPixelBufferRef SharedDecoder::Lane::decodeNextRaw(SharedDecoder* dec, int& out
         // retry transients here; only a non-reading status is a real end.
         CVImageBufferRef srcImage = nullptr;
         int ptsMs = 0;
+        // Serve the sample openAt's positioning demux stashed before pulling
+        // new ones from the reader.
+        if (pendingSample) {
+            CMTime pendingPts = CMSampleBufferGetPresentationTimeStamp(pendingSample);
+            ptsMs = CMTIME_IS_VALID(pendingPts) ? (int)(CMTimeGetSeconds(pendingPts) * 1000.0) : 0;
+            srcImage = CMSampleBufferGetImageBuffer(pendingSample);
+            if (srcImage) {
+                CVPixelBufferRetain(srcImage);
+            }
+            CFRelease(pendingSample);
+            pendingSample = nullptr;
+        }
         for (int attempts = 0; attempts < 200 && !srcImage; attempts++) {
             CMSampleBufferRef sample = nullptr;
             @try {
@@ -1405,14 +2171,14 @@ CVPixelBufferRef SharedDecoder::Lane::decodeNextRaw(SharedDecoder* dec, int& out
             return nullptr;
         }
 
-        // Fast path: if AVAssetReader already gave us BGRA, hand it back
-        // directly (no manual conversion needed).
-        OSType srcFmt = CVPixelBufferGetPixelFormatType(srcImage);
-        if (srcFmt == kCVPixelFormatType_32BGRA) {
-            outPtsMs = ptsMs;
-            return srcImage;
-        }
-
+        // Even when the source is already BGRA it must be COPIED into one of
+        // our own pool buffers, never handed back directly: with
+        // alwaysCopiesSampleData=NO the sample's pixel buffer aliases the
+        // demuxer's internal read buffer, and callers retain returned frames
+        // long-term (shared + per-handle caches) — a later lane close/reopen
+        // (cancelReading) or buffer recycle rewrites those bytes in place.
+        // The whole raw path's =NO optimization is justified by "decodeNextRaw
+        // always copies"; keep that invariant true for every layout.
         const int w = (int)CVPixelBufferGetWidth(srcImage);
         const int h = (int)CVPixelBufferGetHeight(srcImage);
 
@@ -1460,7 +2226,7 @@ CVPixelBufferRef SharedDecoder::Lane::decodeNextRaw(SharedDecoder* dec, int& out
     }
 }
 
-SharedDecoder::Lane* SharedDecoder::selectLane(int targetMS, int gracetimeMS) {
+SharedDecoder::Lane* SharedDecoder::selectLane(int targetMS, int gracetimeMS, int& outOpenAtMS) {
     Lane* best = nullptr;
     int bestGap = INT_MAX;
     Lane* oldestActive = nullptr;
@@ -1475,15 +2241,37 @@ SharedDecoder::Lane* SharedDecoder::selectLane(int targetMS, int gracetimeMS) {
     // reopened (closing would risk invalidating the asset and crashing
     // the next AVAssetReader init).
     const bool laneZeroIsAnchor = (pinReader == nil);
-    for (size_t i = 0; i < lanes.size(); ++i) {
+    const size_t laneLimit = useGenerator ? lanes.size() : (size_t)kLegacyLanesPerFile;
+    for (size_t i = 0; i < laneLimit; ++i) {
         auto& lane = lanes[i];
+        if (lane.busy) {
+            // A generator chain is decoding on it outside the mutex.
+            continue;
+        }
         if (!lane.active) {
             if (!firstInactive) firstInactive = &lane;
             continue;
         }
-        if (!lane.demuxAtEnd && lane.curPos <= targetMS) {
+        // Generator chains must be STRICTLY behind the target: curPos is the
+        // last pts EMITTED, so a chain at curPos == target has already
+        // emitted the target frame and its next emission is one frame late —
+        // if the cache entry was evicted, the crossed-rule would then serve
+        // that later frame (observed as rare one-frame-late serves under
+        // eviction pressure). The legacy reader path keeps <= (gate parity).
+        const bool laneBehind = useGenerator ? (lane.curPos < targetMS)
+                                             : (lane.curPos <= targetMS);
+        if (!lane.demuxAtEnd && laneBehind) {
             int gap = targetMS - lane.curPos;
-            if (gap <= kForwardSkipMS + gracetimeMS) {
+            // Raw lanes always catch up by decoding forward: their readers
+            // restart from 0 (see openAt), so a recreate costs the whole
+            // prefix while a forward catch-up costs only the gap. Compressed
+            // lanes keep the legacy rule — past ~1s ahead, a fresh reader is
+            // cheaper than decode-and-discard. This only gates BEST
+            // eligibility — a too-far-behind lane must still fall through to
+            // the LRU bookkeeping below, or it becomes invisible to recreate
+            // and selectLane can report "no lane" with idle lanes sitting
+            // right there (frames then silently drop).
+            if (useRawDecode || gap <= kForwardSkipMS + gracetimeMS) {
                 if (gap < bestGap) {
                     bestGap = gap;
                     best = &lane;
@@ -1498,16 +2286,21 @@ SharedDecoder::Lane* SharedDecoder::selectLane(int targetMS, int gracetimeMS) {
 
     if (best) {
         best->lastUsedTick = ++laneTick;
+        outOpenAtMS = -1;
         return best;
     }
 
     Lane* lane = firstInactive ? firstInactive : oldestActive;
-    if (!lane) return nullptr;
-
-    int openAt = std::max(0, targetMS - frameMS);
-    if (!lane->openAt(this, openAt)) {
+    if (!lane) {
+        outOpenAtMS = -1;
         return nullptr;
     }
+
+    // The (re)open is the CALLER's job, outside the decoder mutex: for
+    // HW/raw readers openAt restarts from 0 and decode-discards the whole
+    // prefix, which can take seconds — holding the lock through that
+    // stalls every cache-hit consumer of the file.
+    outOpenAtMS = std::max(0, targetMS - frameMS);
     lane->lastUsedTick = ++laneTick;
     return lane;
 }
@@ -1581,7 +2374,25 @@ void SharedDecoder::cacheInsert(int64_t ptsMs, CVPixelBufferRef pixelBuffer,
         return;
     }
 
-    if ((int)cache.size() >= kCacheCapacity) {
+    // Generator-mode capacity scales with the number of distinct consumer
+    // corridors (positions > 4s apart), bounded by a byte budget — with two
+    // rows streaming one 1080p file the fixed 64 sits exactly at the
+    // eviction boundary and every evicted miss re-decodes a GOP. Legacy
+    // reader decoders keep the fixed gate-proven capacity.
+    int capacity = kCacheCapacity;
+    if (useGenerator && !sortedAnchors.empty()) {
+        int corridors = 1;
+        for (size_t i = 1; i < sortedAnchors.size(); ++i) {
+            if (sortedAnchors[i] - sortedAnchors[i - 1] > 4000) {
+                ++corridors;
+            }
+        }
+        const int64_t frameBytes = std::max<int64_t>(1, (int64_t)nativeWidth * nativeHeight * 4);
+        const int byBudget = (int)std::max<int64_t>(1, (768LL * 1024 * 1024) / frameBytes);
+        capacity = std::max(kCacheCapacity, std::min(corridors * 48, byBudget));
+    }
+
+    if ((int)cache.size() >= capacity) {
         // Pick the eviction victim: the entry whose pts is farthest from
         // every anchor (active consumers' tracked positions + other lanes'
         // curPos + this insert's own pts). With multiple consumers reading
@@ -1601,6 +2412,15 @@ void SharedDecoder::cacheInsert(int64_t ptsMs, CVPixelBufferRef pixelBuffer,
         for (auto it = cache.begin(); it != cache.end(); ++it) {
             int64_t minDist = std::abs(it->first - ptsMs);
             int64_t da = nearestAnchorDist(sortedAnchors, it->first);
+            if (useGenerator) {
+                // Frames recently PASSED by an anchor stay hot for trailing
+                // sibling clones whose fast-path positions are stale; evicting
+                // them forces a GOP re-decode.
+                auto ub = std::lower_bound(sortedAnchors.begin(), sortedAnchors.end(), it->first);
+                if (ub != sortedAnchors.end() && *ub - it->first <= 1500) {
+                    da = 0;
+                }
+            }
             if (da < minDist) minDist = da;
             if (minDist > bestMaxMinDist) {
                 bestMaxMinDist = minDist;
@@ -1618,6 +2438,35 @@ void SharedDecoder::cacheInsert(int64_t ptsMs, CVPixelBufferRef pixelBuffer,
     CacheEntry e;
     e.pixelBuffer = (CVPixelBufferRef)CVBufferRetain(pixelBuffer);
     cache.emplace(ptsMs, e);
+}
+
+bool SharedDecoder::lookupScaled(int w, int h, int fmt, int alg, int idealPts,
+                                 void* dst, size_t dstBytes) {
+    std::lock_guard<std::mutex> lk(scaledCacheMutex);
+    auto it = scaledCache.find({w, h, fmt, alg, idealPts});
+    if (it == scaledCache.end() || it->second.size() != dstBytes) {
+        return false;
+    }
+    memcpy(dst, it->second.data(), dstBytes);
+    return true;
+}
+
+void SharedDecoder::insertScaled(int w, int h, int fmt, int alg, int idealPts,
+                                 const void* src, size_t bytes) {
+    if (src == nullptr || bytes == 0) {
+        return;
+    }
+    std::lock_guard<std::mutex> lk(scaledCacheMutex);
+    ScaledKey k{w, h, fmt, alg, idealPts};
+    if (scaledCache.find(k) != scaledCache.end()) {
+        return; // first writer wins (identical bytes by construction)
+    }
+    while (scaledCacheOrder.size() >= 48) {
+        scaledCache.erase(scaledCacheOrder.front());
+        scaledCacheOrder.pop_front();
+    }
+    scaledCache[k].assign((const uint8_t*)src, (const uint8_t*)src + bytes);
+    scaledCacheOrder.push_back(k);
 }
 
 void SharedDecoder::populateReadAheadFromCache(int64_t afterPtsMs,
@@ -1650,7 +2499,7 @@ void SharedDecoder::populateReadAheadFromCache(int64_t afterPtsMs,
 
 CVPixelBufferRef SharedDecoder::obtainFrame(int timestampMS, int gracetimeMS,
                                              int& outPtsMs, int& outFirstFramePos,
-                                             bool& outAtEnd, void* consumer,
+                                             bool& outAtEnd, void* consumer, uint64_t group,
                                              std::vector<ReadAheadFrame>& outReadAhead) {
     outAtEnd = false;
     outPtsMs = 0;
@@ -1687,8 +2536,21 @@ CVPixelBufferRef SharedDecoder::obtainFrame(int timestampMS, int gracetimeMS,
         }
     }
 
-    // Slow path: cache miss requires decode + insert + lane mutation +
-    // consumerPositions update, all of which need exclusive access.
+    // Generator-mode decoders take the concurrent slow path: canonical
+    // origins make decoded bytes independent of access pattern, so decode
+    // can run outside the lock.
+    if (useGenerator) {
+        return obtainFrameGenerator(timestampMS, gracetimeMS, outPtsMs, outFirstFramePos,
+                                    outAtEnd, consumer, group, outReadAhead);
+    }
+
+    // Legacy reader paths (rawvideo, no-cursor, XL_VIDEO_GENERATOR=0):
+    // cache miss requires decode + insert + lane mutation + consumer
+    // bookkeeping, all under the unique lock — serializing every consumer of
+    // the file behind a miss's decode. Releasing the lock during decode was
+    // tried 2026-07-20 and reverted: concurrent AVAssetReaders seek
+    // mid-stream with unstable content and wedge MediaToolbox (see
+    // plans/render-perf/02). The big lock IS the correctness mechanism here.
     std::unique_lock<std::shared_mutex> lk(mutex);
     outFirstFramePos = firstFramePos;
     if (consumer) {
@@ -1739,8 +2601,14 @@ CVPixelBufferRef SharedDecoder::obtainFrame(int timestampMS, int gracetimeMS,
     }
     const int decodeTargetMS = (idealPts >= 0) ? idealPts : targetMS;
 
-    Lane* lane = selectLane(decodeTargetMS, gracetimeMS);
-    if (!lane) {
+    int laneOpenAtMS = -1;
+    Lane* lane = selectLane(decodeTargetMS, gracetimeMS, laneOpenAtMS);
+    if (lane != nullptr && laneOpenAtMS >= 0) {
+        if (!lane->openAt(this, laneOpenAtMS)) {
+            lane = nullptr;
+        }
+    }
+    if (lane == nullptr) {
         outAtEnd = true;
         if (getenv("XLDBG_VID") != nullptr) {
             fprintf(stderr, "VIDN reason=nolane f=%s t=%d\n", filename.c_str(), targetMS);
@@ -1778,51 +2646,72 @@ CVPixelBufferRef SharedDecoder::obtainFrame(int timestampMS, int gracetimeMS,
     CVPixelBufferRef result = nullptr;
     int resultPts = -1;
 
-    // Bound the inner loop so a pathological file can't wedge the
-    // decoder. The lane only advances by one source frame per decode;
-    // 100k frames is well past any sane forward-decode distance.
-    int safety = 100000;
-    while (safety-- > 0) {
-        int pts = 0;
-        CVPixelBufferRef pb = lane->decodeNext(this, pts);
-        if (!pb) {
-            if (lane->demuxAtEnd) {
-                outAtEnd = true;
+    // When the pts index PROVES a frame exists for this target, a lane/decode
+    // failure is a transient MediaToolbox condition (a reader wedged by the
+    // create/cancel churn of many consumers), NOT end of stream. Reporting it
+    // as outAtEnd makes the Video effect draw a wrong blue/blank frame — and
+    // on clone buffers latch AtEnd and recreate readers every frame, feeding
+    // the very churn that wedged the reader. Retry on the SAME lane with a
+    // fresh reader; only repeated failure falls through to the old behavior.
+    const int maxAttempts = (idealPts >= 0) ? 3 : 1;
+    for (int attempt = 0; attempt < maxAttempts && result == nullptr; ++attempt) {
+        if (attempt > 0) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(10 * attempt));
+            lane->close();
+            if (!lane->openAt(this, std::max(0, decodeTargetMS - frameMS))) {
+                continue;
             }
-            if (getenv("XLDBG_VID") != nullptr) {
-                fprintf(stderr, "VIDN reason=decode f=%s t=%d demux=%d lanePos=%d\n",
-                        filename.c_str(), targetMS, lane->demuxAtEnd ? 1 : 0, (int)lane->curPos);
-            }
-            break;
+            outAtEnd = false;
+            spdlog::warn("AVFoundationVideoBridge: transient decode failure at {}ms in {}; retry {}",
+                         targetMS, filename, attempt);
         }
-        lane->curPos = pts;
-        if (firstFramePos < 0) {
-            firstFramePos = pts;
-        }
-        cacheInsert(pts, pb, evAnchors);
-        if ((idealPts >= 0) ? (pts >= idealPts) : (pts + (frameMS / 2) >= targetMS)) {
-            // The lane has crossed the target and inserted every frame it
-            // passed, so the pure-rule frame for this target is now in the
-            // cache.  Serve THAT rather than whatever frame the lane happened
-            // to stop on — the stop frame depends on where the shared lane
-            // already was, which varies with cross-consumer history and made
-            // the served frame differ run to run.
-            int cachePts = 0;
-            CVPixelBufferRef cached = cacheLookup(targetMS, cachePts);
-            if (cached && cachePts != pts) {
-                CVBufferRelease(pb);
-                result = cached; // cacheLookup retained for us
-                resultPts = cachePts;
-            } else {
-                if (cached) {
-                    CVBufferRelease(cached);
+
+        // Bound the inner loop so a pathological file can't wedge the
+        // decoder. The lane only advances by one source frame per decode;
+        // 100k frames is well past any sane forward-decode distance.
+        int safety = 100000;
+        while (safety-- > 0) {
+            int pts = 0;
+            CVPixelBufferRef pb = lane->decodeNext(this, pts);
+            if (!pb) {
+                if (lane->demuxAtEnd) {
+                    outAtEnd = true;
                 }
-                result = pb; // hand off the retain to caller
-                resultPts = pts;
+                if (getenv("XLDBG_VID") != nullptr) {
+                    fprintf(stderr, "VIDN reason=decode f=%s t=%d demux=%d lanePos=%d\n",
+                            filename.c_str(), targetMS, lane->demuxAtEnd ? 1 : 0, (int)lane->curPos);
+                }
+                break;
             }
-            break;
+            lane->curPos = pts;
+            if (firstFramePos < 0) {
+                firstFramePos = pts;
+            }
+            cacheInsert(pts, pb, evAnchors);
+            if ((idealPts >= 0) ? (pts >= idealPts) : (pts + (frameMS / 2) >= targetMS)) {
+                // The lane has crossed the target and inserted every frame it
+                // passed, so the pure-rule frame for this target is now in the
+                // cache.  Serve THAT rather than whatever frame the lane happened
+                // to stop on — the stop frame depends on where the shared lane
+                // already was, which varies with cross-consumer history and made
+                // the served frame differ run to run.
+                int cachePts = 0;
+                CVPixelBufferRef cached = cacheLookup(targetMS, cachePts);
+                if (cached && cachePts != pts) {
+                    CVBufferRelease(pb);
+                    result = cached; // cacheLookup retained for us
+                    resultPts = cachePts;
+                } else {
+                    if (cached) {
+                        CVBufferRelease(cached);
+                    }
+                    result = pb; // hand off the retain to caller
+                    resultPts = pts;
+                }
+                break;
+            }
+            CVBufferRelease(pb);
         }
-        CVBufferRelease(pb);
     }
 
     if (!result) {
@@ -1856,6 +2745,292 @@ CVPixelBufferRef SharedDecoder::obtainFrame(int timestampMS, int gracetimeMS,
 
     outPtsMs = resultPts;
     outFirstFramePos = firstFramePos;
+    return result;
+}
+
+CVPixelBufferRef SharedDecoder::obtainFrameGenerator(int timestampMS, int gracetimeMS,
+                                                     int& outPtsMs, int& outFirstFramePos,
+                                                     bool& outAtEnd, void* consumer, uint64_t group,
+                                                     std::vector<ReadAheadFrame>& outReadAhead) {
+    std::unique_lock<std::shared_mutex> lk(mutex);
+    outFirstFramePos = firstFramePos;
+    if (consumer) {
+        consumerPositions[consumer] = timestampMS;
+    }
+
+    Lane* lane = nullptr;
+    int targetMS = timestampMS;
+    int idealPts = -2;
+    int decodeTargetMS = timestampMS;
+    int laneOpenAtMS = -1;
+    int waits = 0;
+    for (;;) {
+        if (!valid || openFailed) {
+            outAtEnd = true;
+            return nullptr;
+        }
+        if (timestampMS > lengthMS) {
+            outAtEnd = true;
+            return nullptr;
+        }
+        targetMS = timestampMS;
+        if (firstFramePos >= 0 && targetMS < firstFramePos) {
+            targetMS = firstFramePos;
+        }
+
+        // Re-check the cache every pass: another chain's decode (or its
+        // read-ahead) may have landed our frame while we waited.
+        if (CVPixelBufferRef hit = cacheLookup(targetMS, outPtsMs)) {
+            outFirstFramePos = firstFramePos;
+            populateReadAheadFromCache(outPtsMs, outReadAhead);
+            if (consumer) {
+                int64_t lastHeld = outReadAhead.empty()
+                    ? (int64_t)outPtsMs
+                    : outReadAhead.back().ptsMs;
+                consumerPositions[consumer] = lastHeld + frameMS;
+            }
+            return hit;
+        }
+
+        idealPts = idealFramePts(targetMS);
+        if (idealPts == -1) {
+            outAtEnd = true;
+            return nullptr;
+        }
+        decodeTargetMS = (idealPts >= 0) ? idealPts : targetMS;
+
+        // Corridor-owned chain resolution. A corridor (group) may hold up to
+        // TWO chains: one is the steady forward producer, the second lets a
+        // request beyond the producer's span leapfrog (decode pipelining).
+        // Chains of OTHER live corridors are never stolen unless no
+        // free/unowned lane exists (more corridors than lanes) — every steal
+        // that repositions re-decodes a GOP prefix, which was the dominant
+        // parallel cost.
+        int groupLaneCount = 0;
+        Lane* groupFree = nullptr;
+        bool groupCover = false;
+        if (group != 0) {
+            for (auto& l : lanes) {
+                if (l.ownerGroup != group) {
+                    continue;
+                }
+                ++groupLaneCount;
+                if (l.busy) {
+                    if (decodeTargetMS >= l.busyFromMS && decodeTargetMS <= l.busyToMS + 1500) {
+                        groupCover = true;
+                    }
+                } else if (groupFree == nullptr ||
+                           (l.curPos < decodeTargetMS &&
+                            (groupFree->curPos >= decodeTargetMS || l.curPos > groupFree->curPos))) {
+                    groupFree = &l; // prefer the closest strictly-behind chain
+                }
+            }
+        }
+        bool covered = groupCover;
+        if (!covered && waits < 100) {
+            for (auto& l : lanes) {
+                // Cross-corridor span check: a near-future requester waits for
+                // the producing owner rather than duplicating its GOP work.
+                if (l.busy && decodeTargetMS >= l.busyFromMS &&
+                    decodeTargetMS <= l.busyToMS + 1500) {
+                    covered = true;
+                    break;
+                }
+            }
+        }
+        if (!covered) {
+            if (groupFree != nullptr) {
+                // Reuse one of our corridor's chains; reposition it only when
+                // unusable (ahead of the target, dead, or far behind —
+                // decoding forward a small gap beats a GOP restart).
+                lane = groupFree;
+                const bool reusable = lane->active && !lane->demuxAtEnd &&
+                                      lane->curPos < decodeTargetMS &&
+                                      decodeTargetMS - lane->curPos <= 4000;
+                laneOpenAtMS = reusable ? -1 : std::max(0, decodeTargetMS - frameMS);
+                lane->lastUsedTick = ++laneTick;
+            } else if (group != 0 && groupLaneCount >= 2) {
+                // Both of our chains are busy elsewhere; wait for a release
+                // rather than hogging a third lane.
+                covered = true;
+            } else if (group != 0) {
+                // Claim an additional chain for this corridor: prefer an
+                // inactive or unowned lane so live corridors keep theirs.
+                for (auto& l : lanes) {
+                    if (!l.busy && (!l.active || l.ownerGroup == 0)) {
+                        lane = &l;
+                        break;
+                    }
+                }
+                if (lane != nullptr) {
+                    const bool reusable = lane->active && !lane->demuxAtEnd &&
+                                          lane->curPos < decodeTargetMS &&
+                                          decodeTargetMS - lane->curPos <= kForwardSkipMS + gracetimeMS;
+                    laneOpenAtMS = reusable ? -1 : std::max(0, decodeTargetMS - frameMS);
+                    lane->lastUsedTick = ++laneTick;
+                } else {
+                    lane = selectLane(decodeTargetMS, gracetimeMS, laneOpenAtMS);
+                }
+            } else {
+                lane = selectLane(decodeTargetMS, gracetimeMS, laneOpenAtMS);
+            }
+            if (lane != nullptr) {
+                lane->ownerGroup = group;
+                lane->busy = true;
+                lane->busyFromMS = (laneOpenAtMS >= 0) ? laneOpenAtMS
+                                                       : std::min(lane->curPos, decodeTargetMS);
+                lane->busyToMS = decodeTargetMS + kReadAheadFrames * frameMS;
+                break;
+            }
+            bool anyBusy = false;
+            for (auto& l : lanes) {
+                anyBusy |= l.busy;
+            }
+            if (!anyBusy) {
+                outAtEnd = true;
+                if (getenv("XLDBG_VID") != nullptr) {
+                    fprintf(stderr, "VIDN reason=nolane f=%s t=%d\n", filename.c_str(), targetMS);
+                }
+                return nullptr;
+            }
+        }
+        ++waits;
+        if (waits > 1500) {
+            spdlog::error("AVFoundationVideoBridge: timed out waiting for a decode chain at {}ms in {}",
+                          targetMS, filename);
+            outAtEnd = true;
+            return nullptr;
+        }
+        cacheCv.wait_for(lk, std::chrono::milliseconds(20));
+    }
+
+    // Anchor set for cacheInsert eviction, captured at claim time (see the
+    // legacy path's comment; approximate is fine).
+    std::vector<int64_t> evAnchors;
+    evAnchors.reserve(1 + consumerPositions.size());
+    for (auto& l : lanes) {
+        if (&l != lane && !l.busy && l.active && !l.demuxAtEnd) {
+            evAnchors.push_back(l.curPos);
+        }
+    }
+    for (auto& [_, pos] : consumerPositions) {
+        evAnchors.push_back(pos);
+    }
+    std::sort(evAnchors.begin(), evAnchors.end());
+    evAnchors.erase(std::unique(evAnchors.begin(), evAnchors.end()), evAnchors.end());
+
+    // ---- Decode phase: mutex RELEASED; we own `lane` via busy. ----
+    lk.unlock();
+
+    if (laneOpenAtMS >= 0) {
+        // Deferred (re)open from selectLane — chain repositioning decodes a
+        // GOP prefix, far too long to hold the lock through. On failure fall
+        // through: decodeNext on a closed chain returns null and the retry
+        // below reopens.
+        (void)lane->openAt(this, laneOpenAtMS);
+    }
+
+    CVPixelBufferRef result = nullptr;
+    int resultPts = -1;
+    bool sawDemuxEnd = false;
+
+    const int maxAttempts = 3;
+    for (int attempt = 0; attempt < maxAttempts && result == nullptr; ++attempt) {
+        if (attempt > 0) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(10 * attempt));
+            lane->close();
+            if (!lane->openAt(this, std::max(0, decodeTargetMS - frameMS))) {
+                continue;
+            }
+            sawDemuxEnd = false;
+            spdlog::warn("AVFoundationVideoBridge: generator chain retry at {}ms in {}; attempt {}",
+                         targetMS, filename, attempt);
+        }
+
+        int safety = 100000;
+        while (safety-- > 0) {
+            int pts = 0;
+            CVPixelBufferRef pb = lane->decodeNext(this, pts);
+            if (!pb) {
+                if (lane->demuxAtEnd) {
+                    sawDemuxEnd = true;
+                }
+                if (getenv("XLDBG_VID") != nullptr) {
+                    fprintf(stderr, "VIDN reason=decode f=%s t=%d demux=%d lanePos=%d\n",
+                            filename.c_str(), targetMS, lane->demuxAtEnd ? 1 : 0, (int)lane->curPos);
+                }
+                break;
+            }
+            const bool crossed = (idealPts >= 0) ? (pts >= idealPts)
+                                                 : (pts + (frameMS / 2) >= targetMS);
+            {
+                std::unique_lock<std::shared_mutex> ilk(mutex);
+                lane->curPos = pts;
+                if (firstFramePos < 0) {
+                    firstFramePos = pts;
+                }
+                cacheInsert(pts, pb, evAnchors);
+                cacheCv.notify_all();
+                if (crossed) {
+                    // Serve the pure-rule frame from the cache (see the
+                    // legacy path's comment).
+                    int cachePts = 0;
+                    CVPixelBufferRef cached = cacheLookup(targetMS, cachePts);
+                    if (cached && cachePts != pts) {
+                        CVBufferRelease(pb);
+                        result = cached;
+                        resultPts = cachePts;
+                    } else {
+                        if (cached) {
+                            CVBufferRelease(cached);
+                        }
+                        result = pb;
+                        resultPts = pts;
+                    }
+                    if (idealPts >= 0 && resultPts != idealPts && getenv("XLDBG_VID") != nullptr) {
+                        fprintf(stderr,
+                                "VIDG nonideal f=%s t=%d ideal=%d served=%d openAt=%d laneFrom=%d nextIdx=%zu\n",
+                                filename.c_str(), targetMS, idealPts, resultPts,
+                                laneOpenAtMS, lane->busyFromMS, lane->nextPtsIdx);
+                    }
+                }
+            }
+            if (crossed) {
+                break;
+            }
+            CVBufferRelease(pb);
+        }
+    }
+
+    if (result != nullptr) {
+        outReadAhead.reserve(kReadAheadFrames);
+        for (int i = 0; i < kReadAheadFrames; ++i) {
+            int aheadPts = 0;
+            CVPixelBufferRef aheadPb = lane->decodeNext(this, aheadPts);
+            if (!aheadPb) break;
+            std::unique_lock<std::shared_mutex> ilk(mutex);
+            lane->curPos = aheadPts;
+            cacheInsert(aheadPts, aheadPb, evAnchors);
+            cacheCv.notify_all();
+            outReadAhead.push_back({aheadPts, aheadPb});
+        }
+    }
+
+    // ---- Epilogue: release the chain, publish bookkeeping. ----
+    lk.lock();
+    lane->busy = false;
+    if (result == nullptr && sawDemuxEnd) {
+        outAtEnd = true;
+    }
+    if (result != nullptr && consumer) {
+        int64_t lastHeld = outReadAhead.empty()
+            ? (int64_t)resultPts
+            : outReadAhead.back().ptsMs;
+        consumerPositions[consumer] = lastHeld + frameMS;
+    }
+    outPtsMs = resultPts;
+    outFirstFramePos = firstFramePos;
+    cacheCv.notify_all();
     return result;
 }
 
@@ -1966,7 +3141,7 @@ bool AVPlayerDecoder::open(const std::string& fname) {
 
 CVPixelBufferRef AVPlayerDecoder::obtainFrame(int timestampMS, int /*gracetimeMS*/,
                                                int& outPtsMs, int& outFirstFramePos,
-                                               bool& outAtEnd, void* /*consumer*/,
+                                               bool& outAtEnd, void* /*consumer*/, uint64_t /*group*/,
                                                std::vector<ReadAheadFrame>& outReadAhead) {
     outAtEnd = false;
     outFirstFramePos = 0;
@@ -2032,6 +3207,7 @@ struct VideoReaderHandle {
     std::shared_ptr<IDecoder> decoder;
 
     std::string filename;
+    uint64_t streamGroup = 0; // corridor identity (SetStreamGroup)
     bool wantAlpha = false;
     bool bgr = false;
     bool wantsHWType = false;
@@ -2173,7 +3349,19 @@ struct VideoReaderHandle {
                                            (__bridge CFDictionaryRef)attrs,
                                            &scaledPixelBuffer);
         if (ret != kCVReturnSuccess) {
+            // IOSurface-backed allocation can fail transiently (-6662) when
+            // the process-wide surface namespace is under pressure. The
+            // default scale path reads this buffer on the CPU, so a plain
+            // buffer is fully functional — silently emitting an UNSCALED
+            // frame (the caller's fallback) would change rendered bytes.
+            ret = CVPixelBufferCreate(kCFAllocatorDefault,
+                                      width, height,
+                                      kCVPixelFormatType_32BGRA,
+                                      nullptr, &scaledPixelBuffer);
+        }
+        if (ret != kCVReturnSuccess) {
             spdlog::error("AVFoundationVideoBridge: CVPixelBufferCreate failed: {}", (int)ret);
+            scaledPixelBuffer = nullptr;
             return false;
         }
         return true;
@@ -2526,10 +3714,18 @@ VideoReaderHandle* CreateReader(const std::string& filename, int maxwidth, int m
     }
 
     h->decoder = acquireDecoder(filename);
+    if ((!h->decoder || !h->decoder->isValid()) && ![NSThread isMainThread] && fileEverValid(filename)) {
+        for (int retry = 1; retry <= 5 && (!h->decoder || !h->decoder->isValid()); ++retry) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(25 * retry));
+            spdlog::warn("AVFoundationVideoBridge: re-open of previously-good {} failed; retry {}", filename, retry);
+            h->decoder = acquireDecoder(filename);
+        }
+    }
     if (!h->decoder || !h->decoder->isValid()) {
         h->failed = true;
         return h;
     }
+    noteFileValid(filename);
 
     h->nativeWidth = h->decoder->getNativeWidth();
     h->nativeHeight = h->decoder->getNativeHeight();
@@ -2571,6 +3767,7 @@ void DestroyReader(VideoReaderHandle* h) {
 }
 
 bool IsValid(VideoReaderHandle* h) { return h && h->decoder && h->decoder->isValid() && !h->failed; }
+bool IsFrameIndependent(VideoReaderHandle* h) { return IsValid(h) && !h->decoder->isRawDemux() && !h->decoder->isSWDecode(); }
 int GetLengthMS(VideoReaderHandle* h) { return h ? (int)h->lengthMS : 0; }
 int GetWidth(VideoReaderHandle* h) { return h ? h->width : 0; }
 int GetHeight(VideoReaderHandle* h) { return h ? h->height : 0; }
@@ -2580,6 +3777,10 @@ int GetPixelChannels(VideoReaderHandle* h) { return h && h->wantAlpha ? 4 : 3; }
 
 void SetScaleAlgorithm(VideoReaderHandle* h, ScaleAlgorithm algorithm) {
     if (h) h->scaleAlgorithm = algorithm;
+}
+
+void SetStreamGroup(VideoReaderHandle* h, uint64_t group) {
+    if (h) h->streamGroup = group;
 }
 
 bool Resize(VideoReaderHandle* h, int width, int height) {
@@ -2729,6 +3930,25 @@ const FrameView* GetNextFrame(VideoReaderHandle* h, int timestampMS, int graceti
         }
     }
 
+    // Scaled-output cache: serves repeated/shared frames already converted
+    // by ANOTHER handle with identical output config — the cross-clone
+    // equivalent of the double-buffer repeat hit above (frame-parallel
+    // clones cannot share their double buffers). Skips the native-frame
+    // fetch AND the scale entirely.
+    if (idealPts >= 0) {
+        uint8_t* back = h->frame1IsCurrent ? h->frameBuffer2 : h->frameBuffer1;
+        if (back != nullptr &&
+            h->decoder->lookupScaled(h->width, h->height, (int)h->outputFormat,
+                                     (int)h->scaleAlgorithm, idealPts, back,
+                                     (size_t)h->frameBufferSize)) {
+            h->swapFrames();
+            h->prevPos = h->curPos;
+            h->curPos = idealPts;
+            if (xldbgVid()) xldbgVidLog(h, "scc", timestampMS, idealPts, h->currentFrame());
+            return &h->currentFrame();
+        }
+    }
+
     // Per-handle private cache hit: serve the frame without taking the
     // SharedDecoder mutex at all. Populated by previous obtainFrame
     // calls' read-ahead. This is the contention-busting fast path for
@@ -2793,7 +4013,7 @@ const FrameView* GetNextFrame(VideoReaderHandle* h, int timestampMS, int graceti
         bool atEnd = false;
         std::vector<IDecoder::ReadAheadFrame> readAhead;
         pb = h->decoder->obtainFrame(timestampMS, gracetime, pts, firstFramePos,
-                                      atEnd, h, readAhead);
+                                      atEnd, h, h->streamGroup, readAhead);
 
         if (h->firstFramePos < 0 && firstFramePos >= 0) {
             h->firstFramePos = firstFramePos;
@@ -2837,6 +4057,12 @@ const FrameView* GetNextFrame(VideoReaderHandle* h, int timestampMS, int graceti
     h->curPos = pts;
     h->emitDecodedImage(pb);
     CVBufferRelease(pb);
+
+    if (idealPts >= 0) {
+        h->decoder->insertScaled(h->width, h->height, (int)h->outputFormat,
+                                 (int)h->scaleAlgorithm, idealPts,
+                                 h->currentBuffer(), (size_t)h->frameBufferSize);
+    }
 
     if (xldbgVid()) xldbgVidLog(h, "dec", timestampMS, pts, h->currentFrame());
     return &h->currentFrame();

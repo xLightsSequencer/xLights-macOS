@@ -66,6 +66,12 @@ struct FrameView {
 void DestroyReader(VideoReaderHandle* h);
 
 [[nodiscard]] bool IsValid(VideoReaderHandle* h);
+// True when GetNextFrame(t) is a pure function of (file, t) AND the decoder
+// tolerates many consumers at arbitrary positions (pts-indexed shared decoder,
+// random-access lanes). False for rawvideo-demux files: AVAssetReader cannot
+// start mid-chunk on them, so repositioning is a full re-demux and heavy
+// multi-position access storms MediaToolbox ("Cannot Complete Action").
+[[nodiscard]] bool IsFrameIndependent(VideoReaderHandle* h);
 [[nodiscard]] int GetLengthMS(VideoReaderHandle* h);
 [[nodiscard]] int GetWidth(VideoReaderHandle* h);
 [[nodiscard]] int GetHeight(VideoReaderHandle* h);
@@ -80,6 +86,10 @@ void Seek(VideoReaderHandle* h, int timestampMS, bool readFrame);
 [[nodiscard]] const FrameView* GetNextFrame(VideoReaderHandle* h, int timestampMS, int gracetime);
 
 [[nodiscard]] bool Resize(VideoReaderHandle* h, int width, int height);
+// Corridor identity for decoder chain affinity: handles serving the same
+// row/effect stream share a group; the shared decoder keeps one forward
+// decode chain per group instead of stealing chains across corridors.
+void SetStreamGroup(VideoReaderHandle* h, uint64_t group);
 void SetScaleAlgorithm(VideoReaderHandle* h, ScaleAlgorithm algorithm);
 
 // Stateless helper — opens the file just enough to read the duration.
