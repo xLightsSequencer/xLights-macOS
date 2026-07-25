@@ -686,6 +686,7 @@
 				effects/ispc/ColorWashFunctions.ispc,
 				effects/ispc/FanFunctions.ispc,
 				effects/ispc/FillFunctions.ispc,
+				effects/ispc/FireFunctions.ispc,
 				effects/ispc/GalaxyFunctions.ispc,
 				effects/ispc/GarlandsFunctions.ispc,
 				effects/ispc/KaleidoscopeFunctions.ispc,
