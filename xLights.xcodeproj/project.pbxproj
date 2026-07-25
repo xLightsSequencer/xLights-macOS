@@ -618,6 +618,7 @@
 				effects/metal/ColorWashFunctions.metal,
 				effects/metal/FanFunctions.metal,
 				effects/metal/FillFunctions.metal,
+				effects/metal/FireFunctions.metal,
 				effects/metal/GalaxyFunctions.metal,
 				effects/metal/GarlandsFunctions.metal,
 				effects/metal/KaleidoscopeFunctions.metal,
