@@ -62,7 +62,12 @@ struct FrameView {
                                                bool usenativeresolution,
                                                bool wantAlpha,
                                                bool bgr,
-                                               bool wantsHWType);
+                                               bool wantsHWType,
+                                               // Decode-time scaling target from the render pre-pass
+                                               // (VideoDecodeSizeRegistry, looked up src-core side); the
+                                               // shared decoder emits frames scaled to <= this size
+                                               // instead of native. 0 = decode at native.
+                                               int maxDecodeW, int maxDecodeH);
 void DestroyReader(VideoReaderHandle* h);
 
 [[nodiscard]] bool IsValid(VideoReaderHandle* h);

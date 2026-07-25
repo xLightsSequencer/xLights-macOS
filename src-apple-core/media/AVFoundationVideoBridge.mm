@@ -37,6 +37,7 @@
 
 #include "AVFoundationVideoBridge.h"
 
+#include <TargetConditionals.h>
 #import <AVFoundation/AVFoundation.h>
 #import <CoreMedia/CoreMedia.h>
 #import <VideoToolbox/VideoToolbox.h>
@@ -415,7 +416,7 @@ public:
     SharedDecoder& operator=(const SharedDecoder&) = delete;
     ~SharedDecoder() override;
 
-    bool open(const std::string& filename);
+    bool open(const std::string& filename, int maxDecodeW, int maxDecodeH);
 
     bool isValid() const override { return valid && !openFailed; }
     bool isRawDemux() const override { return useRawDecode; }
@@ -540,7 +541,7 @@ private:
         // Advances cursor/decodeIdx. False = no more samples / hard failure.
         bool feedGeneratorSample(SharedDecoder* dec);
 
-        bool ensureVTSession(CMVideoFormatDescriptionRef formatDesc, bool allowHW);
+        bool ensureVTSession(CMVideoFormatDescriptionRef formatDesc, bool allowHW, SharedDecoder* dec);
 
         static void vtOutputCallback(void* refCon, void* sourceFrameRefCon,
                                      OSStatus status, VTDecodeInfoFlags infoFlags,
@@ -650,6 +651,11 @@ private:
     int frameMS = 50;
     float nominalFrameRate = 0;
     int firstFramePos = -1;
+
+    // Decode-time scaling target (VideoDecodeSizeRegistry): the size VideoToolbox
+    // is asked to emit frames at, <= native. 0 = decode at native (no scaling).
+    int decodeWidth = 0;
+    int decodeHeight = 0;
 
     std::array<Lane, kLanesPerFile> lanes;
     int64_t laneTick = 0;
@@ -869,7 +875,7 @@ void noteFileValid(const std::string& f) {
 // VTDecompressionSession; the SharedDecoder pool stays untouched. On a
 // background thread (render workers) returns a SharedDecoder, sharing one
 // per file across consumers via the global registry.
-std::shared_ptr<IDecoder> acquireDecoder(const std::string& filename) {
+std::shared_ptr<IDecoder> acquireDecoder(const std::string& filename, int maxDecodeW, int maxDecodeH) {
     if ([NSThread isMainThread]) {
         // Dedicated AVPlayerDecoder — never registered in g_decoders, so
         // its lifetime is tied to the single VideoReaderHandle that owns
@@ -888,7 +894,7 @@ std::shared_ptr<IDecoder> acquireDecoder(const std::string& filename) {
         g_decoders.erase(it);
     }
     auto sp = std::shared_ptr<SharedDecoder>(new SharedDecoder());
-    if (!sp->open(filename)) {
+    if (!sp->open(filename, maxDecodeW, maxDecodeH)) {
         // Don't cache failures — let the next attempt re-probe in case
         // the file becomes readable.
         return sp;
@@ -949,7 +955,7 @@ SharedDecoder::~SharedDecoder() {
     }
 }
 
-bool SharedDecoder::open(const std::string& fname) {
+bool SharedDecoder::open(const std::string& fname, int maxDecodeW, int maxDecodeH) {
     filename = fname;
 
     @autoreleasepool {
@@ -1005,6 +1011,48 @@ bool SharedDecoder::open(const std::string& fname) {
             spdlog::error("AVFoundationVideoBridge: Invalid video dimensions for {}", fname);
             openFailed = true;
             return false;
+        }
+
+        // Decode-time scaling: when the render pre-pass passes a max render size
+        // for this file (maxDecodeW/H, looked up src-core side and handed down via
+        // CreateReader), decode at that size (x an AA headroom, clamped to native,
+        // even dims) instead of native — the media-engine scaler does it during
+        // decode, shrinking every cached frame and the per-consumer scale. Never
+        // upscales; 0 means decode native. VT dstAttrs use decodeWidth/Height.
+        decodeWidth = nativeWidth;
+        decodeHeight = nativeHeight;
+        if (maxDecodeW > 0 && maxDecodeH > 0) {
+            // AA headroom: VideoToolbox's decode-time downscale decimates (aliases
+            // at large factors), so decode at headroom x the needed size and let
+            // the per-consumer vImage do the final area-averaged step. Higher =
+            // closer to native quality, less memory saved (GreatestShow vs native:
+            // h1/2/3/4 -> RSS 4.3/5.8/8.4/10.6GB, >4-diff pixels 158M/37M/4.3M/0.7M).
+            // Default: desktop 3 (favour quality), iPad 2 (favour memory — it's
+            // more constrained). XL_VIDEO_DECODE_HEADROOM overrides.
+            static const double headroom = [] {
+                const char* e = getenv("XL_VIDEO_DECODE_HEADROOM");
+                if (e) {
+                    const double h = atof(e);
+                    return h >= 1.0 ? h : 1.0;
+                }
+#if TARGET_OS_IPHONE
+                return 2.0;
+#else
+                return 3.0;
+#endif
+            }();
+            const int tw = ((int)(maxDecodeW * headroom + 0.5)) & ~1;
+            const int th = ((int)(maxDecodeH * headroom + 0.5)) & ~1;
+            if (tw >= 2 && tw < nativeWidth) {
+                decodeWidth = tw;
+            }
+            if (th >= 2 && th < nativeHeight) {
+                decodeHeight = th;
+            }
+            if (decodeWidth != nativeWidth || decodeHeight != nativeHeight) {
+                spdlog::info("AVFoundationVideoBridge: decode-scale {}x{} -> {}x{} (render max {}x{}) for {}",
+                             nativeWidth, nativeHeight, decodeWidth, decodeHeight, maxDecodeW, maxDecodeH, fname);
+            }
         }
 
         CMTime duration = asset.duration;
@@ -1676,7 +1724,7 @@ bool SharedDecoder::Lane::feedGeneratorSample(SharedDecoder* dec) {
             }
             CMVideoFormatDescriptionRef fmt =
                 (CMVideoFormatDescriptionRef)CMSampleBufferGetFormatDescription(one);
-            if (!fmt || !ensureVTSession(fmt, /*allowHW=*/!dec->useSoftwareDecode)) {
+            if (!fmt || !ensureVTSession(fmt, /*allowHW=*/!dec->useSoftwareDecode, dec)) {
                 CFRelease(one);
                 spdlog::error("AVFoundationVideoBridge: VT session unavailable for generator decode of {}", dec->filename);
                 return false;
@@ -1866,7 +1914,7 @@ void SharedDecoder::Lane::vtOutputCallback(void* refCon, void* /*sourceFrameRefC
     self->ptsQueue.push(entry);
 }
 
-bool SharedDecoder::Lane::ensureVTSession(CMVideoFormatDescriptionRef formatDesc, bool allowHW) {
+bool SharedDecoder::Lane::ensureVTSession(CMVideoFormatDescriptionRef formatDesc, bool allowHW, SharedDecoder* dec) {
     if (!formatDesc) return false;
     if (vtSession && cachedFormatDesc &&
         CMFormatDescriptionEqual((CMFormatDescriptionRef)cachedFormatDesc,
@@ -1896,10 +1944,18 @@ bool SharedDecoder::Lane::ensureVTSession(CMVideoFormatDescriptionRef formatDesc
               (NSString*)kVTVideoDecoderSpecification_EnableHardwareAcceleratedVideoDecoder: @NO,
               (NSString*)kVTVideoDecoderSpecification_RequireHardwareAcceleratedVideoDecoder: @NO
           };
-    NSDictionary* dstAttrs = @{
+    NSMutableDictionary* dstAttrs = [@{
         (NSString*)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA),
         (NSString*)kCVPixelBufferIOSurfacePropertiesKey: @{}
-    };
+    } mutableCopy];
+    // Decode-time scaling (see SharedDecoder::open): ask VideoToolbox to emit
+    // frames at the pre-pass max render size instead of native. VT scales during
+    // decode via the media-engine scaler.
+    if (dec != nullptr && dec->decodeWidth > 0 && dec->decodeHeight > 0 &&
+        (dec->decodeWidth < dec->nativeWidth || dec->decodeHeight < dec->nativeHeight)) {
+        dstAttrs[(NSString*)kCVPixelBufferWidthKey] = @(dec->decodeWidth);
+        dstAttrs[(NSString*)kCVPixelBufferHeightKey] = @(dec->decodeHeight);
+    }
 
     VTDecompressionOutputCallbackRecord cb = {
         .decompressionOutputCallback = &Lane::vtOutputCallback,
@@ -2056,7 +2112,7 @@ CVPixelBufferRef SharedDecoder::Lane::decodeNextSW(SharedDecoder* dec, int& outP
                 CFRelease(sample);
                 continue;
             }
-            if (!ensureVTSession(sampleFormat, /*allowHW=*/false)) {
+            if (!ensureVTSession(sampleFormat, /*allowHW=*/false, dec)) {
                 spdlog::error("AVFoundationVideoBridge: ensureVTSession failed (sample format desc {}); aborting SW lane",
                              (void*)sampleFormat);
                 CFRelease(sample);
@@ -3700,7 +3756,8 @@ struct VideoReaderHandle {
 
 VideoReaderHandle* CreateReader(const std::string& filename, int maxwidth, int maxheight,
                                  bool keepaspectratio, bool usenativeresolution,
-                                 bool wantAlpha, bool bgr, bool wantsHWType) {
+                                 bool wantAlpha, bool bgr, bool wantsHWType,
+                                 int maxDecodeW, int maxDecodeH) {
     auto* h = new VideoReaderHandle();
     h->filename = filename;
     h->wantAlpha = wantAlpha;
@@ -3713,12 +3770,12 @@ VideoReaderHandle* CreateReader(const std::string& filename, int maxwidth, int m
         h->outputFormat = bgr ? PixelFormat::BGR24 : PixelFormat::RGB24;
     }
 
-    h->decoder = acquireDecoder(filename);
+    h->decoder = acquireDecoder(filename, maxDecodeW, maxDecodeH);
     if ((!h->decoder || !h->decoder->isValid()) && ![NSThread isMainThread] && fileEverValid(filename)) {
         for (int retry = 1; retry <= 5 && (!h->decoder || !h->decoder->isValid()); ++retry) {
             std::this_thread::sleep_for(std::chrono::milliseconds(25 * retry));
             spdlog::warn("AVFoundationVideoBridge: re-open of previously-good {} failed; retry {}", filename, retry);
-            h->decoder = acquireDecoder(filename);
+            h->decoder = acquireDecoder(filename, maxDecodeW, maxDecodeH);
         }
     }
     if (!h->decoder || !h->decoder->isValid()) {
