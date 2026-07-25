@@ -1015,13 +1015,15 @@ bool SharedDecoder::open(const std::string& fname, int maxDecodeW, int maxDecode
 
         // Decode-time scaling: when the render pre-pass passes a max render size
         // for this file (maxDecodeW/H, looked up src-core side and handed down via
-        // CreateReader), decode at that size (x an AA headroom, clamped to native,
-        // even dims) instead of native — the media-engine scaler does it during
-        // decode, shrinking every cached frame and the per-consumer scale. Never
-        // upscales; 0 means decode native. VT dstAttrs use decodeWidth/Height.
+        // CreateReader), decode at a uniform downscale of native covering that size
+        // (x an AA headroom) instead of native — the media-engine scaler does it
+        // during decode, shrinking every cached frame and the per-consumer scale.
+        // Never upscales; 0 means decode native. Only the VT-session lanes
+        // (generator / software) honour dstAttrs, so the raw-demux path stays
+        // native (it converts bytes by hand and can't ask VT to scale).
         decodeWidth = nativeWidth;
         decodeHeight = nativeHeight;
-        if (maxDecodeW > 0 && maxDecodeH > 0) {
+        if (maxDecodeW > 0 && maxDecodeH > 0 && !useRawDecode) {
             // AA headroom: VideoToolbox's decode-time downscale decimates (aliases
             // at large factors), so decode at headroom x the needed size and let
             // the per-consumer vImage do the final area-averaged step. Higher =
@@ -1041,12 +1043,19 @@ bool SharedDecoder::open(const std::string& fname, int maxDecodeW, int maxDecode
                 return 3.0;
 #endif
             }();
-            const int tw = ((int)(maxDecodeW * headroom + 0.5)) & ~1;
-            const int th = ((int)(maxDecodeH * headroom + 0.5)) & ~1;
-            if (tw >= 2 && tw < nativeWidth) {
+            // Uniform downscale of NATIVE (preserve the video's aspect), sized so
+            // both axes still cover the needed render size. Scaling each axis
+            // independently to the buffer's aspect (maxDecodeW/H) would squash the
+            // frame anisotropically, which only cancels out downstream when
+            // Maintain Aspect Ratio is off; a single scale factor composes with the
+            // per-consumer stretch correctly either way.
+            const double s = std::min(1.0,
+                std::max((double)maxDecodeW * headroom / (double)nativeWidth,
+                         (double)maxDecodeH * headroom / (double)nativeHeight));
+            const int tw = ((int)(nativeWidth * s + 0.5)) & ~1;
+            const int th = ((int)(nativeHeight * s + 0.5)) & ~1;
+            if (tw >= 2 && th >= 2 && (tw < nativeWidth || th < nativeHeight)) {
                 decodeWidth = tw;
-            }
-            if (th >= 2 && th < nativeHeight) {
                 decodeHeight = th;
             }
             if (decodeWidth != nativeWidth || decodeHeight != nativeHeight) {
@@ -1506,9 +1515,19 @@ bool SharedDecoder::Lane::openAt(SharedDecoder* dec, int timestampMS) {
         // bytes to BGRA directly.
         NSDictionary* outputSettings = nil;
         if (!dec->useSoftwareDecode && !dec->useRawDecode) {
-            outputSettings = @{
+            NSMutableDictionary* os = [@{
                 (NSString*)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA)
-            };
+            } mutableCopy];
+            // Decode-time scaling on the HW (AVAssetReader) path, matching what the
+            // SW/generator lanes do via the VT session dstAttrs — deliver frames at
+            // the pre-pass render size. If AVFoundation ever ignored these the
+            // frames just come back native (correct, only no memory win).
+            if (dec->decodeWidth > 0 && dec->decodeHeight > 0 &&
+                (dec->decodeWidth < dec->nativeWidth || dec->decodeHeight < dec->nativeHeight)) {
+                os[(NSString*)kCVPixelBufferWidthKey] = @(dec->decodeWidth);
+                os[(NSString*)kCVPixelBufferHeightKey] = @(dec->decodeHeight);
+            }
+            outputSettings = os;
         }
         trackOutput = [[AVAssetReaderTrackOutput alloc] initWithTrack:localTrack
                                                        outputSettings:outputSettings];
