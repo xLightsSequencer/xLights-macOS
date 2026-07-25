@@ -193,6 +193,22 @@
         <string>DocumentXSQZ</string>
       </array>
     </dict>
+    <dict>
+      <key>CFBundleTypeName</key>
+      <string>xLights Sequence Backup</string>
+      <key>CFBundleTypeRole</key>
+      <string>Editor</string>
+      <key>LSHandlerRank</key>
+      <string>Owner</string>
+      <key>LSItemContentTypes</key>
+      <array>
+        <string>org.xlights.sequence-backup</string>
+      </array>
+      <key>CFBundleTypeIconFiles</key>
+      <array>
+        <string>DocumentXSQ</string>
+      </array>
+    </dict>
   </array>
 
   <key>UTExportedTypeDeclarations</key>
@@ -255,6 +271,34 @@
         <key>public.filename-extension</key>
         <array>
           <string>xsqz</string>
+        </array>
+      </dict>
+    </dict>
+    <!--
+      Autosave snapshot. Same XML as a `.xsq`, so it conforms to the
+      sequence type rather than redeclaring it - opening one routes
+      through the normal open path in `XLightsApp.handleIncomingSequenceURL`,
+      which then sheets the "this is a backup, Save As" notice. Without
+      this declaration Files has no handler and never delivers the tap.
+    -->
+    <dict>
+      <key>UTTypeIdentifier</key>
+      <string>org.xlights.sequence-backup</string>
+      <key>UTTypeDescription</key>
+      <string>xLights Sequence Backup</string>
+      <key>UTTypeConformsTo</key>
+      <array>
+        <string>org.xlights.sequence</string>
+        <string>public.xml</string>
+        <string>public.data</string>
+      </array>
+      <key>UTTypeIconFile</key>
+      <string>DocumentXSQ</string>
+      <key>UTTypeTagSpecification</key>
+      <dict>
+        <key>public.filename-extension</key>
+        <array>
+          <string>xbkp</string>
         </array>
       </dict>
     </dict>
