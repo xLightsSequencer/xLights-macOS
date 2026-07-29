@@ -34,6 +34,11 @@ API_AVAILABLE(macos(12.0), ios(13.0))
                         error:nil];
 
     NSDateFormatter* fmt = [[NSDateFormatter alloc] init];
+    // Without a fixed locale, NSDateFormatter rewrites a fixed dateFormat to
+    // match the user's preferences: a 12-hour region turns HH into hh plus a
+    // localised AM/PM marker, which lands non-ASCII bytes in the filename.
+    // Those names then fail to extract from the crash zip, losing the payload.
+    fmt.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
     fmt.dateFormat = @"yyyyMMdd-HHmmss";
     fmt.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
     NSString* stamp = [fmt stringFromDate:[NSDate date]];
