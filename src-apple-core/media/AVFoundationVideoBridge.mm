@@ -1001,11 +1001,25 @@ bool SharedDecoder::open(const std::string& fname, int maxDecodeW, int maxDecode
             }
         }
 
+        // "Native" means the size the decoder can actually produce, so it must
+        // be the CODED size with at most the preferred transform's 90-degree
+        // swap applied. Running naturalSize through the whole transform also
+        // picks up its SCALE, and a file may carry an absurd one: a display
+        // matrix that encodes the pixel aspect ratio as a scale (seen in the
+        // wild as scale(853, -9217) on a 640x480 clip) yields a "native" size
+        // of 545920x4424160. Everything downstream is sized off native — the
+        // decode-scale target below is a fraction OF it — so a bogus value
+        // there asks VideoToolbox to decode far ABOVE the source, and every
+        // cached frame pays it (46MB/frame instead of 1.2MB on that clip, tens
+        // of GB across the frame caches of a video-heavy show).
         CGSize naturalSize = videoTrack.naturalSize;
         CGAffineTransform transform = videoTrack.preferredTransform;
-        CGSize transformedSize = CGSizeApplyAffineTransform(naturalSize, transform);
-        nativeWidth = (int)fabs(transformedSize.width);
-        nativeHeight = (int)fabs(transformedSize.height);
+        const int codedW = (int)fabs(naturalSize.width);
+        const int codedH = (int)fabs(naturalSize.height);
+        // |b| > |a| is the +-90 degree case; anything else keeps the axes.
+        const bool swapsAxes = fabs(transform.b) > fabs(transform.a);
+        nativeWidth = swapsAxes ? codedH : codedW;
+        nativeHeight = swapsAxes ? codedW : codedH;
 
         if (nativeWidth == 0 || nativeHeight == 0) {
             spdlog::error("AVFoundationVideoBridge: Invalid video dimensions for {}", fname);
@@ -1062,6 +1076,16 @@ bool SharedDecoder::open(const std::string& fname, int maxDecodeW, int maxDecode
                 spdlog::info("AVFoundationVideoBridge: decode-scale {}x{} -> {}x{} (render max {}x{}) for {}",
                              nativeWidth, nativeHeight, decodeWidth, decodeHeight, maxDecodeW, maxDecodeH, fname);
             }
+        }
+        // Independent of how decodeWidth/Height were derived: decoding above
+        // the source can only invent pixels, and it multiplies the size of
+        // every frame held in the decoder's cache and each consumer's private
+        // one. Whatever the metadata claims, the target is capped at the source.
+        if (decodeWidth > nativeWidth || decodeHeight > nativeHeight) {
+            spdlog::warn("AVFoundationVideoBridge: decode target {}x{} exceeds source {}x{}; clamping for {}",
+                         decodeWidth, decodeHeight, nativeWidth, nativeHeight, fname);
+            decodeWidth = std::min(decodeWidth, nativeWidth);
+            decodeHeight = std::min(decodeHeight, nativeHeight);
         }
 
         CMTime duration = asset.duration;
@@ -3149,11 +3173,16 @@ bool AVPlayerDecoder::open(const std::string& fname) {
         }
         AVAssetTrack* track = tracks[0];
 
+        // Coded size, honouring only the transform's 90-degree swap — see the
+        // same derivation in SharedDecoder::open for why the transform's scale
+        // must not reach the buffer dimensions.
         CGSize naturalSize = track.naturalSize;
         CGAffineTransform transform = track.preferredTransform;
-        CGSize transformedSize = CGSizeApplyAffineTransform(naturalSize, transform);
-        nativeWidth = (int)fabs(transformedSize.width);
-        nativeHeight = (int)fabs(transformedSize.height);
+        const int codedW = (int)fabs(naturalSize.width);
+        const int codedH = (int)fabs(naturalSize.height);
+        const bool swapsAxes = fabs(transform.b) > fabs(transform.a);
+        nativeWidth = swapsAxes ? codedH : codedW;
+        nativeHeight = swapsAxes ? codedW : codedH;
         if (nativeWidth == 0 || nativeHeight == 0) {
             spdlog::error("AVPlayerDecoder: Invalid video dimensions for {}", fname);
             return false;
