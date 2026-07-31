@@ -21,6 +21,10 @@ void EnableSleepModes();
 void DisableSleepModes();
 bool IsFromAppStore();
 
+// Only meaningful from inside a catch handler; returns "" when the exception
+// being handled is not an NSException.
+std::string DescribeCurrentAppleException();
+
 void SetThreadQOS(int i);
 
 #define __XL_EXTERNAL_HOOKS__
