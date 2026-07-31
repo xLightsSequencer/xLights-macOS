@@ -315,6 +315,63 @@ constexpr int kLegacyLanesPerFile = 2;
 // just trade memory for tolerance to wider playhead spread.
 constexpr int kCacheCapacity = 64;
 
+// Frame counts are resolution-blind: 64 frames is 506MB of 1080p but 2GB of
+// 4K, and a show can hold one decoder per referenced path at once. Both
+// caches are therefore also bounded in bytes, measured from the decoded
+// buffer itself so a decode-scaled file is charged its real size. Purely an
+// eviction policy — it cannot change decoded output.
+//
+// The floors are load-bearing, not defensive. A private cache smaller than
+// one read-ahead batch round-robins over its own entries as it stashes them,
+// so it never serves a hit and every frame falls through to the shared
+// decoder mutex; measured at 4 slots against kReadAheadFrames=8 that turned
+// an 88s render into >18 minutes. Keep both floors above the read-ahead
+// window — a very large frame then still costs floor x frame, and shrinking
+// the frame (decode-scale) is the lever that helps there, not a smaller cache.
+constexpr int kMinCacheFrames = 24;
+constexpr int64_t kDefaultCacheBudgetMB = 512;
+constexpr int64_t kDefaultPrivCacheBudgetMB = 96;
+
+// 0 disables the budget (frame-count behaviour only).
+int64_t budgetBytesFromEnv(const char* var, int64_t defaultMB) {
+    const char* e = getenv(var);
+    const int64_t mb = e != nullptr ? (int64_t)strtol(e, nullptr, 10) : defaultMB;
+    return mb > 0 ? mb * 1024 * 1024 : 0;
+}
+int64_t sharedCacheBudgetBytes() {
+    static const int64_t v = budgetBytesFromEnv("XL_VIDEO_CACHE_MB", kDefaultCacheBudgetMB);
+    return v;
+}
+int64_t privCacheBudgetBytes() {
+    static const int64_t v = budgetBytesFromEnv("XL_VIDEO_HANDLE_CACHE_MB", kDefaultPrivCacheBudgetMB);
+    return v;
+}
+// Smallest native frame worth applying that fallback to — roughly 720p. Below
+// this the whole cache for a file is tens of MB, so there is nothing to buy
+// with the headroom it spends.
+constexpr int64_t kDecodeScaleMinFrameBytes = 2 * 1024 * 1024;
+
+// Largest reduction the media engine may perform unaided when the AA headroom
+// would otherwise clamp the decode to native (see the decode-scale block).
+// <= 1 disables that fallback, restoring decode-at-native there.
+double maxVTReduction() {
+    static const double v = [] {
+        const char* e = getenv("XL_VIDEO_MAX_VT_FACTOR");
+        return e != nullptr ? atof(e) : 2.0;
+    }();
+    return v;
+}
+
+// Frames of `frameBytes` a budget allows, floored at `floorFrames` and never
+// above `maxFrames`. An unset budget leaves the count-based cap in charge.
+int framesForBudget(int64_t budgetBytes, int64_t frameBytes, int floorFrames, int maxFrames) {
+    if (budgetBytes <= 0 || frameBytes <= 0) {
+        return maxFrames;
+    }
+    const int64_t n = budgetBytes / frameBytes;
+    return (int)std::clamp<int64_t>(n, floorFrames, maxFrames);
+}
+
 // After serving the requested frame we opportunistically decode K more
 // frames so the next forward request becomes a cache hit rather than
 // triggering a fresh `copyNextSampleBuffer` cycle. With per-handle private
@@ -1063,9 +1120,29 @@ bool SharedDecoder::open(const std::string& fname, int maxDecodeW, int maxDecode
             // frame anisotropically, which only cancels out downstream when
             // Maintain Aspect Ratio is off; a single scale factor composes with the
             // per-consumer stretch correctly either way.
-            const double s = std::min(1.0,
-                std::max((double)maxDecodeW * headroom / (double)nativeWidth,
-                         (double)maxDecodeH * headroom / (double)nativeHeight));
+            const double sNeed = std::max((double)maxDecodeW / (double)nativeWidth,
+                                          (double)maxDecodeH / (double)nativeHeight);
+            double s = std::min(1.0, sNeed * headroom);
+            // A single large consumer (a whole-house group, say) multiplied by the
+            // headroom can overshoot native, and then the file decodes full-size
+            // however small every other consumer is — the headroom buys nothing
+            // because it was clamped away. In exactly that regime the largest
+            // consumer is by definition already near native, so the reduction VT
+            // must do on its own is mild; take the smallest scale that still
+            // covers the need and keeps VT's own step within kMaxVTReduction.
+            // Every smaller consumer keeps area-averaging down from that. Files
+            // whose headroom already fits below native are untouched.
+            // Only where the frames are actually big enough to be worth it.
+            // The fallback trades some of the largest consumer's anti-alias
+            // headroom for memory, so on a small source it is a pure loss: a
+            // 384x216 clip is 331KB a frame and its whole cache is tens of MB,
+            // yet halving it still throws away real detail (measured maxD 88
+            // on one such model). Below the threshold, keep native.
+            const int64_t nativeFrameBytes = (int64_t)nativeWidth * nativeHeight * 4;
+            if (s >= 1.0 && maxVTReduction() > 1.0 &&
+                nativeFrameBytes >= kDecodeScaleMinFrameBytes) {
+                s = std::min(1.0, std::max(sNeed, 1.0 / maxVTReduction()));
+            }
             const int tw = ((int)(nativeWidth * s + 0.5)) & ~1;
             const int th = ((int)(nativeHeight * s + 0.5)) & ~1;
             if (tw >= 2 && th >= 2 && (tw < nativeWidth || th < nativeHeight)) {
@@ -1192,7 +1269,33 @@ bool SharedDecoder::open(const std::string& fname, int maxDecodeW, int maxDecode
         // An empty verified set is fine — computeOrigin then anchors every
         // chain at decode index 0 (always correct, repositioning just costs
         // the prefix).
-        if (useGenerator && !syncDecodeIdxs.empty()) {
+        //
+        // That hazard is specific to the NAL codecs: it needs open-GOP plus
+        // multi-ref prediction across a non-IDR I-frame. Anything else here is
+        // all-intra (MJPEG, ProRes) or otherwise has no cross-sync references,
+        // so a container sync IS a canonical entry point. Verification cannot
+        // see that — it only ever sets isIDR inside the H.264/HEVC branch — so
+        // it reduced every such file to the single origin at index 0, and each
+        // reposition then re-decoded the whole prefix from the start of the
+        // file. On 1920x1080 MJPEG that was slow enough to hold decode chains
+        // for tens of seconds, time other consumers out, and (because a
+        // timeout reported end-of-stream) wrap looping effects early — the
+        // same sequence rendered differently run to run.
+        FourCharCode videoSubType = 0;
+        for (id fd in videoTrack.formatDescriptions) {
+            videoSubType = CMFormatDescriptionGetMediaSubType((__bridge CMFormatDescriptionRef)fd);
+            break;
+        }
+        const bool nalCodec = (videoSubType == kCMVideoCodecType_H264 ||
+                               videoSubType == kCMVideoCodecType_HEVC);
+        const std::string subTypeName = {
+            (char)((videoSubType >> 24) & 0xFF), (char)((videoSubType >> 16) & 0xFF),
+            (char)((videoSubType >> 8) & 0xFF), (char)(videoSubType & 0xFF)
+        };
+        if (useGenerator && !syncDecodeIdxs.empty() && !nalCodec) {
+            spdlog::info("AVFoundationVideoBridge: non-NAL codec '{}' for {}; all {} container syncs "
+                         "are chain origins", subTypeName, fname, syncDecodeIdxs.size());
+        } else if (useGenerator && !syncDecodeIdxs.empty()) {
             bool cached = false;
             {
                 std::lock_guard<std::mutex> clk(g_idrSyncCacheMutex);
@@ -2478,7 +2581,12 @@ void SharedDecoder::cacheInsert(int64_t ptsMs, CVPixelBufferRef pixelBuffer,
     // rows streaming one 1080p file the fixed 64 sits exactly at the
     // eviction boundary and every evicted miss re-decodes a GOP. Legacy
     // reader decoders keep the fixed gate-proven capacity.
-    int capacity = kCacheCapacity;
+    // Charge the frame we actually cache, not the native dimensions: a
+    // decode-scaled file holds much smaller buffers than nativeW*nativeH*4.
+    const int64_t frameBytes = std::max<int64_t>(1, (int64_t)CVPixelBufferGetDataSize(pixelBuffer));
+    const int byBudget = framesForBudget(sharedCacheBudgetBytes(), frameBytes,
+                                         kMinCacheFrames, INT_MAX);
+    int capacity = std::min(kCacheCapacity, byBudget);
     if (useGenerator && !sortedAnchors.empty()) {
         int corridors = 1;
         for (size_t i = 1; i < sortedAnchors.size(); ++i) {
@@ -2486,9 +2594,7 @@ void SharedDecoder::cacheInsert(int64_t ptsMs, CVPixelBufferRef pixelBuffer,
                 ++corridors;
             }
         }
-        const int64_t frameBytes = std::max<int64_t>(1, (int64_t)nativeWidth * nativeHeight * 4);
-        const int byBudget = (int)std::max<int64_t>(1, (768LL * 1024 * 1024) / frameBytes);
-        capacity = std::max(kCacheCapacity, std::min(corridors * 48, byBudget));
+        capacity = std::min(std::max(kCacheCapacity, corridors * 48), byBudget);
     }
 
     if ((int)cache.size() >= capacity) {
@@ -2995,9 +3101,16 @@ CVPixelBufferRef SharedDecoder::obtainFrameGenerator(int timestampMS, int gracet
         }
         ++waits;
         if (waits > 1500) {
+            // Deliberately NOT outAtEnd: this is a transient resource stall,
+            // not the end of the stream, and AtEnd is sticky and load-bearing
+            // — the Loop duration treatments consult it to decide when to wrap.
+            // Reporting end-of-stream here made a chain that merely took too
+            // long restart a looping effect early, so every later frame of it
+            // differed, and whether any given consumer stalled came down to
+            // thread scheduling. The caller gets no frame for this request and
+            // keeps its position instead.
             spdlog::error("AVFoundationVideoBridge: timed out waiting for a decode chain at {}ms in {}",
                           targetMS, filename);
-            outAtEnd = true;
             return nullptr;
         }
         cacheCv.wait_for(lk, std::chrono::milliseconds(20));
@@ -3382,6 +3495,31 @@ struct VideoReaderHandle {
     // scan into a single compare in the steady-state forward case.
     // -1 means "no recent hit; scan from scratch."
     int privCacheLastHitIdx = -1;
+    // Slots the byte budget allows for this file's frame size. Slots at or
+    // above this are kept empty, so every lookup and the round-robin stash
+    // stay inside it.
+    int privCacheSlots = kPerHandleCacheSize;
+
+    void setPrivCacheSlots(int n) {
+        n = std::clamp(n, kReadAheadFrames, (int)kPerHandleCacheSize);
+        if (n == privCacheSlots) {
+            return;
+        }
+        for (int i = n; i < privCacheSlots; ++i) {
+            if (privCache[i].pixelBuffer) {
+                CVBufferRelease(privCache[i].pixelBuffer);
+                privCache[i].pixelBuffer = nullptr;
+            }
+            privCache[i].ptsMs = -1;
+        }
+        privCacheSlots = n;
+        if (privCacheNextSlot >= n) {
+            privCacheNextSlot = 0;
+        }
+        if (privCacheLastHitIdx >= n) {
+            privCacheLastHitIdx = -1;
+        }
+    }
 
     FrameView& currentFrame() { return frame1IsCurrent ? frameView1 : frameView2; }
     FrameView& prevFrame() { return frame1IsCurrent ? frameView2 : frameView1; }
@@ -3967,8 +4105,13 @@ static void xldbgVidLog(VideoReaderHandle* h, const char* src, int reqMS, int pt
     const uint8_t* d = fv.data;
     size_t n = (size_t)fv.linesize * fv.height;
     for (size_t i = 0; i < n; i++) { hash ^= d[i]; hash *= 1099511628211ULL; }
-    fprintf(stderr, "VID hp=%p s=%s f=%s req=%d pts=%d h=%016llx\n",
-            (void*)h, src, h->decoder->getFilename().c_str(), reqMS, pts, (unsigned long long)hash);
+    // Output dims identify the consumer config: many handles at different
+    // sizes request the same (file, pts), so without them two runs' logs
+    // cannot separate "a different set of consumers asked" from "the same
+    // consumer got different pixels".
+    fprintf(stderr, "VID hp=%p s=%s f=%s req=%d pts=%d out=%dx%d h=%016llx\n",
+            (void*)h, src, h->decoder->getFilename().c_str(), reqMS, pts,
+            fv.width, fv.height, (unsigned long long)hash);
 }
 
 const FrameView* GetNextFrame(VideoReaderHandle* h, int timestampMS, int gracetime) {
@@ -4073,7 +4216,7 @@ const FrameView* GetNextFrame(VideoReaderHandle* h, int timestampMS, int graceti
     int pts = 0;
     CVPixelBufferRef pb = nullptr;
     if (idealPts >= 0) {
-        for (int i = 0; i < VideoReaderHandle::kPerHandleCacheSize; ++i) {
+        for (int i = 0; i < h->privCacheSlots; ++i) {
             auto& e = h->privCache[i];
             if (e.pixelBuffer && e.ptsMs == idealPts) {
                 pts = idealPts;
@@ -4086,7 +4229,7 @@ const FrameView* GetNextFrame(VideoReaderHandle* h, int timestampMS, int graceti
         int bestIdx = -1;
         int64_t bestPts = INT64_MAX;
         int64_t predPts = -1;
-        for (int i = 0; i < VideoReaderHandle::kPerHandleCacheSize; ++i) {
+        for (int i = 0; i < h->privCacheSlots; ++i) {
             auto& e = h->privCache[i];
             if (!e.pixelBuffer) continue;
             if (servesTarget(e.ptsMs, timestampMS) && e.ptsMs < bestPts) {
@@ -4095,7 +4238,7 @@ const FrameView* GetNextFrame(VideoReaderHandle* h, int timestampMS, int graceti
             }
         }
         if (bestIdx >= 0) {
-            for (int i = 0; i < VideoReaderHandle::kPerHandleCacheSize; ++i) {
+            for (int i = 0; i < h->privCacheSlots; ++i) {
                 auto& e = h->privCache[i];
                 if (e.pixelBuffer && e.ptsMs < bestPts && e.ptsMs > predPts) {
                     predPts = e.ptsMs;
@@ -4131,6 +4274,16 @@ const FrameView* GetNextFrame(VideoReaderHandle* h, int timestampMS, int graceti
             return nullptr;
         }
 
+        // Size the private cache to this file's real frame bytes before
+        // stashing — 16 slots is 127MB of 1080p and 506MB of 4K, per handle,
+        // and a busy show holds dozens of handles at once.
+        if (!readAhead.empty() && readAhead.front().pixelBuffer != nullptr) {
+            h->setPrivCacheSlots(framesForBudget(
+                privCacheBudgetBytes(),
+                (int64_t)CVPixelBufferGetDataSize(readAhead.front().pixelBuffer),
+                kReadAheadFrames, VideoReaderHandle::kPerHandleCacheSize));
+        }
+
         // Stash the read-ahead frames in the private cache. Prefer to
         // overwrite an existing slot with the same pts (dedup); otherwise
         // round-robin. Without the dedup pass, overlapping read-ahead
@@ -4138,7 +4291,7 @@ const FrameView* GetNextFrame(VideoReaderHandle* h, int timestampMS, int graceti
         // same pts cached in two slots, wasting capacity.
         for (auto& f : readAhead) {
             int targetSlot = -1;
-            for (int i = 0; i < VideoReaderHandle::kPerHandleCacheSize; ++i) {
+            for (int i = 0; i < h->privCacheSlots; ++i) {
                 if (h->privCache[i].pixelBuffer && h->privCache[i].ptsMs == f.ptsMs) {
                     targetSlot = i;
                     break;
@@ -4146,8 +4299,7 @@ const FrameView* GetNextFrame(VideoReaderHandle* h, int timestampMS, int graceti
             }
             if (targetSlot < 0) {
                 targetSlot = h->privCacheNextSlot;
-                h->privCacheNextSlot = (h->privCacheNextSlot + 1) %
-                                        VideoReaderHandle::kPerHandleCacheSize;
+                h->privCacheNextSlot = (h->privCacheNextSlot + 1) % h->privCacheSlots;
             }
             auto& slot = h->privCache[targetSlot];
             if (slot.pixelBuffer) CVBufferRelease(slot.pixelBuffer);
