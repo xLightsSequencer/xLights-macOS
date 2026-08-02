@@ -645,6 +645,7 @@
 				effects/vulkan/VulkanEffectManager.cpp,
 				effects/vulkan/VulkanFanEffect.cpp,
 				effects/vulkan/VulkanFillEffect.cpp,
+				effects/vulkan/VulkanFireEffect.cpp,
 				effects/vulkan/VulkanGalaxyEffect.cpp,
 				effects/vulkan/VulkanGarlandsEffect.cpp,
 				effects/vulkan/VulkanGraphicsUtilities.cpp,
