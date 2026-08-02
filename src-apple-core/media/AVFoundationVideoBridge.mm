@@ -332,6 +332,17 @@ constexpr int kMinCacheFrames = 24;
 constexpr int64_t kDefaultCacheBudgetMB = 512;
 constexpr int64_t kDefaultPrivCacheBudgetMB = 96;
 
+// Scaled-output cache budget per file (see insertScaled). Sized in bytes for
+// the same reason as the two above: an entry is one consumer's finished frame,
+// which ranges from a few KB on a small model to megabytes on a whole-house
+// buffer, so any fixed entry count is either useless or unbounded. A scaled
+// entry is far cheaper than the native frame it replaces — an 800x286 RGB
+// output is 686KB against 13MB for the 2400x1350 decode behind it — so a small
+// budget covers a whole clip and turns every later effect that reuses that clip
+// at the same output size into a hit that skips both decode and scale.
+constexpr int64_t kDefaultScaledCacheBudgetMB = 128;
+constexpr size_t kMinScaledCacheEntries = 48;
+
 // 0 disables the budget (frame-count behaviour only).
 int64_t budgetBytesFromEnv(const char* var, int64_t defaultMB) {
     const char* e = getenv(var);
@@ -344,6 +355,10 @@ int64_t sharedCacheBudgetBytes() {
 }
 int64_t privCacheBudgetBytes() {
     static const int64_t v = budgetBytesFromEnv("XL_VIDEO_HANDLE_CACHE_MB", kDefaultPrivCacheBudgetMB);
+    return v;
+}
+int64_t scaledCacheBudgetBytes() {
+    static const int64_t v = budgetBytesFromEnv("XL_VIDEO_SCALED_CACHE_MB", kDefaultScaledCacheBudgetMB);
     return v;
 }
 // Smallest native frame worth applying that fallback to — roughly 720p. Below
@@ -807,6 +822,7 @@ private:
     std::mutex scaledCacheMutex;
     std::map<ScaledKey, std::vector<uint8_t>> scaledCache;
     std::deque<ScaledKey> scaledCacheOrder;
+    int64_t scaledCacheBytes = 0;
 
     // Keyed on pts (milliseconds). Ordered map so cacheLookup is an
     // upper_bound walk and populateReadAheadFromCache iterates forward
@@ -2666,12 +2682,20 @@ void SharedDecoder::insertScaled(int w, int h, int fmt, int alg, int idealPts,
     if (scaledCache.find(k) != scaledCache.end()) {
         return; // first writer wins (identical bytes by construction)
     }
-    while (scaledCacheOrder.size() >= 48) {
-        scaledCache.erase(scaledCacheOrder.front());
+    const int64_t budget = scaledCacheBudgetBytes();
+    while (!scaledCacheOrder.empty() &&
+           scaledCacheOrder.size() >= kMinScaledCacheEntries &&
+           (budget <= 0 || scaledCacheBytes + (int64_t)bytes > budget)) {
+        auto victim = scaledCache.find(scaledCacheOrder.front());
+        if (victim != scaledCache.end()) {
+            scaledCacheBytes -= (int64_t)victim->second.size();
+            scaledCache.erase(victim);
+        }
         scaledCacheOrder.pop_front();
     }
     scaledCache[k].assign((const uint8_t*)src, (const uint8_t*)src + bytes);
     scaledCacheOrder.push_back(k);
+    scaledCacheBytes += (int64_t)bytes;
 }
 
 void SharedDecoder::populateReadAheadFromCache(int64_t afterPtsMs,
