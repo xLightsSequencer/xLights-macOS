@@ -4014,9 +4014,26 @@ VideoReaderHandle* CreateReader(const std::string& filename, int maxwidth, int m
     }
 
     int channels = wantAlpha ? 4 : 3;
-    h->frameBufferSize = h->width * h->height * channels;
+    // Sized in 64-bit and failed explicitly: a requested size whose byte count
+    // does not fit frameBufferSize wraps negative, calloc rejects it, and every
+    // later frame writes through null frame buffers. IsValid() gates GetNextFrame,
+    // so failing here is what keeps that unreachable.
+    long long bufBytes = (long long)h->width * (long long)h->height * channels;
+    if (h->width <= 0 || h->height <= 0 || bufBytes > (long long)INT_MAX) {
+        spdlog::error("AVFoundationVideoBridge: refusing a {}x{} reader for {} ({} bytes per frame buffer)",
+                      h->width, h->height, filename, bufBytes);
+        h->failed = true;
+        return h;
+    }
+    h->frameBufferSize = (int)bufBytes;
     h->frameBuffer1 = (uint8_t*)calloc(1, h->frameBufferSize);
     h->frameBuffer2 = (uint8_t*)calloc(1, h->frameBufferSize);
+    if (h->frameBuffer1 == nullptr || h->frameBuffer2 == nullptr) {
+        spdlog::error("AVFoundationVideoBridge: could not allocate {}x{} frame buffers for {}",
+                      h->width, h->height, filename);
+        h->failed = true;
+        return h;
+    }
 
     int stride = h->width * channels;
     h->frameView1 = { h->frameBuffer1, stride, h->width, h->height, h->outputFormat };
@@ -4056,13 +4073,27 @@ bool Resize(VideoReaderHandle* h, int width, int height) {
     if (h->width == width && h->height == height) return true;
 
     int channels = h->wantAlpha ? 4 : 3;
-    int newSize = width * height * channels;
+    long long newBytes = (long long)width * (long long)height * channels;
+    if (newBytes > (long long)INT_MAX) {
+        spdlog::error("AVFoundationVideoBridge: refusing a resize to {}x{} for {} ({} bytes per frame buffer)",
+                      width, height, h->filename, newBytes);
+        return false;
+    }
+    int newSize = (int)newBytes;
 
-    if (h->frameBuffer1) { free(h->frameBuffer1); h->frameBuffer1 = nullptr; }
-    if (h->frameBuffer2) { free(h->frameBuffer2); h->frameBuffer2 = nullptr; }
-    h->frameBuffer1 = (uint8_t*)calloc(1, newSize);
-    h->frameBuffer2 = (uint8_t*)calloc(1, newSize);
-    if (!h->frameBuffer1 || !h->frameBuffer2) return false;
+    // Allocate before releasing what is in use: a failed resize has to leave the
+    // reader usable at its current size, not holding freed frame buffers.
+    uint8_t* newBuffer1 = (uint8_t*)calloc(1, newSize);
+    uint8_t* newBuffer2 = (uint8_t*)calloc(1, newSize);
+    if (!newBuffer1 || !newBuffer2) {
+        free(newBuffer1);
+        free(newBuffer2);
+        return false;
+    }
+    free(h->frameBuffer1);
+    free(h->frameBuffer2);
+    h->frameBuffer1 = newBuffer1;
+    h->frameBuffer2 = newBuffer2;
 
     h->frameBufferSize = newSize;
     h->width = width;
