@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DD00UNWHOOK000000000B001 /* xlUnwindHook.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD00UNWHOOK000000000F001 /* xlUnwindHook.cpp */; };
-		DD00UNWHOOK000000000L001 /* libxlUnwindHook.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DD00UNWHOOK000000000P001 /* libxlUnwindHook.dylib */; };
-		DD00UNWHOOK000000000E001 /* libxlUnwindHook.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DD00UNWHOOK000000000P001 /* libxlUnwindHook.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		14BE3A5DBB4294EAC74CC824 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 508754EE92C352178126B474 /* AVFoundation.framework */; };
 		67061FD32746D5330020519D /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67061FD22746D5330020519D /* MetalPerformanceShaders.framework */; };
 		670F8DCA27652F5E002F0CD6 /* ModelIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 670F8DC927652F5E002F0CD6 /* ModelIO.framework */; };
@@ -161,13 +158,6 @@
 /* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
-		DD00UNWHOOK000000000X001 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DD00UNWHOOK000000000T001;
-			remoteInfo = xlUnwindHook;
-		};
 		6732E1032F84107200747CF8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
@@ -302,15 +292,12 @@
 			dstPath = "";
 			dstSubfolder = Frameworks;
 			files = (
-				DD00UNWHOOK000000000E001 /* libxlUnwindHook.dylib in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		DD00UNWHOOK000000000F001 /* xlUnwindHook.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xlUnwindHook.cpp; sourceTree = "<group>"; };
-		DD00UNWHOOK000000000P001 /* libxlUnwindHook.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libxlUnwindHook.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		508754EE92C352178126B474 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		67061FD22746D5330020519D /* MetalPerformanceShaders.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalPerformanceShaders.framework; path = System/Library/Frameworks/MetalPerformanceShaders.framework; sourceTree = SDKROOT; };
 		670F8DC927652F5E002F0CD6 /* ModelIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ModelIO.framework; path = System/Library/Frameworks/ModelIO.framework; sourceTree = SDKROOT; };
@@ -776,13 +763,6 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		DD00UNWHOOK000000000K001 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		678571692F72C6E100F50F9F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
@@ -791,7 +771,6 @@
 		67E7086A17B51AB400A22034 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
-				DD00UNWHOOK000000000L001 /* libxlUnwindHook.dylib in Frameworks */,
 				DD00000500000000PKGKLM01 /* KLightMapper in Frameworks */,
 				CC00000100000000000X0003 /* libxLights-core.a in Frameworks */,
 				678571702F72C71F00F50F9F /* libISPCEffectComputeFunctions.a in Frameworks */,
@@ -891,14 +870,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		DD00UNWHOOK000000000G001 /* src-unwind-hook */ = {
-			isa = PBXGroup;
-			children = (
-				DD00UNWHOOK000000000F001 /* xlUnwindHook.cpp */,
-			);
-			path = "src-unwind-hook";
-			sourceTree = "<group>";
-		};
 		67164BB125D7CD190041BB9A /* Assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -1069,7 +1040,6 @@
 				67DE25B12F72BECB0010AE7E /* include */,
 				671653D125D7CF4E0041BB9A /* Libraries */,
 				67E7086E17B51AB400A22034 /* Products */,
-				DD00UNWHOOK000000000G001 /* src-unwind-hook */,
 				6732E3A12F84156F00747CF8 /* src-core */,
 				6732E8492F84158C00747CF8 /* src-ui-wx */,
 				673D41762F841B7B00EBE7FD /* src-apple-core */,
@@ -1084,7 +1054,6 @@
 		67E7086E17B51AB400A22034 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DD00UNWHOOK000000000P001 /* libxlUnwindHook.dylib */,
 				67E7086D17B51AB400A22034 /* xLights.app */,
 				CC00000100000000000X0002 /* libxLights-core.a */,
 				BB00000100000000000C0002 /* libxLights-Apple-core.a */,
@@ -1226,22 +1195,6 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		DD00UNWHOOK000000000T001 /* xlUnwindHook */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DD00UNWHOOK000000000C001 /* Build configuration list for PBXNativeTarget "xlUnwindHook" */;
-			buildPhases = (
-				DD00UNWHOOK000000000S001 /* Sources */,
-				DD00UNWHOOK000000000K001 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = xlUnwindHook;
-			productName = xlUnwindHook;
-			productReference = DD00UNWHOOK000000000P001 /* libxlUnwindHook.dylib */;
-			productType = "com.apple.product-type.library.dynamic";
-		};
 		6785716A2F72C6E100F50F9F /* ISPCEffectComputeFunctions */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6785716C2F72C6E100F50F9F /* Build configuration list for PBXNativeTarget "ISPCEffectComputeFunctions" */;
@@ -1294,7 +1247,6 @@
 			);
 			dependencies = (
 				678571722F72C78300F50F9F /* PBXTargetDependency */,
-				DD00UNWHOOK000000000D001 /* PBXTargetDependency */,
 				678577B8272C756100E6E249 /* PBXTargetDependency */,
 				DD000UMS2F900001000000A6 /* PBXTargetDependency */,
 				CC00000100000000000X000B /* PBXTargetDependency */,
@@ -1516,7 +1468,6 @@
 			projectRoot = "";
 			targets = (
 				67E7086C17B51AB400A22034 /* xLights */,
-				DD00UNWHOOK000000000T001 /* xlUnwindHook */,
 				CC00000100000000000X0001 /* xLights-core */,
 				678577AD272C735000E6E249 /* EffectComputeFunctions */,
 				DD000UMS2F900001000000A1 /* UIMetalShaders */,
@@ -1647,14 +1598,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		DD00UNWHOOK000000000S001 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DD00UNWHOOK000000000B001 /* xlUnwindHook.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		678571682F72C6E100F50F9F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			files = (
@@ -1740,11 +1683,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		DD00UNWHOOK000000000D001 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DD00UNWHOOK000000000T001 /* xlUnwindHook */;
-			targetProxy = DD00UNWHOOK000000000X001 /* PBXContainerItemProxy */;
-		};
 		6732E1072F84109C00747CF8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = BB00000100000000000C0001 /* xLights-Apple-core */;
@@ -1838,61 +1776,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		DD00UNWHOOK000000000C002 /* Debug configuration for PBXNativeTarget "xlUnwindHook" */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_STYLE = Automatic;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EXECUTABLE_PREFIX = lib;
-				OTHER_LDFLAGS = "";
-				LIBRARY_SEARCH_PATHS = "";
-				GCC_OPTIMIZATION_LEVEL = 0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = macosx;
-				SUPPORTS_MACCATALYST = NO;
-			};
-			name = Debug;
-		};
-		DD00UNWHOOK000000000C003 /* Release configuration for PBXNativeTarget "xlUnwindHook" */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_STYLE = Automatic;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EXECUTABLE_PREFIX = lib;
-				OTHER_LDFLAGS = "";
-				LIBRARY_SEARCH_PATHS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = macosx;
-				SUPPORTS_MACCATALYST = NO;
-			};
-			name = Release;
-		};
-		DD00UNWHOOK000000000C004 /* Archive configuration for PBXNativeTarget "xlUnwindHook" */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_STYLE = Automatic;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EXECUTABLE_PREFIX = lib;
-				OTHER_LDFLAGS = "";
-				LIBRARY_SEARCH_PATHS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = macosx;
-				SUPPORTS_MACCATALYST = NO;
-			};
-			name = Archive;
-		};
 		6785716D2F72C6E100F50F9F /* Debug configuration for PBXNativeTarget "ISPCEffectComputeFunctions" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3532,15 +3415,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DD00UNWHOOK000000000C001 /* Build configuration list for PBXNativeTarget "xlUnwindHook" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DD00UNWHOOK000000000C002 /* Debug configuration for PBXNativeTarget "xlUnwindHook" */,
-				DD00UNWHOOK000000000C003 /* Release configuration for PBXNativeTarget "xlUnwindHook" */,
-				DD00UNWHOOK000000000C004 /* Archive configuration for PBXNativeTarget "xlUnwindHook" */,
-			);
-			defaultConfigurationName = Release;
-		};
 		6785716C2F72C6E100F50F9F /* Build configuration list for PBXNativeTarget "ISPCEffectComputeFunctions" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
