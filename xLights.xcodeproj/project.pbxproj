@@ -2136,7 +2136,6 @@
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-Wl,-no_compact_unwind",
 					"-headerpad_max_install_names",
 					"-lwx_baseu-3.3",
 					"-lwx_baseu_xml-3.3",
