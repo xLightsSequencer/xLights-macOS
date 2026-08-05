@@ -2,7 +2,11 @@
 
 #env
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-ISPCFLAG="-g -O0"
+# -O1, not -O0: at -O0 ispc 1.31 spills each kernel's uniform pointer
+# arguments into a ~96KB stack frame and reads them back as all-ones, so any
+# kernel taking a gather/scatter faults on a garbage base pointer. -O1 keeps
+# -g line info and frames stay under 1KB, matching the release build.
+ISPCFLAG="-g -O1"
 else
 ISPCFLAG=-O3
 fi
