@@ -93,7 +93,9 @@ fragment half4 textureFragmentShader(TextureVertexData in [[stage_in]],
                                     min_filter::linear);
 
     half4 sample = texture.sample(linearSampler, in.texPosition);
-    return sample * in.forceColor;
+    half4 out_color = sample * in.forceColor;
+    if (out_color.a == 0) discard_fragment();
+    return out_color;
 }
 fragment half4 textureNearestFragmentShader(TextureVertexData in [[stage_in]],
                                              texture2d<half, access::sample>  texture [[ texture(TextureIndexBase) ]]) {
@@ -102,7 +104,9 @@ fragment half4 textureNearestFragmentShader(TextureVertexData in [[stage_in]],
                                     min_filter::linear);
 
     half4 sample = texture.sample(nearestSampler, in.texPosition);
-    return sample * in.forceColor;
+    half4 out_color = sample * in.forceColor;
+    if (out_color.a == 0) discard_fragment();
+    return out_color;
 }
 fragment half4 textureColorFragmentShader(TextureVertexData in [[stage_in]],
                                       texture2d<float>  texture [[ texture(TextureIndexBase) ]]) {
@@ -111,7 +115,9 @@ fragment half4 textureColorFragmentShader(TextureVertexData in [[stage_in]],
                                     min_filter::linear);
 
     float4 sample = texture.sample(linearSampler, in.texPosition);
-    return half4(in.forceColor.rgb, sample.a * in.forceColor.a);;
+    half4 out_color = half4(in.forceColor.rgb, sample.a * in.forceColor.a);
+    if (out_color.a == 0) discard_fragment();
+    return out_color;
 }
 
 
