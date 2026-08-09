@@ -81,6 +81,29 @@ struct OutputHandle {
         return usingTimePitch ? (AVAudioNode*)timePitch : (AVAudioNode*)mixer;
     }
 
+    // -[AVAudioPlayerNode play] raises an NSException ("required condition is
+    // false: _engine->IsRunning()") when the engine is stopped, and an ObjC
+    // exception thrown through wx's event loop is fatal. The engine stops
+    // behind our back on Pause() and on device changes, so every play has to
+    // come through here rather than assuming a running engine.
+    bool startPlayer(AudioTrack* track) {
+        if (track == nullptr || track->playerNode == nil || engine == nil) {
+            return false;
+        }
+        if (!engine.isRunning) {
+            NSError* error = nil;
+            [engine startAndReturnError:&error];
+            if (error != nil) {
+                spdlog::error("AVAudioEngine: Failed to start: {}", error.localizedDescription.UTF8String);
+            }
+            if (!engine.isRunning) {
+                return false;
+            }
+        }
+        [track->playerNode play];
+        return true;
+    }
+
     bool init() {
         if (initialized) return true;
 
@@ -286,19 +309,9 @@ bool HasAudio(OutputHandle* h, int id) {
 void Play(OutputHandle* h) {
     if (!h->engine) return;
 
-    if (!h->engine.isRunning) {
-        NSError* error = nil;
-        [h->engine startAndReturnError:&error];
-        if (error) {
-            spdlog::error("AVAudioEngine: Failed to start: {}", error.localizedDescription.UTF8String);
-            return;
-        }
-    }
-
     std::lock_guard<std::mutex> lock(h->trackLock);
     for (auto& [id, track] : h->tracks) {
-        if (!track->paused && track->playerNode) {
-            [track->playerNode play];
+        if (!track->paused && h->startPlayer(track)) {
             track->playing = true;
         }
     }
@@ -321,8 +334,8 @@ void PauseTrack(OutputHandle* h, int id, bool pause) {
     it->second->paused = pause;
     if (pause && it->second->playerNode) {
         [it->second->playerNode pause];
-    } else if (!pause && it->second->playerNode) {
-        [it->second->playerNode play];
+    } else if (!pause) {
+        h->startPlayer(it->second);
     }
 }
 
@@ -333,14 +346,10 @@ void Pause(OutputHandle* h) {
 }
 
 void Unpause(OutputHandle* h) {
-    if (h->engine && !h->engine.isRunning) {
-        NSError* error = nil;
-        [h->engine startAndReturnError:&error];
-    }
     std::lock_guard<std::mutex> lock(h->trackLock);
     for (auto& [id, track] : h->tracks) {
-        if (!track->paused && track->playerNode) {
-            [track->playerNode play];
+        if (!track->paused) {
+            h->startPlayer(track);
         }
     }
 }
@@ -381,8 +390,7 @@ void Seek(OutputHandle* h, int id, long pos) {
     long frameOffset = (pos * track->rate) / 1000;
     h->scheduleTrack(track, frameOffset, -1);
 
-    if (wasPlaying && !track->paused) {
-        [track->playerNode play];
+    if (wasPlaying && !track->paused && h->startPlayer(track)) {
         track->playing = true;
     }
 }
