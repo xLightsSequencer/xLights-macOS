@@ -100,7 +100,20 @@ struct OutputHandle {
                 return false;
             }
         }
-        [track->playerNode play];
+        // Checking isRunning first is necessary but cannot be sufficient:
+        // -[AVAudioPlayerNode play] also raises "player did not see an IO
+        // cycle" when the engine has been started but its IO thread has not
+        // rendered yet, and the engine can be stopped by a device change
+        // between the check above and the call below. Neither is knowable from
+        // here, so the raise has to be caught rather than pre-empted - an
+        // NSException escaping into wx's event loop is fatal.
+        @try {
+            [track->playerNode play];
+        } @catch (NSException* e) {
+            spdlog::error("AVAudioEngine: play raised {}: {}",
+                          e.name.UTF8String, e.reason.UTF8String);
+            return false;
+        }
         return true;
     }
 
