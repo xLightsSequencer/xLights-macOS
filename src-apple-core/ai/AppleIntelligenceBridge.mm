@@ -26,8 +26,8 @@ namespace {
 // floor — UTTypePNG (and its `identifier` accessor) come from the
 // UniformTypeIdentifiers framework introduced in macOS 11. The
 // caller chain only reaches this on a path that already requires
-// macOS 15.4+ (ImagePlayground.ImageCreator), so the runtime check
-// always succeeds in practice; it's there to satisfy the static
+// macOS 15.4+ (ImagePlayground), so the runtime check always
+// succeeds in practice; it's there to satisfy the static
 // availability checker.
 std::vector<uint8_t> CGImageToPNGBytes(CGImageRef image) {
     std::vector<uint8_t> bytes;
@@ -107,29 +107,37 @@ void GenerateLyricTrack(const std::string& audioPath,
 }
 
 void GenerateImage(const std::string& prompt,
-                   const std::string& fullInstructions,
                    const std::string& style,
                    std::function<void(ImageResult)> callback) {
     NSString* p     = @(prompt.c_str());
-    NSString* full  = @(fullInstructions.c_str());
     NSString* sty   = @(style.c_str());
     ImagesAsyncCaller* caller = [[ImagesAsyncCaller alloc] init];
 
     [caller generateImagesWithPrompt:p
-                     fullInstructions:full
                                 style:sty
                     completionHandler:^(CGImage* result, NSString* errString) {
-        ImageResult r;
-        std::string err = errString ? std::string([errString UTF8String]) : std::string();
-        if (!err.empty()) {
-            r.error = err;
-        } else {
-            r.png = CGImageToPNGBytes(result);
-            if (r.png.empty()) {
-                r.error = "Failed to encode generated image to PNG";
+        // The completion fires on the main thread (User-interactive QoS),
+        // but CGImageDestinationFinalize hands PNG compression off to a
+        // lower-QoS worker pool and blocks on it — a priority inversion.
+        // Do the encode on a background queue instead of on the caller's
+        // thread, at the Default QoS those ImageIO workers run at:
+        // waiting on them from a User-initiated queue is the same
+        // inversion one step removed.
+        CGImageRetain(result);
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
+            ImageResult r;
+            std::string err = errString ? std::string([errString UTF8String]) : std::string();
+            if (!err.empty()) {
+                r.error = err;
+            } else {
+                r.png = CGImageToPNGBytes(result);
+                if (r.png.empty()) {
+                    r.error = "Failed to encode generated image to PNG";
+                }
             }
-        }
-        if (callback) callback(std::move(r));
+            if (result) CGImageRelease(result);
+            if (callback) callback(std::move(r));
+        });
     }];
 }
 

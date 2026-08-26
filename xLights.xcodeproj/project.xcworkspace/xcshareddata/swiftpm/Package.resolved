@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/KulpLights/KLightMapper",
       "state" : {
-        "revision" : "17e07abae9cb03eb1c236cf54d97ef418f9e9068",
-        "version" : "1.4.0"
+        "revision" : "928771086473347ef981635fe614c1857da35f76",
+        "version" : "1.4.1"
       }
     }
   ],

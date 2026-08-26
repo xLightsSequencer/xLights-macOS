@@ -36,18 +36,22 @@ namespace AppleAIBridge {
 // old or the call couldn't be initiated at all.
 [[nodiscard]] std::string GenerateColorPaletteJSON(const std::string& prompt);
 
-// Asynchronous image generation via ImagePlayground.ImageCreator.
+// Image generation via the system Image Playground sheet. The user
+// drives the generation in Apple's own UI, seeded with `prompt` as
+// the concept to draw, so this returns whenever they finish or
+// cancel rather than as soon as an image exists. 
+//
 // `callback` fires exactly once with PNG bytes (`png` non-empty) or
-// an error message (`error` non-empty), never both. The callback may
-// fire on any thread — the caller is responsible for marshalling
-// onto the thread it wants. `style` matches one of ImageCreator's
-// available styles ("animation", "illustration", "sketch", "emoji").
+// an error message (`error` non-empty), never both — cancelling
+// counts as an error. The callback may fire on any thread — the
+// caller is responsible for marshalling onto the thread it wants.
+// `style` matches one of ImagePlaygroundStyle's ids ("animation",
+// "illustration", "sketch", "emoji").
 struct ImageResult {
     std::vector<uint8_t> png;
     std::string error;
 };
 void GenerateImage(const std::string& prompt,
-                   const std::string& fullInstructions,
                    const std::string& style,
                    std::function<void(ImageResult)> callback);
 
