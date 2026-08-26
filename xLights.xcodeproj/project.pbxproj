@@ -2267,7 +2267,6 @@
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
-					"-I../include/ffmpeg-6/include",
 					"-I../dependencies",
 				);
 				OTHER_LDFLAGS = (
@@ -2350,7 +2349,6 @@
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
-					"-I../include/ffmpeg-6/include",
 					"-I../dependencies",
 				);
 				OTHER_LDFLAGS = (
@@ -2588,7 +2586,6 @@
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-IxLights",
-					"-I../include/ffmpeg-6/include",
 					"-I../dependencies",
 				);
 				OTHER_LDFLAGS = (
@@ -2631,9 +2628,8 @@
 					"../src-core/render",
 					"../src-core/utils",
 					"../src-core",
-					../include,
-					"../include/ffmpeg-6/include/",
 					dependencies/include,
+					../include,
 					"src-apple-core",
 					../dependencies,
 					../dependencies/pugixml/src,
@@ -2675,9 +2671,8 @@
 					"../src-core/render",
 					"../src-core/utils",
 					"../src-core",
-					../include,
-					"../include/ffmpeg-6/include/",
 					dependencies/include,
+					../include,
 					"src-apple-core",
 					../dependencies,
 					../dependencies/pugixml/src,
@@ -2718,9 +2713,8 @@
 					"../src-core/render",
 					"../src-core/utils",
 					"../src-core",
-					../include,
-					"../include/ffmpeg-6/include/",
 					dependencies/include,
+					../include,
 					"src-apple-core",
 					../dependencies,
 					../dependencies/pugixml/src,
@@ -2755,9 +2749,8 @@
 					"../src-core/utils",
 					"../src-core",
 					"../src-ui-wx",
-					../include,
-					"../include/ffmpeg-6/include/",
 					dependencies/include,
+					../include,
 					"src-apple-core",
 					"src-mac-ui",
 					../dependencies,
@@ -2794,9 +2787,8 @@
 					"../src-core/utils",
 					"../src-core",
 					"../src-ui-wx",
-					../include,
-					"../include/ffmpeg-6/include/",
 					dependencies/include,
+					../include,
 					"src-apple-core",
 					"src-mac-ui",
 					../dependencies,
@@ -2831,9 +2823,8 @@
 					"../src-core/utils",
 					"../src-core",
 					"../src-ui-wx",
-					../include,
-					"../include/ffmpeg-6/include/",
 					dependencies/include,
+					../include,
 					"src-apple-core",
 					"src-mac-ui",
 					../dependencies,
