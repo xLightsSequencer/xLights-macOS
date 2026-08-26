@@ -29,7 +29,6 @@
 		672900082553040000C83C71 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B4C91F17B53D960006B951 /* CoreMedia.framework */; };
 		6729000D2553047600C83C71 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729000C2553046400C83C71 /* libbz2.tbd */; };
 		6729FA012553000100C83C71 /* libavfilter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FA002553000100C83C71 /* libavfilter.a */; };
-		6729FA032553000200C83C71 /* libpostproc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FA022553000200C83C71 /* libpostproc.a */; };
 		6729FFE22552EEBA00C83C71 /* libliquidfun.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFD92552EE9000C83C71 /* libliquidfun.a */; };
 		6729FFE32552EEC300C83C71 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFDB2552EE9000C83C71 /* libSDL2.a */; };
 		6729FFE42552EEF300C83C71 /* libzstd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFDA2552EE9000C83C71 /* libzstd.a */; };
@@ -153,6 +152,7 @@
 			);
 			script = (
 				"${SRCROOT}/scripts/ispc_compile",
+				"",
 			);
 		};
 /* End PBXBuildRule section */
@@ -350,7 +350,6 @@
 		67290003255303D500C83C71 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		6729000C2553046400C83C71 /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
 		6729FA002553000100C83C71 /* libavfilter.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavfilter.a; path = ../../../../opt/local/lib/libavfilter.a; sourceTree = "<group>"; };
-		6729FA022553000200C83C71 /* libpostproc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpostproc.a; path = ../../../../opt/local/lib/libpostproc.a; sourceTree = "<group>"; };
 		6729FFD92552EE9000C83C71 /* libliquidfun.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libliquidfun.a; path = ../../../../opt/local/lib/libliquidfun.a; sourceTree = "<group>"; };
 		6729FFDA2552EE9000C83C71 /* libzstd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libzstd.a; path = ../../../../opt/local/lib/libzstd.a; sourceTree = "<group>"; };
 		6729FFDB2552EE9000C83C71 /* libSDL2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2.a; path = ../../../../opt/local/lib/libSDL2.a; sourceTree = "<group>"; };
@@ -780,7 +779,6 @@
 				673B3D4E223BF203000F1D7E /* libcurl.tbd in Frameworks */,
 				6729FFFA2553035100C83C71 /* libavformat.a in Frameworks */,
 				6729FA012553000100C83C71 /* libavfilter.a in Frameworks */,
-				6729FA032553000200C83C71 /* libpostproc.a in Frameworks */,
 				6729FFFF255303AF00C83C71 /* libswscale.a in Frameworks */,
 				672900082553040000C83C71 /* CoreMedia.framework in Frameworks */,
 				6729FFE42552EEF300C83C71 /* libzstd.a in Frameworks */,
@@ -1086,7 +1084,6 @@
 				6729FFFE255303A300C83C71 /* libswscale.a */,
 				6729FFFC2553037E00C83C71 /* libswresample.a */,
 				6729FA002553000100C83C71 /* libavfilter.a */,
-				6729FA022553000200C83C71 /* libpostproc.a */,
 				6729FFF92553033E00C83C71 /* libavformat.a */,
 				6729FFF42553031900C83C71 /* libavcodec.a */,
 				6729FFF32553031800C83C71 /* libavutil.a */,
@@ -1404,7 +1401,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				CLASSPREFIX = xl;
-				LastUpgradeCheck = 2660;
+				LastUpgradeCheck = 2700;
 				ORGANIZATIONNAME = "Daniel Kulp";
 				TargetAttributes = {
 					6785716A2F72C6E100F50F9F = {
@@ -1997,7 +1994,7 @@
 					dependencies/libdbg,
 				);
 				LLVM_LTO = NO;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 12;
 				MTL_LANGUAGE_REVISION = Metal32;
 				MTL_TREAT_WARNINGS_AS_ERRORS = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2139,7 +2136,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				"LIBRARY_SEARCH_PATHS[arch=*]" = /usr/lib;
 				LLVM_LTO = YES_THIN;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 12;
 				MTL_LANGUAGE_REVISION = Metal23;
 				MTL_TREAT_WARNINGS_AS_ERRORS = YES;
 				ONLY_ACTIVE_ARCH = NO;
@@ -2264,6 +2261,7 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"@executable_path/../Frameworks",
+					"$(PROJECT_DIR)/dependencies/libdbg",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2463,7 +2461,7 @@
 					dependencies/lib,
 				);
 				LLVM_LTO = YES_THIN;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 12;
 				MTL_LANGUAGE_REVISION = Metal23;
 				MTL_TREAT_WARNINGS_AS_ERRORS = YES;
 				ONLY_ACTIVE_ARCH = NO;
