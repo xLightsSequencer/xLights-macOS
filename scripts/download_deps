@@ -1,8 +1,8 @@
 #!/bin/bash
 #
 # download_deps — fetch and link the prebuilt xLights macOS/iOS dependencies
-# (libEGL / libGLESv2 XCFrameworks, lua, FFmpeg, wxWidgets, etc.) that the
-# Xcode project expects under macOS/dependencies/.
+# (wxWidgets, FFmpeg, curl, OpenSSL, lua, SDL, etc.) that the Xcode project
+# expects under macOS/dependencies/.
 #
 # This is invoked from two places:
 #
@@ -34,24 +34,29 @@ fi
 # if the local artifacts are available, use them
 # env
 
-# Derive the dependency tag from DEPS_VERSION (next to the xcodeproj), so the
-# version lives in exactly one place. Three-component SemVer; the dependency
-# release tags drop a trailing ".0" patch (2026.11.0 -> xlights_2026.11) but
-# keep a non-zero patch (2026.11.1 -> xlights_2026.11.1).
-RAW_VERSION=$(tr -d '[:space:]' < "$(dirname "$PBXPROJ")/../DEPS_VERSION")
-
-if [ -z "$RAW_VERSION" ]; then
-    echo "download_deps: could not read DEPS_VERSION" >&2
+# The bundle release is named once, in the parent repository, because Windows
+# needs the same value: ci_scripts/fetch_dependencies.ps1 reads this same file.
+# It holds the release tag verbatim, so there is nothing to convert - the two
+# platforms previously disagreed on the format (2026.17.0 here against
+# xlights_2026.17 there) and this script existed partly to bridge that.
+VERSION_FILE="../ci_scripts/deps_version.txt"
+if [ ! -f "$VERSION_FILE" ]; then
+    echo "download_deps: $VERSION_FILE not found (run from macOS/ inside a full xLights checkout)" >&2
     exit 1
 fi
-
-IFS='.' read -r DEP_MAJOR DEP_MINOR DEP_PATCH <<< "$RAW_VERSION"
-if [ -z "$DEP_PATCH" ] || [ "$DEP_PATCH" == "0" ]; then
-    export TAG="${DEP_MAJOR}.${DEP_MINOR}"
-else
-    export TAG="${DEP_MAJOR}.${DEP_MINOR}.${DEP_PATCH}"
+TAG=$(tr -d '[:space:]' < "$VERSION_FILE")
+if [ -z "$TAG" ]; then
+    echo "download_deps: $VERSION_FILE is empty" >&2
+    exit 1
 fi
+export TAG
 export OLDTAG=$(cat .CURTAG 2>/dev/null || true)
+# .CURTAG used to hold the bare version (2026.17) rather than the release tag.
+# Treat that as current so an existing checkout does not re-download a bundle it
+# already has, purely because the format changed.
+if [ "$OLDTAG" == "${TAG#xlights_}" ]; then
+    OLDTAG="$TAG"
+fi
 
 echo "Tag:  $TAG"
 echo "Old Tag:  $OLDTAG"
@@ -110,7 +115,7 @@ fi
 # truncated/corrupt body that curl reports success on but tar rejects.
 # curl's own --retry handles TCP-level hiccups; the outer loop handles the
 # "download completed but tar failed" case by re-fetching from scratch.
-DEPS_URL="https://github.com/xLightsSequencer/xLights-macOS-dependencies/releases/download/xlights_${TAG}/xLights-macOS-dependencies.tar.zst"
+DEPS_URL="https://github.com/xLightsSequencer/xLights-dependencies/releases/download/${TAG}/xLights-macOS-dependencies.tar.zst"
 MAX_ATTEMPTS=3
 attempt=1
 while [ $attempt -le $MAX_ATTEMPTS ]; do
