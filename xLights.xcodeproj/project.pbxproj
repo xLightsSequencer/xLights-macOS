@@ -40,7 +40,6 @@
 		672F447626387B59005B795A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B229204BA6AF00E90AC7 /* QuartzCore.framework */; };
 		6732E1272F8412FC00747CF8 /* libxLights-Apple-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB00000100000000000C0002 /* libxLights-Apple-core.a */; };
 		6732E1282F8412FC00747CF8 /* libxLights-macOSLib-UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB00000100000000000U0002 /* libxLights-macOSLib-UI.a */; };
-		673B3D4E223BF203000F1D7E /* libcurl.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 671E47FC2231CEC900049DC9 /* libcurl.tbd */; };
 		674D3D221C207BCC000D632B /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D211C207BCC000D632B /* IOKit.framework */; };
 		674D3D241C207BD7000D632B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D231C207BD7000D632B /* AudioToolbox.framework */; };
 		674D3D261C207C25000D632B /* libpthread.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D251C207C25000D632B /* libpthread.tbd */; };
@@ -345,7 +344,6 @@
 		671655B725D827100041BB9A /* PluginBufferingAdapter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PluginBufferingAdapter.cpp; sourceTree = "<group>"; };
 		671655B825D827100041BB9A /* PluginBufferingAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluginBufferingAdapter.h; sourceTree = "<group>"; };
 		671C0BCC1C245E230098A48D /* libwx_osx_cocoau_qa-3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_qa-3.3.dylib"; path = "/opt/local/libdbg/libwx_osx_cocoau_qa-3.3.dylib"; sourceTree = "<group>"; };
-		671E47FC2231CEC900049DC9 /* libcurl.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcurl.tbd; path = usr/lib/libcurl.tbd; sourceTree = SDKROOT; };
 		67290003255303D500C83C71 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		6729000C2553046400C83C71 /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
 		6729FA002553000100C83C71 /* libavfilter.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavfilter.a; path = ../../../../opt/local/lib/libavfilter.a; sourceTree = "<group>"; };
@@ -775,7 +773,6 @@
 				6732E1272F8412FC00747CF8 /* libxLights-Apple-core.a in Frameworks */,
 				6732E1282F8412FC00747CF8 /* libxLights-macOSLib-UI.a in Frameworks */,
 				675EDD3D2789D87C00D40FEA /* liblua.a in Frameworks */,
-				673B3D4E223BF203000F1D7E /* libcurl.tbd in Frameworks */,
 				6729FFFA2553035100C83C71 /* libavformat.a in Frameworks */,
 				6729FA012553000100C83C71 /* libavfilter.a in Frameworks */,
 				6729FFFF255303AF00C83C71 /* libswscale.a in Frameworks */,
@@ -1089,7 +1086,6 @@
 				6729FFD92552EE9000C83C71 /* libliquidfun.a */,
 				6729FFDB2552EE9000C83C71 /* libSDL2.a */,
 				6729FFDA2552EE9000C83C71 /* libzstd.a */,
-				671E47FC2231CEC900049DC9 /* libcurl.tbd */,
 				67A14C8520DD337E006EFCFA /* Security.framework */,
 				67A14C8320DD336E006EFCFA /* libz.tbd */,
 				67A14C8120DD3345006EFCFA /* libSystem.tbd */,
@@ -1988,8 +1984,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				"LIBRARY_SEARCH_PATHS[arch=*]" = (
-					/usr/lib,
 					dependencies/libdbg,
+					dependencies/lib,
+					/usr/lib,
 				);
 				LLVM_LTO = NO;
 				MACOSX_DEPLOYMENT_TARGET = 12;
@@ -2131,7 +2128,11 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
-				"LIBRARY_SEARCH_PATHS[arch=*]" = /usr/lib;
+				"LIBRARY_SEARCH_PATHS[arch=*]" = (
+					dependencies/lib,
+					dependencies/libdbg,
+					/usr/lib,
+				);
 				LLVM_LTO = YES_THIN;
 				MACOSX_DEPLOYMENT_TARGET = 12;
 				MTL_LANGUAGE_REVISION = Metal23;
@@ -2260,8 +2261,9 @@
 					"$(PROJECT_DIR)/dependencies/libdbg",
 				);
 				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
 					dependencies/libdbg,
+					dependencies/lib,
+					"$(inherited)",
 				);
 				MARKETING_VERSION = 2026.00.0;
 				OTHER_CFLAGS = (
@@ -2275,6 +2277,11 @@
 					OpenGL,
 					"-framework",
 					StoreKit,
+					"-lcurl",
+					"-lssl",
+					"-lcrypto",
+					"-framework",
+					SystemConfiguration,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.xlights;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2341,9 +2348,9 @@
 					"@executable_path/../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
 					dependencies/lib,
 					dependencies/libdbg,
+					"$(inherited)",
 				);
 				MARKETING_VERSION = 2026.00.0;
 				OTHER_CFLAGS = (
@@ -2357,6 +2364,11 @@
 					OpenGL,
 					"-framework",
 					StoreKit,
+					"-lcurl",
+					"-lssl",
+					"-lcrypto",
+					"-framework",
+					SystemConfiguration,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.xlights;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2449,8 +2461,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				"LIBRARY_SEARCH_PATHS[arch=*]" = (
-					/usr/lib,
 					dependencies/lib,
+					dependencies/libdbg,
+					/usr/lib,
 				);
 				LLVM_LTO = YES_THIN;
 				MACOSX_DEPLOYMENT_TARGET = 12;
@@ -2578,9 +2591,9 @@
 					"@executable_path/../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
 					dependencies/lib,
 					dependencies/libdbg,
+					"$(inherited)",
 				);
 				MARKETING_VERSION = 2026.00.0;
 				OTHER_CFLAGS = (
@@ -2594,6 +2607,11 @@
 					OpenGL,
 					"-framework",
 					StoreKit,
+					"-lcurl",
+					"-lssl",
+					"-lcrypto",
+					"-framework",
+					SystemConfiguration,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.xlights;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3170,6 +3188,10 @@
 					"-llua",
 					"-lliquidfun",
 					"-lcurl",
+					"-lssl",
+					"-lcrypto",
+					"-framework",
+					"SystemConfiguration",
 					"-lxlsxwriter",
 					"-lglslang",
 					"-lSPIRV",
@@ -3249,6 +3271,10 @@
 					"-llua",
 					"-lliquidfun",
 					"-lcurl",
+					"-lssl",
+					"-lcrypto",
+					"-framework",
+					"SystemConfiguration",
 					"-lxlsxwriter",
 					"-lglslang",
 					"-lSPIRV",
@@ -3327,6 +3353,10 @@
 					"-llua",
 					"-lliquidfun",
 					"-lcurl",
+					"-lssl",
+					"-lcrypto",
+					"-framework",
+					"SystemConfiguration",
 					"-lxlsxwriter",
 					"-lglslang",
 					"-lSPIRV",
