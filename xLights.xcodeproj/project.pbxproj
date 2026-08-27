@@ -84,9 +84,6 @@
 		A7A700000000000300A70001 /* SoundAnalysis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A700000000000200A70001 /* SoundAnalysis.framework */; };
 		A8A800000000000100A80001 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8A800000000000200A80001 /* CoreML.framework */; };
 		A8A800000000000300A80001 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8A800000000000200A80001 /* CoreML.framework */; };
-		AA0001012F900000000000A1 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = AA0001032F900000000000A1 /* ioapi.c */; settings = {COMPILER_FLAGS = "-std=gnu11 -w"; }; };
-		AA0001022F900000000000A2 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = AA0001042F900000000000A2 /* unzip.c */; settings = {COMPILER_FLAGS = "-std=gnu11 -w"; }; };
-		AA0001072F900000000000A5 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = AA0001082F900000000000A5 /* zip.c */; settings = {COMPILER_FLAGS = "-std=gnu11 -w"; }; };
 		BB0000020000000000MIDI01 /* Binasc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB0000030000000000MIDI01 /* Binasc.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
 		BB0000020000000000MIDI02 /* MidiEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB0000030000000000MIDI02 /* MidiEvent.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
 		BB0000020000000000MIDI03 /* MidiEventList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB0000030000000000MIDI03 /* MidiEventList.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
@@ -126,9 +123,6 @@
 		DD00000200000000000P0014 /* pugixml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67DA60662F7FF15300A41238 /* pugixml.cpp */; };
 		DD00000200000000000P0015 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C8320DD336E006EFCFA /* libz.tbd */; };
 		DD00000200000000000P0016 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675FD842204C3C0C003D280F /* Accelerate.framework */; };
-		DD00000200000000000P0017 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = AA0001032F900000000000A1 /* ioapi.c */; settings = {COMPILER_FLAGS = "-std=gnu11 -w"; }; };
-		DD00000200000000000P0018 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = AA0001042F900000000000A2 /* unzip.c */; settings = {COMPILER_FLAGS = "-std=gnu11 -w"; }; };
-		DD00000200000000000P0019 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = AA0001082F900000000000A5 /* zip.c */; settings = {COMPILER_FLAGS = "-std=gnu11 -w"; }; };
 		DD00000500000000PKGKLM01 /* KLightMapper in Frameworks */ = {isa = PBXBuildFile; productRef = DD00000400000000PKGKLM01 /* KLightMapper */; };
 		DD00000500000000PKGKLM02 /* KLightMapper in Frameworks */ = {isa = PBXBuildFile; productRef = DD00000400000000PKGKLM02 /* KLightMapper */; };
 		DD00000500000000PKGKLM03 /* KLightMapper in Frameworks */ = {isa = PBXBuildFile; productRef = DD00000400000000PKGKLM03 /* KLightMapper */; };
@@ -444,12 +438,6 @@
 		67FDC38B27CA77610009A3C7 /* libhidapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libhidapi.a; path = ../../../../../opt/local/libdbg/libhidapi.a; sourceTree = "<group>"; };
 		A7A700000000000200A70001 /* SoundAnalysis.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SoundAnalysis.framework; path = System/Library/Frameworks/SoundAnalysis.framework; sourceTree = SDKROOT; };
 		A8A800000000000200A80001 /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
-		AA0001032F900000000000A1 /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ioapi.c; path = ../dependencies/libxlsxwriter/third_party/minizip/ioapi.c; sourceTree = "<group>"; };
-		AA0001042F900000000000A2 /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = unzip.c; path = ../dependencies/libxlsxwriter/third_party/minizip/unzip.c; sourceTree = "<group>"; };
-		AA0001052F900000000000A3 /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ioapi.h; path = ../dependencies/libxlsxwriter/third_party/minizip/ioapi.h; sourceTree = "<group>"; };
-		AA0001062F900000000000A4 /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = unzip.h; path = ../dependencies/libxlsxwriter/third_party/minizip/unzip.h; sourceTree = "<group>"; };
-		AA0001082F900000000000A5 /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = zip.c; path = ../dependencies/libxlsxwriter/third_party/minizip/zip.c; sourceTree = "<group>"; };
-		AA0001092F900000000000A6 /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zip.h; path = ../dependencies/libxlsxwriter/third_party/minizip/zip.h; sourceTree = "<group>"; };
 		BB00000100000000000C0002 /* libxLights-Apple-core.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libxLights-Apple-core.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB00000100000000000U0002 /* libxLights-macOSLib-UI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libxLights-macOSLib-UI.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB0000030000000000MIDI01 /* Binasc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Binasc.cpp; path = ../dependencies/midifile/src/Binasc.cpp; sourceTree = "<group>"; };
@@ -893,7 +881,6 @@
 				6716556825D8251D0041BB9A /* vamp */,
 				6716556125D824E50041BB9A /* MD5 */,
 				BB0000040000000000MIDI00 /* midifile */,
-				AA0001002F900000000000A0 /* minizip */,
 				6716555A25D824890041BB9A /* wxLED */,
 			);
 			name = Libraries;
@@ -1149,19 +1136,6 @@
 				67E7087517B51AB400A22034 /* Foundation.framework */,
 			);
 			name = "Other Frameworks";
-			sourceTree = "<group>";
-		};
-		AA0001002F900000000000A0 /* minizip */ = {
-			isa = PBXGroup;
-			children = (
-				AA0001032F900000000000A1 /* ioapi.c */,
-				AA0001052F900000000000A3 /* ioapi.h */,
-				AA0001042F900000000000A2 /* unzip.c */,
-				AA0001062F900000000000A4 /* unzip.h */,
-				AA0001082F900000000000A5 /* zip.c */,
-				AA0001092F900000000000A6 /* zip.h */,
-			);
-			name = minizip;
 			sourceTree = "<group>";
 		};
 		BB0000040000000000MIDI00 /* midifile */ = {
@@ -1622,9 +1596,6 @@
 				67D142BB275803100018A831 /* server.cpp in Sources */,
 				67D142BA275803100018A831 /* sha1.cpp in Sources */,
 				6716556425D824F80041BB9A /* md5.cpp in Sources */,
-				AA0001012F900000000000A1 /* ioapi.c in Sources */,
-				AA0001022F900000000000A2 /* unzip.c in Sources */,
-				AA0001072F900000000000A5 /* zip.c in Sources */,
 				BB0000020000000000MIDI01 /* Binasc.cpp in Sources */,
 				BB0000020000000000MIDI02 /* MidiEvent.cpp in Sources */,
 				BB0000020000000000MIDI03 /* MidiEventList.cpp in Sources */,
@@ -1662,9 +1633,6 @@
 			isa = PBXSourcesBuildPhase;
 			files = (
 				DD00000200000000000P0014 /* pugixml.cpp in Sources */,
-				DD00000200000000000P0017 /* ioapi.c in Sources */,
-				DD00000200000000000P0018 /* unzip.c in Sources */,
-				DD00000200000000000P0019 /* zip.c in Sources */,
 			);
 		};
 		DD000UMS2F900001000000A0 /* Sources */ = {
@@ -2023,6 +1991,7 @@
 					"-lwx_osx_cocoau_qa-3.3",
 					"-lwx_osx_cocoau_webview-3.3",
 					"-lxlsxwriter",
+					"-lminizip",
 					"-lglslang",
 					"-lSPIRV",
 					"-lMachineIndependent",
@@ -2177,6 +2146,7 @@
 					"-lwxjpeg-3.3",
 					"-lwxregexu-3.3",
 					"-lxlsxwriter",
+					"-lminizip",
 					"-lglslang",
 					"-lSPIRV",
 					"-lMachineIndependent",
@@ -2506,6 +2476,7 @@
 					"-lwxzlib-3.3",
 					"-lwxregexu-3.3",
 					"-lxlsxwriter",
+					"-lminizip",
 					"-lglslang",
 					"-lSPIRV",
 					"-lMachineIndependent",
@@ -3183,6 +3154,7 @@
 					"-framework",
 					"SystemConfiguration",
 					"-lxlsxwriter",
+					"-lminizip",
 					"-lglslang",
 					"-lSPIRV",
 					"-lMachineIndependent",
@@ -3265,6 +3237,7 @@
 					"-framework",
 					"SystemConfiguration",
 					"-lxlsxwriter",
+					"-lminizip",
 					"-lglslang",
 					"-lSPIRV",
 					"-lMachineIndependent",
@@ -3346,6 +3319,7 @@
 					"-framework",
 					"SystemConfiguration",
 					"-lxlsxwriter",
+					"-lminizip",
 					"-lglslang",
 					"-lSPIRV",
 					"-lMachineIndependent",
