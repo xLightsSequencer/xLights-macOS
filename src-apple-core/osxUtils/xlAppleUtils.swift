@@ -112,13 +112,21 @@ private func purgeRedundantBookmarks() {
 
 @xLightsUtilsActor
 private func isDirAccessible(_ path: String, enforceWritable: Bool) -> Bool {
-    if FileManager.default.fileExists(atPath: path) && enforceWritable {
-        let pathToCheck = path.hasSuffix("/") ? path : path + "/"
-        if !FileManager.default.isWritableFile(atPath: pathToCheck) {
-            // Not writable, need to remove the tokens
-            xLightsUtilsState.shared.config.removeObject(forKey: path)
-            return false
-        }
+    guard enforceWritable else {
+        return true
+    }
+    var isDir: ObjCBool = false
+    guard FileManager.default.fileExists(atPath: path, isDirectory: &isDir) else {
+        return true
+    }
+    // Only a directory gets the trailing slash: access(2) on a regular file
+    // with one fails with ENOTDIR, so appending it unconditionally reported
+    // every writable file as read-only and dropped its bookmark.
+    let pathToCheck = (isDir.boolValue && !path.hasSuffix("/")) ? path + "/" : path
+    if !FileManager.default.isWritableFile(atPath: pathToCheck) {
+        // Not writable, need to remove the tokens
+        xLightsUtilsState.shared.config.removeObject(forKey: path)
+        return false
     }
     return true
 }
