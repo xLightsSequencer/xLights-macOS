@@ -340,13 +340,20 @@ public func getFileRevisions(_ path: String) -> [String] {
         autoreleasepool {
             let url = URL(fileURLWithPath: path)
 
-            let versions = NSFileVersion.otherVersionsOfItem(at: url)
+            // nil, not an empty array, on any volume that does not support
+            // versioning - an external/exFAT drive or a network share.
+            guard let versions = NSFileVersion.otherVersionsOfItem(at: url) else {
+                return
+            }
             let dateFormatter = DateFormatter()
             dateFormatter.dateStyle = .short
             dateFormatter.timeStyle = .long
 
-            for version in versions! {
-                let dateString = dateFormatter.string(from: version.modificationDate!);
+            for version in versions {
+                guard let modified = version.modificationDate else {
+                    continue
+                }
+                let dateString = dateFormatter.string(from: modified);
                 revisions.insert(String(data: dateString.data(using: .utf8)!,  encoding: .utf8)!, at: 0)
             }
         }
@@ -359,13 +366,18 @@ public func getURLForRevision(_ path: String, revision: String) -> String {
     if !path.isEmpty {
         let url = URL(fileURLWithPath: path)
         do {
-            let versions = NSFileVersion.otherVersionsOfItem(at: url)
+            guard let versions = NSFileVersion.otherVersionsOfItem(at: url) else {
+                return path
+            }
             let dateFormatter = DateFormatter()
             dateFormatter.dateStyle = .short
             dateFormatter.timeStyle = .long
 
-            for version in versions! {
-                let dateString = dateFormatter.string(from: version.modificationDate!)
+            for version in versions {
+                guard let modified = version.modificationDate else {
+                    continue
+                }
+                let dateString = dateFormatter.string(from: modified)
                 if dateString == revision {
                     let tempPath = path + "_REV_" + String(Int.random(in: 0...Int.max))
                     do {
