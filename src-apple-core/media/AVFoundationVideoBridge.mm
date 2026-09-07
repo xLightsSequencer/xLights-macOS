@@ -1334,8 +1334,8 @@ bool SharedDecoder::open(const std::string& fname, int maxDecodeW, int maxDecode
         // BGRA (rawSampleToBGRA) with no decoder, every sample is a sync so
         // access is random, and no AVAssetReader ever touches the file —
         // cancelling a raw-track reader with prefetched samples leaks its
-        // vended IOSurfaces (macOS 26.7), and once the process hits the
-        // 16384-surface cap every reader completes with zero samples.
+        // vended IOSurfaces (macOS 26.7, FB24690290), and once the process
+        // hits the 16384-surface cap every reader completes with zero samples.
         // XL_VIDEO_GENERATOR=0 falls back to the AVAssetReader lanes for A/B.
         static const bool genEnabled = []() {
             const char* e = getenv("XL_VIDEO_GENERATOR");
