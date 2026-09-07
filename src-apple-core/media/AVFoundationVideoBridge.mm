@@ -491,7 +491,9 @@ public:
     bool open(const std::string& filename, int maxDecodeW, int maxDecodeH);
 
     bool isValid() const override { return valid && !openFailed; }
-    bool isRawDemux() const override { return useRawDecode; }
+    // Only the legacy reader path is access-pattern dependent; generator raw
+    // frames are a pure function of (file, pts).
+    bool isRawDemux() const override { return useRawDecode && !useGenerator; }
     bool isSWDecode() const override { return useSoftwareDecode; }
 
     int getNativeWidth() const override { return nativeWidth; }
@@ -715,6 +717,68 @@ private:
     // for these small frame sizes.
     CVPixelBufferPoolRef rawBgraPool = nullptr;
 
+    // Pooled BGRA copy of one raw frame in any supported layout. Callers
+    // cache returned frames long-term, so the source bytes are never
+    // handed back directly. Returns +1 or nullptr.
+    CVPixelBufferRef makeRawBGRA(const uint8_t* src, size_t srcStride, int w, int h) {
+        CVPixelBufferRef bgra = nullptr;
+        if (rawBgraPool) {
+            CVReturn pr = CVPixelBufferPoolCreatePixelBuffer(kCFAllocatorDefault, rawBgraPool, &bgra);
+            if (pr != kCVReturnSuccess) {
+                spdlog::warn("AVFoundationVideoBridge: rawvideo pool exhausted ({}); falling back to direct create",
+                             (int)pr);
+                bgra = nullptr;
+            }
+        }
+        if (!bgra) {
+            // No IOSurface: downstream reads on the CPU.
+            CVReturn r = CVPixelBufferCreate(kCFAllocatorDefault, w, h,
+                                              kCVPixelFormatType_32BGRA,
+                                              nullptr, &bgra);
+            if (r != kCVReturnSuccess || !bgra) {
+                spdlog::error("AVFoundationVideoBridge: CVPixelBufferCreate (raw) failed: {}", (int)r);
+                return nullptr;
+            }
+        }
+        CVPixelBufferLockBaseAddress(bgra, 0);
+        convertRawFrameToBGRA(rawLayout, src, srcStride,
+                              (uint8_t*)CVPixelBufferGetBaseAddress(bgra),
+                              CVPixelBufferGetBytesPerRow(bgra), w, h);
+        CVPixelBufferUnlockBaseAddress(bgra, 0);
+        return bgra;
+    }
+
+    // Generator path for rawvideo: the sample's block buffer IS the frame
+    // (packed rows at the coded size), so it converts straight to BGRA
+    // with no decoder involved. Rows are len/height wide so any per-row
+    // padding a muxer added is skipped.
+    CVPixelBufferRef rawSampleToBGRA(CMSampleBufferRef sb) {
+        CMBlockBufferRef bb = CMSampleBufferGetDataBuffer(sb);
+        auto fmt = (CMVideoFormatDescriptionRef)CMSampleBufferGetFormatDescription(sb);
+        if (!bb || !fmt) {
+            return nullptr;
+        }
+        const CMVideoDimensions dims = CMVideoFormatDescriptionGetDimensions(fmt);
+        const int w = dims.width;
+        const int h = dims.height;
+        const size_t len = CMBlockBufferGetDataLength(bb);
+        if (w <= 0 || h <= 0 || rawBytesPerPixel <= 0 ||
+            len < (size_t)w * (size_t)rawBytesPerPixel * (size_t)h) {
+            return nullptr;
+        }
+        const size_t stride = len / (size_t)h;
+        size_t got = 0;
+        char* p = nullptr;
+        std::vector<uint8_t> tmp;
+        if (CMBlockBufferGetDataPointer(bb, 0, nullptr, &got, &p) != kCMBlockBufferNoErr || !p || got < len) {
+            tmp.resize(len);
+            if (CMBlockBufferCopyDataBytes(bb, 0, len, tmp.data()) != kCMBlockBufferNoErr) {
+                return nullptr;
+            }
+            p = (char*)tmp.data();
+        }
+        return makeRawBGRA((const uint8_t*)p, stride, w, h);
+    }
 
     int nativeWidth = 0;
     int nativeHeight = 0;
@@ -1266,14 +1330,18 @@ bool SharedDecoder::open(const std::string& fname, int maxDecodeW, int maxDecode
         }
 
         // Canonical-origin generator decode (see the member block above).
-        // Compressed files with a sample table only; rawvideo keeps the
-        // (fixed) reader path for now. XL_VIDEO_GENERATOR=0 falls back to
-        // the AVAssetReader lanes for A/B.
+        // Rawvideo goes through it too: its samples convert straight to
+        // BGRA (rawSampleToBGRA) with no decoder, every sample is a sync so
+        // access is random, and no AVAssetReader ever touches the file —
+        // cancelling a raw-track reader with prefetched samples leaks its
+        // vended IOSurfaces (macOS 26.7), and once the process hits the
+        // 16384-surface cap every reader completes with zero samples.
+        // XL_VIDEO_GENERATOR=0 falls back to the AVAssetReader lanes for A/B.
         static const bool genEnabled = []() {
             const char* e = getenv("XL_VIDEO_GENERATOR");
             return e == nullptr || *e != '0';
         }();
-        if (genEnabled && !useRawDecode && !multiSegmentEdit && !ptsIndex.empty() &&
+        if (genEnabled && !multiSegmentEdit && !ptsIndex.empty() &&
             !decodeOrderPts.empty() && !syncDecodeIdxs.empty()) {
             if (@available(macOS 13.0, iOS 16.0, *)) {
                 sampleGenerator = [[AVSampleBufferGenerator alloc] initWithAsset:asset timebase:NULL];
@@ -1459,9 +1527,15 @@ bool SharedDecoder::open(const std::string& fname, int maxDecodeW, int maxDecode
         // copyNextSampleBuffer on it. Its sole job is to be alive for the
         // SharedDecoder's lifetime so every Lane in `lanes` is free to
         // close-and-reopen for backward seeks.
+        //
+        // Generator-mode rawvideo never creates an AVAssetReader, so it
+        // needs no pin (and a raw-track reader is exactly what leaks).
+        const bool rawGenerator = useRawDecode && useGenerator;
         NSError* pinErr = nil;
-        AVAssetReader* pin = [[AVAssetReader alloc] initWithAsset:asset error:&pinErr];
-        if (pin) {
+        AVAssetReader* pin = rawGenerator ? nil : [[AVAssetReader alloc] initWithAsset:asset error:&pinErr];
+        if (rawGenerator) {
+            // no pin
+        } else if (pin) {
             AVAssetReaderTrackOutput* pinOut =
                 [[AVAssetReaderTrackOutput alloc] initWithTrack:videoTrack outputSettings:nil];
             if ([pin canAddOutput:pinOut]) {
@@ -1883,6 +1957,23 @@ bool SharedDecoder::Lane::feedGeneratorSample(SharedDecoder* dec) {
                 spdlog::warn("AVFoundationVideoBridge: batch sample pts {} != expected {} at idx {} (batch {}/{}) in {}",
                              onePtsMs, dec->decodeOrderPts[(size_t)decodeIdx], decodeIdx,
                              (long)genBatchNext - 1, (long)genBatchCount, dec->filename);
+            }
+            if (dec->useRawDecode) {
+                CVPixelBufferRef bgra = dec->rawSampleToBGRA(one);
+                CFRelease(one);
+                if (bgra) {
+                    DecodedEntry entry;
+                    entry.image = bgra;
+                    entry.ptsMs = onePtsMs >= 0 ? onePtsMs : 0;
+                    std::lock_guard<std::mutex> lk(queueMutex);
+                    ptsQueue.push(entry);
+                } else {
+                    spdlog::warn("AVFoundationVideoBridge: raw sample at idx {} in {} has no usable frame data",
+                                 decodeIdx, dec->filename);
+                }
+                [cursor stepInDecodeOrderByCount:1];
+                ++decodeIdx;
+                return true;
             }
             CMVideoFormatDescriptionRef fmt =
                 (CMVideoFormatDescriptionRef)CMSampleBufferGetFormatDescription(one);
@@ -2400,44 +2491,14 @@ CVPixelBufferRef SharedDecoder::Lane::decodeNextRaw(SharedDecoder* dec, int& out
         const int w = (int)CVPixelBufferGetWidth(srcImage);
         const int h = (int)CVPixelBufferGetHeight(srcImage);
 
-        CVPixelBufferRef bgra = nullptr;
-        // Fast path: pull a recycled buffer from the SharedDecoder pool.
-        // The pool is sized so cycled-out cache entries refill it
-        // without an actual allocation per frame.
-        if (dec->rawBgraPool) {
-            CVReturn pr = CVPixelBufferPoolCreatePixelBuffer(kCFAllocatorDefault,
-                                                              dec->rawBgraPool, &bgra);
-            if (pr != kCVReturnSuccess) {
-                spdlog::warn("AVFoundationVideoBridge: rawvideo pool exhausted ({}); falling back to direct create",
-                             (int)pr);
-                bgra = nullptr;
-            }
-        }
-        if (!bgra) {
-            // Fallback: direct create, no IOSurface (downstream reads on CPU).
-            CVReturn r = CVPixelBufferCreate(kCFAllocatorDefault, w, h,
-                                              kCVPixelFormatType_32BGRA,
-                                              nullptr, &bgra);
-            if (r != kCVReturnSuccess || !bgra) {
-                spdlog::error("AVFoundationVideoBridge: CVPixelBufferCreate (raw) failed: {}", (int)r);
-                CVPixelBufferRelease(srcImage);
-                return nullptr;
-            }
-        }
-
         CVPixelBufferLockBaseAddress(srcImage, kCVPixelBufferLock_ReadOnly);
-        CVPixelBufferLockBaseAddress(bgra, 0);
-
-        const uint8_t* srcBytes = (const uint8_t*)CVPixelBufferGetBaseAddress(srcImage);
-        const size_t srcStride = CVPixelBufferGetBytesPerRow(srcImage);
-        uint8_t* dst = (uint8_t*)CVPixelBufferGetBaseAddress(bgra);
-        const size_t dstStride = CVPixelBufferGetBytesPerRow(bgra);
-
-        convertRawFrameToBGRA(dec->rawLayout, srcBytes, srcStride, dst, dstStride, w, h);
-
-        CVPixelBufferUnlockBaseAddress(bgra, 0);
+        CVPixelBufferRef bgra = dec->makeRawBGRA((const uint8_t*)CVPixelBufferGetBaseAddress(srcImage),
+                                                 CVPixelBufferGetBytesPerRow(srcImage), w, h);
         CVPixelBufferUnlockBaseAddress(srcImage, kCVPixelBufferLock_ReadOnly);
         CVPixelBufferRelease(srcImage);
+        if (!bgra) {
+            return nullptr;
+        }
 
         outPtsMs = ptsMs;
         return bgra;
@@ -2458,7 +2519,7 @@ SharedDecoder::Lane* SharedDecoder::selectLane(int targetMS, int gracetimeMS, in
     // asset has at least one live AVAssetReader, never closed-and-
     // reopened (closing would risk invalidating the asset and crashing
     // the next AVAssetReader init).
-    const bool laneZeroIsAnchor = (pinReader == nil);
+    const bool laneZeroIsAnchor = (pinReader == nil) && !useGenerator;
     const size_t laneLimit = useGenerator ? lanes.size() : (size_t)kLegacyLanesPerFile;
     for (size_t i = 0; i < laneLimit; ++i) {
         auto& lane = lanes[i];
