@@ -642,12 +642,12 @@ private:
     // -2 = no index available (caller falls back to heuristics);
     // -1 = no frame serves the target (past the last frame's window).
     int idealFramePts(int targetMS) const override {
-        if (ptsIndex.empty()) {
+        if (emitIndex.empty()) {
             return -2;
         }
         const int lo = targetMS - frameMS / 2;
-        auto it = std::lower_bound(ptsIndex.begin(), ptsIndex.end(), lo);
-        if (it == ptsIndex.end()) {
+        auto it = std::lower_bound(emitIndex.begin(), emitIndex.end(), lo);
+        if (it == emitIndex.end()) {
             return -1;
         }
         return *it;
@@ -813,8 +813,15 @@ private:
     };
     // Sorted, deduped presentation timestamps (ms) of every sample in the
     // track, from AVSampleCursor at open().  Immutable afterwards, so it is
-    // readable without the mutex.
+    // readable without the mutex. MEDIA timeline (see mediaToEmitPts).
     std::vector<int> ptsIndex;
+    // The same samples on the MOVIE timeline — what callers request and what
+    // both decode paths emit. Frame selection (idealFramePts) must run here:
+    // with the common B-frame priming edit the media grid sits two frames
+    // later, so selecting in the media domain skipped the first two frames
+    // and chased samples past the last emittable one at the end (three
+    // GOP re-decodes per request before giving up).
+    std::vector<int> emitIndex;
 
     // Canonical-origin generator mode (compressed files with sample
     // cursors): samples are fetched at random access via
@@ -828,11 +835,12 @@ private:
     std::vector<int64_t> syncDecodeIdxs;     // decode indexes of full-sync samples
     std::unordered_map<int, int64_t> ptsToDecodeIdx;
     // Cursor pts live on the track's MEDIA timeline; AVAssetReader emits
-    // MOVIE-timeline pts (edit-list mapped) — off by one frame on files
+    // MOVIE-timeline pts (edit-list mapped) — two frames apart on files
     // with the common B-frame priming edit. ptsIndex/decodeOrderPts stay in
-    // the media domain (they drive selection exactly as the gated legacy
-    // behavior did); generator-emitted labels are converted through this
-    // map so cache keys and served pts match the reader's byte-for-byte.
+    // the media domain for chain bookkeeping (origins, decode order);
+    // generator-emitted labels are converted through this map so cache keys
+    // and served pts match the reader's byte-for-byte, and frame selection
+    // runs on emitIndex.
     std::unordered_map<int, int> mediaToEmitPts;
     int genEmitShiftMs = 0; // scalar emit-minus-media shift (single segment)
     int emitPtsFor(int mediaPts) const {
@@ -1312,6 +1320,7 @@ bool SharedDecoder::open(const std::string& fname, int maxDecodeW, int maxDecode
                         // the truncation matches the reader's exactly.
                         const int emitMs = (int)(CMTimeGetSeconds(CMTimeAdd(pts, editDelta)) * 1000.0);
                         mediaToEmitPts.emplace(ptsMs, emitMs);
+                        emitIndex.push_back(emitMs);
                         if (decodeOrderPts.size() == 1) {
                             genEmitShiftMs = emitMs - ptsMs;
                         }
@@ -1322,6 +1331,8 @@ bool SharedDecoder::open(const std::string& fname, int maxDecodeW, int maxDecode
                 }
                 std::sort(ptsIndex.begin(), ptsIndex.end());
                 ptsIndex.erase(std::unique(ptsIndex.begin(), ptsIndex.end()), ptsIndex.end());
+                std::sort(emitIndex.begin(), emitIndex.end());
+                emitIndex.erase(std::unique(emitIndex.begin(), emitIndex.end()), emitIndex.end());
                 auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - sw).count();
                 spdlog::info("AVFoundationVideoBridge: pts index for {}: {} frames in {}ms", fname, ptsIndex.size(), (long)ms);
             }
