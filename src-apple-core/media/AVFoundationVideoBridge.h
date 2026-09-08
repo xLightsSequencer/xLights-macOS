@@ -100,4 +100,11 @@ void SetScaleAlgorithm(VideoReaderHandle* h, ScaleAlgorithm algorithm);
 // Stateless helper — opens the file just enough to read the duration.
 [[nodiscard]] long GetVideoLengthStatic(const std::string& filename);
 
+// Load-time probe for uncompressed (rawvideo) tracks, which the render path
+// reads through sample cursors rather than AVAssetReader (see the bridge).
+// NotRaw: not a rawvideo track, probe it however you like. Readable: the
+// first sample's bytes are the expected size. Unreadable: `reason` says why.
+enum class RawvideoProbe { NotRaw, Readable, Unreadable };
+[[nodiscard]] RawvideoProbe ProbeRawvideo(const std::string& filename, std::string& reason);
+
 } // namespace AppleAVFoundationVideoBridge

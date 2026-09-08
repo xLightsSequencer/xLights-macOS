@@ -14,6 +14,7 @@
 // SDK dependency and src-core stays Apple-framework-free.
 
 #include "MediaCompatibilityBridge.h"
+#include "AVFoundationVideoBridge.h"
 
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
@@ -22,12 +23,15 @@
 #include <string>
 
 namespace {
-// AVFoundation's QuickTime decoder accepts rawvideo MOV (codec_tag='raw ')
-// but only decodes it when the row stride is a multiple of 8 bytes — for
-// rgb24 that means the width must be a multiple of 8. Otherwise
-// AVAssetReader silently produces zero samples (no error). Detect this so
-// MediaCompatibility::CheckVideoFile can flag the file for re-encoding
-// instead of letting the user think the file is fine until playback.
+// Only reachable before macOS 13, where rawvideo MOV still goes through
+// AVAssetReader (later systems probe it via ProbeRawvideo, the way the
+// render path reads it). AVAssetReader accepts rawvideo (codec_tag='raw ',
+// which AVFoundation reports as kCVPixelFormatType_24RGB) but only decodes
+// it when the row stride is a multiple of 8 bytes — for rgb24 that means
+// the width must be a multiple of 8. Otherwise it silently produces zero
+// samples (no error). Detect this so MediaCompatibility::CheckVideoFile can
+// flag the file for re-encoding instead of letting the user think the file
+// is fine until playback.
 bool IsRawvideoUnalignedStride(AVAssetTrack* track) {
     if (!track) return false;
 #pragma clang diagnostic push
@@ -38,7 +42,7 @@ bool IsRawvideoUnalignedStride(AVAssetTrack* track) {
     CMVideoFormatDescriptionRef fd = (__bridge CMVideoFormatDescriptionRef)formatDescs[0];
     FourCharCode codec = CMFormatDescriptionGetMediaSubType((CMFormatDescriptionRef)fd);
     constexpr FourCharCode kRawTag = ('r' << 24) | ('a' << 16) | ('w' << 8) | ' ';
-    if (codec != kRawTag) return false;
+    if (codec != kRawTag && codec != kCVPixelFormatType_24RGB) return false;
     CMVideoDimensions dims = CMVideoFormatDescriptionGetDimensions(fd);
     // Assume rgb24 (3 bpp); xLights only ever produced rawvideo MOV in this
     // layout. Other rawvideo flavors aren't handled here.
@@ -69,6 +73,22 @@ std::string CheckVideoFile(const std::string& filePath) {
 #pragma clang diagnostic pop
         if (videoTracks.count == 0) {
             return "No video tracks found";
+        }
+
+        // Uncompressed tracks render through sample cursors, not
+        // AVAssetReader — which cannot even open some of them (24-bit rows
+        // that aren't a multiple of 8 bytes) — so probe them the way the
+        // render path reads them.
+        {
+            std::string rawReason;
+            switch (AppleAVFoundationVideoBridge::ProbeRawvideo(filePath, rawReason)) {
+            case AppleAVFoundationVideoBridge::RawvideoProbe::Readable:
+                return "";
+            case AppleAVFoundationVideoBridge::RawvideoProbe::Unreadable:
+                return rawReason;
+            case AppleAVFoundationVideoBridge::RawvideoProbe::NotRaw:
+                break;
+            }
         }
 
         if (IsRawvideoUnalignedStride(videoTracks[0])) {

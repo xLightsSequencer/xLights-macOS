@@ -4466,4 +4466,66 @@ long GetVideoLengthStatic(const std::string& filename) {
     }
 }
 
+RawvideoProbe ProbeRawvideo(const std::string& filename, std::string& reason) {
+    @autoreleasepool {
+        if (@available(macOS 13.0, iOS 16.0, *)) {
+            NSURL* url = [NSURL fileURLWithPath:[NSString stringWithUTF8String:filename.c_str()]];
+            AVURLAsset* asset = [AVURLAsset URLAssetWithURL:url options:nil];
+            if (!asset) {
+                return RawvideoProbe::NotRaw;
+            }
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+            NSArray<AVAssetTrack*>* tracks = [asset tracksWithMediaType:AVMediaTypeVideo];
+#pragma clang diagnostic pop
+            if (tracks.count == 0) {
+                return RawvideoProbe::NotRaw;
+            }
+            AVAssetTrack* track = tracks[0];
+            const RawPixelLayout layout = detectRawPixelLayout(track);
+            if (layout == RawPixelLayout::None) {
+                return RawvideoProbe::NotRaw;
+            }
+            if (![track canProvideSampleCursors]) {
+                reason = "Uncompressed video track does not provide sample cursors";
+                return RawvideoProbe::Unreadable;
+            }
+            AVSampleCursor* cursor = [track makeSampleCursorAtFirstSampleInDecodeOrder];
+            AVSampleBufferGenerator* generator = [[AVSampleBufferGenerator alloc] initWithAsset:asset timebase:NULL];
+            if (cursor == nil || generator == nil) {
+                reason = "Uncompressed video track could not be opened for reading";
+                return RawvideoProbe::Unreadable;
+            }
+            AVSampleBufferRequest* req = [[AVSampleBufferRequest alloc] initWithStartCursor:cursor];
+            req.preferredMinSampleCount = 1;
+            req.maxSampleCount = 1;
+            NSError* err = nil;
+            CMSampleBufferRef sb = [generator createSampleBufferForRequest:req error:&err];
+            if (!sb) {
+                reason = std::string("Uncompressed video sample could not be read: ") +
+                         (err ? [[err localizedDescription] UTF8String] : "unknown error");
+                return RawvideoProbe::Unreadable;
+            }
+            bool ok = false;
+            CMBlockBufferRef bb = CMSampleBufferGetDataBuffer(sb);
+            auto fmt = (CMVideoFormatDescriptionRef)CMSampleBufferGetFormatDescription(sb);
+            if (bb && fmt) {
+                const CMVideoDimensions dims = CMVideoFormatDescriptionGetDimensions(fmt);
+                const size_t len = CMBlockBufferGetDataLength(bb);
+                ok = dims.width > 0 && dims.height > 0 &&
+                     len >= (size_t)dims.width * (size_t)rawPixelBytesPerPixel(layout) * (size_t)dims.height;
+            }
+            CFRelease(sb);
+            if (!ok) {
+                reason = "Uncompressed video sample is smaller than one frame";
+                return RawvideoProbe::Unreadable;
+            }
+            return RawvideoProbe::Readable;
+        }
+    }
+    // Before macOS 13 raw tracks still go through AVAssetReader; let the
+    // caller probe them that way.
+    return RawvideoProbe::NotRaw;
+}
+
 } // namespace AppleAVFoundationVideoBridge

@@ -22,7 +22,8 @@
 namespace AppleMediaCompatibility {
 
 // Returns "" if the file is decodable by AVFoundation (playable, at
-// least one video track, AVAssetReader can decode the first frame).
+// least one video track, AVAssetReader can decode the first frame —
+// or, for uncompressed tracks, a sample cursor can read one).
 // Otherwise returns a human-readable reason string. Empty input yields
 // "" (caller is responsible for skipping empty paths).
 [[nodiscard]] std::string CheckVideoFile(const std::string& filePath);
