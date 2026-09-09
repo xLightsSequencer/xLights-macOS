@@ -180,6 +180,20 @@ int rawPixelBytesPerPixel(RawPixelLayout l) {
     return 0;
 }
 
+// Media subtypes are usually printable FourCCs ('avc1', 'raw '), but
+// uncompressed tracks come back as small kCVPixelFormatType_* integers
+// (24-bit RGB is 0x18) whose bytes are control characters in a log line.
+static std::string fourCCName(FourCharCode code) {
+    char tag[4] = { (char)((code >> 24) & 0xff), (char)((code >> 16) & 0xff),
+                    (char)((code >> 8) & 0xff),  (char)(code & 0xff) };
+    for (char c : tag) {
+        if ((unsigned char)c < 0x20 || (unsigned char)c > 0x7e) {
+            return fmt::format("0x{:08x}", (uint32_t)code);
+        }
+    }
+    return std::string(tag, 4);
+}
+
 RawPixelLayout detectRawPixelLayout(AVAssetTrack* track) {
     if (!track) return RawPixelLayout::None;
 #pragma clang diagnostic push
@@ -214,9 +228,7 @@ RawPixelLayout detectRawPixelLayout(AVAssetTrack* track) {
                ((FourCharCode)(unsigned char)c << 8)  |
                ((FourCharCode)(unsigned char)d);
     };
-    char tag[5] = { (char)((codec >> 24) & 0xff), (char)((codec >> 16) & 0xff),
-                    (char)((codec >> 8) & 0xff),  (char)(codec & 0xff), 0 };
-    spdlog::info("AVFoundationVideoBridge: track codec FourCC = '{}' (0x{:08x})", tag, codec);
+    spdlog::info("AVFoundationVideoBridge: track codec FourCC = '{}' (0x{:08x})", fourCCName(codec), codec);
 
     if (codec == fcc('2','4','B','G')) return RawPixelLayout::BGR24;
     if (codec == fcc('R','G','B','A')) return RawPixelLayout::RGBA;
@@ -1383,10 +1395,7 @@ bool SharedDecoder::open(const std::string& fname, int maxDecodeW, int maxDecode
         }
         const bool nalCodec = (videoSubType == kCMVideoCodecType_H264 ||
                                videoSubType == kCMVideoCodecType_HEVC);
-        const std::string subTypeName = {
-            (char)((videoSubType >> 24) & 0xFF), (char)((videoSubType >> 16) & 0xFF),
-            (char)((videoSubType >> 8) & 0xFF), (char)(videoSubType & 0xFF)
-        };
+        const std::string subTypeName = fourCCName(videoSubType);
         if (useGenerator && !syncDecodeIdxs.empty() && !nalCodec) {
             spdlog::info("AVFoundationVideoBridge: non-NAL codec '{}' for {}; all {} container syncs "
                          "are chain origins", subTypeName, fname, syncDecodeIdxs.size());
