@@ -144,7 +144,7 @@
 				"$(PER_ARCH_OBJECT_FILE_DIR)/$(INPUT_FILE_BASE).o",
 			);
 			script = (
-				"${SRCROOT}/scripts/ispc_compile",
+				"${SRCROOT}/scripts/ispc_compile"
 			);
 		};
 /* End PBXBuildRule section */
@@ -3152,7 +3152,7 @@
 					"-lssl",
 					"-lcrypto",
 					"-framework",
-					"SystemConfiguration",
+					SystemConfiguration,
 					"-lxlsxwriter",
 					"-lminizip",
 					"-lglslang",
@@ -3235,7 +3235,7 @@
 					"-lssl",
 					"-lcrypto",
 					"-framework",
-					"SystemConfiguration",
+					SystemConfiguration,
 					"-lxlsxwriter",
 					"-lminizip",
 					"-lglslang",
@@ -3317,7 +3317,7 @@
 					"-lssl",
 					"-lcrypto",
 					"-framework",
-					"SystemConfiguration",
+					SystemConfiguration,
 					"-lxlsxwriter",
 					"-lminizip",
 					"-lglslang",
