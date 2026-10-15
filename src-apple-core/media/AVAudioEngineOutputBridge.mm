@@ -306,8 +306,24 @@ void RemoveAudio(OutputHandle* h, int id) {
     auto* track = it->second;
     if (track->playerNode) {
         [track->playerNode stop];
+        // The engine is shared by every AudioManager, so it is usually still
+        // rendering another track here. Detaching a mixer input while the IO
+        // thread is mid-render leaves it calling the removed node's render block
+        // (a jump to 0 in AUAudioUnitV2Bridge_Renderer::renderInputProc). Pause
+        // the IO around the topology change, as ensureTimePitch does; pause keeps
+        // the engine's timeline, so the other tracks resume where they were.
+        bool wasRunning = h->engine.isRunning;
+        if (wasRunning) [h->engine pause];
+        [h->engine disconnectNodeOutput:track->playerNode];
         [h->engine detachNode:track->playerNode];
         track->playerNode = nil;
+        if (wasRunning) {
+            NSError* error = nil;
+            [h->engine startAndReturnError:&error];
+            if (error != nil) {
+                spdlog::error("AVAudioEngine: restart after RemoveAudio failed: {}", error.localizedDescription.UTF8String);
+            }
+        }
     }
     h->tracks.erase(it);
     delete track;
