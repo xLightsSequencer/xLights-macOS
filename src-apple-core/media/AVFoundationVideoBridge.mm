@@ -501,6 +501,9 @@ public:
     ~SharedDecoder() override;
 
     bool open(const std::string& filename, int maxDecodeW, int maxDecodeH);
+    // Stand-in for a file VideoToolbox already rejected: invalid, never opened.
+    void markRejected(const std::string& fname) { filename = fname; openFailed = true; }
+    bool wasRejectedByVideoToolbox() const { return rejectedByVideoToolbox; }
 
     bool isValid() const override { return valid && !openFailed; }
     // Only the legacy reader path is access-pattern dependent; generator raw
@@ -584,6 +587,9 @@ private:
         size_t nextPtsIdx = 0;    // next ptsIndex position expected to emit
         int originPts = 0;        // chain origin pts; earlier outputs discarded
         int fedSinceEmit = 0;     // lost-frame guard
+        // Frames VideoToolbox refused as bad data (reported asynchronously
+        // through vtOutputCallback on the generator path).
+        std::atomic<int> vtBadDataErrors{0};
 
         // Concurrent generator chains only: owned by a consumer currently
         // decoding OUTSIDE the SharedDecoder mutex. Set/cleared under the
@@ -716,6 +722,9 @@ private:
     std::string filename;
     bool valid = false;
     bool openFailed = false;
+    // Set when VideoToolbox itself rejects the stream (as opposed to a reader
+    // that failed to start), which is a property of the file, not of load.
+    bool rejectedByVideoToolbox = false;
     bool useSoftwareDecode = false;
     bool useRawDecode = false;
     RawPixelLayout rawLayout = RawPixelLayout::None;
@@ -1017,6 +1026,20 @@ std::unordered_set<std::string> g_everValidFiles;
 std::mutex g_idrSyncCacheMutex;
 std::unordered_map<std::string, std::vector<int64_t>> g_idrSyncCache;
 
+// VideoToolbox reports undecodable data with the legacy codecBadDataErr
+// (-8969), e.g. lossless H.264 High 4:4:4 under 64px; its own
+// kVTVideoDecoderBadDataErr (-12909) means the same thing.
+bool IsVTBadDataStatus(OSStatus status) {
+    return status == -8969 || status == kVTVideoDecoderBadDataErr;
+}
+
+// Files VideoToolbox rejected this session (also guarded by g_decodersMutex).
+// Without this every reader on such a file - one per model per Video effect -
+// re-runs the whole open + first-frame probe only to fail the same way before
+// falling back to FFmpeg. Only VideoToolbox rejections are recorded; a reader
+// that failed to start can be transient, and is left to re-probe.
+std::unordered_set<std::string> g_vtRejectedFiles;
+
 bool fileEverValid(const std::string& f) {
     std::lock_guard<std::mutex> lk(g_decodersMutex);
     return g_everValidFiles.count(f) > 0;
@@ -1051,9 +1074,17 @@ std::shared_ptr<IDecoder> acquireDecoder(const std::string& filename, int maxDec
         g_decoders.erase(it);
     }
     auto sp = std::shared_ptr<SharedDecoder>(new SharedDecoder());
+    if (g_vtRejectedFiles.count(filename) != 0) {
+        sp->markRejected(filename);
+        return sp;
+    }
     if (!sp->open(filename, maxDecodeW, maxDecodeH)) {
-        // Don't cache failures — let the next attempt re-probe in case
-        // the file becomes readable.
+        // Other failures aren't cached - let the next attempt re-probe in
+        // case the file becomes readable.
+        if (sp->wasRejectedByVideoToolbox() && g_everValidFiles.count(filename) == 0) {
+            spdlog::info("AVFoundationVideoBridge: VideoToolbox cannot decode {}; skipping AVFoundation for it for the rest of the session", filename);
+            g_vtRejectedFiles.insert(filename);
+        }
         return sp;
     }
     g_decoders[filename] = sp;
@@ -1150,6 +1181,7 @@ bool SharedDecoder::open(const std::string& fname, int maxDecodeW, int maxDecode
                          "AVFoundation cannot decode — invalidating reader (desktop will fall back to FFmpeg)",
                          fname);
             openFailed = true;
+            rejectedByVideoToolbox = true;
             return false;
         } else {
             useSoftwareDecode = !probeHardwareDecoderSupport(videoTrack);
@@ -1624,7 +1656,7 @@ bool SharedDecoder::open(const std::string& fname, int maxDecodeW, int maxDecode
         // retry the whole file gets misclassified as undecodable and silently
         // switches to the FFmpeg reader — a different scaler, so the rendered
         // bytes for the same sequence then vary run to run.
-        for (int attempt = 0; attempt < 3 && !probe; ++attempt) {
+        for (int attempt = 0; attempt < 3 && !probe && !rejectedByVideoToolbox; ++attempt) {
             if (attempt > 0) {
                 std::this_thread::sleep_for(std::chrono::milliseconds(20 * attempt));
                 if (!lanes[0].openAt(this, 0)) {
@@ -1633,6 +1665,11 @@ bool SharedDecoder::open(const std::string& fname, int maxDecodeW, int maxDecode
             }
             for (int probeSafety = 1024; probeSafety > 0 && !probe && !lanes[0].demuxAtEnd; --probeSafety) {
                 probe = lanes[0].decodeNext(this, probePts);
+            }
+            // The whole stream went through VideoToolbox and it rejected the
+            // frames as bad data: a property of the file, not worth retrying.
+            if (!probe && lanes[0].demuxAtEnd && lanes[0].vtBadDataErrors.load() > 0) {
+                rejectedByVideoToolbox = true;
             }
         }
         if (!probe) {
@@ -2112,8 +2149,11 @@ void SharedDecoder::Lane::vtOutputCallback(void* refCon, void* /*sourceFrameRefC
                                             OSStatus status, VTDecodeInfoFlags /*infoFlags*/,
                                             CVImageBufferRef imageBuffer,
                                             CMTime pts, CMTime /*duration*/) {
-    if (status != noErr || imageBuffer == nullptr) return;
     Lane* self = static_cast<Lane*>(refCon);
+    if (IsVTBadDataStatus(status)) {
+        self->vtBadDataErrors++;
+    }
+    if (status != noErr || imageBuffer == nullptr) return;
 
     // Copy the decoded surface NOW (see outCopyPool). The callback body is
     // the only interval where the decoder guarantees the surface's pixels.
@@ -2348,7 +2388,7 @@ CVPixelBufferRef SharedDecoder::Lane::decodeNextSW(SharedDecoder* dec, int& outP
     const int threshold = kMaxBFrameDelay + 1;
 
     // A stream the software VTDecompressionSession can't handle fails every
-    // frame with -8969 (kVTVideoDecoderBadDataErr) — e.g. lossless H.264
+    // frame with -8969 (codecBadDataErr) — e.g. lossless H.264
     // carrying the High 4:4:4 profile at <64px, which VideoToolbox rejects.
     // Because the failed decodes never enqueue anything, queueSize() stays 0
     // and this loop would otherwise demux the *entire* file on a single call
@@ -2403,6 +2443,9 @@ CVPixelBufferRef SharedDecoder::Lane::decodeNextSW(SharedDecoder* dec, int& outP
                     spdlog::error("AVFoundationVideoBridge: {} consecutive software decode failures with no decoded output for {}; "
                                   "treating stream as undecodable by VideoToolbox",
                                   consecutiveFailures, dec->filename);
+                    if (IsVTBadDataStatus(status)) {
+                        dec->rejectedByVideoToolbox = true;
+                    }
                     demuxAtEnd = true;
                     break;
                 }
