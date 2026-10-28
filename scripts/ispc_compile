@@ -29,7 +29,14 @@ if [[ "$CURRENT_ARCH" == "arm64" ]]; then
 ${SRCROOT}/dependencies/bin/ispc ${ISPCFLAG} --darwin-version-min=${DEPLOYMENT_MIN} --target-os=${TARGET_OS} --target=neon-i32x8 --arch=aarch64 -o ${PER_ARCH_OBJECT_FILE_DIR}/${INPUT_FILE_BASE}.o $SCRIPT_INPUT_FILE
 fi
 if [[ "$CURRENT_ARCH" == "x86_64" ]]; then
-${SRCROOT}/dependencies/bin/ispc ${ISPCFLAG} --darwin-version-min=${DEPLOYMENT_MIN} --target-os=${TARGET_OS} --target=avx2-i32x16 --target=avx1-i32x16  --target=sse4.2-i32x8 --target=sse2-i32x8 --arch=x86_64 --pic -o ${PER_ARCH_OBJECT_FILE_DIR}/${INPUT_FILE_BASE}.o $SCRIPT_INPUT_FILE
+# One comma-separated --target list: ispc keeps only the last of repeated
+# --target flags. Multi-target writes a dispatcher object plus one object per
+# ISA; merge them into the single object this build rule declares.
+MT_DIR="${PER_ARCH_OBJECT_FILE_DIR}/${INPUT_FILE_BASE}.ispcobjs"
+rm -rf "${MT_DIR}"
+mkdir -p "${MT_DIR}"
+${SRCROOT}/dependencies/bin/ispc ${ISPCFLAG} --darwin-version-min=${DEPLOYMENT_MIN} --target-os=${TARGET_OS} --target=avx2-i32x8,avx1-i32x8,sse4.2-i32x8,sse2-i32x8 --arch=x86_64 --pic -o "${MT_DIR}/${INPUT_FILE_BASE}.o" $SCRIPT_INPUT_FILE || exit 1
+xcrun ld -r -arch x86_64 -o ${PER_ARCH_OBJECT_FILE_DIR}/${INPUT_FILE_BASE}.o "${MT_DIR}"/*.o || exit 1
 fi
 
 # ispc only supports --target-os=ios, so its output is always tagged as iOS
@@ -46,7 +53,7 @@ dn=$(dirname "$SCRIPT_INPUT_FILE")
 tn="${dn}/.new${CURRENT_ARCH}${bn}.h"
 echo "Output new header to ${tn}"
 
-${SRCROOT}/dependencies/bin/ispc --target-os=macos --target=avx2-i32x16 --target=avx1-i32x16 --arch=x86_64 -h "${tn}" "$SCRIPT_INPUT_FILE"
+${SRCROOT}/dependencies/bin/ispc --target-os=macos --target=avx1-i32x16 --arch=x86_64 -h "${tn}" "$SCRIPT_INPUT_FILE"
 if [ -f "$tn" ]; then
     sed -i '' '/.ispc.h/d' "${tn}"
 
