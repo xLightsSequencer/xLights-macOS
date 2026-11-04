@@ -3651,8 +3651,6 @@
 					"-lspirv-cross-core",
 					"-framework",
 					SystemConfiguration,
-					"-framework",
-					CoreAudioTypes,
 				);
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
@@ -3718,8 +3716,6 @@
 					"-lspirv-cross-core",
 					"-framework",
 					SystemConfiguration,
-					"-framework",
-					CoreAudioTypes,
 				);
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
@@ -3785,8 +3781,6 @@
 					"-lspirv-cross-core",
 					"-framework",
 					SystemConfiguration,
-					"-framework",
-					CoreAudioTypes,
 				);
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
