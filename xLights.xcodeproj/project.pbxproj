@@ -133,6 +133,7 @@
 		SP7700000000000100SP0001 /* Speech.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = SP7700000000000000SP0001 /* Speech.framework */; };
 		SP7700000000000300SP0001 /* Speech.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = SP7700000000000000SP0001 /* Speech.framework */; };
 		EE00000100000000000T0003 /* libxLights-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC00000100000000000X0002 /* libxLights-core.a */; };
+		EE00000100000000000T0014 /* pugixml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67DA60662F7FF15300A41238 /* pugixml.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -1721,6 +1722,7 @@
 		EE00000100000000000T0004 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			files = (
+				EE00000100000000000T0014 /* pugixml.cpp in Sources */,
 			);
 		};
 /* End PBXSourcesBuildPhase section */
@@ -3481,7 +3483,12 @@
 					"../src-core",
 					"../src-core/utils",
 					"../dependencies/Catch2/src",
+					"../tests/unit",
 					"../tests/unit/catch_config",
+					"src-apple-core",
+					../include,
+					../dependencies/spdlog/include,
+					../dependencies/pugixml/src,
 				);
 				OTHER_CFLAGS = (
 					"$(inherited)",
@@ -3504,7 +3511,12 @@
 					"../src-core",
 					"../src-core/utils",
 					"../dependencies/Catch2/src",
+					"../tests/unit",
 					"../tests/unit/catch_config",
+					"src-apple-core",
+					../include,
+					../dependencies/spdlog/include,
+					../dependencies/pugixml/src,
 				);
 				OTHER_CFLAGS = (
 					"$(inherited)",
@@ -3527,7 +3539,12 @@
 					"../src-core",
 					"../src-core/utils",
 					"../dependencies/Catch2/src",
+					"../tests/unit",
 					"../tests/unit/catch_config",
+					"src-apple-core",
+					../include,
+					../dependencies/spdlog/include,
+					../dependencies/pugixml/src,
 				);
 				OTHER_CFLAGS = (
 					"$(inherited)",
