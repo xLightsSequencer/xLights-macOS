@@ -132,6 +132,60 @@
 		SB7700000000000100SB0001 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = SB7700000000000200SB0001 /* Settings.bundle */; };
 		SP7700000000000100SP0001 /* Speech.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = SP7700000000000000SP0001 /* Speech.framework */; };
 		SP7700000000000300SP0001 /* Speech.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = SP7700000000000000SP0001 /* Speech.framework */; };
+		EE00000100000000000T0003 /* libxLights-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC00000100000000000X0002 /* libxLights-core.a */; };
+		EE00000100000000000T0014 /* pugixml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67DA60662F7FF15300A41238 /* pugixml.cpp */; };
+		EE00000100000000000TF000 /* libISPCEffectComputeFunctions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6785716B2F72C6E100F50F9F /* libISPCEffectComputeFunctions.a */; };
+		EE00000100000000000TF001 /* libxLights-Apple-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB00000100000000000C0002 /* libxLights-Apple-core.a */; };
+		EE00000100000000000TF002 /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675EDD3C2789D87C00D40FEA /* liblua.a */; };
+		EE00000100000000000TF003 /* libavformat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFF92553033E00C83C71 /* libavformat.a */; };
+		EE00000100000000000TF004 /* libavfilter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FA002553000100C83C71 /* libavfilter.a */; };
+		EE00000100000000000TF005 /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFFE255303A300C83C71 /* libswscale.a */; };
+		EE00000100000000000TF006 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B4C91F17B53D960006B951 /* CoreMedia.framework */; };
+		EE00000100000000000TF007 /* libzstd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFDA2552EE9000C83C71 /* libzstd.a */; };
+		EE00000100000000000TF008 /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFF42553031900C83C71 /* libavcodec.a */; };
+		EE00000100000000000TF009 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B4C92117B53D960006B951 /* CoreVideo.framework */; };
+		EE00000100000000000TF00A /* libliquidfun.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFD92552EE9000C83C71 /* libliquidfun.a */; };
+		EE00000100000000000TF00B /* libavutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFF32553031800C83C71 /* libavutil.a */; };
+		EE00000100000000000TF00C /* libpthread.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D251C207C25000D632B /* libpthread.tbd */; };
+		EE00000100000000000TF00D /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67290003255303D500C83C71 /* VideoToolbox.framework */; };
+		EE00000100000000000TF00E /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFDB2552EE9000C83C71 /* libSDL2.a */; };
+		EE00000100000000000TF00F /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BE0DF82727C0AB00558A3A /* MetalKit.framework */; };
+		EE00000100000000000TF010 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D211C207BCC000D632B /* IOKit.framework */; };
+		EE00000100000000000TF011 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7720DD313D006EFCFA /* Carbon.framework */; };
+		EE00000100000000000TF012 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67E7087017B51AB400A22034 /* Cocoa.framework */; };
+		EE00000100000000000TF013 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B6F3422040FBB600B847E0 /* CoreAudio.framework */; };
+		EE00000100000000000TF014 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674D3D231C207BD7000D632B /* AudioToolbox.framework */; };
+		EE00000100000000000TF015 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 508754EE92C352178126B474 /* AVFoundation.framework */; };
+		EE00000100000000000TF016 /* Speech.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = SP7700000000000000SP0001 /* Speech.framework */; };
+		EE00000100000000000TF017 /* SoundAnalysis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A700000000000200A70001 /* SoundAnalysis.framework */; };
+		EE00000100000000000TF018 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8A800000000000200A80001 /* CoreML.framework */; };
+		EE00000100000000000TF019 /* MetricKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = MK7700000000000200MK0001 /* MetricKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		EE00000100000000000TF01A /* ModelIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 670F8DC927652F5E002F0CD6 /* ModelIO.framework */; };
+		EE00000100000000000TF01B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B229204BA6AF00E90AC7 /* QuartzCore.framework */; };
+		EE00000100000000000TF01C /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729000C2553046400C83C71 /* libbz2.tbd */; };
+		EE00000100000000000TF01D /* libswresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6729FFFC2553037E00C83C71 /* libswresample.a */; };
+		EE00000100000000000TF01E /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7D20DD324D006EFCFA /* libiconv.tbd */; };
+		EE00000100000000000TF01F /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6771B227204BA69B00E90AC7 /* CoreImage.framework */; };
+		EE00000100000000000TF020 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675FD842204C3C0C003D280F /* Accelerate.framework */; };
+		EE00000100000000000TF021 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7920DD31D6006EFCFA /* WebKit.framework */; };
+		EE00000100000000000TF022 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C7F20DD3289006EFCFA /* ImageIO.framework */; };
+		EE00000100000000000TF023 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C8320DD336E006EFCFA /* libz.tbd */; };
+		EE00000100000000000TF024 /* libhidapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67FDC38B27CA77610009A3C7 /* libhidapi.a */; };
+		EE00000100000000000TF025 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BE0DF92727C0AB00558A3A /* Metal.framework */; };
+		EE00000100000000000TF026 /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67061FD22746D5330020519D /* MetalPerformanceShaders.framework */; };
+		EE00000100000000000TF027 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C8520DD337E006EFCFA /* Security.framework */; };
+		EE00000100000000000TE000 /* Files.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716558625D825410041BB9A /* Files.cpp */;};
+		EE00000100000000000TE001 /* PluginAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716557F25D825410041BB9A /* PluginAdapter.cpp */;};
+		EE00000100000000000TE002 /* PluginBufferingAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671655B725D827100041BB9A /* PluginBufferingAdapter.cpp */;};
+		EE00000100000000000TE003 /* PluginChannelAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716558C25D825410041BB9A /* PluginChannelAdapter.cpp */;};
+		EE00000100000000000TE004 /* PluginHostAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716559125D825410041BB9A /* PluginHostAdapter.cpp */;};
+		EE00000100000000000TE005 /* PluginInputDomainAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716558425D825410041BB9A /* PluginInputDomainAdapter.cpp */;};
+		EE00000100000000000TE006 /* PluginLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716558525D825410041BB9A /* PluginLoader.cpp */;};
+		EE00000100000000000TE007 /* PluginSummarisingAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716559325D825410041BB9A /* PluginSummarisingAdapter.cpp */;};
+		EE00000100000000000TE008 /* PluginWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716556C25D825410041BB9A /* PluginWrapper.cpp */;};
+		EE00000100000000000TE009 /* RealTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716557D25D825410041BB9A /* RealTime.cpp */;};
+		EE00000100000000000TE00A /* acsymbols.c in Sources */ = {isa = PBXBuildFile; fileRef = 6716558225D825410041BB9A /* acsymbols.c */;};
+		EE00000100000000000TE00B /* host-c.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716558825D825410041BB9A /* host-c.cpp */;};
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -276,6 +330,27 @@
 			proxyType = 1;
 			remoteGlobalIDString = DD000UMS2F900001000000A1;
 			remoteInfo = UIMetalShaders;
+		};
+		EE00000100000000000T000C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CC00000100000000000X0001;
+			remoteInfo = "xLights-core";
+		};
+		EE00000100000000000T0020 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BB00000100000000000C0001;
+			remoteInfo = "xLights-Apple-core";
+		};
+		EE00000100000000000T0022 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6785716A2F72C6E100F50F9F;
+			remoteInfo = ISPCEffectComputeFunctions;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -454,6 +529,7 @@
 		MK7700000000000200MK0001 /* MetricKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetricKit.framework; path = System/Library/Frameworks/MetricKit.framework; sourceTree = SDKROOT; };
 		SB7700000000000200SB0001 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		SP7700000000000000SP0001 /* Speech.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Speech.framework; path = System/Library/Frameworks/Speech.framework; sourceTree = SDKROOT; };
+		EE00000100000000000T0002 /* xLights-unit-tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "xLights-unit-tests"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -659,6 +735,25 @@
 			);
 			target = CC00000100000000000X0001 /* xLights-core */;
 		};
+		EE00000100000000000T0011 /* Exceptions for "unit" folder in "xLights-unit-tests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			additionalCompilerFlagsByRelativePath = {
+				"test_float_checks.cpp" = "-ffast-math";
+			};
+			membershipExceptions = (
+				CMakeLists.txt,
+				core_sources.cmake,
+			);
+			target = EE00000100000000000T0001 /* xLights-unit-tests */;
+		};
+		EE00000100000000000T0013 /* Exceptions for "Catch2" folder in "xLights-unit-tests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				meson.build,
+				catch_user_config.hpp.in,
+			);
+			target = EE00000100000000000T0001 /* xLights-unit-tests */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
@@ -743,6 +838,24 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			name = "src-iPad";
 			path = "../src-iPad";
+			sourceTree = SOURCE_ROOT;
+		};
+		EE00000100000000000T0010 /* unit */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				EE00000100000000000T0011 /* Exceptions for "unit" folder in "xLights-unit-tests" target */,
+			);
+			name = unit;
+			path = "../tests/unit";
+			sourceTree = SOURCE_ROOT;
+		};
+		EE00000100000000000T0012 /* Catch2 */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				EE00000100000000000T0013 /* Exceptions for "Catch2" folder in "xLights-unit-tests" target */,
+			);
+			name = Catch2;
+			path = "../dependencies/Catch2/src/catch2";
 			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -848,6 +961,52 @@
 				DD00000200000000000P0015 /* libz.tbd in Frameworks */,
 				DD00000200000000000P0016 /* Accelerate.framework in Frameworks */,
 				DD00000500000000PKGKLM04 /* KLightMapper in Frameworks */,
+			);
+		};
+		EE00000100000000000T0005 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+				EE00000100000000000T0003 /* libxLights-core.a in Frameworks */,
+				EE00000100000000000TF000 /* libISPCEffectComputeFunctions.a in Frameworks */,
+				EE00000100000000000TF001 /* libxLights-Apple-core.a in Frameworks */,
+				EE00000100000000000TF002 /* liblua.a in Frameworks */,
+				EE00000100000000000TF003 /* libavformat.a in Frameworks */,
+				EE00000100000000000TF004 /* libavfilter.a in Frameworks */,
+				EE00000100000000000TF005 /* libswscale.a in Frameworks */,
+				EE00000100000000000TF006 /* CoreMedia.framework in Frameworks */,
+				EE00000100000000000TF007 /* libzstd.a in Frameworks */,
+				EE00000100000000000TF008 /* libavcodec.a in Frameworks */,
+				EE00000100000000000TF009 /* CoreVideo.framework in Frameworks */,
+				EE00000100000000000TF00A /* libliquidfun.a in Frameworks */,
+				EE00000100000000000TF00B /* libavutil.a in Frameworks */,
+				EE00000100000000000TF00C /* libpthread.tbd in Frameworks */,
+				EE00000100000000000TF00D /* VideoToolbox.framework in Frameworks */,
+				EE00000100000000000TF00E /* libSDL2.a in Frameworks */,
+				EE00000100000000000TF00F /* MetalKit.framework in Frameworks */,
+				EE00000100000000000TF010 /* IOKit.framework in Frameworks */,
+				EE00000100000000000TF011 /* Carbon.framework in Frameworks */,
+				EE00000100000000000TF012 /* Cocoa.framework in Frameworks */,
+				EE00000100000000000TF013 /* CoreAudio.framework in Frameworks */,
+				EE00000100000000000TF014 /* AudioToolbox.framework in Frameworks */,
+				EE00000100000000000TF015 /* AVFoundation.framework in Frameworks */,
+				EE00000100000000000TF016 /* Speech.framework in Frameworks */,
+				EE00000100000000000TF017 /* SoundAnalysis.framework in Frameworks */,
+				EE00000100000000000TF018 /* CoreML.framework in Frameworks */,
+				EE00000100000000000TF019 /* MetricKit.framework in Frameworks */,
+				EE00000100000000000TF01A /* ModelIO.framework in Frameworks */,
+				EE00000100000000000TF01B /* QuartzCore.framework in Frameworks */,
+				EE00000100000000000TF01C /* libbz2.tbd in Frameworks */,
+				EE00000100000000000TF01D /* libswresample.a in Frameworks */,
+				EE00000100000000000TF01E /* libiconv.tbd in Frameworks */,
+				EE00000100000000000TF01F /* CoreImage.framework in Frameworks */,
+				EE00000100000000000TF020 /* Accelerate.framework in Frameworks */,
+				EE00000100000000000TF021 /* WebKit.framework in Frameworks */,
+				EE00000100000000000TF022 /* ImageIO.framework in Frameworks */,
+				EE00000100000000000TF023 /* libz.tbd in Frameworks */,
+				EE00000100000000000TF024 /* libhidapi.a in Frameworks */,
+				EE00000100000000000TF025 /* Metal.framework in Frameworks */,
+				EE00000100000000000TF026 /* MetalPerformanceShaders.framework in Frameworks */,
+				EE00000100000000000TF027 /* Security.framework in Frameworks */,
 			);
 		};
 /* End PBXFrameworksBuildPhase section */
@@ -1023,6 +1182,8 @@
 				671653D125D7CF4E0041BB9A /* Libraries */,
 				67E7086E17B51AB400A22034 /* Products */,
 				6732E3A12F84156F00747CF8 /* src-core */,
+				EE00000100000000000T0010 /* unit */,
+				EE00000100000000000T0012 /* Catch2 */,
 				6732E8492F84158C00747CF8 /* src-ui-wx */,
 				673D41762F841B7B00EBE7FD /* src-apple-core */,
 				673D41A92F841BC400EBE7FD /* src-mac-ui */,
@@ -1038,6 +1199,7 @@
 			children = (
 				67E7086D17B51AB400A22034 /* xLights.app */,
 				CC00000100000000000X0002 /* libxLights-core.a */,
+				EE00000100000000000T0002 /* xLights-unit-tests */,
 				BB00000100000000000C0002 /* libxLights-Apple-core.a */,
 				BB00000100000000000U0002 /* libxLights-macOSLib-UI.a */,
 				6785716B2F72C6E100F50F9F /* libISPCEffectComputeFunctions.a */,
@@ -1363,6 +1525,29 @@
 			productName = UIMetalShaders;
 			productType = "com.apple.product-type.metal-library";
 		};
+		EE00000100000000000T0001 /* xLights-unit-tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE00000100000000000T0006 /* Build configuration list for PBXNativeTarget "xLights-unit-tests" */;
+			buildPhases = (
+				EE00000100000000000T0004 /* Sources */,
+				EE00000100000000000T0005 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EE00000100000000000T000B /* PBXTargetDependency */,
+				EE00000100000000000T0021 /* PBXTargetDependency */,
+				EE00000100000000000T0023 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				EE00000100000000000T0010 /* unit */,
+				EE00000100000000000T0012 /* Catch2 */,
+			);
+			name = "xLights-unit-tests";
+			productName = "xLights-unit-tests";
+			productReference = EE00000100000000000T0002 /* xLights-unit-tests */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1443,6 +1628,7 @@
 				BB00000100000000000U0001 /* xLights-macOSLib-UI */,
 				DD00000100000000000I0001 /* xLights-iPadLib */,
 				DD00000100000000000P0001 /* xLights-iPad */,
+				EE00000100000000000T0001 /* xLights-unit-tests */,
 			);
 		};
 /* End PBXProject section */
@@ -1641,6 +1827,24 @@
 			files = (
 			);
 		};
+		EE00000100000000000T0004 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				EE00000100000000000TE000 /* Files.cpp in Sources */,
+				EE00000100000000000TE001 /* PluginAdapter.cpp in Sources */,
+				EE00000100000000000TE002 /* PluginBufferingAdapter.cpp in Sources */,
+				EE00000100000000000TE003 /* PluginChannelAdapter.cpp in Sources */,
+				EE00000100000000000TE004 /* PluginHostAdapter.cpp in Sources */,
+				EE00000100000000000TE005 /* PluginInputDomainAdapter.cpp in Sources */,
+				EE00000100000000000TE006 /* PluginLoader.cpp in Sources */,
+				EE00000100000000000TE007 /* PluginSummarisingAdapter.cpp in Sources */,
+				EE00000100000000000TE008 /* PluginWrapper.cpp in Sources */,
+				EE00000100000000000TE009 /* RealTime.cpp in Sources */,
+				EE00000100000000000TE00A /* acsymbols.c in Sources */,
+				EE00000100000000000TE00B /* host-c.cpp in Sources */,
+				EE00000100000000000T0014 /* pugixml.cpp in Sources */,
+			);
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1733,6 +1937,21 @@
 			isa = PBXTargetDependency;
 			target = DD000UMS2F900001000000A1 /* UIMetalShaders */;
 			targetProxy = DD000UMS2F900001000000A7 /* PBXContainerItemProxy */;
+		};
+		EE00000100000000000T000B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CC00000100000000000X0001 /* xLights-core */;
+			targetProxy = EE00000100000000000T000C /* PBXContainerItemProxy */;
+		};
+		EE00000100000000000T0021 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BB00000100000000000C0001 /* xLights-Apple-core */;
+			targetProxy = EE00000100000000000T0020 /* PBXContainerItemProxy */;
+		};
+		EE00000100000000000T0023 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6785716A2F72C6E100F50F9F /* ISPCEffectComputeFunctions */;
+			targetProxy = EE00000100000000000T0022 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -3384,6 +3603,202 @@
 			};
 			name = Archive;
 		};
+		EE00000100000000000T0007 /* Debug configuration for PBXNativeTarget "xLights-unit-tests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				HEADER_SEARCH_PATHS = (
+					"../src-core/render",
+					"../src-core/utils",
+					"../src-core",
+					..,
+					dependencies/include,
+					../include,
+					"src-apple-core",
+					../dependencies,
+					../dependencies/pugixml/src,
+					../dependencies/midifile/include,
+					../dependencies/spdlog/include,
+					../dependencies/md5,
+					"../dependencies/Catch2/src",
+					"../tests/unit",
+					"../tests/unit/catch_config",
+				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fno-common",
+					"-D_FILE_OFFSET_BITS=64",
+					"-Wno-nan-infinity-disabled",
+				);
+				OTHER_LDFLAGS = (
+					"-lxlsxwriter",
+					"-lminizip",
+					"-lcurl",
+					"-lssl",
+					"-lcrypto",
+					"-lglslang",
+					"-lSPIRV",
+					"-lMachineIndependent",
+					"-lGenericCodeGen",
+					"-lglslang-default-resource-limits",
+					"-lOSDependent",
+					"-lSPIRV-Tools-opt",
+					"-lSPIRV-Tools",
+					"-lspirv-cross-msl",
+					"-lspirv-cross-glsl",
+					"-lspirv-cross-core",
+					"-framework",
+					SystemConfiguration,
+				);
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"@executable_path",
+				);
+				"LIBRARY_SEARCH_PATHS[arch=*]" = (
+					dependencies/libdbg,
+					dependencies/lib,
+					/usr/lib,
+					"$(SDKROOT)/usr/lib/swift",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = macosx;
+			};
+			name = Debug;
+		};
+		EE00000100000000000T0008 /* Release configuration for PBXNativeTarget "xLights-unit-tests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = (
+					"../src-core/render",
+					"../src-core/utils",
+					"../src-core",
+					..,
+					dependencies/include,
+					../include,
+					"src-apple-core",
+					../dependencies,
+					../dependencies/pugixml/src,
+					../dependencies/midifile/include,
+					../dependencies/spdlog/include,
+					../dependencies/md5,
+					"../dependencies/Catch2/src",
+					"../tests/unit",
+					"../tests/unit/catch_config",
+				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fno-common",
+					"-D_FILE_OFFSET_BITS=64",
+					"-Wno-nan-infinity-disabled",
+				);
+				OTHER_LDFLAGS = (
+					"-lxlsxwriter",
+					"-lminizip",
+					"-lcurl",
+					"-lssl",
+					"-lcrypto",
+					"-lglslang",
+					"-lSPIRV",
+					"-lMachineIndependent",
+					"-lGenericCodeGen",
+					"-lglslang-default-resource-limits",
+					"-lOSDependent",
+					"-lSPIRV-Tools-opt",
+					"-lSPIRV-Tools",
+					"-lspirv-cross-msl",
+					"-lspirv-cross-glsl",
+					"-lspirv-cross-core",
+					"-framework",
+					SystemConfiguration,
+				);
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"@executable_path",
+				);
+				"LIBRARY_SEARCH_PATHS[arch=*]" = (
+					dependencies/libdbg,
+					dependencies/lib,
+					/usr/lib,
+					"$(SDKROOT)/usr/lib/swift",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = macosx;
+			};
+			name = Release;
+		};
+		EE00000100000000000T0009 /* Archive configuration for PBXNativeTarget "xLights-unit-tests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = (
+					"../src-core/render",
+					"../src-core/utils",
+					"../src-core",
+					..,
+					dependencies/include,
+					../include,
+					"src-apple-core",
+					../dependencies,
+					../dependencies/pugixml/src,
+					../dependencies/midifile/include,
+					../dependencies/spdlog/include,
+					../dependencies/md5,
+					"../dependencies/Catch2/src",
+					"../tests/unit",
+					"../tests/unit/catch_config",
+				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fno-common",
+					"-D_FILE_OFFSET_BITS=64",
+					"-Wno-nan-infinity-disabled",
+				);
+				OTHER_LDFLAGS = (
+					"-lxlsxwriter",
+					"-lminizip",
+					"-lcurl",
+					"-lssl",
+					"-lcrypto",
+					"-lglslang",
+					"-lSPIRV",
+					"-lMachineIndependent",
+					"-lGenericCodeGen",
+					"-lglslang-default-resource-limits",
+					"-lOSDependent",
+					"-lSPIRV-Tools-opt",
+					"-lSPIRV-Tools",
+					"-lspirv-cross-msl",
+					"-lspirv-cross-glsl",
+					"-lspirv-cross-core",
+					"-framework",
+					SystemConfiguration,
+				);
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"@executable_path",
+				);
+				"LIBRARY_SEARCH_PATHS[arch=*]" = (
+					dependencies/libdbg,
+					dependencies/lib,
+					/usr/lib,
+					"$(SDKROOT)/usr/lib/swift",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = macosx;
+			};
+			name = Archive;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -3474,6 +3889,15 @@
 				DD000UMS2F900001000000A2 /* Debug configuration for PBXNativeTarget "UIMetalShaders" */,
 				DD000UMS2F900001000000A3 /* Release configuration for PBXNativeTarget "UIMetalShaders" */,
 				DD000UMS2F900001000000A4 /* Archive configuration for PBXNativeTarget "UIMetalShaders" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		EE00000100000000000T0006 /* Build configuration list for PBXNativeTarget "xLights-unit-tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE00000100000000000T0007 /* Debug configuration for PBXNativeTarget "xLights-unit-tests" */,
+				EE00000100000000000T0008 /* Release configuration for PBXNativeTarget "xLights-unit-tests" */,
+				EE00000100000000000T0009 /* Archive configuration for PBXNativeTarget "xLights-unit-tests" */,
 			);
 			defaultConfigurationName = Release;
 		};
