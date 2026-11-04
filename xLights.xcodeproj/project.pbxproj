@@ -132,6 +132,7 @@
 		SB7700000000000100SB0001 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = SB7700000000000200SB0001 /* Settings.bundle */; };
 		SP7700000000000100SP0001 /* Speech.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = SP7700000000000000SP0001 /* Speech.framework */; };
 		SP7700000000000300SP0001 /* Speech.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = SP7700000000000000SP0001 /* Speech.framework */; };
+		EE00000100000000000T0003 /* libxLights-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC00000100000000000X0002 /* libxLights-core.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -276,6 +277,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = DD000UMS2F900001000000A1;
 			remoteInfo = UIMetalShaders;
+		};
+		EE00000100000000000T000C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 67E7086517B51AB400A22034 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CC00000100000000000X0001;
+			remoteInfo = "xLights-core";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -454,6 +462,7 @@
 		MK7700000000000200MK0001 /* MetricKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetricKit.framework; path = System/Library/Frameworks/MetricKit.framework; sourceTree = SDKROOT; };
 		SB7700000000000200SB0001 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		SP7700000000000000SP0001 /* Speech.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Speech.framework; path = System/Library/Frameworks/Speech.framework; sourceTree = SDKROOT; };
+		EE00000100000000000T0002 /* xLights-unit-tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "xLights-unit-tests"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -659,6 +668,25 @@
 			);
 			target = CC00000100000000000X0001 /* xLights-core */;
 		};
+		EE00000100000000000T0011 /* Exceptions for "unit" folder in "xLights-unit-tests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			additionalCompilerFlagsByRelativePath = {
+				"test_float_checks.cpp" = "-ffast-math";
+			};
+			membershipExceptions = (
+				CMakeLists.txt,
+				core_sources.cmake,
+			);
+			target = EE00000100000000000T0001 /* xLights-unit-tests */;
+		};
+		EE00000100000000000T0013 /* Exceptions for "Catch2" folder in "xLights-unit-tests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				meson.build,
+				catch_user_config.hpp.in,
+			);
+			target = EE00000100000000000T0001 /* xLights-unit-tests */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
@@ -743,6 +771,24 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			name = "src-iPad";
 			path = "../src-iPad";
+			sourceTree = SOURCE_ROOT;
+		};
+		EE00000100000000000T0010 /* unit */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				EE00000100000000000T0011 /* Exceptions for "unit" folder in "xLights-unit-tests" target */,
+			);
+			name = unit;
+			path = "../tests/unit";
+			sourceTree = SOURCE_ROOT;
+		};
+		EE00000100000000000T0012 /* Catch2 */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				EE00000100000000000T0013 /* Exceptions for "Catch2" folder in "xLights-unit-tests" target */,
+			);
+			name = Catch2;
+			path = "../dependencies/Catch2/src/catch2";
 			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -848,6 +894,12 @@
 				DD00000200000000000P0015 /* libz.tbd in Frameworks */,
 				DD00000200000000000P0016 /* Accelerate.framework in Frameworks */,
 				DD00000500000000PKGKLM04 /* KLightMapper in Frameworks */,
+			);
+		};
+		EE00000100000000000T0005 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+				EE00000100000000000T0003 /* libxLights-core.a in Frameworks */,
 			);
 		};
 /* End PBXFrameworksBuildPhase section */
@@ -1023,6 +1075,8 @@
 				671653D125D7CF4E0041BB9A /* Libraries */,
 				67E7086E17B51AB400A22034 /* Products */,
 				6732E3A12F84156F00747CF8 /* src-core */,
+				EE00000100000000000T0010 /* unit */,
+				EE00000100000000000T0012 /* Catch2 */,
 				6732E8492F84158C00747CF8 /* src-ui-wx */,
 				673D41762F841B7B00EBE7FD /* src-apple-core */,
 				673D41A92F841BC400EBE7FD /* src-mac-ui */,
@@ -1038,6 +1092,7 @@
 			children = (
 				67E7086D17B51AB400A22034 /* xLights.app */,
 				CC00000100000000000X0002 /* libxLights-core.a */,
+				EE00000100000000000T0002 /* xLights-unit-tests */,
 				BB00000100000000000C0002 /* libxLights-Apple-core.a */,
 				BB00000100000000000U0002 /* libxLights-macOSLib-UI.a */,
 				6785716B2F72C6E100F50F9F /* libISPCEffectComputeFunctions.a */,
@@ -1363,6 +1418,27 @@
 			productName = UIMetalShaders;
 			productType = "com.apple.product-type.metal-library";
 		};
+		EE00000100000000000T0001 /* xLights-unit-tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE00000100000000000T0006 /* Build configuration list for PBXNativeTarget "xLights-unit-tests" */;
+			buildPhases = (
+				EE00000100000000000T0004 /* Sources */,
+				EE00000100000000000T0005 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EE00000100000000000T000B /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				EE00000100000000000T0010 /* unit */,
+				EE00000100000000000T0012 /* Catch2 */,
+			);
+			name = "xLights-unit-tests";
+			productName = "xLights-unit-tests";
+			productReference = EE00000100000000000T0002 /* xLights-unit-tests */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1443,6 +1519,7 @@
 				BB00000100000000000U0001 /* xLights-macOSLib-UI */,
 				DD00000100000000000I0001 /* xLights-iPadLib */,
 				DD00000100000000000P0001 /* xLights-iPad */,
+				EE00000100000000000T0001 /* xLights-unit-tests */,
 			);
 		};
 /* End PBXProject section */
@@ -1641,6 +1718,11 @@
 			files = (
 			);
 		};
+		EE00000100000000000T0004 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1733,6 +1815,11 @@
 			isa = PBXTargetDependency;
 			target = DD000UMS2F900001000000A1 /* UIMetalShaders */;
 			targetProxy = DD000UMS2F900001000000A7 /* PBXContainerItemProxy */;
+		};
+		EE00000100000000000T000B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CC00000100000000000X0001 /* xLights-core */;
+			targetProxy = EE00000100000000000T000C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -3384,6 +3471,73 @@
 			};
 			name = Archive;
 		};
+		EE00000100000000000T0007 /* Debug configuration for PBXNativeTarget "xLights-unit-tests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				HEADER_SEARCH_PATHS = (
+					"../src-core",
+					"../src-core/utils",
+					"../dependencies/Catch2/src",
+					"../tests/unit/catch_config",
+				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-Wno-nan-infinity-disabled",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = macosx;
+			};
+			name = Debug;
+		};
+		EE00000100000000000T0008 /* Release configuration for PBXNativeTarget "xLights-unit-tests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = (
+					"../src-core",
+					"../src-core/utils",
+					"../dependencies/Catch2/src",
+					"../tests/unit/catch_config",
+				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-Wno-nan-infinity-disabled",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = macosx;
+			};
+			name = Release;
+		};
+		EE00000100000000000T0009 /* Archive configuration for PBXNativeTarget "xLights-unit-tests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = (
+					"../src-core",
+					"../src-core/utils",
+					"../dependencies/Catch2/src",
+					"../tests/unit/catch_config",
+				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-Wno-nan-infinity-disabled",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = macosx;
+			};
+			name = Archive;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -3474,6 +3628,15 @@
 				DD000UMS2F900001000000A2 /* Debug configuration for PBXNativeTarget "UIMetalShaders" */,
 				DD000UMS2F900001000000A3 /* Release configuration for PBXNativeTarget "UIMetalShaders" */,
 				DD000UMS2F900001000000A4 /* Archive configuration for PBXNativeTarget "UIMetalShaders" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		EE00000100000000000T0006 /* Build configuration list for PBXNativeTarget "xLights-unit-tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE00000100000000000T0007 /* Debug configuration for PBXNativeTarget "xLights-unit-tests" */,
+				EE00000100000000000T0008 /* Release configuration for PBXNativeTarget "xLights-unit-tests" */,
+				EE00000100000000000T0009 /* Archive configuration for PBXNativeTarget "xLights-unit-tests" */,
 			);
 			defaultConfigurationName = Release;
 		};
