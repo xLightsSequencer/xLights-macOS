@@ -56,7 +56,11 @@ std::string CheckVideoFile(const std::string& filePath) {
     if (filePath.empty()) return "";
 
     @autoreleasepool {
-        NSURL* url = [NSURL fileURLWithPath:[NSString stringWithUTF8String:filePath.c_str()]];
+        NSString* nsPath = [NSString stringWithUTF8String:filePath.c_str()];
+        if (![[NSFileManager defaultManager] isReadableFileAtPath:nsPath]) {
+            return "Cannot open file";
+        }
+        NSURL* url = [NSURL fileURLWithPath:nsPath];
         AVURLAsset* asset = [AVURLAsset URLAssetWithURL:url options:nil];
         if (!asset) {
             return "Cannot open file";
