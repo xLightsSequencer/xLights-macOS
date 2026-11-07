@@ -127,13 +127,20 @@
 		DD00000500000000PKGKLM02 /* KLightMapper in Frameworks */ = {isa = PBXBuildFile; productRef = DD00000400000000PKGKLM02 /* KLightMapper */; };
 		DD00000500000000PKGKLM03 /* KLightMapper in Frameworks */ = {isa = PBXBuildFile; productRef = DD00000400000000PKGKLM03 /* KLightMapper */; };
 		DD00000500000000PKGKLM04 /* KLightMapper in Frameworks */ = {isa = PBXBuildFile; productRef = DD00000400000000PKGKLM04 /* KLightMapper */; };
-		MK7700000000000100MK0001 /* MetricKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = MK7700000000000200MK0001 /* MetricKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		MK7700000000000300MK0001 /* MetricKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = MK7700000000000200MK0001 /* MetricKit.framework */; };
-		SB7700000000000100SB0001 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = SB7700000000000200SB0001 /* Settings.bundle */; };
-		SP7700000000000100SP0001 /* Speech.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = SP7700000000000000SP0001 /* Speech.framework */; };
-		SP7700000000000300SP0001 /* Speech.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = SP7700000000000000SP0001 /* Speech.framework */; };
 		EE00000100000000000T0003 /* libxLights-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC00000100000000000X0002 /* libxLights-core.a */; };
 		EE00000100000000000T0014 /* pugixml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67DA60662F7FF15300A41238 /* pugixml.cpp */; };
+		EE00000100000000000TE000 /* Files.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716558625D825410041BB9A /* Files.cpp */; };
+		EE00000100000000000TE001 /* PluginAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716557F25D825410041BB9A /* PluginAdapter.cpp */; };
+		EE00000100000000000TE002 /* PluginBufferingAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671655B725D827100041BB9A /* PluginBufferingAdapter.cpp */; };
+		EE00000100000000000TE003 /* PluginChannelAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716558C25D825410041BB9A /* PluginChannelAdapter.cpp */; };
+		EE00000100000000000TE004 /* PluginHostAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716559125D825410041BB9A /* PluginHostAdapter.cpp */; };
+		EE00000100000000000TE005 /* PluginInputDomainAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716558425D825410041BB9A /* PluginInputDomainAdapter.cpp */; };
+		EE00000100000000000TE006 /* PluginLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716558525D825410041BB9A /* PluginLoader.cpp */; };
+		EE00000100000000000TE007 /* PluginSummarisingAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716559325D825410041BB9A /* PluginSummarisingAdapter.cpp */; };
+		EE00000100000000000TE008 /* PluginWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716556C25D825410041BB9A /* PluginWrapper.cpp */; };
+		EE00000100000000000TE009 /* RealTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716557D25D825410041BB9A /* RealTime.cpp */; };
+		EE00000100000000000TE00A /* acsymbols.c in Sources */ = {isa = PBXBuildFile; fileRef = 6716558225D825410041BB9A /* acsymbols.c */; };
+		EE00000100000000000TE00B /* host-c.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716558825D825410041BB9A /* host-c.cpp */; };
 		EE00000100000000000TF000 /* libISPCEffectComputeFunctions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6785716B2F72C6E100F50F9F /* libISPCEffectComputeFunctions.a */; };
 		EE00000100000000000TF001 /* libxLights-Apple-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB00000100000000000C0002 /* libxLights-Apple-core.a */; };
 		EE00000100000000000TF002 /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675EDD3C2789D87C00D40FEA /* liblua.a */; };
@@ -174,18 +181,11 @@
 		EE00000100000000000TF025 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BE0DF92727C0AB00558A3A /* Metal.framework */; };
 		EE00000100000000000TF026 /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67061FD22746D5330020519D /* MetalPerformanceShaders.framework */; };
 		EE00000100000000000TF027 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A14C8520DD337E006EFCFA /* Security.framework */; };
-		EE00000100000000000TE000 /* Files.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716558625D825410041BB9A /* Files.cpp */;};
-		EE00000100000000000TE001 /* PluginAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716557F25D825410041BB9A /* PluginAdapter.cpp */;};
-		EE00000100000000000TE002 /* PluginBufferingAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671655B725D827100041BB9A /* PluginBufferingAdapter.cpp */;};
-		EE00000100000000000TE003 /* PluginChannelAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716558C25D825410041BB9A /* PluginChannelAdapter.cpp */;};
-		EE00000100000000000TE004 /* PluginHostAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716559125D825410041BB9A /* PluginHostAdapter.cpp */;};
-		EE00000100000000000TE005 /* PluginInputDomainAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716558425D825410041BB9A /* PluginInputDomainAdapter.cpp */;};
-		EE00000100000000000TE006 /* PluginLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716558525D825410041BB9A /* PluginLoader.cpp */;};
-		EE00000100000000000TE007 /* PluginSummarisingAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716559325D825410041BB9A /* PluginSummarisingAdapter.cpp */;};
-		EE00000100000000000TE008 /* PluginWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716556C25D825410041BB9A /* PluginWrapper.cpp */;};
-		EE00000100000000000TE009 /* RealTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716557D25D825410041BB9A /* RealTime.cpp */;};
-		EE00000100000000000TE00A /* acsymbols.c in Sources */ = {isa = PBXBuildFile; fileRef = 6716558225D825410041BB9A /* acsymbols.c */;};
-		EE00000100000000000TE00B /* host-c.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6716558825D825410041BB9A /* host-c.cpp */;};
+		MK7700000000000100MK0001 /* MetricKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = MK7700000000000200MK0001 /* MetricKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		MK7700000000000300MK0001 /* MetricKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = MK7700000000000200MK0001 /* MetricKit.framework */; };
+		SB7700000000000100SB0001 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = SB7700000000000200SB0001 /* Settings.bundle */; };
+		SP7700000000000100SP0001 /* Speech.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = SP7700000000000000SP0001 /* Speech.framework */; };
+		SP7700000000000300SP0001 /* Speech.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = SP7700000000000000SP0001 /* Speech.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -199,7 +199,6 @@
 			);
 			script = (
 				"${SRCROOT}/scripts/ispc_compile",
-				"",
 			);
 		};
 /* End PBXBuildRule section */
@@ -533,10 +532,10 @@
 		CC00EFM200000000000A0003 /* effectmetadata */ = {isa = PBXFileReference; lastKnownFileType = folder; name = effectmetadata; path = ../resources/effectmetadata; sourceTree = SOURCE_ROOT; };
 		DD00000100000000000I0002 /* libxLights-iPadLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libxLights-iPadLib.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD00000100000000000P0002 /* xLights.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = xLights.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE00000100000000000T0002 /* xLights-unit-tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "xLights-unit-tests"; sourceTree = BUILT_PRODUCTS_DIR; };
 		MK7700000000000200MK0001 /* MetricKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetricKit.framework; path = System/Library/Frameworks/MetricKit.framework; sourceTree = SDKROOT; };
 		SB7700000000000200SB0001 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		SP7700000000000000SP0001 /* Speech.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Speech.framework; path = System/Library/Frameworks/Speech.framework; sourceTree = SDKROOT; };
-		EE00000100000000000T0002 /* xLights-unit-tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "xLights-unit-tests"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -745,20 +744,8 @@
 		EE00000100000000000T0011 /* Exceptions for "unit" folder in "xLights-unit-tests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			additionalCompilerFlagsByRelativePath = {
-				"test_float_checks.cpp" = "-ffast-math";
+				test_float_checks.cpp = "-ffast-math";
 			};
-			membershipExceptions = (
-				CMakeLists.txt,
-				core_sources.cmake,
-			);
-			target = EE00000100000000000T0001 /* xLights-unit-tests */;
-		};
-		EE00000100000000000T0013 /* Exceptions for "Catch2" folder in "xLights-unit-tests" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				meson.build,
-				catch_user_config.hpp.in,
-			);
 			target = EE00000100000000000T0001 /* xLights-unit-tests */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -853,16 +840,13 @@
 				EE00000100000000000T0011 /* Exceptions for "unit" folder in "xLights-unit-tests" target */,
 			);
 			name = unit;
-			path = "../tests/unit";
+			path = ../tests/unit;
 			sourceTree = SOURCE_ROOT;
 		};
 		EE00000100000000000T0012 /* Catch2 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				EE00000100000000000T0013 /* Exceptions for "Catch2" folder in "xLights-unit-tests" target */,
-			);
 			name = Catch2;
-			path = "../dependencies/Catch2/src/catch2";
+			path = ../dependencies/Catch2/src/catch2;
 			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -3635,9 +3619,19 @@
 					../dependencies/midifile/include,
 					../dependencies/spdlog/include,
 					../dependencies/md5,
-					"../dependencies/Catch2/src",
-					"../tests/unit",
-					"../tests/unit/catch_config",
+					../dependencies/Catch2/src,
+					../tests/unit,
+					../tests/unit/catch_config,
+				);
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"@executable_path",
+				);
+				"LIBRARY_SEARCH_PATHS[arch=*]" = (
+					dependencies/libdbg,
+					dependencies/lib,
+					/usr/lib,
+					"$(SDKROOT)/usr/lib/swift",
 				);
 				OTHER_CFLAGS = (
 					"$(inherited)",
@@ -3664,16 +3658,6 @@
 					"-lspirv-cross-core",
 					"-framework",
 					SystemConfiguration,
-				);
-				LD_RUNPATH_SEARCH_PATHS = (
-					/usr/lib/swift,
-					"@executable_path",
-				);
-				"LIBRARY_SEARCH_PATHS[arch=*]" = (
-					dependencies/libdbg,
-					dependencies/lib,
-					/usr/lib,
-					"$(SDKROOT)/usr/lib/swift",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -3700,9 +3684,19 @@
 					../dependencies/midifile/include,
 					../dependencies/spdlog/include,
 					../dependencies/md5,
-					"../dependencies/Catch2/src",
-					"../tests/unit",
-					"../tests/unit/catch_config",
+					../dependencies/Catch2/src,
+					../tests/unit,
+					../tests/unit/catch_config,
+				);
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"@executable_path",
+				);
+				"LIBRARY_SEARCH_PATHS[arch=*]" = (
+					dependencies/libdbg,
+					dependencies/lib,
+					/usr/lib,
+					"$(SDKROOT)/usr/lib/swift",
 				);
 				OTHER_CFLAGS = (
 					"$(inherited)",
@@ -3729,16 +3723,6 @@
 					"-lspirv-cross-core",
 					"-framework",
 					SystemConfiguration,
-				);
-				LD_RUNPATH_SEARCH_PATHS = (
-					/usr/lib/swift,
-					"@executable_path",
-				);
-				"LIBRARY_SEARCH_PATHS[arch=*]" = (
-					dependencies/libdbg,
-					dependencies/lib,
-					/usr/lib,
-					"$(SDKROOT)/usr/lib/swift",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -3765,9 +3749,19 @@
 					../dependencies/midifile/include,
 					../dependencies/spdlog/include,
 					../dependencies/md5,
-					"../dependencies/Catch2/src",
-					"../tests/unit",
-					"../tests/unit/catch_config",
+					../dependencies/Catch2/src,
+					../tests/unit,
+					../tests/unit/catch_config,
+				);
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"@executable_path",
+				);
+				"LIBRARY_SEARCH_PATHS[arch=*]" = (
+					dependencies/libdbg,
+					dependencies/lib,
+					/usr/lib,
+					"$(SDKROOT)/usr/lib/swift",
 				);
 				OTHER_CFLAGS = (
 					"$(inherited)",
@@ -3794,16 +3788,6 @@
 					"-lspirv-cross-core",
 					"-framework",
 					SystemConfiguration,
-				);
-				LD_RUNPATH_SEARCH_PATHS = (
-					/usr/lib/swift,
-					"@executable_path",
-				);
-				"LIBRARY_SEARCH_PATHS[arch=*]" = (
-					dependencies/libdbg,
-					dependencies/lib,
-					/usr/lib,
-					"$(SDKROOT)/usr/lib/swift",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
