@@ -85,6 +85,9 @@ void SetThreadQOS(int i) {
     if (i) {
         pthread_set_qos_class_self_np(QOS_CLASS_USER_INITIATED, 0);
     } else {
-        pthread_set_qos_class_self_np(QOS_CLASS_BACKGROUND, 0);
+        // Not BACKGROUND: under sustained load background threads can go
+        // unscheduled indefinitely, and JobPool::Stop() waits for idle workers
+        // to wake and exit.
+        pthread_set_qos_class_self_np(QOS_CLASS_UTILITY, 0);
     }
 }
