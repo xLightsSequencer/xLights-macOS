@@ -5,8 +5,10 @@
 // AppleIntelligenceUtils.ImagesAsyncCaller). Import the framework
 // here so the generated header parses cleanly.
 #import <CoreGraphics/CoreGraphics.h>
+#import <Foundation/Foundation.h>
 
 #include "ExternalHooksApple.h"
+#include <spdlog/spdlog.h>
 #include "xLights_Apple_core-Swift.h"
 
 bool FileExists(const std::string &s, bool waitForDownload) {
@@ -57,5 +59,83 @@ std::string DescribeCurrentAppleException() {
     } catch (...) {
         return "";
     }
+}
+
+namespace {
+NSURL* FileURLFor(const std::string& path) {
+    NSString* s = [NSString stringWithUTF8String:path.c_str()];
+    return s ? [NSURL fileURLWithPath:s] : nil;
+}
+
+std::string DescribeFileError(NSError* err) {
+    if (err == nil) {
+        return "unknown error";
+    }
+    const char* d = err.localizedDescription.UTF8String;
+    return d ? std::string(d) : std::string("unknown error");
+}
+} // namespace
+
+bool CoordinatedFileReplace(const std::string& path, const std::function<bool(const std::string& target, const std::string& tempDir)>& body) {
+    NSURL* url = FileURLFor(path);
+    if (url == nil) {
+        return body(path, "");
+    }
+
+    __block bool result = false;
+    __block bool ran = false;
+    void (^accessor)(NSURL*) = ^(NSURL* newURL) {
+        ran = true;
+        NSURL* dest = newURL ?: url;
+        NSFileManager* fm = [NSFileManager defaultManager];
+        NSError* dirErr = nil;
+        NSURL* dir = [fm URLForDirectory:NSItemReplacementDirectory
+                                inDomain:NSUserDomainMask
+                       appropriateForURL:dest
+                                  create:YES
+                                   error:&dirErr];
+        if (dir == nil) {
+            spdlog::debug("ShowFileGuard: no replacement directory for '{}' ({})", path, DescribeFileError(dirErr));
+        }
+        const char* destPath = dest.path.fileSystemRepresentation;
+        const char* dirPath = dir ? dir.path.fileSystemRepresentation : nullptr;
+        result = body(destPath ? std::string(destPath) : path, dirPath ? std::string(dirPath) : std::string());
+        if (dir != nil) {
+            [fm removeItemAtURL:dir error:nil];
+        }
+    };
+
+    NSFileCoordinator* coordinator = [[NSFileCoordinator alloc] initWithFilePresenter:nil];
+    NSError* coordErr = nil;
+    [coordinator coordinateWritingItemAtURL:url
+                                    options:NSFileCoordinatorWritingForReplacing
+                                      error:&coordErr
+                                 byAccessor:accessor];
+    if (!ran) {
+        spdlog::warn("ShowFileGuard: could not coordinate writing '{}' ({}); writing it uncoordinated", path, DescribeFileError(coordErr));
+        accessor(url);
+    }
+    return result;
+}
+
+bool ReplaceFileKeepingAttributes(const std::string& target, const std::string& replacement, std::string& error) {
+    NSURL* t = FileURLFor(target);
+    NSURL* r = FileURLFor(replacement);
+    if (t == nil || r == nil) {
+        error = "path is not valid UTF-8";
+        return false;
+    }
+    NSError* err = nil;
+    NSURL* resulting = nil;
+    if ([[NSFileManager defaultManager] replaceItemAtURL:t
+                                           withItemAtURL:r
+                                          backupItemName:nil
+                                                 options:0
+                                        resultingItemURL:&resulting
+                                                   error:&err]) {
+        return true;
+    }
+    error = DescribeFileError(err);
+    return false;
 }
 
