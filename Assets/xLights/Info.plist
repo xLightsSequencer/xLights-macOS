@@ -75,6 +75,8 @@
 	<array>
 		<string>_xlights-collab._tcp</string>
 	</array>
+	<key>NSSupportsGroupActivities</key>
+	<true/>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSNetworkVolumesUsageDescription</key>
