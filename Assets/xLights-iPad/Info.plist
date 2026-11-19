@@ -81,15 +81,17 @@
 
     Each service type browsed via DNSServiceBrowse must be listed
     here or iOS returns no results: `_fppd._udp` (Falcon Player
-    daemon) and `_wled._tcp` (WLED auto-discovery).
+    daemon), `_wled._tcp` (WLED auto-discovery) and
+    `_xlights-collab._tcp` (shared sequence editing sessions).
     Extend this list as more discovery types light up.
   -->
   <key>NSLocalNetworkUsageDescription</key>
-  <string>xLights discovers lighting controllers on your local network (Falcon Player, sACN / ArtNet / DDP devices) and streams pixel data to them during playback.</string>
+  <string>xLights discovers lighting controllers on your local network (Falcon Player, sACN / ArtNet / DDP devices) and streams pixel data to them during playback. It also finds and connects to other devices running xLights so you can edit a sequence together.</string>
   <key>NSBonjourServices</key>
   <array>
     <string>_fppd._udp</string>
     <string>_wled._tcp</string>
+    <string>_xlights-collab._tcp</string>
   </array>
   <!--
     J-4 (vendor catalog) — App Transport Security exception. The

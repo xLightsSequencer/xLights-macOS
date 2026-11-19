@@ -70,7 +70,11 @@
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2026 Daniel Kulp and others. All rights reserved.</string>
 	<key>NSLocalNetworkUsageDescription</key>
-	<string>xLights needs to be able to communicate with controllers on your local network to be able to push configuration,  output data to lights, upload sequence files, etc...</string>
+	<string>xLights needs to be able to communicate with controllers on your local network to be able to push configuration,  output data to lights, upload sequence files, etc... It also finds and connects to other devices running xLights so you can edit a sequence together.</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_xlights-collab._tcp</string>
+	</array>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSNetworkVolumesUsageDescription</key>
