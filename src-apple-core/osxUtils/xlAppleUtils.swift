@@ -258,9 +258,116 @@ public func addAccessibleURL(path: String, data: String) -> Void {
     }
 }
 
-public func fileExists(_ path: String, waitForDownload: Bool) -> Bool {
+// A paused or offline cloud provider must not stall opening a folder of online-only files: stop waiting after a stretch
+// with no download progress, then skip waiting until the cool-down passes or a download completes.
+private let cloudDownloadPollInterval: TimeInterval = 0.01
+private let cloudDownloadNoProgressTimeout: TimeInterval = 10
+private let cloudDownloadMaxWait: TimeInterval = 60
+private let cloudDownloadStallCoolDown: TimeInterval = 300
+
+private final class CloudDownloadStallBreaker: @unchecked Sendable {
+    static let shared = CloudDownloadStallBreaker()
+
+    private let lock = NSLock()
+    private var trippedAt: Date?
+
+    var isTripped: Bool {
+        lock.lock()
+        defer { lock.unlock() }
+        if let t = trippedAt, Date().timeIntervalSince(t) >= cloudDownloadStallCoolDown {
+            trippedAt = nil
+        }
+        return trippedAt != nil
+    }
+
+    // Returns true only for the call that newly trips the breaker, so the stall is reported once.
+    func trip() -> Bool {
+        lock.lock()
+        defer { lock.unlock() }
+        if let t = trippedAt, Date().timeIntervalSince(t) < cloudDownloadStallCoolDown {
+            return false
+        }
+        trippedAt = Date()
+        return true
+    }
+
+    func reset() {
+        lock.lock()
+        trippedAt = nil
+        lock.unlock()
+    }
+}
+
+private struct CloudDownloadState: Equatable {
+    var status: URLUbiquitousItemDownloadingStatus?
+    var isDownloading: Bool?
+    var allocatedSize: Int?
+    var hasError: Bool
+
+    init(path: String) {
+        // A fresh URL each poll: NSURL caches resource values per instance.
+        let url = URL(fileURLWithPath: path)
+        let values = try? url.resourceValues(forKeys: [.ubiquitousItemDownloadingStatusKey,
+                                                       .ubiquitousItemIsDownloadingKey,
+                                                       .ubiquitousItemDownloadingErrorKey,
+                                                       .totalFileAllocatedSizeKey])
+        status = values?.ubiquitousItemDownloadingStatus
+        isDownloading = values?.ubiquitousItemIsDownloading
+        allocatedSize = values?.totalFileAllocatedSize
+        hasError = values?.ubiquitousItemDownloadingError != nil
+    }
+}
+
+private enum CloudDownloadWait {
+    case downloaded, stalled, gaveUp
+}
+
+private func waitForCloudDownload(_ path: String) -> CloudDownloadWait {
+    let start = Date()
+    var lastProgress = start
+    var last = CloudDownloadState(path: path)
+
+    while true {
+        if last.status == .current {
+            return .downloaded
+        }
+        if last.hasError {
+            return .gaveUp
+        }
+        let now = Date()
+        if now.timeIntervalSince(lastProgress) >= cloudDownloadNoProgressTimeout {
+            return .stalled
+        }
+        if now.timeIntervalSince(start) >= cloudDownloadMaxWait {
+            return .gaveUp
+        }
+        // Another thread saw the provider stall; stop waiting on this file too.
+        if CloudDownloadStallBreaker.shared.isTripped {
+            return .gaveUp
+        }
+        Thread.sleep(forTimeInterval: cloudDownloadPollInterval)
+        let next = CloudDownloadState(path: path)
+        if next != last {
+            lastProgress = Date()
+            last = next
+        }
+    }
+}
+
+public enum FileExistsResult {
+    case missing
+    case exists
+    // The file exists, but its cloud download stalled and this call tripped the stall breaker: log it once.
+    case existsDownloadStalled
+}
+
+public func fileExistsStallCoolDownSeconds() -> Double {
+    return cloudDownloadStallCoolDown
+}
+
+public func fileExistsCheckingDownload(_ path: String, waitForDownload: Bool) -> FileExistsResult {
     if path.isEmpty {
-        return false
+        return .missing
     }
 
     let fileManager = FileManager.default
@@ -275,7 +382,7 @@ public func fileExists(_ path: String, waitForDownload: Bool) -> Bool {
         }
     }
 
-
+    var stalled = false
     if !exists {
         do {
             var isUbiquitous: AnyObject?
@@ -285,20 +392,21 @@ public func fileExists(_ path: String, waitForDownload: Bool) -> Bool {
                 exists = true
                 try fileManager.startDownloadingUbiquitousItem(at: url)
                 if waitForDownload {
-                    var downloadStatus: URLUbiquitousItemDownloadingStatus?
-                    var count = 0
-
-                    repeat {
-                        Thread.sleep(forTimeInterval: 0.01)
-                        count += 1
-
-                        var status: AnyObject?
-                        let newurl = URL(fileURLWithPath: path)
-                        try? (newurl as NSURL).getResourceValue(&status, forKey: .ubiquitousItemDownloadingStatusKey)
-                        downloadStatus = status as? URLUbiquitousItemDownloadingStatus
-
-                    } while downloadStatus != .current && count < 6000
-
+                    let breaker = CloudDownloadStallBreaker.shared
+                    if breaker.isTripped {
+                        if CloudDownloadState(path: path).status == .current {
+                            breaker.reset()
+                        }
+                    } else {
+                        switch waitForCloudDownload(path) {
+                        case .downloaded:
+                            breaker.reset()
+                        case .stalled:
+                            stalled = breaker.trip()
+                        case .gaveUp:
+                            break
+                        }
+                    }
                     exists = fileManager.fileExists(atPath: path)
                 }
             }
@@ -307,7 +415,10 @@ public func fileExists(_ path: String, waitForDownload: Bool) -> Bool {
         }
     }
 
-    return exists
+    if !exists {
+        return .missing
+    }
+    return stalled ? .existsDownloadStalled : .exists
 }
 
 public func markNewFileRevision(_ path: String, retainMax: Int) {
