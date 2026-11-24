@@ -192,6 +192,27 @@ struct OutputHandle {
         }
     }
 
+    // The engine is shared by every AudioManager, so it is usually rendering
+    // when a track is added or removed. Changing a mixer input while the IO
+    // thread is mid-render leaves it pulling a bus whose render block is not
+    // installed yet (attach) or already gone (detach): a jump to 0 in
+    // AUAudioUnitV2Bridge_Renderer::renderInputProc. Every attach/connect/
+    // detach goes through here so the IO is paused around it; pause keeps the
+    // engine's timeline, so the other tracks resume where they were.
+    template <typename F>
+    void changeTopology(const char* what, F&& change) {
+        bool wasRunning = engine.isRunning;
+        if (wasRunning) [engine pause];
+        change();
+        if (wasRunning) {
+            NSError* error = nil;
+            [engine startAndReturnError:&error];
+            if (error != nil) {
+                spdlog::error("AVAudioEngine: restart after {} failed: {}", what, error.localizedDescription.UTF8String);
+            }
+        }
+    }
+
     float effectiveVolume(int trackVolume) {
         int v = (std::max(0, std::min(100, trackVolume)) * std::max(0, std::min(100, globalVolume))) / 100;
         return v / 100.0f;
@@ -281,14 +302,15 @@ int AddAudio(OutputHandle* h, long len, uint8_t* buffer,
     track->volume = volume;
 
     track->playerNode = [[AVAudioPlayerNode alloc] init];
-    [h->engine attachNode:track->playerNode];
-
     AVAudioFormat* nodeFormat = [[AVAudioFormat alloc]
         initWithCommonFormat:AVAudioPCMFormatFloat32
         sampleRate:rate
         channels:2
         interleaved:NO];
-    [h->engine connect:track->playerNode to:h->playerTarget() format:nodeFormat];
+    h->changeTopology("AddAudio", [&] {
+        [h->engine attachNode:track->playerNode];
+        [h->engine connect:track->playerNode to:h->playerTarget() format:nodeFormat];
+    });
 
     track->playerNode.volume = h->effectiveVolume(volume);
 
@@ -306,24 +328,11 @@ void RemoveAudio(OutputHandle* h, int id) {
     auto* track = it->second;
     if (track->playerNode) {
         [track->playerNode stop];
-        // The engine is shared by every AudioManager, so it is usually still
-        // rendering another track here. Detaching a mixer input while the IO
-        // thread is mid-render leaves it calling the removed node's render block
-        // (a jump to 0 in AUAudioUnitV2Bridge_Renderer::renderInputProc). Pause
-        // the IO around the topology change, as ensureTimePitch does; pause keeps
-        // the engine's timeline, so the other tracks resume where they were.
-        bool wasRunning = h->engine.isRunning;
-        if (wasRunning) [h->engine pause];
-        [h->engine disconnectNodeOutput:track->playerNode];
-        [h->engine detachNode:track->playerNode];
+        h->changeTopology("RemoveAudio", [&] {
+            [h->engine disconnectNodeOutput:track->playerNode];
+            [h->engine detachNode:track->playerNode];
+        });
         track->playerNode = nil;
-        if (wasRunning) {
-            NSError* error = nil;
-            [h->engine startAndReturnError:&error];
-            if (error != nil) {
-                spdlog::error("AVAudioEngine: restart after RemoveAudio failed: {}", error.localizedDescription.UTF8String);
-            }
-        }
     }
     h->tracks.erase(it);
     delete track;
