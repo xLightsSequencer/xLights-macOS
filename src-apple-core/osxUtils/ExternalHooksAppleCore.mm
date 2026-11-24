@@ -9,10 +9,24 @@
 
 #include "ExternalHooksApple.h"
 #include <spdlog/spdlog.h>
+#include <filesystem>
 #include "xLights_Apple_core-Swift.h"
 
 bool FileExists(const std::string &s, bool waitForDownload) {
-    return xLights_Apple_core::fileExists(s, waitForDownload);
+    using xLights_Apple_core::FileExistsResult;
+    switch (xLights_Apple_core::fileExistsCheckingDownload(s, waitForDownload)) {
+    case FileExistsResult::missing:
+        return false;
+    case FileExistsResult::existsDownloadStalled:
+        spdlog::warn("Online-only files in '{}' are not downloading (cloud provider paused or offline?); not waiting for "
+                     "cloud downloads for the next {} seconds. First stalled file: '{}'",
+                     std::filesystem::path(s).parent_path().string(),
+                     (int)xLights_Apple_core::fileExistsStallCoolDownSeconds(), s);
+        return true;
+    case FileExistsResult::exists:
+        return true;
+    }
+    return true;
 }
 
 void MarkNewFileRevision(const std::string &path, int retainMax) {
